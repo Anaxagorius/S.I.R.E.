@@ -1,0 +1,46 @@
+
+openapi: 3.0.3
+info:
+  title: Incident Response Simulator Backend API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/health:
+    get:
+      summary: Health check endpoint
+      responses:
+        '200':
+          description: Service is healthy
+  /api/session:
+    post:
+      summary: Create a new instructor-hosted session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scenarioKey:
+                  type: string
+                instructorDisplayName:
+                  type: string
+              required:
+                - scenarioKey
+                - instructorDisplayName
+      responses:
+        '201':
+          description: Session created
+  /api/session/{sessionCode}:
+    get:
+      summary: Fetch session summary by code
+      parameters:
+        - in: path
+          name: sessionCode
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Session summary

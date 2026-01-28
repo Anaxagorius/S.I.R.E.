@@ -1,0 +1,18 @@
+TaskID,TaskName,Owner,Start,Finish,Phase,DependsOn,DurationDays
+T1,Requirements Finalization,All (Lead: Kael),2025-06-16,2025-06-26,Initiation,,10
+T2,Repo & Project Scaffolding (FE+BE),Tom & Leo,2025-06-21,2025-06-30,Initiation,T1,9
+T3,Backend Architecture & Express Setup,Tom,2025-06-30,2025-07-14,Backend,T2,14
+T4,"Socket.IO Core (Namespaces, Rooms)",Tom,2025-07-07,2025-07-21,Backend,T3,14
+T5,Session Store & Join Flow,Tom,2025-07-14,2025-07-24,Backend,T4,10
+T6,Timed Escalation Engine,Tom,2025-07-21,2025-08-04,Backend,T5,14
+T7,Frontend Component Skeleton,Leo,2025-07-14,2025-07-28,Frontend,T2,14
+T8,Admin Dashboard with Real‑Time Log,Leo,2025-07-28,2025-08-11,Frontend,"T7,T4",14
+T9,Trainee Interface & Actions,Leo,2025-08-04,2025-08-18,Frontend,"T7,T5",14
+T10,Scenario Authoring (8 types),John,2025-07-28,2025-08-25,Scenarios,T1,28
+T11,Scenario Integration & Validation,Tom & John & Leo,2025-08-11,2025-09-01,Integration,"T6,T8,T9,T10",21
+T12,Integration/E2E Testing,Kael & John,2025-08-25,2025-09-08,Quality,T11,14
+T13,Accessibility & Responsive Pass,John & Leo,2025-08-25,2025-09-08,Quality,T9,14
+T14,"Documentation Suite (README, API, Events)",All (Owners per doc),2025-08-25,2025-09-08,Docs,T11,14
+T15,"Deployment Pipeline (Docker, CI)",Tom & Kael,2025-08-18,2025-09-01,Deployment,T6,14
+T16,Cloud Deployment & Smoke Test,Tom,2025-09-01,2025-09-08,Deployment,T15,7
+T17,Demo Prep & Final Presentation,All,2025-09-08,2025-09-14,Closeout,"T12,T16,T14",6

@@ -1,0 +1,24 @@
+{
+  "name": "incident-response-backend",
+  "version": "1.0.0",
+  "description": "Express + Socket.IO backend for Incident Response Simulator",
+  "type": "module",
+  "main": "src/server.mjs",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node --watch src/server.mjs",
+    "lint": "echo \"Add ESLint locally as needed\" && exit 0",
+    "test": "node test/server.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "nanoid": "^4.0.2",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {}
+}

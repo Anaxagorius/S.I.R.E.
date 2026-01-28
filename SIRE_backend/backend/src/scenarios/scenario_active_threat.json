@@ -1,0 +1,18 @@
+{
+  "title": "active_threat",
+  "description": "An active threat reported near main entrance.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Report Received",
+      "description": "Call from lobby.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Lockdown",
+      "description": "Initiate lockdown procedures.",
+      "timeOffsetSec": 25
+    }
+  ]
+}
