@@ -20,7 +20,8 @@ export const escalationService = {
       if (!Number.isFinite(numeric)) return 0
       return Math.max(0, numeric)
     }
-    const lastOffset = Math.max(1, ...events.map(evt => normalizeOffset(evt.timeOffsetSec)))
+    const offsets = events.map(evt => normalizeOffset(evt.timeOffsetSec))
+    const lastOffset = offsets.length > 0 ? Math.max(...offsets) : 0
 
     applicationLogger.info('Starting timeline', { sessionCode, events: events.length })
     inMemorySessionStore.setActive(sessionCode, true)
@@ -40,11 +41,13 @@ export const escalationService = {
       timeouts.push(handle)
     })
 
-    const completeHandle = setTimeout(() => {
-      inMemorySessionStore.setActive(sessionCode, false)
-      io.of('/sim').to(room).emit('session:end', { sessionCode })
-    }, (lastOffset + 1) * 1000)
-    timeouts.push(completeHandle)
+    if (lastOffset > 0 || events.length === 0) {
+      const completeHandle = setTimeout(() => {
+        inMemorySessionStore.setActive(sessionCode, false)
+        io.of('/sim').to(room).emit('session:end', { sessionCode })
+      }, (lastOffset + 1) * 1000)
+      timeouts.push(completeHandle)
+    }
 
     timersBySession.set(sessionCode, timeouts)
   },
