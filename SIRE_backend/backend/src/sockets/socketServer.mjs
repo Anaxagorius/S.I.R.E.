@@ -7,7 +7,7 @@ import { inMemorySessionStore } from '../models/inMemorySessionStore.mjs';
 const require = createRequire(import.meta.url);
 const { Server } = require('socket.io');
 
-const buildCorrelationId = () => Math.random().toString(36).slice(2, 10);
+const generateCorrelationId = () => Math.random().toString(36).slice(2, 10);
 
 export function attachSocketServer(httpServer, logger) {
     const io = new Server(httpServer, {
@@ -32,7 +32,7 @@ export function attachSocketServer(httpServer, logger) {
                 socket.emit('error:occurred', {
                     code: 'INVALID_PAYLOAD',
                     message: 'sessionCode and displayName are required',
-                    correlationId: buildCorrelationId()
+                    correlationId: generateCorrelationId()
                 });
                 return;
             }
@@ -56,7 +56,7 @@ export function attachSocketServer(httpServer, logger) {
                 socket.emit('error:occurred', {
                     code,
                     message: 'Unable to join session',
-                    correlationId: buildCorrelationId()
+                    correlationId: generateCorrelationId()
                 });
             }
         });
@@ -67,7 +67,7 @@ export function attachSocketServer(httpServer, logger) {
                 socket.emit('error:occurred', {
                     code: 'INVALID_PAYLOAD',
                     message: 'sessionCode is required',
-                    correlationId: buildCorrelationId()
+                    correlationId: generateCorrelationId()
                 });
                 return;
             }
@@ -76,7 +76,7 @@ export function attachSocketServer(httpServer, logger) {
                 socket.emit('error:occurred', {
                     code: 'SESSION_NOT_FOUND',
                     message: 'Session not found',
-                    correlationId: buildCorrelationId()
+                    correlationId: generateCorrelationId()
                 });
                 return;
             }
@@ -85,7 +85,7 @@ export function attachSocketServer(httpServer, logger) {
                 socket.emit('error:occurred', {
                     code: 'SCENARIO_NOT_FOUND',
                     message: 'Scenario not found',
-                    correlationId: buildCorrelationId()
+                    correlationId: generateCorrelationId()
                 });
                 return;
             }
@@ -100,7 +100,7 @@ export function attachSocketServer(httpServer, logger) {
                 socket.emit('error:occurred', {
                     code: 'INVALID_PAYLOAD',
                     message: 'sessionCode, message, severity are required',
-                    correlationId: buildCorrelationId()
+                    correlationId: generateCorrelationId()
                 });
                 return;
             }
