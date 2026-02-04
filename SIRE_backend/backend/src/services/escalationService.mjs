@@ -41,6 +41,7 @@ export const escalationService = {
       timeouts.push(handle)
     })
 
+    const sessionEndBufferSec = 1
     if (events.length === 0) {
       inMemorySessionStore.setActive(sessionCode, false)
       io.of('/sim').to(room).emit('session:end', { sessionCode })
@@ -48,7 +49,7 @@ export const escalationService = {
       const completeHandle = setTimeout(() => {
         inMemorySessionStore.setActive(sessionCode, false)
         io.of('/sim').to(room).emit('session:end', { sessionCode })
-      }, (lastOffset + 1) * 1000)
+      }, (lastOffset + sessionEndBufferSec) * 1000)
       timeouts.push(completeHandle)
     }
 

@@ -120,7 +120,7 @@ export function attachSocketServer(httpServer, logger) {
                 socket.emit('error:occurred', {
                     code: 'INVALID_PAYLOAD',
                     message: 'sessionCode, action, displayName are required',
-                    correlationId: buildCorrelationId()
+                    correlationId: generateCorrelationId()
                 });
                 return;
             }
