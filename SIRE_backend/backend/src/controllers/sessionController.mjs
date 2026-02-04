@@ -23,7 +23,7 @@ export const sessionController = {
     return res.json(sessionService.listSessions())
   },
   getSession: (req, res) => {
-    const record = sessionService.getSession ? sessionService.getSession(req.params.sessionCode) : null
+    const record = sessionService.getSession(req.params.sessionCode)
     if (!record) return res.status(404).json({ message: 'Not found' })
     return res.json(record)
   },
