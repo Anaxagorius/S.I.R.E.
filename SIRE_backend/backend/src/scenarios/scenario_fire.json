@@ -1,0 +1,24 @@
+{
+  "title": "fire",
+  "description": "A fire starts in a storage area and spreads toward occupied floors.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Smoke Reported",
+      "description": "Maintenance reports smoke near storage.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Alarm Activated",
+      "description": "Fire alarm is triggered on level two.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Evacuation",
+      "description": "Evacuate occupants and secure exits.",
+      "timeOffsetSec": 45
+    }
+  ]
+}

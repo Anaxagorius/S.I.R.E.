@@ -15,8 +15,10 @@ export const escalationService = {
 
     const room = `session:${sessionCode}`
     const events = scenarioDefinition.timeline || []
+    const lastOffset = events.reduce((max, evt) => Math.max(max, evt.timeOffsetSec || 0), 0)
 
     applicationLogger.info('Starting timeline', { sessionCode, events: events.length })
+    inMemorySessionStore.setActive(sessionCode, true)
 
     const timeouts = []
     events.forEach((evt, idx) => {
@@ -32,6 +34,12 @@ export const escalationService = {
       timeouts.push(handle)
     })
 
+    const completeHandle = setTimeout(() => {
+      inMemorySessionStore.setActive(sessionCode, false)
+      io.of('/sim').to(room).emit('session:end', { sessionCode })
+    }, (lastOffset + 1) * 1000)
+    timeouts.push(completeHandle)
+
     timersBySession.set(sessionCode, timeouts)
   },
   stopTimeline: ({ sessionCode }) => {
@@ -42,4 +50,3 @@ export const escalationService = {
     timersBySession.delete(sessionCode)
   }
 }
-

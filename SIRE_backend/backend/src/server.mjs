@@ -23,13 +23,16 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
 
+const httpServer = http.createServer(app)
+const io = attachSocketServer(httpServer, applicationLogger)
+app.use((req, res, next) => {
+  req.io = io
+  next()
+})
+
 app.use('/api', healthRoute)
 app.use('/api', sessionRoute)
-
-const httpServer = http.createServer(app)
-attachSocketServer(httpServer, applicationLogger)
 
 httpServer.listen(environmentConfig.httpPort, () => {
   applicationLogger.info('HTTP server listening', { port: environmentConfig.httpPort })
 })
-

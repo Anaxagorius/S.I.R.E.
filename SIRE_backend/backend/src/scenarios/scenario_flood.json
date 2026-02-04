@@ -1,0 +1,24 @@
+{
+  "title": "flood",
+  "description": "Burst water main begins flooding lower levels.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Water Intrusion",
+      "description": "Standing water appears in basement corridor.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Power Risk",
+      "description": "Electrical panels threatened by rising water.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Critical Systems",
+      "description": "Server room humidity spikes; relocate assets.",
+      "timeOffsetSec": 50
+    }
+  ]
+}

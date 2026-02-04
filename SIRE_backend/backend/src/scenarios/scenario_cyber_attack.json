@@ -1,0 +1,24 @@
+{
+  "title": "cyber_attack",
+  "description": "A coordinated phishing and ransomware attack targets staff systems.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious Email",
+      "description": "Multiple users report a fake payroll email.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Credential Alert",
+      "description": "Security detects logins from unusual locations.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Ransomware Triggered",
+      "description": "Critical files become encrypted in shared drives.",
+      "timeOffsetSec": 55
+    }
+  ]
+}

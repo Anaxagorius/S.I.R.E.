@@ -11,6 +11,9 @@ export const sessionController = {
       const { scenarioKey, instructorDisplayName } = req.body || {}
       if (!scenarioKey || !instructorDisplayName) return res.status(400).json({ message: 'Invalid payload' })
       const record = sessionService.createSession({ scenarioKey, instructorDisplayName })
+      if (req.io) {
+        req.io.of('/sim').emit('session:create', { sessionCode: record.sessionCode, scenarioKey })
+      }
       return res.status(201).json(record)
     } catch (err) {
       return res.status(500).json({ message: 'Unexpected error', error: String(err) })
@@ -22,4 +25,3 @@ export const sessionController = {
     return res.json(record)
   }
 }
-
