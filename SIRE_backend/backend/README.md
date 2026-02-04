@@ -21,6 +21,12 @@ npm run dev
 
 The server will start on the configured port (default: `8080`) and hot‑reload on file changes.
 
+Set an API key before calling the API:
+
+```
+API_KEY=local-dev-key npm run dev
+```
+
 ---
 
 # 📁 Project Structure
@@ -117,7 +123,8 @@ const socket = io("http://localhost:8080", { transports: ["websocket"] });
 ### Health
 
 ```
-curl.exe http://127.0.0.1:8080/api/health
+curl.exe http://127.0.0.1:8080/api/health ^
+  -H "x-api-key: local-dev-key"
 ```
 
 ### Create a Session
@@ -125,7 +132,17 @@ curl.exe http://127.0.0.1:8080/api/health
 ```
 curl.exe -X POST http://127.0.0.1:8080/api/session ^
   -H "Content-Type: application/json" ^
+  -H "x-api-key: local-dev-key" ^
+  -H "x-ticket-id: SIRE-1234" ^
   -d "{"name": "Phishing-Scenario-001"}"
+```
+
+### Delete a Session
+
+```
+curl.exe -X DELETE http://127.0.0.1:8080/api/session/<SESSION_CODE> ^
+  -H "x-api-key: local-dev-key" ^
+  -H "x-ticket-id: SIRE-1234"
 ```
 
 ---
@@ -137,6 +154,15 @@ curl.exe -X POST http://127.0.0.1:8080/api/session ^
 - Socket.IO (real-time)
 - ESM / .mjs modules
 - In-memory data models
+
+---
+
+# 🔐 Security & Compliance Defaults
+
+- REST requests require `x-api-key` (set `API_KEY` env var).
+- Mutations require `x-ticket-id` for change tracking.
+- Socket.IO connections require the same API key header.
+- Set `REQUIRE_API_KEY=false` or `REQUIRE_TICKET_ID=false` only for local development.
 
 ---
 

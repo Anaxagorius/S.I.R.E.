@@ -19,7 +19,7 @@ This package contains group‑focused documentation and backend code artifacts a
 ```bash
 cd backend
 npm install
-npm run dev
+API_KEY=local-dev-key npm run dev
 ```
 
 Then use a Socket.IO client to connect to namespace `/sim` and test events.
