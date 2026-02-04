@@ -18,7 +18,7 @@
       "index": 2,
       "title": "Ransomware Triggered",
       "description": "Critical files become encrypted in shared drives.",
-      "timeOffsetSec": 55
+      "timeOffsetSec": 50
     }
   ]
 }
