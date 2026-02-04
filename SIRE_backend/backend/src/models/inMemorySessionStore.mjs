@@ -27,7 +27,11 @@ export const inMemorySessionStore = {
     return record
   },
   getSession: (sessionCode) => sessionMap.get(sessionCode) || null,
-  listSessions: () => Array.from(sessionMap.values()),
+  listSessions: (limit) => {
+    const sessions = Array.from(sessionMap.values())
+    if (limit === undefined || limit === null) return sessions
+    return sessions.slice(0, Number(limit))
+  },
   removeSession: (sessionCode) => {
     const record = sessionMap.get(sessionCode)
     sessionMap.delete(sessionCode)

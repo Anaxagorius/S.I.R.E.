@@ -4,10 +4,20 @@ import { sessionService } from '../services/sessionService.mjs';
 import { scenarioRegistry } from '../services/scenarioRegistry.mjs';
 import { escalationService } from '../services/escalationService.mjs';
 import { inMemorySessionStore } from '../models/inMemorySessionStore.mjs';
+import { securityConfig } from '../config/securityConfig.mjs';
+import { auditLogger } from '../config/auditLogger.mjs';
+import { buildAuditContext } from '../utils/auditContext.mjs';
+import { generateRandomUuid, normalizeActionText, normalizeDisplayName, normalizeMessageText, normalizeRationaleText, normalizeSessionCode, normalizeSeverity } from '../utils/validation.mjs';
 const require = createRequire(import.meta.url);
 const { Server } = require('socket.io');
 
-const generateCorrelationId = () => Math.random().toString(36).slice(2, 10);
+const emitError = (socket, code, message) => {
+    socket.emit('error:occurred', {
+        code,
+        message,
+        correlationId: generateRandomUuid()
+    });
+};
 
 export function attachSocketServer(httpServer, logger) {
     const io = new Server(httpServer, {
@@ -19,21 +29,54 @@ export function attachSocketServer(httpServer, logger) {
 
     const simNamespace = io.of('/sim');
 
+    simNamespace.use((socket, next) => {
+        if (!securityConfig.requireApiKey) {
+            socket.data.auth = { actor: 'anonymous', scope: 'socket' };
+            return next();
+        }
+        const provided = socket.handshake.headers?.[securityConfig.socketHandshakeHeader];
+        const candidate = Array.isArray(provided) ? provided[0] : provided;
+        if (securityConfig.apiKey && String(candidate || '') === securityConfig.apiKey) {
+            socket.data.auth = { actor: 'api-key', scope: 'socket' };
+            return next();
+        }
+        auditLogger.event({
+            action: 'socket:auth:failure',
+            actor: 'unknown',
+            context: buildAuditContext({ socketId: socket.id }, ['socketId']),
+            outcome: 'denied',
+            correlationId: generateRandomUuid()
+        });
+        return next(new Error('UNAUTHORIZED'));
+    });
+
     simNamespace.on('connection', socket => {
+        const actor = socket.data?.auth?.actor || 'unknown';
         logger.info('Client connected', { id: socket.id });
+        auditLogger.event({
+            action: 'socket:connected',
+            actor,
+            context: buildAuditContext({ socketId: socket.id }, ['socketId']),
+            outcome: 'success',
+            correlationId: generateRandomUuid()
+        });
 
         socket.on('disconnect', () => {
             logger.info('Client disconnected', { id: socket.id });
+            auditLogger.event({
+                action: 'socket:disconnected',
+                actor,
+                context: buildAuditContext({ socketId: socket.id }, ['socketId']),
+                outcome: 'success',
+                correlationId: generateRandomUuid()
+            });
         });
 
         socket.on('session:join', payload => {
-            const { sessionCode, displayName } = payload || {};
+            const sessionCode = normalizeSessionCode(payload?.sessionCode);
+            const displayName = normalizeDisplayName(payload?.displayName);
             if (!sessionCode || !displayName) {
-                socket.emit('error:occurred', {
-                    code: 'INVALID_PAYLOAD',
-                    message: 'sessionCode and displayName are required',
-                    correlationId: generateCorrelationId()
-                });
+                emitError(socket, 'INVALID_PAYLOAD', 'sessionCode and displayName are required');
                 return;
             }
             try {
@@ -51,57 +94,60 @@ export function attachSocketServer(httpServer, logger) {
                     action: 'joined session',
                     timestampIso: new Date().toISOString()
                 });
+                auditLogger.event({
+                    action: 'session:join',
+                    actor,
+                    context: buildAuditContext({ sessionCode, displayName, socketId: socket.id }, ['sessionCode', 'displayName', 'socketId']),
+                    outcome: 'success',
+                    correlationId: generateRandomUuid()
+                });
             } catch (err) {
                 const code = String(err.message || err);
-                socket.emit('error:occurred', {
-                    code,
-                    message: 'Unable to join session',
-                    correlationId: generateCorrelationId()
+                auditLogger.event({
+                    action: 'session:join',
+                    actor,
+                    context: buildAuditContext({ sessionCode, displayName, socketId: socket.id }, ['sessionCode', 'displayName', 'socketId']),
+                    outcome: 'error',
+                    correlationId: generateRandomUuid()
                 });
+                emitError(socket, code, 'Unable to join session');
             }
         });
 
         socket.on('session:start', payload => {
-            const { sessionCode } = payload || {};
+            const sessionCode = normalizeSessionCode(payload?.sessionCode);
             if (!sessionCode) {
-                socket.emit('error:occurred', {
-                    code: 'INVALID_PAYLOAD',
-                    message: 'sessionCode is required',
-                    correlationId: generateCorrelationId()
-                });
+                emitError(socket, 'INVALID_PAYLOAD', 'sessionCode is required');
                 return;
             }
             const session = inMemorySessionStore.getSession(sessionCode);
             if (!session) {
-                socket.emit('error:occurred', {
-                    code: 'SESSION_NOT_FOUND',
-                    message: 'Session not found',
-                    correlationId: generateCorrelationId()
-                });
+                emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
                 return;
             }
             const scenarioDefinition = scenarioRegistry.getScenarioByKey(session.scenarioKey);
             if (!scenarioDefinition) {
-                socket.emit('error:occurred', {
-                    code: 'SCENARIO_NOT_FOUND',
-                    message: 'Scenario not found',
-                    correlationId: generateCorrelationId()
-                });
+                emitError(socket, 'SCENARIO_NOT_FOUND', 'Scenario not found');
                 return;
             }
             const room = `session:${sessionCode}`;
             socket.join(room);
             escalationService.startTimeline({ io, sessionCode, scenarioDefinition });
+            auditLogger.event({
+                action: 'session:start',
+                actor,
+                context: buildAuditContext({ sessionCode, scenarioKey: session.scenarioKey, socketId: socket.id }, ['sessionCode', 'scenarioKey', 'socketId']),
+                outcome: 'success',
+                correlationId: generateRandomUuid()
+            });
         });
 
         socket.on('admin:inject', payload => {
-            const { sessionCode, message, severity } = payload || {};
+            const sessionCode = normalizeSessionCode(payload?.sessionCode);
+            const message = normalizeMessageText(payload?.message);
+            const severity = normalizeSeverity(payload?.severity);
             if (!sessionCode || !message || !severity) {
-                socket.emit('error:occurred', {
-                    code: 'INVALID_PAYLOAD',
-                    message: 'sessionCode, message, severity are required',
-                    correlationId: generateCorrelationId()
-                });
+                emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, message, severity are required');
                 return;
             }
             const room = `session:${sessionCode}`;
@@ -112,16 +158,22 @@ export function attachSocketServer(httpServer, logger) {
                 rationale: severity,
                 timestampIso: new Date().toISOString()
             });
+            auditLogger.event({
+                action: 'admin:inject',
+                actor,
+                context: buildAuditContext({ sessionCode, severity, socketId: socket.id }, ['sessionCode', 'severity', 'socketId']),
+                outcome: 'success',
+                correlationId: generateRandomUuid()
+            });
         });
 
         socket.on('event:log', payload => {
-            const { sessionCode, action, rationale, displayName } = payload || {};
+            const sessionCode = normalizeSessionCode(payload?.sessionCode);
+            const action = normalizeActionText(payload?.action);
+            const rationale = normalizeRationaleText(payload?.rationale);
+            const displayName = normalizeDisplayName(payload?.displayName);
             if (!sessionCode || !action || !displayName) {
-                socket.emit('error:occurred', {
-                    code: 'INVALID_PAYLOAD',
-                    message: 'sessionCode, action, displayName are required',
-                    correlationId: generateCorrelationId()
-                });
+                emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, action, displayName are required');
                 return;
             }
             const room = `session:${sessionCode}`;
@@ -131,6 +183,13 @@ export function attachSocketServer(httpServer, logger) {
                 action,
                 rationale,
                 timestampIso: new Date().toISOString()
+            });
+            auditLogger.event({
+                action: 'event:log',
+                actor,
+                context: buildAuditContext({ sessionCode, displayName, socketId: socket.id }, ['sessionCode', 'displayName', 'socketId']),
+                outcome: 'success',
+                correlationId: generateRandomUuid()
             });
         });
     });
