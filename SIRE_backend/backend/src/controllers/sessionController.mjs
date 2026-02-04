@@ -19,9 +19,17 @@ export const sessionController = {
       return res.status(500).json({ message: 'Unexpected error', error: String(err) })
     }
   },
+  listSessions: (_req, res) => {
+    return res.json(sessionService.listSessions())
+  },
   getSession: (req, res) => {
-    const record = sessionService.getSession ? sessionService.getSession(req.params.sessionCode) : null
+    const record = sessionService.getSession(req.params.sessionCode)
     if (!record) return res.status(404).json({ message: 'Not found' })
     return res.json(record)
-  }
+  },
+  deleteSession: (req, res) => {
+    const record = sessionService.removeSession(req.params.sessionCode)
+    if (!record) return res.status(404).json({ message: 'Not found' })
+    return res.json(record)
+  },
 }

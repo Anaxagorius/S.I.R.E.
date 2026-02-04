@@ -9,6 +9,7 @@ import { scenarioRegistry } from './scenarioRegistry.mjs'
 
 export const sessionService = {
   getSession: (sessionCode) => inMemorySessionStore.getSession(sessionCode),
+  listSessions: () => inMemorySessionStore.listSessions(),
   createSession: ({ scenarioKey, instructorDisplayName }) => {
     const scenario = scenarioRegistry.getScenarioByKey(scenarioKey)
     if (!scenario) throw new Error('SCENARIO_NOT_FOUND')
@@ -23,4 +24,5 @@ export const sessionService = {
     inMemorySessionStore.addTrainee(sessionCode, { socketId, displayName })
     return inMemorySessionStore.getSession(sessionCode)
   },
+  removeSession: (sessionCode) => inMemorySessionStore.removeSession(sessionCode),
 }

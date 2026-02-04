@@ -28,6 +28,11 @@ export const inMemorySessionStore = {
   },
   getSession: (sessionCode) => sessionMap.get(sessionCode) || null,
   listSessions: () => Array.from(sessionMap.values()),
+  removeSession: (sessionCode) => {
+    const record = sessionMap.get(sessionCode)
+    sessionMap.delete(sessionCode)
+    return record
+  },
   addTrainee: (sessionCode, trainee) => {
     const s = sessionMap.get(sessionCode)
     if (!s) return null
@@ -47,4 +52,3 @@ export const inMemorySessionStore = {
     return s
   },
 }
-
