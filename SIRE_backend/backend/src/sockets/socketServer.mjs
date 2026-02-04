@@ -90,8 +90,8 @@ export function attachSocketServer(httpServer, logger) {
                 return;
             }
             const room = `session:${sessionCode}`;
-            socket.join(room);
             escalationService.startTimeline({ io, sessionCode, scenarioDefinition });
+            socket.join(room);
         });
 
         socket.on('admin:inject', payload => {
@@ -138,4 +138,3 @@ export function attachSocketServer(httpServer, logger) {
     logger.info('Socket.IO server initialized');
     return io;
 }
-``
