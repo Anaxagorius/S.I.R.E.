@@ -1,0 +1,24 @@
+{
+  "title": "power_outage",
+  "description": "A facility-wide power outage interrupts critical systems.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Power Loss",
+      "description": "Main power fails across multiple floors.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Backup Systems",
+      "description": "Generator engages, but capacity is limited.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Systems Stabilize",
+      "description": "Prioritize life safety and restore core services.",
+      "timeOffsetSec": 50
+    }
+  ]
+}

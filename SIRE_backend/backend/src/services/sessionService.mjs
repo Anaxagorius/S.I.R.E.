@@ -5,10 +5,13 @@
  */
 import { inMemorySessionStore } from '../models/inMemorySessionStore.mjs'
 import { environmentConfig } from '../config/environmentConfig.mjs'
+import { scenarioRegistry } from './scenarioRegistry.mjs'
 
 export const sessionService = {
   getSession: (sessionCode) => inMemorySessionStore.getSession(sessionCode),
   createSession: ({ scenarioKey, instructorDisplayName }) => {
+    const scenario = scenarioRegistry.getScenarioByKey(scenarioKey)
+    if (!scenario) throw new Error('SCENARIO_NOT_FOUND')
     return inMemorySessionStore.createSession({ scenarioKey, instructorDisplayName })
   },
   joinSession: ({ sessionCode, socketId, displayName }) => {
@@ -21,4 +24,3 @@ export const sessionService = {
     return inMemorySessionStore.getSession(sessionCode)
   },
 }
-

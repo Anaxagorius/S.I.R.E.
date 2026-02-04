@@ -1,0 +1,24 @@
+{
+  "title": "severe_weather",
+  "description": "Severe weather warnings threaten facility operations.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Weather Advisory",
+      "description": "Local authorities issue a severe storm warning.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Access Restricted",
+      "description": "Road closures impact staff availability.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Shelter Plan",
+      "description": "Activate shelter-in-place and safety checks.",
+      "timeOffsetSec": 50
+    }
+  ]
+}
