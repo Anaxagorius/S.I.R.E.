@@ -32,6 +32,11 @@ paths:
       responses:
         '201':
           description: Session created
+    get:
+      summary: List all active sessions
+      responses:
+        '200':
+          description: Session list
   /api/session/{sessionCode}:
     get:
       summary: Fetch session summary by code
@@ -44,3 +49,14 @@ paths:
       responses:
         '200':
           description: Session summary
+    delete:
+      summary: Remove a session
+      parameters:
+        - in: path
+          name: sessionCode
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Session removed
