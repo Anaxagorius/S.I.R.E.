@@ -7,5 +7,5 @@ export const securityConfig = Object.freeze({
   socketHandshakeHeader: String(process.env.SOCKET_API_KEY_HEADER || 'x-api-key').toLowerCase(),
   ticketHeader: String(process.env.TICKET_HEADER || 'x-ticket-id').toLowerCase(),
   requireTicketForMutations: String(process.env.REQUIRE_TICKET_ID || 'true').toLowerCase() !== 'false',
-  codebaseContext: String(process.env.CODEBASE_CONTEXT || 'SIRE_backend'),
+  auditContextLabel: String(process.env.CODEBASE_CONTEXT || 'SIRE_backend'),
 })

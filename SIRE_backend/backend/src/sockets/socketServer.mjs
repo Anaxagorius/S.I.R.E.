@@ -7,17 +7,15 @@ import { inMemorySessionStore } from '../models/inMemorySessionStore.mjs';
 import { securityConfig } from '../config/securityConfig.mjs';
 import { auditLogger } from '../config/auditLogger.mjs';
 import { buildAuditContext } from '../utils/auditContext.mjs';
-import { generateRandomId, normalizeActionText, normalizeDisplayName, normalizeMessageText, normalizeRationaleText, normalizeScenarioKey, normalizeSessionCode, normalizeSeverity } from '../utils/validation.mjs';
+import { generateRandomUuid, normalizeActionText, normalizeDisplayName, normalizeMessageText, normalizeRationaleText, normalizeSessionCode, normalizeSeverity } from '../utils/validation.mjs';
 const require = createRequire(import.meta.url);
 const { Server } = require('socket.io');
-
-const generateCorrelationId = () => generateRandomId();
 
 const emitError = (socket, code, message) => {
     socket.emit('error:occurred', {
         code,
         message,
-        correlationId: generateCorrelationId()
+        correlationId: generateRandomUuid()
     });
 };
 
@@ -32,7 +30,10 @@ export function attachSocketServer(httpServer, logger) {
     const simNamespace = io.of('/sim');
 
     simNamespace.use((socket, next) => {
-        if (!securityConfig.requireApiKey) return next();
+        if (!securityConfig.requireApiKey) {
+            socket.data.auth = { actor: 'anonymous', scope: 'socket' };
+            return next();
+        }
         const provided = socket.handshake.headers?.[securityConfig.socketHandshakeHeader];
         const candidate = Array.isArray(provided) ? provided[0] : provided;
         if (securityConfig.apiKey && String(candidate || '') === securityConfig.apiKey) {
@@ -44,7 +45,7 @@ export function attachSocketServer(httpServer, logger) {
             actor: 'unknown',
             context: buildAuditContext({ socketId: socket.id }, ['socketId']),
             outcome: 'denied',
-            correlationId: generateCorrelationId()
+            correlationId: generateRandomUuid()
         });
         return next(new Error('UNAUTHORIZED'));
     });
@@ -57,7 +58,7 @@ export function attachSocketServer(httpServer, logger) {
             actor,
             context: buildAuditContext({ socketId: socket.id }, ['socketId']),
             outcome: 'success',
-            correlationId: generateCorrelationId()
+            correlationId: generateRandomUuid()
         });
 
         socket.on('disconnect', () => {
@@ -67,7 +68,7 @@ export function attachSocketServer(httpServer, logger) {
                 actor,
                 context: buildAuditContext({ socketId: socket.id }, ['socketId']),
                 outcome: 'success',
-                correlationId: generateCorrelationId()
+                correlationId: generateRandomUuid()
             });
         });
 
@@ -98,7 +99,7 @@ export function attachSocketServer(httpServer, logger) {
                     actor,
                     context: buildAuditContext({ sessionCode, displayName, socketId: socket.id }, ['sessionCode', 'displayName', 'socketId']),
                     outcome: 'success',
-                    correlationId: generateCorrelationId()
+                    correlationId: generateRandomUuid()
                 });
             } catch (err) {
                 const code = String(err.message || err);
@@ -107,7 +108,7 @@ export function attachSocketServer(httpServer, logger) {
                     actor,
                     context: buildAuditContext({ sessionCode, displayName, socketId: socket.id }, ['sessionCode', 'displayName', 'socketId']),
                     outcome: 'error',
-                    correlationId: generateCorrelationId()
+                    correlationId: generateRandomUuid()
                 });
                 emitError(socket, code, 'Unable to join session');
             }
@@ -124,8 +125,7 @@ export function attachSocketServer(httpServer, logger) {
                 emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
                 return;
             }
-            const scenarioKey = normalizeScenarioKey(session.scenarioKey);
-            const scenarioDefinition = scenarioKey ? scenarioRegistry.getScenarioByKey(scenarioKey) : null;
+            const scenarioDefinition = scenarioRegistry.getScenarioByKey(session.scenarioKey);
             if (!scenarioDefinition) {
                 emitError(socket, 'SCENARIO_NOT_FOUND', 'Scenario not found');
                 return;
@@ -136,9 +136,9 @@ export function attachSocketServer(httpServer, logger) {
             auditLogger.event({
                 action: 'session:start',
                 actor,
-                context: buildAuditContext({ sessionCode, scenarioKey, socketId: socket.id }, ['sessionCode', 'scenarioKey', 'socketId']),
+                context: buildAuditContext({ sessionCode, scenarioKey: session.scenarioKey, socketId: socket.id }, ['sessionCode', 'scenarioKey', 'socketId']),
                 outcome: 'success',
-                correlationId: generateCorrelationId()
+                correlationId: generateRandomUuid()
             });
         });
 
@@ -163,7 +163,7 @@ export function attachSocketServer(httpServer, logger) {
                 actor,
                 context: buildAuditContext({ sessionCode, severity, socketId: socket.id }, ['sessionCode', 'severity', 'socketId']),
                 outcome: 'success',
-                correlationId: generateCorrelationId()
+                correlationId: generateRandomUuid()
             });
         });
 
@@ -189,7 +189,7 @@ export function attachSocketServer(httpServer, logger) {
                 actor,
                 context: buildAuditContext({ sessionCode, displayName, socketId: socket.id }, ['sessionCode', 'displayName', 'socketId']),
                 outcome: 'success',
-                correlationId: generateCorrelationId()
+                correlationId: generateRandomUuid()
             });
         });
     });

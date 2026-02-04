@@ -1,30 +1,32 @@
 import crypto from 'crypto'
 import { securityConfig } from '../config/securityConfig.mjs'
 import { auditLogger } from '../config/auditLogger.mjs'
-import { generateRandomId, normalizeText } from '../utils/validation.mjs'
+import { generateRandomUuid, normalizeText } from '../utils/validation.mjs'
 import { buildAuditContext } from '../utils/auditContext.mjs'
 
+/**
+ * Timing-safe comparison for sensitive values such as API keys.
+ */
 const safeEqual = (a, b) => {
   if (typeof a !== 'string' || typeof b !== 'string') return false
-  const left = Buffer.from(a)
-  const right = Buffer.from(b)
-  if (left.length !== right.length) return false
-  return crypto.timingSafeEqual(left, right)
+  const maxLength = Math.max(a.length, b.length, 1)
+  const left = Buffer.alloc(maxLength, 0)
+  const right = Buffer.alloc(maxLength, 0)
+  Buffer.from(a).copy(left)
+  Buffer.from(b).copy(right)
+  return crypto.timingSafeEqual(left, right) && a.length === b.length
 }
 
 const resolveRequestId = (req) => {
   const headerValue = req.headers[securityConfig.requestIdHeader]
   const normalized = normalizeText(Array.isArray(headerValue) ? headerValue[0] : headerValue, 64)
-  return normalized || generateRandomId()
+  return normalized || generateRandomUuid()
 }
 
 export const attachRequestContext = (req, res, next) => {
   req.context = {
     requestId: resolveRequestId(req),
-    correlationId: generateRandomId(),
-  }
-  if (securityConfig.codebaseContext) {
-    req.context.codebaseContext = securityConfig.codebaseContext
+    correlationId: generateRandomUuid(),
   }
   res.setHeader(securityConfig.requestIdHeader, req.context.requestId)
   next()
@@ -59,7 +61,7 @@ export const requireTicket = (req, res, next) => {
   const provided = req.headers[securityConfig.ticketHeader]
   const candidate = normalizeText(Array.isArray(provided) ? provided[0] : provided, 64)
   if (candidate) {
-    req.context = { ...req.context, ticketId: candidate }
+    Object.assign(req.context, { ticketId: candidate })
     return next()
   }
   auditLogger.event({

@@ -55,16 +55,20 @@ export const normalizeSeverity = (value) => {
   return lowered
 }
 
+/**
+ * Parse and validate a pagination limit value.
+ * Returns { value, valid } where valid is true for in-range numbers; invalid inputs return value=null.
+ */
 export const parseLimit = (value, { fallback = 100, min = 1, max = 200 } = {}) => {
   if (value === undefined || value === null || value === '') {
     return { value: fallback, valid: true }
   }
   const numeric = Number(value)
-  if (!Number.isFinite(numeric)) return { value: fallback, valid: false }
+  if (!Number.isFinite(numeric)) return { value: null, valid: false }
   const rounded = Math.trunc(numeric)
-  if (rounded < min) return { value: min, valid: false }
-  if (rounded > max) return { value: max, valid: false }
+  if (rounded < min) return { value: null, valid: false }
+  if (rounded > max) return { value: null, valid: false }
   return { value: rounded, valid: true }
 }
 
-export const generateRandomId = () => crypto.randomUUID().replace(/-/g, '').slice(0, 16)
+export const generateRandomUuid = () => crypto.randomUUID()

@@ -1,10 +1,14 @@
 import { securityConfig } from './securityConfig.mjs'
 import { applicationLogger } from './logger.mjs'
 
+/**
+ * Sanitize audit payloads by filtering non-primitive values and unsafe keys.
+ */
 const sanitizePayload = (payload) => {
   if (!payload || typeof payload !== 'object') return null
-  const allowed = {}
+  const allowed = Object.create(null)
   Object.entries(payload).forEach(([key, value]) => {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') return
     if (value === undefined) return
     if (value === null) {
       allowed[key] = null
@@ -19,9 +23,6 @@ export const auditLogger = {
   event: ({ action, actor, context, outcome, correlationId, requestId }) => {
     if (!securityConfig.auditLogEnabled) return
     const sanitized = sanitizePayload(context) || {}
-    if (securityConfig.codebaseContext && !sanitized.codebaseContext) {
-      sanitized.codebaseContext = securityConfig.codebaseContext
-    }
     applicationLogger.info('AUDIT', {
       action,
       actor,

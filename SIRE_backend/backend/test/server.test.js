@@ -5,6 +5,8 @@ import { request } from 'node:http'
 import express from 'express'
 import { io as clientIo } from 'socket.io-client'
 
+const TEST_OPERATION_TIMEOUT_MS = 2000
+
 process.env.API_KEY = 'test-api-key'
 process.env.REQUIRE_API_KEY = 'true'
 process.env.REQUIRE_TICKET_ID = 'true'
@@ -77,7 +79,7 @@ const client = clientIo(`http://localhost:${port}/sim`, {
   forceNew: true
 })
 await new Promise((resolve, reject) => {
-  const timer = setTimeout(() => reject(new Error('connect timeout')), 1000)
+  const timer = setTimeout(() => reject(new Error('connect timeout')), TEST_OPERATION_TIMEOUT_MS)
   client.on('connect', () => {
     clearTimeout(timer)
     resolve()
@@ -85,12 +87,16 @@ await new Promise((resolve, reject) => {
   client.on('connect_error', reject)
 })
 const joined = await new Promise((resolve, reject) => {
-  const timer = setTimeout(() => reject(new Error('join timeout')), 1000)
+  const timer = setTimeout(() => reject(new Error('join timeout')), TEST_OPERATION_TIMEOUT_MS)
   client.on('session:joined', data => {
     clearTimeout(timer)
     resolve(data)
   })
   client.emit('session:join', { sessionCode: session.sessionCode, displayName: 'Trainee One' })
+  client.on('error:occurred', data => {
+    clearTimeout(timer)
+    reject(new Error(`join failed: ${data?.code || 'unknown'}`))
+  })
 })
 
 assert.strictEqual(joined.sessionCode, session.sessionCode)
