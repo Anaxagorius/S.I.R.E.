@@ -5,20 +5,38 @@
     {
       "index": 0,
       "title": "Power Loss",
-      "description": "Main power fails across multiple floors.",
+      "description": "Main power fails across multiple floors. Emergency lighting activated automatically.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Backup Systems",
-      "description": "Generator engages, but capacity is limited.",
-      "timeOffsetSec": 25
+      "title": "Emergency Lighting Engaged",
+      "description": "Battery-powered emergency lights operational. Account for all personnel in affected areas.",
+      "timeOffsetSec": 15
     },
     {
       "index": 2,
-      "title": "Systems Stabilize",
-      "description": "Prioritize life safety and restore core services.",
-      "timeOffsetSec": 50
+      "title": "Generator Activation",
+      "description": "Backup generator engaged but capacity is limited. Prioritize critical systems only.",
+      "timeOffsetSec": 35
+    },
+    {
+      "index": 3,
+      "title": "Load Prioritization",
+      "description": "Identify and power essential life safety systems, communications, and security equipment.",
+      "timeOffsetSec": 75
+    },
+    {
+      "index": 4,
+      "title": "System Stabilization",
+      "description": "Generator running stable. Monitor fuel levels and coordinate with utility company on restoration ETA.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Grid Power Restoration",
+      "description": "Utility power restored. Gradually transfer load back to main grid and secure generator.",
+      "timeOffsetSec": 270
     }
   ]
 }

@@ -4,21 +4,39 @@
   "timeline": [
     {
       "index": 0,
-      "title": "Water Intrusion",
-      "description": "Standing water appears in basement corridor.",
+      "title": "Water Intrusion Detected",
+      "description": "Standing water appears in basement corridor. Identify source and shut off water supply.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Power Risk",
-      "description": "Electrical panels threatened by rising water.",
+      "title": "Electrical Hazard Warning",
+      "description": "Electrical panels threatened by rising water. Evacuate basement and shut down affected circuits.",
       "timeOffsetSec": 25
     },
     {
       "index": 2,
-      "title": "Critical Systems",
-      "description": "Server room humidity spikes; relocate assets.",
-      "timeOffsetSec": 50
+      "title": "Critical Systems Relocation",
+      "description": "Server room humidity spikes. Begin emergency data backup and relocate portable equipment.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Pump Activation",
+      "description": "Deploy emergency pumps to remove water. Water level stabilizing but damage assessment needed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Damage Assessment",
+      "description": "Water receding. Conduct preliminary damage assessment of electrical and mechanical systems.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Restoration Planning",
+      "description": "Facilities team developing restoration plan. Coordinate with utilities for full power restoration.",
+      "timeOffsetSec": 270
     }
   ]
 }

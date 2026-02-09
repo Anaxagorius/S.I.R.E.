@@ -4,21 +4,39 @@
   "timeline": [
     {
       "index": 0,
-      "title": "Collapse Reported",
-      "description": "Staff member collapses in the cafeteria.",
+      "title": "Initial Collapse",
+      "description": "Staff member collapses in the cafeteria. Check for responsiveness and call for help.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "First Aid",
-      "description": "Responders begin first aid and request EMS.",
+      "title": "First Aid Response",
+      "description": "Trained responders arrive on scene. Begin CPR and retrieve AED. Call 911 immediately.",
       "timeOffsetSec": 20
     },
     {
       "index": 2,
-      "title": "Transport Prep",
-      "description": "Prepare access routes for medical transport.",
+      "title": "EMS Notification",
+      "description": "Emergency Medical Services dispatched, ETA 6 minutes. Continue first aid and monitor vitals.",
       "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Patient Stabilization",
+      "description": "Patient shows signs of improvement. Maintain care and prepare for EMS handoff.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Transport Preparation",
+      "description": "EMS arrived. Clear access routes and provide patient information to paramedics.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Site Cleanup and Debriefing",
+      "description": "Patient transported to hospital. Secure AED, document incident, and offer support to witnesses.",
+      "timeOffsetSec": 240
     }
   ]
 }

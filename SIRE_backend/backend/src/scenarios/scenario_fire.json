@@ -4,21 +4,39 @@
   "timeline": [
     {
       "index": 0,
-      "title": "Smoke Reported",
-      "description": "Maintenance reports smoke near storage.",
+      "title": "Smoke Detection",
+      "description": "Maintenance reports smoke near storage area. Investigate source immediately.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Alarm Activated",
-      "description": "Fire alarm is triggered on level two.",
+      "title": "Fire Alarm Activated",
+      "description": "Fire alarm is triggered on level two. Confirm fire location and size.",
       "timeOffsetSec": 20
     },
     {
       "index": 2,
-      "title": "Evacuation",
-      "description": "Evacuate occupants and secure exits.",
+      "title": "Evacuation Order",
+      "description": "Initiate building evacuation. All personnel proceed to designated assembly points.",
       "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Fire Spread Assessment",
+      "description": "Fire spreading to adjacent rooms. Ensure all personnel have evacuated affected zones.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Sprinkler Activation",
+      "description": "Automatic sprinkler system activated. Monitor water damage to critical equipment.",
+      "timeOffsetSec": 135
+    },
+    {
+      "index": 5,
+      "title": "Fire Department Arrival",
+      "description": "Fire department on scene. Provide building plans and hazardous materials information. Conduct headcount.",
+      "timeOffsetSec": 240
     }
   ]
 }

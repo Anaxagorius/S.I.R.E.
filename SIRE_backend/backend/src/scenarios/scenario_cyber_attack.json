@@ -4,21 +4,45 @@
   "timeline": [
     {
       "index": 0,
-      "title": "Suspicious Email",
-      "description": "Multiple users report a fake payroll email.",
+      "title": "Suspicious Activity Detected",
+      "description": "Multiple users report a fake payroll email with embedded links. Do not click any links.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Credential Alert",
-      "description": "Security detects logins from unusual locations.",
-      "timeOffsetSec": 25
+      "title": "Credential Compromise",
+      "description": "Security detects logins from unusual locations. Reset passwords for affected accounts immediately.",
+      "timeOffsetSec": 30
     },
     {
       "index": 2,
-      "title": "Ransomware Triggered",
-      "description": "Critical files become encrypted in shared drives.",
-      "timeOffsetSec": 50
+      "title": "System Isolation Required",
+      "description": "Ransomware detected on workstation. Isolate affected systems from network to prevent spread.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Backup Verification",
+      "description": "Critical files encrypted in shared drives. Verify backup integrity and offline backup status.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Incident Response Team Activation",
+      "description": "Activate cybersecurity incident response team. Document all affected systems and begin forensics.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Recovery Initiation",
+      "description": "Containment successful. Begin restoration from verified backups. Monitor for additional threats.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 6,
+      "title": "Post-Incident Review",
+      "description": "Systems restored. Conduct lessons learned session and update security protocols.",
+      "timeOffsetSec": 300
     }
   ]
 }

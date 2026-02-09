@@ -1,18 +1,48 @@
 {
   "title": "active_threat",
-  "description": "An active threat reported near main entrance.",
+  "description": "An active threat reported near main entrance escalates to facility-wide lockdown.",
   "timeline": [
     {
       "index": 0,
-      "title": "Report Received",
-      "description": "Call from lobby.",
+      "title": "Initial Report",
+      "description": "Security receives call from lobby about suspicious individual displaying aggressive behavior.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Lockdown",
-      "description": "Initiate lockdown procedures.",
-      "timeOffsetSec": 25
+      "title": "Threat Confirmed",
+      "description": "Security camera confirms individual has entered building with apparent weapon. Alert all personnel.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Lockdown Initiated",
+      "description": "Activate facility-wide lockdown. All personnel shelter in place. Doors locked remotely.",
+      "timeOffsetSec": 40
+    },
+    {
+      "index": 3,
+      "title": "Law Enforcement Notified",
+      "description": "911 called. Police en route, ETA 8 minutes. Maintain lockdown and account for all personnel.",
+      "timeOffsetSec": 75
+    },
+    {
+      "index": 4,
+      "title": "Threat Movement",
+      "description": "Subject moving toward administrative wing. Update all personnel on location. Do not engage.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 5,
+      "title": "Police Arrival",
+      "description": "Law enforcement on-site. Maintain lockdown. Provide building schematics and camera access to police.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 6,
+      "title": "Threat Neutralized",
+      "description": "Suspect in custody. Police conducting sweep. Prepare for all-clear and accountability checks.",
+      "timeOffsetSec": 300
     }
   ]
 }
