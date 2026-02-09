@@ -4,21 +4,39 @@
   "timeline": [
     {
       "index": 0,
-      "title": "Initial Spill",
-      "description": "Small puddle observed.",
+      "title": "Spill Detection",
+      "description": "Small chemical puddle observed in lab corridor. Identify substance and restrict access.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Fumes Detected",
-      "description": "Irritation reported.",
-      "timeOffsetSec": 20
+      "title": "Area Evacuation",
+      "description": "Fumes detected causing respiratory irritation. Evacuate immediate area and seal doors.",
+      "timeOffsetSec": 25
     },
     {
       "index": 2,
-      "title": "Expansion",
-      "description": "Spill spreads to hallway.",
-      "timeOffsetSec": 40
+      "title": "Ventilation Shutdown",
+      "description": "Spill spreading to hallway. Shut down HVAC to prevent contamination spread. Alert hazmat team.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Hazmat Team Notification",
+      "description": "Specialized hazmat team dispatched, ETA 15 minutes. Provide chemical safety data sheets.",
+      "timeOffsetSec": 100
+    },
+    {
+      "index": 4,
+      "title": "Containment Operations",
+      "description": "Hazmat team on-site beginning containment. Spill neutralized and contained with absorbent barriers.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Decontamination and Cleanup",
+      "description": "Area decontaminated and cleared. Resume normal ventilation and conduct air quality testing.",
+      "timeOffsetSec": 300
     }
   ]
 }

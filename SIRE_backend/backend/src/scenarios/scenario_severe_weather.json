@@ -4,21 +4,39 @@
   "timeline": [
     {
       "index": 0,
-      "title": "Weather Advisory",
-      "description": "Local authorities issue a severe storm warning.",
+      "title": "Weather Warning Issued",
+      "description": "Local authorities issue severe storm warning with high winds and possible tornado. Monitor conditions.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Access Restricted",
-      "description": "Road closures impact staff availability.",
-      "timeOffsetSec": 25
+      "title": "Personnel Notification",
+      "description": "Alert all staff of weather threat. Non-essential personnel prepare for early dismissal.",
+      "timeOffsetSec": 30
     },
     {
       "index": 2,
-      "title": "Shelter Plan",
-      "description": "Activate shelter-in-place and safety checks.",
-      "timeOffsetSec": 50
+      "title": "Building Secured",
+      "description": "Secure all exterior doors and windows. Move personnel away from windows to interior rooms.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Power Backup Check",
+      "description": "Test emergency generator and backup power systems. Prepare for potential power loss.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Storm Impact",
+      "description": "Severe weather hitting facility. Maintain shelter-in-place. Monitor for damage reports.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 5,
+      "title": "Damage Assessment",
+      "description": "Storm passing. Conduct preliminary damage assessment. Check for injuries and structural damage.",
+      "timeOffsetSec": 300
     }
   ]
 }
