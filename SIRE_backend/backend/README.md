@@ -157,6 +157,52 @@ curl.exe -X DELETE http://127.0.0.1:8080/api/session/<SESSION_CODE> ^
 
 ---
 
+# ⚠️ Data Persistence & Limitations
+
+## In-Memory Session Storage
+
+**IMPORTANT:** This backend uses **in-memory session storage only** (see `src/models/inMemorySessionStore.mjs`). All session data is **volatile** and stored in RAM.
+
+### What This Means:
+
+- ✅ **Zero external dependencies** - No database or Redis required
+- ✅ **Fast and simple** - Perfect for demos and academic training
+- ❌ **Sessions are lost on restart** - Any server restart, redeployment, or crash will **clear all sessions**
+- ❌ **Not production-ready** - Not suitable for environments requiring data persistence
+
+### Current Intended Use:
+
+This backend is designed for:
+- **Demo and academic environments**
+- **Short-lived training sessions** (minutes to hours)
+- **Development and testing**
+- **Proof-of-concept deployments**
+
+### Production Considerations:
+
+If you need persistent session storage for production use, you should implement:
+
+1. **Database Backend**: 
+   - PostgreSQL, MySQL, or MongoDB for durable storage
+   - ORM/ODM integration (e.g., Sequelize, TypeORM, Mongoose)
+
+2. **Distributed Cache**:
+   - Redis for fast, persistent session storage
+   - Supports clustering and replication
+
+3. **Session Store Middleware**:
+   - Use `express-session` with a persistent store adapter
+   - Options: `connect-redis`, `connect-mongo`, `connect-pg-simple`
+
+4. **Stateful Architecture**:
+   - External state management service
+   - Event sourcing for audit trails
+   - Backup and restore capabilities
+
+**For academic and demo purposes, the current in-memory implementation is intentional and sufficient.**
+
+---
+
 # 🔐 Security & Compliance Defaults
 
 - REST requests require `x-api-key` (set `API_KEY` env var).
