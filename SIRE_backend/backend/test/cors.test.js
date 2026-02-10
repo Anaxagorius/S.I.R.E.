@@ -157,4 +157,3 @@ console.log('✓ Wildcard CORS configuration allows all origins without credenti
 wildcardServer.close()
 
 console.log('\n✅ All CORS configuration tests passed')
-
