@@ -28,7 +28,7 @@ app.use(cors({
   origin: environmentConfig.allowedOrigins.includes('*') 
     ? '*' 
     : environmentConfig.allowedOrigins,
-  credentials: true
+  credentials: !environmentConfig.allowedOrigins.includes('*')
 }))
 app.use(express.json({ limit: '50kb' }))
 app.use(attachRequestContext)

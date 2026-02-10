@@ -63,7 +63,12 @@ assert.strictEqual(
   'http://localhost:3000', 
   'Should return matching origin'
 )
-console.log('✓ Allowed origin returns correct CORS headers')
+assert.strictEqual(
+  allowedOriginResponse.headers['access-control-allow-credentials'], 
+  'true', 
+  'Should allow credentials for non-wildcard origins'
+)
+console.log('✓ Allowed origin returns correct CORS headers with credentials')
 
 // Test with non-allowed origin
 const disallowedOriginResponse = await new Promise((resolve, reject) => {
@@ -142,7 +147,12 @@ assert.strictEqual(
   '*', 
   'Should return wildcard for any origin'
 )
-console.log('✓ Wildcard CORS configuration allows all origins')
+assert.strictEqual(
+  wildcardResponse.headers['access-control-allow-credentials'], 
+  undefined, 
+  'Should not set credentials header for wildcard origin'
+)
+console.log('✓ Wildcard CORS configuration allows all origins without credentials')
 
 wildcardServer.close()
 
