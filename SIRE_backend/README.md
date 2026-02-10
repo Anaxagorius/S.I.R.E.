@@ -8,7 +8,7 @@ This package contains group‑focused documentation and backend code artifacts a
 - `docs/Kickoff_Meeting_Agenda.md` — meeting template
 - `docs/API_Specification.yaml` — OpenAPI spec
 - `docs/SocketIO_Event_Catalog.md` — event semantics
-- `docs/Deployment_Guide.md` — environment, docker, CI
+- `docs/Deployment_Guide.md` — local, Docker, and cloud deployment (Heroku, Railway, Render)
 - `docs/ADR-001_Stack_Selection.md` — rationale
 - `docs/Gantt_Detailed.csv` — schedule with dependencies
 - `docs/Gantt_Detailed.png` — visual Gantt

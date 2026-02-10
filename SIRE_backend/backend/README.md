@@ -10,6 +10,8 @@ This backend powers the **SIRE**, providing:
 
 Built with **Node.js**, **Express**, and **Socket.IO** using modern **ESM (`.mjs`) modules**.
 
+📚 **[Full Deployment Guide](../docs/Deployment_Guide.md)** — Local, Docker, and Cloud deployment instructions
+
 ---
 
 # 🚀 Quick Start
