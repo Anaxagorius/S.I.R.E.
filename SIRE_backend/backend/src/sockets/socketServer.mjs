@@ -5,6 +5,7 @@ import { scenarioRegistry } from '../services/scenarioRegistry.mjs';
 import { escalationService } from '../services/escalationService.mjs';
 import { inMemorySessionStore } from '../models/inMemorySessionStore.mjs';
 import { securityConfig } from '../config/securityConfig.mjs';
+import { environmentConfig } from '../config/environmentConfig.mjs';
 import { auditLogger } from '../config/auditLogger.mjs';
 import { buildAuditContext } from '../utils/auditContext.mjs';
 import { generateRandomUuid, normalizeActionText, normalizeDisplayName, normalizeMessageText, normalizeRationaleText, normalizeSessionCode, normalizeSeverity } from '../utils/validation.mjs';
@@ -22,8 +23,11 @@ const emitError = (socket, code, message) => {
 export function attachSocketServer(httpServer, logger) {
     const io = new Server(httpServer, {
         cors: {
-            origin: '*',
-            methods: ['GET', 'POST']
+            origin: environmentConfig.allowedOrigins.includes('*') 
+                ? '*' 
+                : environmentConfig.allowedOrigins,
+            methods: ['GET', 'POST'],
+            credentials: !environmentConfig.allowedOrigins.includes('*')
         }
     });
 

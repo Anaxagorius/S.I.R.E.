@@ -43,6 +43,44 @@ API_KEY=local-dev-key npm run dev
 
 ---
 
+# 🔒 CORS Configuration
+
+The backend supports configurable CORS (Cross-Origin Resource Sharing) policies for enhanced security in production deployments.
+
+## Development (Permissive CORS)
+
+By default, the server allows requests from any origin (`*`):
+
+```bash
+npm run dev
+```
+
+## Production (Restricted CORS)
+
+For production deployments, restrict CORS to specific origins using the `ALLOWED_ORIGINS` environment variable:
+
+```bash
+ALLOWED_ORIGINS=https://sire.example.com,https://app.sire.example.com npm start
+```
+
+### Docker/Cloud Deployment
+
+Update your `docker-compose.yml` or cloud configuration:
+
+```yaml
+environment:
+  - ALLOWED_ORIGINS=https://sire.example.com,https://app.sire.example.com
+```
+
+### Important Notes
+
+- **Multiple origins**: Separate with commas (no spaces)
+- **Wildcard**: Use `ALLOWED_ORIGINS=*` for development only
+- **Applies to both**: REST API and Socket.IO connections
+- **Credentials**: Automatically handled (enabled for specific origins, disabled for wildcard)
+
+---
+
 # 📁 Project Structure
 
 ```
