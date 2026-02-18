@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: sire-backend
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
+      - key: LOG_LEVEL
+        value: info
+      - key: SESSION_MAX_TRAINEES
+        value: 10
+      - key: REQUIRE_API_KEY
+        value: true
+      - key: REQUIRE_TICKET_ID
+        value: false
+      - key: AUDIT_LOG_ENABLED
+        value: true
+      - key: CODEBASE_CONTEXT
+        value: SIRE_backend
+      - key: API_KEY
+        generateValue: true
