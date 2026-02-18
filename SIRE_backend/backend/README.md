@@ -12,6 +12,20 @@ Built with **Node.js**, **Express**, and **Socket.IO** using modern **ESM (`.mjs
 
 ---
 
+# ☁️ Quick Deploy
+
+Deploy the backend to a free-tier cloud provider with one click:
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/Anaxagorius/S.I.R.E./tree/main/SIRE_backend/backend)
+
+**Other Platforms:**
+- **Render**: Create new Web Service from [render.com](https://render.com) using `render.yaml`
+- **Heroku**: [Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Anaxagorius/S.I.R.E./tree/main/SIRE_backend/backend)
+
+📖 **Detailed deployment guides**: See [Deployment Guide](../docs/Deployment_Guide.md) and [Quick Start](../docs/Cloud_Deployment_Quickstart.md)
+
+---
+
 # 🚀 Quick Start
 
 ```
@@ -247,3 +261,13 @@ Each scenario completes in 2-5 minutes, making them suitable for training sessio
 ✔ Sessions + scenarios supported  
 ✔ ESM conversion complete  
 ✔ 8 enhanced scenarios with realistic escalation timelines  
+✔ Cloud deployment ready (Railway, Render, Heroku)
+
+---
+
+# 📚 Additional Documentation
+
+- [Deployment Guide](../docs/Deployment_Guide.md) - Comprehensive deployment instructions
+- [Cloud Deployment Quickstart](../docs/Cloud_Deployment_Quickstart.md) - Quick reference for cloud deployment
+- [API Specification](../docs/API_Specification.yaml) - OpenAPI spec
+- [Socket.IO Event Catalog](../docs/SocketIO_Event_Catalog.md) - Real-time event reference
