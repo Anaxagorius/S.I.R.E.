@@ -8,3 +8,6 @@ services:
       - PORT=8080
       - LOG_LEVEL=info
       - SESSION_MAX_TRAINEES=10
+      # For production, set to specific origins (e.g., https://sire.example.com,http://localhost:3000)
+      # For development, can use '*' to allow all origins
+      - ALLOWED_ORIGINS=*

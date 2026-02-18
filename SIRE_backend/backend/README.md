@@ -14,6 +14,20 @@ Built with **Node.js**, **Express**, and **Socket.IO** using modern **ESM (`.mjs
 
 ---
 
+# ☁️ Quick Deploy
+
+Deploy the backend to a free-tier cloud provider with one click:
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/Anaxagorius/S.I.R.E./tree/main/SIRE_backend/backend)
+
+**Other Platforms:**
+- **Render**: Create new Web Service from [render.com](https://render.com) using `render.yaml`
+- **Heroku**: [Deploy to Heroku](https://heroku.com/deploy?template=https://github.com/Anaxagorius/S.I.R.E./tree/main/SIRE_backend/backend)
+
+📖 **Detailed deployment guides**: See [Deployment Guide](../docs/Deployment_Guide.md) and [Quick Start](../docs/Cloud_Deployment_Quickstart.md)
+
+---
+
 # 🚀 Quick Start
 
 ```
@@ -28,6 +42,44 @@ Set an API key before calling the API:
 ```
 API_KEY=local-dev-key npm run dev
 ```
+
+---
+
+# 🔒 CORS Configuration
+
+The backend supports configurable CORS (Cross-Origin Resource Sharing) policies for enhanced security in production deployments.
+
+## Development (Permissive CORS)
+
+By default, the server allows requests from any origin (`*`):
+
+```bash
+npm run dev
+```
+
+## Production (Restricted CORS)
+
+For production deployments, restrict CORS to specific origins using the `ALLOWED_ORIGINS` environment variable:
+
+```bash
+ALLOWED_ORIGINS=https://sire.example.com,https://app.sire.example.com npm start
+```
+
+### Docker/Cloud Deployment
+
+Update your `docker-compose.yml` or cloud configuration:
+
+```yaml
+environment:
+  - ALLOWED_ORIGINS=https://sire.example.com,https://app.sire.example.com
+```
+
+### Important Notes
+
+- **Multiple origins**: Separate with commas (no spaces)
+- **Wildcard**: Use `ALLOWED_ORIGINS=*` for development only
+- **Applies to both**: REST API and Socket.IO connections
+- **Credentials**: Automatically handled (enabled for specific origins, disabled for wildcard)
 
 ---
 
@@ -249,3 +301,13 @@ Each scenario completes in 2-5 minutes, making them suitable for training sessio
 ✔ Sessions + scenarios supported  
 ✔ ESM conversion complete  
 ✔ 8 enhanced scenarios with realistic escalation timelines  
+✔ Cloud deployment ready (Railway, Render, Heroku)
+
+---
+
+# 📚 Additional Documentation
+
+- [Deployment Guide](../docs/Deployment_Guide.md) - Comprehensive deployment instructions
+- [Cloud Deployment Quickstart](../docs/Cloud_Deployment_Quickstart.md) - Quick reference for cloud deployment
+- [API Specification](../docs/API_Specification.yaml) - OpenAPI spec
+- [Socket.IO Event Catalog](../docs/SocketIO_Event_Catalog.md) - Real-time event reference

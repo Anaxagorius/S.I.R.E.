@@ -16,6 +16,8 @@ This package contains group‑focused documentation and backend code artifacts a
 - `.github/workflows/ci.yml` — Node CI pipeline
 
 ## Quick Start (Backend)
+
+### Local Development
 ```bash
 cd backend
 npm install
@@ -23,3 +25,12 @@ API_KEY=local-dev-key npm run dev
 ```
 
 Then use a Socket.IO client to connect to namespace `/sim` and test events.
+
+### Cloud Deployment
+
+Deploy to a free-tier cloud provider:
+- **Railway**: Use `backend/railway.json` configuration
+- **Render**: Use `backend/render.yaml` blueprint
+- **Heroku**: Use `backend/Procfile` and `backend/app.json`
+
+See [Deployment Guide](docs/Deployment_Guide.md) for detailed instructions.

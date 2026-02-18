@@ -24,7 +24,12 @@ import { securityConfig } from './config/securityConfig.mjs'
 
 const app = express()
 app.use(securityHeaders)
-app.use(cors())
+app.use(cors({
+  origin: environmentConfig.allowedOrigins.includes('*') 
+    ? '*' 
+    : environmentConfig.allowedOrigins,
+  credentials: !environmentConfig.allowedOrigins.includes('*')
+}))
 app.use(express.json({ limit: '50kb' }))
 app.use(attachRequestContext)
 app.use(morgan('tiny'))
