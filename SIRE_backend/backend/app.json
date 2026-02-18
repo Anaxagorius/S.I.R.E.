@@ -1,0 +1,69 @@
+{
+  "name": "SIRE Backend",
+  "description": "Simulation Incident Response Environment - Backend API and Socket.IO server for real-time incident response training",
+  "repository": "https://github.com/Anaxagorius/S.I.R.E.",
+  "keywords": [
+    "node",
+    "express",
+    "socket.io",
+    "incident-response",
+    "training",
+    "simulation"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  },
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production",
+      "required": true
+    },
+    "LOG_LEVEL": {
+      "description": "Application log level (debug, info, warn, error)",
+      "value": "info",
+      "required": false
+    },
+    "SESSION_MAX_TRAINEES": {
+      "description": "Maximum number of trainees per session",
+      "value": "10",
+      "required": false
+    },
+    "API_KEY": {
+      "description": "API key for authentication (x-api-key header)",
+      "generator": "secret",
+      "required": true
+    },
+    "REQUIRE_API_KEY": {
+      "description": "Enable API key enforcement",
+      "value": "true",
+      "required": false
+    },
+    "REQUIRE_TICKET_ID": {
+      "description": "Require ticket ID for mutation operations",
+      "value": "false",
+      "required": false
+    },
+    "AUDIT_LOG_ENABLED": {
+      "description": "Enable audit logging",
+      "value": "true",
+      "required": false
+    },
+    "CODEBASE_CONTEXT": {
+      "description": "Context label for audit logs",
+      "value": "SIRE_backend",
+      "required": false
+    }
+  },
+  "healthcheck": {
+    "path": "/api/health"
+  }
+}
