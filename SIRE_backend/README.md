@@ -1,5 +1,5 @@
 
-# Incident Response Simulator — Pro Package
+# Simulated Incident Response Environment
 
 This package contains group‑focused documentation and backend code artifacts aligned to Tom Burchell’s responsibilities: backend architecture, Express + Socket.IO core, scenario escalation engine, and deployment pipeline.
 
