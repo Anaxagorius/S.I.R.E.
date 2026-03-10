@@ -120,7 +120,7 @@ const SessionSetup = ({ role, onSessionCreated, onSessionJoined }) => {
             type="text"
             value={sessionCode}
             onChange={(e) => setSessionCode(e.target.value.toUpperCase())}
-            placeholder="Enter session code (e.g., ABC-1234)"
+            placeholder="Enter session code (e.g., ABC123)"
             maxLength={20}
           />
         </div>

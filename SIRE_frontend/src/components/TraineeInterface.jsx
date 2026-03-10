@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSocket } from '../hooks/useSocket';
 import EventLog from './EventLog';
 import { SCENARIOS } from './ScenarioSelector';
 
 const TraineeInterface = ({ sessionCode, displayName, scenarioKey }) => {
-  const { socket, connected, emit, on } = useSocket();
+  const { connected, emit, on } = useSocket();
   const [events, setEvents] = useState([]);
   const [currentEvent, setCurrentEvent] = useState(null);
   const [previousEvents, setPreviousEvents] = useState([]);
@@ -12,11 +12,12 @@ const TraineeInterface = ({ sessionCode, displayName, scenarioKey }) => {
   const [rationale, setRationale] = useState('');
   const [actionFeedback, setActionFeedback] = useState('');
   const [joined, setJoined] = useState(false);
+  const currentEventRef = useRef(null);
   
   const scenarioInfo = SCENARIOS.find(s => s.key === scenarioKey);
   
   useEffect(() => {
-    if (!socket || !connected) return;
+    if (!connected) return;
     
     // Join the session
     emit('session:join', { sessionCode, displayName });
@@ -29,12 +30,13 @@ const TraineeInterface = ({ sessionCode, displayName, scenarioKey }) => {
     const unsubTick = on('timeline:tick', (data) => {
       console.log('Timeline tick:', data);
       
-      // Move current to previous if it exists
-      if (currentEvent) {
-        setPreviousEvents(prev => [...prev, currentEvent]);
+      // Move current to previous if it exists (use ref to avoid stale closure)
+      if (currentEventRef.current) {
+        setPreviousEvents(prev => [...prev, currentEventRef.current]);
       }
       
-      // Set new current event
+      // Set new current event (update both state and ref)
+      currentEventRef.current = data;
       setCurrentEvent(data);
       
       // Add to events feed
@@ -62,7 +64,7 @@ const TraineeInterface = ({ sessionCode, displayName, scenarioKey }) => {
       if (unsubLog) unsubLog();
       if (unsubEnd) unsubEnd();
     };
-  }, [socket, connected, sessionCode, displayName, emit, on, currentEvent]);
+  }, [connected, sessionCode, displayName, emit, on]);
   
   const handleLogAction = (e) => {
     e.preventDefault();
