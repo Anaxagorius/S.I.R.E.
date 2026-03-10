@@ -6,7 +6,7 @@ import { SCENARIOS } from './ScenarioSelector';
 import { deleteSession } from '../services/api';
 
 const AdminDashboard = ({ session }) => {
-  const { socket, connected, emit, on } = useSocket();
+  const { connected, emit, on } = useSocket();
   const [roster, setRoster] = useState([]);
   const [events, setEvents] = useState([]);
   const [currentTimelineIndex, setCurrentTimelineIndex] = useState(-1);
@@ -19,7 +19,10 @@ const AdminDashboard = ({ session }) => {
   const scenarioInfo = SCENARIOS.find(s => s.key === session.scenarioKey);
   
   useEffect(() => {
-    if (!socket || !connected) return;
+    if (!connected) return;
+
+    // Join the session room as admin to receive real-time roster updates
+    emit('admin:join', { sessionCode: session.sessionCode });
     
     // Listen for roster updates when someone joins
     const unsubJoined = on('session:joined', (data) => {
@@ -70,10 +73,10 @@ const AdminDashboard = ({ session }) => {
       if (unsubLog) unsubLog();
       if (unsubEnd) unsubEnd();
     };
-  }, [socket, connected, on]);
+  }, [connected, emit, on, session.sessionCode]);
   
   const handleStartScenario = () => {
-    if (!socket || !connected) {
+    if (!connected) {
       alert('Not connected to server');
       return;
     }

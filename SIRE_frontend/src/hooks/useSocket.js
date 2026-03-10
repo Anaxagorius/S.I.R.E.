@@ -1,10 +1,10 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import io from 'socket.io-client';
 
 export const useSocket = () => {
-  const [socket, setSocket] = useState(null);
+  const socketRef = useRef(null);
   const [connected, setConnected] = useState(false);
-  
+
   useEffect(() => {
     const newSocket = io('http://localhost:8080/sim', {
       transports: ['websocket'],
@@ -12,41 +12,52 @@ export const useSocket = () => {
         'x-api-key': 'local-dev-key'
       }
     });
-    
+
+    socketRef.current = newSocket;
+
     newSocket.on('connect', () => {
       console.log('Socket connected');
       setConnected(true);
     });
-    
+
     newSocket.on('disconnect', () => {
       console.log('Socket disconnected');
       setConnected(false);
     });
-    
+
+    newSocket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error.message);
+    });
+
     newSocket.on('error:occurred', (error) => {
       console.error('Socket error:', error);
     });
-    
-    setSocket(newSocket);
-    
+
     return () => {
       console.log('Closing socket connection');
       newSocket.close();
+      socketRef.current = null;
     };
   }, []);
-  
+
   const emit = useCallback((event, data) => {
-    if (socket && connected) {
-      socket.emit(event, data);
+    if (socketRef.current && connected) {
+      socketRef.current.emit(event, data);
     }
-  }, [socket, connected]);
-  
+  }, [connected]);
+
+  // `on` reads socketRef.current at call time (not at creation), so it always
+  // registers on the current socket instance. The cleanup closure captures the
+  // specific socket used during registration, ensuring correct removal even
+  // across reconnects (which reuse the same socket object).
   const on = useCallback((event, handler) => {
+    const socket = socketRef.current;
     if (socket) {
       socket.on(event, handler);
       return () => socket.off(event, handler);
     }
-  }, [socket]);
-  
-  return { socket, connected, emit, on };
+    return undefined;
+  }, []);
+
+  return { connected, emit, on };
 };

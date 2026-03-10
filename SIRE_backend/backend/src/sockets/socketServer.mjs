@@ -95,6 +95,12 @@ export function attachSocketServer(httpServer, logger) {
                     roster: record.trainees,
                     currentTimelineIndex: record.currentTimelineIndex
                 });
+                // Notify all other sockets in the room (e.g. admin) about the updated roster
+                socket.to(room).emit('session:joined', {
+                    sessionCode,
+                    roster: record.trainees,
+                    currentTimelineIndex: record.currentTimelineIndex
+                });
                 simNamespace.to(room).emit('event:log:broadcast', {
                     actorRole: 'trainee',
                     displayName,
@@ -119,6 +125,33 @@ export function attachSocketServer(httpServer, logger) {
                 });
                 emitError(socket, code, 'Unable to join session');
             }
+        });
+
+        socket.on('admin:join', payload => {
+            const sessionCode = normalizeSessionCode(payload?.sessionCode);
+            if (!sessionCode) {
+                emitError(socket, 'INVALID_PAYLOAD', 'sessionCode is required');
+                return;
+            }
+            const session = inMemorySessionStore.getSession(sessionCode);
+            if (!session) {
+                emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+                return;
+            }
+            const room = `session:${sessionCode}`;
+            socket.join(room);
+            socket.emit('session:joined', {
+                sessionCode,
+                roster: session.trainees,
+                currentTimelineIndex: session.currentTimelineIndex
+            });
+            auditLogger.event({
+                action: 'admin:join',
+                actor,
+                context: buildAuditContext({ sessionCode, socketId: socket.id }, ['sessionCode', 'socketId']),
+                outcome: 'success',
+                correlationId: generateRandomUuid()
+            });
         });
 
         socket.on('session:start', payload => {

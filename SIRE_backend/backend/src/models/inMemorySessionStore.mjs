@@ -3,13 +3,16 @@
  * inMemorySessionStore.js
  * Minimal in-memory store for sessions.
  */
-import { nanoid } from 'nanoid'
+import { customAlphabet } from 'nanoid'
 
 /** @type {Map<string, any>} */
 const sessionMap = new Map()
 
-/** Generate human-friendly 6-char session code */
-const generateSessionCode = () => nanoid(6).toUpperCase()
+/** Alphabet restricted to uppercase letters and digits only (matches normalizeSessionCode validator) */
+const nanoidAlphanumeric = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)
+
+/** Generate human-friendly 6-char session code using only [A-Z0-9] characters */
+const generateSessionCode = () => nanoidAlphanumeric()
 
 export const inMemorySessionStore = {
   createSession: ({ scenarioKey, instructorDisplayName }) => {
