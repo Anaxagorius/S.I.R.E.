@@ -71,4 +71,14 @@ export const parseLimit = (value, { fallback = 100, min = 1, max = 200 } = {}) =
   return { value: rounded, valid: true }
 }
 
+const ALLOWED_ROLES = new Set(['security', 'safety', 'medical', 'communications', 'facilities', 'evacuation'])
+
+export const normalizeRole = (value) => {
+  const candidate = normalizeText(value, 32)
+  if (!candidate) return null
+  const lowered = candidate.toLowerCase()
+  if (!ALLOWED_ROLES.has(lowered)) return null
+  return lowered
+}
+
 export const generateRandomUuid = () => crypto.randomUUID()

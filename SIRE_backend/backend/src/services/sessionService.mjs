@@ -15,13 +15,13 @@ export const sessionService = {
     if (!scenario) throw new Error('SCENARIO_NOT_FOUND')
     return inMemorySessionStore.createSession({ scenarioKey, instructorDisplayName })
   },
-  joinSession: ({ sessionCode, socketId, displayName }) => {
+  joinSession: ({ sessionCode, socketId, displayName, role }) => {
     const s = inMemorySessionStore.getSession(sessionCode)
     if (!s) throw new Error('SESSION_NOT_FOUND')
     if (s.trainees.length >= environmentConfig.sessionMaxTrainees) {
       throw new Error('SESSION_AT_CAPACITY')
     }
-    inMemorySessionStore.addTrainee(sessionCode, { socketId, displayName })
+    inMemorySessionStore.addTrainee(sessionCode, { socketId, displayName, role: role || null })
     return inMemorySessionStore.getSession(sessionCode)
   },
   removeSession: (sessionCode) => inMemorySessionStore.removeSession(sessionCode),

@@ -24,9 +24,7 @@ const SessionSetup = ({ role, onSessionCreated, onSessionJoined }) => {
     try {
       const session = await createSession(selectedScenario, instructorName);
       setCreatedSessionCode(session.sessionCode);
-      if (onSessionCreated) {
-        onSessionCreated(session);
-      }
+      // Store the created session for when the admin opens the dashboard
     } catch (err) {
       setError('Failed to create session. Make sure the backend is running.');
       console.error(err);
@@ -70,6 +68,13 @@ const SessionSetup = ({ role, onSessionCreated, onSessionJoined }) => {
             <p className="session-instructions">
               Share this code with trainees so they can join your session.
             </p>
+            <button
+              onClick={() => onSessionCreated && onSessionCreated({ sessionCode: createdSessionCode, scenarioKey: selectedScenario })}
+              className="btn-primary"
+              style={{ marginTop: '1.5rem' }}
+            >
+              Open Instructor Dashboard →
+            </button>
           </div>
         </div>
       );
@@ -100,8 +105,8 @@ const SessionSetup = ({ role, onSessionCreated, onSessionJoined }) => {
           
           {error && <div className="error-message">{error}</div>}
           
-          <button type="submit" disabled={loading} className="btn-primary">
-            {loading ? 'Creating...' : 'Create Session'}
+          <button type="submit" disabled={loading || !selectedScenario || !instructorName} className="btn-primary">
+            {loading ? 'Creating…' : 'Create Session'}
           </button>
         </form>
       </div>

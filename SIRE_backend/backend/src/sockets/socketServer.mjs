@@ -10,7 +10,7 @@ import { securityConfig } from '../config/securityConfig.mjs';
 import { environmentConfig } from '../config/environmentConfig.mjs';
 import { auditLogger } from '../config/auditLogger.mjs';
 import { buildAuditContext } from '../utils/auditContext.mjs';
-import { generateRandomUuid, normalizeActionText, normalizeDisplayName, normalizeMessageText, normalizeRationaleText, normalizeSessionCode, normalizeSeverity } from '../utils/validation.mjs';
+import { generateRandomUuid, normalizeActionText, normalizeDisplayName, normalizeMessageText, normalizeRationaleText, normalizeRole, normalizeSessionCode, normalizeSeverity } from '../utils/validation.mjs';
 
 const require = createRequire(import.meta.url);
 const { Server } = require('socket.io');
@@ -82,12 +82,13 @@ export function attachSocketServer(httpServer, logger) {
         socket.on('session:join', payload => {
             const sessionCode = normalizeSessionCode(payload?.sessionCode);
             const displayName = normalizeDisplayName(payload?.displayName);
+            const role = normalizeRole(payload?.role);
             if (!sessionCode || !displayName) {
                 emitError(socket, 'INVALID_PAYLOAD', 'sessionCode and displayName are required');
                 return;
             }
             try {
-                const record = sessionService.joinSession({ sessionCode, socketId: socket.id, displayName });
+                const record = sessionService.joinSession({ sessionCode, socketId: socket.id, displayName, role });
                 const room = `session:${sessionCode}`;
                 socket.join(room);
                 socket.emit('session:joined', {
