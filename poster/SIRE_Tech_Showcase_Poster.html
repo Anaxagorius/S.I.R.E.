@@ -9,274 +9,214 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:    #0a1628;
-      --blue:    #1a3a6b;
-      --accent:  #e63946;
-      --gold:    #f4a261;
-      --cyan:    #06d6a0;
-      --light:   #e8f4fd;
-      --white:   #ffffff;
-      --muted:   #94adc5;
-      --card-bg: rgba(255,255,255,0.05);
-      --border:  rgba(255,255,255,0.12);
+      --red:      #e63946;
+      --red-dark: #c1121f;
+      --text:     #1a1a1a;
+      --muted:    #555555;
+      --border:   #dddddd;
+      --bg:       #ffffff;
+      --col-l:    #fff5f5;
+      --col-m:    #f5fff9;
+      --col-r:    #f5f5ff;
+      --head-bg:  #e63946;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;600;700&display=swap');
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap');
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--navy);
-      color: var(--white);
+      font-family: 'Open Sans', Arial, sans-serif;
+      background: #f0f0f0;
+      color: var(--text);
       min-height: 100vh;
       line-height: 1.5;
     }
 
     /* ── Print: A1 landscape ────────────────────────────────────── */
     @media print {
-      @page { size: A1 landscape; margin: 10mm; }
-      body  { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      @page { size: A1 landscape; margin: 8mm; }
+      body  { background: #f0f0f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
 
-    /* ── Layout ─────────────────────────────────────────────────── */
+    /* ── Poster shell ────────────────────────────────────────────── */
     .poster {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 32px 28px 40px;
+      max-width: 1540px;
+      margin: 24px auto;
+      background: var(--bg);
+      border: 2px solid #cccccc;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     }
 
-    /* ── Header ─────────────────────────────────────────────────── */
-    .header {
+    /* ── Header band ─────────────────────────────────────────────── */
+    .poster-header {
+      background: var(--bg);
+      border-bottom: 4px solid var(--red);
+      padding: 24px 36px 18px;
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
-      gap: 24px;
-      border-bottom: 3px solid var(--accent);
-      padding-bottom: 24px;
-      margin-bottom: 32px;
+      gap: 20px;
     }
-    .header-title {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .logo-line {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .logo-badge {
-      background: linear-gradient(135deg, var(--accent), #c1121f);
-      border-radius: 12px;
-      padding: 10px 20px;
-      font-family: 'Orbitron', monospace;
-      font-size: 2.6rem;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      color: var(--white);
-      text-shadow: 0 2px 12px rgba(230,57,70,0.6);
-      box-shadow: 0 4px 20px rgba(230,57,70,0.4);
-    }
-    .title-full {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--light);
-      letter-spacing: 0.05em;
-    }
-    .tagline {
-      font-size: 1.05rem;
-      color: var(--muted);
-      font-style: italic;
-      margin-top: 4px;
-    }
-    .course-badge {
-      background: var(--blue);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 14px;
-      font-size: 0.8rem;
-      color: var(--gold);
-      font-weight: 600;
-      letter-spacing: 0.04em;
+    .header-center {
       text-align: center;
-      width: fit-content;
+    }
+    .poster-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .poster-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--red-dark);
+      margin-top: 6px;
+      letter-spacing: 0.02em;
+    }
+    .poster-tagline {
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-top: 4px;
     }
     .header-qr {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 5px;
     }
     .header-qr img {
-      width: 130px;
-      height: 130px;
-      border-radius: 10px;
-      border: 3px solid var(--cyan);
+      width: 110px;
+      height: 110px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      padding: 3px;
       background: white;
-      padding: 4px;
     }
     .qr-label {
-      font-size: 0.72rem;
-      color: var(--cyan);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      text-align: center;
-    }
-    .qr-url {
-      font-size: 0.62rem;
-      color: var(--muted);
-      text-align: center;
-      word-break: break-all;
-      max-width: 140px;
-    }
-
-    /* ── Section heading ─────────────────────────────────────────── */
-    .section-heading {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .section-heading::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ── Grid rows ───────────────────────────────────────────────── */
-    .row-2   { display: grid; grid-template-columns: 1fr 1fr;      gap: 20px; margin-bottom: 20px; }
-    .row-3   { display: grid; grid-template-columns: 1fr 1fr 1fr;  gap: 20px; margin-bottom: 20px; }
-    .row-4   { display: grid; grid-template-columns: repeat(4,1fr);gap: 16px; margin-bottom: 20px; }
-    .row-2-1 { display: grid; grid-template-columns: 2fr 1fr;      gap: 20px; margin-bottom: 20px; }
-
-    /* ── Card ────────────────────────────────────────────────────── */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      backdrop-filter: blur(6px);
-    }
-    .card.accent-top  { border-top: 3px solid var(--accent); }
-    .card.accent-gold { border-top: 3px solid var(--gold);   }
-    .card.accent-cyan { border-top: 3px solid var(--cyan);   }
-    .card.accent-blue { border-top: 3px solid #4fc3f7;       }
-
-    /* ── About ────────────────────────────────────────────────────── */
-    .about-text {
-      font-size: 0.95rem;
-      color: var(--light);
-      line-height: 1.7;
-    }
-    .about-text strong { color: var(--gold); }
-    .stat-row {
-      display: flex;
-      gap: 20px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-    .stat {
-      text-align: center;
-      flex: 1;
-      min-width: 70px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 10px 6px;
-    }
-    .stat-num {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: var(--accent);
-      display: block;
-    }
-    .stat-lbl {
       font-size: 0.68rem;
       color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── 3-column body ────────────────────────────────────────────── */
+    .poster-body {
+      display: grid;
+      grid-template-columns: 22% 1fr 28%;
+      gap: 0;
+      min-height: 0;
+    }
+    .col {
+      padding: 22px 20px;
+      border-right: 2px solid var(--border);
+    }
+    .col:last-child { border-right: none; }
+    .col-left  { background: #fffafa; }
+    .col-mid   { background: #ffffff; }
+    .col-right { background: #fafafa; }
+
+    /* ── Section heading ─────────────────────────────────────────── */
+    .sec-heading {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--red);
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Body text ───────────────────────────────────────────────── */
+    .body-text {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.65;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    /* ── Bullet lists ────────────────────────────────────────────── */
+    .bullet-list {
+      list-style: disc;
+      padding-left: 1.2em;
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .bullet-list li { margin-bottom: 3px; }
+
+    /* ── Section divider ─────────────────────────────────────────── */
+    .sec-divider {
+      border: none;
+      border-top: 1.5px solid var(--border);
+      margin: 18px 0;
+    }
+
+    /* ── Placeholder / content boxes ────────────────────────────── */
+    .content-box {
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+    .box-green  { background: #e8f8ef; border: 1.5px solid #a3d9b8; }
+    .box-orange { background: #fff0e0; border: 1.5px solid #f4c48a; }
+    .box-blue   { background: #e8f0ff; border: 1.5px solid #a3b8f4; }
+    .box-yellow { background: #fffde8; border: 1.5px solid #e0d878; }
+    .box-pink   { background: #fff0f0; border: 1.5px solid #f4a3a3; }
+    .box-purple { background: #f5eeff; border: 1.5px solid #c4a3f4; }
+    .box-label  {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--red);
+      margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
 
-    /* ── Team ─────────────────────────────────────────────────────── */
-    .team-member {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 14px 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
+    /* ── SWOT grid ───────────────────────────────────────────────── */
+    .swot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
-    .avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: white;
-      flex-shrink: 0;
-    }
-    .av-red  { background: linear-gradient(135deg, #e63946, #9d0208); box-shadow: 0 0 14px rgba(230,57,70,0.5); }
-    .av-blue { background: linear-gradient(135deg, #4fc3f7, #0277bd); box-shadow: 0 0 14px rgba(79,195,247,0.5); }
-    .av-gold { background: linear-gradient(135deg, #f4a261, #e76f51); box-shadow: 0 0 14px rgba(244,162,97,0.5); }
-    .av-cyan { background: linear-gradient(135deg, #06d6a0, #028858); box-shadow: 0 0 14px rgba(6,214,160,0.5); }
-    .member-name  { font-weight: 700; font-size: 0.92rem; color: var(--white); }
-    .member-role  { font-size: 0.72rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-    .member-tasks {
-      font-size: 0.68rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    /* ── Tech stack ───────────────────────────────────────────────── */
-    .stack-layer {
-      margin-bottom: 14px;
-    }
-    .stack-layer-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-    .tech-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .pill {
+    .swot-cell {
       border-radius: 6px;
-      padding: 5px 12px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      white-space: nowrap;
+      padding: 10px 11px;
+      font-size: 0.75rem;
+      line-height: 1.55;
     }
-    .pill-fe  { background: rgba(79,195,247,0.18); border: 1px solid rgba(79,195,247,0.4); color: #4fc3f7; }
-    .pill-be  { background: rgba(6,214,160,0.18);  border: 1px solid rgba(6,214,160,0.4);  color: var(--cyan); }
-    .pill-rt  { background: rgba(244,162,97,0.18); border: 1px solid rgba(244,162,97,0.4); color: var(--gold); }
-    .pill-ops { background: rgba(230,57,70,0.18);  border: 1px solid rgba(230,57,70,0.4);  color: #ff6b7a; }
+    .swot-cell strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .swot-s { background: #e8f8ef; border: 1.5px solid #a3d9b8; color: #1a5c36; }
+    .swot-s strong { color: #155228; }
+    .swot-w { background: #fff0e0; border: 1.5px solid #f4c48a; color: #6b3800; }
+    .swot-w strong { color: #6b3800; }
+    .swot-o { background: #e8f0ff; border: 1.5px solid #a3b8f4; color: #1a2e6b; }
+    .swot-o strong { color: #1a2e6b; }
+    .swot-t { background: #fff0f0; border: 1.5px solid #f4a3a3; color: #6b1a1a; }
+    .swot-t strong { color: #6b1a1a; }
 
     /* ── Architecture diagram ─────────────────────────────────────── */
-    .arch-diagram {
+    .arch-wrap {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      padding: 8px 0;
+      gap: 5px;
+      padding: 10px 0;
     }
     .arch-row {
       display: flex;
@@ -286,499 +226,437 @@
       width: 100%;
     }
     .arch-box {
-      border-radius: 8px;
+      border-radius: 7px;
       padding: 8px 14px;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       text-align: center;
       white-space: nowrap;
       line-height: 1.3;
     }
-    .arch-box.blue   { background: rgba(79,195,247,0.25); border: 2px solid #4fc3f7; color: #4fc3f7; }
-    .arch-box.green  { background: rgba(6,214,160,0.25);  border: 2px solid var(--cyan); color: var(--cyan); }
-    .arch-box.red    { background: rgba(230,57,70,0.25);  border: 2px solid var(--accent); color: #ff6b7a; }
-    .arch-box.gold   { background: rgba(244,162,97,0.25); border: 2px solid var(--gold); color: var(--gold); }
-    .arch-box.purple { background: rgba(179,136,255,0.2); border: 2px solid #b388ff; color: #b388ff; }
-    .arch-arrow {
-      color: var(--muted);
-      font-size: 1.1rem;
-      user-select: none;
-    }
-    .arch-note {
-      font-size: 0.62rem;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 4px;
-    }
-    .double-arrow { display: flex; flex-direction: column; align-items: center; color: var(--cyan); font-size: 0.7rem; }
+    .ab-blue   { background: #daeeff; border: 2px solid #5ba8d4; color: #0a3c5c; }
+    .ab-green  { background: #daffef; border: 2px solid #38b885; color: #0a4028; width:100%; text-align:center; }
+    .ab-red    { background: #ffe8e8; border: 2px solid #e06060; color: #6b0000; flex:1; }
+    .ab-gold   { background: #fff5d6; border: 2px solid #d4a017; color: #5c3a00; flex:1; }
+    .ab-purple { background: #f2e8ff; border: 2px solid #a060d4; color: #3a005c; flex:1; }
+    .arch-arrow { color: #888; font-size: 1rem; user-select: none; }
+    .arch-note  { font-size: 0.67rem; color: var(--muted); text-align: center; margin-top: 4px; font-style: italic; }
 
-    /* ── Feature list ─────────────────────────────────────────────── */
-    .feature-list {
-      list-style: none;
+    /* ── Tech pills ───────────────────────────────────────────────── */
+    .pill-row {
       display: flex;
-      flex-direction: column;
-      gap: 7px;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 8px;
     }
-    .feature-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 0.82rem;
-      color: var(--light);
+    .pill {
+      border-radius: 4px;
+      padding: 3px 9px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      white-space: nowrap;
     }
-    .feature-list li .icon {
-      flex-shrink: 0;
-      font-size: 0.95rem;
-      margin-top: 1px;
-    }
-
-    /* ── Scenarios ────────────────────────────────────────────────── */
-    .scenario-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-    .scenario-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 10px;
-      text-align: center;
-    }
-    .scenario-icon { font-size: 1.8rem; display: block; margin-bottom: 6px; }
-    .scenario-name {
-      font-size: 0.75rem;
+    .pill-fe  { background: #daeeff; border: 1px solid #5ba8d4; color: #0a3c5c; }
+    .pill-be  { background: #daffef; border: 1px solid #38b885; color: #0a4028; }
+    .pill-rt  { background: #fff5d6; border: 1px solid #d4a017; color: #5c3a00; }
+    .pill-ops { background: #ffe8e8; border: 1px solid #e06060; color: #6b0000; }
+    .pill-lbl {
+      font-size: 0.7rem;
       font-weight: 700;
-      color: var(--white);
-      margin-bottom: 3px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
     }
-    .scenario-detail { font-size: 0.65rem; color: var(--muted); line-height: 1.4; }
 
-    /* ── Timeline sample ──────────────────────────────────────────── */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      position: relative;
+    /* ── Mock-up thumbnails ───────────────────────────────────────── */
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
-    .tl-item {
+    .mockup-thumb {
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      font-size: 0.7rem;
+      text-align: center;
+      color: var(--muted);
+    }
+    .mockup-bar {
+      height: 10px;
+      background: var(--red);
+      opacity: 0.7;
+    }
+    .mockup-body {
+      background: #f8f8f8;
+      padding: 6px 4px 8px;
+    }
+    .mockup-dot { width: 28px; height: 6px; border-radius: 3px; margin: 3px auto; }
+
+    /* ── Team rows ───────────────────────────────────────────────── */
+    .team-row {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      position: relative;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
-    .tl-item:not(:last-child) .tl-dot::after {
-      content: '';
-      position: absolute;
-      top: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      height: calc(100% + 4px);
-      background: var(--border);
-    }
-    .tl-dot {
-      width: 22px;
-      height: 22px;
+    .team-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .avatar {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.6rem;
-      font-weight: 700;
-      position: relative;
-      margin-top: 2px;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: white;
+      flex-shrink: 0;
+      font-family: 'Montserrat', sans-serif;
     }
-    .tl-info { flex: 1; padding-bottom: 12px; }
-    .tl-time { font-size: 0.65rem; color: var(--muted); font-family: monospace; }
-    .tl-event { font-size: 0.78rem; color: var(--light); font-weight: 600; }
-    .tl-desc  { font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
-    .sev-info     { background: #4fc3f7; color: var(--navy); }
-    .sev-warning  { background: var(--gold); color: var(--navy); }
-    .sev-critical { background: var(--accent); color: white; }
+    .av-red    { background: linear-gradient(135deg, #e63946, #9d0208); }
+    .av-blue   { background: linear-gradient(135deg, #4a90d9, #1a5296); }
+    .av-teal   { background: linear-gradient(135deg, #06b88a, #047d5f); }
+    .av-gold   { background: linear-gradient(135deg, #d4a017, #a07010); }
+    .member-name { font-weight: 700; font-size: 0.82rem; color: var(--text); }
+    .member-role { font-size: 0.72rem; color: var(--red-dark); font-weight: 600; margin-bottom: 2px; }
+    .member-tasks { font-size: 0.7rem; color: var(--muted); line-height: 1.5; }
 
-    /* ── Footer ───────────────────────────────────────────────────── */
-    .footer {
-      border-top: 1px solid var(--border);
-      margin-top: 28px;
-      padding-top: 16px;
+    /* ── Footer band ─────────────────────────────────────────────── */
+    .poster-footer {
+      border-top: 3px solid var(--red);
+      background: var(--red);
+      padding: 10px 36px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
-    .footer-left  { font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
-    .footer-left strong { color: var(--gold); }
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.72rem;
-      color: var(--muted);
+    .footer-text { font-size: 0.75rem; color: #ffffff; line-height: 1.5; }
+    .footer-badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .fbadge {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
     }
-    .footer-badge {
-      background: var(--blue);
-      border: 1px solid var(--border);
+
+    /* ── Scenario mini-cards ─────────────────────────────────────── */
+    .scenario-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .sc-card {
+      background: #fff8f8;
+      border: 1px solid #f4c4c4;
       border-radius: 6px;
-      padding: 4px 10px;
-      font-size: 0.68rem;
-      color: var(--cyan);
-      font-weight: 600;
+      padding: 7px 9px;
+      font-size: 0.72rem;
     }
+    .sc-icon { font-size: 1.1rem; }
+    .sc-name { font-weight: 700; color: var(--red-dark); font-size: 0.74rem; }
+    .sc-desc { color: var(--muted); font-size: 0.68rem; line-height: 1.4; }
+
   </style>
 </head>
 <body>
 <div class="poster">
 
-  <!-- ═══════════════════ HEADER ════════════════════════════════════ -->
-  <header class="header">
-    <div class="header-title">
-      <div class="logo-line">
-        <div class="logo-badge">S.I.R.E.</div>
-        <div>
-          <div class="title-full">Simulator for Incident Response Exercises</div>
-          <div class="tagline">Real-time multi-user emergency training — reimagined.</div>
-        </div>
-      </div>
-      <div class="course-badge">PROG 3300 — Integrated Projects for Programming &nbsp;|&nbsp; NSCC &nbsp;|&nbsp; Instructor: Alfred Parkes</div>
+  <!-- ══════════════════════ HEADER ════════════════════════════════ -->
+  <header class="poster-header">
+    <div class="header-center">
+      <div class="poster-title">SIRE — Simulated Incident Response Environment</div>
+      <div class="poster-subtitle">Team Nibble &nbsp;·&nbsp; NSCC &nbsp;·&nbsp; PROG 3300 — Integrated Projects for Programming &nbsp;·&nbsp; Instructor: Alfred Parkes</div>
+      <div class="poster-tagline">A real-time emergency response training platform</div>
     </div>
     <div class="header-qr">
-      <img src="data:image/png;base64,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" alt="QR code — github.com/Anaxagorius/S.I.R.E." />
+      <img src="data:image/png;base64,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" alt="QR — github.com/Anaxagorius/S.I.R.E." />
       <div class="qr-label">Scan to explore</div>
-      <div class="qr-url">github.com/Anaxagorius/S.I.R.E.</div>
     </div>
   </header>
 
-  <!-- ═══════════════════ ROW 1: About + Stats  ════════════════════ -->
-  <div class="row-2" style="grid-template-columns:2fr 1fr">
+  <!-- ══════════════════════ 3-COLUMN BODY ═════════════════════════ -->
+  <div class="poster-body">
 
-    <div class="card accent-top">
-      <div class="section-heading">🎯 What Is S.I.R.E.?</div>
-      <p class="about-text">
-        <strong>S.I.R.E.</strong> is an immersive, instructor-led emergency preparedness simulator built
-        for teams that need to rehearse high-pressure decisions <em>before</em> a real crisis hits.
-        An instructor selects a scenario — fire, active threat, cyberattack, flood, and more — and trainees
-        join via a unique session code.  Events escalate automatically on a timer while the instructor can
-        inject curveballs in real time.  Every action is logged, every decision is visible, creating a rich
-        post-exercise debrief record.
+    <!-- ════ LEFT COLUMN ════ -->
+    <div class="col col-left">
+
+      <div class="sec-heading">Description</div>
+      <p class="body-text">
+        A full-stack, real-time simulation platform for practising emergency response scenarios.
+        Built with Node.js, Express, Socket.IO, and React, SIRE enables instructors to run
+        dynamic, escalating incident simulations while trainees respond in real time.
       </p>
-      <p class="about-text" style="margin-top:10px">
-        Built as a <strong>full-stack JavaScript</strong> project with React on the front end and
-        Node.js + Socket.IO on the back end, S.I.R.E. delivers <strong>&lt;&nbsp;300&nbsp;ms</strong>
-        perceived update latency across LAN-class networks and supports <strong>≥&nbsp;10 concurrent
-        trainees</strong> per session.
-      </p>
-    </div>
 
-    <div class="card accent-gold" style="display:flex;flex-direction:column;gap:10px">
-      <div class="section-heading">📊 By The Numbers</div>
-      <div class="stat-row">
-        <div class="stat"><span class="stat-num">8</span><span class="stat-lbl">Scenarios</span></div>
-        <div class="stat"><span class="stat-num">10+</span><span class="stat-lbl">Trainees/Session</span></div>
-      </div>
-      <div class="stat-row">
-        <div class="stat"><span class="stat-num">&lt;300ms</span><span class="stat-lbl">Latency</span></div>
-        <div class="stat"><span class="stat-num">4</span><span class="stat-lbl">Team Members</span></div>
-      </div>
-      <div class="stat-row">
-        <div class="stat"><span class="stat-num">12</span><span class="stat-lbl">Weeks</span></div>
-        <div class="stat"><span class="stat-num">2100+</span><span class="stat-lbl">Lines of JS</span></div>
-      </div>
-    </div>
-  </div>
+      <hr class="sec-divider"/>
 
-  <!-- ═══════════════════ ROW 2: Team ══════════════════════════════ -->
-  <div style="margin-bottom:20px">
-    <div class="section-heading" style="margin-bottom:12px">👥 The Team</div>
-    <div class="row-4">
+      <div class="sec-heading">Scope</div>
+      <ul class="bullet-list">
+        <li>Full-stack JS web application</li>
+        <li>Admin dashboard + trainee interface</li>
+        <li>Real-time WebSocket communication</li>
+        <li>Eight complete emergency scenarios</li>
+        <li>Session-based access (admin/trainee)</li>
+        <li>Free-tier cloud deployment</li>
+        <li>Documentation + testing artefacts</li>
+      </ul>
 
-      <div class="team-member">
+      <hr class="sec-divider"/>
+
+      <div class="sec-heading">Roles</div>
+      <div class="team-row">
         <div class="avatar av-red">TB</div>
-        <div class="member-name">Tom Burchell</div>
-        <div class="member-role">🔧 Backend &amp; Real-Time Lead</div>
-        <div class="member-tasks">Express REST API · Socket.IO server · Session &amp; escalation engine · CI/CD pipeline · Cloud deployment</div>
+        <div>
+          <div class="member-role">Backend &amp; Real-Time Lead</div>
+          <div class="member-name">Tom Burchell</div>
+          <div class="member-tasks">Socket.IO engine · scenario logic · server architecture · CI/CD · cloud deployment</div>
+        </div>
       </div>
-
-      <div class="team-member">
+      <div class="team-row">
         <div class="avatar av-blue">LW</div>
-        <div class="member-name">Leo Wasiliew</div>
-        <div class="member-role">🎨 Frontend &amp; UI/UX Lead</div>
-        <div class="member-tasks">React components · Admin Dashboard · Trainee UI · Responsive design · State management</div>
+        <div>
+          <div class="member-role">Frontend &amp; UI/UX Lead</div>
+          <div class="member-name">Leon Wasiliew</div>
+          <div class="member-tasks">React UI · layouts · real-time state updates · responsive design</div>
+        </div>
       </div>
-
-      <div class="team-member">
-        <div class="avatar av-cyan">JH</div>
-        <div class="member-name">John Hay</div>
-        <div class="member-role">📋 Scenario &amp; Quality Lead</div>
-        <div class="member-tasks">8 scenario definitions · Acceptance criteria · Accessibility review · Integration testing</div>
+      <div class="team-row">
+        <div class="avatar av-teal">JH</div>
+        <div>
+          <div class="member-role">Script Master / QA</div>
+          <div class="member-name">John Hay</div>
+          <div class="member-tasks">Scenario writing · integration testing · accessibility review</div>
+        </div>
       </div>
-
-      <div class="team-member">
+      <div class="team-row">
         <div class="avatar av-gold">KP</div>
-        <div class="member-name">Kael Payette</div>
-        <div class="member-role">📌 Project Coordination &amp; Testing</div>
-        <div class="member-tasks">Schedule management · Risk log · Workflow coordination · Testing orchestration</div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ═══════════════════ ROW 3: Tech Stack + Arch ══════════════════ -->
-  <div class="row-2">
-
-    <div class="card accent-cyan">
-      <div class="section-heading">🛠️ Technology Stack</div>
-
-      <div class="stack-layer">
-        <div class="stack-layer-label">Frontend</div>
-        <div class="tech-pills">
-          <span class="pill pill-fe">React 19</span>
-          <span class="pill pill-fe">React Router 7</span>
-          <span class="pill pill-fe">Vite 7</span>
-          <span class="pill pill-fe">Socket.IO Client 4</span>
-          <span class="pill pill-fe">ESLint 9</span>
+        <div>
+          <div class="member-role">Project Manager</div>
+          <div class="member-name">Kael Payette</div>
+          <div class="member-tasks">Coordination · documentation · Git workflow · standards</div>
         </div>
       </div>
 
-      <div class="stack-layer">
-        <div class="stack-layer-label">Backend</div>
-        <div class="tech-pills">
-          <span class="pill pill-be">Node.js 20</span>
-          <span class="pill pill-be">Express 4</span>
-          <span class="pill pill-be">Socket.IO 4</span>
-          <span class="pill pill-be">ES Modules</span>
-          <span class="pill pill-be">Morgan</span>
-          <span class="pill pill-be">Nanoid</span>
-        </div>
-      </div>
+    </div><!-- /col-left -->
 
-      <div class="stack-layer">
-        <div class="stack-layer-label">Real-Time Protocol</div>
-        <div class="tech-pills">
-          <span class="pill pill-rt">WebSocket</span>
-          <span class="pill pill-rt">Long-Poll Fallback</span>
-          <span class="pill pill-rt">Room Isolation</span>
-          <span class="pill pill-rt">Auto-Reconnect</span>
-        </div>
-      </div>
+    <!-- ════ CENTRE COLUMN ════ -->
+    <div class="col col-mid">
 
-      <div class="stack-layer" style="margin-bottom:0">
-        <div class="stack-layer-label">DevOps &amp; Deployment</div>
-        <div class="tech-pills">
-          <span class="pill pill-ops">Docker (Alpine)</span>
-          <span class="pill pill-ops">GitHub Actions CI</span>
-          <span class="pill pill-ops">Railway</span>
-          <span class="pill pill-ops">Render</span>
-          <span class="pill pill-ops">Heroku</span>
-        </div>
-      </div>
-    </div>
+      <div class="sec-heading">Features</div>
+      <ul class="bullet-list">
+        <li>Real-time event broadcasting via WebSocket</li>
+        <li>Scenario loading with timed, auto-escalating injects</li>
+        <li>Admin controls — start, pause, escalate, end</li>
+        <li>Trainee decision and action submission</li>
+        <li>Branching scenario logic with severity levels</li>
+        <li>Session key generation (6-character codes)</li>
+        <li>Live progress monitoring for instructors</li>
+        <li>Feedback and post-exercise results display</li>
+        <li>Colour-coded severity indicators (info / warning / critical)</li>
+        <li>Multi-user rooms with automatic reconnection</li>
+      </ul>
 
-    <div class="card accent-blue">
-      <div class="section-heading">🏗️ Architecture</div>
-      <div class="arch-diagram">
+      <hr class="sec-divider"/>
 
-        <div class="arch-row">
-          <div class="arch-box blue">🖥️ Instructor<br/>Admin Dashboard</div>
-          <div class="arch-arrow">⬦</div>
-          <div class="arch-box blue">📱 Trainees<br/>React UI (×10+)</div>
-        </div>
+      <div class="sec-heading">Architecture (ERD)</div>
+      <div class="content-box box-green">
+        <div class="arch-wrap">
 
-        <div class="arch-row" style="margin:4px 0">
-          <div class="double-arrow">
-            <span>↕ WebSocket / HTTP</span>
+          <div class="arch-row">
+            <div class="arch-box ab-blue">🖥️ Instructor<br/>Admin Dashboard</div>
+            <div class="arch-arrow">⬦</div>
+            <div class="arch-box ab-blue">📱 Trainees<br/>React UI (×10+)</div>
           </div>
-        </div>
 
-        <div class="arch-row">
-          <div class="arch-box green" style="width:100%;text-align:center;">
-            ⚡ Socket.IO Server &nbsp;·&nbsp; Express REST API &nbsp;·&nbsp; Node.js 20
+          <div class="arch-row" style="margin:4px 0; color:#666; font-size:0.85rem;">↕ WebSocket / HTTP</div>
+
+          <div class="arch-row">
+            <div class="arch-box ab-green">
+              ⚡ Socket.IO Server &nbsp;·&nbsp; Express REST API &nbsp;·&nbsp; Node.js 20
+            </div>
           </div>
-        </div>
 
-        <div class="arch-row" style="margin:4px 0">
-          <div class="double-arrow"><span>↕</span></div>
-        </div>
+          <div class="arch-row" style="margin:4px 0; color:#666; font-size:0.85rem;">↕</div>
 
-        <div class="arch-row" style="gap:10px">
-          <div class="arch-box red" style="flex:1">🗂️ In-Memory<br/>Session Store</div>
-          <div class="arch-box gold" style="flex:1">⏱️ Escalation<br/>Engine</div>
-          <div class="arch-box purple" style="flex:1">📜 Scenario<br/>Registry (8)</div>
-        </div>
-
-        <div class="arch-note" style="margin-top:8px">
-          Rooms isolate sessions · Events broadcast to all participants · Automatic timeline progression
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ═══════════════════ ROW 4: Features + Timeline ════════════════ -->
-  <div class="row-2">
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-
-      <div class="card accent-top">
-        <div class="section-heading" style="font-size:0.75rem">🎓 Instructor Powers</div>
-        <ul class="feature-list">
-          <li><span class="icon">🔑</span>Create &amp; share unique 6-char session codes</li>
-          <li><span class="icon">▶️</span>Start / pause / stop scenario timelines</li>
-          <li><span class="icon">👁️</span>Live participant roster &amp; action feed</li>
-          <li><span class="icon">⚡</span>Inject custom events (info / warning / critical)</li>
-          <li><span class="icon">📈</span>Real-time timeline progress tracking</li>
-          <li><span class="icon">🔚</span>Gracefully end &amp; export session log</li>
-        </ul>
-      </div>
-
-      <div class="card accent-blue">
-        <div class="section-heading" style="font-size:0.75rem">🧑‍🎓 Trainee Experience</div>
-        <ul class="feature-list">
-          <li><span class="icon">🔗</span>Join any session with code + display name</li>
-          <li><span class="icon">📡</span>View current escalation event prominently</li>
-          <li><span class="icon">📋</span>Browse full scenario event history</li>
-          <li><span class="icon">✍️</span>Log actions with optional rationale</li>
-          <li><span class="icon">✅</span>Instant feedback confirmation</li>
-          <li><span class="icon">🔴</span>Colour-coded severity indicators</li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="card accent-gold">
-      <div class="section-heading">🔥 Sample — Fire Emergency Timeline</div>
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-dot sev-info">1</div>
-          <div class="tl-info">
-            <div class="tl-time">T+0:05</div>
-            <div class="tl-event">Smoke Detection</div>
-            <div class="tl-desc">Sensor activated in Room 2B — Investigation dispatched</div>
+          <div class="arch-row" style="gap:8px; width:100%">
+            <div class="arch-box ab-red">🗂️ In-Memory<br/>Session Store</div>
+            <div class="arch-box ab-gold">⏱️ Escalation<br/>Engine</div>
+            <div class="arch-box ab-purple">📜 Scenario<br/>Registry (8)</div>
           </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot sev-warning">2</div>
-          <div class="tl-info">
-            <div class="tl-time">T+0:20</div>
-            <div class="tl-event">Fire Alarm Triggered</div>
-            <div class="tl-desc">Building-wide alarm — Evacuation protocol initiated</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot sev-critical">3</div>
-          <div class="tl-info">
-            <div class="tl-time">T+0:45</div>
-            <div class="tl-event">Evacuation Order</div>
-            <div class="tl-desc">All personnel to muster points — Wardens confirm headcounts</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot sev-critical">4</div>
-          <div class="tl-info">
-            <div class="tl-time">T+1:30</div>
-            <div class="tl-event">Fire Spread Reported</div>
-            <div class="tl-desc">Second floor corridor — Sprinklers activated</div>
-          </div>
-        </div>
-        <div class="tl-item" style="margin-bottom:0">
-          <div class="tl-dot sev-info" style="background:#06d6a0;color:var(--navy)">5</div>
-          <div class="tl-info" style="padding-bottom:0">
-            <div class="tl-time">T+4:00</div>
-            <div class="tl-event">Fire Department On-Site</div>
-            <div class="tl-desc">Handover to fire crew — Incident commander briefed</div>
+
+          <div class="arch-note">
+            Rooms isolate sessions &nbsp;·&nbsp; Events broadcast to all participants &nbsp;·&nbsp; Automatic timeline progression
           </div>
         </div>
       </div>
-    </div>
 
-  </div>
+      <hr class="sec-divider"/>
 
-  <!-- ═══════════════════ ROW 5: Scenarios ════════════════════════ -->
-  <div style="margin-bottom:20px">
-    <div class="section-heading">🌐 Training Scenarios</div>
-    <div class="scenario-grid">
-      <div class="scenario-card">
-        <span class="scenario-icon">🔫</span>
-        <div class="scenario-name">Active Threat</div>
-        <div class="scenario-detail">Active shooter / intruder — lockdown, sweep, all-clear</div>
+      <div class="sec-heading">Training Scenarios</div>
+      <div class="scenario-row">
+        <div class="sc-card"><span class="sc-icon">🔫</span> <span class="sc-name">Active Threat</span><br/><span class="sc-desc">Lockdown, sweep, all-clear procedures</span></div>
+        <div class="sc-card"><span class="sc-icon">🔥</span> <span class="sc-name">Fire Emergency</span><br/><span class="sc-desc">Alarm, evacuation, fire dept. handover</span></div>
+        <div class="sc-card"><span class="sc-icon">🌊</span> <span class="sc-name">Flood</span><br/><span class="sc-desc">Water intrusion, system protection</span></div>
+        <div class="sc-card"><span class="sc-icon">💻</span> <span class="sc-name">Cyber Attack</span><br/><span class="sc-desc">Ransomware, network isolation, IR</span></div>
+        <div class="sc-card"><span class="sc-icon">⚡</span> <span class="sc-name">Power Outage</span><br/><span class="sc-desc">UPS/generator failover, critical systems</span></div>
+        <div class="sc-card"><span class="sc-icon">🌪️</span> <span class="sc-name">Severe Weather</span><br/><span class="sc-desc">Shelter-in-place, facility protection</span></div>
+        <div class="sc-card"><span class="sc-icon">🚑</span> <span class="sc-name">Medical Emergency</span><br/><span class="sc-desc">Cardiac event, first-aid, EMS coord.</span></div>
+        <div class="sc-card"><span class="sc-icon">☣️</span> <span class="sc-name">Hazmat Spill</span><br/><span class="sc-desc">Containment, PPE, decontamination</span></div>
       </div>
-      <div class="scenario-card">
-        <span class="scenario-icon">🔥</span>
-        <div class="scenario-name">Fire Emergency</div>
-        <div class="scenario-detail">Alarm, evacuation, containment, fire department handover</div>
-      </div>
-      <div class="scenario-card">
-        <span class="scenario-icon">🌊</span>
-        <div class="scenario-name">Flood</div>
-        <div class="scenario-detail">Water intrusion, system protection, facility evacuation</div>
-      </div>
-      <div class="scenario-card">
-        <span class="scenario-icon">💻</span>
-        <div class="scenario-name">Cyber Attack</div>
-        <div class="scenario-detail">Ransomware detection, network isolation, IR playbook</div>
-      </div>
-      <div class="scenario-card">
-        <span class="scenario-icon">⚡</span>
-        <div class="scenario-name">Power Outage</div>
-        <div class="scenario-detail">Grid failure, UPS/generator failover, critical systems</div>
-      </div>
-      <div class="scenario-card">
-        <span class="scenario-icon">🌪️</span>
-        <div class="scenario-name">Severe Weather</div>
-        <div class="scenario-detail">Storm impact, shelter-in-place, facility protection</div>
-      </div>
-      <div class="scenario-card">
-        <span class="scenario-icon">🚑</span>
-        <div class="scenario-name">Medical Emergency</div>
-        <div class="scenario-detail">Cardiac event, first-aid response, EMS coordination</div>
-      </div>
-      <div class="scenario-card">
-        <span class="scenario-icon">☣️</span>
-        <div class="scenario-name">Hazmat Spill</div>
-        <div class="scenario-detail">Chemical containment, PPE, decontamination, cleanup</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ═══════════════════ ROW 6: Key Decisions ════════════════════ -->
-  <div class="card" style="margin-bottom:20px;border-top:3px solid #b388ff">
-    <div class="section-heading">🧠 Architecture Decision Highlights</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px">
-        <div style="color:#b388ff;font-weight:700;font-size:0.78rem;margin-bottom:4px">Full-Stack JavaScript</div>
-        <div style="font-size:0.68rem;color:var(--muted)">Single-language stack (Node.js + React) reduces cognitive overhead and enables shared patterns across front and back end.</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px">
-        <div style="color:var(--gold);font-weight:700;font-size:0.78rem;margin-bottom:4px">Socket.IO for Real-Time</div>
-        <div style="font-size:0.68rem;color:var(--muted)">Chosen over raw WebSockets for built-in fallbacks, automatic reconnection, and room-based session isolation.</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px">
-        <div style="color:var(--cyan);font-weight:700;font-size:0.78rem;margin-bottom:4px">In-Memory Session Store</div>
-        <div style="font-size:0.68rem;color:var(--muted)">Zero-dependency MVP storage that meets the ≥10 trainees/session target without introducing a database deployment burden.</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px">
-        <div style="color:#4fc3f7;font-weight:700;font-size:0.78rem;margin-bottom:4px">Multi-Cloud Deployment</div>
-        <div style="font-size:0.68rem;color:var(--muted)">Dockerfile + Railway / Render / Heroku configs ensure zero-cost academic hosting with no vendor lock-in.</div>
-      </div>
-    </div>
-  </div>
+    </div><!-- /col-mid -->
 
-  <!-- ═══════════════════ FOOTER ═══════════════════════════════════ -->
-  <footer class="footer">
-    <div class="footer-left">
-      <strong>S.I.R.E. — Simulator for Incident Response Exercises</strong><br/>
-      NSCC · PROG 3300 Integrated Projects for Programming · Instructor: Alfred Parkes<br/>
-      Team: Tom Burchell · Leo Wasiliew · John Hay · Kael Payette
+    <!-- ════ RIGHT COLUMN ════ -->
+    <div class="col col-right">
+
+      <div class="sec-heading">Mock-ups</div>
+      <div class="mockup-grid" style="margin-bottom:6px">
+        <div class="mockup-thumb">
+          <div class="mockup-bar"></div>
+          <div class="mockup-body">
+            <div class="mockup-dot" style="background:#e63946; width:60%; height:5px;"></div>
+            <div class="mockup-dot" style="background:#ddd; width:85%;"></div>
+            <div class="mockup-dot" style="background:#ddd; width:70%;"></div>
+            <div style="padding-top:3px; font-size:0.62rem; color:#aaa;">Admin Dashboard</div>
+          </div>
+        </div>
+        <div class="mockup-thumb">
+          <div class="mockup-bar" style="background:#06b88a;"></div>
+          <div class="mockup-body">
+            <div class="mockup-dot" style="background:#06b88a; width:55%; height:5px;"></div>
+            <div class="mockup-dot" style="background:#ddd; width:80%;"></div>
+            <div class="mockup-dot" style="background:#ddd; width:65%;"></div>
+            <div style="padding-top:3px; font-size:0.62rem; color:#aaa;">Trainee View</div>
+          </div>
+        </div>
+        <div class="mockup-thumb">
+          <div class="mockup-bar" style="background:#4a90d9;"></div>
+          <div class="mockup-body">
+            <div class="mockup-dot" style="background:#4a90d9; width:70%; height:5px;"></div>
+            <div class="mockup-dot" style="background:#ddd; width:90%;"></div>
+            <div class="mockup-dot" style="background:#ddd; width:60%;"></div>
+            <div style="padding-top:3px; font-size:0.62rem; color:#aaa;">Scenario Select</div>
+          </div>
+        </div>
+        <div class="mockup-thumb">
+          <div class="mockup-bar" style="background:#d4a017;"></div>
+          <div class="mockup-body">
+            <div class="mockup-dot" style="background:#d4a017; width:50%; height:5px;"></div>
+            <div class="mockup-dot" style="background:#ddd; width:75%;"></div>
+            <div class="mockup-dot" style="background:#ddd; width:80%;"></div>
+            <div style="padding-top:3px; font-size:0.62rem; color:#aaa;">Event Timeline</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="sec-divider"/>
+
+      <div class="sec-heading">SWOT</div>
+      <div class="swot-grid">
+        <div class="swot-cell swot-s">
+          <strong>Strengths</strong>
+          Real-time WebSocket communication; full-stack JS; modular scenario system; session isolation; no database dependency
+        </div>
+        <div class="swot-cell swot-w">
+          <strong>Weaknesses</strong>
+          In-memory storage (no persistence on restart); no persistent user accounts; WAN latency risk
+        </div>
+        <div class="swot-cell swot-o">
+          <strong>Opportunities</strong>
+          Persistent session logs; mobile-responsive client; expanded scenario library; external LMS integration
+        </div>
+        <div class="swot-cell swot-t">
+          <strong>Threats</strong>
+          Free-tier cloud cold-starts; browser WebSocket restrictions; server restart clears active sessions
+        </div>
+      </div>
+
+      <hr class="sec-divider"/>
+
+      <div class="sec-heading">Technology Stack</div>
+
+      <div class="pill-lbl">Frontend</div>
+      <div class="pill-row">
+        <span class="pill pill-fe">React 19</span>
+        <span class="pill pill-fe">React Router 7</span>
+        <span class="pill pill-fe">Vite 7</span>
+        <span class="pill pill-fe">Socket.IO Client 4</span>
+      </div>
+
+      <div class="pill-lbl">Backend</div>
+      <div class="pill-row">
+        <span class="pill pill-be">Node.js 20</span>
+        <span class="pill pill-be">Express 4</span>
+        <span class="pill pill-be">Socket.IO 4</span>
+        <span class="pill pill-be">ES Modules</span>
+        <span class="pill pill-be">Nanoid</span>
+      </div>
+
+      <div class="pill-lbl">Real-Time</div>
+      <div class="pill-row">
+        <span class="pill pill-rt">WebSocket</span>
+        <span class="pill pill-rt">Long-Poll Fallback</span>
+        <span class="pill pill-rt">Room Isolation</span>
+        <span class="pill pill-rt">Auto-Reconnect</span>
+      </div>
+
+      <div class="pill-lbl">DevOps &amp; Deployment</div>
+      <div class="pill-row">
+        <span class="pill pill-ops">Docker (Alpine)</span>
+        <span class="pill pill-ops">GitHub Actions CI</span>
+        <span class="pill pill-ops">Railway</span>
+        <span class="pill pill-ops">Render</span>
+        <span class="pill pill-ops">Heroku</span>
+      </div>
+
+      <hr class="sec-divider"/>
+
+      <div class="sec-heading">Key Metrics</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="content-box box-pink" style="text-align:center;padding:10px 6px">
+          <div style="font-family:'Montserrat',sans-serif;font-size:1.6rem;font-weight:900;color:#e63946">8</div>
+          <div style="font-size:0.7rem;color:#888;text-transform:uppercase;letter-spacing:0.05em">Scenarios</div>
+        </div>
+        <div class="content-box box-blue" style="text-align:center;padding:10px 6px">
+          <div style="font-family:'Montserrat',sans-serif;font-size:1.6rem;font-weight:900;color:#4a90d9">10+</div>
+          <div style="font-size:0.7rem;color:#888;text-transform:uppercase;letter-spacing:0.05em">Trainees/Session</div>
+        </div>
+        <div class="content-box box-green" style="text-align:center;padding:10px 6px">
+          <div style="font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:900;color:#06b88a">&lt;300ms</div>
+          <div style="font-size:0.7rem;color:#888;text-transform:uppercase;letter-spacing:0.05em">Event Latency</div>
+        </div>
+        <div class="content-box box-yellow" style="text-align:center;padding:10px 6px">
+          <div style="font-family:'Montserrat',sans-serif;font-size:1.6rem;font-weight:900;color:#d4a017">12</div>
+          <div style="font-size:0.7rem;color:#888;text-transform:uppercase;letter-spacing:0.05em">Weeks</div>
+        </div>
+      </div>
+
+    </div><!-- /col-right -->
+
+  </div><!-- /poster-body -->
+
+  <!-- ══════════════════════ FOOTER ════════════════════════════════ -->
+  <footer class="poster-footer">
+    <div class="footer-text">
+      <strong>S.I.R.E. — Simulated Incident Response Environment</strong><br/>
+      NSCC · PROG 3300 Integrated Projects for Programming · Instructor: Alfred Parkes &nbsp;|&nbsp;
+      Team: Tom Burchell · Leon Wasiliew · John Hay · Kael Payette
     </div>
-    <div class="footer-right">
-      <span class="footer-badge">Node.js 20</span>
-      <span class="footer-badge">React 19</span>
-      <span class="footer-badge">Socket.IO 4</span>
-      <span class="footer-badge">Docker</span>
-      <span style="color:var(--muted);font-size:0.7rem">github.com/Anaxagorius/S.I.R.E.</span>
+    <div class="footer-badges">
+      <span class="fbadge">Node.js 20</span>
+      <span class="fbadge">React 19</span>
+      <span class="fbadge">Socket.IO 4</span>
+      <span class="fbadge">Docker</span>
+      <span style="color:rgba(255,255,255,0.75);font-size:0.72rem">github.com/Anaxagorius/S.I.R.E.</span>
     </div>
   </footer>
 
