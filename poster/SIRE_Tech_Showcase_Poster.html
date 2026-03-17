@@ -269,30 +269,22 @@
       margin-bottom: 4px;
     }
 
-    /* ── Mock-up thumbnails ───────────────────────────────────────── */
-    .mockup-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-    .mockup-thumb {
-      border-radius: 6px;
-      border: 1.5px solid var(--border);
+    /* ── Logo display ─────────────────────────────────────────────── */
+    .logo-showcase {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
       overflow: hidden;
-      font-size: 0.7rem;
-      text-align: center;
-      color: var(--muted);
+      background: #000;
+      box-shadow: 0 4px 18px rgba(230,57,70,0.35), 0 0 0 2px rgba(230,57,70,0.2);
     }
-    .mockup-bar {
-      height: 10px;
-      background: var(--red);
-      opacity: 0.7;
+    .logo-showcase img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
     }
-    .mockup-body {
-      background: #f8f8f8;
-      padding: 6px 4px 8px;
-    }
-    .mockup-dot { width: 28px; height: 6px; border-radius: 3px; margin: 3px auto; }
 
     /* ── Team rows ───────────────────────────────────────────────── */
     .team-row {
@@ -518,44 +510,10 @@
     <!-- ════ RIGHT COLUMN ════ -->
     <div class="col col-right">
 
-      <div class="sec-heading">Mock-ups</div>
-      <div class="mockup-grid" style="margin-bottom:6px">
-        <div class="mockup-thumb">
-          <div class="mockup-bar"></div>
-          <div class="mockup-body">
-            <div class="mockup-dot" style="background:#e63946; width:60%; height:5px;"></div>
-            <div class="mockup-dot" style="background:#ddd; width:85%;"></div>
-            <div class="mockup-dot" style="background:#ddd; width:70%;"></div>
-            <div style="padding-top:3px; font-size:0.62rem; color:#aaa;">Admin Dashboard</div>
-          </div>
-        </div>
-        <div class="mockup-thumb">
-          <div class="mockup-bar" style="background:#06b88a;"></div>
-          <div class="mockup-body">
-            <div class="mockup-dot" style="background:#06b88a; width:55%; height:5px;"></div>
-            <div class="mockup-dot" style="background:#ddd; width:80%;"></div>
-            <div class="mockup-dot" style="background:#ddd; width:65%;"></div>
-            <div style="padding-top:3px; font-size:0.62rem; color:#aaa;">Trainee View</div>
-          </div>
-        </div>
-        <div class="mockup-thumb">
-          <div class="mockup-bar" style="background:#4a90d9;"></div>
-          <div class="mockup-body">
-            <div class="mockup-dot" style="background:#4a90d9; width:70%; height:5px;"></div>
-            <div class="mockup-dot" style="background:#ddd; width:90%;"></div>
-            <div class="mockup-dot" style="background:#ddd; width:60%;"></div>
-            <div style="padding-top:3px; font-size:0.62rem; color:#aaa;">Scenario Select</div>
-          </div>
-        </div>
-        <div class="mockup-thumb">
-          <div class="mockup-bar" style="background:#d4a017;"></div>
-          <div class="mockup-body">
-            <div class="mockup-dot" style="background:#d4a017; width:50%; height:5px;"></div>
-            <div class="mockup-dot" style="background:#ddd; width:75%;"></div>
-            <div class="mockup-dot" style="background:#ddd; width:80%;"></div>
-            <div style="padding-top:3px; font-size:0.62rem; color:#aaa;">Event Timeline</div>
-          </div>
-        </div>
+      <div class="sec-heading">Logo</div>
+      <div class="logo-showcase" style="margin-bottom:6px">
+        <img src="https://github.com/user-attachments/assets/5b2108a8-4d91-4845-b798-c75a6d2b57ff"
+             alt="S.I.R.E. — Simulated Incident Response Environment Logo" />
       </div>
 
       <hr class="sec-divider"/>
