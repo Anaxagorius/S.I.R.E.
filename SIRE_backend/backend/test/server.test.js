@@ -73,6 +73,7 @@ assert.ok(listResponse.body.find(item => item.sessionCode === session.sessionCod
 const invalidLimitResponse = await fetchJson('GET', '/api/session?limit=not-a-number', null, apiKeyHeader)
 assert.strictEqual(invalidLimitResponse.statusCode, 400)
 
+// Test 1: socket auth via legacy extraHeaders (backward-compatibility)
 const client = clientIo(`http://localhost:${port}/sim`, {
   transports: ['websocket'],
   extraHeaders: apiKeyHeader,
@@ -101,6 +102,63 @@ const joined = await new Promise((resolve, reject) => {
 
 assert.strictEqual(joined.sessionCode, session.sessionCode)
 assert.strictEqual(joined.currentTimelineIndex, -1)
+client.close()
+console.log('✓ Socket.IO auth via extraHeaders (backward-compat) passed')
+
+// Test 2: socket auth via auth payload (browser-safe primary path)
+const session2 = sessionService.createSession({ scenarioKey: scenarioKeys[0], instructorDisplayName: 'Instructor2' })
+const clientAuth = clientIo(`http://localhost:${port}/sim`, {
+  transports: ['websocket'],
+  auth: { apiKey: process.env.API_KEY },
+  forceNew: true
+})
+await new Promise((resolve, reject) => {
+  const timer = setTimeout(() => reject(new Error('auth connect timeout')), TEST_OPERATION_TIMEOUT_MS)
+  clientAuth.on('connect', () => {
+    clearTimeout(timer)
+    resolve()
+  })
+  clientAuth.on('connect_error', reject)
+})
+const joined2 = await new Promise((resolve, reject) => {
+  const timer = setTimeout(() => reject(new Error('auth join timeout')), TEST_OPERATION_TIMEOUT_MS)
+  clientAuth.on('session:joined', data => {
+    clearTimeout(timer)
+    resolve(data)
+  })
+  clientAuth.emit('session:join', { sessionCode: session2.sessionCode, displayName: 'Trainee Two' })
+  clientAuth.on('error:occurred', data => {
+    clearTimeout(timer)
+    reject(new Error(`auth join failed: ${data?.code || 'unknown'}`))
+  })
+})
+assert.strictEqual(joined2.sessionCode, session2.sessionCode)
+clientAuth.close()
+console.log('✓ Socket.IO auth via auth payload (browser-safe) passed')
+
+// Test 3: socket connection rejected when api key is wrong
+const clientBadAuth = clientIo(`http://localhost:${port}/sim`, {
+  transports: ['websocket'],
+  auth: { apiKey: 'wrong-key' },
+  forceNew: true
+})
+await new Promise((resolve, reject) => {
+  const timer = setTimeout(() => reject(new Error('bad-auth timeout')), TEST_OPERATION_TIMEOUT_MS)
+  clientBadAuth.on('connect_error', (err) => {
+    clearTimeout(timer)
+    if (String(err.message).includes('UNAUTHORIZED')) {
+      resolve()
+    } else {
+      reject(new Error(`Expected UNAUTHORIZED, got: ${err.message}`))
+    }
+  })
+  clientBadAuth.on('connect', () => {
+    clearTimeout(timer)
+    reject(new Error('Expected connection to be refused with wrong key'))
+  })
+})
+clientBadAuth.close()
+console.log('✓ Socket.IO rejects wrong api key')
 
 const deleteDenied = await fetchJson('DELETE', `/api/session/${session.sessionCode}`, null, apiKeyHeader)
 assert.strictEqual(deleteDenied.statusCode, 400)
@@ -111,8 +169,8 @@ const listAfterDelete = await fetchJson('GET', '/api/session', null, apiKeyHeade
 assert.strictEqual(listAfterDelete.statusCode, 200)
 assert.ok(!listAfterDelete.body.find(item => item.sessionCode === session.sessionCode))
 
-client.close()
 io.close()
 httpServer.close()
 inMemorySessionStore.setActive(session.sessionCode, false)
+inMemorySessionStore.setActive(session2.sessionCode, false)
 console.log('Socket.IO integration test passed')

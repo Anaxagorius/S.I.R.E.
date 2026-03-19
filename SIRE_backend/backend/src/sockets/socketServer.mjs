@@ -41,8 +41,12 @@ export function attachSocketServer(httpServer, logger) {
             socket.data.auth = { actor: 'anonymous', scope: 'socket' };
             return next();
         }
-        const provided = socket.handshake.headers?.[securityConfig.socketHandshakeHeader];
-        const candidate = Array.isArray(provided) ? provided[0] : provided;
+        // Prefer the browser-safe auth payload; fall back to header for
+        // backward compatibility with non-browser clients and existing tests.
+        const fromAuth = socket.handshake.auth?.apiKey;
+        const fromHeader = socket.handshake.headers?.[securityConfig.socketHandshakeHeader];
+        const raw = fromAuth !== undefined ? fromAuth : fromHeader;
+        const candidate = Array.isArray(raw) ? raw[0] : raw;
         if (securityConfig.apiKey && String(candidate || '') === securityConfig.apiKey) {
             socket.data.auth = { actor: 'api-key', scope: 'socket' };
             return next();

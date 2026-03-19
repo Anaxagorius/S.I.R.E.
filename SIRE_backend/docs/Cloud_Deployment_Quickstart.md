@@ -55,6 +55,16 @@ REQUIRE_TICKET_ID=false
 LOG_LEVEL=info
 ```
 
+### Frontend (sire-web static site)
+If deploying both services, set these on the `sire-web` static site:
+```
+VITE_API_BASE_URL=https://<your-backend>.onrender.com   # backend origin, no /api suffix
+VITE_API_KEY=<same value as backend API_KEY>
+```
+
+> **Note:** `VITE_API_BASE_URL` must be set before the Vite build runs.
+> The app will log a clear error and refuse to start in production if it is missing.
+
 ### Deploy
 Render automatically builds and deploys on commit.
 
@@ -113,7 +123,7 @@ After deployment, verify:
 - [ ] Health endpoint responds: `GET /api/health`
 - [ ] Can create session: `POST /api/session`
 - [ ] Can list sessions: `GET /api/session`
-- [ ] Socket.IO connects successfully
+- [ ] Socket.IO connects successfully (namespace `/sim`, use `auth: { apiKey }` payload)
 - [ ] API key authentication works
 - [ ] Application logs are visible in platform dashboard
 

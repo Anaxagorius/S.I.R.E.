@@ -164,6 +164,23 @@ Set in Render dashboard → Environment:
 2. Connect repository
 3. Render will auto-detect `render.yaml` and configure everything
 
+#### Render Environment Variables (Frontend)
+The `render.yaml` blueprint configures these for the `sire-web` static site
+automatically.  If deploying manually, set them on the Render Static Site:
+
+| Variable | Example value | Notes |
+|---|---|---|
+| `VITE_API_BASE_URL` | `https://sire-api.onrender.com` | Backend origin, **no** `/api` suffix |
+| `VITE_API_KEY` | *(copy from `sire-api` → `API_KEY`)* | Must match the backend `API_KEY` |
+
+> **Important:** `VITE_API_BASE_URL` must be set before building the frontend.
+> In production, omitting it causes the app to log a clear error and refuse to
+> start instead of silently sending requests to `localhost`.
+
+> **Important:** After deploying via Blueprint, copy the auto-generated
+> `API_KEY` from the `sire-api` service and paste it as `VITE_API_KEY` on the
+> `sire-web` service, then trigger a redeploy of `sire-web`.
+
 #### Verification
 ```bash
 curl https://sire-backend.onrender.com/api/health \
@@ -264,14 +281,17 @@ curl https://your-app.com/api/session \
 ```
 
 ### Testing Socket.IO Connection
+
+Connect to the `/sim` namespace using the `auth` payload (browser-safe).
+The backend also accepts `extraHeaders` for backward-compatible Node.js clients.
+
 ```javascript
 import { io } from 'socket.io-client';
 
-const socket = io('https://your-app.com', {
+// Primary path — works in all environments including browsers
+const socket = io('https://your-app.com/sim', {
   transports: ['websocket'],
-  extraHeaders: {
-    'x-api-key': 'YOUR_API_KEY'
-  }
+  auth: { apiKey: 'YOUR_API_KEY' }
 });
 
 socket.on('connect', () => {
@@ -339,9 +359,12 @@ lsof -ti:8080 | xargs kill -9
 ```
 
 #### Socket.IO Connection Fails
-- **Verify API key** in handshake headers
-- **Check CORS settings** for frontend domain
-- **Ensure WebSocket transport** is enabled
+- **Use the `auth` payload** — browsers may not forward `extraHeaders` on WebSocket upgrades.
+  Set `auth: { apiKey: 'YOUR_API_KEY' }` instead of `extraHeaders`.
+- **Verify API key** matches the `API_KEY` backend env var.
+- **Check CORS settings** — set `ALLOWED_ORIGINS` on the backend to the frontend origin.
+- **Correct namespace** — connect to `<BACKEND_URL>/sim`, not the root URL.
+- **Ensure WebSocket transport** is enabled (`transports: ['websocket']`).
 
 ---
 
