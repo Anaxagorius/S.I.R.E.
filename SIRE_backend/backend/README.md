@@ -206,7 +206,11 @@ The backend exposes a WebSocket server on the **same port** as the REST API.
 
 ```js
 import { io } from "socket.io-client";
-const socket = io("http://localhost:8080", { transports: ["websocket"] });
+// Connect to the /sim namespace using the auth payload (browser-safe)
+const socket = io("http://localhost:8080/sim", {
+  transports: ["websocket"],
+  auth: { apiKey: "YOUR_API_KEY" }
+});
 ```
 
 ---
@@ -300,7 +304,10 @@ If you need persistent session storage for production use, you should implement:
 
 - REST requests require `x-api-key` (set `API_KEY` env var).
 - Mutations require `x-ticket-id` for change tracking.
-- Socket.IO connections require the same API key header.
+- Socket.IO connections require the API key via the `auth` payload
+  (`auth: { apiKey }`) — this is the browser-safe approach.
+  Header-based auth (`extraHeaders`) is accepted as a backward-compatible
+  fallback for Node.js clients.
 - Set `REQUIRE_API_KEY=false` or `REQUIRE_TICKET_ID=false` only for local development.
 
 ---

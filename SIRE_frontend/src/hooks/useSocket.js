@@ -1,18 +1,17 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import io from 'socket.io-client';
+import { resolveBackendUrl, resolveApiKey } from '../utils/env.js';
 
 export const useSocket = () => {
   const socketRef = useRef(null);
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socketBase = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080';
-    const apiKey = import.meta.env.VITE_API_KEY ?? 'local-dev-key';
+    const socketBase = resolveBackendUrl();
+    const apiKey = resolveApiKey();
     const newSocket = io(`${socketBase}/sim`, {
       transports: ['websocket'],
-      extraHeaders: {
-        'x-api-key': apiKey
-      }
+      auth: { apiKey }
     });
 
     socketRef.current = newSocket;
