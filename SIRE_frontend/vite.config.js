@@ -12,14 +12,14 @@ export default defineConfig(({ mode }) => {
     server: {
       host: true,                    // binds to 0.0.0.0
       port: 5173,
-      allowedHosts: ['.up.railway.app'], // allow any subdomain like *.up.railway.app
+      allowedHosts: ['.up.railway.app', '.onrender.com'], // allow Railway and Render subdomains
     },
 
-    // Production preview on Railway
+    // Production preview on Railway / Render
     preview: {
       host: true,                                // binds to 0.0.0.0
-      port: Number(env.PORT) || 8080,            // MUST bind to Railway's $PORT
-      allowedHosts: ['.up.railway.app'],         // future-proof: allow all Railway app subdomains
+      port: Number(env.PORT) || 8080,            // MUST bind to host's $PORT
+      allowedHosts: ['.up.railway.app', '.onrender.com'], // allow Railway and Render subdomains
     },
   }
 })

@@ -1,17 +1,16 @@
 services:
   - type: web
-    name: sire-backend
+    name: sire-api
     runtime: node
     plan: free
     region: oregon
+    rootDir: SIRE_backend/backend
     buildCommand: npm ci
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 8080
       - key: LOG_LEVEL
         value: info
       - key: SESSION_MAX_TRAINEES
@@ -26,3 +25,5 @@ services:
         value: SIRE_backend
       - key: API_KEY
         generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: https://sire-web.onrender.com

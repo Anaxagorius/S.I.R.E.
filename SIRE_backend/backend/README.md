@@ -28,6 +28,45 @@ Deploy the backend to a free-tier cloud provider with one click:
 
 ---
 
+# ☁️ Render Deployment
+
+Deploy the **backend** (`sire-api`) and **frontend** (`sire-web`) to Render using the
+blueprint at the repo root.
+
+## Deploy via Blueprint (Recommended)
+
+1. Go to [Render Dashboard](https://dashboard.render.com) → **New → Blueprint**.
+2. Connect the `Anaxagorius/S.I.R.E.` repository.
+3. Render detects the root `render.yaml` and creates both services automatically:
+   - **`sire-api`** — Node web service for the backend API + Socket.IO.
+   - **`sire-web`** — Static site for the React frontend.
+4. After the first deploy, copy the generated **`API_KEY`** value from the `sire-api`
+   service in the Render dashboard and set it as **`VITE_API_KEY`** on `sire-web`.
+
+## Manual Deploy (Backend Only)
+
+1. **New → Web Service** → connect repo → set **Root Directory** to `SIRE_backend/backend`.
+2. **Build Command:** `npm ci`
+3. **Start Command:** `npm start`
+4. **Health Check Path:** `/api/health`
+5. Add the following **Environment Variables**:
+
+   | Variable | Value | Notes |
+   |---|---|---|
+   | `NODE_ENV` | `production` | |
+   | `LOG_LEVEL` | `info` | |
+   | `SESSION_MAX_TRAINEES` | `10` | |
+   | `REQUIRE_API_KEY` | `true` | |
+   | `REQUIRE_TICKET_ID` | `false` | |
+   | `AUDIT_LOG_ENABLED` | `true` | |
+   | `CODEBASE_CONTEXT` | `SIRE_backend` | |
+   | `API_KEY` | *(generate in Render)* | Use **Generate Value** |
+   | `ALLOWED_ORIGINS` | `https://sire-web.onrender.com` | Frontend URL |
+
+> **Note:** Do **not** set `PORT` — Render injects it automatically.
+
+---
+
 # 🚀 Quick Start
 
 ```

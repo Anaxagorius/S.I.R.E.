@@ -6,10 +6,12 @@ export const useSocket = () => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:8080/sim', {
+    const socketBase = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080';
+    const apiKey = import.meta.env.VITE_API_KEY ?? 'local-dev-key';
+    const newSocket = io(`${socketBase}/sim`, {
       transports: ['websocket'],
       extraHeaders: {
-        'x-api-key': 'local-dev-key'
+        'x-api-key': apiKey
       }
     });
 

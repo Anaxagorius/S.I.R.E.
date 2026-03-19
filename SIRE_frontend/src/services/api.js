@@ -1,5 +1,5 @@
-const API_BASE = 'http://localhost:8080/api';
-const API_KEY = 'local-dev-key';
+const API_BASE = `${import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080'}/api`;
+const API_KEY = import.meta.env.VITE_API_KEY ?? 'local-dev-key';
 
 export const createSession = async (scenarioKey, instructorDisplayName) => {
   const response = await fetch(`${API_BASE}/session`, {
