@@ -1,0 +1,53 @@
+services:
+  # ── Backend API + Socket.IO ───────────────────────────────────────────────
+  - type: web
+    name: sire-api
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: SIRE_backend/backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: SESSION_MAX_TRAINEES
+        value: 10
+      - key: REQUIRE_API_KEY
+        value: true
+      - key: REQUIRE_TICKET_ID
+        value: false
+      - key: AUDIT_LOG_ENABLED
+        value: true
+      - key: CODEBASE_CONTEXT
+        value: SIRE_backend
+      - key: API_KEY
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: https://sire-web.onrender.com
+
+  # ── Frontend Static Site ──────────────────────────────────────────────────
+  - type: web
+    name: sire-web
+    runtime: static
+    plan: free
+    region: oregon
+    rootDir: SIRE_frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://sire-api.onrender.com
+      - key: VITE_API_KEY
+        sync: false

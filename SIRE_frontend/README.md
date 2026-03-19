@@ -138,15 +138,59 @@ npm run build
 7. **Medical Emergency** - Cardiac event response
 8. **Hazardous Material Spill** - Chemical containment
 
+## ☁️ Deploying to Render
+
+The frontend deploys as a **Static Site** on Render under the service name **`sire-web`**.
+
+### Quick Deploy (Blueprint)
+
+The root `render.yaml` in the repository sets up both services automatically.
+
+1. Go to [Render Dashboard](https://dashboard.render.com) → **New → Blueprint**.
+2. Connect the `Anaxagorius/S.I.R.E.` repository.
+3. Render detects the root `render.yaml` and creates both `sire-api` and `sire-web`.
+4. Set the **`VITE_API_KEY`** environment variable for `sire-web` to the generated
+   `API_KEY` value from the `sire-api` service (found in the Render dashboard after
+   the first deploy).
+
+### Manual Deploy
+
+1. **New → Static Site** → connect repo → set **Root Directory** to `SIRE_frontend`.
+2. **Build Command:** `npm ci && npm run build`
+3. **Publish Directory:** `dist`
+4. Add the following **Environment Variables** (build-time):
+
+   | Variable | Value |
+   |---|---|
+   | `VITE_API_BASE_URL` | `https://sire-api.onrender.com` |
+   | `VITE_API_KEY` | *(copy from `sire-api` API_KEY)* |
+
+5. Add a **Rewrite Rule**: `/* → /index.html` (for client-side routing).
+
+### Environment Variables
+
+| Variable | Description | Default (local dev) |
+|---|---|---|
+| `VITE_API_BASE_URL` | Backend base URL (no trailing slash) | `http://localhost:8080` |
+| `VITE_API_KEY` | API key matching the backend `API_KEY` | `local-dev-key` |
+
+Copy `.env.example` to `.env` for local development:
+
+```bash
+cp .env.example .env
+# then edit .env as needed
+```
+
 ## 🐛 Troubleshooting
 
 ### Frontend won't connect to backend
 - Verify backend is running on port 8080
 - Check browser console for connection errors
 - Ensure CORS is enabled in backend
+- On Render: confirm `VITE_API_BASE_URL` points to `https://sire-api.onrender.com`
 
 ### Socket.IO not connecting
-- Check that API key matches between frontend and backend
+- Check that API key matches between frontend (`VITE_API_KEY`) and backend (`API_KEY`)
 - Verify Socket.IO namespace is `/sim`
 - Look for authentication errors in console
 
