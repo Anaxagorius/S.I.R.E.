@@ -28,6 +28,31 @@ The frontend will start on `http://localhost:5173` (Vite default port).
 npm run build
 ```
 
+## 🔄 Reloading & Updating Services
+
+### Development Mode
+
+You do **not** need to restart the frontend dev server when you edit source files.
+Vite uses **Hot Module Replacement (HMR)** — the browser updates instantly on every save.
+
+If you edit `.env` (e.g. change `VITE_API_BASE_URL` or `VITE_API_KEY`), stop the dev
+server (`Ctrl+C`) and restart it with `npm run dev` for the new values to take effect.
+
+### Production (Render / Railway / Heroku)
+
+`VITE_*` environment variables are **baked into the JavaScript bundle at build time**.
+Changing them in the platform dashboard does **not** take effect until the frontend is
+**rebuilt and redeployed**.
+
+| Scenario | Action required |
+|---|---|
+| Frontend source code changed | Redeploy `sire-web` (auto on push if auto-deploy is on) |
+| `VITE_API_BASE_URL` or `VITE_API_KEY` changed | **Manually trigger a redeploy** of `sire-web` |
+| Only backend changed | No frontend action needed |
+
+> **Tip:** Always redeploy the **backend first**, confirm it is healthy, then redeploy
+> the frontend so the Vite build uses the correct `VITE_API_KEY`.
+
 ## �� Features
 
 ### Landing Page

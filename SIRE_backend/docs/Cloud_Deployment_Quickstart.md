@@ -117,6 +117,25 @@ curl https://sire-backend-demo.herokuapp.com/api/health \
 
 ---
 
+## Updating Services After a Deploy
+
+Use this quick reference when you need to restart or redeploy after changes:
+
+| What changed | Action |
+|---|---|
+| Backend code or backend env var | Restart / redeploy the **backend** service only |
+| Frontend code | Redeploy the **frontend** service only |
+| `VITE_API_BASE_URL` or `VITE_API_KEY` | **Redeploy the frontend** — these are baked into the Vite build |
+| Both changed | Restart **backend first**, then redeploy **frontend** |
+
+> **Local dev**: no restart needed — the backend auto-reloads with `node --watch` and
+> the frontend uses Vite HMR. Changes are live the moment you save the file.
+
+> ⚠️ **Session data is lost on any backend restart** (in-memory storage). Let
+> participants know before taking the service down during a live exercise.
+
+---
+
 ## Verification Checklist
 
 After deployment, verify:

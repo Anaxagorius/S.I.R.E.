@@ -74,7 +74,7 @@ npm install
 npm run dev
 ```
 
-The server will start on the configured port (default: `8080`) and hot‑reload on file changes.
+The server will start on the configured port (default: `8080`) and **auto-restarts on every file change** via `node --watch` — no manual restart needed during development.
 
 Set an API key before calling the API:
 
@@ -251,6 +251,45 @@ curl.exe -X DELETE http://127.0.0.1:8080/api/session/<SESSION_CODE> ^
 - Socket.IO (real-time)
 - ESM / .mjs modules
 - In-memory data models
+
+---
+
+# 🔄 Updating & Restarting Services
+
+## Development Mode
+
+Both services **auto-reload** during local development — you do **not** need to shut them down when you save code changes:
+
+| Service | Reload mechanism | Restart needed on code change? |
+|---|---|---|
+| **Backend** (`npm run dev`) | `node --watch` auto-restarts on every `.mjs` / `.json` file change | ❌ No |
+| **Frontend** (`npm run dev`) | Vite Hot Module Replacement (HMR) refreshes the browser instantly | ❌ No |
+
+> **Exception — `.env` changes**: If you edit the backend `.env` file, the `node --watch`
+> process detects the change and restarts automatically. If you edit the frontend `.env`
+> file, stop the Vite dev server (`Ctrl+C`) and restart it with `npm run dev` for the
+> new values to take effect — Vite does not hot-reload `.env` changes.
+
+## Production / Cloud (Render, Railway, Heroku)
+
+On cloud platforms, which service needs to be restarted depends on *what* changed:
+
+| What changed | Restart `sire-api` (backend)? | Redeploy `sire-web` (frontend)? |
+|---|---|---|
+| Backend source code | ✅ Yes (auto-deploy on push) | ❌ No |
+| Frontend source code | ❌ No | ✅ Yes (auto-deploy on push) |
+| Backend env var (e.g. `API_KEY`, `ALLOWED_ORIGINS`) | ✅ Yes — restart via platform dashboard | ❌ No |
+| Frontend build-time env var (e.g. `VITE_API_BASE_URL`, `VITE_API_KEY`) | ❌ No | ✅ Yes — must **redeploy** to rebuild with new value |
+| Both backend and frontend changes | ✅ Yes | ✅ Yes |
+
+### Recommended order when restarting both
+
+1. Restart / redeploy **`sire-api`** (backend) first.
+2. Wait for the backend health check to pass: `GET /api/health`.
+3. Then redeploy **`sire-web`** (frontend) so the Vite build picks up the latest `VITE_API_KEY`.
+
+> ⚠️ **Session data is lost on any backend restart.** Active training sessions will be
+> cleared because the server uses in-memory storage. Inform participants before restarting.
 
 ---
 

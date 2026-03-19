@@ -10,6 +10,7 @@
   - [Railway](#railway-deployment)
   - [Render](#render-deployment)
   - [Heroku](#heroku-deployment)
+- [Updating Services](#updating-services)
 - [Health Check & Verification](#health-check--verification)
 - [Production Hardening](#production-hardening)
 
@@ -241,6 +242,55 @@ curl https://sire-backend.herokuapp.com/api/health \
 ```bash
 heroku logs --tail
 ```
+
+---
+
+## Updating Services
+
+### Do I need to restart both services after an update?
+
+It depends on *what* changed. Use the table below:
+
+| What changed | Restart backend (`sire-api`)? | Redeploy frontend (`sire-web`)? |
+|---|---|---|
+| Backend source code | ✅ Yes (auto-deploy on push) | ❌ No |
+| Frontend source code | ❌ No | ✅ Yes (auto-deploy on push) |
+| Backend env var (e.g. `API_KEY`, `ALLOWED_ORIGINS`) | ✅ Yes — restart via platform dashboard | ❌ No |
+| Frontend build-time env var (`VITE_API_BASE_URL`, `VITE_API_KEY`) | ❌ No | ✅ Yes — **trigger a manual redeploy** |
+| Both backend and frontend | ✅ Yes | ✅ Yes |
+
+### Development (local)
+
+Both services **auto-reload** — no manual restart required:
+
+- **Backend** (`npm run dev`): `node --watch` restarts automatically on file changes.
+- **Frontend** (`npm run dev`): Vite HMR refreshes the browser on every save.
+
+If you edit the backend `.env` file, the backend restarts automatically. For frontend
+`.env` changes, stop the Vite dev server (`Ctrl+C`) and restart with `npm run dev` —
+Vite does not hot-reload `.env` changes.
+
+### Production — recommended restart order
+
+When you need to restart **both** services:
+
+1. **Restart `sire-api` first** and wait for its health check to pass:
+   ```bash
+   curl https://sire-api.onrender.com/api/health -H "x-api-key: YOUR_API_KEY"
+   ```
+2. **Then redeploy `sire-web`** so the Vite build picks up the latest backend URL and API key.
+
+> ⚠️ **Session data is lost on any backend restart.** All in-memory sessions are cleared
+> when the Node process exits. Notify participants before restarting in a live exercise.
+
+### Render — manual restart / redeploy
+
+- **Backend restart**: Render Dashboard → `sire-api` → **Manual Deploy** or change an env var.
+- **Frontend rebuild**: Render Dashboard → `sire-web` → **Manual Deploy** (required whenever a `VITE_*` env var changes).
+
+### Railway — manual restart
+
+Railway Dashboard → your service → **Deployments** → click **Redeploy**.
 
 ---
 
