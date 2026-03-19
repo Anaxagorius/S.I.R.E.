@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: sire-api
+    name: s-i-r-e-2-backend
     runtime: node
     plan: free
     region: oregon
@@ -26,4 +26,4 @@ services:
       - key: API_KEY
         generateValue: true
       - key: ALLOWED_ORIGINS
-        value: https://sire-web.onrender.com
+        value: https://s-i-r-e-2-frontend.onrender.com
