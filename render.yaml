@@ -1,7 +1,7 @@
 services:
   # ── Backend API + Socket.IO ───────────────────────────────────────────────
   - type: web
-    name: sire-api
+    name: s-i-r-e-2-backend
     runtime: node
     plan: free
     region: oregon
@@ -27,11 +27,11 @@ services:
       - key: API_KEY
         generateValue: true
       - key: ALLOWED_ORIGINS
-        value: https://sire-web.onrender.com
+        value: https://s-i-r-e-2-frontend.onrender.com
 
   # ── Frontend Static Site ──────────────────────────────────────────────────
   - type: web
-    name: sire-web
+    name: s-i-r-e-2-frontend
     runtime: static
     plan: free
     region: oregon
@@ -48,6 +48,6 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        value: https://sire-api.onrender.com
+        value: https://s-i-r-e-2-backend.onrender.com
       - key: VITE_API_KEY
         sync: false

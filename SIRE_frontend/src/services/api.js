@@ -1,14 +1,14 @@
 import { resolveBackendUrl, resolveApiKey } from '../utils/env.js';
 
-const API_BASE = `${resolveBackendUrl()}/api`;
-const API_KEY = resolveApiKey();
+const getApiBase = () => `${resolveBackendUrl()}/api`;
+const getApiKey = () => resolveApiKey();
 
 export const createSession = async (scenarioKey, instructorDisplayName) => {
-  const response = await fetch(`${API_BASE}/session`, {
+  const response = await fetch(`${getApiBase()}/session`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': API_KEY,
+      'x-api-key': getApiKey(),
       'x-ticket-id': 'FRONTEND-' + Date.now()
     },
     body: JSON.stringify({ scenarioKey, instructorDisplayName })
@@ -20,9 +20,9 @@ export const createSession = async (scenarioKey, instructorDisplayName) => {
 };
 
 export const getSessions = async () => {
-  const response = await fetch(`${API_BASE}/session`, {
+  const response = await fetch(`${getApiBase()}/session`, {
     headers: {
-      'x-api-key': API_KEY
+      'x-api-key': getApiKey()
     }
   });
   if (!response.ok) {
@@ -32,9 +32,9 @@ export const getSessions = async () => {
 };
 
 export const getSession = async (sessionCode) => {
-  const response = await fetch(`${API_BASE}/session/${sessionCode}`, {
+  const response = await fetch(`${getApiBase()}/session/${sessionCode}`, {
     headers: {
-      'x-api-key': API_KEY
+      'x-api-key': getApiKey()
     }
   });
   if (!response.ok) {
@@ -44,10 +44,10 @@ export const getSession = async (sessionCode) => {
 };
 
 export const deleteSession = async (sessionCode) => {
-  const response = await fetch(`${API_BASE}/session/${sessionCode}`, {
+  const response = await fetch(`${getApiBase()}/session/${sessionCode}`, {
     method: 'DELETE',
     headers: {
-      'x-api-key': API_KEY,
+      'x-api-key': getApiKey(),
       'x-ticket-id': 'FRONTEND-' + Date.now()
     }
   });
@@ -58,9 +58,9 @@ export const deleteSession = async (sessionCode) => {
 };
 
 export const checkHealth = async () => {
-  const response = await fetch(`${API_BASE}/health`, {
+  const response = await fetch(`${getApiBase()}/health`, {
     headers: {
-      'x-api-key': API_KEY
+      'x-api-key': getApiKey()
     }
   });
   if (!response.ok) {
