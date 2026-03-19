@@ -50,4 +50,7 @@ services:
       - key: VITE_API_BASE_URL
         value: https://s-i-r-e-2-backend.onrender.com
       - key: VITE_API_KEY
-        sync: false
+        fromService:
+          type: web
+          name: s-i-r-e-2-backend
+          envVarKey: API_KEY
