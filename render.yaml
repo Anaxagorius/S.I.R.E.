@@ -1,7 +1,7 @@
 services:
   # ── Backend API + Socket.IO ───────────────────────────────────────────────
   - type: web
-    name: s-i-r-e-2-backend
+    name: s-i-r-e
     runtime: node
     plan: free
     region: oregon
@@ -27,11 +27,11 @@ services:
       - key: API_KEY
         generateValue: true
       - key: ALLOWED_ORIGINS
-        value: https://s-i-r-e-2-frontend.onrender.com
+        value: https://s-i-r-e-frontend.onrender.com
 
   # ── Frontend Static Site ──────────────────────────────────────────────────
   - type: web
-    name: s-i-r-e-2-frontend
+    name: s-i-r-e-frontend
     runtime: static
     plan: free
     region: oregon
@@ -48,9 +48,9 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        value: https://s-i-r-e-2-backend.onrender.com
+        value: https://s-i-r-e.onrender.com
       - key: VITE_API_KEY
         fromService:
           type: web
-          name: s-i-r-e-2-backend
+          name: s-i-r-e
           envVarKey: API_KEY

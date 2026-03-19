@@ -35,7 +35,11 @@ app.use(attachRequestContext)
 app.use(morgan('tiny'))
 
 if (securityConfig.requireApiKey && !securityConfig.apiKey) {
-  applicationLogger.warn('API key enforcement enabled without API_KEY configured')
+  applicationLogger.warn(
+    'API key enforcement enabled without API_KEY configured — ' +
+    'all API requests will be rejected with 401. ' +
+    'Set the API_KEY environment variable (and VITE_API_KEY on the frontend) to fix this.'
+  )
 }
 
 const httpServer = http.createServer(app)
