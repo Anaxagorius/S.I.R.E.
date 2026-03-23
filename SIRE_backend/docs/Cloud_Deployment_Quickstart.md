@@ -58,12 +58,12 @@ LOG_LEVEL=info
 ### Frontend (sire-web static site)
 If deploying both services, set these on the `sire-web` static site:
 ```
-VITE_API_BASE_URL=https://<your-backend>.onrender.com   # backend origin, no /api suffix
+VITE_API_BASE=https://<your-backend>.onrender.com/api   # backend base URL including /api path
 VITE_API_KEY=<same value as backend API_KEY>
 ```
 
-> **Note:** `VITE_API_BASE_URL` must be set before the Vite build runs.
-> The app will log a clear error and refuse to start in production if it is missing.
+> **Note:** `VITE_API_BASE` must be set before the Vite build runs.
+> Without it the frontend falls back to `http://localhost:8080/api` and all requests fail with "Failed to fetch" in production.
 
 ### Deploy
 Render automatically builds and deploys on commit.
@@ -125,7 +125,7 @@ Use this quick reference when you need to restart or redeploy after changes:
 |---|---|
 | Backend code or backend env var | Restart / redeploy the **backend** service only |
 | Frontend code | Redeploy the **frontend** service only |
-| `VITE_API_BASE_URL` or `VITE_API_KEY` | **Redeploy the frontend** — these are baked into the Vite build |
+| `VITE_API_BASE` or `VITE_API_KEY` | **Redeploy the frontend** — these are baked into the Vite build |
 | Both changed | Restart **backend first**, then redeploy **frontend** |
 
 > **Local dev**: no restart needed — the backend auto-reloads with `node --watch` and

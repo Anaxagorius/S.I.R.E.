@@ -35,7 +35,7 @@ npm run build
 You do **not** need to restart the frontend dev server when you edit source files.
 Vite uses **Hot Module Replacement (HMR)** — the browser updates instantly on every save.
 
-If you edit `.env` (e.g. change `VITE_API_BASE_URL` or `VITE_API_KEY`), stop the dev
+If you edit `.env` (e.g. change `VITE_API_BASE` or `VITE_API_KEY`), stop the dev
 server (`Ctrl+C`) and restart it with `npm run dev` for the new values to take effect.
 
 ### Production (Render / Railway / Heroku)
@@ -47,7 +47,7 @@ Changing them in the platform dashboard does **not** take effect until the front
 | Scenario | Action required |
 |---|---|
 | Frontend source code changed | Redeploy `sire-web` (auto on push if auto-deploy is on) |
-| `VITE_API_BASE_URL` or `VITE_API_KEY` changed | **Manually trigger a redeploy** of `sire-web` |
+| `VITE_API_BASE` or `VITE_API_KEY` changed | **Manually trigger a redeploy** of `sire-web` |
 | Only backend changed | No frontend action needed |
 
 > **Tip:** Always redeploy the **backend first**, confirm it is healthy, then redeploy
@@ -187,7 +187,7 @@ The root `render.yaml` in the repository sets up both services automatically.
 
    | Variable | Value |
    |---|---|
-   | `VITE_API_BASE_URL` | `https://sire-api.onrender.com` |
+   | `VITE_API_BASE` | `https://sire-api.onrender.com/api` |
    | `VITE_API_KEY` | *(copy from `sire-api` API_KEY)* |
 
 5. Add a **Rewrite Rule**: `/* → /index.html` (for client-side routing).
@@ -196,7 +196,7 @@ The root `render.yaml` in the repository sets up both services automatically.
 
 | Variable | Description | Default (local dev) |
 |---|---|---|
-| `VITE_API_BASE_URL` | Backend base URL (no trailing slash) | `http://localhost:8080` |
+| `VITE_API_BASE` | Backend base URL with `/api` path (no trailing slash) | `http://localhost:8080/api` |
 | `VITE_API_KEY` | API key matching the backend `API_KEY` | `local-dev-key` |
 
 Copy `.env.example` to `.env` for local development:
@@ -212,7 +212,7 @@ cp .env.example .env
 - Verify backend is running on port 8080
 - Check browser console for connection errors
 - Ensure CORS is enabled in backend
-- On Render: confirm `VITE_API_BASE_URL` points to `https://sire-api.onrender.com`
+- On Render: confirm `VITE_API_BASE` points to `https://sire-api.onrender.com/api`
 
 ### Socket.IO not connecting
 - Check that API key matches between frontend (`VITE_API_KEY`) and backend (`API_KEY`)

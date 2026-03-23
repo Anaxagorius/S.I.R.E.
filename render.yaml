@@ -47,8 +47,8 @@ services:
         source: /*
         destination: /index.html
     envVars:
-      - key: VITE_API_BASE_URL
-        value: https://s-i-r-e.onrender.com
+      - key: VITE_API_BASE
+        value: https://s-i-r-e.onrender.com/api
       - key: VITE_API_KEY
         fromService:
           type: web
