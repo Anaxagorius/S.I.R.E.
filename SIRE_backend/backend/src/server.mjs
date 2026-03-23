@@ -52,13 +52,13 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use('/api', authRoute)
 app.use('/api', requireApiKey)
 app.use('/api', requireTicket)
 app.use('/api', healthRoute)
 app.use('/api', sessionRoute)
 app.use('/api', sessionsRoute)
 app.use('/api', scenarioRoute)
-app.use('/api', authRoute)
 app.use(errorHandler)
 
 httpServer.listen(environmentConfig.httpPort, () => {
