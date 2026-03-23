@@ -1,0 +1,51 @@
+/** 
+ * Author: Leon Wasiliew 
+ * Last Update: 2026-03-21
+ * Description: Styles for the Home screen layout, including split-screen structure,
+ * left-side informational panel, right-side content display, and typography.
+ */
+
+/** Main container for the Home screen. */
+.home-container {
+    height: 100vh;
+    overflow: hidden;
+}
+
+/** Left section (navigation & information panel). */
+.home-left {
+    background: rgb(0, 0, 0);
+    border: 1px solid rgb(24, 24, 24);
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/** Wrapper for left-side content. */
+.left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/** Right section (main content & carousel area). */
+.home-right {
+    align-items: center;
+    background: rgb(36, 36, 36);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/** About section text styling. */
+.about-section {
+    line-height: 1.5;
+    word-spacing: 0.1em;
+}

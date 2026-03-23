@@ -1,0 +1,56 @@
+/** 
+ * Author: Leon Wasiliew 
+ * Last Update: 2026-03-23
+ * Description: Styles for the Admin Dashboard layout.
+ */
+
+/** Main container for the admin dashboard layout. */
+.admin-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/** Left section (admin info panel). */
+.admin-dashboard-left {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+}
+
+/** Right section (dashboard content panel). */
+.admin-dashboard-right {
+    align-items: flex-start;
+    background: rgb(36, 36, 36);
+    height: 75vh;
+    overflow-y: auto;
+    padding: 4rem 2rem;
+}
+
+/** Content wrapper. */
+.admin-dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/** Cards (reusable for sections). */
+.dashboard-card {
+    background: rgb(32, 32, 32);
+    border: 1px solid rgb(200, 40, 40);
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    padding: 1.5rem;
+}
+
+/** Footer section. */
+.footer-container {
+    background: rgb(26, 26, 26);
+    height: 25vh;
+    padding: 0 0;
+}

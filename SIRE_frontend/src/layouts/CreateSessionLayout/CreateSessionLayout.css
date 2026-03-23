@@ -1,0 +1,75 @@
+/** 
+ * Author: Leon Wasiliew 
+ * Last Update: 2026-03-22
+ * Description: Styles for the Create Session Layout.
+ */
+
+/** Main container for the create session layout. */
+.create-session-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/** Left section (branding & information panel). */
+.create-session-left {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+}
+
+/** Right section (content panel). */
+.create-session-right {
+    align-items: flex-start;
+    background: rgb(36, 36, 36);
+    display: flex;
+    height: 75vh;
+    justify-content: center;
+    padding: 4rem;
+}
+
+/** Content wrapper. */
+.create-session-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 5rem;
+    max-width: 500px;
+    width: 100%;
+}
+
+/** Header section. */
+.footer-container {
+    background: rgb(26, 26, 26);
+    height: 25vh;
+    padding: 0 0;
+}
+
+/* Select dropdown styling to match input fields */
+.form-group select {
+    background: rgb(31, 31, 31);
+    border: 1px solid rgb(136, 136, 136);
+    border-radius: 6px;
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    padding: 0.75rem;
+    appearance: none;
+    cursor: pointer;
+}
+
+/* Focus state */
+.form-group select:focus {
+    outline: none;
+    border-color: rgb(200, 40, 40);
+}
+
+/* Dropdown options */
+.form-group select option {
+    background: rgb(31, 31, 31);
+    color: rgb(255, 255, 255);
+}

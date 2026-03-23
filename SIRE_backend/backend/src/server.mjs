@@ -13,6 +13,9 @@ import morgan from 'morgan'
 
 import healthRoute from './routes/healthRoute.mjs'
 import sessionRoute from './routes/sessionRoute.mjs'
+import sessionsRoute from './routes/sessionsRoute.mjs'
+import scenarioRoute from './routes/scenarioRoute.mjs'
+import authRoute from './routes/authRoute.mjs'
 import { environmentConfig } from './config/environmentConfig.mjs'
 import { applicationLogger } from './config/logger.mjs'
 import { attachSocketServer } from './sockets/socketServer.mjs'
@@ -53,6 +56,9 @@ app.use('/api', requireApiKey)
 app.use('/api', requireTicket)
 app.use('/api', healthRoute)
 app.use('/api', sessionRoute)
+app.use('/api', sessionsRoute)
+app.use('/api', scenarioRoute)
+app.use('/api', authRoute)
 app.use(errorHandler)
 
 httpServer.listen(environmentConfig.httpPort, () => {

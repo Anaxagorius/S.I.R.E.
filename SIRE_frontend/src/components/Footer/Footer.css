@@ -1,0 +1,13 @@
+/** 
+ * Author: Leon Wasiliew 
+ * Last Update: 2026-03-21
+ * Description: Styles for the Footer component, including layout, typography, and color.
+ */
+
+/** Footer container styling. */
+.app-footer {
+    color: rgb(221, 221, 221);
+    font-size: 0.9rem;
+    padding: 1em 0;
+    text-align: center;
+}

@@ -6,16 +6,17 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   globalIgnores(['dist']),
-  // Node.js config files (vite.config.js, eslint.config.js)
+  // Node.js config files
   {
-    files: ['*.config.js', '*.config.mjs'],
+    files: ['vite.config.js'],
     languageOptions: {
       globals: globals.node,
     },
   },
+  // React source files
   {
     files: ['**/*.{js,jsx}'],
-    ignores: ['*.config.js', '*.config.mjs'],
+    ignores: ['vite.config.js'],
     extends: [
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
