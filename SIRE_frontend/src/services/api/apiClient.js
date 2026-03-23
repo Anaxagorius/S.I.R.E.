@@ -28,9 +28,8 @@ async function request(endpoint, options = {}) {
         ...(API_KEY ? { "x-api-key": API_KEY } : {}),
     };
 
-    // Makes the API request with credentials included for session management
+    // Makes the API request
     const response = await fetch(`${API_BASE}${endpoint}`, {
-        credentials: "include",  // Includes cookies in requests for session management
         ...options,
         headers,
     });
