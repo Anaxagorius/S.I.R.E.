@@ -5,21 +5,15 @@
  * POST /signup         - register a new user
  * POST /refresh-token  - refresh an access token
  * GET  /me             - get the current user profile
- *
- * NOTE: This implementation uses an in-memory user store and issues simple
- * tokens for demonstration purposes. Replace with a persistent database
- * and secure JWT library for production use.
  */
 import { Router } from 'express'
 import crypto from 'crypto'
 import { auditLogger } from '../config/auditLogger.mjs'
 import { buildAuditContext } from '../utils/auditContext.mjs'
 import { isPlainObject, normalizeText } from '../utils/validation.mjs'
+import { userDatabase } from '../models/userDatabase.mjs'
 
 const router = Router()
-
-/** Simple in-memory user store (keyed by email). */
-const userStore = new Map()
 
 /** Simple in-memory token store (keyed by token). */
 const tokenStore = new Map()
@@ -40,7 +34,7 @@ router.post('/login', (req, res) => {
     return res.status(400).json({ message: 'Email and password are required', correlationId: req.context?.correlationId })
   }
 
-  const user = userStore.get(email.toLowerCase())
+  const user = userDatabase.getByEmail(email.toLowerCase())
   if (!user) {
     auditLogger.event({
       action: 'auth:login',
@@ -95,13 +89,20 @@ router.post('/signup', (req, res) => {
     return res.status(400).json({ message: 'Email, password, and name are required', correlationId: req.context?.correlationId })
   }
 
-  if (userStore.has(email.toLowerCase())) {
+  if (userDatabase.emailExists(email.toLowerCase())) {
     return res.status(409).json({ message: 'Email already registered', correlationId: req.context?.correlationId })
   }
 
   const id = crypto.randomUUID()
   const passwordHash = crypto.createHash('sha256').update(password).digest('hex')
-  userStore.set(email.toLowerCase(), { id, email: email.toLowerCase(), name, passwordHash })
+  try {
+    userDatabase.createUser({ id, email: email.toLowerCase(), name, passwordHash })
+  } catch (err) {
+    if (err.code === 'EMAIL_CONFLICT') {
+      return res.status(409).json({ message: 'Email already registered', correlationId: req.context?.correlationId })
+    }
+    throw err
+  }
 
   auditLogger.event({
     action: 'auth:signup',
@@ -144,7 +145,7 @@ router.get('/me', (req, res) => {
   }
 
   const session = tokenStore.get(token)
-  const user = Array.from(userStore.values()).find((u) => u.id === session.userId)
+  const user = userDatabase.getById(session.userId)
 
   if (!user) {
     return res.status(404).json({ message: 'User not found', correlationId: req.context?.correlationId })
