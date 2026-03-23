@@ -279,7 +279,7 @@ On cloud platforms, which service needs to be restarted depends on *what* change
 | Backend source code | ✅ Yes (auto-deploy on push) | ❌ No |
 | Frontend source code | ❌ No | ✅ Yes (auto-deploy on push) |
 | Backend env var (e.g. `API_KEY`, `ALLOWED_ORIGINS`) | ✅ Yes — restart via platform dashboard | ❌ No |
-| Frontend build-time env var (e.g. `VITE_API_BASE_URL`, `VITE_API_KEY`) | ❌ No | ✅ Yes — must **redeploy** to rebuild with new value |
+| Frontend build-time env var (e.g. `VITE_API_BASE`, `VITE_API_KEY`) | ❌ No | ✅ Yes — must **redeploy** to rebuild with new value |
 | Both backend and frontend changes | ✅ Yes | ✅ Yes |
 
 ### Recommended order when restarting both

@@ -171,12 +171,12 @@ automatically.  If deploying manually, set them on the Render Static Site:
 
 | Variable | Example value | Notes |
 |---|---|---|
-| `VITE_API_BASE_URL` | `https://sire-api.onrender.com` | Backend origin, **no** `/api` suffix |
+| `VITE_API_BASE` | `https://sire-api.onrender.com/api` | Backend base URL including `/api` path, no trailing slash |
 | `VITE_API_KEY` | *(copy from `sire-api` → `API_KEY`)* | Must match the backend `API_KEY` |
 
-> **Important:** `VITE_API_BASE_URL` must be set before building the frontend.
-> In production, omitting it causes the app to log a clear error and refuse to
-> start instead of silently sending requests to `localhost`.
+> **Important:** `VITE_API_BASE` must be set before building the frontend.
+> In production, omitting it causes the frontend to silently fall back to
+> `http://localhost:8080/api`, which is unreachable and produces "Failed to fetch" errors.
 
 > **Important:** After deploying via Blueprint, copy the auto-generated
 > `API_KEY` from the `sire-api` service and paste it as `VITE_API_KEY` on the
@@ -256,7 +256,7 @@ It depends on *what* changed. Use the table below:
 | Backend source code | ✅ Yes (auto-deploy on push) | ❌ No |
 | Frontend source code | ❌ No | ✅ Yes (auto-deploy on push) |
 | Backend env var (e.g. `API_KEY`, `ALLOWED_ORIGINS`) | ✅ Yes — restart via platform dashboard | ❌ No |
-| Frontend build-time env var (`VITE_API_BASE_URL`, `VITE_API_KEY`) | ❌ No | ✅ Yes — **trigger a manual redeploy** |
+| Frontend build-time env var (`VITE_API_BASE`, `VITE_API_KEY`) | ❌ No | ✅ Yes — **trigger a manual redeploy** |
 | Both backend and frontend | ✅ Yes | ✅ Yes |
 
 ### Development (local)
