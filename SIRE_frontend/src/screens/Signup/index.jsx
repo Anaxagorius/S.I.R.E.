@@ -7,7 +7,7 @@
  */
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signup } from "../../services/api/api";
 import FormLayout from "../../layouts/FormLayout";
 import Button from "../../components/Button";
@@ -114,7 +114,7 @@ export default function Signup() {
 
                 {/* Login redirect. */}
                 <div className="form-group">
-                    <p>Already have an account? <a href="/login">Login here</a></p>
+                    <p>Already have an account? <Link to="/login">Login here</Link></p>
                 </div>
 
                 {/* Error message. */}

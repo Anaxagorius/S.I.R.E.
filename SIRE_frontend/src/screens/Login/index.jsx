@@ -7,6 +7,7 @@
  */
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { login } from "../../services/api/api";
 import FormLayout from "../../layouts/FormLayout";
 import Button from "../../components/Button";
@@ -65,7 +66,7 @@ export default function Login() {
                 {/** Signup redirect. */}
                 <div>
                     <p className="no-account-text">
-                        Don&apos;t have an account? <a href="/signup">Sign up here</a>.
+                        Don&apos;t have an account? <Link to="/signup">Sign up here</Link>.
                     </p>
                 </div>
 
