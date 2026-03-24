@@ -1,23 +1,23 @@
-# S.I.R.E. — Tech Showcase Poster
+# S.I.R.E. — Tech Showcase Poster & Presentation
 
-This directory contains everything needed to produce the S.I.R.E. tech-showcase poster.
+This directory contains everything needed to produce the S.I.R.E. tech-showcase poster and PowerPoint presentation.
 
 ## Files
 
 | File | Description |
 |------|-------------|
 | `generate_poster.py` | Python 3 script that builds the poster HTML and embeds a QR code |
-| `SIRE_Tech_Showcase_Poster.html` | Pre-generated, self-contained poster (ready to open) |
+| `SIRE_Tech_Showcase_Poster.html` | Pre-generated, self-contained HTML poster (ready to open) |
+| `generate_pptx.py` | Python 3 script that combines poster content & styling into the PowerPoint template |
+| `SIRE_Poster_Presentation.pptx` | Generated PowerPoint presentation (open in PowerPoint or Impress) |
 
-## Viewing / Printing
+## HTML Poster — Viewing / Printing
 
 1. Open `SIRE_Tech_Showcase_Poster.html` in any modern browser.
 2. To produce a **print-ready PDF**: `File → Print → Save as PDF` (set to A1 landscape for best results).
 3. The poster is fully self-contained — no internet connection is required after generation (fonts fall back gracefully when offline).
 
-## Regenerating
-
-If you update project details, re-run the generator:
+## Regenerating the HTML Poster
 
 ```bash
 # Install dependencies once
@@ -27,7 +27,33 @@ pip install qrcode pillow
 python3 generate_poster.py
 ```
 
-The script will overwrite `SIRE_Tech_Showcase_Poster.html` in this directory.
+## PowerPoint Presentation
+
+`SIRE_Poster_Presentation.pptx` merges the poster's three-column layout and colour scheme
+(`#e63946` red brand colour) into the `layoutA_fixed_structure.pptx` template.
+
+### Layout
+
+| Column | Contents |
+|--------|----------|
+| **Left** | Features · Scope · Roles (4 team members) |
+| **Centre** | Description · Architecture ERD · 8 Training Scenarios · Application Mockups (6 screens) |
+| **Right** | S.I.R.E. Logo · SWOT analysis · Technology Stack · Key Metrics |
+| **Header** | Title, course credits (red band) |
+| **Footer** | Project/team credits · tech badges (red band) |
+
+### Regenerating the PowerPoint
+
+```bash
+# Install dependencies once
+pip install python-pptx
+
+# Re-generate the presentation
+python3 generate_pptx.py
+```
+
+The script reads `../layoutA_fixed_structure.pptx` as the structural template and writes
+`SIRE_Poster_Presentation.pptx` in this directory.
 
 ## Poster Contents
 
