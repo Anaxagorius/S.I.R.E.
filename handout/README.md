@@ -6,9 +6,12 @@ A print-ready, one-page A4 handout for distributing to interested parties at the
 
 | File | Description |
 |------|-------------|
-| `SIRE_Handout.html` | Self-contained one-page HTML handout (open in any modern browser) |
+| `SIRE_Handout.html` | Self-contained one-page HTML handout — full colour with icons and footer links |
+| `SIRE_Handout_Print.html` | Printer-friendly version — black & white, no icons, no footer links |
 
 ## Printing / Saving as PDF
+
+### Full-colour version (`SIRE_Handout.html`)
 
 1. Open `SIRE_Handout.html` in any modern browser (Chrome, Edge, Firefox).
 2. Press **Ctrl+P** (Windows/Linux) or **Cmd+P** (macOS) to open the print dialog.
@@ -18,6 +21,16 @@ A print-ready, one-page A4 handout for distributing to interested parties at the
 6. Click **Save** or **Print**.
 
 > **Tip:** Chrome / Edge produce the most faithful PDF output for background-colour preservation.
+
+### Printer-friendly version (`SIRE_Handout_Print.html`)
+
+1. Open `SIRE_Handout_Print.html` in any modern browser (Chrome, Edge, Firefox).
+2. Press **Ctrl+P** (Windows/Linux) or **Cmd+P** (macOS) to open the print dialog.
+3. Set **Destination** to **Save as PDF** or your physical printer.
+4. Set **Paper size** to **A4**, **Orientation** to **Portrait**.
+5. Click **Save** or **Print**.
+
+> **Note:** Background graphics do not need to be enabled for the printer-friendly version — it uses no coloured backgrounds.
 
 ## Contents
 
