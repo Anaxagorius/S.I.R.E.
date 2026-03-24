@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S.I.R.E. — Tech Showcase Handout (Print)</title>
+  <style>
+    /* ── Google Fonts (graceful offline fallback) ─────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap');
+
+    /* ── Reset ────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design tokens (printer-friendly — no colour) ─────────────── */
+    :root {
+      --accent:     #000000;
+      --accent-mid: #333333;
+      --text:       #000000;
+      --muted:      #444444;
+      --border:     #999999;
+      --bg:         #ffffff;
+      --col-l:      #ffffff;
+      --col-r:      #ffffff;
+      --hdr-h:      98px;    /* 26mm @ 96dpi */
+      --ftr-h:      30px;    /* 8mm  @ 96dpi */
+      --page-h:     1122px;  /* 297mm @ 96dpi */
+    }
+
+    /* ── Body / page wrapper ──────────────────────────────────────── */
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      background: #e8e8e8;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .page {
+      position: relative;
+      width: 210mm;
+      height: 1122px;
+      margin: 12mm auto;
+      background: var(--bg);
+      outline: 1px solid #999;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.18));
+    }
+
+    /* ── Print: A4 portrait, full bleed ──────────────────────────── */
+    @media print {
+      @page { size: A4 portrait; margin: 0; }
+      body  { background: white; }
+      .page {
+        margin: 0;
+        width: 100%;
+        height: 297mm;
+        outline: none;
+        filter: none;
+      }
+    }
+
+    /* ── Header band ─────────────────────────────────────────────── */
+    .header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: var(--hdr-h);
+      background: white;
+      color: black;
+      border-bottom: 3px solid black;
+      padding: 5mm 8mm 4mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5mm;
+    }
+    .header-text { flex: 1; }
+    .header-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22pt;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: black;
+    }
+    .header-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 8.5pt;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 1.5mm;
+      color: black;
+    }
+    .header-tagline {
+      font-size: 7.5pt;
+      margin-top: 1mm;
+      font-style: italic;
+      color: #333;
+    }
+    .header-badge {
+      background: white;
+      border: 1.5px solid black;
+      border-radius: 6px;
+      padding: 2.5mm 4mm;
+      text-align: center;
+      font-size: 7pt;
+      color: black;
+      white-space: nowrap;
+      line-height: 1.55;
+    }
+    .header-badge strong {
+      display: block;
+      font-size: 8.5pt;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
+
+    /* ── Two-column body ──────────────────────────────────────────── */
+    .body {
+      position: absolute;
+      top: var(--hdr-h);
+      bottom: var(--ftr-h);
+      left: 0; right: 0;
+      display: grid;
+      grid-template-columns: 52% 48%;
+      overflow: hidden;
+    }
+    .col-left  {
+      padding: 4mm 5mm 4mm 6mm;
+      border-right: 1.5px solid var(--border);
+      background: var(--col-l);
+      overflow: hidden;
+    }
+    .col-right {
+      padding: 4mm 6mm 4mm 5mm;
+      background: var(--col-r);
+      overflow: hidden;
+    }
+
+    /* ── Section ──────────────────────────────────────────────────── */
+    .section { margin-bottom: 2.5mm; }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 7.5pt;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: black;
+      border-bottom: 1.5px solid black;
+      padding-bottom: 0.6mm;
+      margin-bottom: 2mm;
+    }
+
+    p, li { font-size: 7.5pt; color: var(--text); line-height: 1.55; }
+    p { margin-bottom: 1.5mm; }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li::before {
+      content: "- ";
+      color: black;
+      font-size: 7pt;
+    }
+    ul li { margin-bottom: 1mm; }
+
+    /* ── How it works steps ───────────────────────────────────────── */
+    .steps { display: flex; flex-direction: column; gap: 1.5mm; }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 2mm;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 4.5mm;
+      height: 4.5mm;
+      border-radius: 50%;
+      background: black;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 6.5pt;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.3mm;
+    }
+    .step-body { font-size: 7.5pt; color: var(--text); line-height: 1.45; }
+    .step-body strong { color: black; }
+
+    /* ── Architecture diagram ─────────────────────────────────────── */
+    .arch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8mm;
+      padding: 0.5mm 0;
+    }
+    .arch-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5mm;
+      width: 100%;
+    }
+    .abox {
+      border-radius: 4px;
+      padding: 1.5mm 3mm;
+      font-size: 6.5pt;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.25;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .abox-blue   { background: white; border: 1.5px solid #555; color: black; flex: 1; }
+    .abox-green  { background: white; border: 1.5px solid #555; color: black; }
+    .abox-red    { background: white; border: 1.5px solid #555; color: black; flex: 1; }
+    .abox-gold   { background: white; border: 1.5px solid #555; color: black; flex: 1; }
+    .abox-purple { background: white; border: 1.5px solid #555; color: black; flex: 1; }
+    .abox-full   { width: 100%; text-align: center; }
+    .arch-arrow  { font-size: 8pt; color: #444; user-select: none; }
+    .arch-note   { font-size: 6pt; color: var(--muted); text-align: center; font-style: italic; margin-top: 1mm; }
+
+    /* ── Tech stack pills ─────────────────────────────────────────── */
+    .pill-group { margin-bottom: 2mm; }
+    .pill-label {
+      font-size: 6pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1mm;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 1mm; }
+    .pill {
+      border-radius: 3px;
+      padding: 0.8mm 2mm;
+      font-size: 6.5pt;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .p-fe  { background: white; border: 1px solid #666; color: black; }
+    .p-be  { background: white; border: 1px solid #666; color: black; }
+    .p-rt  { background: white; border: 1px solid #666; color: black; }
+    .p-ops { background: white; border: 1px solid #666; color: black; }
+
+    /* ── Scenario grid ────────────────────────────────────────────── */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1mm;
+    }
+    .sc-item {
+      display: flex;
+      align-items: center;
+      gap: 1.2mm;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1.2mm 2mm;
+    }
+    .sc-name { font-size: 6.5pt; font-weight: 700; color: var(--text); line-height: 1.25; }
+    .sc-desc { font-size: 6pt; color: var(--muted); line-height: 1.25; }
+
+    /* ── Feature columns ──────────────────────────────────────────── */
+    .feature-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2mm;
+    }
+    .feature-col-head {
+      font-size: 7pt;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      color: black;
+      margin-bottom: 1mm;
+      text-align: center;
+    }
+
+    /* ── Team list ────────────────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1mm;
+    }
+    .team-member {
+      background: white;
+      border: 1px solid var(--border);
+      border-left: 3px solid black;
+      border-radius: 3px;
+      padding: 1.2mm 1.8mm;
+    }
+    .tm-name { font-weight: 700; font-size: 7.5pt; color: var(--text); }
+    .tm-role { font-size: 6.5pt; color: #333; font-weight: 600; margin-bottom: 0.5mm; }
+    .tm-tasks { font-size: 6pt; color: var(--muted); line-height: 1.3; }
+
+    /* ── Highlight box ────────────────────────────────────────────── */
+    .highlight-box {
+      background: #f5f5f5;
+      border: 1.5px solid #aaa;
+      border-radius: 4px;
+      padding: 2mm 3mm;
+      font-size: 7.5pt;
+      line-height: 1.55;
+    }
+    .highlight-box strong { color: black; }
+
+    /* ── Footer band ─────────────────────────────────────────────── */
+    .footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: var(--ftr-h);
+      background: white;
+      border-top: 1px solid #999;
+      color: #333;
+      padding: 0 8mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4mm;
+      font-size: 6.5pt;
+    }
+    .footer-team { opacity: 0.85; }
+    .footer-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 7.5pt;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Header ─────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-text">
+      <div class="header-title">S.I.R.E.</div>
+      <div class="header-subtitle">Simulator for Incident Response Exercises</div>
+      <div class="header-tagline">Real-time, scenario-driven emergency training — in any browser</div>
+    </div>
+    <div class="header-badge">
+      <strong>Team Nibble</strong>
+      NSCC &nbsp;·&nbsp; PROG 3300<br/>
+      Integrated Projects for Programming<br/>
+      Instructor: Alfred Parkes
+    </div>
+  </header>
+
+  <!-- ── Two-column body ────────────────────────────────────────── -->
+  <div class="body">
+
+    <!-- ════ LEFT COLUMN ════════════════════════════════════════════ -->
+    <div class="col-left">
+
+      <!-- What is S.I.R.E.? -->
+      <div class="section">
+        <div class="section-title">What is S.I.R.E.?</div>
+        <p>
+          S.I.R.E. is a <strong>web-based incident response training platform</strong> that lets
+          instructors run live, scenario-driven emergency drills for groups of any size —
+          no specialised hardware or software installation required.
+        </p>
+        <p>
+          Trainees join from any device using a session code, receive real-time escalating
+          events, log their actions, and receive instant feedback — all synchronised
+          through a persistent WebSocket connection.
+        </p>
+      </div>
+
+      <!-- How it works -->
+      <div class="section">
+        <div class="section-title">How It Works</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body"><strong>Instructor creates a session</strong> — picks a scenario and shares the 6-character session code.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body"><strong>Trainees join instantly</strong> — enter the code and display name in any browser; no account needed.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body"><strong>Scenario runs automatically</strong> — timed events escalate and broadcast to every participant in real time.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body"><strong>Trainees log actions</strong> — responses and rationale are captured and visible to the instructor live.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-body"><strong>Instructor injects events</strong> — custom escalations or curve-balls can be broadcast at any moment.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key features -->
+      <div class="section">
+        <div class="section-title">Key Features</div>
+        <div class="feature-cols">
+          <div>
+            <div class="feature-col-head">Instructor</div>
+            <ul>
+              <li>Create &amp; manage sessions</li>
+              <li>Select from 8 scenarios</li>
+              <li>Start / pause / end drills</li>
+              <li>Inject custom events live</li>
+              <li>Monitor trainee roster</li>
+              <li>View live event feed</li>
+            </ul>
+          </div>
+          <div>
+            <div class="feature-col-head">Trainee</div>
+            <ul>
+              <li>Join with code only</li>
+              <li>See real-time events</li>
+              <li>Log actions + rationale</li>
+              <li>Track full event history</li>
+              <li>Colour-coded severity</li>
+              <li>Works on any device</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Training scenarios -->
+      <div class="section">
+        <div class="section-title">8 Training Scenarios</div>
+        <div class="scenario-grid">
+          <div class="sc-item">
+            <div><div class="sc-name">Active Threat</div><div class="sc-desc">Lockdown &amp; law-enforcement coord.</div></div>
+          </div>
+          <div class="sc-item">
+            <div><div class="sc-name">Fire Emergency</div><div class="sc-desc">Alarm, evacuation, fire dept. handover</div></div>
+          </div>
+          <div class="sc-item">
+            <div><div class="sc-name">Flood</div><div class="sc-desc">Water intrusion &amp; system protection</div></div>
+          </div>
+          <div class="sc-item">
+            <div><div class="sc-name">Cyber Attack</div><div class="sc-desc">Ransomware, isolation &amp; recovery</div></div>
+          </div>
+          <div class="sc-item">
+            <div><div class="sc-name">Power Outage</div><div class="sc-desc">UPS/generator failover</div></div>
+          </div>
+          <div class="sc-item">
+            <div><div class="sc-name">Severe Weather</div><div class="sc-desc">Shelter-in-place &amp; facility lockdown</div></div>
+          </div>
+          <div class="sc-item">
+            <div><div class="sc-name">Medical Emergency</div><div class="sc-desc">Cardiac event, AED &amp; EMS coord.</div></div>
+          </div>
+          <div class="sc-item">
+            <div><div class="sc-name">Hazmat Spill</div><div class="sc-desc">Containment, PPE &amp; decontamination</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /col-left -->
+
+    <!-- ════ RIGHT COLUMN ═══════════════════════════════════════════ -->
+    <div class="col-right">
+
+      <!-- Architecture -->
+      <div class="section">
+        <div class="section-title">System Architecture</div>
+        <div class="arch">
+          <!-- Browser layer -->
+          <div class="arch-row">
+            <div class="abox abox-blue">Instructor<br/>Dashboard</div>
+            <div class="arch-arrow">⇄</div>
+            <div class="abox abox-blue">Trainee<br/>Interface</div>
+          </div>
+          <div class="arch-arrow">↕ HTTPS / Socket.IO (WSS)</div>
+          <!-- Backend -->
+          <div class="arch-row" style="gap:2mm; width:100%;">
+            <div class="abox abox-red">REST API<br/><span style="font-size:5.5pt;font-weight:400;">Express · Node.js</span></div>
+            <div class="abox abox-gold">Socket.IO<br/><span style="font-size:5.5pt;font-weight:400;">Real-time events</span></div>
+          </div>
+          <div class="arch-arrow">↕ In-process</div>
+          <!-- Services -->
+          <div class="arch-row" style="width:100%;">
+            <div class="abox abox-purple abox-full">Session Service &amp; Scenario Engine<br/><span style="font-size:5.5pt;font-weight:400;">In-memory session store · JSON scenario definitions · timed event dispatcher</span></div>
+          </div>
+          <!-- Cloud -->
+          <div class="arch-arrow">↑ Deployed to</div>
+          <div class="arch-row" style="width:100%;">
+            <div class="abox abox-green abox-full">Render Cloud — sire-api (Node) &amp; sire-web (Static)</div>
+          </div>
+        </div>
+        <div class="arch-note">Sessions isolated via Socket.IO rooms · Events auto-broadcast on timer · API-key &amp; ticket-ID auth</div>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="section">
+        <div class="section-title">Technology Stack</div>
+        <div class="pill-group">
+          <div class="pill-label">Frontend</div>
+          <div class="pills">
+            <span class="pill p-fe">React 19</span>
+            <span class="pill p-fe">Vite 7</span>
+            <span class="pill p-fe">MUI v7</span>
+            <span class="pill p-fe">React Router v7</span>
+            <span class="pill p-fe">ESM / JSX</span>
+          </div>
+        </div>
+        <div class="pill-group">
+          <div class="pill-label">Backend</div>
+          <div class="pills">
+            <span class="pill p-be">Node.js 25+</span>
+            <span class="pill p-be">Express</span>
+            <span class="pill p-be">ESM (.mjs)</span>
+          </div>
+        </div>
+        <div class="pill-group">
+          <div class="pill-label">Real-Time</div>
+          <div class="pills">
+            <span class="pill p-rt">Socket.IO</span>
+            <span class="pill p-rt">WebSocket (WSS)</span>
+            <span class="pill p-rt">Namespaced Rooms</span>
+          </div>
+        </div>
+        <div class="pill-group">
+          <div class="pill-label">DevOps &amp; Deployment</div>
+          <div class="pills">
+            <span class="pill p-ops">Render (Cloud)</span>
+            <span class="pill p-ops">Docker</span>
+            <span class="pill p-ops">Railway</span>
+            <span class="pill p-ops">GitHub</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design decisions -->
+      <div class="section">
+        <div class="section-title">Key Design Decisions</div>
+        <ul>
+          <li><strong>Socket.IO over plain WebSocket</strong> — built-in rooms, reconnection &amp; namespacing provide seamless multi-session isolation.</li>
+          <li><strong>In-memory session store</strong> — zero external dependencies; ideal for short-lived academic drills with no persistence overhead.</li>
+          <li><strong>JSON scenario definitions</strong> — instructors and non-developers can author or modify scenarios without touching code.</li>
+          <li><strong>Vite + React frontend</strong> — instant HMR in dev; optimised static bundle at build time, served from a global CDN.</li>
+          <li><strong>API-key + ticket-ID auth</strong> — lightweight, auditable security model suited to academic and demo deployments.</li>
+        </ul>
+      </div>
+
+      <!-- Team -->
+      <div class="section">
+        <div class="section-title">The Team</div>
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="tm-name">Tom Burchell</div>
+            <div class="tm-role">Backend &amp; Real-Time Lead</div>
+            <div class="tm-tasks">Socket.IO · scenario engine · server architecture · CI/CD · cloud deployment</div>
+          </div>
+          <div class="team-member">
+            <div class="tm-name">Leon Wasiliew</div>
+            <div class="tm-role">Frontend &amp; UI/UX Lead</div>
+            <div class="tm-tasks">React UI · layouts · real-time state · responsive design</div>
+          </div>
+          <div class="team-member">
+            <div class="tm-name">John Hay</div>
+            <div class="tm-role">Script Master / QA</div>
+            <div class="tm-tasks">Scenario writing · integration testing · accessibility review</div>
+          </div>
+          <div class="team-member">
+            <div class="tm-name">Kael Payette</div>
+            <div class="tm-role">Project Manager</div>
+            <div class="tm-tasks">Coordination · documentation · Git workflow · standards</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /col-right -->
+  </div><!-- /body -->
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-brand">S.I.R.E.</div>
+    <div class="footer-team">
+      NSCC · PROG 3300 · Team Nibble: Tom Burchell · Leon Wasiliew · John Hay · Kael Payette
+    </div>
+  </footer>
+
+</div><!-- /page -->
+</body>
+</html>
