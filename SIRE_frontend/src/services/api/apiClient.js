@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-03-25
  * Description: Handles HTTP requests, including base URL configuration, authentication headers,
  * error handling, and response parsing for authentication.
  */
@@ -18,9 +18,24 @@ function getAuthToken() {
     return localStorage.getItem("authToken");
 }
 
+/** Function that generates a unique ticket ID for mutation requests. */
+function generateTicketId() {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+        return crypto.randomUUID();
+    }
+    if (typeof crypto !== "undefined" && typeof crypto.getRandomValues === "function") {
+        const bytes = new Uint8Array(16);
+        crypto.getRandomValues(bytes);
+        return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    }
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+}
+
 /** Asynchronous function to make API requests. */
 async function request(endpoint, options = {}) {
     const token = getAuthToken();
+    const method = (options.method || "GET").toUpperCase();
+    const isMutation = method !== "GET" && method !== "HEAD" && method !== "OPTIONS";
 
     // Merges default headers with any provided in options, and adds Authorization and API key headers
     const headers = {
@@ -28,6 +43,7 @@ async function request(endpoint, options = {}) {
         ...options.headers,
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...(API_KEY ? { "x-api-key": API_KEY } : {}),
+        ...(isMutation ? { "x-ticket-id": generateTicketId() } : {}),
     };
 
     // Makes the API request
