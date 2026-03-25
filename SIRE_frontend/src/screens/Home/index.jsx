@@ -15,7 +15,7 @@ export default function Home() {
     return (
         <HomeLayout>
             {/** Navigation button. */}
-            <Button text="Login" to="/login" />
+            <Button text="Trainee" to="/trainee-interface" />
 
             {/** Navigation button. */}
             <Button text="Admin" to="/admin-dashboard" />

@@ -6,76 +6,81 @@
  * displays errors, and communicates with the backend API.
  */
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { login } from "../../services/api/api";
+// NOTE: Authentication temporarily commented out for demo purposes.
+// import { useState } from "react";
+// import { Link } from "react-router-dom";
+// import { login } from "../../services/api/api";
+import { useNavigate } from "react-router-dom";
 import FormLayout from "../../layouts/FormLayout";
 import Button from "../../components/Button";
 
 /** Function that returns the Login component for handling user authentication by submitting credentials to the API. */
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
 
-    /** Asynchronous function to handle login form submission. */
-    async function handleLogin(e) {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
-        try {
-            await login(email, password);
-            // TODO: navigate to protected route or trigger app auth state
-        } catch (error) {
-            setError(error.message || "Login failed");
-        } finally {
-            setLoading(false);
-        }
-    }
+    // NOTE: Authentication state commented out for demo purposes.
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [error, setError] = useState("");
+    // const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
+
+    // NOTE: Login handler commented out for demo purposes.
+    // async function handleLogin(e) {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     setError(null);
+    //     try {
+    //         await login(email, password);
+    //         // TODO: navigate to protected route or trigger app auth state
+    //     } catch (error) {
+    //         setError(error.message || "Login failed");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // }
 
     return (
         <FormLayout>
-            <form className="login-form" onSubmit={handleLogin}>
 
-                {/** Email input. */}
-                <div className="form-group">
-                    <label htmlFor="email">Email*</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={ (e) => setEmail(e.target.value) }
-                        required
-                        placeholder="Enter your email..."
-                    />
-                </div>
+            {/** NOTE: Login form commented out for demo — authentication bypassed. */}
+            {false && (
+                <form className="login-form">
 
-                {/** Password input. */}
-                <div className="form-group">
-                    <label htmlFor="password">Password*</label>
-                    <input 
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={ (e) => setPassword(e.target.value) }
-                        required
-                        placeholder="Enter your password..."/>
-                </div>
+                    {/** Email input. */}
+                    <div className="form-group">
+                        <label htmlFor="email">Email*</label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email..."
+                        />
+                    </div>
 
-                {/** Signup redirect. */}
-                <div>
-                    <p className="no-account-text">
-                        Don&apos;t have an account? <Link to="/signup">Sign up here</Link>.
-                    </p>
-                </div>
+                    {/** Password input. */}
+                    <div className="form-group">
+                        <label htmlFor="password">Password*</label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password..."
+                        />
+                    </div>
 
-                {/** Error message. */}
-                {error && <div className="error">{error}</div>}
+                    {/** Signup redirect. */}
+                    <div>
+                        <p className="no-account-text">
+                            Don&apos;t have an account? Sign up here.
+                        </p>
+                    </div>
 
-                {/** Submit button for the login form. */}
-                <Button text={loading ? "Logging in..." : "Login"} type="submit"/>
-            </form>
+                    <Button text="Login" type="submit"/>
+                </form>
+            )}
+
+            {/** Bypass button — navigates directly to trainee interface for demo. */}
+            <Button text="Enter as Trainee" onClick={() => navigate("/trainee-interface")} />
+
         </FormLayout>
     )
 }
