@@ -8,7 +8,12 @@ export const environmentConfig = Object.freeze({
   logLevel: String(process.env.LOG_LEVEL || 'info'),
   sessionMaxTrainees: Number(process.env.SESSION_MAX_TRAINEES || 10),
   allowedOrigins: process.env.ALLOWED_ORIGINS 
-    ? String(process.env.ALLOWED_ORIGINS).split(',').map(origin => origin.trim())
+    ? String(process.env.ALLOWED_ORIGINS).split(',').map(origin => {
+        const trimmedOrigin = origin.trim()
+        if (trimmedOrigin === '*') return trimmedOrigin
+        // Add https:// if the value is a bare hostname (e.g. from Render's fromService property: host)
+        return /^https?:\/\//i.test(trimmedOrigin) ? trimmedOrigin : `https://${trimmedOrigin}`
+      })
     : ['*'],
 });
 

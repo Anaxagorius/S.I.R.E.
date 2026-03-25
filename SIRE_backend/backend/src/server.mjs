@@ -53,9 +53,9 @@ app.use((req, res, next) => {
 })
 
 app.use('/api', authRoute)
+app.use('/api', healthRoute)
 app.use('/api', requireApiKey)
 app.use('/api', requireTicket)
-app.use('/api', healthRoute)
 app.use('/api', sessionRoute)
 app.use('/api', sessionsRoute)
 app.use('/api', scenarioRoute)
