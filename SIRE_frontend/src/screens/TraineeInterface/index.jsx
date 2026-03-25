@@ -5,6 +5,9 @@
  * Dynamically loads the scenario from the backend based on the session's scenario key.
  * Displays the current scenario, question, and selectable options.
  * Receives live timeline events from the backend via Socket.IO.
+ *
+ * Session state is read from React Router navigation state first, then falls back to
+ * sessionStorage (populated by JoinSession) so the scenario survives a page refresh.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -14,14 +17,33 @@ import TraineeInterfaceLayout from "../../layouts/TraineeInterfaceLayout";
 import apiClient from "../../services/api/apiClient";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
+/** Read a value from sessionStorage safely (returns null if unavailable). */
+function readSessionStorage(key) {
+    try {
+        return sessionStorage.getItem(key) || null;
+    } catch {
+        return null;
+    }
+}
+
 /** Function that returns the TraineeInterface component. */
 export default function TraineeInterface() {
 
     const location = useLocation();
 
-    /** Session code and scenario key passed via navigation state. */
-    const sessionCode = location.state?.sessionCode || null;
-    const scenarioKey = location.state?.scenarioKey || null;
+    /**
+     * Resolve session code and scenario key from navigation state first,
+     * then fall back to sessionStorage so the scenario survives a page refresh.
+     */
+    const sessionCode =
+        location.state?.sessionCode ||
+        readSessionStorage("sire_sessionCode") ||
+        null;
+
+    const scenarioKey =
+        location.state?.scenarioKey ||
+        readSessionStorage("sire_scenarioKey") ||
+        null;
 
     /** Scenario data loaded from the backend. */
     const [scenarioData, setScenarioData] = useState(null);
@@ -43,52 +65,60 @@ export default function TraineeInterface() {
     useEffect(() => {
         if (!scenarioKey) return;
 
+        let cancelled = false;
+
         async function loadScenario() {
             try {
                 const data = await apiClient.get(`/scenarios/${scenarioKey}`);
-                if (!data.root || !data.nodes) {
+                if (cancelled) return;
+                if (!data || !data.root || !data.nodes) {
                     setLoadError("Scenario data is incomplete. Please contact the administrator.");
                     return;
                 }
                 setScenarioData(data);
                 setCurrentNodeId(data.root);
             } catch (err) {
-                console.error("Failed to load scenario:", err);
-                setLoadError("Failed to load scenario. Please contact the administrator.");
+                if (!cancelled) {
+                    console.error("Failed to load scenario:", err);
+                    setLoadError("Failed to load scenario. Please contact the administrator.");
+                }
             }
         }
 
         loadScenario();
 
-        if (!sessionCode) return;
+        /** Connect to Socket.IO /sim namespace as a trainee when a session code is available. */
+        let socket = null;
+        if (sessionCode) {
+            socket = io(`${SOCKET_URL}/sim`, {
+                auth: SOCKET_API_KEY ? { apiKey: SOCKET_API_KEY } : {},
+                transports: ["websocket", "polling"],
+            });
 
-        /** Connect to Socket.IO /sim namespace as a trainee. */
-        const socket = io(`${SOCKET_URL}/sim`, {
-            auth: SOCKET_API_KEY ? { apiKey: SOCKET_API_KEY } : {},
-            transports: ["websocket", "polling"],
-        });
+            socketRef.current = socket;
 
-        socketRef.current = socket;
+            socket.on("connect", () => {
+                socket.emit("session:join", { sessionCode, displayName: "Trainee" });
+            });
 
-        socket.on("connect", () => {
-            socket.emit("session:join", { sessionCode, displayName: "Trainee" });
-        });
-
-        socket.on("timeline:tick", (payload) => {
-            setTimelineEvents((prev) => [
-                ...prev,
-                { title: payload.title, description: payload.description, time: new Date().toLocaleTimeString() },
-            ]);
-        });
+            socket.on("timeline:tick", (payload) => {
+                setTimelineEvents((prev) => [
+                    ...prev,
+                    { title: payload.title, description: payload.description, time: new Date().toLocaleTimeString() },
+                ]);
+            });
+        }
 
         return () => {
-            socket.disconnect();
+            cancelled = true;
+            if (socket) socket.disconnect();
         };
     }, [scenarioKey, sessionCode]);
 
     /** Function that handles option selection. */
     function handleOptionClick(option) {
-        const outcome = option.outcome;
+        const outcome = option?.outcome;
+        if (!outcome) return;
         if (outcome.type === "node") {
             setCurrentNodeId(outcome.target);
         } else if (outcome.type === "failure") {
@@ -122,6 +152,18 @@ export default function TraineeInterface() {
 
     const currentNode = scenarioData.nodes[currentNodeId];
 
+    /** Guard against a missing or invalid node reference in the scenario definition. */
+    if (!currentNode) {
+        return (
+            <TraineeInterfaceLayout time={time}>
+                <div className="scenario-card">
+                    <h2>Scenario Error</h2>
+                    <p>An unexpected error occurred: node &quot;{currentNodeId}&quot; was not found in the scenario. Please contact the administrator.</p>
+                </div>
+            </TraineeInterfaceLayout>
+        );
+    }
+
     return (
         <TraineeInterfaceLayout time={time}>
 
@@ -145,7 +187,7 @@ export default function TraineeInterface() {
 
             {/** Options rendered as clickable cards. */}
             <div className="options-container">
-                {currentNode.options.map((option, index) => (
+                {(currentNode.options || []).map((option, index) => (
                     <div
                         key={index}
                         className="option-card"

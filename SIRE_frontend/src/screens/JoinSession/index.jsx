@@ -31,8 +31,19 @@ export default function JoinSession() {
         setError(null);
         try {
             const data = await apiClient.post("/sessions/join", { sessionKey });
+            const sessionCode = data.sessionKey;
+            const scenarioKey = data.scenarioKey;
+
+            /** Persist session state so TraineeInterface can recover if navigation state is lost. */
+            try {
+                sessionStorage.setItem("sire_sessionCode", sessionCode);
+                sessionStorage.setItem("sire_scenarioKey", scenarioKey);
+            } catch {
+                // sessionStorage may be unavailable in some environments; silently ignore
+            }
+
             navigate("/trainee-interface", {
-                state: { sessionCode: data.sessionKey, scenarioKey: data.scenarioKey },
+                state: { sessionCode, scenarioKey },
             });
         } catch (error) {
             setError(error.message || "Failed to join session!");

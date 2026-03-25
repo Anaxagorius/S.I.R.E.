@@ -94,15 +94,16 @@ export default function AdminDashboard() {
         return () => { cancelled = true; };
     }, []);
 
-    /** Fetch scenario display name and connect to socket when session code is available. */
+    /** Update scenario display name when the scenarios list is populated. */
+    useEffect(() => {
+        if (!scenarioKey || scenarios.length === 0) return;
+        const found = scenarios.find((s) => s.id === scenarioKey);
+        if (found) setScenarioName(found.name);
+    }, [scenarioKey, scenarios]);
+
+    /** Connect to Socket.IO when a session code is available. Reconnects only when sessionCode changes. */
     useEffect(() => {
         if (!sessionCode) return;
-
-        /** Look up the scenario display name from the fetched scenarios list. */
-        if (scenarioKey && scenarios.length > 0) {
-            const found = scenarios.find((s) => s.id === scenarioKey);
-            if (found) setScenarioName(found.name);
-        }
 
         /** Connect to Socket.IO /sim namespace. */
         const socket = io(`${SOCKET_URL}/sim`, {
@@ -152,7 +153,7 @@ export default function AdminDashboard() {
         return () => {
             socket.disconnect();
         };
-    }, [sessionCode, scenarioKey, scenarios]);
+    }, [sessionCode]);
 
     /** Asynchronous function that creates a session for the selected scenario. */
     async function handleSelectScenario(scenario) {
