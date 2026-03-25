@@ -10,16 +10,20 @@ import { normalizeScenarioKey } from '../utils/validation.mjs'
 
 const router = Router()
 
-/** GET /scenarios - returns a list of available scenario objects with id and name. */
+/** GET /scenarios - returns a list of available scenario objects with id, name, and description. */
 router.get('/scenarios', (req, res) => {
   const keys = scenarioRegistry.listScenarioKeys()
-  const scenarios = keys.map((key) => ({
-    id: key,
-    name: key
-      .replace(/^scenario_/, '')
-      .replace(/_/g, ' ')
-      .replace(/\b\w/g, (c) => c.toUpperCase()),
-  }))
+  const scenarios = keys.map((key) => {
+    const data = scenarioRegistry.getScenarioByKey(key)
+    return {
+      id: key,
+      name: key
+        .replace(/^scenario_/, '')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase()),
+      description: data?.description || '',
+    }
+  })
   auditLogger.event({
     action: 'scenario:list',
     actor: req.auth?.actor || 'unknown',

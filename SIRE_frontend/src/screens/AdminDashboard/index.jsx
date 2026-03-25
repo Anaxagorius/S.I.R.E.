@@ -2,27 +2,43 @@
  * Author: Leon Wasiliew 
  * Last Update: 2026-03-25
  * Description: Administrator dashboard for managing session lifecycle.
- * Handles three states (waiting, active session, and post-session review).
+ * Handles four states (selecting scenario, waiting, active session, and post-session review).
  * Connects to the backend via Socket.IO to provide real-time session management.
  */
 
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import Button from "../../components/Button";
 import apiClient from "../../services/api/apiClient";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
+/** Emoji icons mapped to each scenario key. */
+const SCENARIO_ICONS = {
+    scenario_fire: "🔥",
+    scenario_flood: "🌊",
+    scenario_medical_emergency: "🚑",
+    scenario_severe_weather: "⛈️",
+    scenario_cyber_attack: "💻",
+    scenario_hazardous_material_spill: "☣️",
+    scenario_active_threat: "🚨",
+    scenario_power_outage: "🔌",
+};
+
 /** Function that returns the AdminDashboard component for managing and monitoring session flow. */
 export default function AdminDashboard() {
 
     const location = useLocation();
-    const navigate = useNavigate();
 
-    /** Session code and scenario key passed via navigation state. */
-    const sessionCode = location.state?.sessionCode || null;
-    const scenarioKey = location.state?.scenarioKey || null;
+    /** Session code and scenario key — may be seeded from navigation state or set after scenario selection. */
+    const [sessionCode, setSessionCode] = useState(location.state?.sessionCode || null);
+    const [scenarioKey, setScenarioKey] = useState(location.state?.scenarioKey || null);
+
+    /** Scenario list for the selection cards. */
+    const [scenarios, setScenarios] = useState([]);
+    const [scenariosLoading, setScenariosLoading] = useState(false);
+    const [sessionCreating, setSessionCreating] = useState(false);
 
     /** Constant for tracking the current session state. */
     const [sessionState, setSessionState] = useState("waiting");
@@ -37,7 +53,7 @@ export default function AdminDashboard() {
     const [scenarioName, setScenarioName] = useState(
         scenarioKey
             ? scenarioKey.replace(/^scenario_/, "").replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-            : "Unknown Scenario"
+            : ""
     );
 
     /** Error state for any backend or socket failures. */
@@ -45,6 +61,16 @@ export default function AdminDashboard() {
 
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
+
+    /** Fetch available scenarios when no session is active. */
+    useEffect(() => {
+        if (sessionCode) return;
+        setScenariosLoading(true);
+        apiClient.get("/scenarios")
+            .then((data) => setScenarios(data))
+            .catch(() => setError("Failed to load scenarios."))
+            .finally(() => setScenariosLoading(false));
+    }, [sessionCode]);
 
     /** Fetch scenario display name and connect to socket when session code is available. */
     useEffect(() => {
@@ -108,6 +134,22 @@ export default function AdminDashboard() {
         };
     }, [sessionCode, scenarioKey]);
 
+    /** Asynchronous function that creates a session for the selected scenario. */
+    async function handleSelectScenario(scenario) {
+        setSessionCreating(true);
+        setError(null);
+        try {
+            const data = await apiClient.post("/sessions", { scenario: scenario.id });
+            setScenarioKey(scenario.id);
+            setScenarioName(scenario.name);
+            setSessionCode(data.sessionKey);
+        } catch (err) {
+            setError(err.message || "Failed to create session.");
+        } finally {
+            setSessionCreating(false);
+        }
+    }
+
     /** Function that starts the session by emitting a socket event. */
     function handleStartSession() {
         if (!socketRef.current || !sessionCode) return;
@@ -115,19 +157,70 @@ export default function AdminDashboard() {
         setSessionState("active");
     }
 
+    /** Function that resets all session state to show the scenario selection view. */
+    function handleStartNewSession() {
+        setSessionCode(null);
+        setScenarioKey(null);
+        setScenarioName("");
+        setSessionState("waiting");
+        setTrainees([]);
+        setEventLog([]);
+        setError(null);
+    }
+
     /** Function that ends the session by updating the session state to ended. */
     function handleEndSession() {
         setSessionState("ended");
     }
 
-    /** Render a prompt if no session code was passed via navigation state. */
+
+    /** Scenario selection — shown when no session is active. */
     if (!sessionCode) {
         return (
             <AdminDashboardLayout>
+
+                {/** Heading card. */}
                 <div className="dashboard-card">
-                    <h2>No Active Session</h2>
-                    <p>Please create a session first to access the dashboard.</p>
+                    <h2>Select a Scenario</h2>
+                    <p>Choose a training scenario below to create a new session.</p>
                 </div>
+
+                {/** Error display. */}
+                {error && (
+                    <div className="dashboard-card" style={{ borderColor: "rgb(200,40,40)" }}>
+                        <p style={{ color: "rgb(255,80,80)" }}>{error}</p>
+                    </div>
+                )}
+
+                {/** Scenario cards grid. */}
+                {scenariosLoading ? (
+                    <div className="dashboard-card"><p>Loading scenarios...</p></div>
+                ) : (
+                    <div className="scenario-grid">
+                        {scenarios.map((scenario) => (
+                            <button
+                                key={scenario.id}
+                                className="scenario-card"
+                                onClick={() => handleSelectScenario(scenario)}
+                                disabled={sessionCreating}
+                            >
+                                <span className="scenario-card-icon">
+                                    {SCENARIO_ICONS[scenario.id] || "📋"}
+                                </span>
+                                <span className="scenario-card-name">{scenario.name}</span>
+                                {scenario.description && (
+                                    <span className="scenario-card-desc">{scenario.description}</span>
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
+                {/** Creating session indicator. */}
+                {sessionCreating && (
+                    <div className="dashboard-card"><p>Creating session...</p></div>
+                )}
+
             </AdminDashboardLayout>
         );
     }
@@ -221,7 +314,7 @@ export default function AdminDashboard() {
                             </ul>
                         </div>
                     )}
-                    <Button text="Start New Session" onClick={() => navigate("/create-session")} />
+                    <Button text="Start New Session" onClick={handleStartNewSession} />
                 </div>
             )}
         </AdminDashboardLayout>
