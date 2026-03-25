@@ -1,11 +1,12 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-22
+ * Last Update: 2026-03-25
  * Description: Trainee screen for joining a session.
  * Allows the user to enter a session key and join an active simulation.
  */
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import JoinSessionLayout from "../../layouts/JoinSessionLayout";
 import Button from "../../components/Button";
 import apiClient from "../../services/api/apiClient";
@@ -18,6 +19,8 @@ export default function JoinSession() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const navigate = useNavigate();
+
     /** Asynchronous function to handle joining a session using the provided key. */
     async function handleJoinSession() {
         if (!sessionKey) {
@@ -27,8 +30,10 @@ export default function JoinSession() {
         setLoading(true);
         setError(null);
         try {
-            await apiClient.post("/sessions/join", { sessionKey });
-            /** TODO: Navigate to trainee interface. */
+            const data = await apiClient.post("/sessions/join", { sessionKey });
+            navigate("/trainee-interface", {
+                state: { sessionCode: data.sessionKey, scenarioKey: data.scenarioKey },
+            });
         } catch (error) {
             setError(error.message || "Failed to join session!");
         } finally {

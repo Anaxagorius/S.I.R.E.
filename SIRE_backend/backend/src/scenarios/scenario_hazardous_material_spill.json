@@ -38,5 +38,87 @@
       "description": "Area decontaminated and cleared. Resume normal ventilation and conduct air quality testing.",
       "timeOffsetSec": 300
     }
-  ]
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Chemical Spill Discovered",
+      "situation": "A small chemical puddle has been observed in the lab corridor. The substance is unknown and the area is unoccupied for now.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restrict access to the corridor and check the lab's chemical inventory to identify the substance.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately start cleaning the spill with available mops and supplies.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Report it to maintenance and leave it for them to handle.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fumes Detected",
+      "situation": "Staff near the corridor report respiratory irritation. The spill appears to be a corrosive chemical that is releasing toxic fumes.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately evacuate all nearby personnel and seal the corridor doors to contain the fumes.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Open windows to ventilate the area and have staff continue working at a distance.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Spill Spreading",
+      "situation": "The spill is spreading into the hallway. The HVAC system is still running and could spread contaminated air throughout the building.",
+      "question": "What action do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shut down the HVAC system immediately and call the hazmat response team.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the HVAC running to help clear the fumes faster.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Hazmat Team Arrives",
+      "situation": "The hazmat response team has arrived on site. They need information to begin safe containment operations.",
+      "question": "How do you assist the hazmat team?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide the chemical safety data sheets and give the team a layout of the affected area.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Begin cleanup operations alongside the hazmat team without waiting for their instructions.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The hazmat team has successfully contained and neutralized the spill. The area has been decontaminated and air quality testing shows safe levels.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
 }

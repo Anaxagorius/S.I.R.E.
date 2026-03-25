@@ -1,12 +1,13 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-22
+ * Last Update: 2026-03-25
  * Description: Administrator screen for creating a new session.
  * Allows the user to select a scenario, configure basic options,
  * and generate a session key to share with trainees.
  */
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateSessionLayout from "../../layouts/CreateSessionLayout";
 import Button from "../../components/Button";
 import apiClient from "../../services/api/apiClient";
@@ -22,6 +23,8 @@ export default function CreateSession() {
     const [sessionKey, setSessionKey] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     /** Lambda function to fetch available scenarios from the backend on mount. */
     useEffect(() => {
@@ -49,6 +52,9 @@ export default function CreateSession() {
                 scenario: selectedScenario,
             });
             setSessionKey(data.sessionKey);
+            navigate("/admin-dashboard", {
+                state: { sessionCode: data.sessionKey, scenarioKey: selectedScenario },
+            });
         } catch (error) {
             setError(error.message || "Failed to create session!");
         } finally {
@@ -82,7 +88,7 @@ export default function CreateSession() {
                 disabled={loading}
             />
 
-            {/** Display session key. */}
+            {/** Display session key before navigation. */}
             {sessionKey && (
                 <div className="session-key">
                     <h3>Session Key</h3>
