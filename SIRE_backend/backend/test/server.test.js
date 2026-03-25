@@ -17,6 +17,7 @@ const { sessionService } = await import('../src/services/sessionService.mjs')
 const { scenarioRegistry } = await import('../src/services/scenarioRegistry.mjs')
 const { attachSocketServer } = await import('../src/sockets/socketServer.mjs')
 const sessionRoute = (await import('../src/routes/sessionRoute.mjs')).default
+const scenarioRoute = (await import('../src/routes/scenarioRoute.mjs')).default
 const { attachRequestContext, requireApiKey, requireTicket } = await import('../src/middleware/authMiddleware.mjs')
 const { securityHeaders } = await import('../src/middleware/securityHeaders.mjs')
 
@@ -32,6 +33,7 @@ const app = express()
 app.use(securityHeaders)
 app.use(express.json({ limit: '50kb' }))
 app.use(attachRequestContext)
+app.use('/api', scenarioRoute)
 app.use('/api', requireApiKey)
 app.use('/api', requireTicket)
 app.use('/api', sessionRoute)
@@ -64,6 +66,24 @@ const fetchJson = async (method, path, body, headers = {}) => new Promise((resol
 
 const unauthorizedList = await fetchJson('GET', '/api/session')
 assert.strictEqual(unauthorizedList.statusCode, 401)
+
+const scenarioListResponse = await fetchJson('GET', '/api/scenarios')
+assert.strictEqual(scenarioListResponse.statusCode, 200)
+assert.ok(Array.isArray(scenarioListResponse.body))
+assert.strictEqual(scenarioListResponse.body.length, 8)
+assert.ok(scenarioListResponse.body.every(s => s.id && s.name))
+console.log('✓ GET /api/scenarios accessible without API key')
+
+const scenarioDetailResponse = await fetchJson('GET', `/api/scenarios/${scenarioKeys[0]}`)
+assert.strictEqual(scenarioDetailResponse.statusCode, 200)
+assert.ok(scenarioDetailResponse.body.root)
+assert.ok(scenarioDetailResponse.body.nodes)
+console.log('✓ GET /api/scenarios/:key accessible without API key')
+
+const scenarioNotFoundResponse = await fetchJson('GET', '/api/scenarios/scenario_does_not_exist')
+assert.strictEqual(scenarioNotFoundResponse.statusCode, 404)
+console.log('✓ GET /api/scenarios/:key returns 404 for unknown key')
+
 
 const listResponse = await fetchJson('GET', '/api/session', null, apiKeyHeader)
 assert.strictEqual(listResponse.statusCode, 200)
