@@ -12,19 +12,20 @@ import { io } from "socket.io-client";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import Button from "../../components/Button";
 import apiClient from "../../services/api/apiClient";
+import { getScenarios } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
-/** Static list of the 8 available training scenarios with icons. */
-const STATIC_SCENARIOS = [
-    { id: "scenario_fire",                  icon: "🔥", name: "Fire",                    description: "A fire starts in a storage area and spreads toward occupied floors." },
-    { id: "scenario_flood",                 icon: "🌊", name: "Flood",                   description: "Burst water main begins flooding lower levels." },
-    { id: "scenario_medical_emergency",     icon: "🚑", name: "Medical Emergency",        description: "A medical emergency occurs during a busy shift." },
-    { id: "scenario_severe_weather",        icon: "⛈️", name: "Severe Weather",           description: "Severe weather warnings threaten facility operations." },
-    { id: "scenario_cyber_attack",          icon: "💻", name: "Cyber Attack",             description: "A coordinated phishing and ransomware attack targets staff systems." },
-    { id: "scenario_hazardous_material_spill", icon: "☣️", name: "Hazardous Material Spill", description: "A corrosive chemical spill in a lab corridor escalates over time." },
-    { id: "scenario_active_threat",         icon: "🚨", name: "Active Threat",            description: "An active threat reported near main entrance escalates to facility-wide lockdown." },
-    { id: "scenario_power_outage",          icon: "🔌", name: "Power Outage",             description: "A facility-wide power outage interrupts critical systems." },
-];
+/** Icon map keyed by scenario ID, used to enrich scenarios fetched from the API. */
+const SCENARIO_ICONS = {
+    scenario_fire:                   "🔥",
+    scenario_flood:                  "🌊",
+    scenario_medical_emergency:      "🚑",
+    scenario_severe_weather:         "⛈️",
+    scenario_cyber_attack:           "💻",
+    scenario_hazardous_material_spill: "☣️",
+    scenario_active_threat:          "🚨",
+    scenario_power_outage:           "🔌",
+};
 
 /** Function that returns the AdminDashboard component for managing and monitoring session flow. */
 export default function AdminDashboard() {
@@ -57,16 +58,49 @@ export default function AdminDashboard() {
     /** Error state for any backend or socket failures. */
     const [error, setError] = useState(null);
 
+    /** Scenarios fetched from the backend API. */
+    const [scenarios, setScenarios] = useState([]);
+
+    /** Loading state while scenarios are being fetched. */
+    const [scenariosLoading, setScenariosLoading] = useState(true);
+
+    /** Error state for scenario fetch failures (separate from session creation errors). */
+    const [scenariosError, setScenariosError] = useState(null);
+
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
+
+    /** Fetch the available scenarios from the backend on mount. */
+    useEffect(() => {
+        let cancelled = false;
+        async function loadScenarios() {
+            setScenariosLoading(true);
+            try {
+                const data = await getScenarios();
+                if (!cancelled) {
+                    setScenarios(
+                        data.map((s) => ({ ...s, icon: SCENARIO_ICONS[s.id] || "📋" }))
+                    );
+                }
+            } catch (err) {
+                if (!cancelled) {
+                    setScenariosError(err.message || "Failed to load scenarios.");
+                }
+            } finally {
+                if (!cancelled) setScenariosLoading(false);
+            }
+        }
+        loadScenarios();
+        return () => { cancelled = true; };
+    }, []);
 
     /** Fetch scenario display name and connect to socket when session code is available. */
     useEffect(() => {
         if (!sessionCode) return;
 
-        /** Look up the scenario display name from the static scenario list. */
-        if (scenarioKey) {
-            const found = STATIC_SCENARIOS.find((s) => s.id === scenarioKey);
+        /** Look up the scenario display name from the fetched scenarios list. */
+        if (scenarioKey && scenarios.length > 0) {
+            const found = scenarios.find((s) => s.id === scenarioKey);
             if (found) setScenarioName(found.name);
         }
 
@@ -118,7 +152,7 @@ export default function AdminDashboard() {
         return () => {
             socket.disconnect();
         };
-    }, [sessionCode, scenarioKey]);
+    }, [sessionCode, scenarioKey, scenarios]);
 
     /** Asynchronous function that creates a session for the selected scenario. */
     async function handleSelectScenario(scenario) {
@@ -180,18 +214,24 @@ export default function AdminDashboard() {
 
                 {/** Scenario cards grid. */}
                 <div className="scenario-grid">
-                    {STATIC_SCENARIOS.map((scenario) => (
-                        <button
-                            key={scenario.id}
-                            className="scenario-card"
-                            onClick={() => handleSelectScenario(scenario)}
-                            disabled={sessionCreating}
-                        >
-                            <span className="scenario-card-icon">{scenario.icon}</span>
-                            <span className="scenario-card-name">{scenario.name}</span>
-                            <span className="scenario-card-desc">{scenario.description}</span>
-                        </button>
-                    ))}
+                    {scenariosLoading ? (
+                        <p>Loading scenarios...</p>
+                    ) : scenariosError ? (
+                        <p style={{ color: "rgb(255,80,80)" }}>{scenariosError}</p>
+                    ) : (
+                        scenarios.map((scenario) => (
+                            <button
+                                key={scenario.id}
+                                className="scenario-card"
+                                onClick={() => handleSelectScenario(scenario)}
+                                disabled={sessionCreating}
+                            >
+                                <span className="scenario-card-icon">{scenario.icon}</span>
+                                <span className="scenario-card-name">{scenario.name}</span>
+                                <span className="scenario-card-desc">{scenario.description}</span>
+                            </button>
+                        ))
+                    )}
                 </div>
 
                 {/** Creating session indicator. */}
