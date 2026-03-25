@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-03-25
  * Description: Home screen of the application.
  * Displays the main landing page using the HomeLayout, including a login button
  * and a carousel showcasing simulated incident scenarios.
@@ -15,10 +15,10 @@ export default function Home() {
     return (
         <HomeLayout>
             {/** Navigation button. */}
-            <Button text="Trainee" to="/trainee-interface" />
+            <Button text="Trainee" to="/join-session" />
 
             {/** Navigation button. */}
-            <Button text="Admin" to="/admin-dashboard" />
+            <Button text="Admin" to="/create-session" />
 
             {/** Main carousel content. */}
             <HomeCarousel />
