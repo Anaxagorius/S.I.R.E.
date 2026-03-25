@@ -38,5 +38,87 @@
       "description": "Storm passing. Conduct preliminary damage assessment. Check for injuries and structural damage.",
       "timeOffsetSec": 300
     }
-  ]
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Severe Weather Warning",
+      "situation": "Local authorities have issued a severe storm warning with potential for high winds and a tornado. The storm is expected to arrive within 30 minutes.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a facility-wide alert and review the severe weather emergency plan with key staff.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Monitor the weather report and wait to see if the storm changes course before acting.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Dismiss non-essential staff immediately before securing the building.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Staff Notification",
+      "situation": "All staff have been alerted to the weather threat. Non-essential personnel need guidance, and the building has not yet been secured.",
+      "question": "How do you manage staff safety?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorize early dismissal for non-essential staff and direct remaining personnel to interior rooms away from windows.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Keep all staff at their desks to maintain business continuity during the storm.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Building Securing",
+      "situation": "Non-essential staff have been dismissed. Essential personnel are sheltering in interior spaces. Exterior doors and windows still need to be secured.",
+      "question": "What do you do to secure the building?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Lock all exterior doors and windows and ensure no one is positioned near exterior glass.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Leave windows cracked open to equalize air pressure during the storm.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Storm Making Impact",
+      "situation": "The severe weather is now hitting the facility. High winds and heavy rain are battering the building. A damage report from the roof area has come in.",
+      "question": "How do you respond during the storm?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain shelter-in-place orders and log damage reports for post-storm assessment.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Send maintenance staff to assess roof damage immediately during the storm.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The storm has passed. A damage assessment is underway, all personnel are safe, and no injuries have been reported. Structural damage is being evaluated.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
 }

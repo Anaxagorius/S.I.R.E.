@@ -38,5 +38,87 @@
       "description": "Patient transported to hospital. Secure AED, document incident, and offer support to witnesses.",
       "timeOffsetSec": 240
     }
-  ]
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Staff Member Collapses",
+      "situation": "A staff member has collapsed suddenly in the cafeteria during lunch. Bystanders are unsure whether the person is conscious.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check for responsiveness, call for help loudly, and send someone to call 911 and retrieve the AED.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Give the person space and wait a few minutes to see if they recover on their own.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Move the person to a more comfortable position before calling for help.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Beginning First Aid",
+      "situation": "The patient is unresponsive and not breathing normally. A trained first aider is on scene along with an AED. EMS is en route.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin CPR immediately and prepare the AED for use as directed by the device.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for EMS to arrive before starting any treatment to avoid causing harm.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Patient Showing Signs of Response",
+      "situation": "After CPR and AED use, the patient has regained a pulse. EMS will arrive in approximately 2 minutes.",
+      "question": "What do you do while waiting for EMS?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain monitoring, keep the patient still, and clear the area so EMS can access the scene.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Help the patient to a chair so they are more comfortable.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "EMS On Scene",
+      "situation": "Paramedics have arrived and are taking over care of the patient. They need patient information and access to transport the patient.",
+      "question": "How do you assist the EMS team?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide patient details, clear a direct route to the exit, and prepare to document the incident.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Allow observers to remain nearby so they can provide moral support to the patient.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The patient has been transported to hospital. The incident has been documented, the AED is secured, and support has been offered to witnesses.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
 }

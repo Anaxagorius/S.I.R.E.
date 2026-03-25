@@ -44,5 +44,87 @@
       "description": "Suspect in custody. Police conducting sweep. Prepare for all-clear and accountability checks.",
       "timeOffsetSec": 300
     }
-  ]
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Individual Reported",
+      "situation": "Security receives a report of a suspicious individual displaying aggressive behavior near the main lobby entrance.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Alert all security personnel and dispatch to the lobby immediately.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Approach the individual yourself to assess the situation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for additional reports before taking action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Threat Confirmed",
+      "situation": "Security cameras confirm the individual has entered the building carrying an apparent weapon. Personnel are at risk.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate facility-wide lockdown and call 911 immediately.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Continue monitoring cameras before triggering a lockdown.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Lockdown Activated",
+      "situation": "Facility is in lockdown. Personnel are sheltering in place. Police have been called with an ETA of 8 minutes.",
+      "question": "What do you communicate to staff?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Instruct all personnel to stay in place, lock doors, and do not approach windows.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell personnel to evacuate the building immediately.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Police On Scene",
+      "situation": "Law enforcement has arrived and is conducting a sweep of the building. The suspect is believed to be in the administrative wing.",
+      "question": "How do you assist law enforcement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide police with building schematics and access to security cameras.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Begin lifting the lockdown so staff can return to work.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The suspect has been taken into custody. Police have given the all-clear after a full sweep. All staff are safe and accounted for.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
 }

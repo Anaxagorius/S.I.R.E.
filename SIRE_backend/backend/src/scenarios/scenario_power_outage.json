@@ -38,5 +38,87 @@
       "description": "Utility power restored. Gradually transfer load back to main grid and secure generator.",
       "timeOffsetSec": 270
     }
-  ]
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Sudden Power Failure",
+      "situation": "All main power has failed across multiple floors. Emergency lighting has activated automatically. Staff are concerned and some areas are completely dark.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm emergency lighting is active throughout the facility and account for all personnel.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to restore main power immediately by resetting the main breaker.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for staff to report any issues before taking action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Activating Backup Generator",
+      "situation": "Emergency lighting is confirmed operational. The backup generator is available but has limited capacity and cannot support all systems simultaneously.",
+      "question": "How do you manage the generator activation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the generator and prioritize life safety systems, communications, and security equipment only.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Connect all systems to the generator to restore normal operations as quickly as possible.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Critical Systems Running",
+      "situation": "The generator is running and critical systems are online. However, fuel levels need monitoring and the utility company has not yet provided a restoration ETA.",
+      "question": "What steps do you take to maintain stability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign someone to monitor fuel levels and contact the utility company for a restoration update.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Begin restoring non-critical systems to the generator to improve staff comfort.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Grid Power Restored",
+      "situation": "The utility company has confirmed grid power will be restored within minutes. The generator needs to be carefully transferred back to avoid equipment damage.",
+      "question": "How do you manage the power restoration?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gradually transfer load back to the main grid and then safely shut down and secure the generator.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Switch all systems back to grid power at once to restore operations as fast as possible.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Grid power has been fully restored, the generator has been shut down and secured, and all critical systems are back online with no data loss.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
 }

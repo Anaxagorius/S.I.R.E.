@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-03-23
  * Description: Provides high-level API functions for authentication and user-related operations.
  */
 
@@ -36,3 +36,18 @@ export const logout = async () => {
 export const checkHealth = async () => {
     return apiClient.get("/health");
 }
+
+/** Retrieves the list of available scenarios. */
+export const getScenarios = async () => {
+    return apiClient.get("/scenarios");
+};
+
+/** Retrieves the full scenario definition (including decision nodes) by scenario key. */
+export const getScenario = async (scenarioKey) => {
+    return apiClient.get(`/scenarios/${scenarioKey}`);
+};
+
+/** Retrieves a session by its session code. */
+export const getSession = async (sessionCode) => {
+    return apiClient.get(`/session/${sessionCode}`);
+};
