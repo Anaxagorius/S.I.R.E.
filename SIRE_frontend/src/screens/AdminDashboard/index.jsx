@@ -14,17 +14,17 @@ import Button from "../../components/Button";
 import apiClient from "../../services/api/apiClient";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
-/** Emoji icons mapped to each scenario key. */
-const SCENARIO_ICONS = {
-    scenario_fire: "🔥",
-    scenario_flood: "🌊",
-    scenario_medical_emergency: "🚑",
-    scenario_severe_weather: "⛈️",
-    scenario_cyber_attack: "💻",
-    scenario_hazardous_material_spill: "☣️",
-    scenario_active_threat: "🚨",
-    scenario_power_outage: "🔌",
-};
+/** Static list of the 8 available training scenarios with icons. */
+const STATIC_SCENARIOS = [
+    { id: "scenario_fire",                  icon: "🔥", name: "Fire",                    description: "A fire starts in a storage area and spreads toward occupied floors." },
+    { id: "scenario_flood",                 icon: "🌊", name: "Flood",                   description: "Burst water main begins flooding lower levels." },
+    { id: "scenario_medical_emergency",     icon: "🚑", name: "Medical Emergency",        description: "A medical emergency occurs during a busy shift." },
+    { id: "scenario_severe_weather",        icon: "⛈️", name: "Severe Weather",           description: "Severe weather warnings threaten facility operations." },
+    { id: "scenario_cyber_attack",          icon: "💻", name: "Cyber Attack",             description: "A coordinated phishing and ransomware attack targets staff systems." },
+    { id: "scenario_hazardous_material_spill", icon: "☣️", name: "Hazardous Material Spill", description: "A corrosive chemical spill in a lab corridor escalates over time." },
+    { id: "scenario_active_threat",         icon: "🚨", name: "Active Threat",            description: "An active threat reported near main entrance escalates to facility-wide lockdown." },
+    { id: "scenario_power_outage",          icon: "🔌", name: "Power Outage",             description: "A facility-wide power outage interrupts critical systems." },
+];
 
 /** Function that returns the AdminDashboard component for managing and monitoring session flow. */
 export default function AdminDashboard() {
@@ -35,9 +35,7 @@ export default function AdminDashboard() {
     const [sessionCode, setSessionCode] = useState(location.state?.sessionCode || null);
     const [scenarioKey, setScenarioKey] = useState(location.state?.scenarioKey || null);
 
-    /** Scenario list for the selection cards. */
-    const [scenarios, setScenarios] = useState([]);
-    const [scenariosLoading, setScenariosLoading] = useState(false);
+    /** State for tracking whether a session is currently being created. */
     const [sessionCreating, setSessionCreating] = useState(false);
 
     /** Constant for tracking the current session state. */
@@ -62,26 +60,14 @@ export default function AdminDashboard() {
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
 
-    /** Fetch available scenarios when no session is active. */
-    useEffect(() => {
-        if (sessionCode) return;
-        setScenariosLoading(true);
-        apiClient.get("/scenarios")
-            .then((data) => setScenarios(data))
-            .catch(() => setError("Failed to load scenarios."))
-            .finally(() => setScenariosLoading(false));
-    }, [sessionCode]);
-
     /** Fetch scenario display name and connect to socket when session code is available. */
     useEffect(() => {
         if (!sessionCode) return;
 
-        /** Fetch scenario name from backend if we have a scenario key. */
+        /** Look up the scenario display name from the static scenario list. */
         if (scenarioKey) {
-            apiClient.get("/scenarios").then((list) => {
-                const found = list.find((s) => s.id === scenarioKey);
-                if (found) setScenarioName(found.name);
-            }).catch(() => {});
+            const found = STATIC_SCENARIOS.find((s) => s.id === scenarioKey);
+            if (found) setScenarioName(found.name);
         }
 
         /** Connect to Socket.IO /sim namespace. */
@@ -193,28 +179,20 @@ export default function AdminDashboard() {
                 )}
 
                 {/** Scenario cards grid. */}
-                {scenariosLoading ? (
-                    <div className="dashboard-card"><p>Loading scenarios...</p></div>
-                ) : (
-                    <div className="scenario-grid">
-                        {scenarios.map((scenario) => (
-                            <button
-                                key={scenario.id}
-                                className="scenario-card"
-                                onClick={() => handleSelectScenario(scenario)}
-                                disabled={sessionCreating}
-                            >
-                                <span className="scenario-card-icon">
-                                    {SCENARIO_ICONS[scenario.id] || "📋"}
-                                </span>
-                                <span className="scenario-card-name">{scenario.name}</span>
-                                {scenario.description && (
-                                    <span className="scenario-card-desc">{scenario.description}</span>
-                                )}
-                            </button>
-                        ))}
-                    </div>
-                )}
+                <div className="scenario-grid">
+                    {STATIC_SCENARIOS.map((scenario) => (
+                        <button
+                            key={scenario.id}
+                            className="scenario-card"
+                            onClick={() => handleSelectScenario(scenario)}
+                            disabled={sessionCreating}
+                        >
+                            <span className="scenario-card-icon">{scenario.icon}</span>
+                            <span className="scenario-card-name">{scenario.name}</span>
+                            <span className="scenario-card-desc">{scenario.description}</span>
+                        </button>
+                    ))}
+                </div>
 
                 {/** Creating session indicator. */}
                 {sessionCreating && (
