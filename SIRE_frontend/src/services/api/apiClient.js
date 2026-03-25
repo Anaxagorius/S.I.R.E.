@@ -6,7 +6,9 @@
  */
 
 // Base URL for API requests (configured via Vite environment variables)
-const API_BASE = import.meta.env.VITE_API_BASE?.replace(/\/$/, "") || "http://localhost:8080/api";
+// Accepts either the full API base (https://host/api) or just the host (https://host)
+const _apiBase = import.meta.env.VITE_API_BASE?.replace(/\/$/, "") || "http://localhost:8080";
+const API_BASE = _apiBase.endsWith("/api") ? _apiBase : `${_apiBase}/api`;
 
 // Optional API key for backend authentication (configured via Vite environment variables)
 const API_KEY = import.meta.env.VITE_API_KEY || null;
