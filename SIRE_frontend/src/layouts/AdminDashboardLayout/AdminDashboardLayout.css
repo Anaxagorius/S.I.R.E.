@@ -48,6 +48,59 @@
     padding: 1.5rem;
 }
 
+/** Scenario selection grid. */
+.scenario-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/** Individual scenario selection card. */
+.scenario-card {
+    align-items: center;
+    background: rgb(32, 32, 32);
+    border: 1px solid rgb(80, 80, 80);
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+/** Scenario card hover state. */
+.scenario-card:hover:not(:disabled) {
+    background: rgb(48, 48, 48);
+    border-color: rgb(200, 40, 40);
+}
+
+/** Scenario card disabled state. */
+.scenario-card:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/** Scenario card emoji icon. */
+.scenario-card-icon {
+    font-size: 2rem;
+}
+
+/** Scenario card title. */
+.scenario-card-name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/** Scenario card description text. */
+.scenario-card-desc {
+    color: rgb(180, 180, 180);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
 /** Footer section. */
 .footer-container {
     background: rgb(26, 26, 26);

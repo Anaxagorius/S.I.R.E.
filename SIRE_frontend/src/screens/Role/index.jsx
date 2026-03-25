@@ -13,7 +13,7 @@ import Button from "../../components/Button";
 export default function Role() {
     return (
         <RoleLayout>
-            <Button text="Admin" to="/create-session" />
+            <Button text="Admin" to="/admin-dashboard" />
             <Button text="Trainee" to="/join-session" />
         </RoleLayout>
     );
