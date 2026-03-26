@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-25
+ * Last Update: 2026-03-26
  * Description: Home screen of the application.
  * Displays the main landing page using the HomeLayout, including a login button
  * and a carousel showcasing simulated incident scenarios.
@@ -22,6 +22,9 @@ export default function Home() {
 
             {/** Demo mode button — runs entirely in the browser without a backend. */}
             <Button text="Demo" to="/demo" />
+
+            {/** Showcase mode button — auto-playing kiosk loop of demo scenarios. */}
+            <Button text="Showcase" to="/showcase" />
 
             {/** Main carousel content. */}
             <HomeCarousel />

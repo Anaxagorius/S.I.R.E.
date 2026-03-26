@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-03-26
  * Description: Defines all application routes using React Router.
  * Maps URL paths to their corresponding screen components.
  */
@@ -15,6 +15,7 @@ import JoinSession from "../screens/JoinSession"
 import AdminDashboard from "../screens/AdminDashboard"
 import TraineeInterface from "../screens/TraineeInterface"
 import Demo from "../screens/Demo"
+import Showcase from "../screens/Showcase"
 
 /** Function that returns the AppRouter component for handling client-side routing. */
 export default function AppRouter() {
@@ -29,6 +30,7 @@ export default function AppRouter() {
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/trainee-interface" element={<TraineeInterface />} />
             <Route path="/demo" element={<Demo />} />
+            <Route path="/showcase" element={<Showcase />} />
         </Routes>
     );
 }
