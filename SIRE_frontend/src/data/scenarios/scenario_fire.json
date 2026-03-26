@@ -1,0 +1,119 @@
+{
+  "title": "fire",
+  "description": "A fire starts in a storage area and spreads toward occupied floors.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Smoke Detection",
+      "description": "Maintenance reports smoke near storage area. Investigate source immediately.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Alarm Activated",
+      "description": "Fire alarm is triggered on level two. Confirm fire location and size.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Evacuation Order",
+      "description": "Initiate building evacuation. All personnel proceed to designated assembly points.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Fire Spread Assessment",
+      "description": "Fire spreading to adjacent rooms. Ensure all personnel have evacuated affected zones.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Sprinkler Activation",
+      "description": "Automatic sprinkler system activated. Monitor water damage to critical equipment.",
+      "timeOffsetSec": 135
+    },
+    {
+      "index": 5,
+      "title": "Fire Department Arrival",
+      "description": "Fire department on scene. Provide building plans and hazardous materials information. Conduct headcount.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire Detected",
+      "situation": "Smoke alarms are triggered on the second floor of the building. Maintenance reports smoke near the storage area.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately evacuate the building and call emergency services.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Investigate the source of smoke before taking action.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the alarm and assume it is a false positive.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation Initiated",
+      "situation": "The building evacuation is underway. Emergency services have been notified. Some employees are still inside the building.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a headcount at the assembly point to identify anyone missing.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Re-enter the building to search for remaining employees.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Smoke Source Found",
+      "situation": "You find a small fire in the storage room. It is growing rapidly and blocking the main exit.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the fire extinguisher and attempt to control the fire.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately leave and activate the fire alarm for full evacuation.",
+          "outcome": { "type": "node", "target": "node-4" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Incident Resolved",
+      "situation": "Emergency services have arrived and the situation is under control. All employees are safe at the assembly point.",
+      "question": "What is your final step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief emergency responders and provide a full incident report.",
+          "outcome": { "type": "node", "target": "node-5" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The incident has been successfully managed. Emergency services have cleared the scene. You can now re-enter the building safely.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "title": "cyber_attack",
+  "description": "A coordinated phishing and ransomware attack targets staff systems.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious Activity Detected",
+      "description": "Multiple users report a fake payroll email with embedded links. Do not click any links.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Credential Compromise",
+      "description": "Security detects logins from unusual locations. Reset passwords for affected accounts immediately.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "System Isolation Required",
+      "description": "Ransomware detected on workstation. Isolate affected systems from network to prevent spread.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Backup Verification",
+      "description": "Critical files encrypted in shared drives. Verify backup integrity and offline backup status.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Incident Response Team Activation",
+      "description": "Activate cybersecurity incident response team. Document all affected systems and begin forensics.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Recovery Initiation",
+      "description": "Containment successful. Begin restoration from verified backups. Monitor for additional threats.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 6,
+      "title": "Post-Incident Review",
+      "description": "Systems restored. Conduct lessons learned session and update security protocols.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Email Received",
+      "situation": "Multiple staff members have received a convincing fake payroll email containing embedded links. Some employees are asking whether to click it.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Alert all staff via a broadcast message — do not click any links and report the email to IT.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Click the link yourself to investigate whether it is malicious.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Delete the email and assume staff will handle it themselves.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Credentials Compromised",
+      "situation": "IT Security detects logins from unusual geographic locations, indicating staff credentials have been stolen.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Force password resets for all affected accounts and enable multi-factor authentication.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Monitor the unusual logins to gather more information before acting.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ransomware Detected",
+      "situation": "Ransomware has been detected on a workstation. Files are being encrypted and the infection could spread across the network.",
+      "question": "What action do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately disconnect the affected workstation from the network to contain the spread.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Pay the ransom demand to recover the files quickly.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recovery Phase",
+      "situation": "The ransomware has been contained. IT has verified that offline backups are intact and unaffected.",
+      "question": "How do you proceed with recovery?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore systems from verified clean backups and conduct a full forensic review.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Bring systems back online immediately to minimize downtime without full verification.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All systems have been restored from clean backups. A lessons-learned session has been scheduled and updated security protocols are in place.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

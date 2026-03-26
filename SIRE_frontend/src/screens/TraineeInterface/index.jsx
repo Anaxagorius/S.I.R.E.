@@ -1,10 +1,11 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-25
+ * Last Update: 2026-03-26
  * Description: Trainee interface screen for interacting with scenario-based decision nodes.
- * Dynamically loads the scenario from the backend based on the session's scenario key.
+ * Dynamically loads the scenario from the backend based on the session's scenario key,
+ * or uses bundled scenario data passed directly in navigation state (demo mode).
  * Displays the current scenario, question, and selectable options.
- * Receives live timeline events from the backend via Socket.IO.
+ * Receives live timeline events from the backend via Socket.IO (live sessions only).
  *
  * Session state is read from React Router navigation state first, then falls back to
  * sessionStorage (populated by JoinSession) so the scenario survives a page refresh.
@@ -45,9 +46,18 @@ export default function TraineeInterface() {
         readSessionStorage("sire_scenarioKey") ||
         null;
 
-    /** Scenario data loaded from the backend. */
-    const [scenarioData, setScenarioData] = useState(null);
-    const [loadError, setLoadError] = useState(scenarioKey ? null : "No scenario selected. Please join a session first.");
+    /**
+     * When running in demo mode the full scenario data is passed directly in
+     * navigation state, so no backend fetch is required.
+     */
+    const demoScenarioData = location.state?.scenarioData || null;
+    const isDemo = Boolean(location.state?.demo);
+
+    /** Scenario data loaded from the backend (or pre-populated in demo mode). */
+    const [scenarioData, setScenarioData] = useState(demoScenarioData);
+    const [loadError, setLoadError] = useState(
+        demoScenarioData ? null : (scenarioKey ? null : "No scenario selected. Please join a session first.")
+    );
 
     /** Constant for tracking current node state. */
     const [currentNodeId, setCurrentNodeId] = useState(null);
@@ -61,8 +71,14 @@ export default function TraineeInterface() {
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
 
-    /** Load scenario data from backend and connect to socket. */
+    /** Load scenario data from backend and connect to socket. Skip entirely in demo mode. */
     useEffect(() => {
+        /** Demo mode: scenario data already loaded from bundled JSON — nothing to fetch. */
+        if (isDemo && demoScenarioData) {
+            if (demoScenarioData.root) setCurrentNodeId(demoScenarioData.root);
+            return;
+        }
+
         if (!scenarioKey) return;
 
         let cancelled = false;
@@ -113,7 +129,7 @@ export default function TraineeInterface() {
             cancelled = true;
             if (socket) socket.disconnect();
         };
-    }, [scenarioKey, sessionCode]);
+    }, [scenarioKey, sessionCode, isDemo, demoScenarioData]);
 
     /** Function that handles option selection. */
     function handleOptionClick(option) {
