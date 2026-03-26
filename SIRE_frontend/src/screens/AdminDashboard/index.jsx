@@ -11,8 +11,7 @@ import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import Button from "../../components/Button";
-import apiClient from "../../services/api/apiClient";
-import { getScenarios } from "../../services/api/api";
+import { getScenarios, createSession } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
 /** Icon map keyed by scenario ID, used to enrich scenarios fetched from the API. */
@@ -160,7 +159,7 @@ export default function AdminDashboard() {
         setSessionCreating(true);
         setError(null);
         try {
-            const data = await apiClient.post("/sessions", { scenario: scenario.id });
+            const data = await createSession(scenario.id);
             setScenarioKey(scenario.id);
             setScenarioName(scenario.name);
             setSessionCode(data.sessionKey);

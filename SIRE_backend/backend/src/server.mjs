@@ -55,10 +55,10 @@ app.use((req, res, next) => {
 app.use('/api', authRoute)
 app.use('/api', healthRoute)
 app.use('/api', scenarioRoute)
+app.use('/api', sessionsRoute)
 app.use('/api', requireApiKey)
 app.use('/api', requireTicket)
 app.use('/api', sessionRoute)
-app.use('/api', sessionsRoute)
 app.use(errorHandler)
 
 httpServer.listen(environmentConfig.httpPort, () => {
