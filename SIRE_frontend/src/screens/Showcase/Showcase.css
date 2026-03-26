@@ -1,0 +1,211 @@
+/**
+ * Author: Leon Wasiliew
+ * Last Update: 2026-03-26
+ * Description: Styles for the Showcase/kiosk auto-play screen.
+ * Defines layout, phase-driven visibility animations, and visual effects
+ * for the looping scenario showcase at /showcase.
+ */
+
+/* ─── Keyframes ─────────────────────────────────────────────────────────────── */
+
+/** Fade and slide up on entry. */
+@keyframes showcaseFadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+
+/** Fade and slide up on exit. */
+@keyframes showcaseFadeOut {
+    from { opacity: 1; transform: translateY(0);     }
+    to   { opacity: 0; transform: translateY(-14px); }
+}
+
+/** Pulsing red glow for the selected option. */
+@keyframes showcasePulse {
+    0%, 100% { border-color: rgb(200, 40, 40); box-shadow: 0 0 0 0 rgba(200, 40, 40, 0.35); }
+    50%       { border-color: rgb(240, 80, 80); box-shadow: 0 0 14px 4px rgba(200, 40, 40, 0.45); }
+}
+
+/** Progress bar draining from full width to zero. */
+@keyframes progressDrain {
+    from { width: 100%; }
+    to   { width: 0%;   }
+}
+
+/* ─── Container ─────────────────────────────────────────────────────────────── */
+
+/** Full-screen dark background, centred column layout. */
+.showcase-container {
+    align-items: center;
+    background: rgb(10, 10, 10);
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden;
+    padding: 2rem;
+    position: relative;
+    width: 100%;
+}
+
+/* ─── Phase animations ───────────────────────────────────────────────────────── */
+
+/** Animate main content (not progress bar or branding) in on enter/show/select. */
+.showcase-enter  .showcase-header,
+.showcase-enter  .showcase-card,
+.showcase-show   .showcase-header,
+.showcase-show   .showcase-card,
+.showcase-select .showcase-header,
+.showcase-select .showcase-card {
+    animation: showcaseFadeIn 0.6s ease forwards;
+}
+
+/** Animate main content out on exit. */
+.showcase-exit .showcase-header,
+.showcase-exit .showcase-card {
+    animation: showcaseFadeOut 0.8s ease forwards;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────────── */
+
+.showcase-header {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+}
+
+.showcase-icon {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.showcase-header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.showcase-name {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.showcase-subtitle {
+    color: rgb(136, 136, 136);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    margin: 0.3rem 0 0;
+    text-transform: uppercase;
+}
+
+/* ─── Decision card ──────────────────────────────────────────────────────────── */
+
+.showcase-card {
+    background: rgb(22, 22, 22);
+    border: 1px solid rgb(200, 40, 40);
+    border-radius: 10px;
+    max-width: 640px;
+    padding: 1.5rem 2rem;
+    width: 100%;
+}
+
+.showcase-node-title {
+    color: rgb(200, 40, 40);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.6rem;
+    text-transform: uppercase;
+}
+
+.showcase-situation {
+    color: rgb(195, 195, 195);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin: 0 0 0.75rem;
+}
+
+.showcase-divider {
+    border: none;
+    border-top: 1px solid rgb(55, 55, 55);
+    margin: 0.75rem 0;
+}
+
+.showcase-question {
+    color: rgb(255, 255, 255);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+}
+
+/* ─── Options ────────────────────────────────────────────────────────────────── */
+
+.showcase-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.showcase-option {
+    align-items: flex-start;
+    background: rgb(30, 30, 30);
+    border: 1px solid rgb(75, 75, 75);
+    border-radius: 8px;
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.7rem 1rem;
+    transition: border-color 0.2s;
+}
+
+/** Pulsing highlight on the correct option during the "select" phase. */
+.showcase-option-selected {
+    animation: showcasePulse 0.9s ease-in-out infinite;
+    background: rgb(38, 16, 16);
+    border-color: rgb(200, 40, 40);
+}
+
+.showcase-option-label {
+    color: rgb(200, 40, 40);
+    font-weight: 700;
+    min-width: 1.25rem;
+}
+
+.showcase-option-text {
+    color: rgb(215, 215, 215);
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+/* ─── Progress bar ───────────────────────────────────────────────────────────── */
+
+.showcase-progress-track {
+    background: rgb(40, 40, 40);
+    border-radius: 4px;
+    height: 4px;
+    max-width: 640px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.showcase-progress-bar {
+    animation: progressDrain linear forwards;
+    background: rgb(200, 40, 40);
+    height: 100%;
+    width: 100%;
+}
+
+/* ─── Branding footer ────────────────────────────────────────────────────────── */
+
+.showcase-branding {
+    bottom: 1.25rem;
+    color: rgb(65, 65, 65);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    position: absolute;
+    text-transform: uppercase;
+}
