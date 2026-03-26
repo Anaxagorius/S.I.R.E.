@@ -12,7 +12,7 @@ import About from "../../assets/images/About.png";
 import "./CreateSessionLayout.css";
 
 /** Function that returns the CreateSessionLayout component that provides a consistent layout for the session creation interface. */
-export default function CreateSessionLayout({ children }) {
+export default function CreateSessionLayout({ children, title, description }) {
     return (
         <Grid container spacing={0} className="create-session-container">
 
@@ -23,8 +23,8 @@ export default function CreateSessionLayout({ children }) {
                         <img src={About} alt="S.I.R.E. Logo" />
                         <p className="subtitle">Simulated Incident Response Environment</p>
                         <div className="info-section">
-                            <h3>Create a Session</h3>
-                            <p>Select a scenario and generate a session key to allow trainees to join and participate in the simulation.</p>
+                            <h3>{title || "Create a Session"}</h3>
+                            <p>{description || "Select a scenario and generate a session key to allow trainees to join and participate in the simulation."}</p>
                         </div>
                     </div>
                 </div>

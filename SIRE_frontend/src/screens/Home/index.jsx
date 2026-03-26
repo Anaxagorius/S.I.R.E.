@@ -20,6 +20,9 @@ export default function Home() {
             {/** Navigation button. */}
             <Button text="Admin" to="/create-session" />
 
+            {/** Demo mode button — runs entirely in the browser without a backend. */}
+            <Button text="Demo" to="/demo" />
+
             {/** Main carousel content. */}
             <HomeCarousel />
         </HomeLayout>
