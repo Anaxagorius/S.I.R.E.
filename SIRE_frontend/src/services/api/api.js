@@ -51,3 +51,13 @@ export const getScenario = async (scenarioKey) => {
 export const getSession = async (sessionCode) => {
     return apiClient.get(`/session/${sessionCode}`);
 };
+
+/** Creates a new session with the given scenario key. */
+export const createSession = async (scenarioKey) => {
+    return apiClient.post("/sessions", { scenario: scenarioKey });
+};
+
+/** Joins an existing session using its session key. */
+export const joinSession = async (sessionKey) => {
+    return apiClient.post("/sessions/join", { sessionKey });
+};

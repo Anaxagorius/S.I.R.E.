@@ -17,6 +17,7 @@ const { sessionService } = await import('../src/services/sessionService.mjs')
 const { scenarioRegistry } = await import('../src/services/scenarioRegistry.mjs')
 const { attachSocketServer } = await import('../src/sockets/socketServer.mjs')
 const sessionRoute = (await import('../src/routes/sessionRoute.mjs')).default
+const sessionsRoute = (await import('../src/routes/sessionsRoute.mjs')).default
 const scenarioRoute = (await import('../src/routes/scenarioRoute.mjs')).default
 const { attachRequestContext, requireApiKey, requireTicket } = await import('../src/middleware/authMiddleware.mjs')
 const { securityHeaders } = await import('../src/middleware/securityHeaders.mjs')
@@ -34,6 +35,7 @@ app.use(securityHeaders)
 app.use(express.json({ limit: '50kb' }))
 app.use(attachRequestContext)
 app.use('/api', scenarioRoute)
+app.use('/api', sessionsRoute)
 app.use('/api', requireApiKey)
 app.use('/api', requireTicket)
 app.use('/api', sessionRoute)
@@ -180,6 +182,31 @@ await new Promise((resolve, reject) => {
 clientBadAuth.close()
 console.log('✓ Socket.IO rejects wrong api key')
 
+// Test POST /sessions - create a session without API key (public endpoint)
+const createSessionResponse = await fetchJson('POST', '/api/sessions', { scenario: scenarioKeys[0] })
+assert.strictEqual(createSessionResponse.statusCode, 201)
+assert.ok(createSessionResponse.body.sessionKey)
+assert.strictEqual(createSessionResponse.body.scenarioKey, scenarioKeys[0])
+console.log('✓ POST /api/sessions creates session without API key')
+
+// Test POST /sessions with an invalid scenario key
+const invalidScenarioResponse = await fetchJson('POST', '/api/sessions', { scenario: 'scenario_does_not_exist' })
+assert.strictEqual(invalidScenarioResponse.statusCode, 404)
+console.log('✓ POST /api/sessions returns 404 for unknown scenario')
+
+// Test POST /sessions/join - join the newly created session without API key
+const createdSessionKey = createSessionResponse.body.sessionKey
+const joinSessionResponse = await fetchJson('POST', '/api/sessions/join', { sessionKey: createdSessionKey })
+assert.strictEqual(joinSessionResponse.statusCode, 200)
+assert.strictEqual(joinSessionResponse.body.sessionKey, createdSessionKey)
+assert.strictEqual(joinSessionResponse.body.scenarioKey, scenarioKeys[0])
+console.log('✓ POST /api/sessions/join joins session without API key')
+
+// Test POST /sessions/join with an invalid session key
+const invalidJoinResponse = await fetchJson('POST', '/api/sessions/join', { sessionKey: 'XXXXXX' })
+assert.strictEqual(invalidJoinResponse.statusCode, 404)
+console.log('✓ POST /api/sessions/join returns 404 for unknown session')
+
 const deleteDenied = await fetchJson('DELETE', `/api/session/${session.sessionCode}`, null, apiKeyHeader)
 assert.strictEqual(deleteDenied.statusCode, 400)
 
@@ -193,4 +220,5 @@ io.close()
 httpServer.close()
 inMemorySessionStore.setActive(session.sessionCode, false)
 inMemorySessionStore.setActive(session2.sessionCode, false)
+inMemorySessionStore.setActive(createdSessionKey, false)
 console.log('Socket.IO integration test passed')

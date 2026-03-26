@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import JoinSessionLayout from "../../layouts/JoinSessionLayout";
 import Button from "../../components/Button";
-import apiClient from "../../services/api/apiClient";
+import { joinSession } from "../../services/api/api";
 
 /** Function that returns the JoinSession component for trainee session entry. */
 export default function JoinSession() {
@@ -30,7 +30,7 @@ export default function JoinSession() {
         setLoading(true);
         setError(null);
         try {
-            const data = await apiClient.post("/sessions/join", { sessionKey });
+            const data = await joinSession(sessionKey);
             const sessionCode = data.sessionKey;
             const scenarioKey = data.scenarioKey;
 

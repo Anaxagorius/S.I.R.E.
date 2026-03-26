@@ -8,7 +8,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateSessionLayout from "../../layouts/CreateSessionLayout";
-import apiClient from "../../services/api/apiClient";
+import { createSession } from "../../services/api/api";
 
 /** Static list of the 8 available training scenarios. */
 const STATIC_SCENARIOS = [
@@ -36,9 +36,7 @@ export default function CreateSession() {
         setLoading(true);
         setError(null);
         try {
-            const data = await apiClient.post("/sessions", {
-                scenario: scenario.id,
-            });
+            const data = await createSession(scenario.id);
             navigate("/admin-dashboard", {
                 state: { sessionCode: data.sessionKey, scenarioKey: scenario.id },
             });
