@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S.I.R.E. — Team Nibble Business Cards</title>
+  <style>
+    /* ── Google Fonts ─────────────────────────────────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap');
+
+    /* ── Reset ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design tokens ───────────────────────────────────────────── */
+    :root {
+      --red:        #e63946;
+      --red-dark:   #c1121f;
+      --red-deep:   #9b1d26;
+      --charcoal:   #1a1a2e;
+      --dark-navy:  #16213e;
+      --white:      #ffffff;
+      --off-white:  #fafafa;
+      --silver:     #e0e0e0;
+      --text:       #1a1a1a;
+      --muted:      #666666;
+
+      /* Standard business card: 88.9mm × 50.8mm */
+      --card-w: 88.9mm;
+      --card-h: 50.8mm;
+    }
+
+    /* ── Screen layout ────────────────────────────────────────────── */
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      background: #2d2d2d;
+      color: var(--text);
+      padding: 10mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8mm;
+    }
+
+    h1.page-title {
+      font-family: 'Montserrat', sans-serif;
+      color: #fff;
+      font-size: 14pt;
+      font-weight: 700;
+      text-align: center;
+      margin: 6mm 0 2mm;
+      letter-spacing: 0.05em;
+    }
+    .page-subtitle {
+      font-family: 'Open Sans', sans-serif;
+      color: #aaa;
+      font-size: 8pt;
+      text-align: center;
+      margin-bottom: 4mm;
+    }
+
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--red);
+      font-size: 9pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      text-align: center;
+      margin: 4mm 0 3mm;
+    }
+
+    /* ── Card sheet layout ───────────────────────────────────────── */
+    .sheet {
+      background: #1a1a1a;
+      border-radius: 4px;
+      padding: 8mm;
+      display: inline-block;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, var(--card-w));
+      gap: 4mm;
+    }
+
+    /* ── BASE CARD ───────────────────────────────────────────────── */
+    .card {
+      width: var(--card-w);
+      height: var(--card-h);
+      border-radius: 3mm;
+      overflow: hidden;
+      position: relative;
+      font-family: 'Open Sans', Arial, sans-serif;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       FRONT CARD — Member Cards
+       ════════════════════════════════════════════════════════════════ */
+    .card-front {
+      background: var(--charcoal);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Red stripe at top */
+    .card-front .stripe-top {
+      background: var(--red);
+      height: 5mm;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .card-front .stripe-top::after {
+      content: '';
+      position: absolute;
+      bottom: -1.5mm;
+      left: 0; right: 0;
+      height: 1.5mm;
+      background: var(--red-dark);
+      opacity: 0.5;
+    }
+
+    /* Card body */
+    .card-front .body {
+      flex: 1;
+      display: flex;
+      padding: 2.5mm 4mm 2mm;
+      gap: 3mm;
+    }
+
+    /* Left side: branding column */
+    .card-front .brand-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      flex-shrink: 0;
+      width: 18mm;
+      padding-top: 1mm;
+      border-right: 1px solid rgba(255,255,255,0.10);
+      padding-right: 3mm;
+    }
+
+    .card-front .sire-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18pt;
+      font-weight: 900;
+      color: var(--red);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .card-front .sire-dot {
+      color: var(--white);
+      font-size: 5pt;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      opacity: 0.70;
+      margin-top: 0.5mm;
+      text-align: center;
+    }
+    .card-front .icon-row {
+      display: flex;
+      gap: 1mm;
+      margin-top: 2mm;
+    }
+    .card-front .icon-dot {
+      width: 2.5mm; height: 2.5mm;
+      border-radius: 50%;
+      background: var(--red);
+      opacity: 0.5;
+    }
+    .card-front .icon-dot:nth-child(2) { opacity: 0.7; }
+    .card-front .icon-dot:nth-child(3) { opacity: 0.9; }
+
+    /* Right side: info column */
+    .card-front .info-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-front .member-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10.5pt;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .card-front .member-role {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 6.2pt;
+      font-weight: 600;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.8mm;
+    }
+
+    .card-front .divider {
+      height: 0.5px;
+      background: rgba(255,255,255,0.12);
+      margin: 2mm 0;
+    }
+
+    .card-front .program-name {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 5.8pt;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+    .card-front .program-name strong {
+      color: rgba(255,255,255,0.95);
+      font-weight: 600;
+    }
+
+    /* Bottom bar */
+    .card-front .footer-bar {
+      background: rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5mm 4mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .card-front .footer-bar .team-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 5.5pt;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .card-front .footer-bar .github-link {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 5pt;
+      color: rgba(255,255,255,0.50);
+      letter-spacing: 0.02em;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       BACK CARD — Program Info Card
+       ════════════════════════════════════════════════════════════════ */
+    .card-back {
+      background: var(--red);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Geometric accent circles */
+    .card-back::before {
+      content: '';
+      position: absolute;
+      top: -12mm; right: -12mm;
+      width: 32mm; height: 32mm;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+    .card-back::after {
+      content: '';
+      position: absolute;
+      bottom: -8mm; left: -8mm;
+      width: 24mm; height: 24mm;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.12);
+    }
+
+    .card-back .back-inner {
+      flex: 1;
+      padding: 3.5mm 5mm 3mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-back .back-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22pt;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .card-back .back-logo span {
+      color: rgba(255,255,255,0.65);
+    }
+
+    .card-back .back-expanded {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 5.8pt;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.01em;
+      line-height: 1.6;
+      margin-top: 0.5mm;
+    }
+    .card-back .back-expanded em {
+      font-style: normal;
+      font-weight: 600;
+      color: white;
+    }
+
+    .card-back .back-tagline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: rgba(255,255,255,0.90);
+      font-style: italic;
+      line-height: 1.4;
+      border-left: 2px solid rgba(255,255,255,0.5);
+      padding-left: 2.5mm;
+      margin-top: 2mm;
+    }
+
+    .card-back .back-footer {
+      background: rgba(0,0,0,0.18);
+      padding: 1.8mm 5mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .card-back .back-footer .school {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 5.5pt;
+      font-weight: 700;
+      color: rgba(255,255,255,0.90);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .card-back .back-footer .course {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 4.8pt;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       TEAM OVERVIEW CARD (wide, spans 2 columns)
+       ════════════════════════════════════════════════════════════════ */
+    .card-overview {
+      width: calc(var(--card-w) * 2 + 4mm);
+      height: var(--card-h);
+      grid-column: span 2;
+      background: var(--dark-navy);
+      border-radius: 3mm;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+    }
+
+    .card-overview .ov-left {
+      background: var(--red);
+      width: 28mm;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3mm;
+      position: relative;
+    }
+    .card-overview .ov-left::after {
+      content: '';
+      position: absolute;
+      top: 0; right: -3mm; bottom: 0;
+      width: 6mm;
+      background: var(--red);
+      clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    }
+    .card-overview .ov-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20pt;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .card-overview .ov-tagword {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 5pt;
+      font-weight: 700;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 1mm;
+      text-align: center;
+    }
+
+    .card-overview .ov-right {
+      flex: 1;
+      padding: 3mm 5mm 2.5mm 8mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-overview .ov-team-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13pt;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.02em;
+    }
+    .card-overview .ov-program {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 5.8pt;
+      color: rgba(255,255,255,0.65);
+      margin-top: 0.5mm;
+    }
+
+    .card-overview .ov-members {
+      display: flex;
+      gap: 3.5mm;
+      flex-wrap: wrap;
+    }
+    .card-overview .ov-member-chip {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 2mm;
+      padding: 1.2mm 2.5mm;
+    }
+    .card-overview .ov-member-chip .chip-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 6pt;
+      font-weight: 700;
+      color: white;
+    }
+    .card-overview .ov-member-chip .chip-role {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 5pt;
+      color: var(--red);
+      margin-top: 0.2mm;
+    }
+
+    .card-overview .ov-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 1.5mm;
+      margin-top: 1mm;
+    }
+    .card-overview .ov-footer .nscc-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 5.5pt;
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .card-overview .ov-footer .github {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 5pt;
+      color: rgba(255,255,255,0.40);
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       PRINT MEDIA — Standard US Business Card, 10-up layout
+       ════════════════════════════════════════════════════════════════ */
+    @media print {
+      @page {
+        size: Letter portrait;
+        margin: 12mm 8mm;
+      }
+      body {
+        background: white;
+        padding: 0;
+        gap: 4mm;
+      }
+      h1.page-title, .page-subtitle, .section-label { display: none; }
+      .sheet {
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
+      }
+      .card-grid {
+        gap: 3mm;
+      }
+      /* keep background colours in print */
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    /* ── Crop marks (screen only) ────────────────────────────────── */
+    .crop-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .crop-wrapper::before,
+    .crop-wrapper::after,
+    .crop-wrapper .crop-br::before,
+    .crop-wrapper .crop-br::after {
+      content: '';
+      position: absolute;
+      background: rgba(255,255,255,0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">S.I.R.E. — Team Nibble &nbsp;·&nbsp; Business Cards</h1>
+  <p class="page-subtitle">Print → Ctrl+P (Cmd+P) · Letter Portrait · Enable Background Graphics · Save as PDF</p>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SHEET 1 — FRONT FACES (Member Cards + Back Cards)
+       ══════════════════════════════════════════════════════════════ -->
+  <p class="section-label">◆ Member Cards — Front</p>
+
+  <div class="sheet">
+    <div class="card-grid">
+
+      <!-- ─────────────────────────────────────────────────────────
+           CARD 1 — Tom Burchell
+           ───────────────────────────────────────────────────────── -->
+      <div class="card card-front">
+        <div class="stripe-top"></div>
+        <div class="body">
+          <div class="brand-col">
+            <div class="sire-logo">S.I.R.E.</div>
+            <div class="sire-dot">Simulated<br>Incident<br>Response<br>Environment</div>
+            <div class="icon-row">
+              <div class="icon-dot"></div>
+              <div class="icon-dot"></div>
+              <div class="icon-dot"></div>
+            </div>
+          </div>
+          <div class="info-col">
+            <div>
+              <div class="member-name">Tom Burchell</div>
+              <div class="member-role">Backend &amp; Real-Time Lead</div>
+              <div class="divider"></div>
+              <div class="program-name">
+                <strong>Socket.IO Architecture</strong><br>
+                Scenario Escalation Engine<br>
+                Server Design &amp; CI/CD Pipeline<br>
+                Cloud Deployment
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bar">
+          <span class="team-tag">Team Nibble</span>
+          <span class="github-link">github.com/Anaxagorius/S.I.R.E.</span>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────────
+           CARD 2 — Leon Wasiliew
+           ───────────────────────────────────────────────────────── -->
+      <div class="card card-front">
+        <div class="stripe-top"></div>
+        <div class="body">
+          <div class="brand-col">
+            <div class="sire-logo">S.I.R.E.</div>
+            <div class="sire-dot">Simulated<br>Incident<br>Response<br>Environment</div>
+            <div class="icon-row">
+              <div class="icon-dot"></div>
+              <div class="icon-dot"></div>
+              <div class="icon-dot"></div>
+            </div>
+          </div>
+          <div class="info-col">
+            <div>
+              <div class="member-name">Leon Wasiliew</div>
+              <div class="member-role">Frontend &amp; UI/UX Lead</div>
+              <div class="divider"></div>
+              <div class="program-name">
+                <strong>React Application</strong><br>
+                State Management<br>
+                Admin Dashboard &amp; Trainee UI<br>
+                Responsive Design
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bar">
+          <span class="team-tag">Team Nibble</span>
+          <span class="github-link">github.com/Anaxagorius/S.I.R.E.</span>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────────
+           CARD 3 — John Hay
+           ───────────────────────────────────────────────────────── -->
+      <div class="card card-front">
+        <div class="stripe-top"></div>
+        <div class="body">
+          <div class="brand-col">
+            <div class="sire-logo">S.I.R.E.</div>
+            <div class="sire-dot">Simulated<br>Incident<br>Response<br>Environment</div>
+            <div class="icon-row">
+              <div class="icon-dot"></div>
+              <div class="icon-dot"></div>
+              <div class="icon-dot"></div>
+            </div>
+          </div>
+          <div class="info-col">
+            <div>
+              <div class="member-name">John Hay</div>
+              <div class="member-role">Script Master &amp; QA Lead</div>
+              <div class="divider"></div>
+              <div class="program-name">
+                <strong>Scenario Authoring</strong><br>
+                Integration Testing<br>
+                Accessibility Review<br>
+                Content Validation
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bar">
+          <span class="team-tag">Team Nibble</span>
+          <span class="github-link">github.com/Anaxagorius/S.I.R.E.</span>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────────
+           CARD 4 — Kael Payette
+           ───────────────────────────────────────────────────────── -->
+      <div class="card card-front">
+        <div class="stripe-top"></div>
+        <div class="body">
+          <div class="brand-col">
+            <div class="sire-logo">S.I.R.E.</div>
+            <div class="sire-dot">Simulated<br>Incident<br>Response<br>Environment</div>
+            <div class="icon-row">
+              <div class="icon-dot"></div>
+              <div class="icon-dot"></div>
+              <div class="icon-dot"></div>
+            </div>
+          </div>
+          <div class="info-col">
+            <div>
+              <div class="member-name">Kael Payette</div>
+              <div class="member-role">Project Manager</div>
+              <div class="divider"></div>
+              <div class="program-name">
+                <strong>Project Coordination</strong><br>
+                Documentation &amp; Standards<br>
+                Git Workflow &amp; Milestones<br>
+                Testing Orchestration
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bar">
+          <span class="team-tag">Team Nibble</span>
+          <span class="github-link">github.com/Anaxagorius/S.I.R.E.</span>
+        </div>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </div><!-- /.sheet -->
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SHEET 2 — BACK FACES
+       ══════════════════════════════════════════════════════════════ -->
+  <p class="section-label">◆ Card Backs — Programme &amp; Team Info</p>
+
+  <div class="sheet">
+    <div class="card-grid">
+
+      <!-- ─────────────────────────────────────────────────────────
+           BACK 1 — Program back (x4 identical, print double-sided)
+           ───────────────────────────────────────────────────────── -->
+      <div class="card card-back">
+        <div class="back-inner">
+          <div>
+            <div class="back-logo">S<span>.</span>I<span>.</span>R<span>.</span>E<span>.</span></div>
+            <div class="back-expanded">
+              <em>S</em>imulated &nbsp;<em>I</em>ncident &nbsp;<em>R</em>esponse &nbsp;<em>E</em>nvironment
+            </div>
+          </div>
+          <div class="back-tagline">
+            Real-time, instructor-led emergency<br>
+            scenario training for any team,<br>
+            on any device.
+          </div>
+        </div>
+        <div class="back-footer">
+          <div>
+            <div class="school">NSCC — Team Nibble</div>
+            <div class="course">PROG 3300 · Instructor: Alfred Parkes</div>
+          </div>
+          <div class="course" style="color:rgba(255,255,255,0.50);">github.com/Anaxagorius/S.I.R.E.</div>
+        </div>
+      </div>
+
+      <!-- Back 2 -->
+      <div class="card card-back">
+        <div class="back-inner">
+          <div>
+            <div class="back-logo">S<span>.</span>I<span>.</span>R<span>.</span>E<span>.</span></div>
+            <div class="back-expanded">
+              <em>S</em>imulated &nbsp;<em>I</em>ncident &nbsp;<em>R</em>esponse &nbsp;<em>E</em>nvironment
+            </div>
+          </div>
+          <div class="back-tagline">
+            Real-time, instructor-led emergency<br>
+            scenario training for any team,<br>
+            on any device.
+          </div>
+        </div>
+        <div class="back-footer">
+          <div>
+            <div class="school">NSCC — Team Nibble</div>
+            <div class="course">PROG 3300 · Instructor: Alfred Parkes</div>
+          </div>
+          <div class="course" style="color:rgba(255,255,255,0.50);">github.com/Anaxagorius/S.I.R.E.</div>
+        </div>
+      </div>
+
+      <!-- Back 3 -->
+      <div class="card card-back">
+        <div class="back-inner">
+          <div>
+            <div class="back-logo">S<span>.</span>I<span>.</span>R<span>.</span>E<span>.</span></div>
+            <div class="back-expanded">
+              <em>S</em>imulated &nbsp;<em>I</em>ncident &nbsp;<em>R</em>esponse &nbsp;<em>E</em>nvironment
+            </div>
+          </div>
+          <div class="back-tagline">
+            Real-time, instructor-led emergency<br>
+            scenario training for any team,<br>
+            on any device.
+          </div>
+        </div>
+        <div class="back-footer">
+          <div>
+            <div class="school">NSCC — Team Nibble</div>
+            <div class="course">PROG 3300 · Instructor: Alfred Parkes</div>
+          </div>
+          <div class="course" style="color:rgba(255,255,255,0.50);">github.com/Anaxagorius/S.I.R.E.</div>
+        </div>
+      </div>
+
+      <!-- Back 4 -->
+      <div class="card card-back">
+        <div class="back-inner">
+          <div>
+            <div class="back-logo">S<span>.</span>I<span>.</span>R<span>.</span>E<span>.</span></div>
+            <div class="back-expanded">
+              <em>S</em>imulated &nbsp;<em>I</em>ncident &nbsp;<em>R</em>esponse &nbsp;<em>E</em>nvironment
+            </div>
+          </div>
+          <div class="back-tagline">
+            Real-time, instructor-led emergency<br>
+            scenario training for any team,<br>
+            on any device.
+          </div>
+        </div>
+        <div class="back-footer">
+          <div>
+            <div class="school">NSCC — Team Nibble</div>
+            <div class="course">PROG 3300 · Instructor: Alfred Parkes</div>
+          </div>
+          <div class="course" style="color:rgba(255,255,255,0.50);">github.com/Anaxagorius/S.I.R.E.</div>
+        </div>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </div><!-- /.sheet -->
+
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SHEET 3 — TEAM OVERVIEW CARD (Wide Banner Format)
+       ══════════════════════════════════════════════════════════════ -->
+  <p class="section-label">◆ Team Overview Card</p>
+
+  <div class="sheet">
+    <div class="card-grid">
+      <div class="card card-overview">
+        <div class="ov-left">
+          <div class="ov-logo">S.I.R.E.</div>
+          <div class="ov-tagword">Team<br>Nibble</div>
+        </div>
+        <div class="ov-right">
+          <div>
+            <div class="ov-team-name">Team Nibble</div>
+            <div class="ov-program">Simulated Incident Response Environment · NSCC · PROG 3300</div>
+          </div>
+          <div class="ov-members">
+            <div class="ov-member-chip">
+              <div class="chip-name">Tom Burchell</div>
+              <div class="chip-role">Backend &amp; Real-Time Lead</div>
+            </div>
+            <div class="ov-member-chip">
+              <div class="chip-name">Leon Wasiliew</div>
+              <div class="chip-role">Frontend &amp; UI/UX Lead</div>
+            </div>
+            <div class="ov-member-chip">
+              <div class="chip-name">John Hay</div>
+              <div class="chip-role">Script Master &amp; QA</div>
+            </div>
+            <div class="ov-member-chip">
+              <div class="chip-name">Kael Payette</div>
+              <div class="chip-role">Project Manager</div>
+            </div>
+          </div>
+          <div class="ov-footer">
+            <span class="nscc-tag">Nova Scotia Community College</span>
+            <span class="github">github.com/Anaxagorius/S.I.R.E.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       PRINT INSTRUCTIONS (screen only)
+       ══════════════════════════════════════════════════════════════ -->
+  <div style="
+    font-family:'Open Sans',sans-serif;
+    font-size:8pt;
+    color:#888;
+    text-align:center;
+    padding:6mm 0 10mm;
+    max-width:200mm;
+    line-height:1.7;
+  ">
+    <strong style="color:#ccc;">How to generate the PDF:</strong><br>
+    Open this file in Chrome or Edge · Press <kbd style="background:#333;color:#fff;padding:0 2px;border-radius:2px;">Ctrl+P</kbd> (or <kbd style="background:#333;color:#fff;padding:0 2px;border-radius:2px;">⌘P</kbd> on Mac) ·
+    Destination → <em>Save as PDF</em> · Paper size: <em>Letter</em> · Margins: <em>None</em> ·
+    ✅ <em>Background graphics</em> → Save
+  </div>
+
+</body>
+</html>
