@@ -93,6 +93,11 @@ docker run -p 8080:8080 \
 
 ## Cloud Platform Deployment
 
+> 📖 **Render users:** See the dedicated step-by-step guide at the repository root —
+> [`RENDER_DEPLOYMENT.md`](../../RENDER_DEPLOYMENT.md) — for a complete walkthrough of
+> Blueprint and manual deployment, free-tier spin-down behaviour, and the admin dashboard
+> "Failed to fetch" troubleshooting steps.
+
 ### Railway Deployment
 
 Railway is a modern deployment platform with excellent Node.js support and a generous free tier.
@@ -160,27 +165,37 @@ Set in Render dashboard → Environment:
 - `REQUIRE_TICKET_ID=false`
 - `LOG_LEVEL=info`
 
-#### Using render.yaml (Blueprint)
+#### Using render.yaml (Blueprint) — Recommended
 1. In Render dashboard, select "New" → "Blueprint"
 2. Connect repository
-3. Render will auto-detect `render.yaml` and configure everything
+3. Render auto-detects `render.yaml` and creates both services:
+   - **`s-i-r-e`** — Node web service (backend API + Socket.IO)
+   - **`s-i-r-e-frontend`** — Static site (React frontend)
+4. `VITE_API_BASE` and `ALLOWED_ORIGINS` are wired automatically via `fromService` — no manual configuration needed.
 
-#### Render Environment Variables (Frontend)
-The `render.yaml` blueprint configures these for the `sire-web` static site
-automatically.  If deploying manually, set them on the Render Static Site:
+> For a complete step-by-step walkthrough, see [`RENDER_DEPLOYMENT.md`](../../RENDER_DEPLOYMENT.md)
+> at the repository root.
+
+#### Render Environment Variables (manual deploy only)
+When **not** using the Blueprint, set these variables by hand:
+
+**Frontend (`s-i-r-e-frontend` static site):**
 
 | Variable | Example value | Notes |
 |---|---|---|
-| `VITE_API_BASE` | `https://sire-api.onrender.com/api` | Backend base URL including `/api` path, no trailing slash |
-| `VITE_API_KEY` | *(copy from `sire-api` → `API_KEY`)* | Must match the backend `API_KEY` |
+| `VITE_API_BASE` | `https://s-i-r-e.onrender.com` | Backend base URL — **no** `/api` suffix, no trailing slash |
 
 > **Important:** `VITE_API_BASE` must be set before building the frontend.
-> In production, omitting it causes the frontend to silently fall back to
-> `http://localhost:8080/api`, which is unreachable and produces "Failed to fetch" errors.
+> Omitting it causes the frontend to silently fall back to
+> `http://localhost:8080`, which is unreachable in production and produces "Failed to fetch" errors in the admin dashboard.
 
-> **Important:** After deploying via Blueprint, copy the auto-generated
-> `API_KEY` from the `sire-api` service and paste it as `VITE_API_KEY` on the
-> `sire-web` service, then trigger a redeploy of `sire-web`.
+**Backend (`s-i-r-e` web service):**
+
+| Variable | Value | Notes |
+|---|---|---|
+| `ALLOWED_ORIGINS` | `https://s-i-r-e-frontend.onrender.com` | Exact frontend URL — no trailing slash |
+
+> After setting `ALLOWED_ORIGINS`, the backend restarts automatically. Without it, the browser blocks all API calls with a CORS error.
 
 #### Verification
 ```bash
@@ -302,8 +317,8 @@ All cloud platforms support health checks via:
 GET /api/health
 ```
 
-**Headers Required:**
-- `x-api-key: YOUR_API_KEY`
+> **No API key required** — the health endpoint is registered before the `requireApiKey`
+> middleware so Render's health checker and manual verification both work without credentials.
 
 **Expected Response:**
 ```json
