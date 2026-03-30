@@ -33,6 +33,9 @@ Deploy the backend to a free-tier cloud provider with one click:
 Deploy the **backend** (`s-i-r-e`) and **frontend** (`s-i-r-e-frontend`) to Render using the
 blueprint at the repo root.
 
+> 📖 **Full step-by-step guide (including admin dashboard troubleshooting):**
+> [`RENDER_DEPLOYMENT.md`](../../RENDER_DEPLOYMENT.md)
+
 ## Deploy via Blueprint (Recommended)
 
 1. Go to [Render Dashboard](https://dashboard.render.com) → **New → Blueprint**.
@@ -44,6 +47,10 @@ blueprint at the repo root.
    Render's `fromService` Blueprint feature — no manual configuration required.
 5. API key enforcement is **disabled** (`REQUIRE_API_KEY=false`) so the frontend and
    backend communicate without additional secrets.
+
+> ⚠️ **Free-tier spin-down:** The backend sleeps after 15 minutes of inactivity. The first
+> request after waking can take up to 60 seconds. Open
+> `https://s-i-r-e.onrender.com/api/health` to wake the service before running a session.
 
 ## Manual Deploy (Backend Only)
 
@@ -65,6 +72,10 @@ blueprint at the repo root.
    | `ALLOWED_ORIGINS` | `https://s-i-r-e-frontend.onrender.com` | Exact frontend URL, no trailing slash |
 
 > **Note:** Do **not** set `PORT` — Render injects it automatically.
+>
+> When deploying manually (not via Blueprint) you must also deploy the frontend and set
+> `VITE_API_BASE` on it before the first build. See
+> [`RENDER_DEPLOYMENT.md`](../../RENDER_DEPLOYMENT.md) for the full manual-deploy steps.
 
 ---
 
