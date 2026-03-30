@@ -4,10 +4,10 @@
  * Description: Shared Socket.IO connection configuration for client components.
  */
 
-/** Raw API base from Vite env (may be a bare hostname from Render's fromService). */
+/** Raw API base from Vite env — Render's fromService (property: url) returns a full https:// URL. */
 const _rawApiBase = import.meta.env.VITE_API_BASE?.replace(/\/$/, "") || "http://localhost:8080";
 
-/** Ensure the URL has a protocol prefix — Render's hostMachineUrl may omit it. */
+/** Ensure the URL has a protocol prefix as a safety net for bare-hostname fallback values. */
 const _apiBaseWithProto = /^https?:\/\//i.test(_rawApiBase) ? _rawApiBase : `https://${_rawApiBase}`;
 
 /** Base URL for the Socket.IO server, derived from the API base URL by stripping the /api suffix. */

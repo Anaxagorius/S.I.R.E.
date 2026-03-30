@@ -7,7 +7,8 @@
 
 // Base URL for API requests (configured via Vite environment variables)
 // Accepts either the full API base (https://host/api) or just the host (https://host)
-// Render's fromService hostMachineUrl may return a bare hostname — add https:// if needed.
+// Render's fromService (property: url) returns a full https:// URL; add https:// as a safety net
+// for any bare-hostname fallback values.
 const _rawApiBase = import.meta.env.VITE_API_BASE?.replace(/\/$/, "") || "http://localhost:8080";
 const _apiBase = /^https?:\/\//i.test(_rawApiBase) ? _rawApiBase : `https://${_rawApiBase}`;
 const API_BASE = _apiBase.endsWith("/api") ? _apiBase : `${_apiBase}/api`;
