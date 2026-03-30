@@ -28,7 +28,7 @@ services:
         fromService:
           type: web
           name: s-i-r-e-frontend
-          property: hostMachineUrl
+          property: host
 
   # ── Frontend Static Site ──────────────────────────────────────────────────
   - type: web
@@ -52,4 +52,4 @@ services:
         fromService:
           type: web
           name: s-i-r-e
-          property: hostMachineUrl
+          property: host
