@@ -12,7 +12,9 @@ export const environmentConfig = Object.freeze({
         const trimmedOrigin = origin.trim()
         if (trimmedOrigin === '*') return trimmedOrigin
         // Add https:// if the value is a bare hostname (e.g. from Render's fromService property: host)
-        return /^https?:\/\//i.test(trimmedOrigin) ? trimmedOrigin : `https://${trimmedOrigin}`
+        const withProtocol = /^https?:\/\//i.test(trimmedOrigin) ? trimmedOrigin : `https://${trimmedOrigin}`
+        // Strip trailing slash — browser Origin headers never include one
+        return withProtocol.replace(/\/$/, '')
       })
     : ['*'],
 });

@@ -16,6 +16,7 @@ export default function JoinSession() {
 
     /** Constants for UI state. */
     const [sessionKey, setSessionKey] = useState("");
+    const [displayName, setDisplayName] = useState("");
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -27,23 +28,29 @@ export default function JoinSession() {
             setError("Please enter a session key!");
             return;
         }
+        if (!displayName.trim()) {
+            setError("Please enter your name!");
+            return;
+        }
         setLoading(true);
         setError(null);
         try {
             const data = await joinSession(sessionKey);
             const sessionCode = data.sessionKey;
             const scenarioKey = data.scenarioKey;
+            const trimmedName = displayName.trim();
 
             /** Persist session state so TraineeInterface can recover if navigation state is lost. */
             try {
                 sessionStorage.setItem("sire_sessionCode", sessionCode);
                 sessionStorage.setItem("sire_scenarioKey", scenarioKey);
+                sessionStorage.setItem("sire_displayName", trimmedName);
             } catch {
                 // sessionStorage may be unavailable in some environments; silently ignore
             }
 
             navigate("/trainee-interface", {
-                state: { sessionCode, scenarioKey },
+                state: { sessionCode, scenarioKey, displayName: trimmedName },
             });
         } catch (error) {
             setError(error.message || "Failed to join session!");
@@ -54,6 +61,18 @@ export default function JoinSession() {
 
     return (
         <JoinSessionLayout>
+
+            {/** Display name input. */}
+            <div className="form-group">
+                <label>Your Name</label>
+                <input
+                    type="text"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    placeholder="Enter your name..."
+                    maxLength={64}
+                />
+            </div>
 
             {/** Session key input. */}
             <div className="form-group">
