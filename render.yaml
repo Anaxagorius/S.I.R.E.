@@ -26,14 +26,13 @@ services:
         value: SIRE_backend
       - key: ALLOWED_ORIGINS
         fromService:
-          type: web
+          type: static
           name: s-i-r-e-frontend
-          property: host
+          property: url
 
   # ── Frontend Static Site ──────────────────────────────────────────────────
-  - type: web
+  - type: static
     name: s-i-r-e-frontend
-    runtime: static
     plan: free
     region: oregon
     rootDir: SIRE_frontend
@@ -52,4 +51,4 @@ services:
         fromService:
           type: web
           name: s-i-r-e
-          property: host
+          property: url
