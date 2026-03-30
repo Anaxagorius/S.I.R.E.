@@ -30,7 +30,7 @@ Deploy the backend to a free-tier cloud provider with one click:
 
 # ☁️ Render Deployment
 
-Deploy the **backend** (`sire-api`) and **frontend** (`sire-web`) to Render using the
+Deploy the **backend** (`s-i-r-e`) and **frontend** (`s-i-r-e-frontend`) to Render using the
 blueprint at the repo root.
 
 ## Deploy via Blueprint (Recommended)
@@ -38,10 +38,12 @@ blueprint at the repo root.
 1. Go to [Render Dashboard](https://dashboard.render.com) → **New → Blueprint**.
 2. Connect the `Anaxagorius/S.I.R.E.` repository.
 3. Render detects the root `render.yaml` and creates both services automatically:
-   - **`sire-api`** — Node web service for the backend API + Socket.IO.
-   - **`sire-web`** — Static site for the React frontend.
-4. After the first deploy, copy the generated **`API_KEY`** value from the `sire-api`
-   service in the Render dashboard and set it as **`VITE_API_KEY`** on `sire-web`.
+   - **`s-i-r-e`** — Node web service for the backend API + Socket.IO.
+   - **`s-i-r-e-frontend`** — Static site for the React frontend.
+4. `VITE_API_BASE` and `ALLOWED_ORIGINS` are wired automatically between services via
+   Render's `fromService` Blueprint feature — no manual configuration required.
+5. API key enforcement is **disabled** (`REQUIRE_API_KEY=false`) so the frontend and
+   backend communicate without additional secrets.
 
 ## Manual Deploy (Backend Only)
 
@@ -56,12 +58,11 @@ blueprint at the repo root.
    | `NODE_ENV` | `production` | |
    | `LOG_LEVEL` | `info` | |
    | `SESSION_MAX_TRAINEES` | `10` | |
-   | `REQUIRE_API_KEY` | `true` | |
+   | `REQUIRE_API_KEY` | `false` | No API key needed for Blueprint deployment |
    | `REQUIRE_TICKET_ID` | `false` | |
    | `AUDIT_LOG_ENABLED` | `true` | |
    | `CODEBASE_CONTEXT` | `SIRE_backend` | |
-   | `API_KEY` | *(generate in Render)* | Use **Generate Value** |
-   | `ALLOWED_ORIGINS` | `https://sire-web.onrender.com` | Frontend URL |
+   | `ALLOWED_ORIGINS` | `https://s-i-r-e-frontend.onrender.com` | Exact frontend URL, no trailing slash |
 
 > **Note:** Do **not** set `PORT` — Render injects it automatically.
 

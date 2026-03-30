@@ -1,11 +1,13 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-26
+ * Last Update: 2026-03-30
  * Description: Trainee interface screen for interacting with scenario-based decision nodes.
  * Dynamically loads the scenario from the backend based on the session's scenario key,
  * or uses bundled scenario data passed directly in navigation state (demo mode).
  * Displays the current scenario, question, and selectable options.
  * Receives live timeline events from the backend via Socket.IO (live sessions only).
+ * Emits event:log socket events when the trainee selects an option so the admin
+ * can monitor trainee decisions in real time.
  *
  * Session state is read from React Router navigation state first, then falls back to
  * sessionStorage (populated by JoinSession) so the scenario survives a page refresh.
@@ -33,7 +35,7 @@ export default function TraineeInterface() {
     const location = useLocation();
 
     /**
-     * Resolve session code and scenario key from navigation state first,
+     * Resolve session code, scenario key, and display name from navigation state first,
      * then fall back to sessionStorage so the scenario survives a page refresh.
      */
     const sessionCode =
@@ -45,6 +47,11 @@ export default function TraineeInterface() {
         location.state?.scenarioKey ||
         readSessionStorage("sire_scenarioKey") ||
         null;
+
+    const displayName =
+        location.state?.displayName ||
+        readSessionStorage("sire_displayName") ||
+        "Trainee";
 
     /**
      * When running in demo mode the full scenario data is passed directly in
@@ -114,7 +121,7 @@ export default function TraineeInterface() {
             socketRef.current = socket;
 
             socket.on("connect", () => {
-                socket.emit("session:join", { sessionCode, displayName: "Trainee" });
+                socket.emit("session:join", { sessionCode, displayName });
             });
 
             socket.on("timeline:tick", (payload) => {
@@ -135,9 +142,28 @@ export default function TraineeInterface() {
     function handleOptionClick(option) {
         const outcome = option?.outcome;
         if (!outcome) return;
+
         if (outcome.type === "node") {
+            /** Emit event:log so the admin can see this decision in the live event feed. */
+            if (socketRef.current && sessionCode && !isDemo) {
+                socketRef.current.emit("event:log", {
+                    sessionCode,
+                    action: `${option.label ? `[${option.label}] ` : ""}${option.text}`,
+                    rationale: null,
+                    displayName,
+                });
+            }
             setCurrentNodeId(outcome.target);
         } else if (outcome.type === "failure") {
+            /** Emit event:log for failed outcomes so the admin sees the incorrect choice. */
+            if (socketRef.current && sessionCode && !isDemo) {
+                socketRef.current.emit("event:log", {
+                    sessionCode,
+                    action: `${option.label ? `[${option.label}] ` : ""}${option.text}`,
+                    rationale: null,
+                    displayName,
+                });
+            }
             alert("Incorrect action — scenario failed. Review the correct procedures and try again.");
         }
     }

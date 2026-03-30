@@ -1,9 +1,10 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-25
+ * Last Update: 2026-03-30
  * Description: Administrator dashboard for managing session lifecycle.
  * Handles four states (selecting scenario, waiting, active session, and post-session review).
  * Connects to the backend via Socket.IO to provide real-time session management.
+ * Supports admin event injection (message + severity) during active sessions.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -68,6 +69,11 @@ export default function AdminDashboard() {
 
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
+
+    /** State for the admin inject panel. */
+    const [injectMessage, setInjectMessage] = useState("");
+    const [injectSeverity, setInjectSeverity] = useState("info");
+    const [injectSending, setInjectSending] = useState(false);
 
     /** Fetch the available scenarios from the backend on mount. */
     useEffect(() => {
@@ -193,6 +199,20 @@ export default function AdminDashboard() {
         setSessionState("ended");
     }
 
+    /** Function that sends an admin inject event via Socket.IO. */
+    function handleInjectEvent() {
+        if (!socketRef.current || !sessionCode || !injectMessage.trim()) return;
+        setInjectSending(true);
+        socketRef.current.emit("admin:inject", {
+            sessionCode,
+            message: injectMessage.trim(),
+            severity: injectSeverity,
+        });
+        setInjectMessage("");
+        // Brief cooldown to prevent accidental double-sends before server confirms receipt
+        setTimeout(() => setInjectSending(false), 500);
+    }
+
 
     /** Scenario selection — shown when no session is active. */
     if (!sessionCode) {
@@ -289,6 +309,37 @@ export default function AdminDashboard() {
                             ))}
                         </ul>
                     </div>
+
+                    {/** Admin inject panel — broadcast a custom event to all participants. */}
+                    <div className="dashboard-card">
+                        <h3>Inject Event</h3>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                value={injectMessage}
+                                onChange={(e) => setInjectMessage(e.target.value)}
+                                placeholder="Enter event message..."
+                                maxLength={200}
+                                onKeyDown={(e) => e.key === "Enter" && handleInjectEvent()}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <select
+                                value={injectSeverity}
+                                onChange={(e) => setInjectSeverity(e.target.value)}
+                            >
+                                <option value="info">Info</option>
+                                <option value="warning">Warning</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+                        <Button
+                            text={injectSending ? "Sending..." : "Inject Event"}
+                            onClick={handleInjectEvent}
+                            disabled={injectSending || !injectMessage.trim()}
+                        />
+                    </div>
+
                     {eventLog.length > 0 && (
                         <div className="dashboard-card">
                             <h3>Event Log</h3>
