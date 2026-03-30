@@ -28,14 +28,13 @@ services:
         fromService:
           type: web
           name: s-i-r-e-frontend
-          property: url
+          property: host
 
   # ── Frontend Static Site ──────────────────────────────────────────────────
   - type: web
     runtime: static
     name: s-i-r-e-frontend
     plan: free
-    region: oregon
     rootDir: SIRE_frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
@@ -52,4 +51,4 @@ services:
         fromService:
           type: web
           name: s-i-r-e
-          property: url
+          property: host
