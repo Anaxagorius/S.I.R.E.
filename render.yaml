@@ -24,13 +24,15 @@ services:
         value: true
       - key: CODEBASE_CONTEXT
         value: SIRE_backend
-      # fromService does not support type: static; hardcoded to the predictable
-      # Render static-site URL.  Update this if the frontend service is renamed.
       - key: ALLOWED_ORIGINS
-        value: https://s-i-r-e-frontend.onrender.com
+        fromService:
+          type: web
+          name: s-i-r-e-frontend
+          property: url
 
   # ── Frontend Static Site ──────────────────────────────────────────────────
-  - type: static
+  - type: web
+    runtime: static
     name: s-i-r-e-frontend
     plan: free
     region: oregon
