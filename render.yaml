@@ -3,7 +3,6 @@ services:
   - type: web
     name: s-i-r-e
     runtime: node
-    plan: free
     region: oregon
     rootDir: SIRE_backend/backend
     buildCommand: npm ci
@@ -34,7 +33,6 @@ services:
   - type: web
     runtime: static
     name: s-i-r-e-frontend
-    plan: free
     rootDir: SIRE_frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
