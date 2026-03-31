@@ -1,11 +1,11 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-30
+ * Last Update: 2026-03-31
  * Description: Trainee interface screen for interacting with scenario-based decision nodes.
  * Dynamically loads the scenario from the backend based on the session's scenario key,
  * or uses bundled scenario data passed directly in navigation state (demo mode).
  * Displays the current scenario, question, and selectable options.
- * Receives live timeline events from the backend via Socket.IO (live sessions only).
+ * Receives live timeline events and admin-injected events from the backend via Socket.IO (live sessions only).
  * Emits event:log socket events when the trainee selects an option so the admin
  * can monitor trainee decisions in real time.
  *
@@ -129,6 +129,18 @@ export default function TraineeInterface() {
                 setTimelineEvents((prev) => [
                     ...prev,
                     { title: payload.title, description: payload.description, time: new Date().toLocaleTimeString() },
+                ]);
+            });
+
+            socket.on("event:log:broadcast", (payload) => {
+                if (payload.actorRole !== "admin") return;
+                setTimelineEvents((prev) => [
+                    ...prev,
+                    {
+                        title: `[${payload.rationale?.toUpperCase() ?? "INFO"}] Instructor`,
+                        description: payload.action,
+                        time: new Date().toLocaleTimeString(),
+                    },
                 ]);
             });
         }
