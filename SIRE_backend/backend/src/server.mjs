@@ -27,12 +27,16 @@ import { securityConfig } from './config/securityConfig.mjs'
 
 const app = express()
 app.use(securityHeaders)
-app.use(cors({
-  origin: environmentConfig.allowedOrigins.includes('*') 
-    ? '*' 
+const corsOptions = {
+  origin: environmentConfig.allowedOrigins.includes('*')
+    ? '*'
     : environmentConfig.allowedOrigins,
-  credentials: !environmentConfig.allowedOrigins.includes('*')
-}))
+  credentials: !environmentConfig.allowedOrigins.includes('*'),
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'x-api-key', 'x-ticket-id', 'x-request-id'],
+  methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+}
+app.options('*', cors(corsOptions))
+app.use(cors(corsOptions))
 app.use(express.json({ limit: '50kb' }))
 app.use(attachRequestContext)
 app.use(morgan('tiny'))

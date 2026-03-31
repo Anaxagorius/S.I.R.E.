@@ -30,6 +30,7 @@ export function attachSocketServer(httpServer, logger) {
                 ? '*' 
                 : environmentConfig.allowedOrigins,
             methods: ['GET', 'POST'],
+            allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'x-api-key', 'x-ticket-id', 'x-request-id'],
             credentials: !environmentConfig.allowedOrigins.includes('*')
         }
     });
