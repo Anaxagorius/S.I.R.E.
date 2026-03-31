@@ -1,8 +1,8 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-26
+ * Last Update: 2026-03-31
  * Description: Home screen of the application.
- * Displays the main landing page using the HomeLayout, including a login button
+ * Displays the main landing page using the HomeLayout, including navigation buttons
  * and a carousel showcasing simulated incident scenarios.
  */
 
@@ -14,11 +14,14 @@ import HomeCarousel from "../../components/Carousel";
 export default function Home() {
     return (
         <HomeLayout>
-            {/** Navigation button. */}
+            {/** Navigation button — join as a trainee. */}
             <Button text="Trainee" to="/join-session" />
 
-            {/** Navigation button. */}
+            {/** Navigation button — admin login and session management. */}
             <Button text="Admin" to="/create-session" />
+
+            {/** Navigation button — sign in or create an account. */}
+            <Button text="Login / Sign Up" to="/login" />
 
             {/** Demo mode button — runs entirely in the browser without a backend. */}
             <Button text="Demo" to="/demo" />
@@ -26,8 +29,8 @@ export default function Home() {
             {/** Showcase mode button — auto-playing kiosk loop of demo scenarios. */}
             <Button text="Showcase" to="/showcase" />
 
-            {/** Main carousel content. */}
+            {/** Main carousel content — rendered in the right panel by HomeLayout. */}
             <HomeCarousel />
         </HomeLayout>
-    )
+    );
 }

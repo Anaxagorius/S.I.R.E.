@@ -8,6 +8,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateSessionLayout from "../../layouts/CreateSessionLayout";
+import BackButton from "../../components/BackButton";
 import { createSession } from "../../services/api/api";
 
 /** Static list of the 8 available training scenarios. */
@@ -49,6 +50,9 @@ export default function CreateSession() {
 
     return (
         <CreateSessionLayout>
+
+            {/** Back navigation. */}
+            <BackButton to="/" />
 
             {/** Scenario selection cards. */}
             <div className="scenario-grid">

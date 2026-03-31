@@ -1,0 +1,23 @@
+/** 
+ * Author: Leon Wasiliew 
+ * Last Update: 2026-03-31
+ * Description: Styles for the BackButton component.
+ */
+
+/** Back button base style. */
+.back-btn {
+    background: transparent;
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 6px;
+    color: rgb(200, 200, 200);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 0.4em 0.9em;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+/** Back button hover state. */
+.back-btn:hover {
+    border-color: rgb(200, 40, 40);
+    color: rgb(255, 255, 255);
+}

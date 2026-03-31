@@ -107,3 +107,44 @@
     height: 25vh;
     padding: 0 0;
 }
+
+/** Row of action buttons displayed at the bottom of the ended state. */
+.session-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/** Overlay background for the end-session confirmation modal. */
+.modal-overlay {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    position: fixed;
+    z-index: 1000;
+}
+
+/** Content container for the end-session modal. */
+.modal-content {
+    background: rgb(32, 32, 32);
+    border: 1px solid rgb(200, 40, 40);
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    max-width: 420px;
+    padding: 2rem;
+    width: 90%;
+}
+
+/** Title for the modal. */
+.modal-content h2 {
+    margin-top: 0;
+}
+
+/** Stacked button list inside the modal. */
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
