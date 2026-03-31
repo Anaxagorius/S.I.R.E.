@@ -1,9 +1,9 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-03-31
  * Description: Layout component used for the Home screen, featuring a split-screen design.
- * The left panel displays branding, navigation, and application information,
- * while the right panel displays the carousel with images.
+ * The left panel displays branding, navigation buttons, and application information,
+ * while the right panel displays the last child (carousel or featured content).
  */
 
 import React from "react";
@@ -14,7 +14,11 @@ import "./HomeLayout.css";
 
 /** Function that returns the HomeLayout component that structures the Home screen content. */
 export default function HomeLayout({ children }) {
-    const [loginBtn, adminBtn, demoBtn, carousel] = React.Children.toArray(children);
+    const allChildren = React.Children.toArray(children);
+    /** All children except the last are navigation buttons displayed in the left panel. */
+    const navButtons = allChildren.slice(0, -1);
+    /** The last child is rendered in the right panel (carousel or featured content). */
+    const rightContent = allChildren[allChildren.length - 1];
 
     return (
         <Grid container spacing={0} className="home-container">
@@ -24,9 +28,7 @@ export default function HomeLayout({ children }) {
                 <div className="home-left">
                     <div className="left-content">
                         <img src={About} alt="About Slide" />
-                        {loginBtn}
-                        {adminBtn}
-                        {demoBtn}
+                        {navButtons}
                         <div className="about-section">
                             <h2>About S.I.R.E.</h2>
                             <hr />
@@ -44,7 +46,7 @@ export default function HomeLayout({ children }) {
             {/* Right section (main content & carousel). */}
             <Grid size={{ xs: 12, sm: 9 }}>
                 <div className="home-right">
-                    {carousel}
+                    {rightContent}
                 </div>
             </Grid>
         </Grid>

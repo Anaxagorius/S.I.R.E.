@@ -1,86 +1,92 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-03-31
  * Description: Login screen of the application.
  * Allows users to authenticate using their email and password, handles form state,
  * displays errors, and communicates with the backend API.
  */
 
-// NOTE: Authentication temporarily commented out for demo purposes.
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
-// import { login } from "../../services/api/api";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../services/api/api";
 import FormLayout from "../../layouts/FormLayout";
 import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
 
 /** Function that returns the Login component for handling user authentication by submitting credentials to the API. */
 export default function Login() {
 
-    // NOTE: Authentication state commented out for demo purposes.
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [error, setError] = useState("");
-    // const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    // NOTE: Login handler commented out for demo purposes.
-    // async function handleLogin(e) {
-    //     e.preventDefault();
-    //     setLoading(true);
-    //     setError(null);
-    //     try {
-    //         await login(email, password);
-    //         // TODO: navigate to protected route or trigger app auth state
-    //     } catch (error) {
-    //         setError(error.message || "Login failed");
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }
+    /** Asynchronous function that handles the login form submission. */
+    async function handleLogin(e) {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+        try {
+            const data = await login(email, password);
+            localStorage.setItem("authToken", data.authToken);
+            navigate("/role");
+        } catch (error) {
+            setError(error.message || "Login failed");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <FormLayout>
 
-            {/** NOTE: Login form commented out for demo — authentication bypassed. */}
-            {false && (
-                <form className="login-form">
+            {/** Back navigation. */}
+            <BackButton to="/" />
 
-                    {/** Email input. */}
-                    <div className="form-group">
-                        <label htmlFor="email">Email*</label>
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="Enter your email..."
-                        />
-                    </div>
+            {/** Login form. */}
+            <form className="login-form" onSubmit={handleLogin}>
 
-                    {/** Password input. */}
-                    <div className="form-group">
-                        <label htmlFor="password">Password*</label>
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder="Enter your password..."
-                        />
-                    </div>
+                {/** Email input. */}
+                <div className="form-group">
+                    <label htmlFor="email">Email*</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email..."
+                        required
+                    />
+                </div>
 
-                    {/** Signup redirect. */}
-                    <div>
-                        <p className="no-account-text">
-                            Don&apos;t have an account? Sign up here.
-                        </p>
-                    </div>
+                {/** Password input. */}
+                <div className="form-group">
+                    <label htmlFor="password">Password*</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter your password..."
+                        required
+                    />
+                </div>
 
-                    <Button text="Login" type="submit"/>
-                </form>
-            )}
+                {/** Signup redirect. */}
+                <div>
+                    <p className="no-account-text">
+                        Don&apos;t have an account? <Link to="/signup">Sign up here.</Link>
+                    </p>
+                </div>
 
-            {/** Bypass button — navigates directly to trainee interface for demo. */}
-            <Button text="Enter as Trainee" onClick={() => navigate("/trainee-interface")} />
+                {/** Error message. */}
+                {error && <div className="error">{error}</div>}
+
+                <Button text={loading ? "Logging in..." : "Login"} type="submit" disabled={loading} />
+            </form>
 
         </FormLayout>
-    )
+    );
 }

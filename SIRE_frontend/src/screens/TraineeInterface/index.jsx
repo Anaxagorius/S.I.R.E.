@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import TraineeInterfaceLayout from "../../layouts/TraineeInterfaceLayout";
+import BackButton from "../../components/BackButton";
 import apiClient from "../../services/api/apiClient";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
@@ -172,6 +173,7 @@ export default function TraineeInterface() {
     if (loadError) {
         return (
             <TraineeInterfaceLayout time={time}>
+                <BackButton to="/join-session" />
                 <div className="scenario-card">
                     <h2>Unable to Load Scenario</h2>
                     <p>{loadError}</p>

@@ -1,17 +1,19 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-30
+ * Last Update: 2026-03-31
  * Description: Administrator dashboard for managing session lifecycle.
  * Handles four states (selecting scenario, waiting, active session, and post-session review).
  * Connects to the backend via Socket.IO to provide real-time session management.
  * Supports admin event injection (message + severity) during active sessions.
+ * Includes end-session confirmation modal with restart, home navigation, and export options.
  */
 
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
 import { getScenarios, createSession } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
@@ -31,6 +33,7 @@ const SCENARIO_ICONS = {
 export default function AdminDashboard() {
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     /** Session code and scenario key — may be seeded from navigation state or set after scenario selection. */
     const [sessionCode, setSessionCode] = useState(location.state?.sessionCode || null);
@@ -74,6 +77,9 @@ export default function AdminDashboard() {
     const [injectMessage, setInjectMessage] = useState("");
     const [injectSeverity, setInjectSeverity] = useState("info");
     const [injectSending, setInjectSending] = useState(false);
+
+    /** State for the end-session confirmation modal. */
+    const [showEndModal, setShowEndModal] = useState(false);
 
     /** Fetch the available scenarios from the backend on mount. */
     useEffect(() => {
@@ -192,11 +198,38 @@ export default function AdminDashboard() {
         setTrainees([]);
         setEventLog([]);
         setError(null);
+        setShowEndModal(false);
     }
 
-    /** Function that ends the session by updating the session state to ended. */
+    /** Function that opens the end-session confirmation modal. */
     function handleEndSession() {
+        setShowEndModal(true);
+    }
+
+    /** Function that confirms session end and transitions to the ended state. */
+    function handleConfirmEnd() {
         setSessionState("ended");
+        setShowEndModal(false);
+    }
+
+    /** Function that exports the session event log as a JSON file download. */
+    function handleExportResults() {
+        const exportData = {
+            sessionCode,
+            scenarioName,
+            exportedAt: new Date().toISOString(),
+            participants: trainees.map((t) => t.displayName),
+            eventLog,
+        };
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `sire-session-${sessionCode}-results.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 
     /** Function that sends an admin inject event via Socket.IO. */
@@ -218,6 +251,9 @@ export default function AdminDashboard() {
     if (!sessionCode) {
         return (
             <AdminDashboardLayout>
+
+                {/** Back navigation. */}
+                <BackButton to="/" />
 
                 {/** Heading card. */}
                 <div className="dashboard-card">
@@ -383,7 +419,28 @@ export default function AdminDashboard() {
                             </ul>
                         </div>
                     )}
-                    <Button text="Start New Session" onClick={handleStartNewSession} />
+                    <div className="session-actions">
+                        <Button text="Start New Session" onClick={handleStartNewSession} />
+                        <Button text="Return to Home" onClick={() => navigate("/")} />
+                        <Button text="Export Results" onClick={handleExportResults} />
+                    </div>
+                </div>
+            )}
+
+            {/** End-session confirmation modal overlay. */}
+            {showEndModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>End Session?</h2>
+                        <p>Choose how you would like to proceed:</p>
+                        <div className="modal-actions">
+                            <Button text="Confirm End Session" onClick={handleConfirmEnd} />
+                            <Button text="Start New Session" onClick={handleStartNewSession} />
+                            <Button text="Return to Home" onClick={() => navigate("/")} />
+                            <Button text="Export Results" onClick={handleExportResults} />
+                            <Button text="Cancel" onClick={() => setShowEndModal(false)} />
+                        </div>
+                    </div>
                 </div>
             )}
         </AdminDashboardLayout>

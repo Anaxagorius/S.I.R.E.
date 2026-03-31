@@ -11,6 +11,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { signup } from "../../services/api/api";
 import FormLayout from "../../layouts/FormLayout";
 import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
 
 /** Function that returns the Signup component for handling user registration, and API communication. */
 export default function Signup() {
@@ -62,6 +63,7 @@ export default function Signup() {
 
     return (
         <FormLayout>
+            <BackButton to="/login" />
             <form className="signup-form" onSubmit={handleSignup}>
 
                 {/** Username input. */}

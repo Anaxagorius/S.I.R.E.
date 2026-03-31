@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import JoinSessionLayout from "../../layouts/JoinSessionLayout";
 import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
 import { joinSession } from "../../services/api/api";
 
 /** Function that returns the JoinSession component for trainee session entry. */
@@ -61,6 +62,9 @@ export default function JoinSession() {
 
     return (
         <JoinSessionLayout>
+
+            {/** Back navigation. */}
+            <BackButton to="/" />
 
             {/** Display name input. */}
             <div className="form-group">

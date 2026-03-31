@@ -8,11 +8,13 @@
 
 import RoleLayout from "../../layouts/RoleLayout";
 import Button from "../../components/Button";
+import BackButton from "../../components/BackButton";
 
 /** Function that returns the Role component for handling role selection. */
 export default function Role() {
     return (
         <RoleLayout>
+            <BackButton to="/" />
             <Button text="Admin" to="/admin-dashboard" />
             <Button text="Trainee" to="/join-session" />
         </RoleLayout>
