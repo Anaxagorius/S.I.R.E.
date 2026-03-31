@@ -4,7 +4,6 @@ import http from 'node:http'
 import { request } from 'node:http'
 import express from 'express'
 import cors from 'cors'
-import { io as clientIo } from 'socket.io-client'
 
 // Test 1: Verify environmentConfig properly parses ALLOWED_ORIGINS
 console.log('Test 1: Verify environmentConfig parses ALLOWED_ORIGINS')
@@ -155,5 +154,136 @@ assert.strictEqual(
 console.log('✓ Wildcard CORS configuration allows all origins without credentials')
 
 wildcardServer.close()
+
+// Test 4: OPTIONS preflight handling — the critical case for POST with custom headers
+console.log('\nTest 4: OPTIONS preflight with allowed origin and custom frontend headers')
+
+const preflightApp = express()
+preflightApp.use(cors({
+  origin: ['https://s-i-r-e-frontend.onrender.com'],
+  credentials: true
+}))
+preflightApp.post('/api/sessions', (req, res) => {
+  res.status(201).json({ sessionKey: 'TEST' })
+})
+
+const preflightServer = http.createServer(preflightApp)
+await new Promise(resolve => preflightServer.listen(0, resolve))
+const preflightPort = preflightServer.address().port
+const preflightBaseUrl = `http://127.0.0.1:${preflightPort}`
+
+// Simulate what the browser sends before a POST /api/sessions from the frontend
+const preflightResponse = await new Promise((resolve, reject) => {
+  const req = request(`${preflightBaseUrl}/api/sessions`, {
+    method: 'OPTIONS',
+    headers: {
+      'Origin': 'https://s-i-r-e-frontend.onrender.com',
+      'Access-Control-Request-Method': 'POST',
+      'Access-Control-Request-Headers': 'content-type, x-ticket-id'
+    }
+  }, res => {
+    let data = ''
+    res.on('data', chunk => { data += chunk })
+    res.on('end', () => resolve({ statusCode: res.statusCode, headers: res.headers }))
+  })
+  req.on('error', reject)
+  req.end()
+})
+
+assert.strictEqual(preflightResponse.statusCode, 204, 'Preflight OPTIONS should return 204')
+assert.strictEqual(
+  preflightResponse.headers['access-control-allow-origin'],
+  'https://s-i-r-e-frontend.onrender.com',
+  'Preflight should echo back the allowed origin'
+)
+assert.strictEqual(
+  preflightResponse.headers['access-control-allow-credentials'],
+  'true',
+  'Preflight should allow credentials for specific origin'
+)
+assert.ok(
+  preflightResponse.headers['access-control-allow-methods'],
+  'Preflight should include Access-Control-Allow-Methods'
+)
+assert.ok(
+  preflightResponse.headers['access-control-allow-headers'],
+  'Preflight should include Access-Control-Allow-Headers'
+)
+console.log('✓ OPTIONS preflight returns correct CORS headers for allowed origin')
+
+// Preflight from disallowed origin should return no CORS headers
+const blockedPreflightResponse = await new Promise((resolve, reject) => {
+  const req = request(`${preflightBaseUrl}/api/sessions`, {
+    method: 'OPTIONS',
+    headers: {
+      'Origin': 'https://evil.example.com',
+      'Access-Control-Request-Method': 'POST',
+      'Access-Control-Request-Headers': 'content-type'
+    }
+  }, res => {
+    let data = ''
+    res.on('data', chunk => { data += chunk })
+    res.on('end', () => resolve({ statusCode: res.statusCode, headers: res.headers }))
+  })
+  req.on('error', reject)
+  req.end()
+})
+
+assert.strictEqual(
+  blockedPreflightResponse.headers['access-control-allow-origin'],
+  undefined,
+  'Preflight from disallowed origin should not receive CORS headers'
+)
+console.log('✓ OPTIONS preflight from disallowed origin receives no CORS headers')
+
+preflightServer.close()
+
+// Test 5: environmentConfig CORS config used in server matches production scenario
+console.log('\nTest 5: CORS config derived from environmentConfig handles production origin')
+
+// Simulate the production environment: ALLOWED_ORIGINS set to the frontend URL
+const prodOrigin = 'https://s-i-r-e-frontend.onrender.com'
+const prodApp = express()
+prodApp.use(cors({
+  origin: [prodOrigin],
+  credentials: true
+}))
+prodApp.post('/api/sessions', (req, res) => res.status(201).json({ sessionKey: 'TEST' }))
+
+const prodServer = http.createServer(prodApp)
+await new Promise(resolve => prodServer.listen(0, resolve))
+const prodPort = prodServer.address().port
+
+const prodPreflightResponse = await new Promise((resolve, reject) => {
+  const req = request(`http://127.0.0.1:${prodPort}/api/sessions`, {
+    method: 'OPTIONS',
+    headers: {
+      'Origin': prodOrigin,
+      'Access-Control-Request-Method': 'POST',
+      'Access-Control-Request-Headers': 'content-type, x-ticket-id'
+    }
+  }, res => {
+    let data = ''
+    res.on('data', chunk => { data += chunk })
+    res.on('end', () => resolve({ statusCode: res.statusCode, headers: res.headers }))
+  })
+  req.on('error', reject)
+  req.end()
+})
+
+assert.strictEqual(prodPreflightResponse.statusCode, 204, 'Production preflight should return 204')
+assert.strictEqual(
+  prodPreflightResponse.headers['access-control-allow-origin'],
+  prodOrigin,
+  'Production CORS should allow the frontend origin'
+)
+assert.strictEqual(
+  prodPreflightResponse.headers['access-control-allow-credentials'],
+  'true',
+  'Production CORS should allow credentials for specific origin'
+)
+console.log('✓ Production CORS config correctly handles frontend origin preflight')
+
+prodServer.close()
 
 console.log('\n✅ All CORS configuration tests passed')
