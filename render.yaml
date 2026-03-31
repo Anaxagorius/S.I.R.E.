@@ -24,10 +24,7 @@ services:
       - key: CODEBASE_CONTEXT
         value: SIRE_backend
       - key: ALLOWED_ORIGINS
-        fromService:
-          type: web
-          name: s-i-r-e-frontend
-          property: url
+        value: https://s-i-r-e-frontend.onrender.com
 
   # ── Frontend Static Site ──────────────────────────────────────────────────
   - type: web
