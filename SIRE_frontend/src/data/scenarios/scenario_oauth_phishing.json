@@ -1,0 +1,124 @@
+{
+  "title": "scenario_oauth_phishing",
+  "description": "An attacker tricks employees into granting a malicious third-party application access to corporate Microsoft 365 data via a fake OAuth consent screen.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fake App Consent Email",
+      "description": "Employees receive emails with links to a Microsoft-branded consent page asking them to authorise a 'Productivity Booster' app.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Multiple Employees Consent",
+      "description": "Several employees click through and grant the app access to their email and files without reading the permissions requested.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Data Exfiltration Begins",
+      "description": "The malicious app begins silently reading and forwarding emails and files from consenting accounts.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Anomalous App Access Flagged",
+      "description": "Microsoft Entra ID reports an unrecognised third-party application with broad permissions across multiple accounts.",
+      "timeOffsetSec": 100
+    },
+    {
+      "index": 4,
+      "title": "App Permissions Revoked",
+      "description": "IT revokes the malicious app's OAuth tokens across all affected accounts.",
+      "timeOffsetSec": 140
+    },
+    {
+      "index": 5,
+      "title": "App Allowlist Policy Enforced",
+      "description": "Tenant settings updated to block all third-party OAuth app consents without admin pre-approval.",
+      "timeOffsetSec": 180
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious App Consent Request",
+      "situation": "Employees have been emailed a link asking them to click 'Authorise' on what looks like a genuine Microsoft consent screen. The app called 'ProSync 365' requests permissions to read and send emails and access all files on OneDrive on the user's behalf.",
+      "question": "What should employees do when they receive this consent request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not authorise the app. Report the email to IT security and check whether the app is on the approved software list.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Authorise the app — the Microsoft branding on the consent screen means it has been vetted by Microsoft.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Authorise only read access to email but not files — partial consent is safe.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Several Employees Already Consented",
+      "situation": "IT discovers six employees already authorised the app before the warning went out. The app now has OAuth tokens granting it ongoing access to their accounts, even without their passwords.",
+      "question": "How do you revoke the malicious access?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Revoke all OAuth tokens for the malicious app across all affected accounts via the Microsoft Entra ID admin console immediately.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Ask the affected employees to change their passwords — this will remove the app's access.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Data Exfiltration Assessment",
+      "situation": "Audit logs show the app read approximately 400 emails and accessed 15 files in the 2-hour window it was active. Some emails contained client details and internal financial figures.",
+      "question": "What is required following the data exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a full data impact assessment, notify affected clients if their data was exposed, and report the breach to the relevant data protection authority.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "The access window was short — no notification is necessary.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future OAuth Consent Phishing",
+      "situation": "IT proposes restricting all third-party OAuth app consents so only admin-approved apps can be authorised by users.",
+      "question": "Should this restriction be applied across the entire Microsoft 365 tenant?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Yes — configure Entra ID to require admin consent for all third-party apps, and build a lightweight app approval process for legitimate business needs.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "No — blocking all third-party apps will be too disruptive to productivity.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The malicious app's tokens have been revoked, affected parties have been notified, and the Microsoft 365 tenant is now configured to require admin consent for any third-party OAuth application. Staff have been trained to recognise OAuth consent phishing.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

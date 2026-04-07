@@ -1,0 +1,124 @@
+{
+  "title": "scenario_deepfake_scam",
+  "description": "Attackers use AI-generated deepfake audio and video to impersonate an executive, convincing staff to authorise a large fraudulent transfer during a fake video call.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unexpected Video Call Invitation",
+      "description": "A finance officer receives a calendar invite for an urgent video call with the CFO and two unknown 'external auditors'.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Deepfake CFO Appears On-Screen",
+      "description": "On the call, a realistic AI-generated video and voice of the CFO instructs the officer to transfer funds immediately.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Pressure Applied",
+      "description": "The fake CFO insists the transfer is time-sensitive for a regulatory settlement and must not be discussed with others.",
+      "timeOffsetSec": 50
+    },
+    {
+      "index": 3,
+      "title": "Transfer Nearly Processed",
+      "description": "The finance officer begins preparing the transfer before a colleague raises doubts about the unusual request.",
+      "timeOffsetSec": 80
+    },
+    {
+      "index": 4,
+      "title": "Real CFO Reached",
+      "description": "The officer calls the real CFO's mobile number and confirms the video call was fraudulent.",
+      "timeOffsetSec": 110
+    },
+    {
+      "index": 5,
+      "title": "Incident Reported and Reviewed",
+      "description": "The fraudulent call is reported to cybercrime authorities and an internal review is launched into deepfake detection procedures.",
+      "timeOffsetSec": 160
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Urgent Video Call from the CFO",
+      "situation": "A finance officer has just finished a video call in which someone appearing and sounding exactly like the CFO, alongside two individuals introduced as external auditors, requested an urgent wire transfer of £250,000 to a new account. The officer was told this relates to a confidential regulatory settlement and must not be shared with other colleagues. The video and voice quality seemed perfectly normal.",
+      "question": "What should the finance officer do before taking any action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not process any transfer. Independently contact the real CFO via their known mobile number to verify whether the call was genuine.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Process the transfer immediately — the CFO's face and voice were clearly visible on camera.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reply to the video call invitation email to ask for written authorisation before transferring.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "CFO Confirms Call Was Fake",
+      "situation": "The real CFO confirms they never made such a call. The video call appears to have used an AI-generated deepfake of the CFO's face and voice, built from publicly available video and audio from past company presentations. The email invitation came from a spoofed internal domain.",
+      "question": "What should the organisation do to detect deepfake impersonation attempts in future calls?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a pre-shared code word procedure: for high-value requests on video calls, executives use a secret passphrase only known to core staff to confirm authenticity.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Require that all internal video calls use the official conferencing platform — this alone will prevent deepfakes.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Limiting Deepfake Training Data",
+      "situation": "The attacker built the deepfake from publicly posted conference recordings, earnings call videos, and interviews featuring the CFO. This publicly available content provided sufficient training material.",
+      "question": "What policy change reduces the availability of material for executive deepfakes?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review and limit the amount of executive audio and video publicly posted. Add watermarks or metadata to official recordings to aid future authenticity verification.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Prohibit executives from appearing on any public video content entirely.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Payment Authorisation Controls",
+      "situation": "The finance team had no policy specifically covering requests made via video call. All large payment authorisations relied on email and phone — video calls were treated as equivalent to an in-person meeting.",
+      "question": "What policy change should govern high-value requests made via video calls?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Update the payment authorisation policy to require dual written sign-off and an independent out-of-band call verification regardless of how the initial request was made, including video calls.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Only apply extra verification to requests made by email — video calls are harder to fake.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "No fraudulent transfer was made. A code word authentication procedure has been established for high-value requests, payment authorisation policy has been updated to require dual written approval, and staff have received training on recognising and responding to AI deepfake scams.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "title": "scenario_fake_vendor_invoice",
+  "description": "Fraudsters impersonate a trusted supplier and submit convincing fake invoices to redirect payment to attacker-controlled accounts.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fake Invoice Arrives",
+      "description": "Finance receives a professional invoice from what appears to be a regular supplier, with updated payment details and a plausible overdue notice.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Payment Processed Without Verification",
+      "description": "An accounts payable clerk processes the invoice against the updated bank details, assuming it is legitimate.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Funds Transferred",
+      "description": "Payment of £42,000 is sent to the fraudulent account rather than the real supplier.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Real Supplier Chases Payment",
+      "description": "The genuine supplier contacts accounts about the outstanding invoice, revealing the fraud.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Bank Contacted",
+      "description": "The organisation's bank is alerted and a recall request is submitted while funds may still be accessible.",
+      "timeOffsetSec": 160
+    },
+    {
+      "index": 5,
+      "title": "Process Review Initiated",
+      "description": "Finance procedures are reviewed and new verification controls are introduced for all invoices with changed bank details.",
+      "timeOffsetSec": 220
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Invoice with Updated Bank Details",
+      "situation": "The accounts payable team receives an invoice from a supplier they have worked with for two years. The invoice includes a note saying the supplier has changed their banking provider and requests that all future payments use the new account details provided. The invoice branding, logo, and formatting look identical to previous genuine invoices.",
+      "question": "What should the accounts payable team do before processing the payment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pause payment and call the supplier directly using a contact number from your existing records — not from the invoice — to verify the bank detail change.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Process the invoice immediately — the branding matches exactly and they are a long-standing supplier.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Email the invoice's reply-to address to confirm the bank change before paying.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Supplier Confirms No Change",
+      "situation": "The supplier confirms they have not changed their bank details and never sent such an invoice. The fake invoice was sent from a spoofed domain one character different from the real supplier's domain.",
+      "question": "The real invoice still needs to be paid. How do you verify future invoices from this supplier?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cross-reference all invoices against the supplier's bank details held in the financial system and require dual-sign-off before any bank detail change is recorded.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Add the real supplier's domain to an email allowlist — future invoices from them will then be safe.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Identifying How the Fraud Was Attempted",
+      "situation": "IT security traces the fake invoice to a spoofed domain registered 10 days ago. The attacker likely monitored the company's public procurement information to know which suppliers to impersonate.",
+      "question": "What organisational measure should reduce the attacker's ability to research targets?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Limit publicly available information about supplier relationships and procurement cycles, and ensure tender documents do not reveal payment scheduling details.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Publish a public list of approved suppliers so staff can verify invoices — transparency deters attackers.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Invoice Validation Policy",
+      "situation": "Finance has no documented policy requiring independent verification of bank detail changes on invoices. The current process relies entirely on staff judgement.",
+      "question": "What formal control should be introduced?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a written policy requiring phone verification via on-file contact details and dual-approval for any invoice containing changed bank details, regardless of invoice value.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Only require verification for invoices over a set threshold, such as £10,000.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fraudulent invoice was identified before payment was made. A formal invoice verification policy is now in place requiring phone verification and dual-approval for all bank detail changes. Staff have received targeted training on fake invoice fraud.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

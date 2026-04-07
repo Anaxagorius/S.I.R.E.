@@ -1,0 +1,124 @@
+{
+  "title": "scenario_bec",
+  "description": "An attacker compromises a senior manager's email account and uses it to redirect a large customer payment to a fraudulent bank account.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Manager Account Compromised",
+      "description": "An attacker silently accesses a senior manager's email account via phishing and monitors conversations for weeks.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Payment Interception Planned",
+      "description": "Attacker identifies an upcoming large payment and prepares to redirect it by impersonating the manager.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Fraudulent Bank Details Sent",
+      "description": "An email from the manager's real account instructs finance to update the supplier's bank details before processing payment.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Payment Initiated",
+      "description": "Finance processes the payment to the new account. Funds leave the company's account.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Fraud Discovered",
+      "description": "The real supplier contacts accounts to follow up on an overdue payment, revealing the fraud.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Bank Alert and Recovery Attempt",
+      "description": "The bank is contacted urgently to attempt to freeze or recall the payment before it is withdrawn.",
+      "timeOffsetSec": 200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unusual Bank Detail Change Request",
+      "situation": "A finance team member receives an email from the senior manager's real email address, asking them to update a long-standing supplier's bank account details before processing a scheduled payment of £95,000 next week. The email says the supplier called requesting the change.",
+      "question": "What should the finance team member do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Follow the bank detail change procedure: call the supplier directly using a contact number from the original contract (not from the email) to verify the change.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Update the bank details and process the payment — the email came from the manager's real account.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reply to the manager's email to confirm the request before updating the details.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Supplier Denies Requesting Change",
+      "situation": "The supplier confirms they never requested any bank detail change. This indicates the manager's email account has been compromised and an attacker is monitoring conversations.",
+      "question": "What immediate steps should be taken?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately report to IT security to investigate and lock the manager's email account, and do not process any payments until the account is cleared.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Process the payment using the original bank details on file and then inform IT.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Mailbox Compromise Investigation",
+      "situation": "IT security finds the manager's account was accessed from an overseas IP 3 weeks ago via a phishing link. The attacker set up an inbox rule to auto-forward all emails to an external address, hiding all activity.",
+      "question": "What remediation steps should IT security take on the compromised mailbox?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove all malicious inbox rules, revoke all active sessions, reset credentials, enable MFA, and audit the mailbox for other suspicious activity.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Reset the password only — removing the forwarding rule is sufficient.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Finance Process Improvement",
+      "situation": "The fraud was nearly successful because there was no enforced dual-approval or out-of-band verification process for bank detail changes. The finance process relied solely on email confirmation.",
+      "question": "What control should be introduced to the payment change process?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Require dual approval from two finance team members plus direct phone verification to the supplier using a number from original records for any bank detail change.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Add an email confirmation step where the requester must reply to confirm — email alone is sufficient.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "No fraudulent payment was made. The compromised account has been fully remediated. Dual-approval and out-of-band verification are now mandatory for all bank detail change requests. The incident has been reported to the relevant financial crime authority.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "title": "scenario_spear_phishing",
+  "description": "A personalised spear-phishing attack targets a specific employee using harvested social media data.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Targeted Email Arrives",
+      "description": "A convincing email referencing the employee's name, team, and current project arrives from a spoofed colleague address.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Malicious Attachment Opened",
+      "description": "The employee opens an attached document that silently installs a remote access trojan.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Backdoor Established",
+      "description": "Attacker gains persistent access to the employee's machine and begins exfiltrating files.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "C2 Traffic Detected",
+      "description": "Network monitoring flags unusual outbound traffic to an unfamiliar external IP address.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Endpoint Isolated",
+      "description": "The compromised machine is disconnected from the network to halt data exfiltration.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Forensic Investigation",
+      "description": "Forensics determines what data was exfiltrated and how the attacker gathered personal details.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Personalised Email",
+      "situation": "An employee receives an email that appears to be from their direct manager, referencing a real project by name and asking them to open an attached budget spreadsheet urgently. The sender address looks legitimate at a glance but the domain has one character transposed.",
+      "question": "What should the employee do first?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Verify the request by calling or messaging the manager through a trusted channel before opening the attachment.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Open the attachment immediately — the email content is too specific to be fake.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reply to the email asking for confirmation before opening the attachment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Spoofed Domain Confirmed",
+      "situation": "The manager confirms they did not send any email. The IT security team is now aware and wants to determine how the attacker obtained such specific personal details.",
+      "question": "What is the most likely source the attacker used to craft the email?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Publicly available social media profiles and LinkedIn data exposing the employee's team, role, and current projects.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "A previous data breach of the company's customer database.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "OSINT Exposure Review",
+      "situation": "A quick review confirms that the employee's LinkedIn profile publicly displays their team name, manager, and current project. The attacker used this open-source intelligence (OSINT) to craft a convincing lure.",
+      "question": "What preventive measure should be implemented?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise staff to restrict public visibility of work-related details on social media, and deliver OSINT-awareness training.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Ban all staff from using LinkedIn or any professional social network.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Email Domain Spoofing Control",
+      "situation": "IT discovers the organisation lacks DMARC enforcement, which allowed the attacker to spoof the email domain convincingly.",
+      "question": "What email security configuration should be applied?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Configure SPF, DKIM, and DMARC with a reject policy to prevent domain spoofing of outbound and inbound email.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Add a banner to all inbound emails labelling them as external — no further action is needed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The spear-phishing attempt was identified before any payload was executed. DMARC enforcement has been applied, staff OSINT awareness has been improved, and the email domain spoofing vector has been closed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

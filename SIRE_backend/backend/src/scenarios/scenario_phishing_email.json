@@ -1,0 +1,129 @@
+{
+  "title": "scenario_phishing_email",
+  "description": "A mass phishing email campaign targets your organisation, attempting to harvest credentials.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious Emails Arrive",
+      "description": "Staff report emails impersonating the IT helpdesk asking them to verify login credentials via a link.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "First Victims Click",
+      "description": "Two employees have already clicked the link and entered their passwords on a fake login page.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Accounts Accessed",
+      "description": "Stolen credentials used to access internal systems within minutes of being submitted.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Lateral Movement Detected",
+      "description": "Attacker uses compromised accounts to search shared drives and email accounts for sensitive data.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Containment Actions",
+      "description": "IT locks compromised accounts and pushes an organisation-wide warning to ignore the emails.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Review",
+      "description": "Analyse how the phishing email bypassed filters and update email security rules.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Phishing Email Reported",
+      "situation": "Multiple staff members have forwarded a suspicious email claiming to be from the IT helpdesk. The email asks recipients to click a link and confirm their login credentials due to a 'security upgrade'. Some employees say they have already clicked the link.",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Send an urgent all-staff alert warning not to click the link, and report the email to the IT security team for analysis.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Click the link yourself to verify whether it is truly malicious before deciding what to do.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for IT to notice on their own — it is their responsibility to handle suspicious emails.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Employees Already Compromised",
+      "situation": "IT confirms two employees entered their credentials on the fake site. Their accounts may now be under attacker control.",
+      "question": "How do you handle the compromised accounts?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately disable the compromised accounts and force password resets with MFA enrolment before re-enabling them.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Ask the affected employees to change their passwords themselves at their own convenience.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the accounts active to monitor attacker activity without notifying the employees.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Email Filter Bypass",
+      "situation": "Analysis reveals the phishing email bypassed the spam filter by using a legitimate cloud service as a redirect. The same technique could be used again.",
+      "question": "What technical control do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Update email security rules to flag external links using redirect services, and enable advanced anti-phishing policies.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Block all external email links entirely, preventing employees from clicking any external URL.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scope of Data Access",
+      "situation": "Forensics shows the attacker used the compromised accounts to access shared drives containing HR records and project files for approximately 20 minutes.",
+      "question": "What is your next step regarding the data exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a data impact assessment, notify affected individuals per data protection obligations, and document the breach.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Keep the breach internal to avoid reputational damage — the access window was short.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Compromised accounts have been secured, the phishing campaign has been contained, affected individuals notified, and email controls updated. A follow-up security awareness session has been scheduled for all staff.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
