@@ -1,0 +1,130 @@
+{
+  "title": "scenario_trojan_infection",
+  "description": "A Trojan horse disguised as a legitimate software installer establishes persistence, steals credentials, and opens a backdoor on the corporate network.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious Process Detected",
+      "description": "EDR flags an unknown process launched by an HR employee after installing what appeared to be an HR software update.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Persistence Mechanisms Found",
+      "description": "Analysis reveals registry run keys and a scheduled task created to ensure the Trojan survives reboots.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Credential Harvesting Activity",
+      "description": "The Trojan is found to be logging keystrokes and scraping browser-saved passwords. Multiple credentials potentially compromised.",
+      "timeOffsetSec": 65
+    },
+    {
+      "index": 3,
+      "title": "C2 Communication Identified",
+      "description": "Firewall logs show beaconing traffic to a known C2 domain every 5 minutes. Attacker has command channel open.",
+      "timeOffsetSec": 110
+    },
+    {
+      "index": 4,
+      "title": "Scope Assessment",
+      "description": "Investigating how many machines received the malicious installer. Trojanized file traced to an unofficial download site.",
+      "timeOffsetSec": 170
+    },
+    {
+      "index": 5,
+      "title": "Remediation Underway",
+      "description": "Affected systems quarantined. Credentials rotated. Persistence mechanisms removed. C2 domains blocked at DNS.",
+      "timeOffsetSec": 250
+    },
+    {
+      "index": 6,
+      "title": "Post-Incident Actions",
+      "description": "Phishing awareness training updated. Software allowlisting policy reviewed. Vendor verification procedures enhanced.",
+      "timeOffsetSec": 330
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unknown Process Spawned by HR Software Installer",
+      "situation": "An EDR alert fires on an HR workstation. A process named 'svcupdate32.exe' was spawned by an HR software installer downloaded from an unofficial mirror site. The employee says they clicked a Google ad to reach the download page.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the workstation, kill the suspicious process, and pull the installer for analysis in a sandboxed environment.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Uninstall the HR software and reboot the machine — the problem should clear itself.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Whitelist the process in EDR to stop the alerts while you investigate over the next few days.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Persistence Mechanisms Discovered",
+      "situation": "Sandbox analysis confirms a Trojan. It has written a registry run key and a scheduled task to execute on every login. It also attempted to disable Windows Defender. Additional machines may have received the same installer from the shared download.",
+      "question": "How do you address the persistence and scope?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Search all endpoints via EDR for matching file hashes, registry keys, and scheduled tasks. Quarantine all matches and remove persistence mechanisms.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Remove persistence only from the known affected machine and wait to see if other alerts appear.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Credential Harvesting Confirmed",
+      "situation": "Forensics shows the Trojan has been running for 3 days and logged keystrokes, including passwords to email, VPN, and a financial application. You do not know which credentials the attacker has already used.",
+      "question": "How do you handle the credential compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Force an immediate enterprise-wide password reset for all accounts, prioritizing VPN, email, and financial systems. Enable MFA everywhere.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Reset only the passwords of the confirmed affected employees to limit disruption.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "C2 Beacon Detected",
+      "situation": "Firewall logs reveal the Trojan has been beaconing to a C2 domain every 5 minutes. The attacker potentially has active access. The C2 domain resolves to an IP hosting several other known malicious domains.",
+      "question": "How do you sever the attacker's access?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block the C2 domain and IP at the DNS and firewall levels, notify threat intelligence feeds, and review firewall logs for any commands sent to the Trojan.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the C2 channel open temporarily to monitor what the attacker is doing.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All Trojan instances removed. Persistence mechanisms eliminated. Credentials rotated. C2 communication blocked. A software allowlisting policy is being drafted, and staff will receive updated phishing and safe-download awareness training.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

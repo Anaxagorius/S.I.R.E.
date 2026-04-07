@@ -1,0 +1,130 @@
+{
+  "title": "scenario_worm_outbreak",
+  "description": "A self-propagating network worm exploits an unpatched SMB vulnerability, spreading rapidly across the corporate network and threatening critical servers.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Network Congestion Alert",
+      "description": "Network monitoring shows unusual broadcast traffic and a rapid increase in SMB connection attempts across all subnets.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Worm Propagation Confirmed",
+      "description": "Security team confirms an EternalBlue-style exploit targeting MS17-010. Unpatched systems being compromised every 30 seconds.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Critical Servers Under Threat",
+      "description": "Worm has reached the server VLAN. Domain controllers, database servers, and backup systems are at risk.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Network Segmentation Engaged",
+      "description": "Emergency VLAN isolation preventing worm from reaching additional subnets. Affected hosts identified.",
+      "timeOffsetSec": 80
+    },
+    {
+      "index": 4,
+      "title": "Patch Emergency Deployment",
+      "description": "Emergency patch deployment to all reachable unpatched systems. Critical servers patched first.",
+      "timeOffsetSec": 140
+    },
+    {
+      "index": 5,
+      "title": "Infected Hosts Cleaned",
+      "description": "Worm removed from all infected hosts. Network traffic returning to normal baselines.",
+      "timeOffsetSec": 220
+    },
+    {
+      "index": 6,
+      "title": "Patch Compliance Audit",
+      "description": "Full inventory of patch status across the estate completed. 127 previously unpatched systems identified and prioritized.",
+      "timeOffsetSec": 310
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Explosive SMB Scan Traffic Detected",
+      "situation": "Your IDS fires on massive SMB port-scanning activity originating from a single workstation and rapidly spreading. The pattern matches known WannaCry/NotPetya-style self-propagation. The worm is exploiting MS17-010 — a vulnerability that has been unpatched on a large portion of your estate.",
+      "question": "What is your immediate containment action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block SMB (port 445) at all internal firewall boundaries immediately and isolate the originating workstation to halt propagation.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Identify the patient zero workstation first before taking any broad network action.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Begin patching systems in alphabetical order by hostname.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Worm Approaches the Server VLAN",
+      "situation": "SMB blocking has slowed propagation but the worm has already infected 40 workstations and is attempting to cross into the server VLAN containing domain controllers and your backup infrastructure. Backup systems compromised would mean no recovery path.",
+      "question": "How do you protect critical servers?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Emergency-isolate the server VLAN now, take domain controllers offline temporarily, and verify backup system integrity before the worm can reach them.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Keep the server VLAN connected to maintain operations — prioritize patching over isolation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Emergency Patch Deployment",
+      "situation": "Critical servers are protected. You now need to patch all remaining unpatched workstations before bringing them back online. The patch was available 3 years ago but 127 systems were missed in the vulnerability management process.",
+      "question": "How do you deploy emergency patches across 127 systems?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the patch management console to push the MS17-010 patch to all systems simultaneously. Prioritize systems with network shares. Keep patched systems offline until verification.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Patch systems one at a time to avoid overloading the network.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Infected Host Remediation",
+      "situation": "Patching is underway. 40 infected workstations need to be cleaned before being returned to the network. Some show signs of secondary payloads — the worm may have downloaded additional malware on some hosts.",
+      "question": "How do you handle the infected hosts?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reimage all 40 infected workstations from a known-good baseline — do not attempt to clean in place given the risk of secondary payloads.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Run antivirus on all infected systems and return them to the network if no additional threats are detected.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Worm contained and eradicated. All 127 vulnerable systems patched. 40 infected workstations reimaged. Network segmentation reviewed and hardened. A vulnerability management program review is underway to prevent critical patch gaps in the future.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
