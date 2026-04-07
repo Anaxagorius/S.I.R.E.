@@ -1,0 +1,124 @@
+{
+  "title": "scenario_whaling",
+  "description": "A highly targeted whaling attack impersonates a board member to pressure the CFO into authorising a fraudulent wire transfer.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Urgent Email to CFO",
+      "description": "The CFO receives an email appearing to be from the CEO demanding an urgent confidential wire transfer.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Pressure Escalates",
+      "description": "A follow-up email stresses secrecy and a tight deadline, urging the CFO to bypass normal approval channels.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Verification Attempt",
+      "description": "CFO pauses and attempts to verify the request through an independent channel.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Fraud Confirmed",
+      "description": "The CEO confirms they sent no such email. The attacker has spoofed the CEO's address.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Incident Reported",
+      "description": "The phishing email is reported to IT security and finance governance teams.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 5,
+      "title": "Controls Reviewed",
+      "description": "Finance processes are updated to mandate dual approval and out-of-band verification for all large transfers.",
+      "timeOffsetSec": 180
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Urgent CEO Wire Transfer Request",
+      "situation": "The CFO receives an email from what appears to be the CEO's personal email address. It requests an urgent, confidential wire transfer of $180,000 to a new supplier, emphasising the deal must close today and that normal procedures should be skipped to maintain secrecy.",
+      "question": "How should the CFO respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not initiate any transfer. Contact the CEO directly using a known phone number or in person to verify the request.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Process the transfer immediately — the urgency and secrecy suggest a legitimate sensitive deal.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reply to the email asking for more details before transferring funds.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "CEO Confirms No Request Sent",
+      "situation": "The CEO confirms they sent no such request. The attacker used a look-alike personal domain to impersonate them. The email has been forwarded to IT security.",
+      "question": "What immediate action should IT security take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block the spoofed domain, analyse the email headers, and check whether any other executives received similar emails.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Delete the email and take no further action since no money was transferred.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Broader Executive Targeting Discovered",
+      "situation": "IT finds two more executives received similar emails over the past week. The attacker appears to have researched leadership structure using the company website and press releases.",
+      "question": "What organisational control should be strengthened to prevent future whaling attacks?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a mandatory out-of-band phone verification policy for any financial transfer request received via email, regardless of apparent sender.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Remove all executive names and roles from the company website to prevent OSINT.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Email Security Hardening",
+      "situation": "IT recommends adding a clear [EXTERNAL] email banner and configuring email gateway rules to flag emails where the display name matches an internal executive but the sending domain is external.",
+      "question": "Should this control be implemented?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Yes — implement display-name spoofing detection and external email banners across the organisation immediately.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "No — staff should already be able to distinguish internal from external emails without a banner.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "No funds were transferred. Spoofed domains have been blocked, out-of-band verification has been mandated for financial requests, and display-name spoofing detection is now active. Executive awareness briefings have been scheduled.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

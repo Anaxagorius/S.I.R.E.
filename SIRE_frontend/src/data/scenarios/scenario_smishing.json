@@ -1,0 +1,124 @@
+{
+  "title": "scenario_smishing",
+  "description": "Staff receive fraudulent SMS messages impersonating the organisation's IT department, directing them to a credential-harvesting site.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious SMS Received",
+      "description": "Employees report SMS messages claiming their corporate account has been locked and to click a link to restore access.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Link Clicked by Employee",
+      "description": "An employee follows the SMS link and enters their username and password on a convincing fake portal.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Credentials Harvested",
+      "description": "Attacker uses the stolen credentials to attempt login to the corporate VPN.",
+      "timeOffsetSec": 50
+    },
+    {
+      "index": 3,
+      "title": "VPN Login Blocked by MFA",
+      "description": "Multi-factor authentication prevents the attacker from completing the VPN login.",
+      "timeOffsetSec": 75
+    },
+    {
+      "index": 4,
+      "title": "Affected Account Secured",
+      "description": "IT resets the compromised password and investigates the SMS campaign origin.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 5,
+      "title": "Staff Advisory Issued",
+      "description": "A company-wide advisory is sent reminding staff that IT will never request credentials via SMS.",
+      "timeOffsetSec": 180
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious SMS Alert",
+      "situation": "Several employees have received SMS messages that appear to be from IT Support, claiming their corporate accounts are suspended and they must verify their identity by clicking a link within 2 hours. The messages include the company name and a convincing portal URL.",
+      "question": "What should employees be instructed to do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not click the link. Report the SMS to IT security and verify account status by calling the IT helpdesk directly.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Click the link and log in to check if the account is really suspended — the message looks official.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the message and assume it is spam without reporting it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "One Employee Already Clicked",
+      "situation": "IT security confirms one employee followed the SMS link and entered their credentials before the advisory went out. Their password must be treated as compromised.",
+      "question": "What is the correct immediate response for the affected account?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately reset the employee's password, review recent account activity for unauthorised access, and ensure MFA is active.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Wait to see if any suspicious activity actually occurs before resetting the password.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Sender Number Investigation",
+      "situation": "The SMS was sent from a number spoofed to look like an internal IT number. The mobile carrier can assist in tracing the origin if a formal complaint is raised.",
+      "question": "What action should the organisation take regarding the SMS sender?",
+      "options": [
+        {
+          "label": "A",
+          "text": "File a report with the mobile carrier and relevant cybercrime authority to trace and block the spoofed number.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Block only the specific number on company devices and take no further reporting action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Staff Awareness on Smishing",
+      "situation": "A review shows most employees did not know that SMS phishing (smishing) was a recognised attack vector. Security training has not covered smishing as a dedicated topic.",
+      "question": "What long-term measure should be added?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Add smishing awareness to the mandatory security training programme, including how to recognise and report fraudulent SMS messages.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Issue a single email reminder — dedicated smishing training is unnecessary.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The compromised account has been secured, the fraudulent SMS campaign has been reported, and updated training now covers smishing. The organisation's policy is updated to clarify that IT will never request credentials or account actions via SMS.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

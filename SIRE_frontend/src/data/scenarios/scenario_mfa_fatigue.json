@@ -1,0 +1,124 @@
+{
+  "title": "scenario_mfa_fatigue",
+  "description": "An attacker who has stolen an employee's password floods their phone with MFA push notifications hoping the employee will approve one out of frustration.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Password Already Compromised",
+      "description": "An employee's password was obtained from a previous data breach. The attacker now attempts to log in repeatedly.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "MFA Push Flood Begins",
+      "description": "The employee receives a rapid series of MFA push notifications they did not initiate.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Employee Approves Accidentally",
+      "description": "After receiving dozens of requests, the employee taps approve to stop the notifications.",
+      "timeOffsetSec": 50
+    },
+    {
+      "index": 3,
+      "title": "Account Accessed",
+      "description": "Attacker gains access to corporate email and begins searching for sensitive data.",
+      "timeOffsetSec": 70
+    },
+    {
+      "index": 4,
+      "title": "Anomalous Login Detected",
+      "description": "SIEM flags the login from an unusual country not matching the employee's normal location.",
+      "timeOffsetSec": 100
+    },
+    {
+      "index": 5,
+      "title": "Session Terminated and Hardened",
+      "description": "IT revokes active sessions, resets credentials, and switches the account to number-matching MFA.",
+      "timeOffsetSec": 150
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unexpected MFA Push Flood",
+      "situation": "An employee contacts the IT helpdesk saying they are receiving dozens of Microsoft Authenticator push approval requests in rapid succession even though they are not trying to log in. They have not approved any yet.",
+      "question": "What should the employee do immediately?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deny all push requests, do not approve any, and call the IT helpdesk straight away to report the suspicious activity.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Approve one request to make the notifications stop, then report it afterwards.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Turn off their phone to stop the notifications and deal with it later.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Credential Breach Identified",
+      "situation": "IT finds the employee's password appeared in a recent dark web credential dump from a third-party site where they reused the same password. The attacker has been using it to trigger MFA requests.",
+      "question": "What must IT do immediately to secure the account?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Force an immediate password reset to a unique strong password and review all active sessions for the account.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Simply block the IP address making the login attempts — the password is probably fine.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "MFA Method Upgrade",
+      "situation": "The current MFA method (simple push approve/deny) is vulnerable to fatigue attacks. IT security recommends upgrading to number-matching or FIDO2 passkeys, which require the user to match a code displayed on the login screen before approving.",
+      "question": "Should the organisation upgrade its MFA method?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Yes — roll out number-matching MFA or phishing-resistant FIDO2 keys organisation-wide to eliminate fatigue attacks.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "No — educating users to deny unexpected push requests is sufficient.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Password Reuse Policy",
+      "situation": "The root cause was password reuse across personal and corporate accounts. The organisation has no current control preventing this.",
+      "question": "What control should be added to reduce password reuse risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce unique password requirements via an enterprise password manager, and monitor for corporate credentials in breach databases using a credential monitoring service.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Send a reminder email asking employees not to reuse passwords — no technical control is needed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The account has been secured with a unique password and number-matching MFA. Password reuse monitoring is now in place. Employees have received training on recognising and reporting MFA fatigue attacks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
