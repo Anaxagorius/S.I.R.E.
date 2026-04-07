@@ -1,0 +1,124 @@
+{
+  "title": "brute_force_login",
+  "description": "An attacker launches a high-volume brute-force attack against the organisation's admin portal, attempting thousands of password combinations per minute.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "High-Volume Login Failures Detected",
+      "description": "WAF and SIEM alert on 8,000 login attempts against the admin portal in 10 minutes, all targeting the 'sysadmin' account.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Admin Account Locked",
+      "description": "The targeted account is auto-locked after exceeding the failed login threshold. Attacker pivots to other accounts.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Attacker Adapts",
+      "description": "Brute-force attempts shift to additional accounts. Rate limiting enforced at the web application firewall.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Attack Traffic Blocked",
+      "description": "WAF rate-limiting and CAPTCHA successfully block further attempts. No successful authentication recorded.",
+      "timeOffsetSec": 100
+    },
+    {
+      "index": 4,
+      "title": "Log Review Complete",
+      "description": "Full review of authentication logs confirms no successful logins during the attack window.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Security Controls Updated",
+      "description": "MFA enforced, password complexity policy strengthened, and geo-blocking applied for known attack source ranges.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Brute-Force Alert: Admin Portal",
+      "situation": "The SIEM and web application firewall both alert on 8,000 login attempts against the admin portal in 10 minutes, all targeting a single 'sysadmin' account. The attempts are coming from a single IP and cycling through a dictionary of common passwords.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enable IP-based rate limiting at the WAF and temporarily lock the targeted account while investigating.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait to see if the attacker succeeds before escalating the alert.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Change the admin password immediately and take no other action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Attacker Shifts Targets",
+      "situation": "The targeted account has been locked. The attacker has now shifted the brute-force attempts to other accounts in the portal, cycling through a list of known usernames. Rate limiting has slowed but not stopped the attack.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy CAPTCHA on the login page and enforce account lockout policies across all accounts in the portal.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Unlock the original account to see what password the attacker is trying.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Attack Halted — Log Review",
+      "situation": "CAPTCHA and lockout policies have effectively halted the attack. Security indicates the attacker used a dictionary of 10,000 common passwords and none succeeded. A thorough log review is still required.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review all authentication logs for the attack window to confirm no successful logins, and enforce a minimum password complexity policy for all accounts.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Clear the logs to free up storage space now that the attack is over.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "No Breach Confirmed — Prevention Planning",
+      "situation": "Log review confirms no accounts were successfully authenticated during the attack. Leadership wants assurance that brute-force attacks cannot succeed in the future.",
+      "question": "How do you prevent future brute-force attacks?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement MFA for all admin accounts, increase lockout sensitivity, and apply geo-blocking rules for IP ranges associated with the attack.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Simply monitor for future attempts and only act if an account is actually compromised.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "No accounts were compromised. Rate limiting, CAPTCHA, lockout policies, and MFA have been deployed. The attack source has been geo-blocked and the incident is documented for future reference.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

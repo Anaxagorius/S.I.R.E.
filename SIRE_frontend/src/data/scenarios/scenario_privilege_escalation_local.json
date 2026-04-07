@@ -1,0 +1,124 @@
+{
+  "title": "privilege_escalation_local",
+  "description": "An endpoint detection system flags a standard user account exploiting an unpatched kernel vulnerability to gain SYSTEM-level privileges on a corporate workstation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious Process Execution Detected",
+      "description": "EDR alert fires: a standard user account is executing a known local privilege escalation exploit targeting an unpatched Windows kernel vulnerability.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "SYSTEM Privileges Achieved",
+      "description": "The exploit succeeds. The attacker now has SYSTEM-level access on the endpoint.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Persistence Mechanism Installed",
+      "description": "A persistent backdoor is installed in a system directory and registered as a Windows service.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Internal Reconnaissance Begins",
+      "description": "The attacker scans internal network ranges from the compromised endpoint, probing for accessible services.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Endpoint Quarantined",
+      "description": "The workstation is isolated from the network. Credentials of the affected user are revoked.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Patch Deployed",
+      "description": "The exploited vulnerability is patched across all affected systems. Least-privilege policies reviewed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "EDR Alert: Local Privilege Escalation Attempt",
+      "situation": "An EDR alert fires on a user workstation. A standard user account is executing a known exploit for an unpatched Windows kernel vulnerability (CVE listed in the alert). The exploit is associated with local privilege escalation to SYSTEM.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the workstation from the network immediately and begin a forensic investigation.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Dismiss the alert as a false positive — standard users cannot normally gain elevated privileges.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the workstation to interrupt the exploit before investigating.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "SYSTEM Privileges Confirmed",
+      "situation": "Forensic review confirms the exploit succeeded before the workstation was isolated. The attacker now has SYSTEM-level privileges on the endpoint. A persistent backdoor service has been installed and network scanning activity was detected before isolation.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Revoke the affected user's credentials across all systems, preserve a forensic memory and disk image, and keep the workstation isolated pending full analysis.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Reboot the workstation to clear the exploit and return it to the user.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Backdoor and Reconnaissance Discovered",
+      "situation": "Forensics confirms a persistent backdoor was installed and the attacker conducted internal network scanning before isolation. It is unclear whether any other systems were compromised during the scanning activity.",
+      "question": "How do you contain the broader threat?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Scan all endpoints for indicators of compromise (IOCs) from the backdoor, revoke all active sessions for the affected user, and review network traffic logs for any lateral movement.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Re-image the workstation and consider the incident closed since the endpoint is isolated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Patch Management Failure Identified",
+      "situation": "Investigation reveals the exploited kernel vulnerability had an available patch that was not applied due to a gap in the patch management process. The vulnerability is present on 40 other endpoints. No lateral movement to other systems was confirmed.",
+      "question": "How do you prevent recurrence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy the missing patch to all 40 affected endpoints immediately, enforce least-privilege user policies, and initiate a review of the patch management process to close coverage gaps.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Only patch the single workstation involved in the incident.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The compromised workstation has been re-imaged and the user's credentials rotated. The exploited vulnerability has been patched across all affected endpoints. Least-privilege policies are under review and the patch management process has been audited. No lateral movement was confirmed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "title": "token_theft",
+  "description": "A malicious OAuth application tricks an employee into granting it broad access to their Microsoft 365 account. The attacker uses the stolen access token to read emails and download files without needing the user's password.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious OAuth Application Detected",
+      "description": "Microsoft 365 Defender alerts that an employee granted a third-party OAuth app permissions including 'read/write all mail' and 'full access to files' — scopes not approved by IT.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Access Token Active",
+      "description": "The OAuth token was granted 6 hours ago. The attacker has been reading emails and downloading OneDrive files undetected.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Sensitive Data Accessed",
+      "description": "Audit logs show hundreds of emails read and multiple files containing financial forecasts downloaded from OneDrive.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Token Revoked",
+      "description": "The OAuth token is revoked in Azure AD and the unauthorised application registration is disabled.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Data Exposure Assessment Initiated",
+      "description": "Privacy and legal teams notified. Audit of accessed data underway to assess breach scope and regulatory obligations.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "OAuth Consent Controls Enforced",
+      "description": "Admin consent policy enabled in Azure AD. User awareness training on OAuth phishing launched.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unauthorised OAuth Application Detected",
+      "situation": "Microsoft 365 Defender alerts that an employee clicked a link in a phishing email and granted an unverified third-party application OAuth permissions including 'read/write all mail', 'full access to files', and 'read contacts'. These scopes were not approved by IT and the application is not in the approved app catalogue.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately revoke the OAuth token in Azure AD and disable the unauthorised application registration.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Contact the employee first to confirm whether they intentionally installed the app before revoking access.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remove the app from the approved list and wait to see if further suspicious activity is detected.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Token Was Active for 6 Hours",
+      "situation": "The OAuth token was granted 6 hours before detection. During this window the attacker's application read hundreds of emails and downloaded files from the employee's OneDrive. The full scope of access is unknown.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Preserve all Microsoft 365 audit logs, identify every email read and file downloaded, and notify the privacy and legal teams of the potential data exposure.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Delete the application registration from Azure AD and consider the matter resolved.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Sensitive Financial Data Exposed",
+      "situation": "Audit logs confirm the accessed emails and files included Q3 financial forecasts, an unreleased product roadmap, and confidential board meeting minutes. The data may constitute a notifiable breach under data protection regulations.",
+      "question": "How do you handle the data exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a formal data breach assessment with legal counsel to determine regulatory notification obligations, and notify affected stakeholders of the exposure.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Notify only the employee whose account was affected and take no external action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing OAuth Token Theft",
+      "situation": "Legal counsel is managing the breach notification process. Leadership asks what controls will prevent a similar OAuth phishing attack in the future.",
+      "question": "What controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enable Azure AD app consent policies to require admin approval for all third-party OAuth applications, conduct user awareness training specifically on OAuth phishing, and audit all existing third-party app registrations for excessive permissions.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Block only the specific malicious application and take no policy changes for other third-party apps.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The malicious OAuth token has been revoked and the application disabled. Legal has been engaged and a breach notification is being prepared. Azure AD now requires admin approval for any third-party OAuth application, and a full audit of existing app registrations has been completed. User awareness training on OAuth phishing has been scheduled.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
