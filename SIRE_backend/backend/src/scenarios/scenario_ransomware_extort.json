@@ -1,0 +1,135 @@
+{
+  "title": "scenario_ransomware_extort",
+  "description": "A double-extortion ransomware group exfiltrates sensitive data before encrypting systems and threatens public exposure.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unusual Outbound Traffic",
+      "description": "SIEM alerts on large volumes of outbound data to an unknown IP over the past 48 hours. Investigation initiated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Data Exfiltration Confirmed",
+      "description": "Forensics confirms 60 GB of customer PII and financial records transferred to attacker-controlled servers.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Encryption Wave Begins",
+      "description": "Ransomware payload activates. File encryption spreading across servers. Systems going offline.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Extortion Demand Received",
+      "description": "Attackers post proof-of-exfiltration and demand 120 BTC or they publish customer data on their leak site.",
+      "timeOffsetSec": 100
+    },
+    {
+      "index": 4,
+      "title": "Legal and Regulatory Notifications",
+      "description": "Legal counsel engaged. Data protection authority notification window (72 hrs under GDPR/state law) is open.",
+      "timeOffsetSec": 160
+    },
+    {
+      "index": 5,
+      "title": "Containment and Forensics",
+      "description": "Affected systems isolated. Digital forensics team collecting evidence. Threat actor TTPs being documented.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 6,
+      "title": "Public Communication Prepared",
+      "description": "Communications team drafting stakeholder notification. Regulatory filing underway. Recovery in progress.",
+      "timeOffsetSec": 330
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Large Outbound Data Transfer Detected",
+      "situation": "The SIEM alerts on 60 GB of outbound traffic to an unknown external IP over 48 hours. Traffic originates from the file server. The data appears to include customer records and financial data.",
+      "question": "What is your first priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately block outbound traffic to the suspicious IP, preserve network logs, and escalate to the IR team for forensic investigation.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait 24 hours to collect more data before acting, to avoid a false positive that disrupts operations.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reimage the file server immediately to stop any ongoing activity.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Ransomware Payload Activates",
+      "situation": "While forensics is underway, the ransomware payload triggers and begins encrypting servers. Exfiltration was stage one; encryption is stage two. You have minutes before critical systems go offline.",
+      "question": "How do you respond to the simultaneous encryption event?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the incident response plan: isolate affected network segments, preserve forensic images before shutdown, and alert executive leadership.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Focus entirely on stopping the encryption and defer the exfiltration investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Extortion Demand and Proof-of-Exfiltration",
+      "situation": "The threat group posts a sample of the stolen customer PII on their Tor leak site as proof. They demand 120 BTC within 5 days or the full dataset will be published. Legal counsel is on the call.",
+      "question": "How do you handle the extortion demand and regulatory obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not pay. Engage law enforcement (FBI/CISA), begin mandatory regulatory breach notification within the 72-hour window, and notify affected customers.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Pay the ransom quietly to prevent data publication and avoid regulatory scrutiny.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the extortion demand and hope the attackers do not follow through.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Forensic Investigation and Root Cause",
+      "situation": "Law enforcement is engaged. Forensics has traced the initial access to a phishing email that compromised a privileged account 3 weeks ago. You need to determine the full scope of access before recovery.",
+      "question": "What do you do to ensure full scope is understood before restoring systems?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a thorough forensic review of all systems the compromised account touched, revoke all credentials, and implement privileged access controls before rebuilding.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Restore from backup immediately to resume operations, deferring the full forensic scope review.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Regulatory notifications filed. Affected customers notified. Systems rebuilt with hardened configurations, MFA enforced on all privileged accounts, and DLP controls added to prevent future exfiltration. A threat intelligence report has been shared with law enforcement.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

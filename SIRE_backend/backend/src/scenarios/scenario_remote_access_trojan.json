@@ -1,0 +1,130 @@
+{
+  "title": "scenario_remote_access_trojan",
+  "description": "A Remote Access Trojan (RAT) is discovered after a prolonged dwell period, giving an attacker silent control over multiple systems.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous Outbound Connection",
+      "description": "Threat hunting team identifies periodic encrypted outbound connections from the CFO's laptop to an unclassified external IP.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "RAT Identified",
+      "description": "Analysis confirms a commercial RAT (AsyncRAT variant) with full remote desktop, file access, microphone, and webcam capabilities.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Dwell Time Established",
+      "description": "Log review shows the RAT has been active for 6 weeks. Attacker had extended access to financial planning documents and executive communications.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Lateral Movement Investigation",
+      "description": "Evidence of lateral movement to the file server and email gateway discovered. Scope of access is wider than initially assessed.",
+      "timeOffsetSec": 100
+    },
+    {
+      "index": 4,
+      "title": "Sensitive Data Review",
+      "description": "Legal counsel reviewing what data was accessible during the 6-week dwell period. M&A documents and board materials at risk.",
+      "timeOffsetSec": 160
+    },
+    {
+      "index": 5,
+      "title": "Eradication and Recovery",
+      "description": "All RAT instances removed. Affected systems rebuilt. Privileged access model under redesign.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 6,
+      "title": "Regulatory and Legal Notification",
+      "description": "Legal and compliance reviewing notification obligations. Board briefed on potential M&A data exposure risk.",
+      "timeOffsetSec": 320
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Outbound Connection Discovered",
+      "situation": "During routine threat hunting, your team spots the CFO's laptop making periodic encrypted connections to an external IP not associated with any known business application. The connections have been occurring for weeks. The CFO reports no unusual activity.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Quietly collect a memory dump and network traffic capture from the laptop for analysis before alerting the CFO — you need to avoid tipping off the attacker.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately shut down the CFO's laptop and inform them of the investigation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Block the external IP at the firewall and monitor to see if the connections resume.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "RAT Confirmed: 6-Week Dwell Period",
+      "situation": "Memory analysis confirms an AsyncRAT variant with full remote desktop, file, and audio/video access. Log review reveals the RAT has been active for 6 weeks. The attacker had real-time access to the CFO's screen and files including M&A due diligence documents.",
+      "question": "How do you assess the full scope of the compromise before taking containment action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct lateral movement analysis across the entire network using endpoint telemetry before removing the RAT, to identify all compromised hosts.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the RAT from the CFO's laptop immediately and consider the incident contained.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Lateral Movement to File Server and Email Gateway",
+      "situation": "Analysis confirms the attacker pivoted from the CFO's laptop to the file server and email gateway using harvested credentials. Board-level communications and financial forecasts may have been read by the attacker.",
+      "question": "How do you contain the multi-host compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate simultaneous isolation of all confirmed compromised hosts, revoke all credentials associated with the affected accounts, and initiate full forensic imaging.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the RAT from each system one at a time to minimize disruption.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Data Exposure Risk: M&A and Board Materials",
+      "situation": "Legal counsel advises that M&A documents accessed during the dwell period may constitute material non-public information (MNPI). The exposure could have regulatory and securities law implications. Notification obligations must be assessed.",
+      "question": "How do you handle the legal and regulatory implications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage outside counsel and a forensic accounting firm to document the full data exposure. Brief the board and relevant regulators as required by applicable law.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Handle the incident internally and avoid involving regulators to prevent market impact.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All RAT instances eradicated. Compromised credentials rotated. Systems rebuilt. Legal and regulatory notifications filed. The privileged access model is being redesigned with endpoint isolation, just-in-time access, and enhanced anomalous connection monitoring.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
