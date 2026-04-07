@@ -1,0 +1,124 @@
+{
+  "title": "privilege_escalation_domain",
+  "description": "An attacker with a low-privilege domain account performs a Kerberoasting attack to extract service ticket hashes, cracks them offline, and escalates to Domain Admin.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Kerberoasting Activity Detected",
+      "description": "SIEM detects a low-privilege domain account requesting Kerberos service tickets for multiple high-value service accounts in rapid succession.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Service Ticket Hashes Extracted",
+      "description": "The attacker has successfully extracted Kerberos TGS hashes for five service accounts and is no longer querying AD.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Credentials Cracked Offline",
+      "description": "One service account hash is cracked using an offline GPU-based attack. The attacker now holds valid service account credentials.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Domain Admin Privileges Gained",
+      "description": "The cracked service account has Domain Admin rights. The attacker begins exploring the domain and accessing sensitive systems.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "DCSync Attack Attempted",
+      "description": "Attacker attempts a DCSync operation to dump all domain account hashes from the domain controller.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Domain Containment Underway",
+      "description": "KRBTGT password reset initiated, compromised accounts disabled, and DCSync replication rights restricted.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Kerberoasting Detected",
+      "situation": "The SIEM raises an alert: a standard domain user account has requested Kerberos service tickets (TGS) for seven service accounts within 60 seconds — a classic Kerberoasting indicator. The account belongs to an employee in the IT helpdesk.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Disable the suspected account immediately and escalate to the incident response team.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Monitor the account's behaviour before responding, to confirm malicious intent.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact the employee to ask if they were performing a legitimate task.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Hashes Extracted — Offline Cracking Risk",
+      "situation": "Forensics confirms the account extracted TGS hashes for five service accounts. The hashes have already left the network and the attacker is likely performing offline password cracking. You have a window to act before any hash is cracked.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately reset all five affected service account passwords to long, randomly-generated strings (30+ characters) to invalidate the extracted hashes.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Wait to see if the attacker successfully cracks any hashes before taking disruptive action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "One Hash Already Cracked",
+      "situation": "Despite the password resets, logs indicate one service account — 'svc_backup' — was authenticated from an unknown host before the reset was completed. The account has Domain Admin membership. The attacker now has domain-wide access.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reset the KRBTGT account password twice to invalidate all existing Kerberos tickets, disable the compromised service account, and begin a full domain forensic investigation.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Disable only the 'svc_backup' service account and monitor for further domain activity.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "DCSync Attack Attempted",
+      "situation": "SIEM alerts on a DCSync-style replication request from a non-domain-controller host — the attacker is attempting to dump all domain account hashes from the directory. If successful, every domain account will be compromised.",
+      "question": "How do you prevent the full domain from being compromised?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block DCSync by removing replication rights from non-DC accounts in AD, rotate all domain account credentials, and assess whether NTDS.dit was exfiltrated to determine if a full forest recovery is needed.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Reset the domain administrator password and consider the DCSync threat resolved.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The DCSync attempt was blocked before completion. The KRBTGT account was reset twice, invalidating all Kerberos tickets. Service accounts are now protected with long random passwords and are not members of privileged groups. A full domain credential rotation has been completed and replication rights are restricted to domain controllers only.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

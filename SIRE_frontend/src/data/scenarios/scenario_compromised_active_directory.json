@@ -1,0 +1,124 @@
+{
+  "title": "compromised_active_directory",
+  "description": "A threat actor compromises an Active Directory administrator account via phishing and uses it to create rogue admin accounts, modify group policies, and attempt lateral movement across the domain.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unusual Admin Activity Detected",
+      "description": "SIEM alerts on an AD admin account creating new privileged user accounts at 2 AM from an unrecognised location.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rogue Accounts Created",
+      "description": "Three new domain admin accounts have been created and are actively being used. Group Policy is being modified.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Endpoint Defences Disabled",
+      "description": "Group Policy change pushed to all endpoints disabling Windows Defender. Attacker establishes persistence.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Lateral Movement Detected",
+      "description": "Rogue admin accounts used to access file servers and database systems across the domain.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "AD Isolation and Reset",
+      "description": "Rogue accounts disabled, Group Policy reverted, and all privileged account passwords reset.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "AD Hardening Underway",
+      "description": "Tiered AD administration, privileged access workstations, and MFA for admin accounts being enforced.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "After-Hours Admin Activity Detected",
+      "situation": "The SIEM fires an alert at 2 AM showing that an AD administrator account is creating new privileged user accounts and modifying group policies. The activity originates from an IP address not associated with the administrator's known locations.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Disable the suspect admin account immediately and alert the Active Directory and incident response teams.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait until business hours to investigate — the admin may be working remotely.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call the administrator to verify before taking any account action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rogue Accounts and Policy Changes Found",
+      "situation": "The compromised admin account created three rogue domain admin accounts and modified Group Policy to disable Windows Defender on all domain endpoints. The rogue accounts are already active.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Disable all three rogue domain admin accounts, revert the Group Policy changes, and reset passwords for all privileged accounts immediately.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Delete only the rogue accounts and monitor for further activity before reverting group policies.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Initial Access Vector Identified",
+      "situation": "Forensics reveals the threat actor gained initial access through a spear-phishing email targeting the AD admin three days ago. The compromise may have been active but dormant for 72 hours before the overnight activity.",
+      "question": "What do you do to assess and limit the damage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate affected systems, audit all AD changes from the past 7 days, and enable comprehensive AD audit logging to identify the full scope of the breach.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Re-enable the original admin account so they can help with the investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Hardening Active Directory",
+      "situation": "The scope of the compromise has been mapped. No data exfiltration is confirmed but lateral movement occurred across several file servers. Leadership asks how to prevent a recurrence of AD compromise.",
+      "question": "What AD hardening measures do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement tiered AD administration to isolate privileged accounts, enforce privileged access workstations (PAWs) for admin tasks, and require MFA for all domain administrator accounts.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Change the AD admin password and add a reminder to the security policy document.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The AD compromise has been contained. Rogue accounts are disabled, Group Policy is restored, and all privileged accounts have been reset. Tiered administration, PAWs, and MFA for admin accounts are now in place. A full audit of the past 30 days of AD changes has been completed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

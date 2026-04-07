@@ -1,0 +1,124 @@
+{
+  "title": "stolen_api_keys",
+  "description": "A developer accidentally commits an AWS access key to a public GitHub repository. Within minutes, the key is discovered and used to spin up crypto-mining infrastructure at the organisation's expense.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Exposed Key Discovered",
+      "description": "GitHub's secret scanning and an internal alert both flag an AWS access key committed to a public repository 15 minutes ago.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Unauthorised Cloud Activity Detected",
+      "description": "AWS CloudTrail shows the key was used to create 12 EC2 instances in an unfamiliar region within 3 minutes of the commit being pushed.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Crypto-Mining Operation Identified",
+      "description": "The unauthorised EC2 instances are confirmed to be running crypto-mining software. Significant cost exposure is accumulating.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "API Key Revoked",
+      "description": "The exposed AWS access key is revoked in IAM. The rogue EC2 instances lose their authorisation source.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Cloud Environment Audited",
+      "description": "Full IAM audit conducted. All rogue resources terminated and AWS support engaged regarding fraudulent charges.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Developer Security Training Initiated",
+      "description": "Pre-commit secret scanning hooks and IAM role-based access deployed. Developer security awareness training scheduled.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "AWS Key Exposed in Public Repository",
+      "situation": "GitHub's secret scanning sends an alert: a developer pushed a commit to a public repository containing a live AWS IAM access key and secret. The commit has been public for approximately 15 minutes. Automated bots are known to scrape public repositories for secrets within seconds of publication.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately revoke the exposed AWS access key in the IAM console — assume it has already been discovered.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Delete the commit from the repository and assume the key is safe since it was only public for 15 minutes.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Rotate the key only if CloudTrail shows evidence of unauthorised use.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Unauthorised EC2 Instances Detected",
+      "situation": "AWS CloudTrail logs confirm the key was used within 3 minutes of the commit being pushed to create 12 EC2 instances in ap-southeast-1 — a region your organisation never uses. The key has now been revoked, but the instances are still running.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Terminate all unauthorised EC2 instances, quarantine the IAM user, and audit all API activity that occurred since the key was first exposed.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Terminate the EC2 instances without reviewing other CloudTrail activity — the key is revoked so the threat is over.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crypto-Mining Confirmed — Cost Exposure",
+      "situation": "The unauthorised EC2 instances were running XMRig crypto-mining software. The AWS billing dashboard shows $4,200 in unexpected charges accrued in under two hours. The full audit of activity from the exposed key is still in progress.",
+      "question": "How do you handle the financial impact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the full incident timeline, open a support case with AWS to dispute the fraudulent charges, and review all IAM policies associated with the exposed key for excessive permissions.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Accept the charges as a cost of the incident and take no further action on the billing.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future API Key Exposure",
+      "situation": "AWS has acknowledged the fraudulent charge dispute. The full audit reveals no other data was accessed. Leadership wants assurance this type of incident cannot happen again.",
+      "question": "What controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement pre-commit hooks and CI/CD secret scanning to block key commits, migrate from long-lived IAM access keys to short-lived IAM roles, and run mandatory developer security training on secrets management.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Only brief the developer who made the mistake and update the internal coding guidelines document.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All rogue AWS resources have been terminated and the fraudulent charge dispute has been submitted to AWS. Pre-commit secret scanning hooks are in place across all repositories, IAM long-lived keys have been replaced with role-based access, and developer security training has been scheduled.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

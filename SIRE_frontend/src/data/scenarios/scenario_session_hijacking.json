@@ -1,0 +1,124 @@
+{
+  "title": "session_hijacking",
+  "description": "An attacker on an unsecured public WiFi network captures an employee's session cookie transmitted over an unencrypted connection and uses it to impersonate the user inside a corporate application.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous Session Activity Detected",
+      "description": "The application logs show the same active session token being used from two different IP addresses simultaneously.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Session Cookie Theft Confirmed",
+      "description": "Network analysis confirms the session token was transmitted over an unencrypted HTTP connection, where it was captured by the attacker.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Attacker Active in Application",
+      "description": "The attacker is accessing HR documents and attempting to change the account password using the hijacked session.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Session Invalidated",
+      "description": "All active sessions for the affected user are invalidated. The attacker is immediately ejected from the application.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Damage Assessment Underway",
+      "description": "Application audit logs reviewed to determine which records were accessed and what actions were taken during the hijacked session.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Application Security Review Initiated",
+      "description": "HTTPS enforced across all application endpoints. Session token lifetime reduced and VPN mandate introduced for remote access.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Duplicate Session Detected",
+      "situation": "An employee reports being suddenly logged out of the corporate HR application while using free WiFi at a coffee shop. Application logs show the same session token is now being actively used from a different IP address in another city.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately invalidate all active sessions for the affected user account and force re-authentication.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Ask the user to log back in and monitor the situation before taking action.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Block only the suspicious IP address and leave the original session active.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Session Hijacking Confirmed",
+      "situation": "Analysis confirms the session token was transmitted over an unencrypted HTTP connection at the coffee shop, where it was captured by a network eavesdropper. The attacker used it to authenticate directly, bypassing the login page entirely. The session has been invalidated, but the attacker was active for approximately 8 minutes.",
+      "question": "How do you limit the damage from the 8-minute window of access?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review all actions taken during the hijacked session, identify every record accessed, and notify owners of any sensitive data that was viewed.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Simply block the attacker's IP address and consider the session closed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Sensitive Data Accessed and Password Change Attempted",
+      "situation": "Audit logs show the hijacked session was used to view 12 confidential HR records and initiate a password change request (which was sent to the employee's email before being acted on). The password was not successfully changed.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cancel the pending password change, notify the data owners of the 12 accessed HR records, and conduct a data breach assessment.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Reset the application password and take no further action since the session is now closed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future Session Hijacking",
+      "situation": "The data breach assessment is underway. Leadership wants to know how to prevent session hijacking across all corporate applications.",
+      "question": "What controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce HTTPS across all applications with HSTS, implement session binding to device fingerprint and IP, reduce session token lifetime, and mandate VPN use for remote access to sensitive systems.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Only enforce HTTPS on the single affected application.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The hijacked session was invalidated and the pending password change cancelled. Affected data owners have been notified and a breach assessment is complete. HTTPS with HSTS is now enforced across all corporate applications, session lifetimes are reduced, and a VPN mandate is in place for remote access to sensitive systems.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
