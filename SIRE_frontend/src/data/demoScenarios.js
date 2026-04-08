@@ -1328,7 +1328,7 @@ const DEMO_SCENARIOS = [
     },
     {
         id: "scenario_fire_legal_testimony",
-        icon: "⚖️",
+        icon: "🏛️",
         name: "Legal Testimony Preparation",
         description: "A firefighter subpoenaed to testify in an arson trial must prepare accurate testimony based on scene observations and documentation, navigating direct and cross-examination.",
         data: scenarioFireLegalTestimony,
