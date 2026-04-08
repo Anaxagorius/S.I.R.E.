@@ -1,0 +1,155 @@
+{
+  "title": "fire_limited_water",
+  "description": "A wildfire breaks out in a remote area with no reliable water infrastructure, forcing creative water sourcing strategies.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported in Remote Zone",
+      "description": "Fire reported in area with no hydrants or water mains. Only resources are air tankers and tenders.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Water Scouting Begins",
+      "description": "Crews scout nearby drainages, ponds, and stock tanks for mobile water sources.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Tender Shuttle Established",
+      "description": "Water shuttle route established from a distant fill site. Capacity is limited.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Dry Line Tactics Deployed",
+      "description": "Crews shift to dry fire line construction with limited direct suppression.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Airtanker Efficiency Critical",
+      "description": "Air tankers provide the majority of suppression capability. Maximize accuracy and targeting.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Water Cache Established",
+      "description": "Portable water storage deployed near fire line. Tactical water use now possible.",
+      "timeOffsetSec": 400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire in Water-Scarce Area",
+      "situation": "A wildfire ignites in a remote canyon with no road access to water infrastructure. The nearest hydrant is 30 miles away. Engine crews are on scene but tenders carry a limited supply of water.",
+      "question": "How do you establish water supply in this environment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Scout nearby natural water sources, establish a tender shuttle, and request air tanker support to compensate for limited ground water.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Commit all available water in the tenders to initial attack and wait for resupply.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not engage until water tenders can be resupplied from town.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Tactical Water Allocation",
+      "situation": "Water scouts have located a small pond 2 miles from the fire. A helicopter can bucket from it. Tenders can reach a stock tank 8 miles away. You have limited aircraft and tender capacity.",
+      "question": "How do you allocate water resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the helicopter for aerial bucket drops from the pond on the most critical area, and establish a tender shuttle from the stock tank for ground crews.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have all resources draw from the stock tank to keep water operations centralized.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Dry Line Construction",
+      "situation": "Water supplies are stretched too thin to sustain direct suppression on the entire fire perimeter. The fire behavior analyst recommends shifting to dry fire line construction to contain the fire without water.",
+      "question": "Do you shift to dry tactics?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shift to primarily dry line construction where safe while reserving water for structure protection and crew safety.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue water-based direct attack until supplies run out completely.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Air Tanker Targeting",
+      "situation": "With limited ground water, air tankers are now the primary suppression tool. Pilot reports that several drop targets have been requested but some may not be effective due to terrain and wind.",
+      "question": "How do you prioritize air tanker targeting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with the air tactical group supervisor to target drops only on high-value, high-effectiveness locations.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct all drops at the fire head regardless of terrain effectiveness to maximize psychological impact.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Dry line construction and targeted air tanker drops successfully contained the fire. A portable water cache was established before the pond ran low. No resources were endangered.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "limited water",
+    "wildland fire",
+    "water supply",
+    "air operations",
+    "remote fire"
+  ]
+}

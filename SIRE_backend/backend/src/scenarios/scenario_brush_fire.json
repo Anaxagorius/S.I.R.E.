@@ -1,0 +1,161 @@
+{
+  "title": "brush_fire",
+  "description": "A brush fire ignites near a populated trailhead and spreads rapidly toward nearby structures.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Spotted",
+      "description": "Hikers report smoke rising from dense brush near the trailhead. Confirm fire location.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rapid Spread",
+      "description": "Fire grows quickly due to dry vegetation. Warn nearby hikers and prepare evacuation.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Air Support Requested",
+      "description": "Ground crews unable to contain spread. Request aerial retardant drop.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Perimeter Established",
+      "description": "Fire crews establish a control line. Monitor for spot fires beyond the perimeter.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Structures Threatened",
+      "description": "Fire pushes toward a nearby ranger station. Prepare defensive operations.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Fire Contained",
+      "description": "Control lines hold. Begin mop-up operations and assess structural damage.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Brush Fire Reported",
+      "situation": "Hikers at a popular trailhead report smoke rising from dry brush. Temperatures are high and winds are gusty. The fire appears small but growing.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Alert dispatch, request fire crews, and begin evacuating the trailhead area.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a single ranger to investigate before calling for additional resources.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait to see if the fire self-extinguishes given the location.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation Underway",
+      "situation": "Hikers are being evacuated. The fire has spread significantly and is now moving toward a cluster of maintenance structures. Air support has been requested.",
+      "question": "How do you prioritize resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Focus ground crews on structure protection while air support targets the fire front.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pull all crews back and rely entirely on aerial operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Commit all ground crews to direct attack on the fire front, ignoring structures.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Control Line Decision",
+      "situation": "Ground crews have identified a natural firebreak along a dirt road. Establishing a control line here would protect the structures but leave some vegetation to burn.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the dirt road as a control line and prepare the structures with sprinklers and cleared brush.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to cut a hand line directly through the burning brush to stop the fire sooner.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Spot Fire Detected",
+      "situation": "A spot fire has jumped the control line and is igniting new brush 50 meters away. Crews are fatigued and resources are stretched.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Redirect a crew to attack the spot fire immediately and request additional resources.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ignore the spot fire and focus all resources on holding the main control line.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Both the main fire and spot fire have been contained. Structures are intact and all personnel are safe. Mop-up operations are underway.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Beginner",
+  "tags": [
+    "brush fire",
+    "wildland fire",
+    "evacuation",
+    "fire suppression"
+  ]
+}

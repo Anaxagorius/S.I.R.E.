@@ -1,0 +1,162 @@
+{
+  "title": "nighttime_wildfire",
+  "description": "Firefighters manage a large wildfire through nighttime operations with reduced visibility and altered fire behavior.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dusk Transition",
+      "description": "Daylight fading. Transition all operations to nighttime protocols. Check lighting and communications.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Night Crew Deployment",
+      "description": "Night crews take over. Briefing emphasizes night-specific hazards including snag falls and disorientation.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Spotting Activity Increases",
+      "description": "Cooler temperatures cause unexpected spotting. Night inversion layer trapping embers.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Crew Navigation Issue",
+      "description": "One crew reports disorientation in darkness. GPS tracking active. Coordinate extraction.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Night Air Operations Evaluated",
+      "description": "Helicopters available for night bucket work. Evaluate night flight risk before committing.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Dawn Transition",
+      "description": "Sun rising. Fire behavior picking up. Transition back to daytime operations.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Night Operations Transition",
+      "situation": "The wildfire has been burning all day and crews are transitioning to night operations. Visibility is dropping rapidly. Temperatures are cooling, which typically reduces fire activity but can also cause unexpected spotting near the inversion layer.",
+      "question": "What protocols do you implement for the night transition?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief all night crews on night-specific hazards, activate GPS tracking for all teams, and establish communication check intervals.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue daytime operations without specific night protocols — the fire is less active at night.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stand down all ground operations and resume at dawn.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Unexpected Night Spotting",
+      "situation": "A temperature inversion layer is trapping embers and creating unexpected spot fires along the eastern flank. Crews are having difficulty seeing the spots in the dark terrain.",
+      "question": "How do you respond to the night spotting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy thermal imaging resources to locate spots, redirect a crew to the eastern flank, and increase lookout frequency.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave spot fires until morning when visibility improves — they are likely too small to spread significantly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crew Disorientation",
+      "situation": "A crew of four reports they are disoriented in steep terrain after losing trail markers in the dark. Their GPS coordinates are known but they cannot navigate to the safety zone without assistance.",
+      "question": "How do you assist the disoriented crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Guide the crew via radio using GPS coordinates and dispatch a helicopter to illuminate their path if needed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct the crew to shelter in place and wait until dawn.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Night Air Operations Decision",
+      "situation": "Night-qualified helicopter crews are available for bucket drops on the eastern flank. The operation carries higher risk at night but could significantly slow the eastern spread.",
+      "question": "Do you authorize night air operations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorize limited night air operations with proper lighting protocols and a safety observer, targeting the highest priority spots only.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Authorize full night air operations to maximize suppression opportunity.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline all night air operations due to the elevated safety risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Night operations were conducted safely. The disoriented crew was guided out, spot fires were contained, and targeted air operations slowed eastern spread. Daytime crews are now taking over.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "night operations",
+    "wildland fire",
+    "crew safety",
+    "air operations",
+    "thermal imaging"
+  ]
+}

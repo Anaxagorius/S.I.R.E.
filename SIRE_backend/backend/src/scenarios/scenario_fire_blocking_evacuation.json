@@ -1,0 +1,155 @@
+{
+  "title": "fire_blocking_evacuation",
+  "description": "A wildfire cuts off primary evacuation routes, trapping residents and requiring alternative extraction methods.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Evacuation Route Compromised",
+      "description": "Fire jumps Highway 12, the primary evacuation corridor. Alternate routes being assessed.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Residents Trapped",
+      "description": "Approximately 300 residents unable to self-evacuate. Rescue assets requested.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Alternate Route Opened",
+      "description": "Forestry road assessed as passable. Limited capacity. Prioritize vulnerable populations.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Air Evacuation Considered",
+      "description": "Helicopter evacuation requested for mobility-impaired residents unable to use forestry road.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Fire Suppression on Route",
+      "description": "Crews work to clear fire from primary route for potential reopening.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Route Reopened",
+      "description": "Primary route reopened with fire escort. Last residents extracted safely.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Primary Route Cut Off",
+      "situation": "Fire has jumped the highway and is burning on both sides of the primary evacuation route. The road is impassable due to flames and heavy smoke. Approximately 300 residents remain in the affected area.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Alert residents to shelter in place temporarily, identify all alternate routes, and request rescue aircraft.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct all residents to attempt the primary route regardless — it may still be passable.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for fire suppression crews to clear the route before initiating any evacuation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Alternate Route Assessment",
+      "situation": "A forestry road provides a potential alternate route but is narrow, unpaved, and has a 4-mile stretch through dense smoke. It can only handle single-lane traffic. A school bus and private vehicles are available.",
+      "question": "How do you use the alternate route?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Open the forestry road with law enforcement escort for convoy movement, prioritizing buses carrying mobility-impaired and elderly residents first.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow all vehicles to use the forestry road simultaneously without guidance to maximize throughput.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Helicopter Evacuation",
+      "situation": "Several mobility-impaired residents cannot use the forestry road or bus. Helicopter evacuation is available but landing zones near residences are limited due to terrain and smoke.",
+      "question": "How do you proceed with aerial evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify a clear landing zone at the community park and shuttle mobility-impaired residents to it for helicopter extraction.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt helicopter landings at individual residences to speed up extraction.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Primary Route Reopening",
+      "situation": "Fire crews have suppressed enough of the highway fire to potentially reopen it with an escort. This would greatly speed up remaining evacuations. However, fire flanks are still active.",
+      "question": "Do you reopen the primary route?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reopen the primary route with mandatory fire engine escort and one-way traffic control, closing it immediately if conditions worsen.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep the primary route closed and continue using the forestry road only.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 300 residents have been evacuated safely. The alternate route, helicopter extraction, and escorted primary route were used in coordination. No civilian casualties occurred.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "evacuation route",
+    "wildland fire",
+    "rescue",
+    "air evacuation",
+    "trapped residents"
+  ]
+}
