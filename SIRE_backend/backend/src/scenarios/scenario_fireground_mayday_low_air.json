@@ -1,0 +1,112 @@
+{
+  "title": "fireground_mayday_low_air",
+  "description": "A firefighter conducting overhaul in a smoke-charged structure realises their SCBA air is critically low. They must transmit a MAYDAY and execute self-rescue before their air runs out.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["MAYDAY", "low air", "SCBA", "self-rescue", "air management", "PASS alarm", "fireground complication", "overhaul"],
+  "timeline": [
+    { "index": 0, "title": "Overhaul Phase", "description": "Structure fire is knocked down. Interior crews conducting overhaul in a two-storey residence. Residual smoke is heavy throughout.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Low Air Alarm Activates", "description": "Firefighter working on the second floor — their SCBA low-air alarm activates. Gauge reads 50 bar. Exit is not immediately obvious in the smoke.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "MAYDAY Transmitted", "description": "Firefighter transmits MAYDAY. IC immediately acknowledges and activates the RIT.", "timeOffsetSec": 40 },
+    { "index": 3, "title": "Self-Rescue Initiated", "description": "Firefighter follows hose line while IC directs. PASS alarm activated manually.", "timeOffsetSec": 65 },
+    { "index": 4, "title": "Stairway Located", "description": "Firefighter exits the second floor via the stairway with minimal air remaining. Exits the structure.", "timeOffsetSec": 90 },
+    { "index": 5, "title": "Safe Exit Confirmed", "description": "Firefighter exits and is assessed by EMS. No injuries. PAR confirmed for all crews.", "timeOffsetSec": 110 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Low-Air Alarm Activates — Far from Exit",
+      "situation": "You are a firefighter conducting overhaul on the second floor of a two-storey residence. The fire has been knocked down but residual smoke is heavy — visibility is near zero. Your SCBA low-air alarm has activated. Your gauge reads 50 bar — approximately 3 to 5 minutes of air at your current consumption. You are working in the main bedroom. You believe the stairway is approximately 10 metres to your left but you are not certain because you did not use a hose line to navigate during overhaul.",
+      "question": "What is your immediate action when your low-air alarm activates and you are unsure of your exit route?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transmit MAYDAY immediately — do not delay: 'MAYDAY MAYDAY MAYDAY — this is Firefighter [callsign] — I am on the second floor main bedroom — low air — 50 bar — I need assistance.' Activate your PASS alarm manually. Stay low. Reduce your breathing rate — slow, deliberate breaths.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Begin searching for the stairway immediately — use your remaining air to exit before calling for help.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Radio your crew leader that your air is low and ask for directions — a MAYDAY is reserved for immediately life-threatening emergencies only.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "IC Responds to MAYDAY",
+      "situation": "You are the incident commander. A firefighter on the second floor has transmitted a MAYDAY — low air with an uncertain exit position. RIT is activated. You have their last known position — second floor main bedroom. You can hear their PASS alarm on the radio. The RIT leader is ready to enter.",
+      "question": "What is your immediate command action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the MAYDAY and transmit to all units: 'MAYDAY acknowledged — all non-essential radio traffic hold. Crew [callsign] — you are on the second floor. Follow the wall to your right. The stairway is 10 metres along the right-hand wall. Move slowly and stay low. RIT is entering now.' Commit the RIT with an emergency air supply.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Order all interior crews to exit the building immediately — a MAYDAY clears all interior operations.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the firefighter to stay calm and wait — the RIT will locate them via PASS alarm and guide them out.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Self-Rescue Navigation",
+      "situation": "You are the firefighter on the second floor. The IC has given you guidance — follow the right-hand wall to find the stairway, 10 metres away. Your gauge now reads 30 bar. The PASS alarm is sounding. You begin moving along the right-hand wall. After 5 metres, you encounter a closed door — you don't know if this is a room door or the stairway door.",
+      "question": "How do you handle the unknown door?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Feel the door with the back of your glove — check for heat. If cool, open it and feel the floor edge below — a stairway will have a drop-off at the threshold. If it is a room door, close it and continue along the wall toward the stairway. Communicate your status to the IC.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Open the door and step through — you cannot afford to stop and test with air this low.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stop at the door and activate your PASS alarm louder — wait for the RIT to reach you rather than risking an unknown opening.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Stairway Found — Air Critical",
+      "situation": "You have found the stairway — your door check confirmed the drop-off below the threshold. Your gauge now reads 15 bar — your air is near exhaustion. The stairway is steep and partially blocked by debris from the ceiling that fell during the fire. The RIT is calling to you from the bottom of the stairs — they have located you via the PASS alarm.",
+      "question": "How do you descend the stairway with near-empty air?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Call to the RIT: 'Coming down — air is nearly gone.' Begin an immediate controlled descent, staying on your hands and knees, clearing debris as you go. If your air runs out, reduce breathing to the absolute minimum and get out. Do not stop on the stairs. Get to the RIT as fast as safely possible.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Wait at the top of the stairs for the RIT to clear the debris and come to you — descending unstable stairs with low air is too risky.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Doff the SCBA to reduce weight and move faster down the stairs.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Excellent performance under extreme pressure. You correctly transmitted a MAYDAY the moment your low-air alarm activated rather than attempting self-rescue in silence. As IC, you acknowledged the MAYDAY immediately, committed the RIT, and provided actionable navigation guidance. Your self-rescue navigation — wall-following, door heat testing, stairway identification — was textbook. You exited the structure with the RIT assistance and were assessed by EMS. No injuries. Air management failure during overhaul was a learning point for the crew.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

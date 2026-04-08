@@ -1,0 +1,112 @@
+{
+  "title": "fireground_rit_deployment",
+  "description": "The Rapid Intervention Team is activated to rescue a downed firefighter inside a burning commercial structure. The RIT leader must navigate extreme conditions, provide emergency air, and execute a ground drag extraction.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["RIT", "rapid intervention team", "firefighter rescue", "MAYDAY", "PASS alarm", "emergency air", "ground drag", "fireground complication"],
+  "timeline": [
+    { "index": 0, "title": "MAYDAY Received", "description": "IC activates the RIT. A firefighter has transmitted MAYDAY — downed on the first floor of a commercial structure. PASS alarm audible.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "RIT Entry", "description": "RIT team of four enters via the Alpha-side entry with rescue equipment — emergency air supply, webbing, medical kit.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "Firefighter Located", "description": "RIT locates downed firefighter via PASS alarm. Firefighter is unconscious and entangled in debris.", "timeOffsetSec": 75 },
+    { "index": 3, "title": "Emergency Air Connected", "description": "RIT connects emergency air supply to downed firefighter's SCBA regulator. Disentanglement begins.", "timeOffsetSec": 95 },
+    { "index": 4, "title": "Ground Drag Initiated", "description": "RIT initiates a ground drag extraction toward the Alpha-side exit. Conditions inside are deteriorating.", "timeOffsetSec": 130 },
+    { "index": 5, "title": "Extraction Complete", "description": "Downed firefighter removed from structure. EMS takes over. IC declares all clear.", "timeOffsetSec": 180 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "RIT Activated — Entry Decision",
+      "situation": "You are the RIT leader. The IC has activated your team. A firefighter has transmitted MAYDAY: 'MAYDAY MAYDAY MAYDAY — this is Firefighter Delta — I'm on the first floor near the Charlie side — I fell through a void — I'm trapped — I need the RIT.' Your team of four has an emergency air supply (buddy-breathing apparatus), webbing sling, TIC, pike pole, and a medical kit. The Alpha-side entry is the primary access point. Smoke conditions inside are heavy. Your team has been staged and briefed.",
+      "question": "How do you enter and begin the search for Firefighter Delta?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enter in single file via the Alpha-side entry with TIC leading. Confirm the IC is monitoring your progress on radio. Navigate toward the Charlie side using the hose line already inside the building. Home in on the PASS alarm. Assign roles before entry: member 1 — TIC navigation, member 2 — emergency air, members 3 and 4 — drag and medical. Keep the IC updated every 30 seconds.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Split the team — two members enter via Alpha side, two via a window on the Charlie side to approach from both directions simultaneously.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for conditions to improve before entering — the smoke is extreme and may cause a second MAYDAY.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Firefighter Located — Entangled and Unconscious",
+      "situation": "Your TIC operator has located Firefighter Delta via the PASS alarm — they are on the floor near the Charlie-side wall, entangled in collapsed shelving that fell when they dropped through a partially burned floor section. Firefighter Delta is unconscious and unresponsive to voice. Their SCBA regulator is in place but the gauge shows 5 bar — nearly empty. Shelving is across their legs and lower torso.",
+      "question": "What is your RIT team's first priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately connect the emergency air supply (buddy-breathing apparatus) to Firefighter Delta's SCBA regulator to restore air before anything else. Assign two members to begin disentanglement from the shelving simultaneously. Do not move the firefighter until the air supply is connected and the entanglement is clear.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Begin disentanglement immediately — getting the firefighter free of the shelving is the first step to extraction.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remove Firefighter Delta's SCBA to reduce weight and share your own SCBA regulator via buddy breathing.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Disentanglement Under Deteriorating Conditions",
+      "situation": "The emergency air supply is connected. Firefighter Delta is now receiving emergency breathing air. Two RIT members are working to remove the shelving from the firefighter's legs. The shelving is heavy — one section is twisted and requires a pike pole to lever off. Conditions inside are worsening — smoke is thicker and the TIC is showing increasing temperature readings on the ceiling above you. The IC radios: 'RIT — conditions report?'",
+      "question": "How do you manage the disentanglement and communicate with the IC?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Radio IC: 'Delta located — Charlie side, first floor. Emergency air connected. Disentangling from shelving — ETA 60 seconds. Conditions are deteriorating. We are working.' Use the pike pole to lever the shelving. Assign the fourth member to monitor the ceiling with TIC for collapse or ignition signs while the disentanglement continues.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Stop the disentanglement and immediately begin dragging Firefighter Delta, shelving and all — conditions are too dangerous to delay.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the IC you cannot provide a report right now — focus entirely on the disentanglement.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Ground Drag Extraction",
+      "situation": "Firefighter Delta has been disentangled from the shelving. They are unconscious but breathing with the emergency air supply. You must now drag them approximately 20 metres along the first floor back to the Alpha-side exit. The floor is covered in debris and the path through the building requires two turns. You have three team members available to drag — the fourth is navigating with TIC. Delta is in full PPE and SCBA.",
+      "question": "How do you execute the ground drag extraction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Loop the webbing sling under Firefighter Delta's SCBA shoulder straps and around their chest as a drag handle. Two members drag from the sling, one provides support and clears debris ahead. The TIC navigator leads and calls the turns. Drag at the maximum safe speed — stay low, maintain contact with the hose line as your navigation reference. Continuously monitor emergency air gauge.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Drag Firefighter Delta by their boots — it is the fastest grip to establish and maintains their head position.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Carry Firefighter Delta upright between two team members — it is faster than a ground drag.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding RIT performance. You entered with a pre-assigned role structure, navigated via hose line and PASS alarm, correctly prioritised emergency air supply before disentanglement, maintained continuous IC communication during the rescue, and executed a safe and effective ground drag extraction using a webbing sling. Firefighter Delta was removed from the structure and transferred to EMS in survivable condition. Your team's discipline under extreme conditions saved a life.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

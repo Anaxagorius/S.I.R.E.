@@ -1,0 +1,112 @@
+{
+  "title": "fireground_crew_separation",
+  "description": "Two firefighters on an interior search crew become separated in a smoke-filled structure. Self-rescue techniques, communication protocols, and crew leader decisions are tested.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["crew separation", "interior search", "SCBA", "self-rescue", "zero visibility", "PASS alarm", "fireground complication", "crew integrity"],
+  "timeline": [
+    { "index": 0, "title": "Interior Search Underway", "description": "Two-person search crew conducting primary search in a smoke-filled two-storey residence. Zero visibility. Crew members in contact.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Separation Occurs", "description": "A floor collapse of debris severs physical contact between the crew members. Both lose tactile contact. Zero visibility remains.", "timeOffsetSec": 35 },
+    { "index": 2, "title": "Separation Confirmed", "description": "Both crew members realise they are separated. Firefighter B activates their PASS alarm. Firefighter A radios the IC.", "timeOffsetSec": 50 },
+    { "index": 3, "title": "Search Crew Leader Responds", "description": "IC directs a systematic location effort using PASS alarm, radio contact, and hose line navigation.", "timeOffsetSec": 80 },
+    { "index": 4, "title": "Firefighter B Located", "description": "Firefighter A locates Firefighter B using PASS alarm homing. Both exit together along the hose line.", "timeOffsetSec": 130 },
+    { "index": 5, "title": "Crew Exits Safely", "description": "Both crew members exit the structure. PAR confirmed. No injuries.", "timeOffsetSec": 160 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "You Have Lost Contact with Your Partner",
+      "situation": "You are Firefighter A, conducting a primary search in zero-visibility smoke on the second floor of a two-storey residence. You and your partner (Firefighter B) have been searching in physical contact — you had your hand on their shoulder. You crawled left around a door and when you reached back, your partner was gone. You call out — no response. You cannot see anything. You are on a hose line.",
+      "question": "What is your immediate action upon realising you have lost contact with your partner?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stay on the hose line — do not leave it. Call out your partner's name loudly. Radio the IC immediately: 'IC — Firefighter A. I have lost contact with my partner on the second floor. Request guidance.' Stay calm, conserve air, and wait for a response before moving.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the hose line and search in the direction your partner should have gone — every second matters.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Activate your PASS alarm and wait for rescue — you may also be in danger.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Firefighter B — Separated and Disoriented",
+      "situation": "You are now Firefighter B. When you lost contact with your partner, you continued searching briefly and are now disoriented — you have lost the hose line. Zero visibility. You do not know which direction the exit is. You have 150 bar remaining in your SCBA. Your low-air alarm has not activated yet.",
+      "question": "What is your self-rescue action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop moving. Activate your PASS alarm manually so your partner and any incoming rescue crew can home in on you. Immediately radio: 'IC — Firefighter B — I am separated and disoriented on the second floor. I do not have the hose line. I have approximately 150 bar.' Stay low and stay calm. Knock on the floor or wall periodically to create noise.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Crawl toward what you think is a wall and follow it — wall following will eventually lead to an exit.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stand up and move toward any light — light means an opening and a possible exit.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "IC Managing the Separation",
+      "situation": "You are the incident commander. You have received radio calls from both Firefighter A (on the hose line, second floor) and Firefighter B (disoriented, off the hose line, second floor, PASS alarm active). Neither is in immediate life-safety distress — both have air and are communicating. Firefighter A can hear the PASS alarm. The RIT is staged at the entry. You must coordinate the situation.",
+      "question": "How do you direct the resolution of the crew separation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct Firefighter A to follow the PASS alarm sound toward Firefighter B while staying in contact with the hose line as long as possible. Instruct Firefighter B to stay stationary, keep the PASS alarm sounding, and keep radioing a status every 30 seconds. Position the RIT at the top of the stairs on standby. Monitor air status for both crew members continuously.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy the RIT inside immediately to find Firefighter B — they are off the hose line and disoriented.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Order both firefighters to exit independently using whatever navigation they can — getting both out separately is the quickest solution.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Contact Re-Established",
+      "situation": "You are Firefighter A. You have left the hose line briefly to follow the PASS alarm and have reached Firefighter B. You have physical contact with your partner. Firefighter B is calm and has 120 bar remaining. You have 100 bar remaining. Your low-air warning alarm has just activated. The hose line is approximately 4 metres behind you — you can find your way back.",
+      "question": "How do you exit with your partner?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Radio IC: 'IC — Firefighter A. I have contact with Firefighter B. Both are mobile. My air is low — activating low-air protocol. Exiting now.' Maintain physical contact with your partner — hand on shoulder or wrist grip. Navigate back to the hose line immediately and follow it toward the exit, crawling low. Do not separate again.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Stay in place with your partner and wait for the RIT to escort you out — your air is low and movement will consume air faster.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have Firefighter B lead the exit since they have more air — follow their lead.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding performance by both crew members and the incident commander. Firefighter A correctly stayed on the hose line and immediately reported the separation. Firefighter B correctly stopped, activated their PASS alarm, and radioed their status rather than wandering. The IC appropriately directed a graduated response — homing on PASS rather than immediately deploying RIT. Both crew members maintained crew integrity throughout re-union and exit. No injuries. Air management was maintained within limits.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

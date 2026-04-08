@@ -1,0 +1,112 @@
+{
+  "title": "fireground_accountability_failure",
+  "description": "The incident commander discovers an accountability breakdown mid-incident — a firefighter is unaccounted for and the entry control record is unreliable. A systematic PAR must be conducted while fire operations continue.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["accountability", "PAR", "entry control", "ICS", "firefighter safety", "missing firefighter", "fireground complication"],
+  "timeline": [
+    { "index": 0, "title": "Multi-Crew Operations", "description": "Four crews operating at a two-storey residential structure fire. Entry control is managed by a crew member using passport tags.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Accountability Discrepancy Found", "description": "Entry control officer discovers one passport tag is missing — either lost or never submitted. One firefighter may be unaccounted for.", "timeOffsetSec": 40 },
+    { "index": 2, "title": "IC Notified", "description": "IC is notified of the accountability gap. A formal PAR is initiated across all crews on all channels.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "PAR Results Unclear", "description": "Three of four crew leaders respond to the PAR. Crew 4 leader does not respond. Last known position was the first floor.", "timeOffsetSec": 90 },
+    { "index": 4, "title": "Crew 4 Located", "description": "Crew 4 leader is found — they had temporarily switched to a secondary channel during a task and missed the PAR call.", "timeOffsetSec": 130 },
+    { "index": 5, "title": "Accountability Restored", "description": "Full PAR confirmed. Entry control protocol reviewed and re-briefed to all crews. Operations continue.", "timeOffsetSec": 180 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Accountability Discrepancy Discovered",
+      "situation": "You are the incident commander at a working residential structure fire. Four crews are operating — two interior and two in support roles. Your entry control officer approaches you and reports: 'IC, I have a problem. I count 11 passport tags on the board but I should have 12 for the crews assigned. Either one firefighter did not submit a tag on entry or a tag has been lost. I cannot confirm all personnel.' You do not have an immediate report of any firefighter in distress.",
+      "question": "How do you respond to the accountability discrepancy?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately initiate a formal PAR — transmit on the primary channel: 'All units — IC is conducting a PAR. All crew leaders acknowledge on the radio with your crew status and location now.' Do not wait to resolve the discrepancy informally. Continue fire operations while the PAR is in progress. Do not commit additional crews inside until PAR is resolved.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Ask the entry control officer to search for the missing tag first — it may have simply fallen off the board.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for each crew to naturally exit and check in — initiating a PAR during active operations may distract interior crews.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "PAR Responses — One Crew Silent",
+      "situation": "You have transmitted the PAR request. Crew 1, Crew 2, and Crew 3 leaders all respond with their status and confirmed crew counts. Crew 4 leader does not respond. The last entry control record shows Crew 4 entered the first floor approximately 8 minutes ago. You do not know if Crew 4 is in distress, out of radio range, or simply on a secondary channel.",
+      "question": "How do you respond to the missing PAR acknowledgement from Crew 4?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transmit a direct call to Crew 4 on the primary channel, then immediately on the emergency channel. Simultaneously request that Crew 3 — who are nearby on the first floor — conduct a face-to-face check of Crew 4's last known location. Activate the RIT and position them at the entry point on standby. Do not yet declare a MAYDAY — you do not have confirmation of distress.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Declare a MAYDAY and order all interior crews to evacuate — one unaccounted crew is sufficient reason.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send additional crews inside to search the first floor comprehensively.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crew 4 Located by Crew 3",
+      "situation": "Crew 3 radios: 'IC — we have visual on Crew 4. They are on the first floor east bedroom. They appear operational. They are not in distress.' Simultaneously, Crew 4 leader transmits on the secondary channel — they had been using an alternate channel during a ventilation task and had not switched back. Crew 4 leader states all three crew members are present and operational. You now have a confirmed location and status for all crews. However, the accountability system still has the missing tag issue.",
+      "question": "How do you resolve the accountability record?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm the PAR is complete with all crews accounted for and record this in the command log. Direct Crew 4 to return to the primary channel and remain on it. Direct the entry control officer to recount all tags and re-verify the record when crews cycle out. Conduct a brief post-PAR check when the next crew rotates out.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "The PAR is complete — all crews are located. The missing tag issue is an administrative problem and can be resolved after the incident.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Order Crew 4 to exit immediately for channel discipline — they violated communications protocol.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Strengthening the Accountability System",
+      "situation": "The immediate PAR is resolved. All crews are accounted for. The entry control officer has re-checked the board and believes the missing tag fell behind the entry control unit — a system deficiency rather than a lost firefighter. Fire operations are continuing. You have a few minutes before the next operational period to review and strengthen the accountability process for this incident.",
+      "question": "What accountability improvements do you implement for the remainder of the incident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief all crew leaders: all crews must remain on the primary command channel unless explicitly authorised by IC to use secondary channels — and must notify IC before switching. Establish timed PAR checks every 15 minutes proactively. Assign a dedicated accountability officer as a separate role from entry control. Log the system deficiency for a post-incident review.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "The system worked — a PAR was conducted and the crew was found. No changes are needed during an active incident.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remove the passport tag system and rely on radio check-ins only for the remainder of the incident.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Excellent accountability management. You initiated a formal PAR immediately upon receiving the discrepancy report rather than investigating informally. You responded to a non-responsive crew with a graduated escalation — channel calls, a face-to-face check, and RIT standby — without prematurely escalating to a MAYDAY. You resolved the accountability record properly and strengthened the system for the remainder of the incident. All firefighters were safe throughout.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

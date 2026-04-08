@@ -1,0 +1,112 @@
+{
+  "title": "fireground_backdraft",
+  "description": "A crew prepares to open a sealed, smoke-charged commercial building with indicators suggesting backdraft conditions. Recognition, assessment, and safe venting decisions are critical.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["backdraft", "fire behavior", "ventilation", "commercial structure", "pre-entry assessment", "fireground complication", "oxygen-deficient fire"],
+  "timeline": [
+    { "index": 0, "title": "Alarm Received", "description": "Reports of smoke showing from a single-story commercial unit. Building is locked and sealed overnight. No visible flame.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On-Scene Assessment", "description": "Crews observe dense grey-black smoke puffing from door gaps and window seals. Windows are stained yellow-brown. No visible fire.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Backdraft Indicators Confirmed", "description": "Officer recognises classic backdraft indicators: oxygen-deficient fire, pressurised smoke, yellowed glass. Entry without venting would be fatal.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Tactical Ventilation Initiated", "description": "Crews perform coordinated top-down ventilation from the roof before any door or window is opened at entry level.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Controlled Burn-Off", "description": "Ignition occurs at the vent hole — a controlled burn-off with no crew at risk. Fire is now vented and conditions inside normalise.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Entry and Suppression", "description": "Attack line enters the building after conditions stabilise. Fire knocked down. No civilian casualties.", "timeOffsetSec": 240 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Pre-Entry Assessment — Backdraft Indicators",
+      "situation": "You arrive as the first-due officer at a locked single-story commercial unit. It is 03:00. Smoke is puffing rhythmically from the gaps around the steel front door and the window frames. The windows are stained dark yellow-brown on the interior surface. There is no visible flame. The smoke is dense, grey-black, and under pressure. Your crew is ready to force the front door.",
+      "question": "What do you do before entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Halt the crew. Identify and call out the backdraft indicators: rhythmic smoke pulsing, pressurised smoke under the door, discoloured glass from oxygen-deficient combustion. Do not open any doors or windows at grade level. Radio the IC and request roof ventilation crew. Establish a safe perimeter.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Force the front door immediately — the smoke puffing indicates the fire is starving for air and conditions may be survivable if you move fast.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Break a ground-level window on the B side to vent the building before forcing entry.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Ventilation Strategy",
+      "situation": "The IC confirms your assessment and orders a ventilation group to the roof. The roof crew reports a large skylight and a roof membrane that can be cut. They are ready to vent from above. Your attack line is charged and standing by at the front door — 15 metres from the building. The roof crew is asking where to make the vent opening.",
+      "question": "How do you direct the roof ventilation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the roof crew to open the ventilation above the main body of the fire — over the hottest area identified from outside. Open the skylight first as it is the safest and quickest method, then cut the roof membrane only if needed. All ground-level crews remain at least 15 metres from doors and windows until the roof vent is established.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Direct the roof crew to cut a ventilation hole directly above the front entry door so that conditions at entry level improve first.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Skip roof ventilation to save time and instead crack the front door while the attack line flows water through the gap.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ignition During Venting",
+      "situation": "The roof crew opens the skylight. Immediately, fire erupts from the vent opening — a controlled burn-off. The pressurised gas vents vertically. All ground-level crews are at safe distance. The roof crew is 3 metres from the vent opening — they were briefed to stay back. The burn-off lasts approximately 45 seconds and subsides. Interior conditions are now changing.",
+      "question": "What is your next action after the burn-off subsides?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Wait for the IC to confirm via thermal imaging or roof crew observation that interior temperatures are dropping and smoke is lifting before committing any ground-level crew. Re-assess entry conditions from a safe distance before advancing.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately force the front door and advance the attack line while the burn-off is still visible — conditions are now neutralised.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The burn-off resolved the problem — stand down the attack line and allow the fire to burn out with the vent open.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Entry Decision",
+      "situation": "The IC confirms via TIC (thermal imaging camera) that interior temperatures have dropped significantly and the dense pressurised smoke layer has partially lifted. Smoke is now rising and exiting via the roof vent. A residual fire is visible in the rear of the building on TIC. The front door has not yet been breached. Your attack line is ready.",
+      "question": "How do you approach entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Force the front door from the hinge side. Open it slowly and do not stand in the doorway. Flow water into the structure for 10 seconds from the threshold before advancing to cool any residual heat. Advance the attack line low, following the hose toward the rear fire.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Enter through the front door standing upright — conditions have normalised and speed to the fire is the priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Open the front door fully to maximum ventilation and then advance — the more air movement the better.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding fireground leadership. You correctly identified all backdraft indicators at the pre-entry stage, halted your crew before they could have been killed by a door-opening ignition event, coordinated top-down ventilation above the fire body, maintained safe ground-level distances during the burn-off, confirmed conditions before entry, and advanced the attack line correctly. The residual fire was knocked down and no injuries occurred.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

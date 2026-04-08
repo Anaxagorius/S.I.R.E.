@@ -1,0 +1,112 @@
+{
+  "title": "fireground_radio_failure",
+  "description": "Primary radio communications fail during an active interior attack on a commercial structure fire. Crews must use contingency communication protocols to maintain command and control.",
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["radio failure", "communications", "ICS", "interior attack", "contingency protocol", "fireground complication", "crew coordination"],
+  "timeline": [
+    { "index": 0, "title": "Interior Attack Active", "description": "Three crews operating inside a commercial building. Primary radio channel in use. Attack is progressing.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Radio Failure", "description": "All radios on the primary channel lose communication simultaneously. A repeater failure has blinded interior and exterior crews.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "IC Loses Contact", "description": "IC cannot raise any interior crews. Last known positions are more than two minutes old.", "timeOffsetSec": 45 },
+    { "index": 3, "title": "Contingency Protocol Activated", "description": "IC activates air horn evacuation signal. Runner and face-to-face communication system initiated.", "timeOffsetSec": 70 },
+    { "index": 4, "title": "Crews Accounted For", "description": "All interior crews exit or make contact via the runner system. PAR confirmed at the entry control point.", "timeOffsetSec": 120 },
+    { "index": 5, "title": "Alternate Channel Established", "description": "Dispatch activates backup repeater. Communication restored on alternate channel. Interior operations resume.", "timeOffsetSec": 180 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Sudden Radio Silence",
+      "situation": "You are the incident commander at a working commercial structure fire. Three attack crews are operating inside a single-storey retail building. Primary radio communications have been working well. Suddenly, you are unable to raise any interior crew on the primary channel — no response from any of the three crews. A crew member at the entry control point tells you that none of the interior radios are transmitting. You suspect a repeater failure. You do not know if the crews are in difficulty or simply cannot communicate.",
+      "question": "What is your immediate action when all radio contact is lost?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the emergency evacuation signal — three long blasts on the air horn. Simultaneously attempt contact on the secondary/backup channel. Initiate a runner system: assign an exterior crew member to physically enter the building to relay messages to and from each crew. Report the communications failure to dispatch and request a backup repeater.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait two minutes for the radio system to restore itself before escalating — temporary glitches are common and an unnecessary evacuation will disrupt the attack.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send all available exterior crew members inside to find the three interior crews and assess conditions.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Runner Communication System",
+      "situation": "You have activated the evacuation signal and initiated the runner system. Two crews have self-evacuated in response to the air horn and are accounted for at the entry control point — they are safe and reporting conditions inside are manageable. Crew 3 has not emerged. The runner is about to enter the building to locate Crew 3. You have backup radio contact on a secondary channel with dispatch but still no contact with Crew 3.",
+      "question": "How do you manage Crew 3's accountability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the runner to enter and locate Crew 3 at their last known position — advancing toward the rear of the building. Brief the runner to relay the IC's message: 'Radio failure — exit the building now via the Alpha-side entry.' Position the RIT at the entry on standby. Set a 3-minute limit before committing RIT if no confirmation of Crew 3 is received.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy the RIT immediately into the structure to find Crew 3 — they may be in distress.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Continue fire suppression operations with the two accounted crews while waiting for Crew 3 to self-report.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crew 3 Located",
+      "situation": "The runner returns with Crew 3. All three crew members are safe — they had advanced to the rear storeroom, were unaware of the evacuation signal due to noise, and had not heard the air horn. They are exiting now. All interior crews are accounted for. The backup repeater has not yet been activated by dispatch. You have three crews at the entry control point and an active fire inside the building that was being suppressed.",
+      "question": "What do you do while radio communications remain unavailable?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hold all crews exterior until radio communications are restored — interior operations without command radio contact violate accountability requirements and must not resume. Brief crews face-to-face on status. Continue to pressure dispatch to activate the backup repeater. Do not re-commit interior crews without confirmed radio contact.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Re-commit all three crews to the interior immediately — the fire is progressing and the delay is wasting the work already done.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transition to defensive operations permanently — the radio failure means you cannot safely manage interior crews at all.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Alternate Channel Activated",
+      "situation": "Dispatch advises that the backup repeater is now online and all units should switch to Channel 2. You test the backup channel and receive clear transmissions from all units. All three crews are exterior and briefed. The fire inside the building has extended slightly during the communications outage but interior attack is still viable. You are ready to recommit interior crews.",
+      "question": "What protocol do you establish before re-entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a radio check with all three crews on Channel 2 before any crew enters — confirm two-way communication is confirmed for each crew individually. Brief all crews that the primary channel failed and Channel 2 is now command. Establish a specific air horn signal protocol as a backup in case Channel 2 also fails. Then recommit interior crews.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Re-commit crews immediately on Channel 2 — dispatch confirmed it is working so no additional testing is required.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Keep Crew 3 exterior as a penalty for failing to hear the evacuation signal — only two crews re-enter.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding incident management during a communications failure. You activated the emergency evacuation signal immediately rather than waiting, used a runner system to account for the missing crew, maintained all crews exterior until communications were restored, and established a comprehensive radio check and contingency protocol before re-entry. No firefighters were injured. The communications failure was managed without compromising crew safety or accountability.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
