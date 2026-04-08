@@ -1,0 +1,150 @@
+{
+  "title": "scenario_hazmat_fuel_spill_ignition",
+  "description": "A gasoline tanker truck is involved in a collision and the fuel ignites, creating a large-scale flammable liquid fire with ongoing fuel release, exposure risk, and environmental hazard.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collision and Ignition",
+      "description": "Tanker truck struck by passenger vehicle at an intersection. Driver is entrapped. Fuel is pouring from the ruptured tank and has ignited around the vehicle.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Grows",
+      "description": "Burning fuel flowing downhill toward a storm drain. Passenger vehicle also on fire with one occupant trapped. Tanker driver appears conscious but unable to self-rescue.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Foam Operations",
+      "description": "Engine deploying Class B foam. Exposure lines protecting adjacent structures. A/W foam blanket being applied.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Rescue Attempted",
+      "description": "Protective foam blanket in place. Rescue team entering passenger vehicle. Tanker driver self-extricated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Fire Knocked Down",
+      "description": "Primary fire suppressed. Fuel flow secured by tanker company. Storm drain dammed.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilized",
+      "description": "Both occupants rescued and transported. Fuel spill contained. Environmental hazmat unit taking over product recovery.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Burning Gasoline Tanker — Entrapped Victims",
+      "situation": "You arrive to a tanker truck carrying 8,000 gallons of gasoline that has been struck at an intersection. The tank has ruptured and burning fuel surrounds the truck in a 30-foot pool. The tanker driver is visible in the cab, conscious but entrapped. A passenger vehicle involved in the collision is also burning with the driver trapped inside. Burning gasoline is flowing downhill toward a storm drain 60 feet away. Spectators are gathering on the corner.",
+      "question": "What is your immediate priority sequence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish an immediate 500-foot perimeter and move spectators back. Apply Class B AFFF foam simultaneously to both suppress the burning fuel and create a protective foam blanket for rescue access. Begin exposure protection of adjacent structures. Initiate rescue operations only after a foam blanket has been established—do not approach the burning vehicles without suppression protection. Request tanker company emergency response for product control.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately attempt to rescue both entrapped occupants before the fire worsens, using water from handlines to protect the rescue team.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply water from a master stream to knock down the burning fuel pool before attempting any rescue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rescue Under Foam Coverage",
+      "situation": "A foam blanket has been established around the passenger vehicle. The passenger vehicle fire is partially suppressed. The tanker driver has self-extricated and is walking clear of the scene. The passenger vehicle driver remains trapped with the door deformed. A rescue team is ready to advance but the fire is not fully extinguished. Burning fuel continues to flow from the tanker toward the storm drain.",
+      "question": "How do you manage the rescue and the flowing fuel simultaneously?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance the rescue team under continuous foam cover with a charged backup line to suppress any re-flash. Simultaneously position an engine to dam the storm drain with absorbent booms and dirt to prevent burning fuel from entering the sewer. Maintain foam application to suppress free-flowing fuel ignition. Do not interrupt the foam blanket during rescue.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Divert all foam resources to suppression until the fire is fully extinguished before beginning rescue.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the flowing fuel to reach the storm drain—it will dilute in the sewer system and is not a priority during active rescue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Product Control and Environmental Protection",
+      "situation": "Both victims have been rescued and transported. The primary fire is suppressed. The tanker company representative has arrived and states they can close the product valve from the tanker's emergency shutoff. However, the shutoff is located on the driver's side of the tanker, which still has residual burning foam and heat. The storm drain has been dammed with absorbent booms, but an unknown quantity of fuel-contaminated water may have already entered. The tanker still holds approximately 7,500 gallons of gasoline.",
+      "question": "How do you manage product control and environmental reporting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ensure the shutoff area is fully cooled and foam-blanketed before the tanker company representative approaches to close the valve. Post a handline crew to provide immediate suppression if needed. Notify the state environmental agency and EPA National Response Center of the potential storm drain fuel entry. Request a hazmat environmental unit for product recovery and drain monitoring.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the tanker company representative to close the valve immediately—they know their vehicle and the scene is mostly safe.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not notify environmental agencies since it is unclear whether significant fuel actually entered the drain.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both victims rescued—one treated and released, one admitted with minor burns. Product valve closed safely after full foam coverage established. Storm drain confirmed to have received minimal fuel entry—environmental unit deployed rapid containment. State environmental agency and EPA NRC notified. Tanker company's emergency response team and a contracted hazmat company completed product transfer under your oversight. Your disciplined use of Class B foam, simultaneous rescue and environmental protection, and systematic product control prevented a catastrophic outcome.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "fuel spill",
+    "tanker fire",
+    "Class B foam",
+    "rescue",
+    "environmental protection",
+    "flammable liquids",
+    "vehicle fire"
+  ]
+}

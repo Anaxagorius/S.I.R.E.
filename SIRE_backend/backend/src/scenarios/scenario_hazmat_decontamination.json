@@ -1,0 +1,149 @@
+{
+  "title": "scenario_hazmat_decontamination",
+  "description": "A chemical release at an outdoor public event exposes an estimated 30 people to an unidentified irritant, requiring rapid setup and operation of a mass decontamination corridor.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Mass Exposure Reported",
+      "description": "Outdoor festival-goers begin reporting burning eyes and skin irritation. 30+ people are symptomatic. An aerosol or spray is suspected based on eyewitness accounts.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Set",
+      "description": "Approximately 35 symptomatic individuals gathered at one location. Substance unidentified. Majority have mild symptoms; 3 have severe eye irritation and difficulty breathing.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Decon Corridor Established",
+      "description": "Engine company setting up ladder-pipe water curtain decontamination corridor. Triage area established upwind.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Mass Decon Underway",
+      "description": "Patients moving through decon corridor. 3 critical patients prioritized and decontaminated first by hazmat team in Level B PPE.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Decon Complete",
+      "description": "All 35 patients decontaminated. Clothing bagged and tagged. 3 critical patients transported. Remaining patients triaged for medical follow-up.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Cleared",
+      "description": "Substance identified as a commercial pepper spray variant by hazmat. All patients received appropriate medical care. Scene cleared.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Mass Chemical Exposure at Outdoor Event",
+      "situation": "You arrive at an outdoor festival where approximately 35 people are experiencing burning eyes, skin irritation, and coughing after what witnesses describe as a 'spray from a container.' The substance is unidentified. Victims are gathered in a group, some are supporting each other. Three individuals have severe symptoms—significant respiratory distress and extreme eye irritation. Families with children are present. The general public is crowding around the victims to help.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the exposed group immediately. Move all symptomatic individuals upwind away from the potential contamination zone. Push uncontaminated bystanders back—they risk secondary contamination by touching victims. Begin mass decontamination setup using available engine companies. Triage the three severely symptomatic individuals for priority decontamination and medical care.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin providing EMS care to the three severely symptomatic victims immediately before establishing decontamination.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow all victims to go directly to the hospital by private vehicle for faster medical care.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Mass Decontamination Setup",
+      "situation": "The group is isolated upwind. Symptomatic individuals are contained. You must establish a mass decontamination corridor for 35 people with unknown substance contamination. Available resources: three engine companies, one ladder company, and one hazmat unit 8 minutes out. The event has no on-site shower facilities. Some victims are resistant to removing clothing, citing privacy concerns in the public space.",
+      "question": "How do you establish the mass decontamination corridor?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use two engine companies to set up a ladder-pipe water curtain decontamination corridor—a walk-through water rinse zone at least 50 feet long. Provide towels or emergency coverings for modesty. Clearly explain to resistant victims that clothing removal is medically necessary to stop chemical contact. Triage the three critical cases for hazmat team priority decontamination before the general corridor is operational.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the hazmat unit before starting any decontamination since the substance is unidentified.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow victims to remain clothed and rinse only exposed skin areas to respect their privacy.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Decontamination Operations Management",
+      "situation": "The corridor is operational. Victims are moving through at a rate of one every 45 seconds. The three critical patients have been prioritized by the hazmat team with individual decontamination and are now receiving EMS care. A parent is refusing to let their child go through the water corridor alone and wants to accompany the child, but the parent has not been confirmed as contaminated. EMS is requesting how to manage contaminated clothing from decontaminated patients.",
+      "question": "How do you manage clothing handling and the parent's request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Allow the parent to accompany the child through the corridor—this is a special needs/family consideration that supports compliance. Instruct EMS and hazmat to collect all removed contaminated clothing in sealed clear plastic bags labeled with each patient's name for potential evidence and hazardous waste disposal. Do not allow contaminated clothing to be taken into clean areas or ambulances.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Separate the child from the parent since only confirmed victims should use the decontamination corridor.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow victims to retain their clothing in plastic bags and take them to the hospital for potential evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All 35 patients successfully decontaminated. Contaminated clothing collected in sealed bags and held for hazmat disposal and potential law enforcement evidence. The three critical patients were transported and recovered fully. The substance was later identified as a high-concentration pepper spray variant—confirmed by hazmat field testing. Your rapid isolation, prompt mass decontamination setup without waiting for hazmat, priority triage of critical patients, and careful clothing management prevented secondary contamination of EMS personnel and hospital facilities.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Intermediate",
+  "tags": [
+    "HAZMAT",
+    "decontamination",
+    "mass decon",
+    "chemical exposure",
+    "triage",
+    "public event",
+    "PPE"
+  ]
+}

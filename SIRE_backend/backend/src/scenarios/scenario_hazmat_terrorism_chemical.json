@@ -1,0 +1,151 @@
+{
+  "title": "scenario_hazmat_terrorism_chemical",
+  "description": "A suspicious chemical release in a crowded transit hub causes multiple casualties with symptoms consistent with a nerve agent, requiring a coordinated terrorism-related hazmat and mass casualty response.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Mass Casualty Report",
+      "description": "Transit authority calls 911 reporting multiple people collapsed in the main concourse of a central train station. Witnesses describe a 'mist' released from a bag left on a bench.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "On Scene",
+      "description": "Approximately 45 people symptomatic. Symptoms include miosis, excessive salivation, muscle twitching, and seizures in 4 individuals. Nerve agent exposure suspected.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "WMD Protocol Activated",
+      "description": "Terrorism/WMD protocol activated. FBI notified. Station evacuated. Hazmat team in Level A entering for detection.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Agent Confirmed",
+      "description": "Hazmat field detection confirms organophosphate compound consistent with a nerve agent. Antidote auto-injectors (atropine/2-PAM) deployed to EMS.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Medical Treatment",
+      "description": "Critical patients receiving atropine and pralidoxime. Mass decon corridor operational. FBI evidence team on-scene.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Scene Controlled",
+      "description": "All 45 patients decontaminated and transported. 4 critical patients in ICU. Evidence preserved. Station sealed pending FBI investigation.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Chemical Attack at Transit Hub",
+      "situation": "You arrive at a major train station where approximately 45 people are symptomatic after witnesses reported a mist released from an unattended bag. You observe multiple patients with pinpoint pupils (miosis), excessive salivation and tearing, and four individuals seizing or with severe muscle fasciculations. These signs are consistent with nerve agent exposure (organophosphate toxidrome). The station has approximately 200 additional people who may be secondarily contaminated. The bag is still on the bench where witnesses indicated.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a terrorism/WMD hazmat mass casualty incident. Evacuate the station immediately without directing foot traffic through the release area. Activate WMD response protocol and notify FBI and DHS. Do not approach the suspect bag. Request Level A hazmat entry team, mass decon resources, and multiple ALS units. Begin triage of symptomatic patients upwind at a minimum 500-foot perimeter.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin immediate medical treatment of the seizing patients inside the station before the area is declared safe.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Approach and carefully retrieve the suspect bag to take it outside the building.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Nerve Agent Medical Management",
+      "situation": "The station is being evacuated. 45 symptomatic patients are at the upwind triage area. Hazmat has confirmed an organophosphate nerve agent compound. Four patients are in severe toxidrome with seizures and respiratory failure. You have DuoDote auto-injectors (atropine 2.1 mg + pralidoxime 600 mg) available—standard nerve agent antidote. EMS personnel who assisted patients inside before PPE was established may be secondarily contaminated.",
+      "question": "How do you manage antidote administration and EMS protection?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Administer DuoDote auto-injectors to the four critical patients immediately—atropine reverses muscarinic effects (secretions, bronchoconstriction) and pralidoxime reactivates cholinesterase. Require EMS personnel who had patient contact without PPE to undergo decontamination and medical monitoring as well. All patient care personnel must don appropriate PPE before continued contact with contaminated patients.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Withhold antidote administration until a physician authorizes it remotely by phone.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow EMS personnel to continue treating patients without PPE since decontamination will slow care delivery.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evidence Preservation and FBI Coordination",
+      "situation": "FBI has arrived on scene. Four critical patients are receiving antidote therapy. Mass decontamination is processing the remaining 41 patients. The FBI agent-in-charge asks to immediately access the area where the suspect bag is located to begin evidence collection. However, hazmat has confirmed the area is still contaminated at levels requiring Level A PPE. FBI personnel are in standard suits, not Level A.",
+      "question": "How do you coordinate FBI evidence access with hazmat safety?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the FBI agent-in-charge that Level A PPE is required for the contaminated zone and that evidence access must wait until hazmat certifies the area safe or until FBI EOD and hazmat evidence team with appropriate PPE can conduct joint entry. Offer to coordinate a joint entry plan. The crime scene will be preserved—no unauthorized personnel should enter the contaminated zone regardless of agency.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the FBI agent-in-charge to enter the contaminated zone immediately—they accept the risk and have law enforcement authority.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Have hazmat retrieve the suspect bag and hand it to FBI to allow faster evidence access.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All 45 patients were decontaminated and transported. The four critical patients survived with aggressive antidote therapy and ICU care. DuoDote antidote administration was authorized under mass casualty nerve agent protocols without physician delay. All EMS personnel with patient contact were decontaminated and medically cleared. FBI and hazmat conducted a coordinated Level A joint entry for evidence recovery, preserving chain of custody. The station remained sealed pending FBI investigation. Your decisive WMD declaration, antidote deployment, EMS protection, and FBI coordination exemplified a textbook terrorism-related chemical response.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "terrorism",
+    "nerve agent",
+    "WMD",
+    "mass casualty",
+    "antidote",
+    "FBI",
+    "decontamination",
+    "organophosphate"
+  ]
+}

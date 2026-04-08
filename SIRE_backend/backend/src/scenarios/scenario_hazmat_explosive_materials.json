@@ -1,0 +1,149 @@
+{
+  "title": "scenario_hazmat_explosive_materials",
+  "description": "Illegal improvised explosive materials are discovered in an abandoned warehouse during a routine fire inspection, requiring immediate multi-agency coordination and evacuation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Discovery",
+      "description": "Fire inspector conducting a routine inspection of an abandoned warehouse discovers boxes of what appear to be commercial blasting caps and several 5-gallon buckets containing an unknown white crystalline substance.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Inspector Retreat",
+      "description": "Inspector exits the building and calls 911. Reports items consistent with Class 1 explosive placards and possible improvised explosive material.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Initial Response",
+      "description": "First companies arrive. Small business district nearby with several occupied storefronts 150 feet from the warehouse.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "EOD On Route",
+      "description": "Explosive Ordnance Disposal (EOD) team dispatched. ETA 20 minutes. Perimeter being established.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Evacuation Complete",
+      "description": "Business district evacuated. 300-foot perimeter established. EOD team on-scene assessing.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Scene Secured",
+      "description": "EOD confirms ammonium nitrate and blasting caps. FBI and ATF take jurisdiction. Materials rendered safe by EOD.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Explosive Materials Discovered",
+      "situation": "Your fire inspector has discovered what appear to be commercial blasting caps and multiple 5-gallon buckets of an unknown white crystalline substance in an abandoned warehouse. The inspector has already exited and is on scene when you arrive. A small business district with occupied storefronts—a café, a pharmacy, and a grocery store—is 150 feet from the warehouse. No suspects are seen. It is unknown whether the material is armed, rigged, or time-sensitive.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish an immediate exclusion zone of at least 300 feet around the warehouse. Order evacuation of all businesses and pedestrians in the radius. Do not re-enter the building. Request EOD, law enforcement, and FBI/ATF response. Restrict all radio transmissions near the warehouse as RF signals can detonate certain initiators.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Re-enter the warehouse with a camera to photograph the materials to assist EOD in planning their approach.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Carefully move the containers outside into the open air to reduce the risk of a building collapse if an explosion occurs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation and Perimeter Management",
+      "situation": "A 300-foot perimeter is established. Businesses are being evacuated. One business owner is refusing to leave, insisting they need to retrieve their cash register and laptop. A news crew has arrived and is attempting to set up at the edge of the perimeter with RF transmission equipment active. EOD is 15 minutes out.",
+      "question": "How do you manage the refusing occupant and the news crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with law enforcement to legally compel the refusing occupant to evacuate—no exceptions for any personal property retrieval. Have law enforcement actively move the news crew and all RF-emitting equipment at least 300 feet from the building and notify them of the RF detonation risk. Maintain strict perimeter discipline until EOD clears the scene.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the business owner to quickly retrieve their items since they will only be inside for 60 seconds.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the news crew to remain at the perimeter with their equipment as long as they stay behind the tape.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "EOD Arrival and Scene Transfer",
+      "situation": "EOD team has arrived. The team leader asks for your briefing on what was observed, exact location within the warehouse, and whether anyone else has entered since the inspector. EOD wants to conduct a robot reconnaissance before any human entry. Law enforcement is asking whether to expand the perimeter given the unknown quantity of explosive material.",
+      "question": "How do you support EOD and advise on the perimeter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide EOD with a full factual briefing: location of items (back-left storage area, three rows from the door), approximate container count (4–6 buckets plus a small box of what appeared to be blasting caps), no one entered after the inspector. Support EOD's recommendation to expand the perimeter based on the unknown quantity—advise law enforcement to extend to 500 feet and contact neighboring businesses on adjacent streets.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell EOD they can enter immediately since the inspector reported no movement and the materials appear stable.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Keep the current 300-foot perimeter since the original estimate did not indicate a large quantity of explosive.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "EOD robot confirmed ammonium nitrate fertilizer in quantities consistent with an improvised device, plus commercial blasting caps. EOD safely rendered the materials inert. FBI and ATF assumed jurisdiction. The 500-foot perimeter protected the business district and all 47 evacuees. No RF-initiated detonation occurred due to strict communication discipline. No injuries. Your rapid establishment of a wide perimeter, strict evacuation enforcement, RF control, and structured EOD handover protected the community and preserved evidence integrity.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "explosives",
+    "EOD",
+    "perimeter",
+    "evacuation",
+    "multi-agency",
+    "ammonium nitrate"
+  ]
+}

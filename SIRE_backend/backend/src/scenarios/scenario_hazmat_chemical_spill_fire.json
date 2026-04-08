@@ -1,0 +1,149 @@
+{
+  "title": "scenario_hazmat_chemical_spill_fire",
+  "description": "A ruptured drum of flammable solvent ignites in an industrial chemical warehouse, creating a combined chemical spill and fire emergency.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Report Received",
+      "description": "Dispatch reports a fire with heavy chemical smoke at an industrial warehouse. Caller states 'something spilled and caught fire.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "On Scene",
+      "description": "Flammable solvent drum ruptured and ignited. Placard on building indicates Class 3 Flammable Liquids and Class 8 Corrosives stored inside.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Spill Spreading",
+      "description": "Burning liquid flowing toward a floor drain connected to the storm sewer. Two workers reported unaccounted for inside.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Secondary Risk Identified",
+      "description": "Hazmat team identifies corrosive drums adjacent to the fire. Heat exposure risks a secondary release and possible explosion.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Fire Under Control",
+      "description": "Fire knocked down with Class B foam. Spill contained with absorbent booms. Storm drain blocked. Workers accounted for.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilized",
+      "description": "Hazmat team in Level B PPE completing product recovery. Environmental agency notified of potential drain contamination.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Chemical Warehouse Fire with Spill",
+      "situation": "You arrive to find a 55-gallon drum of flammable solvent ruptured and burning near the entrance of an industrial chemical warehouse. Heavy black smoke is issuing from the building. Placards on the exterior identify Class 3 Flammable Liquids and Class 8 Corrosives stored inside. Two workers are unaccounted for. Burning liquid is flowing across the floor toward a floor drain.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stage upwind and uphill. Request hazmat response and additional units. Block the floor drain with absorbent booms to prevent chemical runoff from entering the storm sewer. Do not enter until the substance is identified and appropriate PPE is confirmed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter with standard structural gear to rescue the missing workers before the fire worsens.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply water from a handline to knock down the burning spill and stop its spread toward the drain.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rescue vs. Hazard Assessment",
+      "situation": "The building manager confirms the two workers evacuated via a rear exit and are safe. The burning solvent is identified from the SDS as toluene—a Class 3 flammable liquid with a flash point of 4°C. Hazmat is 10 minutes out. The burning pool is 6 feet in diameter and moving toward the drain. Corrosive drums are visible 20 feet from the fire.",
+      "question": "How do you attack the fire while managing the spill?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy Class B AFFF foam from a safe distance to suppress the burning toluene. Position an absorbent boom across the drain entrance. Do not apply water directly to the burning liquid. Keep corrosive drums cool with a protective water spray from maximum safe distance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply a straight stream of water directly onto the burning pool to cool and extinguish it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the fire to burn itself out since toluene is a limited supply and the pool is not growing.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hazmat Team Integration",
+      "situation": "Foam application has knocked down the main fire, but a residual burn remains near the drain area. Hazmat team has arrived and is sizing up in Level B PPE. They advise that a second drum near the fire shows heat damage and may contain a reactive corrosive. The building drain has been partially blocked but some liquid may have already entered.",
+      "question": "How do you coordinate with the hazmat team?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transfer scene command to the hazmat team leader for chemical operations. Brief them on the drum locations, SDS data, and drain status. Request environmental agency response for potential storm sewer contamination. Maintain a fireground perimeter and no-entry zone until hazmat clears the secondary drum.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have firefighters in structural gear move the heat-damaged drum outside to a safer location while hazmat suits up.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply additional water to cool the secondary drum and the surrounding area to prevent any secondary release.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Hazmat team in Level B PPE safely assessed the secondary drum—it was undamaged. Toluene fire fully extinguished with Class B foam. Storm drain contamination confirmed minimal and reported to the environmental agency. SDS data was provided, drain was blocked in time, and secondary hazards were managed without injury. Both workers were unharmed. Your proper hazard recognition, drain protection, foam selection, and hazmat integration prevented environmental damage and a secondary incident.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "chemical spill",
+    "fire",
+    "flammable liquids",
+    "Class B foam",
+    "environmental protection",
+    "industrial"
+  ]
+}

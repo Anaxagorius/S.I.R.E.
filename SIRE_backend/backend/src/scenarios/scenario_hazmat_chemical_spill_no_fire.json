@@ -1,0 +1,149 @@
+{
+  "title": "scenario_hazmat_chemical_spill_no_fire",
+  "description": "A pressurized solvent line ruptures in a manufacturing plant, releasing a large volume of chemical solvent with no ignition but significant inhalation and environmental hazards.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Report Received",
+      "description": "Manufacturing plant calls 911 reporting a large chemical spill. No fire. Workers reporting dizziness and eye irritation.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "On Scene",
+      "description": "Pressurized solvent line ruptured releasing methyl ethyl ketone (MEK). Approximately 50 gallons pooled on the production floor. Two workers experiencing nausea.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Exposure Risk Confirmed",
+      "description": "Air monitoring detects MEK vapors at 400 ppm—above the OSHA PEL of 200 ppm. HVAC is still running, spreading vapors through the building.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Containment Initiated",
+      "description": "Hazmat team deploying absorbent materials and vapor suppression foam. Two affected workers decontaminated and transported.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Spill Contained",
+      "description": "MEK contained and absorbed. HVAC isolated. Air monitoring shows vapor levels dropping below 200 ppm.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Cleared",
+      "description": "All workers accounted for. Vapor levels below LEL. Environmental response team collecting absorbed waste for proper disposal.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Industrial Solvent Spill — No Fire",
+      "situation": "You arrive at a manufacturing plant where a pressurized solvent line has ruptured, releasing approximately 50 gallons of methyl ethyl ketone (MEK) onto the production floor. No fire is present. Workers near the spill are reporting dizziness, headache, and eye irritation. MEK is flammable (LEL 1.8%) and has a strong vapour hazard. The plant's HVAC system is actively running.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Evacuate all personnel from the affected building. Shut down all ignition sources and the HVAC system immediately to prevent vapour spread and fire risk. Establish a perimeter, don appropriate PPE, and conduct air monitoring to assess vapour concentration before any entry.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin mopping up the spill immediately with available rags and mops to reduce vapour generation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the HVAC running to dilute and disperse the vapours throughout the building and out of exhaust vents.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Vapour Monitoring Results",
+      "situation": "The building is evacuated. HVAC is shut down. Air monitoring confirms MEK vapour at 400 ppm near the spill—twice the OSHA PEL of 200 ppm and within the lower explosive range. Two workers who were closest to the rupture are symptomatic: one is confused, one has significant eye irritation. The spill is continuing to flow from a partially open valve on the ruptured line.",
+      "question": "How do you address the ongoing release and the symptomatic workers?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shut off the source valve using Level B PPE before it releases more product. Provide the two symptomatic workers with emergency decontamination (remove clothing, flush skin and eyes with water) and arrange immediate medical evaluation. Do not allow anyone without appropriate PPE to re-enter.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send the symptomatic workers to wash their hands and wait outside while the spill is assessed further.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the release to continue until the hazmat team arrives since closing the valve requires entering the hazard zone.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Containment and Environmental Protection",
+      "situation": "The source valve is closed. Symptomatic workers are being decontaminated. The 50-gallon pool of MEK remains on the floor. A floor drain is visible 10 feet from the spill edge. Hazmat team has arrived. MEK is a listed hazardous waste and cannot be allowed to enter the storm sewer or sanitary drain.",
+      "question": "How do you manage the contained spill?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use hazmat-grade absorbent pillows and booms to contain and absorb the MEK pool, blocking the drain. Apply vapour suppression foam to reduce off-gassing. Collect all contaminated absorbent material in sealed UN-approved waste containers for disposal by a licensed hazardous waste contractor. Notify the environmental agency.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wash the MEK into the floor drain with water to dilute it and remove it from the work area.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Spread kitty litter or sand over the spill as a quick fix and sweep it into rubbish bags for regular disposal.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "MEK spill fully contained and absorbed. Drain protected from contamination. Both symptomatic workers evaluated by EMS—one with mild chemical conjunctivitis, both cleared after decontamination. Contaminated waste collected in sealed hazardous waste containers for licensed disposal. Environmental agency notified. HVAC remained off until air monitoring confirmed vapour levels below 200 ppm and below LEL. Your prompt evacuation, source shutdown, proper decontamination, and environmental protection actions prevented injury escalation and regulatory violations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Intermediate",
+  "tags": [
+    "HAZMAT",
+    "chemical spill",
+    "vapour hazard",
+    "flammable",
+    "decontamination",
+    "environmental protection",
+    "industrial"
+  ]
+}

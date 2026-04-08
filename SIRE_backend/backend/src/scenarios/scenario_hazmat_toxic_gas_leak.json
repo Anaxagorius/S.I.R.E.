@@ -1,0 +1,150 @@
+{
+  "title": "scenario_hazmat_toxic_gas_leak",
+  "description": "A pressurized ammonia refrigeration system catastrophically fails at a large food distribution center, releasing a toxic ammonia cloud that threatens workers and a nearby residential neighborhood.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Alarm Activation",
+      "description": "Ammonia detection alarm triggers in the refrigeration plant. Strong ammonia odor reported by workers in adjacent warehouse sections.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Worker Exposures",
+      "description": "Three workers near the compressor room are coughing and have burning eyes. One is unable to walk unassisted. Visible white vapor cloud in refrigeration bay.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Plume Expanding",
+      "description": "Wind carrying ammonia plume toward a residential street 200 yards north. Hazmat team on route. Refrigeration contractor states isolation valve location is in the contaminated zone.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Level A Entry",
+      "description": "Hazmat team in Level A PPE isolates the source valve. Release stopped. Three workers transported to hospital.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Residential Alert",
+      "description": "Law enforcement has implemented shelter-in-place for 3-block radius. No civilian casualties.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilized",
+      "description": "Plume dissipated. Air monitoring confirms ammonia below IDLH of 300 ppm throughout affected area. Shelter-in-place lifted.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ammonia Refrigeration System Failure",
+      "situation": "You arrive at a food distribution center where the industrial ammonia refrigeration system has catastrophically failed. A strong, pungent ammonia odor is detectable 100 feet from the building entrance. Three workers near the compressor room are reported injured—one cannot walk. A visible white vapor cloud is billowing from the refrigeration bay. The building holds 40 workers. Residential homes are 200 yards to the north and the wind is blowing in that direction.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a hazmat emergency. Establish a hot zone perimeter upwind. Order full building evacuation to a crosswind assembly point at least 500 feet away. Request Level A hazmat response, EMS for multiple casualties, and notify law enforcement to begin shelter-in-place for the residential area downwind. Do not enter without Level A PPE.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send two firefighters in structural gear with SCBA into the building to rescue the injured worker who cannot walk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply water fog to knock down the ammonia cloud and reduce the concentration near the building.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rescue Priority Decision",
+      "situation": "Thirty-seven workers have self-evacuated to a crosswind assembly point. The three injured workers remain inside near the compressor room. Air monitoring at the building entrance reads 500 ppm ammonia—well above the IDLH of 300 ppm. The refrigeration contractor confirms the isolation valve that would stop the release is located inside the contaminated zone. Your hazmat team is 6 minutes out. The worker who cannot walk is being assisted by a coworker inside.",
+      "question": "How do you manage the trapped worker rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief your hazmat team by radio on the valve location. Direct that Level A entry will be the priority task on arrival: simultaneously rescue the injured workers and close the isolation valve. Do not send any personnel in below Level A into a 500 ppm ammonia environment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send SCBA-equipped firefighters in immediately—SCBA will provide respiratory protection and structural gear provides some skin protection.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Instruct the coworker inside to carry the injured worker out, guiding them by radio.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Civilian Shelter-in-Place Management",
+      "situation": "Hazmat team in Level A has entered and is rescuing the workers. The isolation valve is being closed. Law enforcement is in the field but asks you whether residents should shelter-in-place or evacuate—they need an immediate answer. The ammonia plume is moving at 8 mph toward the residential area. Ammonia is lighter than air but at these concentrations will remain hazardous at ground level near the source.",
+      "question": "What guidance do you give law enforcement for the residential area?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct immediate shelter-in-place for the 3-block radius downwind: residents must close all windows and doors, turn off HVAC and fans, go to an interior room, and await official all-clear. Evacuation on foot would expose residents to the plume. Alert the emergency broadcast system. Establish traffic control to prevent vehicles from driving through the plume.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Order immediate foot evacuation of all residents in all directions to get as many people away from the area as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell law enforcement to wait until hazmat team closes the valve before issuing any public guidance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Isolation valve closed by hazmat team in Level A PPE. All three injured workers rescued and transported to hospital—two treated and released, one admitted for respiratory irritation. Ammonia plume dissipated within 20 minutes of source isolation. Residential shelter-in-place protected over 300 residents from exposure. No civilian casualties. Air monitoring confirmed levels below IDLH within 35 minutes. Your rapid hazmat declaration, Level A PPE discipline, correct shelter-in-place decision, and systematic rescue planning prevented a mass casualty event.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "toxic gas",
+    "ammonia",
+    "refrigeration",
+    "Level A PPE",
+    "shelter-in-place",
+    "evacuation",
+    "industrial"
+  ]
+}
