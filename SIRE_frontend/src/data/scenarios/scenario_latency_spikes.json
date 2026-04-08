@@ -1,0 +1,154 @@
+{
+  "title": "latency_spikes",
+  "description": "Unexplained network latency spikes are causing application timeouts and degraded user experience.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Latency Alerts Fire",
+      "description": "Monitoring shows application response times have increased from 50ms to 800ms. Timeout errors begin appearing.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Network Path Analysis",
+      "description": "Engineers run traceroutes and find elevated latency at a specific hop in the network path.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Core Switch Identified",
+      "description": "The high-latency hop corresponds to the core distribution switch. CPU is at 95%.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Broadcast Storm Detected",
+      "description": "Network analysis reveals a broadcast storm originating from a misconfigured port, saturating switch CPU.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Storm Source Isolated",
+      "description": "The offending port is identified and administratively shut down. Broadcast traffic subsides.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Latency Normalized",
+      "description": "Switch CPU returns to normal. Application latency drops to baseline. Services fully recovered.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unexplained Latency Spikes",
+      "situation": "Application response times have spiked from 50ms to 800ms. Users are experiencing timeouts. No changes were made to the application or infrastructure today. Network monitoring shows elevated latency at a specific network hop. You need to determine the root cause.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run traceroutes from multiple points to identify the specific hop with elevated latency, check switch and router CPU/memory metrics on the affected path, and look for unusual traffic patterns.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart the application servers assuming the issue is application-side without investigating the network first.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately reroute all traffic away from the affected network path without identifying the root cause.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Broadcast Storm Identification",
+      "situation": "Traceroutes confirm the core distribution switch is the high-latency hop. Its CPU is at 95%. Network traffic capture shows massive broadcast traffic from VLAN 20. The volume suggests a broadcast storm. You need to identify the source port.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use switch MAC address tables and port statistics to identify which port is generating the highest broadcast traffic, and verify whether STP is functioning correctly on VLAN 20.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately disable all ports on VLAN 20 to stop the broadcast storm without identifying the source first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Storm Source Isolation",
+      "situation": "Port Gi1/0/24 is generating 95% of VLAN 20 broadcast traffic. It connects to a newly installed unmanaged network switch that has created a bridging loop because STP was not configured. You must isolate this port immediately.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Administratively shut down port Gi1/0/24 on the core switch to immediately isolate the bridging loop, verify the broadcast storm subsides, and confirm switch CPU normalizes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Try to configure STP on the unmanaged switch without first stopping the ongoing broadcast storm.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recovery and Prevention",
+      "situation": "The broadcast storm has stopped. Switch CPU is at 12%. Application latency has returned to baseline. The unmanaged switch causing the loop must be replaced with a managed one and the network change process must be improved.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Replace the unmanaged switch with an approved managed switch with proper STP configuration, update the network equipment approved list to prohibit unmanaged switches, and implement BPDU Guard on access ports to automatically prevent future bridging loops.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reconnect the unmanaged switch after adding STP configuration manually, accepting the ongoing risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You diagnosed the latency spikes as a broadcast storm caused by a bridging loop from an unauthorized unmanaged switch, isolated the source port, restored network performance, and implemented BPDU Guard and equipment controls to prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "latency",
+    "broadcast-storm",
+    "STP",
+    "network-performance"
+  ]
+}

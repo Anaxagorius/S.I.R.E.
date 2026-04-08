@@ -1,0 +1,154 @@
+{
+  "title": "backup_failure",
+  "description": "Backup jobs have been silently failing for weeks, discovered only when a restore is needed.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Restore Request Triggers Discovery",
+      "description": "A request to restore a file reveals backup jobs have been failing silently for 3 weeks.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Backup Failure Scope Assessed",
+      "description": "Investigation shows backups for 15 systems have failed. Data from the last 3 weeks is unprotected.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Root Cause Investigated",
+      "description": "Engineers trace the failure to a storage quota exhaustion on the backup target that silently stopped accepting new data.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Emergency Backup Initiated",
+      "description": "Storage quota is expanded and emergency backups of all 15 systems are initiated immediately.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Monitoring Gaps Addressed",
+      "description": "The backup monitoring configuration is reviewed and found to have a misconfigured alert threshold.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Backup System Restored",
+      "description": "All systems have current backups. Monitoring is fixed and backup success alerts are confirmed working.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Silent Backup Failure Discovered",
+      "situation": "While attempting to restore a file, you discover that backup jobs for 15 production systems have been failing silently for 3 weeks. The backup software reported success in dashboards due to a misconfigured alert threshold. Three weeks of data is currently unprotected and you cannot restore from this period.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a data protection incident, notify management of the exposure, investigate the root cause of the backup failures immediately, and begin emergency backups of the most critical systems.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Quietly fix the backup system without reporting the 3-week gap to management.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Run a restore test to confirm the last successful backup works before addressing the ongoing failures.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Root Cause and Emergency Response",
+      "situation": "Investigation reveals the backup target storage volume hit its quota limit 3 weeks ago. The backup software was configured to report jobs as successful even when writes were rejected due to quota. Emergency backups must be initiated, but the quota issue must be resolved first.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Expand the backup storage quota immediately (or add storage), purge old backup versions according to retention policy to reclaim space, then initiate emergency backups prioritized by system criticality.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delete the oldest backup data without a retention policy review to make space for new backups.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Emergency Backup Completion",
+      "situation": "Emergency backups are in progress for all 15 systems. The most critical 5 systems have completed successfully. The remaining 10 are still in progress. The monitoring configuration must be fixed to prevent this from happening again.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Fix the backup monitoring configuration to alert on any failed backup job regardless of count, add storage utilization alerts at 70% and 85% capacity, and implement weekly backup verification tests.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait until all emergency backups complete before addressing the monitoring configuration.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Audit and Remediation",
+      "situation": "All emergency backups have completed. Monitoring is fixed. However, you need to ensure this gap does not represent a compliance or regulatory issue, as some of the 15 systems contain regulated data with backup retention requirements.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Audit the 15 systems against their compliance backup requirements, document the 3-week gap formally, report to compliance and legal teams as required, and conduct a full backup system audit to identify any other gaps.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Consider the incident resolved now that backups are working and not report the gap to compliance teams.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You responded to the silent backup failure with transparency, resolved the storage quota root cause, initiated emergency backups prioritized by criticality, fixed monitoring to detect future failures immediately, and properly reported the gap to compliance teams.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "backup",
+    "data-protection",
+    "monitoring",
+    "compliance"
+  ]
+}

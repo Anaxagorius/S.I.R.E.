@@ -1,0 +1,154 @@
+{
+  "title": "wan_outage",
+  "description": "A WAN circuit failure disconnects a remote office from corporate infrastructure.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Remote Office Connectivity Lost",
+      "description": "Employees at the remote office lose access to all corporate systems. VPN tunnels drop.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "WAN Circuit Down",
+      "description": "Network monitoring shows the MPLS WAN circuit to the remote office is down. No BGP routes received.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Remote Office Impact Assessed",
+      "description": "200 employees at the remote office cannot access email, ERP, or shared file servers.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Carrier Engaged",
+      "description": "The WAN carrier is engaged and confirms a hardware failure in their edge equipment.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Temporary Connectivity Established",
+      "description": "SD-WAN failover routes traffic via a broadband internet connection until MPLS is restored.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "MPLS Circuit Restored",
+      "description": "Carrier replaces faulty edge hardware. MPLS circuit restored and SD-WAN failover deactivated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Remote Office WAN Down",
+      "situation": "Your remote office with 200 employees has lost all connectivity to the corporate network. MPLS BGP sessions are down. Staff cannot access any corporate applications, email, or file servers. The office has an SD-WAN appliance with a broadband backup link that has not been activated.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify the remote office IT contact and employees of the outage, open a ticket with the WAN carrier, and activate the SD-WAN broadband failover to restore connectivity while the carrier investigates.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the carrier to diagnose and fix the MPLS circuit before providing any alternative connectivity.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell remote office employees to use personal mobile hotspots until the circuit is fixed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "SD-WAN Failover Activation",
+      "situation": "The SD-WAN failover is being activated. The broadband backup link provides 50 Mbps, compared to the 500 Mbps MPLS circuit. The carrier has confirmed a 6-hour repair ETA. You need to manage the limited bandwidth for 200 employees.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the SD-WAN failover and apply QoS policies to prioritize business-critical applications (Citrix sessions, VoIP, email) and limit bandwidth-heavy traffic to maximize utility of the 50 Mbps link.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Activate the SD-WAN failover without QoS policies and allow all 200 employees to compete for the 50 Mbps equally.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Remote Office Productivity Management",
+      "situation": "Employees have partial connectivity via SD-WAN. Critical applications are prioritized. However, video conferencing is saturating the link. A company-wide all-hands video meeting is scheduled in 30 minutes.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the remote office manager to reschedule or convert the all-hands to a phone conference, and send a communication to remote office staff explaining the bandwidth constraints and which applications are prioritized.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the video conference to proceed without intervention, accepting that it will saturate the link and degrade all other services.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Carrier Resolution and Restoration",
+      "situation": "The carrier has repaired the MPLS edge hardware and the circuit is coming back online. You need to safely transition back from SD-WAN failover to the MPLS primary path.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Verify MPLS BGP routes are stable before switching traffic, then gracefully transition SD-WAN to prefer the MPLS path, confirm full connectivity for all remote office users, and document the outage.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deactivate the SD-WAN failover immediately when the MPLS circuit shows up in the routing table, without verifying stability first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the WAN outage by quickly activating SD-WAN failover, applying QoS to maximize utility of the constrained link, communicating proactively with users, and safely transitioning back to MPLS once the carrier completed repairs.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "WAN",
+    "MPLS",
+    "SD-WAN",
+    "remote-office"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "over_quota_failure",
+  "description": "Cloud resource quota limits are exceeded, preventing new resource provisioning and causing service failures.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Auto-Scaling Fails",
+      "description": "During a traffic spike, auto-scaling attempts to provision new instances but fails with a quota exceeded error.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Service Degradation Begins",
+      "description": "Without additional capacity, existing instances become overloaded. Response times increase and errors begin.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Quota Limit Confirmed",
+      "description": "Engineers confirm the cloud account has hit its vCPU quota limit of 64 in the target region.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Emergency Quota Increase Requested",
+      "description": "An urgent quota increase request is submitted to the cloud provider. ETA is 4-8 hours.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Alternative Region Deployment",
+      "description": "While waiting for quota increase, workloads are partially deployed in an alternate region.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Quota Approved and Capacity Restored",
+      "description": "Cloud provider approves the quota increase. Full auto-scaling capacity is restored in the primary region.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Cloud Quota Exceeded",
+      "situation": "Your cloud auto-scaling is failing because the account has reached its vCPU quota limit (64 vCPUs) in us-east-1. Existing instances are overloaded from a traffic spike and users are experiencing degraded service. You cannot provision additional instances until the quota is increased.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Submit an urgent quota increase request to the cloud provider, implement rate limiting to reduce load on existing instances, and assess whether workloads can be deployed to an alternate region while waiting for quota approval.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stop all running instances to try to free quota for new larger instances.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the quota increase approval without taking any interim actions to manage the overloaded instances.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Interim Capacity Management",
+      "situation": "The quota increase request is submitted with an estimated 4-8 hour approval time. Rate limiting has reduced load somewhat but service quality is still poor. Your infrastructure-as-code can deploy to us-west-2 but the DNS routing must be updated. You also have some over-provisioned instances in us-east-1 that could be right-sized to free some vCPUs within the existing quota.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Right-size over-provisioned instances to free up some vCPU headroom within the existing quota, and begin deploying additional capacity to us-west-2 with weighted DNS routing to distribute traffic across regions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy entirely to us-west-2 and abandon us-east-1 instances until the quota is approved, causing unnecessary service disruption.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Multi-Region Traffic Distribution",
+      "situation": "Additional capacity is running in us-west-2 and weighted DNS is distributing 30% of traffic there. The load on us-east-1 instances has reduced to acceptable levels. Service quality has improved but is not fully normalized. The quota increase request status is still pending.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Monitor both regions for performance, gradually increase the us-west-2 traffic weight if us-east-1 shows further strain, maintain communication with the cloud provider on the quota request, and update stakeholders on the recovery progress.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Shift 100% of traffic to us-west-2 immediately and shut down all us-east-1 instances.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Quota Approval and Long-Term Prevention",
+      "situation": "The cloud provider has approved a quota increase to 200 vCPUs in us-east-1. Full auto-scaling capacity is now available. You need to restore normal operations and prevent this from happening again.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gradually shift traffic back to the primary region, scale down the us-west-2 deployment, implement cloud quota monitoring with alerts at 70% and 85% utilization, and pre-request larger quota limits as part of capacity planning before the next growth cycle.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Return all traffic to us-east-1 immediately and shut down us-west-2 without quota monitoring improvements.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the cloud quota exhaustion by combining rate limiting, instance right-sizing, and multi-region deployment as interim measures, successfully maintained acceptable service quality during the 4-8 hour quota approval window, and implemented proactive quota monitoring.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "cloud",
+    "quota",
+    "auto-scaling",
+    "capacity-planning"
+  ]
+}

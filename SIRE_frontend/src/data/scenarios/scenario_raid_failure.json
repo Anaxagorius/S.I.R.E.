@@ -1,0 +1,154 @@
+{
+  "title": "raid_failure",
+  "description": "Multiple disks in a RAID array fail, threatening data loss and service continuity.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "First Disk Fails",
+      "description": "RAID controller reports the first disk failure. Array enters degraded mode but continues operating.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Second Disk Failure Alert",
+      "description": "A second disk in the RAID-5 array fails. The array is now offline and data is inaccessible.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Critical Alert Triggered",
+      "description": "Storage monitoring fires a P1 alert. All applications dependent on the array go offline.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "RAID Controller Analysis",
+      "description": "Engineers examine the RAID controller logs to assess which disks failed and in what order.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Disk Replacement and Rebuild",
+      "description": "Replacement disks are sourced and installed. RAID rebuild begins from surviving parity data.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Array Rebuilt and Services Restored",
+      "description": "RAID array rebuild completes. File system integrity verified and services restored.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "RAID Array Offline",
+      "situation": "You receive a critical alert: two disks in a RAID-5 array have failed in quick succession and the array is offline. All data is inaccessible. You have access to the RAID controller management interface and know the last verified backup is 18 hours old.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a P1 incident, notify stakeholders, review RAID controller logs to confirm the failure sequence, and assess whether partial data recovery is possible before restoring from backup.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately initialize a new RAID array on replacement disks and restore from backup without reviewing controller logs.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Force the RAID array online in degraded mode with two failed disks to restore access quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Controller Log Analysis",
+      "situation": "Controller logs show disk 0 failed first due to bad sectors, and disk 2 failed 8 minutes later likely due to stress during degraded rebuild. One disk (disk 1) with parity data is intact. A RAID specialist suggests partial reconstruction may recover the last 18 hours of data.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Attempt RAID reconstruction using the surviving parity disk in read-only mode to recover the most recent data before falling back to backup if reconstruction fails.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Skip the reconstruction attempt and go directly to the 18-hour-old backup to save time.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Reconstruction and Replacement",
+      "situation": "Partial reconstruction recovered 14 hours of additional data beyond the backup. New replacement disks have arrived. You must now rebuild the RAID array correctly.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Install replacement disks, initialize a new RAID-6 array (upgrading from RAID-5 for better fault tolerance), restore from backup plus recovered data, and monitor the rebuild progress.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rebuild the same RAID-5 configuration without reviewing whether the array design contributed to the failure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Array Rebuild Monitoring",
+      "situation": "The RAID-6 array rebuild is in progress (estimated 4 hours). Services are partially restored using backup data. Management is asking for a full recovery ETA and a root cause report.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide management with a recovery ETA, document the root cause (sequential disk failures under degraded rebuild stress), and propose enhanced disk health monitoring and regular RAID health checks.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell management the incident is resolved once the rebuild starts, and defer documentation indefinitely.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You expertly handled a complex RAID-5 dual-disk failure by analyzing controller logs, attempting data reconstruction, upgrading to a more resilient RAID-6 configuration, and providing transparent communication to management.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Advanced",
+  "tags": [
+    "RAID",
+    "storage",
+    "disk-failure",
+    "data-recovery"
+  ]
+}

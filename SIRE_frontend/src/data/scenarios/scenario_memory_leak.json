@@ -1,0 +1,154 @@
+{
+  "title": "memory_leak",
+  "description": "A memory leak in a production application causes gradual service degradation and eventual crashes.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Gradual Memory Growth Detected",
+      "description": "Monitoring shows a production application server's memory usage has been growing 2% per hour for 3 days.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Performance Degradation",
+      "description": "As memory approaches capacity, the application begins swapping to disk. Response times increase 400%.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Application Crash",
+      "description": "The application process is killed by the OOM killer. All requests to this node fail.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Memory Profiling Initiated",
+      "description": "Engineers begin profiling a staging replica to identify the source of the memory leak.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Leak Source Identified",
+      "description": "Profiling reveals a connection pool that does not release closed connections properly.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Fix Deployed",
+      "description": "The connection pool fix is deployed and memory growth stabilizes. Regular restarts scheduled as interim mitigation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Application OOM Crash",
+      "situation": "A production application node has been killed by the OOM killer due to exhausted memory. Monitoring shows memory has been growing steadily for 3 days. The application has been restarted automatically by the process supervisor and is temporarily healthy, but will crash again without intervention.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a temporary scheduled restart every 6 hours as a stop-gap to prevent OOM crashes, while simultaneously initiating memory profiling on a staging replica to identify the leak source.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add more RAM to the server to accommodate the growing memory usage without investigating the root cause.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Simply restart the application and wait to see if the problem recurs before investigating.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Memory Profiling",
+      "situation": "Scheduled restarts are keeping production stable. On the staging replica, you have attached a memory profiler. After 2 hours of profiling under simulated production load, the profiler shows heap memory growing specifically in the database connection pool object.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Analyze the connection pool code for resource cleanup issues, focusing on connection close and error handling paths that might leave connections unreleased.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Disable connection pooling entirely in production as a quick fix without understanding the root cause.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Code Fix Development",
+      "situation": "Code review identifies that connection pool cleanup is not called when a database query times out, causing the connection object to remain allocated. A fix has been written that adds proper cleanup in the timeout exception handler. The fix needs validation.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Write an automated test that simulates timeout conditions, verify the fix prevents the leak in staging under extended profiling, then prepare a production deployment with a rollback plan.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy the fix directly to production without automated testing since the fix looks correct in code review.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Production Deployment",
+      "situation": "The fix has passed all automated tests and staging memory profiling shows stable memory over 8 hours. You are ready to deploy the fix to production. You need to plan the rollout strategy.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy the fix using a canary rollout, monitoring memory growth on the canary instance for 2 hours before rolling out to the full fleet, with the scheduled restarts remaining active until the canary confirms stability.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy the fix to all production instances simultaneously and immediately remove the scheduled restarts.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You resolved the memory leak incident by implementing a temporary mitigation, systematically profiling to find the root cause, developing and testing a fix, and safely deploying it via canary rollout while monitoring for stability.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "memory-leak",
+    "OOM",
+    "profiling",
+    "application-stability"
+  ]
+}

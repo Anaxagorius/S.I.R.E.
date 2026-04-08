@@ -1,0 +1,154 @@
+{
+  "title": "incompatible_upgrade",
+  "description": "A software upgrade introduces incompatibilities that break dependent services.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Upgrade Deployed",
+      "description": "A database engine upgrade is applied during a maintenance window.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Application Errors Begin",
+      "description": "Multiple applications start reporting connection errors and deprecated API failures immediately after the upgrade.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Scope Assessment",
+      "description": "Teams identify that 8 applications are affected by breaking changes in the new database API.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Rollback vs. Fix Decision",
+      "description": "Engineers assess whether to roll back the database or to rapidly patch the affected applications.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Application Patches Applied",
+      "description": "Application teams apply compatibility patches and test against the new database version.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "All Services Restored",
+      "description": "All 8 applications are updated and operating correctly with the new database version.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Post-Upgrade Application Failures",
+      "situation": "After a database engine upgrade from version 5.7 to 8.0, 8 applications immediately start reporting errors including deprecated SQL functions and changed authentication protocol requirements. The upgrade was not preceded by adequate compatibility testing.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Halt all application deployments, notify application teams and stakeholders, and quickly assess the severity and scope of the incompatibilities to decide between rollback or forward-fix.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately roll back the database engine without assessing the impact of rollback on data written since the upgrade.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the errors and wait to see if applications adapt on their own after a few minutes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rollback vs. Forward Fix",
+      "situation": "Assessment shows: the database rollback would require reverting 45 minutes of transaction data; the 8 affected applications each need relatively minor code changes (deprecated function replacements); 3 of the 8 apps have active on-call engineers available. A rollback is risky due to data loss.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Choose the forward-fix path: coordinate all 8 application teams to apply compatibility patches, prioritize the 3 with available engineers first, and use a compatibility layer for applications whose teams are not immediately available.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Roll back the database despite the 45-minute data loss, affecting production data integrity.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Application Patching Coordination",
+      "situation": "Three applications have been patched and are running correctly. Five applications are still failing. For these five, you can use a MySQL 5.7 compatibility mode flag available in MySQL 8.0 as a temporary bridge while their teams prepare patches.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enable MySQL 5.7 compatibility mode for the five remaining applications as a temporary measure, restore their functionality, and coordinate their teams to apply proper patches within 48 hours.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the five remaining applications failing until their teams can apply patches, even if it takes several days.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Full Resolution and Process Review",
+      "situation": "All 8 applications are now operational. The three using compatibility mode must be properly patched within 48 hours. Management asks why compatibility testing did not catch these issues before production deployment.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the incident, implement a requirement for compatibility matrix testing before major upgrades, establish a staging environment that mirrors production dependencies, and track the remaining 5 app patches to completion.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident after all applications are functional and rely on the same upgrade process for future upgrades.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the incompatible upgrade by choosing a forward-fix approach to avoid data loss, using compatibility modes as a temporary bridge for slower teams, and establishing improved upgrade testing procedures to prevent future incidents.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "upgrade",
+    "compatibility",
+    "database",
+    "change-management"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "patch_failure",
+  "description": "A system patch deployment fails mid-process, leaving servers in an inconsistent state.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Patch Deployment Initiated",
+      "description": "Automated patch management system begins deploying OS security patches across the server fleet.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Partial Failure Detected",
+      "description": "The patch process fails on 12 of 50 servers mid-deployment. Affected servers are left in an inconsistent state.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Services Degraded",
+      "description": "Two of the partially patched servers fail to restart critical services after the failed patch attempt.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Root Cause of Patch Failure",
+      "description": "Investigation reveals a dependency conflict between the new patch and a third-party library on affected servers.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Remediation Applied",
+      "description": "The dependency conflict is resolved and the patch is re-applied successfully.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "All Servers Patched",
+      "description": "All 50 servers are now in a consistent, fully patched state. Services operating normally.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Patch Deployment Failure",
+      "situation": "Your automated patch management system reports that 12 of 50 servers have entered a failed state mid-deployment. The patching process stopped partway through on these servers. Two of the affected servers have services that are now not running. You have 38 successfully patched servers and 12 in an unknown state.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pause the patch deployment to prevent further inconsistencies, assess the state of the 12 affected servers, prioritize restoring services on the two servers with outages, and investigate the failure cause.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue the patch deployment to the remaining servers and deal with the failures afterward.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately roll back all 50 servers to their pre-patch state without investigating the failure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Service Restoration",
+      "situation": "The two servers with service outages have been identified. Investigation shows that the patch installer broke a symlink in a shared library path, preventing services from starting. Manually re-creating the symlinks restores the services.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore the broken symlinks on both affected servers to restart services, then capture the exact failure mode to understand whether the remaining 10 partially patched servers have the same issue.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore only the services on the two critical servers and leave the other 10 partially patched servers for later analysis.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Dependency Conflict Resolution",
+      "situation": "Analysis confirms all 12 servers have a third-party library that conflicts with the new patch. A resolution is available: updating the third-party library before re-applying the patch. You need to apply this fix to all 12 servers.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Create a remediation script that updates the conflicting library and re-applies the patch, test it on one server first, then deploy to all 12 affected servers in a controlled rollout.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy the remediation script to all 12 servers simultaneously without testing on a single server first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fleet Consistency Validation",
+      "situation": "The remediation has been applied and all 12 previously affected servers now show as fully patched. You need to verify the entire fleet of 50 servers is consistent and healthy before declaring the incident resolved.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run a compliance check across all 50 servers to confirm uniform patch levels, verify service health on each host, and document the incident including the dependency conflict and the resolution for future patch planning.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident after the 12 servers are remediated without running a fleet-wide compliance verification.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You effectively managed the patch failure by halting the rollout, restoring affected services, identifying and resolving the dependency conflict, and validating fleet-wide consistency before closing the incident.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patching",
+    "dependency-conflict",
+    "patch-management",
+    "fleet-management"
+  ]
+}

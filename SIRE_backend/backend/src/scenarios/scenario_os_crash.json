@@ -1,0 +1,154 @@
+{
+  "title": "os_crash",
+  "description": "An operating system crash takes down multiple services on a production server.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "System Becomes Unresponsive",
+      "description": "A production server stops responding to all network requests. SSH sessions are dropped.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "IPMI Console Checked",
+      "description": "Out-of-band management console shows a kernel oops and system hang with a frozen process table.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Services Alert Firing",
+      "description": "All monitoring checks for services on this host transition to CRITICAL. Users report outage.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Forced Reboot Required",
+      "description": "Attempts to gracefully recover the OS fail. An emergency reboot via IPMI is issued.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "System Reboots",
+      "description": "Server reboots successfully. OS starts and filesystem check runs automatically.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Services Restored",
+      "description": "All services restart cleanly. Crash dump is preserved for root cause analysis.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "OS Hang Detected",
+      "situation": "A production server is completely unresponsive. SSH connections time out and monitoring shows all services critical. The IPMI console shows a kernel oops message and a frozen state. The server hosts several critical microservices.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify stakeholders of the outage, attempt to capture the crash state via IPMI console screenshot, and prepare to issue an emergency reboot via IPMI if recovery is not possible.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately press the physical power button to hard-power-cycle the server without any investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait 30 minutes for the OS to recover on its own before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Crash Data Capture",
+      "situation": "You have captured a screenshot of the kernel oops. The error references a third-party kernel module. The system is unrecoverable without a reboot. You need to trigger an emergency reboot while preserving crash diagnostic data.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Trigger a reboot via IPMI (using NMI to generate a crash dump if kdump is configured), then allow the system to reboot and collect the crash dump for post-incident analysis.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue a hard power-off immediately via IPMI without attempting to generate a crash dump.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Reboot Validation",
+      "situation": "The server has rebooted and the OS has started. A filesystem check ran and completed cleanly. Services are starting up. You need to confirm a full and clean recovery.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Verify all services have started successfully, run integration smoke tests, check system logs for any lingering errors, and confirm monitoring returns to green.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume services started correctly because the OS booted and close the incident immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Root Cause Analysis",
+      "situation": "Services are healthy. The crash dump analysis identifies a faulty third-party kernel module that was loaded after the last OS update. The module version is known to have a bug fixed in a newer release.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Update the faulty kernel module to the fixed version, test in a staging environment, schedule the update for production during the next maintenance window, and document the incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the faulty module in place and monitor to see if the crash recurs before patching.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You successfully managed the OS crash by capturing diagnostic data, performing a controlled emergency reboot, validating service recovery, and identifying and scheduling remediation for the faulty kernel module.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "OS",
+    "kernel",
+    "crash",
+    "reboot"
+  ]
+}

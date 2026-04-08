@@ -1,0 +1,154 @@
+{
+  "title": "firewall_misconfiguration",
+  "description": "A firewall misconfiguration blocks legitimate traffic and exposes unintended services.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "New Firewall Rules Applied",
+      "description": "An engineer applies updated firewall rules during a change window.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Application Access Failures",
+      "description": "Users report they cannot access the customer portal. Internal monitoring shows the application is healthy but connections are being refused.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Security Alert Triggered",
+      "description": "Security monitoring detects that a database port is now unexpectedly reachable from the internet due to the misconfiguration.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Emergency Rule Review",
+      "description": "Network team reviews the new firewall rules against the intended policy and identifies two errors.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Rules Corrected",
+      "description": "The incorrect rules are reverted and the correct rules are applied. Database port is blocked.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Access Restored and Secured",
+      "description": "Customer portal is accessible again. Database port is confirmed blocked. Security logs reviewed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Firewall Rule Error Detected",
+      "situation": "After a firewall rule change, users cannot access the customer portal and security monitoring has flagged that the production database port (3306) is reachable from the internet. You must address both issues simultaneously: an access outage and a potential security exposure.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately block the exposed database port by adding an emergency deny rule at the top of the ruleset, declare a security incident, and begin reviewing the change to identify all errors.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "First restore user access to the customer portal before addressing the database exposure.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Roll back all firewall rules to the previous state immediately without documenting the current state.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Security Exposure Assessment",
+      "situation": "The database port is now blocked. Security logs show no successful unauthorized connections occurred during the 3-minute exposure window, but connection attempts were made from 3 external IP addresses. You need to assess the security impact and continue resolving the access outage.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Capture and preserve the firewall logs showing the connection attempts, report the exposure to the security team for investigation, and then focus on identifying and correcting the firewall rules causing the access outage.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Dismiss the connection attempts as automated scanners and immediately close the security incident without investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Rule Correction",
+      "situation": "Review of the change identifies two errors: a DENY rule for port 443 was placed above the ALLOW rule for the customer portal application, and the database ALLOW rule had an overly broad source definition. You have the original policy document to restore from.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Correct the rule ordering issue to restore portal access, tighten the database source definition to only allow internal application servers, apply in a test environment for validation, then push to production.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delete and recreate the entire firewall ruleset from scratch to ensure correctness, risking creating new errors under pressure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Validation and Process Review",
+      "situation": "The corrected rules have been applied. The customer portal is accessible and the database port is confirmed blocked from external access. You need to confirm full resolution and prevent recurrence.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run a firewall audit using an automated policy verification tool, implement a mandatory peer review process for all firewall changes, and document the incident with a focus on the change management gap that allowed unvalidated rules into production.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident and rely on the same change process that allowed the misconfiguration to occur.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You prioritized the security exposure correctly, preserved evidence of unauthorized access attempts, corrected both firewall errors, and strengthened the change management process with peer review and automated policy verification.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "firewall",
+    "misconfiguration",
+    "security-exposure",
+    "change-management"
+  ]
+}

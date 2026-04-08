@@ -1,0 +1,154 @@
+{
+  "title": "disk_corruption",
+  "description": "A production server disk experiences file system corruption, causing data access failures.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "I/O Errors Detected",
+      "description": "Application logs begin showing I/O errors and file access failures on the primary data volume.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Database Queries Failing",
+      "description": "The database reports corrupted table entries and starts rejecting read/write operations.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Alert Escalated",
+      "description": "Monitoring escalates the alert to the on-call DBA and infrastructure team.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Disk Health Check",
+      "description": "SMART diagnostics reveal reallocated sectors and a failing disk spindle.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Backup Restoration Initiated",
+      "description": "Team begins restoring the last verified backup to a clean replacement disk.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Service Restored",
+      "description": "Data volume restored from backup. File system integrity verified and services restarted.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "File System I/O Errors",
+      "situation": "Application logs show repeated I/O errors on /dev/sdb1, the primary data volume. The database is rejecting writes and users cannot save data. The disk is mounted read-write and the server is still running.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run SMART diagnostics on the disk, place the application in maintenance mode to prevent further writes, and notify stakeholders.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Run fsck on the mounted live filesystem to repair corruption without unmounting.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the errors and wait for the application to self-heal, as transient I/O errors are common.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "SMART Diagnostics Results",
+      "situation": "SMART diagnostics confirm the disk has 47 reallocated sectors and pending uncorrectable errors. The disk is physically failing. A replacement disk and last night's verified backup are available.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Unmount the corrupted volume, replace the disk, and begin restoring data from the last verified backup to the new disk.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to clone the failing disk to the replacement while it is still active, risking further corruption.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Backup Restoration",
+      "situation": "The new disk is installed and the backup restoration has completed. Before bringing services back online, you need to verify data integrity.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run fsck on the new volume, verify checksum integrity of restored files, and perform a database consistency check before restarting services.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart services immediately after restoration without verifying integrity to minimize downtime.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Service Restart and Validation",
+      "situation": "Integrity checks passed. Services have been restarted and initial tests show data is accessible. You need to confirm the incident is fully resolved and prevent recurrence.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Monitor disk health metrics, update the incident ticket with root cause and timeline, and review disk replacement and backup testing procedures.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident ticket without documenting the root cause to save time.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You correctly identified the failing disk using SMART diagnostics, safely restored data from backup, verified file system integrity, and documented the incident with preventive recommendations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": [
+    "disk",
+    "corruption",
+    "storage",
+    "backup-restore"
+  ]
+}

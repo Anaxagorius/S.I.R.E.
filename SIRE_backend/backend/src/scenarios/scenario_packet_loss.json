@@ -1,0 +1,154 @@
+{
+  "title": "packet_loss",
+  "description": "Significant packet loss on a critical network link is causing application failures and VoIP quality issues.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Application Errors and VoIP Degradation",
+      "description": "Users report application timeouts and VoIP call drops. Monitoring shows 8% packet loss on the WAN link.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Link Quality Analysis",
+      "description": "Engineers run continuous ping tests and confirm intermittent packet loss on the uplink to the ISP.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Physical Layer Investigation",
+      "description": "Interface error counters on the edge router show CRC errors and input errors consistent with a physical layer issue.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Cable and Transceiver Check",
+      "description": "Physical inspection identifies a dirty or damaged fiber transceiver on the ISP handoff port.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Transceiver Replaced",
+      "description": "The faulty transceiver is cleaned and tested; a replacement is installed when cleaning does not resolve the issue.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Packet Loss Eliminated",
+      "description": "CRC errors drop to zero. Packet loss is eliminated. VoIP and applications return to normal.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "8% Packet Loss Detected",
+      "situation": "Monitoring shows 8% packet loss on the WAN uplink. VoIP calls are dropping and applications are timing out. The packet loss is intermittent and not correlated with traffic volume. You need to determine if this is a physical, link, or upstream issue.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check interface error counters on the edge router for CRC errors, input/output errors, and framing errors that would indicate a physical or link-layer issue, and run a traceroute to the ISP first hop.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately contact the ISP and assume the problem is on their network without checking local equipment first.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the edge router to clear any transient errors without first capturing the current error counter state.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Physical Layer Fault",
+      "situation": "Interface error counters show 2,400 CRC errors and 1,800 input errors in the last 10 minutes on the ISP-facing port. This strongly indicates a physical layer problem. The ISP handoff uses a single-mode fiber connection with SFP transceivers.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Inspect the fiber connections and SFP transceiver on the edge router ISP port for contamination, damage, or seating issues, using proper fiber inspection tools.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Replace the entire edge router before inspecting the individual components that are more likely to be faulty.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Transceiver Issue Resolution",
+      "situation": "Fiber inspection reveals the SFP transceiver end-face is contaminated. Cleaning with an appropriate fiber cleaning tool does not fully resolve the issue \u2014 error counters remain elevated. A spare SFP transceiver of the correct type is available.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hot-swap the contaminated SFP transceiver with the spare, re-seat the fiber connection, and monitor error counters for 5 minutes to confirm the replacement has resolved the packet loss.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue attempting to clean the contaminated SFP without replacing it, while users continue to experience packet loss.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Validation and Documentation",
+      "situation": "The replacement SFP transceiver is in place. Error counters have dropped to zero and packet loss tests show 0% loss. VoIP call quality has been confirmed as normal. You need to close out the incident properly.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue monitoring error counters for 30 minutes to confirm sustained resolution, document the incident with root cause, and schedule regular fiber inspection and transceiver cleaning as part of preventive maintenance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident immediately after the error counters drop without a monitoring period.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You diagnosed packet loss at the physical layer by analyzing interface error counters, identified a contaminated SFP transceiver as the root cause, replaced the transceiver, confirmed resolution, and scheduled preventive fiber maintenance.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "packet-loss",
+    "fiber",
+    "SFP",
+    "physical-layer"
+  ]
+}

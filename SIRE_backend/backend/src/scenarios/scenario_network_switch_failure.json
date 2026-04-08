@@ -1,0 +1,154 @@
+{
+  "title": "network_switch_failure",
+  "description": "A core network switch fails, causing widespread connectivity loss across a datacenter floor.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Connectivity Loss Reported",
+      "description": "Multiple servers on the same network segment simultaneously lose connectivity. Monitoring shows mass-ping failures.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Switch Unresponsive",
+      "description": "The core switch management interface is unreachable. Physical inspection shows no link lights on uplink ports.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Incident Declared",
+      "description": "Network team declares a P1 incident and begins isolating the failed switch from the topology.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Spare Switch Located",
+      "description": "A spare switch with identical configuration backup is located in the storage room.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Replacement Switch Installed",
+      "description": "The spare switch is racked, powered on, and configuration is restored from backup.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Connectivity Restored",
+      "description": "All servers regain network connectivity. Services resume normal operation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Mass Connectivity Loss",
+      "situation": "Monitoring alerts show 47 servers on Floor 2 have simultaneously lost network connectivity. The core switch for that segment is unresponsive. You are on-site and have physical access to the network closet.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Physically inspect the switch for power and link-light status, attempt a console connection to diagnose the fault, and declare a P1 incident while notifying the network team.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Power-cycle the switch immediately without assessing whether doing so could cause additional issues.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Begin reconfiguring all 47 servers with new static routes to bypass the switch before diagnosing the fault.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Switch Hardware Fault Confirmed",
+      "situation": "Console connection shows the switch powered on but the switching fabric is unresponsive. A hardware fault has caused the backplane to fail. Power-cycling does not restore operation. A spare switch with the same model is available with a configuration backup on file.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin physical replacement by racking the spare switch, restoring configuration from backup, and preparing to reconnect all uplinks in a controlled sequence.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to repair the switching fabric on the live failed unit while servers remain disconnected.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Replacement Switch Configuration",
+      "situation": "The spare switch is racked and powered on. The configuration backup is 3 days old and may be missing some recent VLAN additions. Before reconnecting uplinks, you need to decide how to handle the potentially stale configuration.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore the 3-day-old configuration, reconnect uplinks, verify connectivity for all segments, and manually add any missing VLAN configurations identified from change logs.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Skip configuration restoration and manually configure the switch from scratch during the outage to ensure it is current.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Connectivity Validation",
+      "situation": "The replacement switch is active and most servers have regained connectivity. Two VLANs are missing from the configuration. Change logs show these were added 2 days ago.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Add the two missing VLANs from the change log, verify full connectivity for all servers, update the configuration backup immediately, and schedule a review of the switch backup process.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the two missing VLANs and close the incident, expecting the teams that own those VLANs to notice and report separately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You successfully diagnosed the switch hardware failure, executed a controlled replacement using a spare unit, restored configuration from backup, applied missing changes from the change log, and identified a gap in the backup frequency process.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "network",
+    "switch",
+    "hardware-failure",
+    "connectivity"
+  ]
+}
