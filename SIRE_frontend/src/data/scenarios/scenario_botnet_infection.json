@@ -1,0 +1,160 @@
+{
+  "title": "scenario_botnet_infection",
+  "description": "Corporate endpoints are enrolled in a botnet and used for DDoS attacks and spam campaigns, implicating the organization in malicious activity.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "ISP Abuse Notification",
+      "description": "ISP contacts the organization reporting that outbound traffic from the corporate IP block is participating in a DDoS attack against a third-party target.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Internal Traffic Analysis",
+      "description": "Network team confirms high-volume SYN-flood traffic originating from multiple internal workstations to external targets.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Botnet C2 Beaconing Found",
+      "description": "Affected machines are beaconing to a botnet command-and-control infrastructure. 28 machines identified across 3 office locations.",
+      "timeOffsetSec": 55
+    },
+    {
+      "index": 3,
+      "title": "Spam Campaign Detected",
+      "description": "Email gateway logs reveal botnet is also using corporate mail servers for outbound spam. Domain reputation being damaged.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Infection Vector Identified",
+      "description": "Initial compromise traced to a malicious browser extension downloaded from an unofficial extension store.",
+      "timeOffsetSec": 140
+    },
+    {
+      "index": 5,
+      "title": "Eradication Underway",
+      "description": "Affected endpoints quarantined and cleaned. Browser extension pushed to removal via MDM. C2 domains blocked.",
+      "timeOffsetSec": 220
+    },
+    {
+      "index": 6,
+      "title": "Reputation Remediation",
+      "description": "IP block delisting requests submitted to ISP and major anti-spam blacklists. Email deliverability restored.",
+      "timeOffsetSec": 310
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "ISP Reports Corporate IPs Participating in DDoS",
+      "situation": "Your ISP sends an abuse notification: traffic from your corporate IP range is being used in a large-scale DDoS attack against a financial services firm. If not resolved quickly, your IP block may be null-routed. Initial network analysis confirms the traffic is real.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify the specific internal source IPs generating the traffic, segment them off the network, and begin correlating with endpoint telemetry.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Null-route all outbound traffic to stop the attack — this will halt business operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Dispute the ISP's claim and wait for more evidence before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "28 Infected Machines Identified",
+      "situation": "EDR telemetry and network logs confirm 28 endpoints across 3 office locations are infected and receiving commands from a botnet C2 infrastructure. They are also being used for outbound spam, damaging your email domain reputation.",
+      "question": "How do you contain the outbreak across multiple sites?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Push firewall rules to block C2 communication, quarantine all 28 endpoints via MDM, and notify site managers at each location.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Clean machines at headquarters first and address remote sites next week.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Infection Vector: Malicious Browser Extension",
+      "situation": "Root cause analysis identifies the initial infection vector as a malicious browser extension mimicking a popular productivity tool, distributed via an unofficial extension store. Multiple employees installed it after seeing it promoted on social media.",
+      "question": "How do you remediate the browser extension and prevent reinstallation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use MDM to force-remove the extension from all corporate devices, restrict browser extension installation to an approved allowlist, and notify all users.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise users to uninstall the extension themselves and send an awareness email.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Domain Reputation and Legal Exposure",
+      "situation": "The organization's mail domain has been added to three major anti-spam blacklists. Email to customers is being blocked. Additionally, legal is concerned about liability for the DDoS attack against the financial services firm conducted via your infrastructure.",
+      "question": "How do you address reputation damage and legal exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Submit delisting requests to all blacklists with evidence of remediation, contact the targeted firm to provide incident details, and file a report with law enforcement documenting the botnet operators.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Change the organization's outbound IP addresses to bypass the blacklists without addressing the root cause.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All infected endpoints cleaned and verified. C2 communication blocked enterprise-wide. Browser extension allowlisting enforced. Email domain delisted and reputation restored. Law enforcement briefed on botnet infrastructure IOCs.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "botnet",
+    "C2",
+    "malware",
+    "DDoS"
+  ]
+}

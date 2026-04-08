@@ -1,0 +1,167 @@
+{
+  "title": "scenario_ransomware_encrypt",
+  "description": "Ransomware propagates across the corporate network, encrypting files on workstations and shared drives.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Endpoint Alert Triggered",
+      "description": "Endpoint protection flags unusual mass file-rename activity on a Finance workstation. User reports files unreadable.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Encryption Spreading",
+      "description": "Four additional workstations reporting identical symptoms. Shared drive access is returning garbled files.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Network Shares Targeted",
+      "description": "Encryption spreading to mapped network drives. Critical project files and HR records affected.",
+      "timeOffsetSec": 50
+    },
+    {
+      "index": 3,
+      "title": "Ransom Note Discovered",
+      "description": "README_RESTORE.txt found on every encrypted folder. Attackers demand 40 BTC within 72 hours.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Backup Status Check",
+      "description": "IT verifying offline backup integrity. Last verified clean backup was taken 18 hours ago.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Recovery Underway",
+      "description": "Restoration from air-gapped backup initiated. Affected systems being rebuilt from clean images.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 6,
+      "title": "Post-Incident Review",
+      "description": "Systems restored. Lessons-learned session scheduled. Backup cadence and EDR rules under review.",
+      "timeOffsetSec": 310
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Endpoint Alert: Mass File Encryption",
+      "situation": "Your endpoint detection tool alerts on mass file-rename activity consistent with ransomware on a Finance workstation. The affected user says files are unreadable and a README_RESTORE.txt has appeared on the desktop.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the workstation from the network immediately by disabling its NIC, then alert the IR team.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Run an antivirus scan on the machine while it stays connected to diagnose the infection first.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the workstation to see if the activity stops.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Multiple Systems Affected",
+      "situation": "Four additional workstations are exhibiting the same symptoms. The ransomware is propagating via mapped network drives. The IR team is assembled and awaiting direction.",
+      "question": "How do you contain the outbreak?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Segment the affected VLAN by disabling the switch ports for all infected machines and block SMB traffic at the firewall.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Shut down only the originally infected workstation and continue monitoring the others.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Take the entire network offline to halt all activity.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ransom Demand Received",
+      "situation": "Containment is holding. Attackers demand 40 BTC within 72 hours. Management is asking whether to pay. The CISO notes no guarantee of decryption keys being delivered.",
+      "question": "How do you advise management on the ransom demand?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not pay the ransom. Assess backup availability and engage law enforcement. Document everything for regulatory reporting.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pay the ransom immediately to restore operations as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Backup Integrity Verification",
+      "situation": "IT has located an air-gapped backup from 18 hours ago. Before restoring, you must verify it is clean and unaffected by the ransomware.",
+      "question": "How do you validate the backup before restoration?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mount the backup on an isolated, clean test system, run integrity checks, and scan for malware signatures before restoring production.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore directly from backup to production systems without testing to minimize downtime.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Backup integrity confirmed. Systems restored from clean images. Law enforcement notified. A post-incident review is scheduled to improve detection rules, backup cadence, and staff awareness training.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "ransomware",
+    "encryption",
+    "backup",
+    "incident response"
+  ]
+}

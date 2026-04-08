@@ -10,7 +10,7 @@ import { normalizeScenarioKey } from '../utils/validation.mjs'
 
 const router = Router()
 
-/** GET /scenarios - returns a list of available scenario objects with id, name, and description. */
+/** GET /scenarios - returns a list of available scenario objects with id, name, description, category, and difficulty. */
 router.get('/scenarios', (req, res) => {
   const keys = scenarioRegistry.listScenarioKeys()
   const scenarios = keys.map((key) => {
@@ -22,6 +22,8 @@ router.get('/scenarios', (req, res) => {
         .replace(/_/g, ' ')
         .replace(/\b\w/g, (c) => c.toUpperCase()),
       description: data?.description || '',
+      category: data?.category || '',
+      difficulty: data?.difficulty || '',
     }
   })
   auditLogger.event({
