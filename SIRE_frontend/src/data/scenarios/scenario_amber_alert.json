@@ -1,0 +1,149 @@
+{
+  "title": "scenario_amber_alert",
+  "description": "A 6-year-old child is reported abducted by a non-custodial parent during a supervised exchange; officers must assess whether Amber Alert criteria are met and coordinate the activation.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "patrol",
+    "Amber Alert",
+    "child abduction",
+    "non-custodial parent",
+    "inter-agency",
+    "missing child",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Father Reports Child Taken",
+      "description": "A father reports that the mother took their 6-year-old daughter during a custody exchange and drove away. A custody order is in place. He provides the vehicle description.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Amber Alert Criteria Assessment",
+      "description": "Officers assess whether the situation meets Canadian Amber Alert criteria. Initial facts are gathered including vehicle description, child's information, and custody order details.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Risk Elevated — Prior Threats Identified",
+      "description": "Background check reveals the mother has made prior threats to harm herself and the child if custody is lost. Supervisor consulted. Decision made to activate.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Amber Alert Activated",
+      "description": "Alert is activated with confirmed vehicle and child descriptions. Provincial coordination centre broadcasts to highway signs and wireless public alert.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Tip Received — Vehicle Spotted",
+      "description": "A highway rest stop attendant in the neighbouring province calls the tip line after seeing the vehicle. RCMP is contacted.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Child Recovered Safely",
+      "description": "RCMP and provincial police safely stop the vehicle at the rest stop. Child is unharmed. Mother is taken into custody.",
+      "timeOffsetSec": 2400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Custody Dispute or Child Abduction?",
+      "situation": "A father calls police stating that during a supervised custody exchange at a community centre, the mother picked up their 6-year-old daughter, ignored the supervisor, and drove away. A custody order is on file with the courts. The father provides a vehicle description — a white Honda Civic, Ontario plates beginning with BCXJ. The mother and child were last seen approximately 20 minutes ago heading westbound on Highway 17. You must assess whether Canadian Amber Alert criteria are met.",
+      "question": "How do you assess whether this situation meets Amber Alert criteria?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the Canadian Amber Alert criteria: (1) child is under 18 — confirmed (6 years old); (2) believed to have been abducted — present, as mother violated the custody order; (3) child's life or physical safety is at risk — not yet confirmed from facts alone; (4) sufficient description of child, suspect, and/or vehicle to generate public assistance — partially available. Consult with supervisor and gather more information on the risk to the child's safety before activating.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately activate the Amber Alert since a custody order was violated, as this automatically qualifies as child abduction.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Classify as a family/civil matter since the mother is a parent and refer the father to the family court for a contempt application.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Elevating the Risk Assessment",
+      "situation": "A background check on the mother reveals two prior domestic incidents. In the most recent incident, six months ago, she told the father: 'If I lose custody I will take Emma and you will never see either of us again.' A neighbour also reported her making statements about 'not living without Emma.' This information significantly elevates the risk to the child's physical safety. Your supervisor is on the line. The vehicle has a four-hour head start.",
+      "question": "What do you recommend to your supervisor regarding the Amber Alert?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recommend activating the Amber Alert — the prior threats to harm herself and the child satisfy the 'life or physical safety at risk' criterion; confirm all available details with the father (child's description, clothing, photo), ensure the vehicle description is accurate and verified before activation to avoid false alerts, and contact the provincial coordination centre.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Recommend against activation because there is no confirmed harm to the child yet and activating on threats alone may cause public panic.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Activate the alert immediately without verifying the vehicle description with the father, to maximize speed of response.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Inter-Jurisdictional Coordination",
+      "situation": "The Amber Alert is active. The vehicle has been sighted by a tip caller at a highway rest stop near the Ontario-Quebec border in Quebec. You are in Ontario. The RCMP and Quebec provincial police (SQ) have jurisdiction in Quebec. You must now coordinate an inter-jurisdictional response while ensuring the attending officers have all information needed to safely stop the vehicle and protect the child.",
+      "question": "How do you coordinate the cross-border response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the RCMP national communications centre and Quebec SQ dispatch immediately with the complete case package — vehicle, occupants, prior threats, child description, custody status — and request they conduct the vehicle stop; remain the file coordinator in Ontario; advise that the mother is considered a risk to herself and the child to ensure attending officers approach as a high-risk scenario.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Drive to the Quebec border yourself to take operational control of the vehicle stop, as you have the best knowledge of the case.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deactivate the Amber Alert now that the vehicle has been sighted, to avoid further public disruption while the stop is being arranged.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The RCMP safely stops the vehicle at the rest stop. Emma is unharmed. The mother is taken into custody and transported to a hospital for mental health assessment. Key training takeaways: Canadian Amber Alert criteria require (1) child under 18; (2) believed abducted; (3) life or physical safety at risk; (4) sufficient descriptors for public assistance — a custody violation alone does not automatically trigger the alert; prior threats significantly elevate the risk criterion; all information must be verified before activation to maintain public trust; inter-jurisdictional responses require formal information transfer and handoff, not unilateral action; the alert should remain active until the child is confirmed safe.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "title": "scenario_human_trafficking_victim",
+  "description": "Officers on patrol stop a vehicle for a traffic infraction and discover indicators suggesting the passenger may be a victim of human trafficking.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "patrol",
+    "human trafficking",
+    "victim identification",
+    "trafficking indicators",
+    "CCTT",
+    "vulnerable person",
+    "Criminal Code s.279"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Traffic Stop Initiated",
+      "description": "Officers stop a vehicle for a minor traffic infraction. The driver is a 35-year-old male. A young female passenger does not speak and appears fearful.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Initial Observations",
+      "description": "Officers note the passenger will not speak without glancing at the driver first. She has no identification. The driver answers all questions on her behalf.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Passenger Separated from Driver",
+      "description": "Using a legitimate pretext, officers separate the passenger from the driver and speak with her privately at the rear of the vehicle.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "CCTT Screening Conducted",
+      "description": "Officer uses open-ended, non-leading questions to assess trafficking indicators. Passenger becomes more communicative when away from the driver.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Disclosure Made",
+      "description": "Young woman discloses she has been forced to work in a massage parlour against her will. Driver holds her passport.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "Driver Arrested, Victim Services Engaged",
+      "description": "Driver arrested for trafficking. National Human Trafficking Hotline called. Victim transported by a female officer to a victim services location.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Passenger Indicators During Traffic Stop",
+      "situation": "You stop a vehicle for a broken tail light. The driver is a well-dressed male, 35, who is immediately cooperative and talkative. The female passenger appears to be 17–20 years old. She does not speak and looks at the driver before responding to your greeting. When you ask her name, the driver answers for her. She is not wearing a seatbelt. She has no identification and will not make eye contact. The driver says she is 'shy.'",
+      "question": "What do you do based on your observations of the passenger?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recognize the combination of indicators — deference to the driver, no ID, driver speaking on her behalf, avoidance of eye contact — as potential trafficking red flags; create a legitimate pretext to separate her from the driver (e.g., request that she step to the rear of the vehicle while you check vehicle documentation) and speak with her privately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the driver's explanation that she is shy, issue the traffic ticket, and allow both to continue since there is no direct evidence of a criminal offence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately arrest the driver on suspicion of human trafficking based on your observations, which will give you time to interview the passenger.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Private Interview Using CCTT Screening",
+      "situation": "You have separated the young woman from the driver — she is at the rear of the vehicle with your partner while you occupy the driver at the front. She is visibly more relaxed away from the driver but still cautious. She says her name is Linh and that she is 19. She still will not disclose where she lives or where she is going. You need to conduct a brief, trauma-sensitive screening without leading questions or re-traumatizing her.",
+      "question": "How do you conduct the trafficking indicators screening?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use open-ended, non-threatening questions based on CCTT trafficking indicators: 'Can you tell me a bit about yourself — where do you live?' 'Are you able to come and go as you please?' 'Does anyone hold your documents for you?' 'Has anyone ever asked you to do something you didn't want to do?' — avoid direct labels like 'trafficking' and do not rush; acknowledge that she is not in trouble and that you are there to help.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask her directly: 'Are you a trafficking victim?' to get a clear answer as efficiently as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell her you know what is happening and that her 'boyfriend' is in trouble, to encourage her to disclose against him.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Discloses Trafficking — Arrest and Support Coordination",
+      "situation": "Linh discloses in a quiet voice that she has been working at a massage parlour. She says the man in the car tells her she owes him money for bringing her from Vietnam and that she cannot leave until the debt is paid. He keeps her passport. She says she has not been paid. She is afraid he will hurt her or her family. She is asking what will happen to her. Your partner signals you: the driver is getting impatient.",
+      "question": "What are your next actions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrest the driver for trafficking in persons (Criminal Code s.279.01) based on Linh's disclosure; ensure Linh is not present for the arrest; contact the National Human Trafficking Hotline (1-833-900-1010); engage a female officer for victim transport; notify child welfare if she is under 18; request victim services; do not re-interview Linh extensively on scene — refer to a trafficking-trained investigator.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Linh to call police herself if she wants to make a formal complaint and release the driver with a caution since you only have Linh's word against his.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Detain both Linh and the driver at the station for simultaneous interviews to compare their accounts before making any arrest decision.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The driver is arrested and charged under Criminal Code s.279.01 (Trafficking in Persons) and s.279.02 (Material Benefit from Trafficking). Linh's passport is seized as evidence. She is transported by a female officer to a victim services organization specializing in trafficking support. Key training takeaways: trafficking indicators during traffic stops include: victim defers to the driver, no ID, driver speaks on victim's behalf, no freedom of movement, debt bondage references; CCTT (Canadian Centre to End Human Trafficking) framework guides indicator-based screening; never conduct a joint interview of victim and suspect; the National Human Trafficking Hotline is 1-833-900-1010; victim-centred approach prioritizes safety, dignity, and autonomy over immediate information extraction.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

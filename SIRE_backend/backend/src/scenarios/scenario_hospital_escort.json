@@ -1,0 +1,148 @@
+{
+  "title": "scenario_hospital_escort",
+  "description": "A patient detained under the Mental Health Act attempts to elope from the emergency department while officers are completing a hospital escort; hospital security requests assistance.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "hospital escort",
+    "Mental Health Act",
+    "elopement",
+    "use of force",
+    "custody"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrival at Emergency Department",
+      "description": "Officers arrive at the emergency department with a 27-year-old male under a Form 1 MHA apprehension. He has been cooperative during transport.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Patient Becomes Agitated",
+      "description": "After 45 minutes in the triage waiting area, the patient becomes increasingly agitated. He is pacing and muttering.",
+      "timeOffsetSec": 2700
+    },
+    {
+      "index": 2,
+      "title": "Patient Pushes Nurse",
+      "description": "The patient suddenly pushes a triage nurse aside and runs toward the emergency department exit doors.",
+      "timeOffsetSec": 2760
+    },
+    {
+      "index": 3,
+      "title": "Elopement Contained",
+      "description": "Officers pursue and contain the patient near the exit using minimum necessary force. He is not injured.",
+      "timeOffsetSec": 2820
+    },
+    {
+      "index": 4,
+      "title": "Post-Incident Assessment",
+      "description": "Officers reassess the patient for injuries and document the use-of-force application.",
+      "timeOffsetSec": 3000
+    },
+    {
+      "index": 5,
+      "title": "Patient Transferred to Secure Room",
+      "description": "Hospital staff secure the patient in a psychiatric hold room. Officers complete a use-of-force report before leaving.",
+      "timeOffsetSec": 3300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Patient Elopes Toward ED Exit",
+      "situation": "You are completing a hospital escort at an emergency department after transporting a 27-year-old male under a Form 1 MHA apprehension. While waiting for triage, the patient abruptly pushes a nurse and sprints toward the exit doors. He is in lawful custody under the MHA. You are approximately 10 metres behind him. Hospital security is at the opposite end of the department. The patient has not been violent prior to this moment.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pursue immediately — he is in lawful custody under the MHA and you have the authority and obligation to prevent his elopement; use the minimum force necessary to contain him (verbal commands, physical control hold) without striking or deploying weapons given the hospital environment and the mental health context.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Let the patient exit the hospital and update dispatch, as your authority to detain him ends at the emergency department doors.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deploy OC spray immediately in the emergency department to stop the patient before he reaches the exit.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Post-Containment — Injury Assessment and Documentation",
+      "situation": "The patient has been contained near the exit using a physical control technique. He is on the floor and is now cooperative again. He has a minor abrasion on his knee from the containment. No bystanders were injured. The nurse who was pushed is shaken but not hurt. You used a controlled takedown technique. Your supervisor must be notified and a use-of-force report is required.",
+      "question": "What are your immediate post-incident obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify your supervisor immediately; request EMS assessment of the patient's abrasion and the nurse's welfare; document the use-of-force incident (technique used, justification, observations before and after) before completing your shift; advise hospital staff of the patient's escalating state for updated triage priority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Treat the abrasion with your own first-aid kit and consider the incident closed since no serious injuries occurred and use of force was minor.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Defer documentation of the use of force to the next shift, as the patient is now calm and no formal complaint has been made.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Transitioning Patient to Psychiatric Hold",
+      "situation": "EMS has assessed the patient's abrasion — it is minor and needs no treatment. The nurse was not injured. Hospital staff have arranged for a secure psychiatric hold room. The patient is calm but appears ashamed and is not speaking. Staff ask if the police need to remain present while they transition the patient. You are preparing to complete your use-of-force report.",
+      "question": "How do you complete the hospital handover?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remain present during the transition to the hold room to ensure a safe handover; provide a verbal briefing to the psychiatric nurse on the elopement attempt, patient behaviour during transport, and use of force; complete and submit the required use-of-force report before leaving; advise the patient calmly of what has happened.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the emergency department immediately after the elopement is contained and submit the use-of-force report within 30 days as per standard administrative policy.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Handcuff the patient to the bed in the hold room as a precaution against further elopement attempts before leaving.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The patient is safely transferred to the psychiatric hold room. Your use-of-force report is completed and submitted. Key training takeaways: officers retain lawful authority to prevent elopement under the MHA during the entire hospital escort until formal transfer of custody to clinical staff; use of force in a hospital environment must be proportionate and carefully applied given vulnerable bystanders and the mental health context; use-of-force reports are mandatory regardless of injury level and must be completed promptly; hospital handover is a formal process that includes a verbal briefing on the patient's behaviour; treating the patient with dignity throughout reduces the risk of re-escalation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

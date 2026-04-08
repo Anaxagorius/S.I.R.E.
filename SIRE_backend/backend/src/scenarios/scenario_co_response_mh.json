@@ -1,0 +1,148 @@
+{
+  "title": "scenario_co_response_mh",
+  "description": "Officers are dispatched alongside a Mobile Crisis Response Team to a person in crisis; the scenario tests appropriate role delineation between police and mental health clinicians.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "co-response",
+    "Mobile Crisis Response Team",
+    "MCRT",
+    "mental health",
+    "role delineation"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Co-Dispatch Activated",
+      "description": "A 911 call from a 16-year-old girl: her mother has been 'acting crazy' all day and is locked in her bedroom. Police and an MCRT clinician are co-dispatched.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive First",
+      "description": "Officers arrive 4 minutes ahead of the MCRT clinician. The teen is at the door. The mother has not responded to knocks.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Scene Secured, Clinician En Route",
+      "description": "Officers confirm no immediate safety threat, brief the teen, and wait for the clinician while maintaining calm contact with the mother through the door.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 3,
+      "title": "MCRT Clinician Arrives",
+      "description": "Clinician arrives and is briefed by the officer. Clinician takes the clinical lead. Officer maintains scene safety.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Voluntary Transport Decision",
+      "description": "Clinician completes assessment and determines voluntary transport is appropriate. Mother agrees to go to hospital.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Documentation Completed",
+      "description": "Officer documents role in the response, assists with transport facilitation, and submits co-response report per policy.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Officers Arrive Before the MCRT Clinician",
+      "situation": "You and your partner are dispatched alongside an MCRT clinician to a co-response call. You arrive four minutes before the clinician. A 16-year-old girl answers the door and says her mother, who has a history of major depression, has been behaving strangely since morning and is locked in her bedroom. She is not responding to knocks. The teen says her mother is not violent. You can hear low talking from the bedroom. There is no indication of immediate physical danger.",
+      "question": "What do you do while waiting for the MCRT clinician?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Briefly confirm the scene is safe, speak calmly with the teen to gather key information (mother's name, medication history, what specifically prompted the call), knock on the bedroom door and introduce yourself in a calm non-clinical tone to let the mother know someone is present, and prepare a thorough briefing for the clinician on arrival.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin a full mental health risk assessment with the teen and attempt to make formal contact with the mother before the clinician arrives, so that the situation is resolved faster.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Force open the bedroom door immediately to confirm the mother's physical safety, as she is not responding to knocks.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Handing Off to the MCRT Clinician",
+      "situation": "The MCRT clinician has arrived. You brief her: the mother's name is Carol, she has major depression and takes sertraline, and the teen says Carol has been talking to herself and refused food today. The clinician thanks you for the briefing and says she will now take the lead on the clinical assessment. Carol has still not opened the door but says she is listening. The clinician asks you to remain nearby for safety.",
+      "question": "How do you manage your role now that the clinician has arrived?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Defer the clinical assessment entirely to the clinician — she leads all communication with Carol; you maintain a non-intrusive safety position nearby, do not interject unless a safety issue arises, and avoid duplicating the assessment or sending mixed messages to Carol.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue to ask Carol questions simultaneously with the clinician to gather information faster and demonstrate police presence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decide independently that Carol meets MHA apprehension criteria and begin completing a Form 1, since the clinician's assessment may take too long.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Clinician Recommends Voluntary Transport",
+      "situation": "After 30 minutes, the clinician has built rapport with Carol through the door. Carol has opened the door and spoken with the clinician. The clinician determines Carol is not an immediate danger but is experiencing a depressive episode with passive suicidal ideation. Carol agrees to voluntarily go to the hospital for assessment. She is calm. The teen is asking to come. The clinician asks you what the police role is at this stage.",
+      "question": "What is the police role in facilitating voluntary transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your role is facilitation and documentation: accompany Carol if she is comfortable with it, but transport is led by the MCRT if their model includes transport; if not, arrange a non-police ambulance or assist without coercion; ensure the teen has a safe care plan; document your involvement in the co-response accurately including observations, actions taken, and the clinician's recommendation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Place Carol in a police vehicle for transport as standard procedure whenever a mental health patient is transported to hospital.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline to document the call, as the outcome was voluntary and there was no criminal act or use of force involved.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Carol is transported voluntarily by the MCRT clinician. The teen is placed with a trusted neighbour while Carol is assessed. Officers complete their co-response documentation. Key training takeaways: in co-response models, police and mental health clinicians have distinct roles — police provide safety and scene management, clinicians lead clinical assessment and communication; officers should not conduct clinical assessments they are not trained for; completing a thorough pre-arrival brief maximizes clinician effectiveness; voluntary resolution is the gold standard; all co-response calls require documentation of police role, observations, and outcomes; officer de-escalation while awaiting the clinician is valuable and appropriate.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

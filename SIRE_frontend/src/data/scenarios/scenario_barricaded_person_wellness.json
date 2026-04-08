@@ -1,0 +1,148 @@
+{
+  "title": "scenario_barricaded_person_wellness",
+  "description": "A wellness check on a 35-year-old male escalates when the subject barricades himself inside his apartment and refuses to communicate with officers.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "barricaded person",
+    "mental health",
+    "crisis negotiation",
+    "de-escalation",
+    "tactical support"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Wellness Check Dispatched",
+      "description": "Dispatch receives a call from a neighbour reporting yelling and crashing sounds from the adjacent apartment. Officers are sent for a wellness check on a 35-year-old male tenant.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Subject Barricades Himself",
+      "description": "Officers arrive and announce themselves. The subject yells through the door that he has a knife and will not come out, then goes silent.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Perimeter Established",
+      "description": "Officers contain the immediate area, evacuate adjacent residents, and request supervisory direction.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Crisis Negotiator Requested",
+      "description": "A Crisis Negotiation Team (CNT) is requested along with a mental health co-responder. ERT is placed on standby.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Communication Established",
+      "description": "The crisis negotiator establishes telephone contact with the subject, who discloses he has been off his medication for two weeks.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Peaceful Resolution",
+      "description": "After sustained negotiation, the subject agrees to put down the knife and opens the door voluntarily. He is assessed by paramedics on scene.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Subject Refuses to Open Door",
+      "situation": "You and your partner respond to a wellness check at an apartment building. A neighbour reports yelling and crashing sounds from the adjacent unit. When you knock and identify yourselves, a male voice shouts through the door that he has a knife and 'won't let you take him.' You can hear him moving around inside. Other residents are in the hallway.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a perimeter, evacuate nearby residents without causing alarm, do not attempt to force entry, request a supervisor, Emergency Response Team (ERT) on standby, and a Crisis Negotiation Team (CNT) with a mental health co-responder.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately force entry under exigent circumstances to conduct a welfare check and prevent potential self-harm.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to talk the subject into opening the door alone, without requesting additional resources, to avoid escalation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "CNT Arrives — Establishing Contact",
+      "situation": "A supervisor, ERT, and a Crisis Negotiation Team member have arrived. The CNT negotiator asks for everything you know about the subject. A neighbour tells you the man's name is Daniel, he lives alone, and he recently lost his job. ERT is staged at the end of the hallway. The negotiator asks how you want to initiate contact — phone or through the door.",
+      "question": "How should initial contact with Daniel be established?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Relay Daniel's name and background to the CNT negotiator and allow the negotiator to lead all communication — they attempt contact by phone first, using a calm, non-confrontational tone to reduce pressure and build rapport.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have multiple officers announce loudly at the door that ERT is present and ready to make entry unless Daniel complies immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask ERT to breach the door using a distraction device to gain rapid control before Daniel can injure himself.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Negotiation Progress",
+      "situation": "The CNT negotiator has been on the phone with Daniel for 40 minutes. Daniel has disclosed he stopped taking his antipsychotic medication two weeks ago after losing his job, and that he is scared and does not want to go to jail. He has not made any further threats in the last 20 minutes. The negotiator believes Daniel is receptive and asks whether you, as the officer he heard first, should come to the door to build a bridge toward surrender.",
+      "question": "How do you support the negotiation at this critical stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "In coordination with the CNT negotiator, calmly approach the door alone (ERT still staged) and speak to Daniel by name, acknowledge his fear, reassure him he is not in trouble, and invite him to put down the knife and open the door so he can get help.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Daniel through the door that ERT will breach in five minutes if he doesn't comply, to pressure him into surrendering.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stand back and let the negotiator handle it without any additional officer contact, even though the negotiator has specifically requested your involvement.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Daniel opens the door, puts down the knife, and is taken into custody safely. Paramedics assess him and he is transported to hospital for a psychiatric evaluation under provincial Mental Health Act criteria. No injuries occurred. Key training takeaways: always establish a perimeter and request CNT/ERT before attempting entry in a barricaded person situation; forced entry is a last resort; mental health co-response improves outcomes; the Hostage Negotiation Team (HNT/CNT) protocols emphasize rapport-building over compliance demands; early identification of mental health factors guides a therapeutic rather than punitive response.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "title": "scenario_missing_youth",
+  "description": "A 16-year-old boy is reported missing by his parents after failing to return home from school; officers conduct a missing persons investigation and must assess risk classification.",
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": [
+    "patrol",
+    "missing youth",
+    "missing persons",
+    "risk assessment",
+    "vulnerable person",
+    "NCMEC",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Missing Person Report Filed",
+      "description": "Parents report their 16-year-old son missing. He texted at 3:30 PM saying he was going to a friend's house, but the friend says he never arrived.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Initial Risk Classification",
+      "description": "Officers conduct an intake interview with the parents. Son has no known mental health issues and no history of running away.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Canvass and Record Check",
+      "description": "Officers canvass the school area, check school records, and contact known friends. Cell phone records are requested.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Social Media Analysis",
+      "description": "Officers discover the youth has been messaging an older acquaintance not known to the parents.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Youth Located",
+      "description": "Officers attend an apartment address linked to the acquaintance. Youth is inside and appears physically safe.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 5,
+      "title": "Welfare Assessment Completed",
+      "description": "Officer conducts a one-on-one welfare check with the youth, assessing for exploitation indicators before reunification with family.",
+      "timeOffsetSec": 1500
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Missing Youth Intake",
+      "situation": "Parents arrive at the detachment to report their 16-year-old son, Tyler, missing. He texted at 3:30 PM saying he was going to his friend Jake's house, but Jake says Tyler never showed up. It is now 9:00 PM. Tyler has no mental health diagnosis and no prior missing person history. His parents seem cooperative and worried. There is no custody dispute.",
+      "question": "How do you conduct the missing person intake and risk classification?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a thorough intake interview: last confirmed location, description and clothing, cell phone number, recent social media accounts, names of all friends and known contacts, any recent conflicts at home or school, transportation access, and online contacts including any new or older acquaintances; assign a preliminary risk level based on the totality — do not wait 24 hours to act.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise the parents that Tyler is likely at a friend's house and to call back in the morning if he has not returned, as 16-year-olds often stay out late.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Record the report with basic information only and wait 24 hours before initiating any investigation, per standard missing persons protocol.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Canvass and Digital Investigation",
+      "situation": "From your intake, you have Tyler's cell number and his Instagram handle. You've spoken to three of his friends — no one has seen him. A check of his Instagram reveals he was recently messaging with a 22-year-old male he met at a skate park. The parents don't know this person. A cell tower ping places Tyler's phone at an apartment building two kilometres from his school. His parents are becoming increasingly anxious.",
+      "question": "How do you proceed with the investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the new contact as a potential concern and act immediately — cross-reference the acquaintance's name with police records, locate the apartment building using the cell tower data, canvass the building, and attend in person to conduct a welfare check; notify a supervisor and document exploitation risk indicators present (age gap, secrecy, unknown contact).",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send Tyler a text message from his parents' phone asking him to come home before taking any further investigative steps.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Conclude that Tyler is voluntarily with the older acquaintance and classify as a low-risk runaway since there is no direct evidence of harm.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Youth Located — Welfare Assessment",
+      "situation": "You attend the apartment building and confirm Tyler is inside a ground-floor unit with the 22-year-old acquaintance. Tyler opens the door and says he is fine and did not want to go home. He appears physically safe. The adult male is present and seems nervous. You need to assess for exploitation indicators before reunifying Tyler with his family. Tyler is initially resistant to speaking alone with you.",
+      "question": "How do you conduct the welfare assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calmly but firmly request to speak with Tyler privately — this is a legal obligation for a welfare check on a minor; use a trauma-informed, non-judgmental approach; ask open-ended questions about the relationship, whether he can come and go freely, and whether anyone has asked him to do anything he was uncomfortable with; assess for physical indicators of abuse or exploitation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept Tyler's statement that he is fine, reunite him with his parents immediately, and close the file.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the adult male immediately for harbouring a minor, as his nervous demeanour is sufficient grounds.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Tyler is returned safely to his family after the welfare assessment reveals no exploitation indicators — he had a conflict with his parents and sought out the older acquaintance for support. The adult male is not criminally implicated but is advised of the concern. Key training takeaways: there is no mandatory waiting period to report a missing person in Canada; all missing youth reports must be taken seriously and risk-classified promptly; exploitation indicators include age-gap relationships, secrecy, new gifts or clothing, absence from school, and reluctance to speak privately; conducting a one-on-one welfare assessment before reunification is a critical safeguard; document all investigative steps regardless of outcome.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

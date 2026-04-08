@@ -1,0 +1,148 @@
+{
+  "title": "scenario_edp_transit",
+  "description": "Transit security requests police assistance for an emotionally disturbed person who is agitated and blocking a subway car door, preventing the train from departing.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "EDP",
+    "public transit",
+    "mental health",
+    "de-escalation",
+    "crowd management"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Transit Security Request",
+      "description": "Transit control requests police for an EDP at a downtown subway platform. A male is blocking a car door, preventing departure. Multiple trains are now backed up.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive on Platform",
+      "description": "Officers arrive to find the subject in the doorway, shouting about 'thought thieves.' Dozens of commuters are in the car and on the platform.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Platform Crowd Managed",
+      "description": "Transit staff begin directing commuters away. A second officer arrives. The subject has not been physically threatening.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Verbal Contact Initiated",
+      "description": "Lead officer uses a calm greeting. Subject makes eye contact and pauses yelling for a moment.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Subject Agrees to Step Off",
+      "description": "Using a non-confrontational approach, the subject agrees to step off the train and accompany officers to a quieter area of the platform.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Mental Health Response Arranged",
+      "description": "A Mobile Crisis Response Team clinician is dispatched to the station. Officers remain with the subject until the clinician arrives.",
+      "timeOffsetSec": 720
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "EDP Blocking Subway Door",
+      "situation": "You arrive at a busy downtown subway platform. A 30-year-old male is standing in the open doorway of a subway car, preventing it from closing. He is shouting that the other passengers are 'stealing his thoughts.' Dozens of commuters are trapped in the car; more are on the platform watching. Transit staff are present but have stepped back. The man has not made physical contact with anyone.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact transit control to hold all trains on the platform — safety first; direct transit staff to calmly and quietly guide bystanders back from the immediate area while you and your partner position yourselves non-threateningly on the platform; request backup and a Mobile Crisis Response Team.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Physically remove the subject from the doorway immediately to restore service and prevent a public disturbance from escalating.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Announce loudly to the subject and all bystanders that the subject must move or will be arrested, to assert authority in a public space.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Verbal Engagement with the Subject",
+      "situation": "The immediate area around the door is more clear. The subject is still in the doorway but his shouting has become intermittent. He appears to be listening even while he speaks. You are about 3 metres away. Transit staff have told you his name might be Antoine — he is a regular at this station and has had prior police contacts for mental health issues. No violent history is noted in his file.",
+      "question": "How do you initiate contact with Antoine?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approach slowly from the front so he can see you, make eye contact, introduce yourself by first name, address him as Antoine, speak in a calm conversational tone, and acknowledge his distress: 'Antoine, it looks like things are tough right now — can we step off the train together and talk for a minute?'",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Antoine he is under arrest for causing a disturbance and attempt to handcuff him in the doorway.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore Antoine's stated concerns about thought theft entirely and repeat only instructions for him to move, speaking over his statements.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Antoine Agrees to Step Off the Train",
+      "situation": "Antoine has stepped off the train onto the platform after several minutes of calm conversation. The train departs. He is agitated but is walking with you toward a quieter end of the platform. He is muttering and visibly distressed. The MCRT clinician is 10 minutes out. He suddenly sits down on a bench and says he is not going anywhere. You need to keep him engaged until the clinician arrives.",
+      "question": "How do you manage Antoine while waiting for the MCRT clinician?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sit near Antoine (not directly in front, non-threatening body posture), continue low-key conversation — ask if he is hungry or thirsty, avoid challenging his delusions, explain that a support worker is coming to talk with him, and keep the space calm and low-stimulation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apprehend Antoine involuntarily under the MHA immediately, as his behaviour has met the criteria by blocking public transit.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave Antoine on the bench unsupervised and wait near the platform entrance for the clinician to arrive, giving Antoine space.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The MCRT clinician arrives and conducts a full risk assessment. Antoine is determined to meet involuntary examination criteria and is transported to hospital for psychiatric evaluation. No use of force was required. Key training takeaways: EDP responses in transit environments require coordination with transit authority and crowd management; the goal is always voluntary cooperation first; engaging by name, acknowledging distress, and avoiding confrontational commands are proven de-escalation techniques; never force an EDP from a confined space like a train doorway when voluntary movement is possible; MCRT/mobile crisis co-response improves outcomes and reduces unnecessary criminalization of mental illness.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

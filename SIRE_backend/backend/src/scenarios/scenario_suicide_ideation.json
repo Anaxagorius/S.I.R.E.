@@ -1,0 +1,148 @@
+{
+  "title": "scenario_suicide_ideation",
+  "description": "A 911 caller reports that a friend texted them saying goodbye and they believe the friend is suicidal; officers are dispatched to the friend's apartment.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "suicide ideation",
+    "mental health",
+    "crisis intervention",
+    "safe messaging",
+    "Mental Health Act"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "911 Call Received",
+      "description": "A 21-year-old woman calls 911 saying her friend texted her 'goodbye, take care of my dog.' She believes her friend is suicidal. Officers dispatched.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive",
+      "description": "Officers arrive at the apartment. A 22-year-old male answers the door, appears dishevelled but physically unharmed. He denies anything is wrong.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Note Observed",
+      "description": "An officer notices a handwritten note on the kitchen table. The subject tries to block the officer's view of the note.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 3,
+      "title": "Risk Assessment Conducted",
+      "description": "Officer gently asks about the note and the text to his friend. Subject becomes tearful and admits he has been thinking about ending his life.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Mobile Crisis Team Contacted",
+      "description": "Officer contacts the Mobile Crisis Response Team while maintaining calm contact with the subject. Subject agrees to speak with the mental health clinician.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 5,
+      "title": "Voluntary Transport Arranged",
+      "description": "Subject agrees to voluntary hospital assessment accompanied by an officer. He is calm and cooperative.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Subject Denies Being in Crisis",
+      "situation": "You arrive at a 22-year-old male's apartment after his friend called 911 about a goodbye text. He opens the door, appears dishevelled and withdrawn but physically unharmed, and says 'I'm fine, she overreacted.' There is no obvious immediate danger. You notice a handwritten note on the kitchen table before he shifts to block your view. He lives alone.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use a calm, non-judgmental approach — introduce yourself by name, ask if you can come inside to talk for a few minutes, acknowledge that his friend was worried about him, and avoid confrontational or dismissive language; do not immediately reference the note.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell him that his friend called 911 and that you need to search the apartment for weapons immediately to conduct a safety check.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Accept his denial at face value — confirm he is physically unharmed, advise him to contact his doctor, and clear the call as unfounded.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Building Rapport and Addressing the Note",
+      "situation": "The subject has allowed you inside. You are seated across from him. He is fidgeting and avoiding eye contact. The note is visible on the kitchen table. You need to assess his suicide risk directly but compassionately. Your partner is near the door. The subject's body language has softened slightly since you arrived.",
+      "question": "How do you conduct a risk assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ask directly but gently: 'I noticed there's a note on the table — can you tell me about it? I'm not here to judge you, I'm here because someone who cares about you was worried.' Then directly ask: 'Are you having thoughts of ending your life?'",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pick up the note and read it aloud to prompt a reaction, then ask him to explain himself.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Avoid asking about suicide directly to prevent planting the idea, and instead ask only general questions about how he is feeling lately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Discloses Suicidal Ideation",
+      "situation": "The subject becomes tearful and admits he has been thinking about suicide for weeks. He says he does not have a specific plan, but admits he looked up methods online. He has no access to firearms but says he has a full bottle of sleeping pills. He says he does not want to go to the hospital because 'they'll lock me up.' The Mobile Crisis Response Team (MCRT) clinician is available.",
+      "question": "What is the appropriate response to his disclosure and resistance to hospital transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge his courage in disclosing, validate his distress, and explain that the goal is to keep him safe — contact the MCRT clinician to conduct a clinical risk assessment, ask a family member or friend to be present if possible, and explore voluntary hospital transport; if he refuses and meets MHA criteria, document grounds for involuntary apprehension.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately apprehend him involuntarily under the Mental Health Act without first exploring voluntary options, as his admission of ideation automatically meets the legal threshold.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Take the bottle of sleeping pills, advise him to call a crisis line, and clear the scene since he has no specific plan.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The subject voluntarily agrees to transport after the MCRT clinician speaks with him and explains the assessment process. Officers secure the sleeping pills and accompany him to hospital. Key training takeaways: asking directly about suicide does not increase risk — it signals care and opens dialogue; safe messaging guidelines (avoid detailed method discussion, do not minimize, do not leave person alone); the duty to act under provincial Mental Health Act is triggered when a person meets the criteria of danger to self or others or inability to care for themselves; voluntary transport is always preferred over involuntary apprehension when feasible; document all disclosures and the rationale for the disposition decision.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

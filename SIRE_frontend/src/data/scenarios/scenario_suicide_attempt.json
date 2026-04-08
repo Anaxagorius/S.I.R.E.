@@ -1,0 +1,148 @@
+{
+  "title": "scenario_suicide_attempt",
+  "description": "Officers and EMS are dispatched to a report of a person found unresponsive in a bathtub; the scene suggests a suicide attempt with medication overdose.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "patrol",
+    "suicide attempt",
+    "overdose",
+    "EMS coordination",
+    "Mental Health Act",
+    "evidence preservation"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "911 Call — Unresponsive Person",
+      "description": "An adult daughter calls 911 after finding her 45-year-old mother partially conscious in a bathtub with an empty prescription bottle nearby. EMS and police dispatched.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Entry",
+      "description": "Officers and EMS arrive simultaneously. The daughter is distressed at the front door. The bathroom is at the end of the hallway.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Patient Assessment",
+      "description": "EMS assesses the woman — she is conscious but severely disoriented. Empty bottle of oxycodone is on the bath ledge. A handwritten note is visible on the bathroom vanity.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Evidence and Life Safety Tension",
+      "description": "EMS needs to move the patient. Officers must decide how to handle the note and pill bottle without contaminating the scene while allowing medical access.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Gathering Medical History",
+      "description": "As EMS stabilizes the patient, an officer gently interviews the daughter for medication history, prior attempts, and mental health background to relay to hospital staff.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Patient Transported",
+      "description": "The woman is stabilized and transported by EMS. Officers complete documentation and a mandatory mental health notification.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Entry to Scene — Unresponsive Person in Bathtub",
+      "situation": "You arrive simultaneously with EMS at a residence where a 45-year-old woman has been found partially conscious in a bathtub by her adult daughter. The daughter is at the front door, crying. The bathroom is clear of other persons. On the bath ledge is an empty prescription oxycodone bottle. A handwritten note is on the vanity. The woman is breathing but unresponsive to verbal commands.",
+      "question": "What is your immediate priority upon entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enter the bathroom with EMS, do a rapid scene safety assessment (no other persons, no hazards), allow EMS to access the patient immediately as life safety takes absolute priority, and photograph the note and pill bottle in place before EMS has to move anything — notify dispatch of the apparent overdose/self-harm mechanism.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Secure the pill bottle and note as evidence immediately, directing EMS to wait until items are properly bagged and tagged before entering.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Secure the perimeter of the bathroom and wait for a detective before allowing EMS to assess the patient, as this may be a criminal scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Managing Evidence Amid Medical Treatment",
+      "situation": "EMS is treating the patient and needs to move her from the tub to a stretcher. The note and pill bottle are near the tub. Your partner has photographed the note and bottle in place. EMS asks you to move the pill bottle so they can position the stretcher. The note has not yet been read. The daughter is asking to come into the bathroom.",
+      "question": "How do you manage the evidence and the daughter's request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Wearing gloves, carefully move only the pill bottle (after photographing) to allow EMS access, leaving the note in place; do not allow the daughter into the bathroom at this time — bring her to another room, acknowledge her distress, and explain that you'll update her shortly.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the daughter into the bathroom to comfort her mother, as next-of-kin rights override scene management considerations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave all items untouched and refuse to assist EMS in moving any evidence, directing them to work around the items.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Gathering Information from the Daughter",
+      "situation": "The patient has been stabilized and EMS is preparing to transport. Your partner stays with EMS. You are with the daughter in the living room. She is distraught but coherent. You need to gather medical history and context for the hospital team, as well as complete mandatory mental health documentation. The daughter asks if her mother is going to die.",
+      "question": "How do you gather information while supporting the daughter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge her fear honestly but calmly — say that EMS is doing everything they can. Then ask open-ended, compassionate questions: her mother's medications and prescribing doctor, any prior suicide attempts, known mental health diagnoses, and any stressors recently. Relay this information directly to the EMS crew for hospital handover and complete your mandatory mental health report.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell the daughter her mother will be fine to keep her calm, then conduct the information-gathering interview in a formal tone without addressing her emotional state.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Defer all information gathering to the attending physician at the hospital and leave the scene once EMS departs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The patient is transported to hospital and treated successfully for an opioid overdose. Key training takeaways: life safety always supersedes evidence preservation — photograph evidence in place before it must be moved, never delay medical treatment; officers at medical emergency scenes have a facilitation role, not a scene-control role that impedes care; information gathered at scene (medications, mental health history, prior attempts) is critical for EMS-hospital handover; mandatory mental health reporting obligations vary by province but generally require documentation when a person is transported following a self-harm event; balance family support with scene management.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
