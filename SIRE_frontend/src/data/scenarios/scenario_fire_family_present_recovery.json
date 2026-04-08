@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_family_present_recovery",
+  "description": "Family members are present at a fire scene during the recovery of a deceased relative — crews must balance compassionate family support with scene integrity, crew welfare, and investigator access.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Structure fire — two-story home, elderly occupant reported inside.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Heavy fire, rapid knockdown. Victim located deceased during primary search.", "timeOffsetSec": 120 },
+    { "index": 2, "title": "Family Arrives", "description": "Adult children of the victim arrive on scene while crews are still working the interior.", "timeOffsetSec": 300 },
+    { "index": 3, "title": "Family Demands Access", "description": "One family member demands to enter the building to see their parent. Media is filming from across the street.", "timeOffsetSec": 360 },
+    { "index": 4, "title": "Recovery Underway", "description": "Medical examiner begins recovery process. Family is in distress outside.", "timeOffsetSec": 480 },
+    { "index": 5, "title": "Scene Handoff", "description": "Recovery complete. Scene handed to investigators. Family needs post-scene support.", "timeOffsetSec": 600 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Family Arrives During Active Recovery",
+      "situation": "Two adult children have arrived on scene. The building is still being cleared for investigator access. One family member is becoming increasingly agitated and is moving toward the perimeter tape demanding to see their parent. A crew member inside is still with the victim location. Media is present and filming. You are the sector officer managing the exterior.",
+      "question": "What do you do immediately?",
+      "options": [
+        { "label": "A", "text": "Assign a senior, calm officer or chaplain — not a firefighter with active scene duties — to immediately approach the family members, introduce themselves by name, and guide them to a private staging area away from the perimeter and cameras. Do not leave the family unattended near the tape.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Allow the family members to approach the perimeter tape so they feel included in what is happening.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Direct a firefighter exiting the building to tell the family to wait — active crews should maintain scene focus.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Access Demand",
+      "situation": "The family liaison officer has the family in a private staging area. One family member is calm but the other is insisting they have a right to see their parent before the body is moved. The medical examiner is beginning recovery. Scene entry by untrained civilians could compromise evidence and expose the family to trauma. The family member says they will call a lawyer.",
+      "question": "How does the liaison officer respond?",
+      "options": [
+        { "label": "A", "text": "Respond with empathy — acknowledge their grief and their need to be close to their parent. Explain clearly and honestly that the scene is legally under the jurisdiction of the medical examiner and law enforcement, that entry would compromise the investigation and potentially harm the legal process for establishing cause of death, and that they will be notified as soon as the medical examiner can authorize a viewing through proper channels.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow the calmer family member to briefly enter with a firefighter escort to avoid a confrontation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Threaten to have the family members removed from the scene perimeter by law enforcement if they continue demanding access.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "During the Recovery",
+      "situation": "The family is waiting in the staging area. Recovery by the medical examiner is underway. The liaison officer must keep the family informed without releasing premature or traumatizing details. The distressed family member is asking repeatedly what their parent looked like when found and whether they suffered.",
+      "question": "How should the liaison officer handle these questions?",
+      "options": [
+        { "label": "A", "text": "Respond honestly but with care. Confirm that their parent was found and is being cared for respectfully. Do not provide graphic details — these are not yours to share at this stage. Gently redirect by expressing that the medical examiner will be able to provide more specific information through official channels. Offer to connect them with a grief counselor or chaplain now.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Describe in detail the condition the victim was found in to give the family closure and honesty.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell the family their parent 'went peacefully' regardless of what was observed, to prevent further distress.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The recovery was completed with scene integrity preserved and the family supported with compassion throughout. The liaison officer maintained the boundary between operational necessity and family grief without being dismissive or dishonest. The family was connected with a grief counselor and provided information on next steps through the medical examiner's office. Well done — supporting a family during the recovery of a loved one demands emotional discipline, honesty, and empathy.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "family liaison", "fatality recovery", "psychological", "scene integrity", "grief support", "human factors"]
+}

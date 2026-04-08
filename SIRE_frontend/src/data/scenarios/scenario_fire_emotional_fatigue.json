@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_emotional_fatigue",
+  "description": "A veteran firefighter shows signs of cumulative emotional fatigue after an extended period of high-frequency critical incidents — the company officer must recognize the signs and act appropriately before a crisis occurs.",
+  "timeline": [
+    { "index": 0, "title": "Context", "description": "Your station has responded to three fatality incidents, two pediatric cardiac arrests, and one line-of-duty injury over the past six weeks.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Change in Behavior", "description": "A 12-year veteran on your crew has become increasingly irritable, withdrawn, and dismissive in briefings.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Performance Change", "description": "At the last two calls, the firefighter's situational awareness and decision-making were slower than usual. A near-miss occurred.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Private Disclosure", "description": "In private, the firefighter tells you they are not sleeping, drinking more than usual, and feel nothing when they show up for work.", "timeOffsetSec": 90 },
+    { "index": 4, "title": "Operational Decision", "description": "A high-priority call comes in. The firefighter insists they are fine to respond.", "timeOffsetSec": 120 },
+    { "index": 5, "title": "Support Pathway", "description": "The company officer must navigate duty of care, operational safety, and the firefighter's dignity.", "timeOffsetSec": 180 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Recognizing the Signs",
+      "situation": "You have observed the behavioral changes over the past three weeks: irritability, withdrawal, and two incidents of reduced situational awareness. The firefighter has not self-reported any issues formally. You are responsible for this crew's safety and welfare. No formal complaints have been made, but a near-miss at the last call involved this firefighter hesitating at a critical moment.",
+      "question": "What is your first action?",
+      "options": [
+        { "label": "A", "text": "Request a private conversation with the firefighter — not to discipline, but to express genuine concern as their officer and colleague. Use specific behavioral observations without diagnosing or labeling. Make it clear the conversation is confidential and that your priority is their wellbeing and the crew's safety.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Address the performance issues formally in a written warning — declining performance must be documented regardless of cause.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait and monitor — if no formal complaint has been made and nothing critical has happened, it is premature to intervene.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Private Disclosure",
+      "situation": "During the private conversation, the firefighter discloses they are not sleeping, drinking more than normal, feel emotionally numb, and dread coming to work. They say they are embarrassed and don't want anyone to know. They ask you to keep it between you. They have not mentioned self-harm.",
+      "question": "How do you respond?",
+      "options": [
+        { "label": "A", "text": "Thank them for trusting you. Acknowledge their courage in sharing it. Be honest that you cannot keep their safety concerns entirely confidential — but you will advocate for them and handle this with full discretion through proper support channels, not punishment. Connect them with the EAP and CISM resources immediately and offer to make the call together.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Promise full confidentiality — what they share with you stays with you, and they can continue working normally.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Immediately report all details to the battalion chief and HR before speaking further with the firefighter.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Fitness for Duty",
+      "situation": "A call comes in — a working structure fire. The firefighter insists they are fit to respond. They say they need to feel useful and that sitting out will make everything worse. You know from your conversation that they are sleep-deprived, emotionally numb, and showed a near-miss-level lapse last call.",
+      "question": "What do you decide?",
+      "options": [
+        { "label": "A", "text": "Assign the firefighter to a non-entry, non-critical role on this call — such as pump operator or accountability. Explain the decision privately as a temporary step, not punishment. After the call, initiate the formal fitness-for-duty process in coordination with your medical officer and EAP — the firefighter's safety and the crew's safety are both at stake.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Allow them to respond in their normal role — they self-reported and are aware of their limits, which is enough assurance.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Immediately place them on administrative leave and instruct them to report to HR before their next shift.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The emotional fatigue was recognized early through behavioral observation. The private conversation was handled with respect and honesty. The firefighter was connected with EAP and CISM resources through a supportive, non-punitive process. Operational safety was maintained by adjusting the firefighter's role while a formal fitness-for-duty assessment was initiated. Well done — cumulative emotional fatigue is a silent danger in the fire service, and recognizing and acting on it requires courage from leaders.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["emotional fatigue", "cumulative stress", "CISM", "EAP", "crew welfare", "fitness for duty", "psychological", "human factors", "leadership"]
+}

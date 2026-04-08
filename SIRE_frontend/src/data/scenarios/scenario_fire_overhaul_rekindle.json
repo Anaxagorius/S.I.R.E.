@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_overhaul_rekindle",
+  "description": "A residential fire has been knocked down and overhaul begins — crews must identify and extinguish hidden fire pockets while managing collapse hazards and rekindle risk in a compromised structure.",
+  "timeline": [
+    { "index": 0, "title": "Fire Knocked Down", "description": "Primary suppression complete. Command transitions to overhaul phase. Smoke still issuing from wall voids and attic.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Overhaul Begins", "description": "Crews open walls and ceiling with hooks and pull-down tools. Thermal imaging used to identify hot spots.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Hidden Fire Found", "description": "Thermal camera reveals a significant hot spot behind a kitchen wall running toward the attic void.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Structural Concern", "description": "A section of ceiling shows signs of compromised support — sagging plaster and a cracked joist visible.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Unit Cleared", "description": "Requesting crew returns — primary unit reports their section is clear. New hot spot still active in another sector.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Rekindle Risk", "description": "If overhaul is stopped prematurely, rekindle is a near-certainty. Scene must be fully cleared before handoff.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Overhaul Phase — Hot Spot Behind Kitchen Wall",
+      "situation": "Thermal imaging has revealed a significant hot spot behind the kitchen wall that runs into the attic void. The fire has been knocked down but is clearly still active in this void space. Opening the wall will likely reinvigorate the fire briefly. A charged line must be in place. The area is also suspect for structural compromise from the original fire.",
+      "question": "How do you direct the overhaul crew?",
+      "options": [
+        { "label": "A", "text": "Maintain a charged attack line on standby before opening the wall. Use a hook or tool to open a controlled opening in the wall at the hot spot location. Apply water carefully into the void space. Use the thermal camera continuously to confirm heat reduction before moving on. Assign a safety officer to monitor the ceiling above for collapse indicators throughout.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Open the entire kitchen wall section quickly to expose all hidden fire at once and apply a fog pattern throughout.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Spray water through a small opening without physically opening the wall — avoid any structural disturbance given the collapse risk.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Structural Compromise — Ceiling Section",
+      "situation": "While addressing the hot spot, your safety officer flags a ceiling section showing sagging plaster and a visible cracked joist. Two firefighters are working directly below it. The hot spot has not yet been fully extinguished.",
+      "question": "What do you order?",
+      "options": [
+        { "label": "A", "text": "Immediately move both firefighters out of the area below the compromised ceiling section. Assess from a safe angle whether the ceiling can be safely pulled down in a controlled direction. If pull-down is safe, execute it with personnel clear of the fall zone. If not, address the hot spot from an adjacent safe angle.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow the crew to continue working below the compromised section — they are almost finished with that zone and the ceiling looks stable enough.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Pull all crews out of the structure immediately and declare the building unsafe for overhaul.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Clearing for Handoff",
+      "situation": "The hot spot has been extinguished. All wall and ceiling openings have been inspected with the thermal camera. Readings are below the acceptable threshold. The attic has been inspected and shows no remaining heat signature. The property owner is present and asking when they can re-enter. Fire investigators are requesting scene access.",
+      "question": "What are your final steps before handoff?",
+      "options": [
+        { "label": "A", "text": "Conduct a final full thermal sweep of all opened areas. Confirm all voids, attic, and subfloor areas are within safe temperature thresholds. Document overhaul locations for investigators. Advise the property owner that the building is structurally unsafe for reoccupancy until assessed by a building inspector — provide this in writing if possible. Hand scene to investigators.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Declare the scene clear based on the last thermal reading and immediately allow the property owner to re-enter.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Hand the scene to investigators without a thermal sweep documentation — investigators can do their own assessment.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Overhaul was completed systematically and safely. Hidden fire in the wall void was addressed with a controlled opening and continuous thermal monitoring. The structural compromise was identified early and personnel were repositioned before proceeding. The final thermal sweep confirmed no rekindle risk. Investigators received a documented scene, and the property owner was properly advised on reoccupancy. Well done — thorough overhaul is the last line of defense against rekindle.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "overhaul", "rekindle", "thermal imaging", "structural safety", "post-incident", "hot spot"]
+}

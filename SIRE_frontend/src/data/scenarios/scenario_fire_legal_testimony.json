@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_legal_testimony",
+  "description": "A firefighter who responded to a fatal fire is subpoenaed to testify in a criminal arson trial — they must prepare accurate testimony based on scene observations, incident reports, and documentation under examination and cross-examination.",
+  "timeline": [
+    { "index": 0, "title": "Subpoena Received", "description": "A firefighter receives a subpoena to testify in an arson and manslaughter trial related to a fatal fire they responded to eight months ago.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Record Review", "description": "The firefighter reviews their incident report, scene log, and thermal imaging documentation from the date in question.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Pre-Trial Briefing", "description": "The prosecutor's office contacts the firefighter to prepare for direct examination. Defense counsel may seek to challenge their observations.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Direct Examination", "description": "The firefighter takes the stand and is questioned about their observations on scene.", "timeOffsetSec": 240 },
+    { "index": 4, "title": "Cross-Examination", "description": "Defense counsel challenges the firefighter's testimony, suggesting observations were compromised by fire conditions.", "timeOffsetSec": 360 },
+    { "index": 5, "title": "Testimony Complete", "description": "The firefighter steps down. Their accurate, objective testimony has been recorded.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Preparation for Testimony",
+      "situation": "You have been subpoenaed to testify in an arson and manslaughter trial. The incident was eight months ago. You have access to your incident report, scene log, and thermal imaging documentation. The prosecutor has asked to meet with you to prepare your testimony. A colleague suggests you also review what other witnesses are saying so you can 'be consistent.'",
+      "question": "How do you prepare?",
+      "options": [
+        { "label": "A", "text": "Review only your own documentation — incident report, scene log, and thermal imaging — to refresh your memory of what you personally observed. Meet with the prosecutor, but make clear you can only testify to your direct observations and the documentation you created. Do not review other witnesses' statements — your testimony must reflect only what you independently saw and did, not coordination with others.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Review what other witnesses are saying and align your account to ensure the testimony is consistent — minor inconsistencies can undermine the prosecution.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Prepare based purely on memory — reviewing old documentation before court might be seen as coaching by the defense.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Direct Examination",
+      "situation": "On the stand during direct examination, the prosecutor asks you to describe the burn pattern you observed near the front door. You documented it in your scene log. However, during your review you noticed your written description was slightly less detailed than your thermal imaging documentation. There is no inconsistency — both documents show the same finding, but your written log is more general.",
+      "question": "How do you handle this in testimony?",
+      "options": [
+        { "label": "A", "text": "Describe the burn pattern as you observed and documented it, referencing your thermal imaging documentation as the more detailed record of your observations. If asked about the difference in detail between your written log and thermal imaging, acknowledge it transparently — both reflect the same observation captured in different levels of detail. Do not embellish or speculate beyond what you documented.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Provide the most detailed description you can recall from memory, going beyond what your documentation shows — more detail strengthens the testimony.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Restrict your testimony strictly to the written log only and do not reference the thermal imaging — the defense might challenge the imaging methodology.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Cross-Examination Challenge",
+      "situation": "Defense counsel challenges your testimony by stating: 'You were operating in heavy smoke and chaotic conditions — how can you be certain the burn pattern you observed was not simply a result of normal fire spread from the reported ignition point?' You know your thermal imaging documentation shows the pattern clearly, and your training in fire behavior supports the anomaly, but you are not a certified fire investigator.",
+      "question": "How do you respond?",
+      "options": [
+        { "label": "A", "text": "Acknowledge clearly what you are and are not: you observed and documented the burn pattern as part of your firefighting duties; the interpretation of its cause is within the expertise of the fire investigator who testified separately. Confirm that your thermal imaging captured the pattern at the specific time and location you described, and that your documentation is accurate to your observations. Do not overstate your expertise.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Assert definitively that the burn pattern proves arson — your experience gives you enough knowledge to state this under oath.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Agree with the defense counsel that conditions were chaotic and you cannot be certain of what you observed.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Your testimony was accurate, objective, and professional. You prepared using only your own documentation, testified within the boundaries of your direct observations and role, acknowledged the limits of your expertise under cross-examination without undermining valid observations, and did not overstate or speculate. Well done — firefighter testimony in legal proceedings must be based on direct observation and documentation, not conclusions outside your role or coordination with other witnesses.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "legal testimony", "court", "arson", "documentation", "post-incident", "evidence", "professionalism"]
+}

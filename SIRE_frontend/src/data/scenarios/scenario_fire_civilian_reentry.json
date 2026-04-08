@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_civilian_reentry",
+  "description": "Following a residential fire, the displaced homeowner demands immediate reentry to retrieve belongings — fire crews must assess safety, coordinate with investigators, and communicate decisions clearly and compassionately.",
+  "timeline": [
+    { "index": 0, "title": "Fire Controlled", "description": "Two-story home fire knocked down. Significant structural damage to the second floor and roof. First floor partially intact.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Investigation Underway", "description": "Fire investigator on scene documenting cause and origin. Scene is not yet released.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Owner Arrives", "description": "The homeowner arrives — visibly distressed. Requests immediate entry to retrieve medications, documents, and pets.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Partial Entry Request", "description": "The first floor appears structurally intact. The owner says they only need to go to the kitchen.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Investigator Input", "description": "Investigator advises the kitchen is part of the investigation area. Full entry remains prohibited.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Resolution", "description": "A compromise is reached regarding supervised access for specific critical items.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Owner Requests Immediate Reentry",
+      "situation": "The homeowner has arrived and is asking to enter the building. They need heart medication that was in the kitchen, plus their dog — they believe the dog may be hiding inside and is alive. The fire is controlled but the scene has not been released by the investigator. The second floor and roof are structurally compromised. The first floor is partially intact but water damage is significant.",
+      "question": "What is your initial response?",
+      "options": [
+        { "label": "A", "text": "Acknowledge the owner's distress and the urgency of the medication and pet. Explain clearly that the building is currently under fire investigation authority and an active safety hazard assessment — entry by civilians is not permitted until both conditions are cleared. Immediately relay the medication and pet information to the investigator so they can advise on the fastest path to resolution.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Allow the owner to enter the first floor immediately — the medication is a medical necessity and the first floor looks structurally sound.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Deny all reentry without explaining the reasons and redirect the owner to call their insurance company.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Pet and Medication — Escalating Urgency",
+      "situation": "The investigator is informed of the situation. They advise that the kitchen is part of the investigation area and cannot be accessed by civilians yet. However, they can allow a firefighter to enter the kitchen under their supervision to retrieve the medication. The dog search is a separate issue — EMS can confirm whether the medication is an immediate emergency.",
+      "question": "How do you coordinate the medication retrieval and the dog search?",
+      "options": [
+        { "label": "A", "text": "Coordinate with the investigator to send one firefighter into the kitchen under investigator supervision to retrieve the specific medication — have the owner describe the container and its location. For the dog, dispatch a crew member to do a controlled check of accessible first-floor areas with the investigator's permission, documenting entry and exit. Advise EMS of the medication situation for patient monitoring.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Send the owner into the kitchen with a firefighter escort against the investigator's guidance — medical need overrides investigation authority.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Decline to assist with either the medication or the dog — these are not fire department responsibilities post-suppression.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Formal Reentry Authorization",
+      "situation": "The medication has been retrieved. The dog was not found inside — the owner is told it likely escaped during evacuation. The investigator is wrapping up their documentation. They are about to release the scene from investigation, but fire crews are completing a structural assessment. The building inspector is 45 minutes away. The owner is now calmer and asking when they can get personal belongings.",
+      "question": "How do you handle the reentry authorization process?",
+      "options": [
+        { "label": "A", "text": "Advise the owner that the fire department can release the scene from suppression and investigation hold, but cannot authorize civilian occupancy or unescorted access until the building inspector has assessed structural safety. Offer to document the owner's contact information and call them immediately when clearance is obtained. Provide them with the local emergency social services or Red Cross contact for temporary accommodation.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Tell the owner the scene is clear once the investigator leaves and they can enter freely — structural assessment is their own responsibility.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Refuse any further communication until the building inspector arrives — the fire department's role ends when suppression ends.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Civilian reentry was managed compassionately and correctly. Emergency medical and welfare needs were addressed within the bounds of scene authority. The investigation integrity was maintained. Formal reentry authorization was explained clearly, and the owner was connected with support services. Well done — civilian reentry management after a fire requires balancing urgent human needs against legal, safety, and investigative obligations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "civilian reentry", "scene authority", "fire investigation", "structural safety", "family liaison", "post-incident"]
+}

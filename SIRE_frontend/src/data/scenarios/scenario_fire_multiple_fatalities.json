@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_multiple_fatalities",
+  "description": "A structural fire results in multiple civilian fatalities — incident command must manage scene documentation, investigator coordination, crew stress, and public information simultaneously.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Working structure fire — multi-unit residential building. Multiple callers report occupants trapped.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Fully involved structure, multiple floors. Search teams deployed to all accessible floors.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "First Victim Found", "description": "Search crew reports one adult victim on the second floor, deceased. Scene conditions prevent further search.", "timeOffsetSec": 150 },
+    { "index": 3, "title": "Additional Victims", "description": "As fire is knocked down, two more victims are found on the ground floor. Total confirmed: three fatalities.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Scene Secured", "description": "Fire controlled. Medical examiner, law enforcement, and fire investigators on scene.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Post-Incident", "description": "PIO managing media. Crew debrief underway. Scene secured for investigation.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Multiple Victim Reports",
+      "situation": "Search teams have confirmed three fatalities across two floors. The fire is still being knocked down. Crews are beginning to show signs of stress. Investigators and the medical examiner are en route but not yet on scene. The scene must be preserved. Families are gathering at the perimeter. Media units are present.",
+      "question": "What is your priority as incident commander?",
+      "options": [
+        { "label": "A", "text": "Maintain fire suppression operations, establish a command aide to log victim locations precisely, restrict scene access to essential personnel only, and designate a PIO to manage the perimeter and media. Hold all information releases until the medical examiner arrives.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately release victim count and location information to waiting family members to prevent rumor.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have crew remove the victims to a nearby staging area immediately to protect them from further fire damage.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Investigator Handoff",
+      "situation": "The fire is knocked down. The medical examiner and fire investigators arrive. They need access to the scene and victim locations. One crew member involved in the search is requesting to be relieved — he says he cannot continue. Two of the three victim locations are in areas that are structurally unstable.",
+      "question": "How do you coordinate investigator access with safety and crew welfare?",
+      "options": [
+        { "label": "A", "text": "Brief investigators on the two structurally compromised locations — recommend they wait for structural assessment before entry. Relieve the distressed crew member immediately, assign a peer supporter, and rotate a fresh crew into the scene escort role.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow investigators immediate unrestricted access to all areas — preserving evidence takes priority over structural safety concerns.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Deny the crew member's relief request — you cannot afford to reduce staffing during a complex scene.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Public Information Management",
+      "situation": "The PIO has held the media perimeter successfully. Three news vans are present. The fire chief has arrived and is asking for a briefing before speaking publicly. The families of building occupants are demanding to know if their relatives are among the victims — victim identification has not yet been completed by the medical examiner.",
+      "question": "How do you advise the fire chief on public communication?",
+      "options": [
+        { "label": "A", "text": "Brief the chief: confirm that multiple fatalities occurred, that victim identification is in progress with the medical examiner, and recommend a public statement acknowledging the loss without naming victims or counts pending official identification. Direct affected families to a family support officer for private liaison.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Recommend the chief give full details immediately to prevent misinformation from spreading.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Recommend the chief decline all media contact until the investigation is fully complete.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The multiple-fatality scene was handled with precision and professionalism. Victim locations were preserved for investigators, structural safety was maintained before investigator access, the distressed crew member was relieved and supported, and public communication was managed through proper channels. A CISM debriefing was arranged for all involved crews. Well done — multiple fatality scenes demand exceptional command presence and simultaneous management of operations, people, and information.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "multiple fatalities", "mass casualty", "psychological", "CISM", "investigation", "human factors", "public information"]
+}

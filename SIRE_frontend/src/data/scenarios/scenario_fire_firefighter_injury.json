@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_firefighter_injury",
+  "description": "A firefighter is seriously injured on scene during active firefighting operations — incident command must manage the rescue, scene safety, crew morale, and operational continuity simultaneously.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Working structure fire — two-story commercial building. Multiple companies responding.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Heavy fire on the first floor with extension to the second. Interior attack underway.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Mayday Declared", "description": "A firefighter transmits a Mayday — partial floor collapse, crew member trapped.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "RIT Deployed", "description": "Rapid Intervention Team deployed. Injured firefighter extracted. Trauma injuries confirmed.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Hospital Transport", "description": "Firefighter transported to trauma center. Prognosis uncertain. Crew visibly shaken.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Scene Continues", "description": "Fire must still be suppressed. Remaining crew must continue operations under stress.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Mayday Received",
+      "situation": "A Mayday has been transmitted by a trapped firefighter on the second floor. The floor partially collapsed. The RIT has been activated. You are the incident commander. The fire is still active on the first floor. Crews on the radio are becoming erratic — voices are raised, traffic is overlapping. The trapped firefighter's crew is trying to self-rescue.",
+      "question": "What are your immediate actions?",
+      "options": [
+        { "label": "A", "text": "Declare a Mayday on a separate radio channel, direct all non-essential radio traffic to cease, deploy the RIT with a dedicated RIT commander, assign an additional crew to maintain fire suppression to protect the RIT and the downed firefighter, and establish a clear command structure for the rescue operation.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Stop all firefighting operations immediately and pull every crew out to help with the rescue.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Allow the trapped firefighter's crew to continue their self-rescue without deploying the RIT — they are closest and know their teammate.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Firefighter Extracted — Operational Decision",
+      "situation": "The injured firefighter has been extracted and is with EMS. The injuries are serious — possible spinal involvement. The fire is still active and a crew is in place suppressing it. The remaining crew on scene is visibly shaken. The chief has arrived and is asking whether to continue interior operations or go defensive. There are no remaining civilian victims — the building was unoccupied.",
+      "question": "What do you recommend to the chief?",
+      "options": [
+        { "label": "A", "text": "Recommend transitioning to defensive operations. The risk–benefit calculation has changed — no civilians remain, the structure is compromised, and a firefighter has already been injured. Protect the remaining crew and control the fire from the exterior.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Continue interior attack to honor the injured firefighter's efforts and finish the job they started.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Immediately withdraw all crews and allow the building to burn — active suppression is no longer worth any risk.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Crew Welfare and Notification",
+      "situation": "Defensive operations are underway. The scene is stable. The injured firefighter is in surgery. The crew is gathered at the command post — several are emotional. The department's union rep has arrived. The injured firefighter's family has been notified by the department chaplain. A department SOP requires post-incident documentation including a Mayday review.",
+      "question": "How do you handle the crew and post-incident process?",
+      "options": [
+        { "label": "A", "text": "Acknowledge the crew's response directly and honestly. Activate CISM peer support immediately. Begin the Mayday review log while events are fresh, maintaining sensitivity. Ensure the crew is relieved before the Mayday review meeting — do not ask them to self-critique while still on scene and in distress.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Conduct the full Mayday review immediately on scene while all crew are present and emotions are still raw.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Defer all post-incident review and crew support indefinitely until the injured firefighter's recovery is confirmed.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The Mayday was handled correctly — clear radio management, proper RIT deployment, fire suppression maintained to protect the rescue, and a timely defensive transition when the risk-benefit no longer justified interior attack. Crew welfare was prioritized through CISM activation, and the post-incident review was handled with sensitivity. Well done — a firefighter injury on scene is one of the most demanding tests of incident command.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "Mayday", "firefighter injury", "RIT", "rapid intervention", "CISM", "crew welfare", "human factors", "incident command"]
+}

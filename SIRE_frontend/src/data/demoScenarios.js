@@ -177,6 +177,27 @@ import scenarioFireHomeOxygenTanks from "./scenarios/scenario_fire_home_oxygen_t
 import scenarioFireLithiumIonBattery from "./scenarios/scenario_fire_lithium_ion_battery.json";
 import scenarioFireHighRiseResidential from "./scenarios/scenario_fire_high_rise_residential.json";
 
+// Firefighter — Psychological & Human Factors
+import scenarioFireChildFatality from "./scenarios/scenario_fire_child_fatality.json";
+import scenarioFireMultipleFatalities from "./scenarios/scenario_fire_multiple_fatalities.json";
+import scenarioFireFirefighterInjury from "./scenarios/scenario_fire_firefighter_injury.json";
+import scenarioFireRescueDelayedDeath from "./scenarios/scenario_fire_rescue_delayed_death.json";
+import scenarioFireMediaScrutiny from "./scenarios/scenario_fire_media_scrutiny.json";
+import scenarioFireFamilyPresentRecovery from "./scenarios/scenario_fire_family_present_recovery.json";
+import scenarioFireEmotionalFatigue from "./scenarios/scenario_fire_emotional_fatigue.json";
+import scenarioFireMoralInjury from "./scenarios/scenario_fire_moral_injury.json";
+
+// Firefighter — Post-Incident
+import scenarioFireOverhaulRekindle from "./scenarios/scenario_fire_overhaul_rekindle.json";
+import scenarioFireInvestigationCoordination from "./scenarios/scenario_fire_investigation_coordination.json";
+import scenarioFireEvidencePreservation from "./scenarios/scenario_fire_evidence_preservation.json";
+import scenarioFireDebrisRemovalHazards from "./scenarios/scenario_fire_debris_removal_hazards.json";
+import scenarioFireCivilianReentry from "./scenarios/scenario_fire_civilian_reentry.json";
+import scenarioFireStructuralSafetyAssessment from "./scenarios/scenario_fire_structural_safety_assessment.json";
+import scenarioFireAfterActionReview from "./scenarios/scenario_fire_after_action_review.json";
+import scenarioFireLegalTestimony from "./scenarios/scenario_fire_legal_testimony.json";
+import scenarioFireCommunityDebriefing from "./scenarios/scenario_fire_community_debriefing.json";
+
 // Firefighter — Commercial & Industrial
 import scenarioFireOfficeBuilding from "./scenarios/scenario_fire_office_building.json";
 import scenarioFireRetailStore from "./scenarios/scenario_fire_retail_store.json";
@@ -1195,6 +1216,129 @@ const DEMO_SCENARIOS = [
         name: "High-Rise Residential Fire",
         description: "A fire above aerial ladder reach in a high-rise residential building — crews rely on standpipe systems, stairwell staging, and floor-by-floor co-ordination.",
         data: scenarioFireHighRiseResidential,
+    },
+
+    // ── Firefighter: Psychological & Human Factors ────────────────────────────
+    {
+        id: "scenario_fire_child_fatality",
+        icon: "💔",
+        name: "Child Fatality Scene",
+        description: "Firefighters discover a child fatality during a residential fire — crews must manage scene protocols, crew welfare, and family notification under extreme emotional stress.",
+        data: scenarioFireChildFatality,
+    },
+    {
+        id: "scenario_fire_multiple_fatalities",
+        icon: "🚨",
+        name: "Multiple Fatalities Scene",
+        description: "A structure fire results in multiple civilian fatalities — incident command must manage scene documentation, investigator coordination, crew stress, and public information simultaneously.",
+        data: scenarioFireMultipleFatalities,
+    },
+    {
+        id: "scenario_fire_firefighter_injury",
+        icon: "🪖",
+        name: "Firefighter Injury on Scene",
+        description: "A firefighter is seriously injured during active firefighting operations — incident command must manage the Mayday rescue, scene safety, crew morale, and operational continuity simultaneously.",
+        data: scenarioFireFirefighterInjury,
+    },
+    {
+        id: "scenario_fire_rescue_delayed_death",
+        icon: "🏥",
+        name: "Rescuing Someone Who Later Dies",
+        description: "A firefighter successfully rescues a victim from a burning structure, but the victim dies in hospital shortly afterward — crews must process grief and guilt while continuing operations.",
+        data: scenarioFireRescueDelayedDeath,
+    },
+    {
+        id: "scenario_fire_media_scrutiny",
+        icon: "📺",
+        name: "Media Scrutiny After Incident",
+        description: "A high-profile fire fatality draws intense media scrutiny — the fire department faces questions about response time and tactical decisions, requiring careful communication under pressure.",
+        data: scenarioFireMediaScrutiny,
+    },
+    {
+        id: "scenario_fire_family_present_recovery",
+        icon: "👨‍👩‍👧",
+        name: "Family Present During Recovery",
+        description: "Family members are present at a fire scene during the recovery of a deceased relative — crews must balance compassionate family support with scene integrity and investigator access.",
+        data: scenarioFireFamilyPresentRecovery,
+    },
+    {
+        id: "scenario_fire_emotional_fatigue",
+        icon: "😔",
+        name: "Emotional Fatigue Accumulation",
+        description: "A veteran firefighter shows signs of cumulative emotional fatigue after a sustained period of high-frequency critical incidents — the company officer must recognize the signs and act before a crisis occurs.",
+        data: scenarioFireEmotionalFatigue,
+    },
+    {
+        id: "scenario_fire_moral_injury",
+        icon: "⚖️",
+        name: "Moral Injury Scenario",
+        description: "A firefighter must make an impossible rescue priority decision that results in one victim surviving and another perishing — the moral weight of that decision and its aftermath must be managed.",
+        data: scenarioFireMoralInjury,
+    },
+
+    // ── Firefighter: Post-Incident ────────────────────────────────────────────
+    {
+        id: "scenario_fire_overhaul_rekindle",
+        icon: "🔦",
+        name: "Overhaul with Rekindle Risk",
+        description: "A residential fire has been knocked down and overhaul begins — crews must identify and extinguish hidden fire pockets while managing collapse hazards and rekindle risk.",
+        data: scenarioFireOverhaulRekindle,
+    },
+    {
+        id: "scenario_fire_investigation_coordination",
+        icon: "🔍",
+        name: "Fire Investigation Coordination",
+        description: "A suspicious commercial fire requires seamless coordination between the fire department and fire investigators — crews must preserve evidence during suppression and overhaul.",
+        data: scenarioFireInvestigationCoordination,
+    },
+    {
+        id: "scenario_fire_evidence_preservation",
+        icon: "🗂️",
+        name: "Evidence Preservation",
+        description: "A fire of undetermined origin requires careful evidence preservation during suppression and overhaul — crews must balance firefighting with maintaining the integrity of a potential crime scene.",
+        data: scenarioFireEvidencePreservation,
+    },
+    {
+        id: "scenario_fire_debris_removal_hazards",
+        icon: "⚠️",
+        name: "Debris Removal Hazards",
+        description: "Debris removal operations following a structure fire expose firefighters to hidden hazards — crews must manage chemical containers, structural instability, and biological risks.",
+        data: scenarioFireDebrisRemovalHazards,
+    },
+    {
+        id: "scenario_fire_civilian_reentry",
+        icon: "🏠",
+        name: "Civilian Reentry Safety",
+        description: "Following a residential fire, the displaced homeowner demands immediate reentry — fire crews must assess safety, coordinate with investigators, and communicate decisions clearly and compassionately.",
+        data: scenarioFireCivilianReentry,
+    },
+    {
+        id: "scenario_fire_structural_safety_assessment",
+        icon: "🏗️",
+        name: "Structural Safety Assessment",
+        description: "Following a significant structure fire, crews must conduct or coordinate a structural safety assessment before authorizing operations, civilian reentry, or investigator access.",
+        data: scenarioFireStructuralSafetyAssessment,
+    },
+    {
+        id: "scenario_fire_after_action_review",
+        icon: "📋",
+        name: "After-Action Review",
+        description: "Following a complex structure fire, the company officer leads an effective after-action review — identifying what worked, what didn't, and actionable improvements without blame.",
+        data: scenarioFireAfterActionReview,
+    },
+    {
+        id: "scenario_fire_legal_testimony",
+        icon: "⚖️",
+        name: "Legal Testimony Preparation",
+        description: "A firefighter subpoenaed to testify in an arson trial must prepare accurate testimony based on scene observations and documentation, navigating direct and cross-examination.",
+        data: scenarioFireLegalTestimony,
+    },
+    {
+        id: "scenario_fire_community_debriefing",
+        icon: "🏘️",
+        name: "Community Debriefing",
+        description: "A fatal residential fire leaves the community frightened and mistrustful — the fire department conducts a public debriefing that addresses concerns, corrects misinformation, and rebuilds confidence.",
+        data: scenarioFireCommunityDebriefing,
     },
 
     // ── Firefighter: Commercial & Industrial Fires ────────────────────────────

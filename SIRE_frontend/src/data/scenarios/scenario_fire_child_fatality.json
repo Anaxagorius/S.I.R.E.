@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_child_fatality",
+  "description": "Firefighters discover a child fatality during a residential fire — crews must manage scene protocols, crew welfare, and family notification under extreme emotional stress.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "911 call — house fire, occupants reported inside. Neighbors say a family with young children lives there.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Working structure fire, heavy smoke throughout. Attack crew advances on interior fire.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Search Underway", "description": "Primary search team enters upper floor. Conditions deteriorate rapidly.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Victim Located", "description": "Search crew finds an unresponsive small child in a bedroom, unrescuable — the child did not survive.", "timeOffsetSec": 200 },
+    { "index": 4, "title": "Scene Secured", "description": "Fire knocked down. Scene secured. Crew is visibly shaken. Family arriving on scene.", "timeOffsetSec": 300 },
+    { "index": 5, "title": "Post-Incident", "description": "Scene turned over to medical examiner and investigators. Crew debrief initiated.", "timeOffsetSec": 420 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Victim Found — Crew Reaction",
+      "situation": "Your search crew has located a child who did not survive. The firefighter who made the find is visibly distressed on the radio. The fire is still active and the scene is not yet secured. You are the incident commander.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Acknowledge the find calmly on radio, direct the crew to exit safely, and continue fire suppression. Do not leave the child — ensure the location is noted for investigators. Address crew welfare once the scene is secured.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately pull all crews out to regroup emotionally before continuing firefighting operations.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Attempt to move the child to a nearby ambulance immediately without notifying the medical examiner or preserving the scene.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Scene Security and Notification",
+      "situation": "The fire is extinguished. The child's location has been noted. The medical examiner and law enforcement have been notified. The family — a parent — has arrived on scene and is demanding information. A television news crew is setting up across the street.",
+      "question": "How do you handle the family and media?",
+      "options": [
+        { "label": "A", "text": "Assign a senior officer to accompany the parent to a quiet area away from the scene and media. Do not confirm details until the medical examiner is on scene and law enforcement approves notification. Keep the parent away from cameras.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Tell the parent immediately and in full detail what was found, then address the media with the same information.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave the parent with a bystander and focus entirely on the scene without assigning anyone to family liaison.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Crew Welfare",
+      "situation": "Suppression and investigation handoff are complete. Three crew members who made the find are quiet and withdrawn. Your department's CISM (Critical Incident Stress Management) program includes a peer support team. Your shift still has four hours remaining.",
+      "question": "How do you handle crew welfare for the rest of the shift?",
+      "options": [
+        { "label": "A", "text": "Activate the CISM peer support team and arrange a voluntary informal defusing at the station before the shift ends. Allow affected crew to speak with a peer supporter privately. Monitor closely for signs of acute stress.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Tell the crew to push through — they are professionals and showing emotion is unprofessional. Continue normal operations.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Immediately remove all three crew members from duty for the rest of the shift without any support or follow-up plan.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The incident was managed with professionalism under extreme emotional pressure. The scene was secured and handed to investigators correctly. The family received notification through proper channels with compassionate support. Crew welfare was addressed proactively through CISM activation. A full critical incident stress debriefing was scheduled for the following day. Well done — managing a child fatality scene requires both tactical precision and compassionate leadership.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "child fatality", "psychological", "CISM", "crew welfare", "family notification", "human factors"]
+}

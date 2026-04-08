@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_after_action_review",
+  "description": "Following a complex structure fire with multiple tactical challenges, the company officer must lead an effective after-action review — identifying what worked, what didn't, and actionable improvements without blame.",
+  "timeline": [
+    { "index": 0, "title": "Incident Summary", "description": "Multi-story residential fire: one rescue, delayed water supply, radio communications breakdown, positive outcome. Crew returned to station two hours ago.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "AAR Scheduled", "description": "After-action review is scheduled for 30 minutes after return. All four crew members are present.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Communication Issue", "description": "One crew member blames another for the radio breakdown during a critical phase.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Positive Recognition", "description": "The rescue was executed effectively under pressure — crew members should be recognized.", "timeOffsetSec": 240 },
+    { "index": 4, "title": "Systemic Issues", "description": "The water supply delay was caused by a mapping error in dispatch — a systemic issue, not an individual error.", "timeOffsetSec": 360 },
+    { "index": 5, "title": "Action Items", "description": "The AAR must produce specific, assigned, actionable follow-up items.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Opening the AAR",
+      "situation": "You are the company officer opening the after-action review. The incident involved a successful rescue, but also a significant water supply delay and radio communication breakdown. Tension is present in the room — one crew member made a sarcastic comment during the return about the radio issue. You need to establish the right tone from the start.",
+      "question": "How do you open the AAR?",
+      "options": [
+        { "label": "A", "text": "Open by stating the purpose clearly: this is a learning review, not a blame session. Acknowledge the successful rescue as a team effort. State that the goal is to identify what worked, what didn't, and what can be improved — for every crew member's future safety. Establish ground rules: speak to actions and systems, not to individuals. Confirm that anything raised stays within the team unless systemic issues need escalation.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Open by immediately addressing the radio breakdown since that is what the crew is most tense about.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Open by having each crew member rate the incident from 1–10 and explain their score — this surfaces issues organically.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Blame Emerges",
+      "situation": "During discussion of the radio communication breakdown, one crew member directly says to another: 'You were supposed to switch to Channel 3 and you didn't — that's why we couldn't reach command for four minutes.' The accused crew member becomes defensive. The exchange is starting to become personal.",
+      "question": "How do you intervene?",
+      "options": [
+        { "label": "A", "text": "Intervene immediately and calmly. Redirect the discussion: 'Let's describe what happened and when — not who did what.' Ask both crew members to describe the sequence of events factually. Identify whether the channel switch procedure was clearly communicated before entry and whether there is a training or protocol gap. Redirect to the system, not the individual.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow the crew to resolve it themselves — interpersonal accountability is part of team growth.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Side with the crew member who raised the issue — if the procedure was clear, accountability is appropriate.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Systemic Issue — Dispatch Mapping Error",
+      "situation": "The water supply delay is traced to an incorrect hydrant location on the dispatch mapping system — the nearest hydrant shown in dispatch CAD was out of service and not updated. This is a systemic, department-wide safety issue, not an individual crew error. This needs to go beyond this AAR.",
+      "question": "How do you handle a systemic issue discovered in an AAR?",
+      "options": [
+        { "label": "A", "text": "Document the specific dispatch CAD error with exact details — hydrant ID, location, and incorrect status shown. Flag it as a systemic safety finding requiring escalation to the dispatch supervisor and department safety officer. Assign yourself as the responsible party to submit a formal safety report within 24 hours. Acknowledge to the crew that this was not their error and thank them for surfacing it.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Note it informally and mention it to the battalion chief at the next opportunity — formal reports are for serious injuries, not operational near-misses.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave it out of the formal action items — the crew knows about it and will work around the mapping issue in future.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The AAR was conducted effectively. The tone was set for learning, not blame. Personal conflict was redirected to systems and process. The systemic dispatch mapping error was escalated with a specific owner and deadline. The successful rescue was acknowledged as a team achievement. Action items were documented, assigned, and have clear owners. Well done — an effective after-action review is one of the most powerful tools a company officer has to improve crew safety and performance.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "after-action review", "AAR", "debrief", "leadership", "systemic issue", "team dynamics", "post-incident"]
+}
