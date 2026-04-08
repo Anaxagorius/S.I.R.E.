@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_debris_removal_hazards",
+  "description": "Debris removal operations following a structure fire expose firefighters to hidden hazards — crews must manage sharps, chemical containers, structural instability, and biological risks during post-fire cleanup operations.",
+  "timeline": [
+    { "index": 0, "title": "Fire Controlled", "description": "Large residential fire controlled. Building is a total loss. Overhaul complete. Debris removal authorized.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Debris Removal Begins", "description": "Crew begins removing fire debris from the interior to facilitate structural assessment.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Chemical Containers Found", "description": "Unlabeled chemical containers discovered buried in debris in the garage area.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Structural Concern", "description": "A section of the remaining first floor is showing movement — debris load may be compromising the floor structure.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Sharps and Biological Hazard", "description": "Medical waste including needles found in the debris of an interior bathroom.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Completion and Handoff", "description": "Hazards managed and documented. Building inspector and property owner notified.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unlabeled Chemical Containers in Debris",
+      "situation": "Your crew has found a cluster of approximately eight unlabeled containers of various sizes buried in garage debris. Several appear to have leaked. The contents are unknown. The containers are partially melted from the fire. You do not know if they are household chemicals, flammable liquids, or hazardous materials.",
+      "question": "How do you respond?",
+      "options": [
+        { "label": "A", "text": "Stop debris removal in the garage area immediately. Back crew out to a safe distance. Notify HAZMAT for identification and assessment. Do not attempt to move or open any containers. Mark the area clearly. Document the location and appearance. Continue debris removal in unaffected areas only while HAZMAT assesses.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Have a crew member smell or open one of the smaller containers to try to identify the contents before calling HAZMAT.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Remove all containers to the exterior using gloves and continue debris removal — they are likely just household chemicals.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Floor Structural Movement",
+      "situation": "While crew continues debris removal in the main structure, a firefighter reports that the floor in the center of the first floor is moving slightly underfoot — a spring or bounce sensation inconsistent with a solid floor structure. The debris load above the area is heavy.",
+      "question": "What do you order?",
+      "options": [
+        { "label": "A", "text": "Immediately direct all crew out of the affected floor section. Mark the area as unsafe for foot traffic. Request a building inspector or structural engineer to assess before any further debris removal in that zone. Reduce debris load from the exterior using a long-handled tool if possible to relieve pressure on the compromised floor area.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow crew to continue working but have them move quickly through the suspect area to minimize time on the compromised floor.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have crew probe the floor with a tool from above to test whether it will hold — if it doesn't flex further, it is safe.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Medical Waste — Sharps Found",
+      "situation": "In the bathroom debris, a crew member has uncovered a loose collection of hypodermic needles and other medical waste mixed in with debris. The crew member is wearing structural firefighting gloves but not puncture-resistant gloves. No one has been stuck. There are more needles visible in the pile.",
+      "question": "How do you handle this?",
+      "options": [
+        { "label": "A", "text": "Stop debris removal in that area immediately. Advise the crew member not to reach into the debris further. Obtain puncture-resistant gloves before any further handling. Contact the local health authority or biohazard contractor for proper disposal — medical waste requires handling under specific regulatory requirements. Document the find and its location. The crew member should remove outer gloves safely using standard precautions.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Have the crew member carefully collect the needles into a plastic bag using their current gloves and place them in the regular debris pile — this is a cleanup operation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave the needles in place and remove debris around them to expose and isolate them for the property owner to deal with.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All debris removal hazards were managed correctly. HAZMAT was notified for the unknown chemical containers. The compromised floor section was taken out of service and a structural assessment was requested. Medical waste was identified and a proper biohazard disposal process was initiated. Well done — debris removal after a structure fire is a high-hazard environment that demands the same risk awareness as active suppression.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "debris removal", "HAZMAT", "structural hazard", "medical waste", "sharps", "post-incident", "safety"]
+}

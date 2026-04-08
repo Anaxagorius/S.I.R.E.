@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_media_scrutiny",
+  "description": "A high-profile residential fire draws intense media scrutiny — the fire department faces questions about delayed response, tactical decisions, and a civilian fatality, requiring careful communication under pressure.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Structure fire — single-family residence. Response is normal. Fire is extinguished after 40 minutes.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Fatality Confirmed", "description": "One civilian victim found deceased inside. Cause of death consistent with smoke inhalation.", "timeOffsetSec": 600 },
+    { "index": 2, "title": "Media Arrives", "description": "Local news crews arrive on scene. A bystander video circulating on social media shows the fire at full involvement before the first unit arrived.", "timeOffsetSec": 900 },
+    { "index": 3, "title": "Criticism Emerges", "description": "A social media post claims the response was delayed by eight minutes. Local politicians request a review.", "timeOffsetSec": 1200 },
+    { "index": 4, "title": "Press Conference Requested", "description": "The fire chief is asked to hold a public press conference regarding the response and the fatality.", "timeOffsetSec": 1800 },
+    { "index": 5, "title": "Internal Review", "description": "Department records show response time was within normal parameters. The tactical decisions are being reviewed.", "timeOffsetSec": 2400 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Social Media Allegation of Delayed Response",
+      "situation": "A social media video shows the house fire at heavy involvement. A post accompanying it alleges the fire department took over eight minutes to arrive and that the delay caused the fatality. Department records show the actual response time was five minutes and thirty seconds — within compliance. You are the PIO. The media is calling for a comment.",
+      "question": "How do you respond?",
+      "options": [
+        { "label": "A", "text": "Release a factual statement citing the documented response time from dispatch records. Do not attack the social media post directly — let the facts speak. State that the department is conducting its standard post-incident review, including a review of all tactical decisions, and that the focus remains on supporting the victim's family.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Publicly dispute and discredit the social media post, stating definitively that there was no delay and no errors were made before the review is complete.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Decline all comment until the internal review is fully complete — no statement of any kind.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Political Pressure",
+      "situation": "A city councillor has called for an independent review and stated publicly that the fire department's 'lack of transparency' is concerning. The chief has asked you to prepare briefing materials. The internal tactical review is ongoing — no findings yet. The victim's family has not spoken publicly.",
+      "question": "How do you advise the chief?",
+      "options": [
+        { "label": "A", "text": "Advise the chief to meet privately with the councillor, share the documented response timeline and the scope of the ongoing review, and offer to brief the council once findings are complete. Avoid adversarial public posturing. Acknowledge the community's grief and right to accountability without pre-judging the review outcome.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Advise the chief to publicly defend the department's actions in full, stating the response was perfect and no review is needed.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Advise the chief to have legal counsel block the independent review request — internal review is sufficient.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Press Conference",
+      "situation": "The press conference is scheduled. Reporters are expected to ask about response time, tactical decisions, the fatality, and whether any firefighters will face disciplinary action. The internal review is not yet complete. A reporter has obtained a copy of the dispatch log and will present it at the conference.",
+      "question": "How does the chief open the press conference?",
+      "options": [
+        { "label": "A", "text": "Open by expressing condolences to the victim's family. Confirm response time from documented records. State that a full post-incident review is underway following standard protocol and that findings will be shared publicly upon completion. Answer questions factually and defer speculation about individual accountability to the review process.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Open by pre-emptively defending every tactical decision made on scene before any questions are asked.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Open by blaming the victim for not having working smoke alarms, redirecting responsibility away from the department.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The media scrutiny was navigated effectively. Factual information was released promptly without speculation. Political engagement was handled transparently and professionally. The press conference maintained dignity for the victim's family while committing the department to accountability through the review process. Well done — media scrutiny after a fire fatality tests both the department's integrity and its communication discipline.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "media scrutiny", "public information", "press conference", "fatality", "accountability", "human factors", "crisis communications"]
+}

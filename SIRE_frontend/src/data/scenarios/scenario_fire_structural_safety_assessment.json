@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_structural_safety_assessment",
+  "description": "Following a significant structure fire, fire crews must conduct or coordinate a structural safety assessment before authorizing crew operations, civilian reentry, or investigator access — identifying collapse indicators and hazardous conditions.",
+  "timeline": [
+    { "index": 0, "title": "Fire Controlled", "description": "Large two-story commercial building fire knocked down after 90 minutes of suppression. Heavy fire load, partial roof collapse.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Assessment Required", "description": "Before overhaul and investigator access, a structural safety assessment is required. The building inspector is en route.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Crew Re-entry Request", "description": "A crew wants to re-enter to address a suspected hot spot visible through a window opening.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Collapse Indicators Identified", "description": "Initial external assessment reveals multiple serious collapse indicators requiring documentation.", "timeOffsetSec": 240 },
+    { "index": 4, "title": "Inspector Arrives", "description": "Building inspector arrives and conducts formal assessment with fire crew input.", "timeOffsetSec": 360 },
+    { "index": 5, "title": "Access Decision", "description": "Assessment complete — safe zones and prohibited zones are established and communicated.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Crew Requests Re-entry Before Assessment",
+      "situation": "A crew wants to re-enter the structure to address a hot spot visible through a window opening on the first floor. They argue it is a rekindle risk. The building has sustained 90 minutes of heavy fire, significant water loading, and a partial roof collapse in the rear. No structural assessment has been completed yet. The building inspector is 20 minutes away.",
+      "question": "Do you authorize re-entry?",
+      "options": [
+        { "label": "A", "text": "Do not authorize re-entry. Address the visible hot spot from the exterior using a hoseline through the window opening. The structural risk from uninspected, fire-damaged load-bearing elements and partial roof collapse outweighs the rekindle risk — which can be managed externally. Re-entry awaits the structural assessment.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Authorize re-entry — crews are trained for hazardous environments and the hot spot is a clear rekindle risk that must be addressed.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Authorize re-entry for one firefighter only to quickly check and report — minimal exposure reduces risk adequately.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Conducting the External Assessment",
+      "situation": "While awaiting the building inspector, you conduct an external visual assessment. You observe: a significant lean in the front parapet wall, sagging of the second-floor floor assembly visible through window openings, two load-bearing columns visible through the front window that appear fire-damaged at base level, and a secondary roof section hanging unsupported above a first-floor bay.",
+      "question": "How do you document and communicate these findings?",
+      "options": [
+        { "label": "A", "text": "Document each indicator with precise location descriptions and photograph where possible. Establish an exclusion zone around the parapet and secondary roof overhang immediately. Communicate the specific indicators to the building inspector via phone so they can prepare the appropriate assessment approach before arrival. Brief all on-scene personnel of the exclusion zones.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Note the indicators mentally and brief the inspector verbally upon arrival — formal documentation can happen after.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Only document the most serious indicator — the parapet lean — and wait for the inspector to identify the rest.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Inspector Assessment and Zone Designation",
+      "situation": "The building inspector has completed their assessment in collaboration with your observations. They designate: Zone A (front half of first floor) — structurally sound for limited supervised access; Zone B (rear first floor and second floor) — prohibited, imminent collapse risk; Zone C (exterior perimeter within 10 metres of the parapet) — exclusion zone. Fire investigators want access to Zone B — their evidence area.",
+      "question": "How do you handle the investigator's request for Zone B access?",
+      "options": [
+        { "label": "A", "text": "Communicate the inspector's assessment clearly to the investigators — Zone B is designated as an imminent collapse risk and no entry is authorized regardless of investigative need. Offer to facilitate remote documentation from Zone A where safe sight lines exist and explore whether demolition-assisted access can be arranged after structural stabilization.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Allow investigators to enter Zone B with a firefighter escort and a safety line — their professional need overrides the structural designation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Defer the decision to the investigators — structural assessments are advisory, not legally binding for investigators.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The structural safety assessment was managed correctly. Re-entry was denied pending assessment and the hot spot was addressed externally. Collapse indicators were documented and communicated proactively. Zone designations were enforced, including refusing investigator access to the imminent collapse zone. Well done — structural safety assessment after a significant fire is a critical command responsibility that protects both crews and civilians.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "structural assessment", "collapse risk", "post-incident", "building inspector", "safety", "overhaul", "fire investigation"]
+}

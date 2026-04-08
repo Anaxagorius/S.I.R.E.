@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_investigation_coordination",
+  "description": "A suspicious commercial fire requires seamless coordination between the fire department and fire investigators — crews must preserve evidence during suppression and overhaul while maintaining operational effectiveness.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Commercial structure fire — small retail building, after hours, no reported occupants.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Suspicious Indicators", "description": "On arrival: multiple separate fire origins apparent, unusual odor, accelerant suspected. Fire is rapidly knocked down.", "timeOffsetSec": 90 },
+    { "index": 2, "title": "Investigator Requested", "description": "Incident commander requests a fire investigator immediately. Scene is not yet fully safe for investigator entry.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Overhaul Risk", "description": "A hot spot in the rear of the building could cause rekindle. Overhaul needed — but overhaul may destroy evidence.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Investigator Arrives", "description": "Fire investigator arrives and begins an initial walkthrough with the IC before overhaul proceeds.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Scene Documentation", "description": "Investigator documents origin areas before overhaul disturbs them. Collaboration is essential.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Fire Indicators On Arrival",
+      "situation": "Your crew has knocked down the fire rapidly. You observe multiple apparent fire origins and detect an unusual petroleum-like odor inconsistent with the building's contents. The building is a small electronics repair shop — no chemicals are expected. You suspect arson. The investigator is en route but 20 minutes away. A hot spot in the rear storage room presents a rekindle risk.",
+      "question": "What do you do before the investigator arrives?",
+      "options": [
+        { "label": "A", "text": "Document the hot spot location precisely and the apparent origin areas using notes and thermal imaging screenshots. Limit overhaul to only what is immediately necessary to prevent rekindle — do not open additional areas unnecessarily. Preserve as much of the burn pattern as possible. Do not move any debris. Brief your crew explicitly: no unnecessary disturbance of the scene.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Complete full overhaul immediately to eliminate all rekindle risk — investigators can work with what remains.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delay all overhaul until the investigator arrives, even if this means accepting a rekindle risk.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Investigator Arrives — Joint Walkthrough",
+      "situation": "The fire investigator has arrived. They ask to walk the scene with you before any further overhaul. They want to photograph and document the origin areas. There are two firefighters still inside managing the remaining hot spot. The investigator's path will cross their work zone.",
+      "question": "How do you coordinate the joint walkthrough?",
+      "options": [
+        { "label": "A", "text": "Pause the overhaul crew in their current position and redirect them to a safe waiting area while the investigator documents the origin areas. Walk with the investigator, sharing your initial observations — multiple apparent origins, odor, rapid fire spread — without drawing conclusions. Allow them to complete documentation before overhaul resumes.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow the overhaul crew to continue working while the investigator documents around them — the hot spot cannot wait.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell the investigator to wait outside until overhaul is fully complete for safety reasons.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Evidence Conflict — Owner Requests Entry",
+      "situation": "The building owner has arrived and is demanding entry to retrieve business records from the rear office. The investigator has not yet released the scene. Law enforcement has been notified and is en route but not yet present. The owner is becoming confrontational.",
+      "question": "Who controls scene access and how do you handle the owner?",
+      "options": [
+        { "label": "A", "text": "Explain clearly to the owner that the scene is under the authority of the fire investigator and law enforcement — not the fire department — and entry is prohibited until released. Do not allow entry for any reason. Contact the investigator immediately to advise them of the owner's presence and the request. Ensure law enforcement is aware the owner is on scene.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Allow the owner to enter briefly with a firefighter escort to retrieve documents — it is their property.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Physically block the owner yourself and threaten arrest — you have authority over the scene.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The suspicious fire investigation was coordinated effectively. Evidence preservation was maintained during suppression and overhaul by limiting disturbance to what was necessary for safety. The joint walkthrough was structured to protect evidence while addressing the rekindle risk. Scene access was denied to the owner correctly pending investigator release. Well done — fire investigation coordination is a critical skill that affects both justice and public safety.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "fire investigation", "arson", "evidence preservation", "overhaul", "coordination", "post-incident"]
+}

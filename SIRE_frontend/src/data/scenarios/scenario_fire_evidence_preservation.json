@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_evidence_preservation",
+  "description": "A fire of undetermined origin requires careful evidence preservation during suppression and overhaul — crews must balance firefighting effectiveness with maintaining the integrity of a potential crime scene.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Residential fire — early morning, occupant out of town. Neighbor reports no unusual activity.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Moderate fire in the living room. Rapid knockdown. No occupants. Cause is not immediately obvious.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Undetermined Origin", "description": "No obvious ignition source visible. No smoke alarms found functional. Suspicious burn pattern near front door.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Overhaul Risk", "description": "Embers in the floor cavity risk rekindle. Overhaul needed — but must not disturb evidence.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Investigator Notified", "description": "Fire investigator requested. Scene log must be maintained from this point.", "timeOffsetSec": 360 },
+    { "index": 5, "title": "Documentation Phase", "description": "All crew actions from this point must be logged to support the investigation.", "timeOffsetSec": 420 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Burn Pattern",
+      "situation": "The fire has been knocked down. You observe a low, irregular burn pattern near the front door that is inconsistent with a typical accidental residential fire. The floor is heavily charred in a V-pattern pointing toward the door threshold, not toward any obvious ignition source such as an outlet or appliance. No accelerant odor is apparent but the pattern is unusual. The area is mostly clear of debris.",
+      "question": "What do you do with this observation?",
+      "options": [
+        { "label": "A", "text": "Note the exact location, shape, and extent of the burn pattern in writing immediately. Photograph it if your department's procedure allows. Do not step through the burn pattern area or disturb the debris. Notify the incident commander of the suspicious indicator and recommend a fire investigator be requested. Do not draw a conclusion — document the observation only.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Use a hook to probe the burn pattern area to check for hot spots underneath — evidence preservation can be handled by investigators later.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Make no note of it and continue overhaul normally — determining cause of fire is the investigator's job, not yours.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Managing the Scene Log",
+      "situation": "The incident commander has requested a fire investigator. Until the investigator arrives, you must maintain a scene log. Three crew members have been inside. The owner has not been contacted yet. A neighbor is standing nearby and witnessed the pre-arrival smoke conditions.",
+      "question": "What should the scene log include and who is responsible for it?",
+      "options": [
+        { "label": "A", "text": "Assign a dedicated crew member or command aide to maintain a running log. It should include: exact times of crew entry and exit, areas entered and actions taken, any items moved or disturbed and why, observations of burn pattern and condition, personnel on scene, and time of investigator request. The neighbor's contact information and their observations should also be recorded.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Document only the initial arrival conditions — detailed interior crew action logs are not a fire department responsibility.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Allow each crew member to maintain their own mental record and compile it after the investigator arrives.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Overhaul Decision in an Evidence-Sensitive Area",
+      "situation": "Thermal imaging shows a live ember pocket directly beneath the suspicious burn pattern area — directly on the potential evidence. If not extinguished, rekindle will destroy the remaining pattern and surrounding debris, which is the most critical evidence area. The investigator is 30 minutes out.",
+      "question": "How do you proceed?",
+      "options": [
+        { "label": "A", "text": "Photograph and document the area fully before touching anything. Apply the minimum water necessary directly to the ember pocket only — a narrow stream, not a flood pattern — to extinguish rekindle risk. Log exactly what was done, by whom, and at what time. Preserve as much of the surrounding debris arrangement as possible. Notify the investigator of the specific overhaul action taken.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Wait for the investigator without addressing the ember pocket — evidence is more important than rekindle risk.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Conduct full overhaul of the entire area to prevent any possibility of rekindle — the investigator can work with photographs.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Evidence preservation was handled with professionalism throughout. The suspicious burn pattern was documented without disturbance. A comprehensive scene log was established immediately. The minimum necessary overhaul action was taken with full documentation and investigator notification. Well done — evidence preservation during fire suppression and overhaul is a critical responsibility that directly impacts the investigation's ability to establish cause and potentially support prosecution.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "evidence preservation", "fire investigation", "scene log", "overhaul", "arson", "post-incident"]
+}

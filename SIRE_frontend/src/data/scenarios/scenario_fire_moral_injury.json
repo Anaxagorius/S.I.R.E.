@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_moral_injury",
+  "description": "A firefighter must make an impossible rescue priority decision that results in one victim surviving and another perishing — the moral weight of that decision and its aftermath must be managed.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "House fire — two victims reported trapped on separate floors. One crew on scene initially.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Two confirmed victims: an adult on the ground floor and a teenager on the second floor. Only one crew can deploy interior — staircase is partially compromised.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Priority Decision", "description": "Ground floor victim is closest and most accessible. Second floor victim is more mobile but further. The officer must choose.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Rescue Outcome", "description": "Ground floor victim is rescued. Second floor victim perishes before additional crew can reach them.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Aftermath", "description": "Scene secured. The officer who made the priority call is now questioning whether the other choice would have saved both.", "timeOffsetSec": 300 },
+    { "index": 5, "title": "Moral Weight", "description": "The decision was tactically sound. The emotional and moral aftermath must now be addressed.", "timeOffsetSec": 420 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "The Decision",
+      "situation": "You arrive with one interior crew. Two victims are confirmed: an adult on the ground floor near the front (accessible, heavily smoke-exposed) and a teenager on the second floor (mobile at the window, but a compromised staircase blocks normal access and a second crew is three minutes out). You cannot safely send your one crew to both.",
+      "question": "How do you direct your crew?",
+      "options": [
+        { "label": "A", "text": "Direct interior crew to the ground floor victim immediately — they are in immediate life threat, closest, and accessible. Simultaneously raise a ground ladder to the second floor window and direct the teenager to climb toward the ladder with verbal guidance from outside. Request expedited second unit response. This is the closest-first rescue doctrine under split-resource conditions.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Send the crew to the second floor teenager first — they are visible and their youth means greater years of life.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait for the second crew before committing to either rescue — entering with insufficient resources is too dangerous.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "The Outcome",
+      "situation": "The ground floor victim was rescued. The teenager on the second floor was overcome by smoke before the second crew arrived — they perished. Your decision was tactically sound and consistent with rescue doctrine. But you keep thinking: what if I had gone up first? The second crew is now on scene. Your crew is sitting at the engine, silent.",
+      "question": "How do you address your crew immediately after?",
+      "options": [
+        { "label": "A", "text": "Gather your crew briefly. Acknowledge the loss without minimizing it. State clearly that the decision was based on sound doctrine and the best available information at the time. Do not revisit the alternate choice as a failure — it is a counterfactual that cannot be resolved. Make CISM peer support available immediately.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Tell the crew to stay focused on the remaining scene tasks and process feelings at home — now is not the time.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Apologize to the crew for making the wrong call and suggest you should have tried to get both victims simultaneously.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "The Officer's Moral Injury",
+      "situation": "Days after the incident, you are still re-running the scenario in your mind. You know your decision was correct. But the teenager's family has been on the news. A colleague says 'I heard you had to choose — that must be awful.' You feel guilt and isolation, even though you followed the right protocol. This is moral injury — not a tactical failure, but the psychological wound of acting rightly in an impossible situation.",
+      "question": "What is the appropriate response to moral injury for you as an officer?",
+      "options": [
+        { "label": "A", "text": "Seek a structured CISM or peer support session specifically addressing moral injury — not general debriefing. Recognize that moral injury is different from guilt and requires acknowledgment, not correction. If symptoms persist (intrusive thoughts, withdrawal, impaired function), seek professional counseling. Understand that carrying this is normal; continuing to carry it alone is not necessary.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Review the incident report repeatedly until you find a detail that confirms you made an error — resolution requires assigning blame, even to yourself.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Avoid any support process — accepting help would mean admitting the decision was wrong, which it wasn't.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The rescue priority was decided correctly under impossible conditions. The crew was acknowledged and supported without revisionism or minimization. The officer recognized the signs of moral injury — distinct from guilt and tactical error — and sought appropriate support. Well done — moral injury is one of the most underrecognized consequences of firefighting, and addressing it honestly requires both professional and personal courage.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "moral injury", "rescue priority", "impossible decision", "CISM", "psychological", "human factors", "grief", "leadership"]
+}

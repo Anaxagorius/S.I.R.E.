@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_community_debriefing",
+  "description": "A fatal residential fire in a tight-knit community has left residents frightened and mistrustful — the fire department must conduct an effective community debriefing that addresses concerns, corrects misinformation, and rebuilds confidence.",
+  "timeline": [
+    { "index": 0, "title": "Incident", "description": "A fatal fire in a residential neighborhood resulted in one civilian death and significant property loss. The fire spread from one unit to two adjacent units.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Community Response", "description": "Within 48 hours, neighborhood social media groups are spreading rumors about delayed response and building safety.", "timeOffsetSec": 600 },
+    { "index": 2, "title": "Community Meeting Requested", "description": "Neighborhood association requests a public meeting with the fire department to discuss the incident and fire safety.", "timeOffsetSec": 1200 },
+    { "index": 3, "title": "Meeting Preparation", "description": "The fire department prepares a community debriefing format — factual, respectful, and transparent.", "timeOffsetSec": 1800 },
+    { "index": 4, "title": "Community Meeting", "description": "The meeting is attended by 60 residents. Emotions are high. Questions are direct and sometimes hostile.", "timeOffsetSec": 2400 },
+    { "index": 5, "title": "Follow-Up", "description": "The community debriefing concludes. Follow-up commitments must be honored.", "timeOffsetSec": 3000 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Preparing for the Community Debriefing",
+      "situation": "The neighborhood association has requested a public meeting. Social media posts claim the fire department took 12 minutes to arrive (dispatch records show 4 minutes 45 seconds), that the building had known safety violations ignored by the city, and that fire spread to two adjacent units was preventable. The meeting will have 60+ residents. You are the fire chief preparing your opening remarks and team.",
+      "question": "How do you structure your preparation?",
+      "options": [
+        { "label": "A", "text": "Prepare a clear factual summary of the incident: response time from dispatch records, actions taken, cause of death, and cause of spread to adjacent units — if investigation is complete. Prepare to acknowledge what you cannot yet disclose and why. Bring the PIO and a fire prevention officer. Do not prepare a defensive presentation — prepare an honest, empathetic one. Anticipate difficult questions and prepare factual answers or honest acknowledgments of what is still under review.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Prepare a legal disclaimer statement for the opening to protect the department from liability before taking questions.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Attend the meeting without preparation — responding authentically in the moment is more credible than a polished presentation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Hostile Questions at the Meeting",
+      "situation": "At the meeting, a resident stands up and states: 'My neighbor died waiting for you. Twelve minutes — I timed it myself on my phone.' Others in the room murmur in agreement. Your dispatch record clearly shows 4 minutes 45 seconds. The resident's phone start time appears to have been before they called 911.",
+      "question": "How do you respond?",
+      "options": [
+        { "label": "A", "text": "Acknowledge the resident's grief and their need for answers directly. State that your dispatch records — which are time-stamped automatically by the CAD system — show a response time of 4 minutes 45 seconds. Offer to make the dispatch record available publicly. Acknowledge that when someone is waiting for help, every second feels longer, and their perception is real and valid even if the clock shows differently. Do not dismiss or argue with the resident.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Firmly correct the resident in front of the room — the record shows 4:45 and their phone time is incorrect. Facts matter.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Avoid directly contradicting the resident's stated time — the emotional environment makes disputing it counterproductive.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Prevention and Building Safety Questions",
+      "situation": "A resident asks: 'Were there known fire safety violations in that building that were never enforced? My family lives in the building next door.' This is partly within fire department jurisdiction and partly a city bylaw or building inspection matter. The investigation has not yet confirmed whether pre-existing violations contributed to fire spread.",
+      "question": "How do you handle this?",
+      "options": [
+        { "label": "A", "text": "Answer within the bounds of what you know. State that fire inspection jurisdiction and the status of any orders is a matter you can provide factual information on post-meeting upon request. Acknowledge that if the investigation surfaces pre-existing conditions that contributed to the fire, you will share those findings publicly. Offer to arrange a follow-up meeting with city bylaw and building inspection. Do not speculate on violations or their role before the investigation concludes.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "State definitively that no violations contributed to the fire — this will reassure residents even if the investigation is ongoing.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Redirect the building safety question entirely to city hall — it is outside the fire department's scope and you should not comment.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The community debriefing was handled with honesty, empathy, and factual accuracy. The response time allegation was addressed respectfully using documentation while acknowledging the emotional reality. The building safety question was handled transparently without speculation. Follow-up commitments were made publicly. Well done — a community debriefing after a fatal fire tests the fire department's integrity and its relationship with the public it serves.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "community debriefing", "public trust", "fatality", "communication", "post-incident", "fire prevention", "crisis communications"]
+}

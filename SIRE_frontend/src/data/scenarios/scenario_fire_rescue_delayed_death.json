@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_rescue_delayed_death",
+  "description": "A firefighter successfully rescues a victim from a burning structure, but the victim dies in hospital shortly afterward — crews must process grief, guilt, and meaning while continuing operations.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Residential structure fire — occupant reported trapped on second floor.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Rescue", "description": "Crew locates and removes an elderly victim with severe smoke inhalation. EMS initiates treatment.", "timeOffsetSec": 120 },
+    { "index": 2, "title": "Hospital Transport", "description": "Victim transported in critical condition. Crew hopeful — rescue was fast and effective.", "timeOffsetSec": 200 },
+    { "index": 3, "title": "Notification", "description": "The crew learns at the station that the victim died in hospital one hour after arrival.", "timeOffsetSec": 600 },
+    { "index": 4, "title": "Crew Reaction", "description": "The rescue firefighter is silent and withdrawn. Others question whether they did enough.", "timeOffsetSec": 660 },
+    { "index": 5, "title": "Shift Continues", "description": "The crew still has a full shift ahead with more calls possible.", "timeOffsetSec": 720 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "The News Arrives",
+      "situation": "Your crew has just been informed that the victim they rescued died in hospital. The rescue firefighter — a four-year veteran — has gone quiet in the day room. Others are replaying the rescue out loud, asking if they should have done anything differently. The rescue was technically sound and well-executed. The victim's injuries from the fire were simply unsurvivable.",
+      "question": "As the company officer, how do you approach this?",
+      "options": [
+        { "label": "A", "text": "Speak quietly and directly to the crew together. Acknowledge the loss without minimizing it. Affirm that the rescue was executed correctly and gave the victim the only chance they had. Do not allow the crew to spiral into self-blame. Contact CISM peer support and make it available — not mandatory — immediately.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Tell the crew to put it behind them — they did their job, and the hospital's outcome is not their responsibility.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Conduct an immediate technical debrief of the rescue to identify if anything could have been done faster.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "The Rescue Firefighter",
+      "situation": "The veteran firefighter who carried the victim out is sitting alone in the apparatus bay. He has been on the job long enough to know this happens, but this is the first time he personally lost a victim he rescued. He says he keeps thinking about whether he was fast enough. You know the timeline — he was.",
+      "question": "How do you approach this individual?",
+      "options": [
+        { "label": "A", "text": "Sit with him privately. Listen first without trying to fix it. Provide specific factual reassurance about the timeline if he brings it up. Make clear that peer support is available if he wants it — and that reaching out is a sign of strength, not weakness.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Tell him to see the department counselor immediately, then return him to normal duties once the session ends.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Give him space entirely and let him process it alone — pushing peer support could embarrass him.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Fitness for Continued Duty",
+      "situation": "A call comes in — kitchen fire two blocks away. Your crew, including the affected firefighter, are the on-duty company. The firefighter says he is fine and insists on responding. You observe that he is still distracted and not his usual self.",
+      "question": "What do you decide?",
+      "options": [
+        { "label": "A", "text": "Respond with the crew — the call requires you. However, keep the affected firefighter in a supporting role (e.g., pump operator or accountability) rather than the point of attack on this call. Monitor closely and reassess fitness for interior attack after this response.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Pull the firefighter from the response entirely and call for a relief crew — acute emotional distress is too significant a risk on a live scene.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Send the firefighter in without any adjustment — treating him differently would undermine his dignity and the crew's cohesion.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The incident was handled with compassion and professionalism. The crew's grief was acknowledged honestly without blame. The individual firefighter was given private support without being forced into a process. Operational fitness was assessed carefully — the firefighter was kept active but placed in a lower-stress role until cleared. CISM follow-up was arranged. Well done — losing someone you rescued is one of the most emotionally complex experiences in the fire service.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "rescue", "delayed death", "grief", "CISM", "crew welfare", "psychological", "human factors", "moral injury"]
+}
