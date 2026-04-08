@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_high_rise_residential",
+  "description": "High-rise residential building fire above ladder reach",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Fire alarm activation and multiple calls for smoke in a 22-story residential tower. Smoke reported on floor 18.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Building fire confirmed. High-rise protocol activated. Multiple units dispatched on first alarm.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Lobby Control", "description": "Lobby control established. Building engineer reports fire on floor 18. Elevators recalled. Stairwell pressurization activated.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Floor 17 Staging", "description": "Attack team reaches floor 17 via stairs with standpipe equipment. Smoke pushing under the stairwell door at floor 18.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Fire Attack", "description": "Standpipe line deployed from floor 17 outlet. Crew advances to fire unit on floor 18. Smoke conditions are heavy.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Fire Controlled", "description": "Fire knocked down in the unit. Floors 17 and 19 checked. Evacuation of smoke-affected floors complete.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "High-Rise Arrival Procedures",
+      "situation": "You arrive at a 22-story residential high-rise. The building alarm is sounding. Lobby staff reports fire on the 18th floor. The building has a standpipe system and a fire command center in the lobby. Elevators are available. Your crew needs to reach the 18th floor with hose, tools, and SCBA.",
+      "question": "How do you deploy your crew to the fire floor?",
+      "options": [
+        { "label": "A", "text": "Use the elevator to travel to floor 16, then walk up to floor 17 to stage, connect to the standpipe outlet, and advance to floor 18 with charged line.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Walk up all 18 floors via stairs carrying all equipment to avoid any elevator risk.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Use the elevator directly to floor 18 and connect to the standpipe on the fire floor.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Standpipe Connection",
+      "situation": "Your crew is on floor 17. Smoke is pushing under the stairwell door at floor 18. You connect to the floor 17 standpipe outlet. The pressure reducer valve is showing very high pressure — approximately 250 psi. Your target flow pressure at the nozzle should be around 100 psi.",
+      "question": "How do you manage the standpipe pressure?",
+      "options": [
+        { "label": "A", "text": "Use a pressure-reducing gate valve (inline pressure reducer) between the standpipe outlet and your hoseline to reduce pressure to a workable level before advancing.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Connect directly at full pressure and have the nozzle operator control flow with the nozzle bail.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Skip the standpipe and wait for engine crews to stretch a line up from the ground floor.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Floors Above and Below Check",
+      "situation": "The fire in the unit on floor 18 has been knocked down. IC is requesting a check of floor 17 (below) and floor 19 (above) for extension. Additionally, the stairwell pressurization system on floor 18 appears to have failed, allowing smoke into the stairwell.",
+      "question": "How do you handle the floor checks and stairwell issue?",
+      "options": [
+        { "label": "A", "text": "Assign separate crews to check floors 17 and 19 while coordinating with the building engineer to restore stairwell pressurization. Keep the attack crew on 18 for overhaul.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Complete full overhaul of floor 18 before checking any other floors.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Evacuate all floors above 18 as a precaution without checking 17 and 19 first.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Floors 17 and 19 were checked and clear of fire extension. Stairwell pressurization was restored by the building engineer. The fire was confined to a single unit on the 18th floor. Residents on smoke-affected floors were sheltered in place as per high-rise protocol until smoke cleared. All crews performed standpipe operations effectively. Well done — your high-rise protocol, elevator use, standpipe pressure management, and floor checks were all executed correctly.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "structural", "high-rise", "standpipe", "residential", "stairwell pressurization"]
+}

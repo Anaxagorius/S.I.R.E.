@@ -1,0 +1,90 @@
+{
+  "title": "scenario_fire_school",
+  "description": "A fire breaks out in a school science lab during the school day, threatening to spread with hundreds of students and staff on site.",
+  "timeline": [
+    { "index": 0, "title": "Alarm Activated", "description": "Science lab fire alarm triggers. Teacher reports small chemical fire on a lab bench.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "School Evacuation", "description": "Principal initiates full school evacuation. Over 600 students and 50 staff evacuating.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "Units Arrive", "description": "Fire showing from science wing window. Unknown chemicals involved. Students assembling on athletic field.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Accountability Challenge", "description": "Two students reportedly unaccounted for. Last seen in library on opposite side of building.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Fire Extension", "description": "Fire spreading through dropped ceiling into adjacent classroom. Chemical storage cabinet compromised.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "All Clear", "description": "Missing students found in library and escorted out. Fire knocked down. Building cleared.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrival at School Fire",
+      "situation": "You arrive to find fire showing from a ground-floor science lab window. Students and staff are evacuating to the athletic field. The principal reports 600+ students and staff should be outside but two students are unaccounted for—last known location is the library on the far end of the building from the fire. Chemical smoke is visible.",
+      "question": "What is your initial action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish command; send one crew with SCBA to search the library for the missing students while advancing a hoseline to the science lab for fire attack.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for all students to be confirmed outside before committing crews into the building.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Commit all crews to aggressive fire attack in the lab to stop the fire before dealing with the missing students.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Chemical Hazard in Lab",
+      "situation": "Fire attack crew reports the science lab contains a storage cabinet with multiple chemicals including flammable solvents and oxidizers. Labels indicate chlorine-based compounds. Smoke from the lab is acrid and yellow-tinged. The cabinet is partially involved in the fire.",
+      "question": "How do you adjust your fire attack given the chemical hazard?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ensure all interior crews are on SCBA; use water fog to suppress vapors; avoid mixing incompatible chemicals with water (e.g., reactive metals); request HAZMAT response.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Apply a straight stream directly into the open chemical cabinet to cool it down.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remove all crews from the building until the HAZMAT team arrives and takes over.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Extension into Ceiling",
+      "situation": "Fire has extended through the dropped ceiling tiles into the void above and is tracking toward the adjacent classroom. The search crew has found the two missing students in the library—both are ambulatory and being escorted out. Accountability for all others is being confirmed by teachers.",
+      "question": "How do you address the ceiling void fire extension?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pull ceiling tiles in the path of travel to expose the fire in the void; use a piercing nozzle or open the void to apply water directly; check the adjacent classroom for extension.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Continue to direct all water into the lab room; the ceiling fire will self-extinguish once the main fire is out.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate the building entirely and switch to exterior defensive operations.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both missing students are safely evacuated. The lab fire is extinguished and ceiling void extension is stopped. HAZMAT team is on scene managing the chemical storage assessment. Full accountability for all 650+ occupants is confirmed with no serious injuries. Well done!",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "commercial", "school", "hazmat", "search and rescue", "accountability", "chemical fire"]
+}

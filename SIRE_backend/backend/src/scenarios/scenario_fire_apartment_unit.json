@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_apartment_unit",
+  "description": "Single apartment unit fire in a multi-story building",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Building fire alarm activation. Residents on floors 3 and 4 reporting smoke in hallways.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Multiple calls confirming smoke. Report of fire in unit 304.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "6-story apartment building. Smoke venting from windows of unit 304 on the 3rd floor. Residents self-evacuating via stairwell.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Fire Spreads", "description": "Fire has extended to the exterior and is lapping up toward unit 404. Hallway on 3rd floor filling with smoke.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Attack in Progress", "description": "Attack line advanced to unit 304. Crew encounters high-heat conditions at the doorway.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Fire Controlled", "description": "Fire knocked down in unit 304. Exposure unit 404 checked and found with minor heat damage.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Building Arrival and Stretch",
+      "situation": "You arrive at a 6-story apartment building. Smoke is showing from windows of unit 304 on the third floor. Residents are exiting the building in the main stairwell. The building has a standpipe system. Your crew needs to deploy a hoseline to the fire floor.",
+      "question": "How do you deploy your attack line?",
+      "options": [
+        { "label": "A", "text": "Connect to the standpipe outlet on the 2nd floor landing, stretch to the 3rd floor, and advance to unit 304 via the stairwell.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Lay a supply line from the engine up the exterior and connect directly to a window.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Stretch a line from the engine up the stairwell from the lobby, bypassing the standpipe system.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Hallway Conditions",
+      "situation": "The 3rd floor hallway has moderate smoke. The door to unit 304 is hot to the touch. Residents have been evacuated from this floor. The door is closed. Your crew is charged and ready to make entry.",
+      "question": "What is your door entry procedure?",
+      "options": [
+        { "label": "A", "text": "Bleed the air from the standpipe hoseline, position crew to the side of the door, crack the door to check heat and smoke conditions before committing to entry.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Force the door open fully and advance immediately to get water on the fire as fast as possible.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Open the hallway windows for ventilation before attempting entry to clear smoke first.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Exposure Protection",
+      "situation": "Fire in unit 304 is knocked down. Your incident commander reports fire may have extended to unit 404 directly above via exterior lapping flames. A crew needs to be assigned to check the exposure unit.",
+      "question": "How do you handle the exposure unit 404?",
+      "options": [
+        { "label": "A", "text": "Send a separate crew to unit 404, have them check the exterior-facing walls, ceiling near windows, and confirm the unit is clear of fire extension.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Apply water from the exterior through the window of 404 as a precaution before sending anyone in.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Do not check 404 since the fire in 304 is out and lapping flames were likely extinguished.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The crew checking unit 404 found scorching on the exterior wall and minor heat extension behind the drywall near the window frame. The hotspot was extinguished before it could grow. All residents were accounted for outside the building. The fire was confined to unit 304 with minor extension to 404. Well done — proper standpipe use, disciplined door entry, and proactive exposure check contained the fire to two units.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "structural", "apartment", "standpipe", "exposure protection", "multi-story"]
+}

@@ -1,0 +1,149 @@
+{
+  "title": "scenario_fire_warehouse",
+  "description": "Warehouse fire with unknown contents, high racking, and large area",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Report of fire in a large warehouse. Smoke visible from half a mile. Contents unknown.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Heavy smoke column. Multiple units dispatched. HAZMAT notified due to unknown contents.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Large steel-frame warehouse, fully involved in two bays. High-rack storage. Sprinkler system overwhelmed. IDLH atmosphere outside.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Unknown Contents",
+      "description": "Bill of lading located \u2014 warehouse stored mixed industrial chemicals and plastics. HAZMAT team responding.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Defensive Ops",
+      "description": "Master streams deployed. Collapse zone established. HAZMAT team assessing runoff.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Controlled",
+      "description": "Fire knocked from exterior. HAZMAT contained runoff. Perimeter maintained.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Warehouse Fire Size-Up",
+      "situation": "You arrive to a massive warehouse fire. Two bays are fully involved. High-rack storage with unknown contents is burning intensely. Black and multicolored smoke indicates chemical involvement. The sprinkler system has been overwhelmed. No reported occupants inside. The structure has steel frame construction.",
+      "question": "What operational mode do you declare?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare defensive operations \u2014 unknown chemical contents, overwhelming fire, and steel frame construction with potential for catastrophic collapse preclude interior or close exterior operations. Request HAZMAT, second alarm, and additional water supply.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advance crews inside to locate and cut off the fire with interior hoselines before it spreads to more bays.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply master stream from the loading dock door opening since crews can stay outside while attacking inside.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Water Supply and Runoff Management",
+      "situation": "Defensive master streams are being set up. The HAZMAT team has arrived and identified mixed industrial chemicals in the warehouse including flammable liquids and corrosives. They are concerned about contaminated firewater runoff entering the storm drain system which leads to a nearby waterway.",
+      "question": "How do you manage water supply and runoff?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with HAZMAT to establish a containment berm around the runoff path to the storm drain. Use only the water volume necessary for knockdown \u2014 minimize excess runoff while maintaining fire control.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply maximum water volume from all available master streams to knock the fire as fast as possible, then deal with runoff afterward.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Suspend water application until runoff containment is fully established.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Collapse Zone Establishment",
+      "situation": "The warehouse steel frame is glowing red in the fire-involved bays. Steel loses 50% of its structural strength at elevated temperatures. A partial roof collapse has occurred in bay 2. All master streams must be operated from outside the collapse zone.",
+      "question": "What is your collapse zone decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a collapse zone equal to the full height of the warehouse on all sides. Reposition all master streams and personnel outside this zone. Use unmanned master stream devices where possible.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep master streams at the nearest position that gives effective reach \u2014 collapse zones can be reduced when water is actively cooling the steel.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Only establish collapse zones on the side where collapse has already occurred.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The fire was knocked down with master streams operated from outside the collapse zone. No firefighter injuries occurred. The HAZMAT containment berm prevented contaminated runoff from reaching the storm drain. Two additional roof sections collapsed during operations \u2014 within the established collapse zone. Fire investigation and HAZMAT remediation operations were handed off to appropriate teams. Well done \u2014 your defensive decision, HAZMAT coordination, runoff management, and collapse zone discipline were all correctly executed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "fire",
+    "commercial",
+    "warehouse",
+    "defensive operations",
+    "hazmat",
+    "collapse risk",
+    "water supply"
+  ]
+}

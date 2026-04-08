@@ -1,0 +1,149 @@
+{
+  "title": "scenario_fire_retail_store",
+  "description": "Retail store fire during business hours with customers inside",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Fire alarm activation in a retail store during business hours. Smoke reported in the stockroom.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Store employees confirming fire in stockroom. Customers beginning to self-evacuate.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Single-story retail store. Smoke from rear stockroom. Approximately 40 customers and 10 staff evacuating through main entrance. Alarm is sounding.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Evacuation Check",
+      "description": "Store manager reports some customers may still be in fitting rooms at the rear of the store near the stockroom.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Search and Attack",
+      "description": "Crew searches fitting rooms while attack line advances to stockroom.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Two customers found and evacuated from fitting rooms. Stockroom fire extinguished. Ceiling tiles show no extension.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Retail Store Arrival",
+      "situation": "You arrive to a single-story retail clothing store during business hours. Smoke is coming from the rear stockroom. The fire alarm is sounding and approximately 40-50 people are evacuating through the main entrance. The store manager tells you some customers may still be in the fitting rooms at the rear near the stockroom.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign one crew to sweep the fitting rooms for remaining customers while the attack crew stretches the hoseline toward the stockroom fire, protecting the search team's egress.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Clear all personnel from the building exterior first, then conduct interior operations once the building is confirmed empty by self-evacuation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advance directly to the stockroom fire since the fitting rooms are far from the fire and customers likely self-evacuated.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "PVC and Product Hazards",
+      "situation": "Your crew is advancing to the stockroom. The retail store sells clothing and household goods \u2014 significant quantities of synthetic fabrics and PVC products are on the shelves. These materials produce highly toxic black smoke when burning. The stockroom smoke is thick and dark. Crew is in full SCBA.",
+      "question": "How do you adjust your approach given these fuel hazards?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain SCBA discipline for all crew \u2014 no short-term air shortcuts. Advance with a charged line and stay low. Be prepared for rapid fire spread if synthetic materials ignite on the sales floor.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The stockroom fire is relatively small \u2014 a crew member can check conditions briefly without donning SCBA since they will only be inside for a moment.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Open the rear stockroom door fully to ventilate the toxic smoke before advancing.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ceiling Integrity Check",
+      "situation": "The stockroom fire is knocked down. The stockroom has suspended ceiling tiles throughout. These tiles may hide fire extension in the ceiling void space above them. The search crew has confirmed two customers were found and evacuated from fitting rooms. You need to confirm no fire extension before declaring overhaul.",
+      "question": "How do you check for ceiling extension?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use a thermal imaging camera to scan the ceiling tiles in the stockroom and the adjacent sales floor. Open tiles in any areas showing elevated heat to confirm and extinguish any extension.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The fire was small and localized \u2014 do a visual check of the ceiling tiles and clear the scene if none appear burned.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Pull all ceiling tiles throughout the store as a precaution since extension cannot be ruled out.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The thermal imager found one hot spot in the ceiling void above the stockroom where a ceiling tile had shifted. That section was opened and a small smoldering area was extinguished. The two customers found in the fitting rooms had minor smoke inhalation and were treated by EMS. All 50+ occupants were accounted for. Well done \u2014 your simultaneous search and attack, SCBA discipline, and thorough TIC-based ceiling check prevented a rekind and assured life safety.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "fire",
+    "commercial",
+    "retail",
+    "PVC",
+    "toxic smoke",
+    "search and rescue",
+    "ceiling extension"
+  ]
+}

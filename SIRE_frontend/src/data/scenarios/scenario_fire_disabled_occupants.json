@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_disabled_occupants",
+  "description": "Home fire with disabled/immobile occupants unable to self-evacuate",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Report of residential fire. Caller states occupant is in a wheelchair and cannot self-evacuate.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Smoke visible from address. Dispatch confirms disabled occupant still inside.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Single-story home, smoke from front windows. Front door unlocked. A caretaker outside confirms an elderly woman in a power wheelchair is in the back bedroom.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Rescue Initiated", "description": "Crew enters and locates victim conscious but unable to move from wheelchair. Smoke filling the room.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Evacuation Underway", "description": "Victim being carried in chair toward exit. Fire in living room progressing toward hallway.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Victim Evacuated", "description": "Victim safely removed to care of EMS outside. Fire confined and extinguished.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Rescue Priority Assessment",
+      "situation": "You arrive to find a single-story home with smoke from the living room. A caretaker confirms an elderly woman who uses a power wheelchair is in the back bedroom and cannot self-evacuate. The front door is unlocked. Smoke is moderate in the living room but the hallway to the bedroom appears passable for now.",
+      "question": "What is your immediate priority?",
+      "options": [
+        { "label": "A", "text": "Make rescue the immediate priority — enter with a charged line, advance to the bedroom to locate the victim while a crew stretches additional line to protect the hallway egress route.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Knock down the living room fire first to clear the egress path before attempting the rescue.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait for additional resources since one company cannot safely do both rescue and fire attack for a disabled victim.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation Method",
+      "situation": "You locate the victim — an elderly woman conscious and alert in a heavy power wheelchair. She cannot transfer out of the chair on her own. The chair weighs approximately 300 lbs with her in it. The hallway is narrow but accessible. The living room fire is beginning to extend into the hallway.",
+      "question": "How do you evacuate this victim?",
+      "options": [
+        { "label": "A", "text": "Use the carry chair technique or a rescue drag — tip the chair back and carry on the rear wheels if possible, or perform an emergency chair carry with multiple crew members, while the attack line holds fire at the hallway entry.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Transfer the victim to the floor and drag her out since it is faster than moving the heavy chair.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Ask the victim to operate the power wheelchair herself to the door while the crew fights fire.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Protecting the Egress",
+      "situation": "The victim is being moved toward the exit. The fire has entered the hallway and is threatening to cut off the egress route. A crew member needs to hold the hallway with the attack line while the rescue crew moves the victim out. Coordination is critical.",
+      "question": "How do you manage the competing priorities?",
+      "options": [
+        { "label": "A", "text": "One crew member applies water to hold the hallway fire while the remaining crew completes the victim carry to the front door — communicate clearly and move quickly but safely.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Stop the rescue and focus all crew on extinguishing the hallway fire before continuing the move.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Abandon the hallway and exit through a bedroom window with the victim instead.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The victim was successfully evacuated via the front door. The attack crew held the hallway fire long enough for the rescue to complete. EMS treated the victim for minor smoke inhalation outside. The fire was subsequently knocked down and confined to the living room. Well done — your rescue priority, proper carry technique, and crew coordination under fire pressure resulted in a successful save.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "residential", "rescue", "disabled occupant", "wheelchair evacuation", "egress protection"]
+}

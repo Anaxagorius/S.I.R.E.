@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_chimney",
+  "description": "Chimney/flue fire with potential spread to the structure",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Report of flames shooting from chimney top of a residential home. Homeowner reports using the fireplace frequently.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Flames and sparks visible from chimney on arrival route. High creosote build-up suspected.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Flames and thick black smoke from the chimney. Roaring sound audible. No external structure involvement visible yet.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Inspection Inside", "description": "Crew checks inside at fireplace — flames visible up in the flue. Heat intense. Checks ceiling and attic area around chimney.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "No Extension Found", "description": "Thermal imager shows no extension to structure yet. Fire is contained within the flue. Suppression initiated.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Fire Out", "description": "Chimney fire extinguished. Creosote burn-out completed or suppressed. No structural extension confirmed.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Chimney Fire Initial Actions",
+      "situation": "You arrive to an active chimney fire with flames shooting from the chimney cap. There is a roaring sound indicating burning creosote inside the flue. The fireplace is still burning in the hearth. You need to prevent extension to the structure and suppress the chimney fire.",
+      "question": "What are your immediate actions?",
+      "options": [
+        { "label": "A", "text": "Extinguish the fireplace fire in the hearth to cut off heat supply, close the damper to reduce airflow to the flue fire, and immediately check the attic and all areas adjacent to the chimney for heat extension.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Apply water directly down the chimney from the roof to extinguish the creosote fire quickly.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Let the creosote burn out naturally since chimney fires are self-limiting — just monitor for extension.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Checking for Extension",
+      "situation": "The hearth fire is out and the damper is partially closed. The chimney fire sound is reduced but still active. You need to check all areas where the chimney passes through the structure — the ceiling, attic space, and any framing that touches the chimney — for fire extension.",
+      "question": "How do you check for structural extension?",
+      "options": [
+        { "label": "A", "text": "Use a thermal imager to scan the chimney chase, ceiling, and attic areas immediately around the chimney. Any elevated heat signatures require opening the wall or ceiling to confirm.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Visually inspect the exterior of the chimney from the roof and the ceiling from the interior — if no smoke is seen, extension is unlikely.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Check only the attic since that is where extension most commonly occurs in chimney fires.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Chimney Fire Suppression",
+      "situation": "The thermal imager shows no extension to the structure — the chimney appears to be intact and fire is contained in the flue. The chimney fire is still active. You need to suppress it safely without damaging the flue liner or causing water steam explosion risk.",
+      "question": "How do you suppress the remaining chimney fire?",
+      "options": [
+        { "label": "A", "text": "Use a chimney fire suppressant product (chimney bomb or dry chemical) dropped into the top of the flue from the roof, or use water mist sparingly if the liner is confirmed masonry and not prefabricated metal.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Apply a large volume of water from the roof into the flue to flood it out completely.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Open the fireplace damper to increase airflow and let the fire burn out faster on its own.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The chimney fire was suppressed successfully with no structural extension. TIC confirmed no residual heat outside the flue. The homeowner was advised to have the chimney professionally inspected for liner cracks before using the fireplace again, and to have the chimney cleaned to prevent future creosote buildup. Well done — your disciplined approach to cutting fuel, checking extension with TIC, and safe suppression prevented a chimney fire from becoming a structure fire.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Beginner",
+  "tags": ["fire", "residential", "chimney", "creosote", "extension check", "flue"]
+}
