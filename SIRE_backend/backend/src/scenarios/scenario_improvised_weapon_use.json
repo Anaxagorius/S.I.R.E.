@@ -1,0 +1,176 @@
+{
+  "title": "scenario_improvised_weapon_use",
+  "description": "Officers respond to an assault where a suspect used an improvised weapon (pipe, machete, axe). Criminal code weapon offence classification and evidence handling are tested.",
+  "category": "Weapons",
+  "difficulty": "Intermediate",
+  "tags": [
+    "improvised weapon",
+    "assault",
+    "weapon offence",
+    "criminal code",
+    "evidence handling"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Assault Call",
+      "description": "Officers dispatched to a reported assault with a weapon.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Arrival",
+      "description": "Victim found with injuries; improvised weapon located.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Weapon Identified",
+      "description": "Officers identify and classify the improvised weapon.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Safe Seizure",
+      "description": "Improvised weapon safely seized and documented.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Charge Classification",
+      "description": "Appropriate Criminal Code charge is determined.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Suspect arrested; improvised weapon seized; appropriate charges laid.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Arrival and Victim Assessment",
+      "situation": "At 1915 hrs you respond to a disturbance call at a residential address. Neighbours reported hearing shouting and the sound of metal striking something. You arrive to find a male (Paul, 48) sitting on the front step holding his left arm, which has a visible deep laceration. Blood is running down his arm. Standing in the driveway is another male (Shane, 40) who is holding what appears to be a 60cm metal pipe. Shane is not actively threatening Paul at this moment but is agitated and holding the pipe at his side.",
+      "question": "What is your immediate action upon observing this scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct your partner to attend to Paul and apply pressure to the wound while calling EMS. You address Shane directly with a loud, firm verbal command: 'Police! Put the pipe down \u2014 put it on the ground now! Step back!' Maintain a safe distance and a position of cover. Do not approach Shane while he is holding the pipe. Keep Shane in your line of sight until he complies and the pipe is on the ground.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rush to Paul's side to apply first aid immediately, turning your back on Shane who is still holding the pipe.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Draw your firearm and order Shane to the ground, as he is holding a weapon and poses an active lethal threat.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Weapon Identification and Classification",
+      "situation": "Shane has complied and placed the pipe on the ground. He is seated on the driveway at your direction and your partner has handcuffed him. Paul has been tended to by EMS and is being treated for the laceration. The metal pipe is on the ground approximately two metres from where Shane placed it. It is a steel construction pipe, approximately 60cm long, with blood visible on one end. You need to classify this as a weapon under the Criminal Code for charge purposes.",
+      "question": "How do you identify and legally classify the metal pipe as a weapon?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the pipe as an 'improvised weapon' or 'weapon not specifically designed as a weapon but used as one.' Under s.2 of the Criminal Code, a 'weapon' includes any thing used or intended to be used to cause death or injury. The metal pipe, used to strike Paul and cause a laceration, meets this definition. Photograph the pipe in place before seizure, including the bloodied end. Note its dimensions, material, and the blood evidence on it. This supports an assault with a weapon charge under s.267.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The pipe is a common construction tool and cannot be classified as a weapon under the Criminal Code \u2014 charge Shane with simple assault only.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Classify the pipe as a 'prohibited weapon' under Schedule 1 of the Criminal Code, which elevates the charge significantly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Safe Seizure and Evidence Documentation",
+      "situation": "The pipe has been photographed in situ. You need to seize it as evidence. The blood on the end is a critical DNA link between the weapon and Paul as the victim. Handling protocols must protect both officer safety and the evidentiary value of the blood. You have access to latex gloves, paper evidence bags, and a rigid evidence container in your vehicle.",
+      "question": "How do you safely seize and package the blood-contaminated metal pipe?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Don gloves before handling. Pick up the pipe from the non-bloodied end, maintaining awareness of the blood-contaminated end. Place it in a rigid evidence container or a large paper evidence bag \u2014 do not use plastic, as biological material requires air circulation to prevent decomposition. Seal the bag, label it with exhibit number, date, time, and your badge number. Note in your exhibit documentation: 'blood-like substance visible on one end, approximately 3cm area.' Submit for DNA analysis. Prepare a DNA swab of the bloodied end under forensic ident protocols if ident is not attending.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wipe the blood off the pipe with a cloth before packaging to prevent a biohazard during transport to the evidence room.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Package the pipe in a sealed plastic evidence bag to contain the blood and prevent contamination of other exhibits.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Charge Classification \u2014 Assault With a Weapon vs Aggravated",
+      "situation": "Paul's laceration has been assessed by EMS as requiring stitches \u2014 approximately 8cm deep laceration to the left forearm. Paul has full feeling in his fingers and no tendon damage is apparent. He is stable and alert. Paul confirms Shane struck him twice with the pipe after a dispute over a property line. Shane is in custody and has not spoken. You need to determine the appropriate charge under the Criminal Code: assault (s.266), assault with a weapon (s.267), or aggravated assault (s.268).",
+      "question": "What charge is most appropriate for Shane's actions and why?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Charge Shane with assault with a weapon under s.267(a) of the Criminal Code \u2014 he used a weapon (the metal pipe) to commit an assault against Paul. Aggravated assault (s.268) applies when a victim is 'wounded, maimed, disfigured or in danger of losing their life' \u2014 the laceration requiring stitches does not likely reach the threshold of wounding or maiming. Document Paul's injury description from the EMS report and obtain a medical record consent. Advise Crown of the injury severity so they can review whether aggravated assault is supportable at trial.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Charge Shane with simple assault under s.266 only \u2014 the pipe was an improvised object and not a weapon by legal definition.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Charge Shane with aggravated assault under s.268 as any use of a weapon causing a laceration constitutes wounding.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Shane was arrested for assault with a weapon after a proper use-of-force response, safe scene control, and correct legal classification of the metal pipe as a weapon under s.2 CC. The pipe was seized with proper blood evidence protocols using paper packaging. The charge was correctly identified as assault with a weapon (s.267) rather than simple or aggravated assault, with Crown advised of the injury severity for their review. Key lessons: Any object used to cause injury meets the Criminal Code definition of 'weapon.' Blood evidence on an improvised weapon must be preserved \u2014 use paper bags, not plastic. The distinction between assault with a weapon (s.267) and aggravated assault (s.268) turns on injury severity \u2014 wound, maim, disfigure, or endanger life.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

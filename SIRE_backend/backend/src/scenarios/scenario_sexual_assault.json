@@ -1,0 +1,176 @@
+{
+  "title": "scenario_sexual_assault",
+  "description": "Officers respond to a sexual assault complaint from a victim who is distressed. The scenario tests trauma-informed response, evidence preservation, and proper investigative handoff.",
+  "category": "Violent Crime",
+  "difficulty": "Advanced",
+  "tags": [
+    "sexual assault",
+    "trauma-informed",
+    "evidence preservation",
+    "SANE",
+    "victim support"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Call Received",
+      "description": "A distressed female calls 911 reporting a sexual assault.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive",
+      "description": "Officers make initial contact with the victim.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Evidence Preservation",
+      "description": "Officer advises victim on clothing/scene preservation.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "SANE Referral",
+      "description": "Sexual Assault Nurse Examiner referral is made.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Investigative Handoff",
+      "description": "File transferred to specialized sexual assault unit.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Victim supported appropriately; evidence preserved; investigative handoff completed.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Victim Contact",
+      "situation": "You are dispatched at 0130 hrs to a hospital emergency department where a 24-year-old female (Aisha) arrived via taxi stating she was sexually assaulted. She is sitting in a waiting room chair, visibly distressed, hugging her knees to her chest, still wearing the clothes she had on during the incident. She has disclosed to the triage nurse that she was assaulted approximately two hours ago by a male she knows from work. She has not showered or changed. She is avoiding eye contact and has been crying.",
+      "question": "How do you initiate contact with Aisha in the emergency department?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify yourself by name and rank in a calm, quiet voice. Ask if Aisha is comfortable speaking with you and offer her the option of a female officer if available. Find a private room or quiet area away from the waiting room, offer water, and do not begin investigative questioning immediately \u2014 prioritize establishing rapport and ensuring she feels safe. Explain what will happen next in broad terms so she does not feel out of control.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin taking Aisha's statement immediately in the waiting room to capture her account while it is freshest in her memory, being thorough and detailed in your questions.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask Aisha directly: 'Did he penetrate you?' to determine whether an assault actually occurred before proceeding further.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evidence Preservation Guidance",
+      "situation": "You are in a private room with Aisha. She is marginally calmer. She tells you the assault occurred in the suspect's apartment about two hours ago. She has been wearing the same clothing since the incident. She mentions she 'really wants a shower.' The clothing she is wearing may contain DNA, trace evidence, and fibres critical to the investigation. The scene of the assault is the suspect's apartment, which needs to be secured.",
+      "question": "How do you address evidence preservation without re-traumatizing Aisha?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gently explain to Aisha why her clothing is important as evidence and ask if she consents to having it collected. Arrange for a hospital-issued gown so she can change, and have her step into paper evidence bags one foot at a time to preserve trace evidence on the floor before removing each item of clothing. Place each garment in separate paper bags (not plastic \u2014 prevents mold). Arrange for a second unit to attend the suspect's apartment address to secure it as a potential scene.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow Aisha to shower and change before collecting any clothing, as her comfort and dignity are the priority and DNA from the suspect may still be present internally.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell Aisha you will seize her clothing under your authority whether she consents or not, as the evidence is critical to prosecution.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "SANE Referral and Medical Coordination",
+      "situation": "Aisha has consented to clothing collection and the items have been properly bagged. A secondary unit is en route to the suspect's apartment address to contain the scene. Aisha has asked whether she has to be 'examined.' She is visibly anxious about this. The hospital has a Sexual Assault Nurse Examiner (SANE) program. A SANE exam is the gold standard for collecting biological evidence, documenting injuries, and providing medical care including STI prophylaxis and emergency contraception.",
+      "question": "How do you explain the SANE process and handle Aisha's anxiety about the examination?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain the SANE exam in plain, supportive language: it is conducted by a specially trained nurse, is entirely voluntary, will document any injuries and collect biological evidence, and also provides medical care. Emphasize that Aisha is in control \u2014 she can stop at any time and she decides what happens. Clearly state that the exam is separate from her decision to pursue criminal charges. Request the SANE nurse attend and provide Aisha a moment to ask questions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Aisha the exam is required by law as part of the criminal investigation, as the evidence it produces will be essential to prosecute her attacker.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advise Aisha to come to the police station tomorrow to speak with detectives first and arrange the SANE exam after the formal statement, to avoid compromising the investigative timeline.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Statement Considerations and Investigative Handoff",
+      "situation": "The SANE nurse is with Aisha. You have a brief window to consult with your supervisor about the investigative handoff. Your department has a specialized sexual assault unit (SAU). Policy dictates that formal video-recorded statements in sexual assault files are taken by trained SAU investigators using the Structured Interview (PEACE model) \u2014 not by first-responding patrol officers. Aisha has asked if she needs to tell her story again to someone else. You need to document your initial observations and hand off to SAU.",
+      "question": "What are your documentation responsibilities and how do you handle the investigative handoff?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document your contemporaneous observations thoroughly: Aisha's demeanour and statements upon your arrival, the clothing seizure details, the SANE referral, and any spontaneous utterances Aisha made. Do NOT conduct a full formal statement \u2014 this is reserved for SAU. Notify your supervisor and SAU on-call. Explain to Aisha that a specially trained detective will speak with her in detail, that she will not have to repeat everything indefinitely, and that her disclosure thus far has been documented. Leave Aisha with the victim services worker.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conduct a complete formal statement from Aisha now while the details are fresh, then forward it to SAU, as waiting increases the risk of memory degradation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell Aisha you will be the lead investigator on her file and she can call you directly with any additional information, giving her your personal cell phone number.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Aisha was met with a trauma-informed, victim-centred response. Evidence was preserved appropriately (clothing in paper bags, scene secured). The SANE exam proceeded with informed, voluntary consent. Investigative handoff to the specialized sexual assault unit was completed with thorough documentation of first-response observations. Key lessons: Trauma-informed response prioritizes victim safety, dignity, and autonomy above immediate investigative goals. Evidence preservation \u2014 particularly clothing and scene \u2014 is time-critical. Formal statements in sexual assault investigations belong with trained investigators using validated interview protocols, not first responders.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

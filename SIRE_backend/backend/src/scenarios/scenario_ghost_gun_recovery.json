@@ -1,0 +1,176 @@
+{
+  "title": "scenario_ghost_gun_recovery",
+  "description": "Officers investigating a break-and-enter recover a ghost gun (unserialized privately made firearm). The investigation must identify origin, possession, and potential links to other crimes.",
+  "category": "Weapons",
+  "difficulty": "Advanced",
+  "tags": [
+    "ghost gun",
+    "unserialized firearm",
+    "break and enter",
+    "firearms investigation",
+    "3D printing"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Break-and-Enter Call",
+      "description": "Officers dispatched to a residential break-and-enter in progress.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Suspect Arrested",
+      "description": "Suspect arrested; unserialized firearm discovered.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Ghost Gun Identified",
+      "description": "Officers identify the firearm as a ghost gun.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Evidence Handling",
+      "description": "Ghost gun properly seized and documented.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "RCMP and ATF Notification",
+      "description": "Appropriate agencies notified for registration and crime linkage.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Ghost gun seized; notifications made; crime linkage investigation initiated.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Break-and-Enter \u2014 Suspect and Firearm Located",
+      "situation": "At 0130 hrs you respond to a residential break-and-enter in progress. A neighbour called 911 after seeing someone break the back window. You and your partner arrive and conduct a search of the premises. The homeowners are away. In the rear bedroom you find a male (Dylan, 24) attempting to stuff items into a backpack. He is arrested without incident for break-and-enter (s.348 CC). During the search incident to arrest, you feel a hard object in the front waistband of Dylan's pants \u2014 you carefully remove what appears to be a semi-automatic pistol.",
+      "question": "What do you do immediately upon discovering the firearm on Dylan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Safely remove the firearm maintaining trigger discipline, keeping it pointed in a safe direction. Remove the magazine, lock the slide back, clear the chamber. Place it in a firearms evidence bag and the magazine separately. Announce to your partner that a firearm has been secured. Caution Dylan under the Charter for the firearms offence in addition to the break-and-enter. Document the exact location the firearm was found (front waistband), the time, and who discovered it.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Hand the firearm to your partner immediately without clearing it so you can continue the pat-down of Dylan.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Secure the firearm in your belt holster temporarily until the scene is fully processed, as you are the most responsible officer on scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Ghost Gun Identification",
+      "situation": "Back at the station, you examine the firearm more closely under proper lighting. The firearm is a 9mm semi-automatic pistol. When you look for the serial number \u2014 normally found on the frame and barrel \u2014 there is none. The frame has a slightly unusual texture, consistent with 3D-printed polymer. The slide and barrel appear to be machined metal components. There are no manufacturer markings. This is consistent with a privately made firearm, often called a 'ghost gun.'",
+      "question": "How do you identify and document this firearm as a ghost gun?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document in detail the absence of serial numbers on all components (frame, barrel, slide) and the absence of manufacturer markings. Photograph all surfaces of the firearm. Note the apparent 3D-printed polymer frame construction and the commercially sourced metal components. Do not disassemble further. Consult with your forensic firearms examiner or contact the RCMP National Firearms Program for guidance on classification. Document this as a 'privately made firearm' (PMF) or 'ghost gun' in your notes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume the serial number was filed off and charge Dylan with altering or removing a serial number under the Criminal Code without further investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Disassemble the firearm completely to inspect all components for hidden serial numbers before documenting anything externally.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evidence Handling and Chain of Custody",
+      "situation": "The ghost gun is documented as a PMF. The backpack Dylan was packing during the break-and-enter also contained: the homeowner's jewellery, cash, a laptop, and a small digital scale. This is becoming a multi-count file. The forensic identification unit needs the firearm for examination \u2014 ballistic testing, fingerprint analysis, and toolmark examination. The chain of custody documentation for the firearm must be complete and unbroken.",
+      "question": "How do you manage the chain of custody for the ghost gun and related evidence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prepare a separate exhibit log entry for the firearm, the magazine, and the ammunition separately \u2014 each receives its own exhibit number. Document: who seized each item, date, time, location of seizure, and condition. Use the departmental firearms evidence form. Package each item in separate, sealed, labeled evidence bags. Complete a continuity log for each transfer \u2014 from you to exhibit room, from exhibit room to forensic ident. Photograph all items before sealing. Ensure the forensic ident unit signs for receipt.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Package the firearm with the other exhibit items from the backpack in a single bag for efficiency, as they are all from the same occurrence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Keep the firearm at your desk until the shift supervisor reviews it, as the exhibit room is not accessible until morning.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "RCMP National Firearms Program and Crime Linkage",
+      "situation": "The ghost gun has been photographed and submitted to forensic ident. You need to notify the appropriate agencies. The RCMP National Firearms Program (NFP) tracks privately made firearms nationally. Because the firearm has no serial number, it cannot be queried through standard CFRO. Ballistic testing may link the firearm to unsolved shootings through IBIS (Integrated Ballistics Identification System). Dylan has previous entries in CPIC for drug trafficking.",
+      "question": "What notifications and investigative steps do you take regarding the ghost gun's potential crime linkage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify the RCMP National Firearms Program of the PMF recovery \u2014 provide all photographs, description, and case file number. Request that the firearm be test-fired and the ballistic signature submitted to IBIS for comparison against unsolved shooting files nationally. Given Dylan's drug trafficking record, advise your organized crime unit for intelligence review. Submit a disclosure request to ensure Dylan's prior cases are examined for any ghost gun linkage. Document all notifications and responses.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The break-and-enter and firearms possession charges are sufficient \u2014 there is no need to pursue crime linkage as it is speculative and will extend the file unnecessarily.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Contact the US Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) directly as the first notification, as ghost guns often originate in the US.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A ghost gun (privately made firearm) was discovered, safely seized, properly documented, and submitted for forensic examination and IBIS comparison. Chain of custody was maintained with proper exhibit documentation. The RCMP National Firearms Program was notified. Potential crime linkage through Dylan's drug trafficking background and IBIS ballistic comparison was initiated. Key lessons: Ghost guns cannot be queried through standard CFRO \u2014 they require RCMP NFP notification and ballistic testing through IBIS. Chain of custody for firearms must be meticulous and unbroken. Prior criminal history of a firearms possessor should always trigger an intelligence review for crime linkage.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

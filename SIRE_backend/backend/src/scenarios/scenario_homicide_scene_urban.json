@@ -1,0 +1,176 @@
+{
+  "title": "scenario_homicide_scene_urban",
+  "description": "Officers are first on scene at a suspected homicide in an urban area. A body is found in an alley. Scene preservation, notification protocols, and witness management are tested.",
+  "category": "Violent Crime",
+  "difficulty": "Advanced",
+  "tags": [
+    "homicide",
+    "scene preservation",
+    "chain of custody",
+    "witness canvass",
+    "major crime"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Body Discovered",
+      "description": "Officers are dispatched after a member of the public finds a body.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Life Check Completed",
+      "description": "Officers confirm death and establish inner perimeter.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Scene Perimeter Set",
+      "description": "Crime scene tape established; pedestrian access denied.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Witness Canvass Begins",
+      "description": "Officers canvas the area for witnesses.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Notifications Made",
+      "description": "Supervisor, coroner, and major crimes unit notified.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Scene preserved; notifications complete; major crime unit takes command.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Arrival and Life Check",
+      "situation": "At 2340 hrs you are dispatched to an alley behind a commercial block after a passerby called 911 to report a person 'lying on the ground not moving.' The alley is approximately 40 metres deep, accessed from both ends. Upon arrival you see a male (approximately 30s) lying face-down in the alley approximately 20 metres in. There is a large pool of dark liquid beneath his torso consistent with blood. He is not moving. The caller is standing at the alley entrance.",
+      "question": "What is your first action upon observing the victim in the alley?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approach the victim via the most direct route, staying to the edge of the alley to minimize disturbance of the central ground. Check for signs of life \u2014 pulse, respirations, pupil response. If no vital signs are present, do not move the body, roll the body, or touch items around it. Immediately radio dispatch: 'Confirmed \u2014 one adult male, no vital signs, apparent homicide. Request supervisor, coroner, major crimes, and forensic identification.' Mark your approach path.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do not approach the body at all \u2014 it is clearly deceased and any contact will contaminate the scene. Immediately begin perimeter establishment.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Roll the victim onto his back to better assess his injuries and check for ID in his pockets to establish identity before major crimes arrive.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scene Perimeter Establishment",
+      "situation": "The victim shows no signs of life \u2014 no pulse, no respiration, fixed dilated pupils, and skin is cool to the touch. You have confirmed death and radioed dispatch. The alley has two ends \u2014 North Street and South Lane \u2014 approximately 40 metres apart. Three people are now gathered at the North Street entrance: the caller, a bar patron, and a restaurant worker. A food delivery cyclist has entered from South Lane and is approaching on his bicycle.",
+      "question": "How do you establish the crime scene perimeter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately stop the cyclist verbally \u2014 do not let him ride through the alley. Establish crime scene tape across both alley entrances using your own tape supply, extending the perimeter to encompass the full alley plus two metres beyond each entrance. Request a second unit to physically maintain the North Street entrance while you hold South Lane. Move all bystanders outside the tape perimeter and note their names and contact information \u2014 they are potential witnesses.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Establish crime scene tape only at the North Street entrance nearest the body, as this is the primary access point and the South Lane can be monitored visually.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the bystanders to remain inside the alley as long as they do not approach the body, as they may have witnessed the incident and need to be available for immediate interviews.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Witness Identification and Canvass",
+      "situation": "Both ends of the alley are taped and staffed. Three witnesses are outside the North Street tape. A second officer has arrived and is managing the South Lane entrance. You begin a preliminary witness canvass. The caller (Terrence, 28) says he found the body at approximately 2325 hrs on his way home. A restaurant worker (Kim, 40s) says she heard a loud argument from the alley about an hour ago. The bar patron (unknown name) is intoxicated and attempting to leave.",
+      "question": "How do you manage the three witnesses, including the intoxicated one who wants to leave?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Collect full identification from all three witnesses immediately \u2014 name, date of birth, phone number, and address. Separate the witnesses so they do not discuss what they saw with each other. Advise all three they are witnesses to a possible homicide and ask them to remain voluntarily. For the intoxicated patron, make note of his level of intoxication as this may affect the reliability of his statement but his identity and any recollections must still be documented. Do not conduct detailed statements \u2014 record spontaneous utterances verbatim and note that full statements will follow.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conduct a full formal statement from the caller right now, as his account is the most important and should be captured before he forgets details.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the intoxicated bar patron to leave, as a drunk witness will not provide reliable evidence and detaining him without grounds is not lawful.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Notifications \u2014 Supervisor, Coroner, Major Crimes",
+      "situation": "Witnesses have been identified and are being separated. The scene is taped. You need to complete required notifications in the proper order under your department's major crime protocol. Your supervisor (Sgt. Okafor) is responding. The on-call coroner must be notified to attend and take jurisdiction of the remains. The major crimes unit on-call detective (Det. Larsson) must be notified to assume conduct of the investigation. You also need to consider media at the scene \u2014 a news van has just arrived.",
+      "question": "What notifications do you make and how do you manage the media presence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify Sgt. Okafor (supervisor) with a full scene briefing. Notify the on-call coroner with the location, confirmed life status, and preliminary scene description. Notify Det. Larsson (major crimes) with all available information including the three witness names and the approximate time the restaurant worker heard an argument. Direct the media van to a designated media staging area well outside the outer perimeter \u2014 provide no information beyond 'police are investigating an incident' until major crimes or the duty inspector authorizes a release.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the supervisor to arrive before making any notifications, as Sgt. Okafor may want to assess the scene before major crimes is called.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Provide the media with the victim's apparent age and the fact that the death appears suspicious, as transparency builds public trust and may generate tip-line calls.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All required notifications were made: supervisor, coroner, and major crimes unit. Scene perimeter was established at both alley entrances. Three witnesses were identified, separated, and contact information documented. Media were directed to a staging area without releasing case-sensitive information. Key lessons: First-responding officers at a homicide have one primary mission \u2014 preserve the scene and life-check only. Notifications must be timely and include all known details. Witness identification and separation before they confer is time-critical. The crime scene is property of the forensic unit once major crimes takes command \u2014 minimize contamination from this moment forward.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

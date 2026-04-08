@@ -1,0 +1,176 @@
+{
+  "title": "scenario_gang_motivated_violence",
+  "description": "Officers respond to a shooting that appears gang-related. Multiple victims, multiple scenes, and intelligence considerations challenge the response.",
+  "category": "Violent Crime",
+  "difficulty": "Advanced",
+  "tags": [
+    "gang violence",
+    "organized crime",
+    "multi-scene",
+    "intelligence",
+    "retaliation risk"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Shooting Reported",
+      "description": "Multiple calls for a shooting with possible gang involvement.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "First Scene Managed",
+      "description": "Primary scene secured; victims identified as known gang members.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Second Scene Identified",
+      "description": "A secondary scene is reported blocks away.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Intelligence Consultation",
+      "description": "Gang intelligence unit is consulted.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Retaliation Risk",
+      "description": "Retaliation threat assessed and communicated.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Scenes preserved; intelligence integrated; retaliation threat mitigated.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Scene \u2014 Multiple Victims",
+      "situation": "At 2230 hrs multiple 911 calls flood dispatch reporting a shooting on Maple Crescent near a known gang-affiliated social club. You arrive to find three males on the ground \u2014 two are wounded (non-fatal, torso and arm wounds) and one is deceased (head wound). All three are known to your Gang Crime Unit as members of the Maple Street Crew. Bystanders are fleeing the area. No suspects are on scene. Multiple brass casings are visible on the pavement. A grey SUV with shattered windows is parked nearby.",
+      "question": "How do you manage the initial scene with three casualties and a chaotic environment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request multiple units, EMS (two ambulances minimum), supervisor, major crimes, and gang crime unit. Establish an inner perimeter immediately around the casings and the SUV. Direct EMS to the two wounded victims \u2014 do not move the deceased. Secure the area against bystander re-entry. Broadcast suspect vehicle/person descriptions via dispatch as soon as bystanders provide any detail. Document your arrival time and scene conditions. Advise dispatch this is a possible gang-related shooting \u2014 multiple victims, suspected firearms.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately begin interviewing the two wounded victims before EMS arrives, as their accounts will be most accurate before treatment begins.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Concentrate all available officers at this scene and do not extend resources until this scene is fully secured.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Second Scene Identified",
+      "situation": "Fifteen minutes after your arrival, dispatch advises another shooting reported four blocks away on Pine Street \u2014 one victim, appears non-fatal, outside a known gang rival hangout. It appears these are linked events. You have five officers at Maple Crescent, a supervisor has arrived, and major crimes is en route. You need to assess whether to split resources or maintain concentration at the primary scene.",
+      "question": "How do you manage the second scene given your current resource commitments?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise your supervisor immediately of the second scene and the likely linkage. The supervisor assumes command of the Maple Crescent scene. Request that dispatch redirect the next arriving units directly to Pine Street \u2014 a minimum two-officer response. Do not deplete the primary scene below safe staffing. Confirm with the gang crime unit that both locations are within rival gang territories to establish the investigative link. Treat both locations as crime scenes with equal preservation priority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a single officer to the Pine Street scene to check it out while maintaining maximum presence at Maple Crescent, as the primary scene has more victims.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Clear the Maple Crescent scene quickly and move all resources to Pine Street, as it may be the site from which suspects fled.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Gang Intelligence Integration",
+      "situation": "The gang crime unit (GCU) detective on-call has arrived. He has identified the three Maple Crescent victims as members of the Maple Street Crew and advises the Pine Street location is the known territory of the rival Parkview Boys. He states there has been elevated tension between the two groups over the past week due to a dispute over territory. He has intelligence about a known vehicle associated with the Parkview Boys \u2014 a blue Honda Civic, plate partial XR7. He wants to conduct a proactive stop of the vehicle.",
+      "question": "How do you integrate the intelligence and assess the proposed vehicle stop?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Relay the vehicle description and partial plate to dispatch for an immediate CPIC broadcast \u2014 approach with caution, possibly armed occupants. Coordinate with GCU: any stop of the Civic must be conducted with armed response capability and minimum two units given the armed nature of the incident. Ensure the vehicle stop location is broadcast so other units can respond. The GCU detective should not conduct a solo vehicle stop \u2014 he needs patrol support. Confirm the plate and vehicle with all available intelligence before stopping to strengthen grounds.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise the GCU detective to conduct the stop on his own authority as a plain-clothes gang officer \u2014 his intelligence gives him grounds to stop the vehicle without backup.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Hold on the vehicle broadcast until the shooting investigation is more advanced, as acting on partial intelligence could compromise the investigation if the stop is challenged.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Retaliation Threat Assessment",
+      "situation": "The Parkview Boys' vehicle has been stopped and two occupants detained for investigative questioning \u2014 they have not been charged. The GCU detective advises that given the death of a Maple Street Crew member, there is a significant risk of retaliation against Parkview Boys' associates within the next 24\u201348 hours. There are two known Parkview Boys hangout addresses. The GCU wants to advise the patrol division of the threat. You need to manage the officer safety and public safety implications.",
+      "question": "How do you communicate and manage the retaliation threat?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with your supervisor and GCU to issue an internal officer safety bulletin advising all patrol units of the heightened gang violence risk, the specific territories, and the vehicle descriptions associated with both groups. Request increased patrol presence in the affected neighbourhoods. Ensure front-line supervisors are briefed so they can allocate resources proactively. Consider notifying the community liaison officer if there is a community safety dimension. Document the threat assessment communication through your supervisor.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue a public social media warning naming the two gangs and advising residents to avoid Maple and Pine Street areas for the next 48 hours.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the Parkview Boys' associates who were detained in the vehicle stop on a preventive basis to reduce the retaliation risk for the next 24 hours.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Two linked shooting scenes were managed with appropriate resource deployment. Gang intelligence was integrated into the investigative response without compromising procedural integrity. The retaliation threat was communicated through appropriate internal channels with documented officer safety advisories. Key lessons: Gang-motivated multi-scene shootings require rapid resource splitting with clear command structure. Intelligence integration must be legally defensible \u2014 stops require grounds, not just intelligence alone. Retaliation threat communication is an officer safety and public safety obligation that must flow through proper channels, not via public media.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

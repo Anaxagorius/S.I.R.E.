@@ -1,0 +1,176 @@
+{
+  "title": "scenario_firearm_smuggling",
+  "description": "Investigators work with border services on a firearms smuggling case involving handguns crossing from the US. Evidence, jurisdiction, and inter-agency coordination are tested.",
+  "category": "Weapons",
+  "difficulty": "Advanced",
+  "tags": [
+    "firearms smuggling",
+    "CBSA",
+    "border services",
+    "organized crime",
+    "inter-agency"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Intelligence Tip Received",
+      "description": "CBSA shares intelligence about a suspected firearms smuggling run.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Joint Operation Planned",
+      "description": "Police and CBSA coordinate interdiction strategy.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Interdiction Executed",
+      "description": "Vehicle stopped at the border; firearms located.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Evidence Chain of Custody",
+      "description": "Multi-agency evidence handling protocols applied.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Organized Crime Linkage",
+      "description": "Investigation extended to organized crime connections.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Smugglers arrested; evidence properly handled; organized crime investigation initiated.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Intelligence Tip and Operational Planning",
+      "situation": "You are a detective with a municipal police organized crime unit. The Canada Border Services Agency (CBSA) contacts you with intelligence from a US Homeland Security Investigations (HSI) tip: a vehicle \u2014 a white cargo van, Ontario plates \u2014 is expected to cross at a land border point of entry in 72 hours, suspected to be carrying concealed handguns purchased illegally in the US. The driver is identified as Terry Vance, a known associate of a local organized crime network. CBSA wants to coordinate a controlled interdiction at the port of entry.",
+      "question": "How do you approach the 72-hour operational planning window?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Convene a joint operational briefing with CBSA, your organized crime unit supervisor, and if appropriate, RCMP FSOC (Federal Serious and Organized Crime) given the federal firearms smuggling dimension. Establish clear jurisdictional roles: CBSA conducts the border examination under CBSA authority; police are present to arrest for Criminal Code offences once firearms are confirmed. Obtain all available intelligence on Vance \u2014 CPIC, prior criminal history, associates. Establish surveillance of the route if resources permit. Ensure legal review of the arrest and seizure authority before the operation launches.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise CBSA to conduct the interdiction independently and call you if they find anything, as this is primarily a CBSA matter until firearms are confirmed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply for a search warrant for the vehicle now based on the HSI intelligence tip, so you are ready to search it yourself when it crosses.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Border Interdiction Execution",
+      "situation": "The operation is 24 hours in. The white cargo van has been confirmed crossing at the designated port. CBSA officers have directed the van to a secondary inspection bay. You are present in plainclothes with your partner. CBSA officers conduct their examination under the Customs Act authority. They discover a concealed floor compartment under the cargo area containing 12 handguns \u2014 all appear to be American-market semi-automatic pistols, many with high-capacity magazines. Vance is present in the vehicle.",
+      "question": "At what point and how do you effect the arrest of Vance?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Allow CBSA to complete their examination and formally identify the firearms before you step in. Once CBSA confirms the contraband, you identify yourself and advise Vance he is under arrest under the Criminal Code for smuggling restricted/prohibited firearms (s.99 CC \u2014 weapons trafficking) and possession of prohibited weapons. Administer the Charter right to counsel and caution. Handcuff and search Vance. CBSA retains jurisdiction over the Customs Act aspects; you take jurisdiction for the Criminal Code charges. Establish clear evidence custody between CBSA and police immediately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Arrest Vance the moment the van enters the secondary inspection bay, before CBSA completes their examination, to prevent him from destroying evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow Vance to enter Canada without arrest and conduct surveillance to identify his delivery point and additional co-conspirators before arresting him.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Multi-Agency Evidence Chain of Custody",
+      "situation": "Twelve handguns have been located in the concealed compartment. Both CBSA and police need to establish proper chain of custody. CBSA will document the customs seizure under the Customs Act; police need the firearms as evidence in the Criminal Code prosecution. The firearms include a mix of semi-automatic pistols with various serial numbers \u2014 some appear to have been obliterated. The concealed compartment itself is evidence of the smuggling operation.",
+      "question": "How do you manage the evidence chain of custody across two agencies?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with the CBSA superintendent to agree on a joint evidence handling protocol: CBSA photographs the firearms in situ before removal; police forensic ident documents the concealed compartment and tools. Each firearm is individually numbered, photographed, and jointly documented on both a CBSA seizure report and a police exhibit log. A single continuity log tracks every transfer. All 12 firearms are submitted to the RCMP National Forensic Laboratory for ballistic testing and serial number restoration attempts. Both agencies sign for each transfer.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Take all 12 firearms as police exhibits immediately, as the criminal prosecution takes precedence over the customs seizure and the CBSA can use your exhibit documentation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow CBSA to retain all firearms under their Customs Act authority and request copies of their documentation for your Criminal Code prosecution.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Organized Crime Linkage Assessment",
+      "situation": "Vance has been processed and is in custody. During his CPIC check, you confirm he is a known associate of the East Side network \u2014 a local organized crime group suspected in multiple previous shootings. The 12 handguns, if distributed, would significantly increase that network's firearms capacity. RCMP FSOC has been notified and wants to conduct a debriefing to assess whether Vance can be developed as a confidential source or whether the larger network should be targeted.",
+      "question": "How do you respond to RCMP's request for an organized crime linkage assessment meeting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Participate in the RCMP FSOC debrief with your supervisor's authorization. Share all intelligence from your file that is relevant to the network \u2014 Vance's associates, the route used, the concealed compartment sophistication. Coordinate on whether a confidential source approach to Vance is appropriate \u2014 this must be handled by trained source handlers following RCMP/CSIS source handling policy, not by you unilaterally. Ensure all intelligence sharing is documented and authorized under your inter-agency sharing agreement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Offer Vance a reduced charge in exchange for naming his contacts without consulting RCMP or your supervisor, as speed is important in organized crime investigations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline the RCMP debrief, as sharing your file intelligence may compromise your municipal prosecution and the organized crime investigation is an RCMP responsibility.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A successful inter-agency firearms smuggling interdiction was executed with CBSA at the border. Jurisdictional roles were clearly defined, evidence chain of custody was properly managed across two agencies, and organized crime linkage was shared through proper intelligence sharing protocols. Key lessons: Border firearms interdictions require clear pre-operation planning of jurisdictional roles \u2014 CBSA (Customs Act) and police (Criminal Code) have concurrent but distinct authorities. Multi-agency evidence handling demands joint documentation from the outset. Confidential source considerations always require trained handlers and supervisory authorization \u2014 never unilateral deal-making with a suspect.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

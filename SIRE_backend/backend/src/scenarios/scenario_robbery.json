@@ -1,0 +1,176 @@
+{
+  "title": "scenario_robbery",
+  "description": "Officers respond to a robbery in progress \u2014 a street robbery that escalates to a bank robbery call with armed suspects. Covers immediate response, perimeter, and suspect containment.",
+  "category": "Violent Crime",
+  "difficulty": "Intermediate",
+  "tags": [
+    "robbery",
+    "armed suspect",
+    "perimeter",
+    "containment",
+    "victim assistance"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Robbery in Progress",
+      "description": "Dispatch reports a robbery at a downtown bank.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Perimeter Established",
+      "description": "Officers establish inner and outer perimeter.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Suspect Exits",
+      "description": "Suspects exit the building and are contained.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Victim and Witness Management",
+      "description": "Bank staff and customers are managed as witnesses.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Arrest or Pursuit",
+      "description": "Arrest or BOLO broadcast decision is made.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Scene secured; suspects apprehended or BOLO issued; victims/witnesses managed.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Dispatch and Response",
+      "situation": "At 1345 hrs you are dispatched Priority 1 to a bank robbery in progress at a downtown branch. The silent alarm was triggered. Dispatch advises two suspects, both described as males in dark clothing with face coverings, entered the bank approximately three minutes ago. One witness called 911 and reported one suspect is displaying a handgun. You are two blocks from the location. Another unit is one block away from the opposite direction.",
+      "question": "What is your approach strategy to the bank robbery in progress?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Broadcast your ETA and coordinate approach with the second unit via radio. Approach the bank one block out with lights and siren off to avoid alerting the suspects. Stage your vehicle out of sight lines from the main entrance. Contact the second unit to take the rear/side exit. Do not approach the entrance alone \u2014 await confirmation of perimeter coverage before deploying. Relay suspect description to dispatch for area broadcast.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Approach the bank with lights and siren active to signal a rapid police response, which may cause the suspects to surrender.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Enter the bank immediately through the front entrance to stop the robbery in progress, as delay increases risk to hostages.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Perimeter Establishment",
+      "situation": "You and the second unit are staged. Dispatch advises a third unit is 90 seconds away. The bank has a front entrance (glass double doors facing Main Street), a side fire exit on Cedar Avenue, and a rear staff entrance in the alley. You have two officers available right now. The suspects are still believed to be inside. A crowd of pedestrians is gathering on the sidewalk across the street.",
+      "question": "How do you establish the perimeter with two officers and manage the public?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position yourself covering the front entrance with your vehicle providing ballistic cover. Direct the second officer to cover the side exit on Cedar Avenue. Request the third arriving unit cover the rear alley. Radio dispatch to broadcast a perimeter advisory \u2014 pedestrians in the immediate area should be moved back by patrol units to create a safety zone. Advise dispatch of your perimeter positions so the ECC can coordinate additional resources.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Both officers stack at the front entrance and prepare for dynamic entry when suspects attempt to exit, covering the most likely exit point.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Concentrate on managing the pedestrian crowd first, as public safety is paramount and the suspects are contained inside the building.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Suspects Exit \u2014 Containment Decision",
+      "situation": "Both suspects exit through the front entrance. Suspect 1 is walking quickly with a bag; Suspect 2 is behind him, still displaying a handgun pointed at the ground. They stop abruptly when they see your position. Suspect 2 raises the firearm. You are positioned behind your vehicle door with your firearm drawn. The second officer has a clear line of sight from an angle. Bystanders are 20 metres behind you across the street.",
+      "question": "What is your verbal challenge and tactical response to the armed suspect?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a clear, loud verbal challenge: 'Police! Don't move! Drop the gun! Show me your hands!' Maintain cover behind your vehicle door, track Suspect 2's weapon movements, and maintain your firearm in the ready position. Do not fire unless Suspect 2 directs the weapon at you or another person and lethal force becomes the only option to prevent imminent death or grievous bodily harm. Coordinate with the second officer via brief radio or verbal communication.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately open fire on Suspect 2, as he is displaying a firearm and you are justified in using lethal force against an armed robbery suspect.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow both suspects to flee on foot and follow at a safe distance, broadcasting their direction of travel, as engaging armed suspects in an urban environment with bystanders present is too dangerous.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Victim and Witness Management",
+      "situation": "Both suspects complied with verbal commands and are now on the ground. They have been taken into custody by you and the third arriving unit. The handgun has been secured. Bank staff and approximately eight customers are inside the bank, some showing signs of acute stress. A teller is crying and hyperventilating. A bank manager is on the phone and trying to assist staff. Witnesses need to be identified and separated before they confer on details.",
+      "question": "How do you manage the bank staff and customers as potential witnesses?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request additional units to assist with witness management. Ask all witnesses to remain on scene and do not allow them to leave or to communicate with each other about the incident \u2014 explain this preserves the integrity of their accounts. Conduct a primary canvass to get names and contact information from all present. Provide EMS notification for anyone showing signs of acute distress (the hyperventilating teller). Secure all in-bank CCTV footage immediately by requesting the manager preserve and not allow staff to erase or review it.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow bank staff to return to their posts to restore normal operations while you take statements one at a time in the lobby.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Take a group statement from all witnesses together in the lobby to save time, as the accounts are likely to be consistent.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Both robbery suspects were apprehended at scene. Charges will include robbery with a firearm (s.344(a) Criminal Code), use of a firearm in the commission of an offence (s.85), disguise with intent (s.351), and possession of a weapon for a dangerous purpose (s.88). The scene was properly secured, CCTV preserved, witnesses identified and separated, and EMS called for an injured witness. Key lessons: Perimeter establishment with limited officers requires prioritizing the most likely exit and coordinating additional resources. Verbal challenge and cover before lethal force is the standard. Witness separation is critical immediately after an offence to prevent contamination of accounts.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
