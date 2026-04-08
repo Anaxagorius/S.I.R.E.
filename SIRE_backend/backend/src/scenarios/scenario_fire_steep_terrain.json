@@ -1,0 +1,155 @@
+{
+  "title": "fire_steep_terrain",
+  "description": "A wildfire in steep, rugged terrain creates extreme fire behavior and limits access for ground crews and vehicles.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported in Canyon",
+      "description": "Fire reported in steep canyon. No road access. Air reconnaissance requested.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Aerial Assessment Complete",
+      "description": "Fire is 50 acres in canyon bottom with spotting up the steep walls. Slope rates exceed 60%.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Helitack Crew Deployed",
+      "description": "Helitack crew inserted at ridgetop for indirect attack. Safety zones identified.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Slope-Driven Fire Run Observed",
+      "description": "Fire runs rapidly up canyon walls due to slope and radiant heat preheating. All crews repositioned.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Ridgetop Containment Attempted",
+      "description": "Crews working ridgetop hand lines with air tanker support from above.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Helicopter Extraction if Needed",
+      "description": "Extraction plans activated for any crew unable to safely reach transport.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire in Inaccessible Canyon",
+      "situation": "A wildfire has ignited in a steep canyon with slopes exceeding 60%. There is no road access. The nearest forest road is 3 miles away at the ridgetop. Aerial reconnaissance shows rapid upslope spread.",
+      "question": "How do you approach tactical response in steep terrain?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy helitack crew to the ridgetop for indirect attack from above, using air tankers for suppression in the canyon bottom.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to access the canyon by foot from the nearest trailhead for direct attack.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the fire to reach the ridgetop before engaging, since ground access is impossible below.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Slope-Driven Fire Run",
+      "situation": "Fire is running rapidly up the canyon walls. The rate of spread has tripled due to slope-driven convection. A helitack crew is working on the ridgetop hand line approximately 500 feet ahead of the advancing fire.",
+      "question": "What action do you take for crew safety?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order immediate withdrawal of the helitack crew to the identified safety zone and reassess from a safe position.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct the crew to continue working — their ridgetop position provides sufficient separation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ridgetop Containment Strategy",
+      "situation": "The crew is safely repositioned. Fire has crested the ridge on one section. Containment options include a dozer line on the far ridge using a distant road, or continuing hand line construction with air support.",
+      "question": "What containment strategy do you choose?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the distant dozer road as an anchor and construct a line from there, with air tankers providing suppression support on the ridge.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Commit to hand line construction directly at the ridgetop to stop further spread.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Crew Extraction Planning",
+      "situation": "A change in wind direction is pushing fire toward the route the helitack crew used to reach their position. The crew can hike out in approximately 90 minutes, but the fire may cut that route in 60 minutes.",
+      "question": "How do you extract the crew safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately request helicopter extraction for the crew rather than risk the compromised hiking route.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have the crew attempt the hiking route at maximum speed before it is cut off.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The helitack crew was safely extracted by helicopter. The dozer anchor line successfully stopped the fire's progress. Air tanker support completed containment on the open ridge segments.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "steep terrain",
+    "wildland fire",
+    "helitack",
+    "crew safety",
+    "inaccessible terrain"
+  ]
+}

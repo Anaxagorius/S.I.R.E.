@@ -1,0 +1,155 @@
+{
+  "title": "forest_fire",
+  "description": "A lightning-caused forest fire grows into a large complex threatening a wilderness area and a nearby town.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Lightning Strike Detected",
+      "description": "Lightning detection system records a strike in a remote forest sector. Confirm smoke report.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Growth Confirmed",
+      "description": "Aerial reconnaissance confirms a 20-acre fire with active spread. Establish Incident Command.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Evacuation Warning Issued",
+      "description": "Fire projected to reach adjacent community in 48 hours. Issue evacuation warning for Zone A.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Air Tanker Operations",
+      "description": "Air tankers making retardant drops on the fire's flank. Monitor effectiveness.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Evacuation Order Escalated",
+      "description": "Fire behavior changes. Upgrade evacuation warning to mandatory order for Zone A and B.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "Containment Achieved",
+      "description": "Fire crews establish containment lines. Fire is 40% contained. Maintain patrol.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Smoke Confirmed in Wilderness",
+      "situation": "A lightning strike last night has produced a confirmed smoke column in a remote forested area. The fire is estimated at 10 acres. Aerial reconnaissance is available.",
+      "question": "How do you respond to the initial report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Dispatch an initial attack crew via helicopter and establish an Incident Command Post.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Monitor the fire from aerial reconnaissance for another 24 hours before committing resources.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Issue a containment plan but wait for the fire to be visible from the road before acting.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fire Grows Rapidly",
+      "situation": "The fire has grown to 500 acres overnight due to low humidity and shifting winds. A nearby town of 2,000 residents is within the projected fire path.",
+      "question": "What protective action do you take for the community?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue an evacuation warning for Zone A and alert the emergency broadcast system.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait until the fire is within 10 miles of the town before issuing any public notification.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Air Tanker Strategy",
+      "situation": "Air tankers are available but limited to 6 drops per day. The fire has two flanks and a head. The head is advancing most rapidly.",
+      "question": "Where do you prioritize air tanker drops?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Focus drops on the advancing head to slow its progress toward the community.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Split drops evenly across head and flanks to work toward full containment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Evacuation Escalation",
+      "situation": "The fire's rate of spread has doubled due to an unexpected wind event. Zone A residents are evacuating but Zone B was not yet warned. The fire could reach Zone B in hours.",
+      "question": "What is your decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately upgrade Zone B to a mandatory evacuation order and open additional evacuation routes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep Zone B on a watch status to avoid panic and traffic congestion.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Both evacuation zones have been cleared and containment lines are holding. Air operations have slowed the fire's advance and the community is safe.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "forest fire",
+    "wildland fire",
+    "evacuation",
+    "air operations",
+    "incident command"
+  ]
+}
