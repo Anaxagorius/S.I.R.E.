@@ -1,0 +1,161 @@
+{
+  "title": "insider_backdoor",
+  "description": "A contractor embedded in a development team inserts a hidden authentication bypass into production source code just before their engagement ends, enabling future remote access.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious Commit Detected Post-Engagement",
+      "description": "A peer code review of a recent release branch reveals an unusual authentication function added in a commit made by a contractor on their final day.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Backdoor Confirmed in Production",
+      "description": "Security analysis confirms the function accepts a hardcoded credential string to bypass all normal authentication checks. The code has been deployed to production.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Access Logs Reviewed for Exploitation",
+      "description": "Application access logs are reviewed for any authentication events matching the backdoor pattern. Three suspicious authentication attempts from an external IP are found.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Emergency Patch Deployed",
+      "description": "An emergency change is authorised. The backdoor code is removed, a patch is deployed to production, and the application is restarted under close monitoring.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Contractor Credentials Revoked",
+      "description": "All repository access, VPN credentials, and collaboration tool accounts associated with the contractor are fully revoked.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Code Review Process Strengthened",
+      "description": "Mandatory security-focused code review by a second reviewer introduced for all contractor commits. Pre-deployment static analysis scanning enforced.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Code Identified in Release Branch",
+      "situation": "A developer reviewing the latest release branch notices an unfamiliar authentication function committed by a contractor on their last day of engagement — two days ago. The function appears to accept an undocumented parameter. The contractor's engagement has now ended and their access has not yet been fully revoked. The release containing this code was deployed to production yesterday.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Escalate immediately to the CISO and development lead, preserve the commit history and logs, and initiate a security analysis of the suspicious function before any further deployments occur.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact the contractor directly to ask them to explain the purpose of the function before escalating.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Remove the suspicious function from the next scheduled release and log it as a code quality issue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Backdoor Confirmed in Production",
+      "situation": "Security analysis confirms the function is an authentication bypass: it accepts a hardcoded credential string that, if supplied, grants full administrative access regardless of the user's actual credentials. The code is live in production. Application logs show three authentication events over the past 48 hours matching the backdoor pattern — originating from an external IP address not associated with any known user or contractor.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately revoke all remaining contractor credentials, isolate the application if possible, review logs for data access or exfiltration, and authorise an emergency patch to remove the backdoor from production.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Block the identified external IP address at the firewall and schedule removal of the function in the next sprint.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Determining the Extent of Exploitation",
+      "situation": "The emergency patch is being prepared. Logs confirm the three suspicious authentication events succeeded — meaning an attacker had authenticated as an administrator. You must determine what data or systems may have been accessed or compromised during those sessions before the patch is deployed.",
+      "question": "How do you assess the impact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a full forensic review of all activity during the three backdoor sessions, including data accessed, API calls made, and any lateral movement to downstream systems. Treat this as a confirmed breach and activate the incident response plan.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy the patch first, then review logs at a later date once the immediate threat is removed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Assume the access was exploratory and not harmful, and proceed with the patch without a full investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future Supply Chain Code Threats",
+      "situation": "The backdoor has been patched, credentials revoked, and the breach investigation is underway. Leadership asks you to recommend controls to prevent contractors or external contributors from inserting malicious code in the future.",
+      "question": "Which controls do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mandate security-focused code review by a second internal reviewer for all contractor commits, enforce pre-deployment static application security testing (SAST) in the CI/CD pipeline, apply least-privilege repository access, and revoke all contractor credentials on the final day of engagement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Require contractors to sign an updated code of conduct and rely on their adherence to secure coding guidelines.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The backdoor was identified, analysed, and removed promptly. All contractor credentials were revoked, and the extent of exploitation was assessed through forensic log review. Mandatory dual-reviewer code review for contractor commits, SAST in the CI/CD pipeline, and immediate credential revocation on engagement end are now enforced — greatly reducing the risk of supply chain code insertion.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "insider threat",
+    "backdoor",
+    "code review",
+    "supply chain"
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "title": "unencrypted_data_exposure",
+  "description": "A developer stores a production database backup containing 50,000 customer records including payment card data on an unencrypted USB drive left in an unlocked office, discovered and returned by a cleaner.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "USB Drive Found by Cleaner",
+      "description": "A member of the cleaning staff finds an unlabelled USB drive on a desk in an unlocked office and hands it to reception.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Contents Identified as Production Backup",
+      "description": "IT assesses the drive and discovers it contains an unencrypted production database backup with 50,000 customer records, including names, email addresses, and payment card data.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Developer Identified as Owner",
+      "description": "The developer who created the backup is identified from file metadata. They confirm they took the backup for local testing and did not realise the drive was unencrypted.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "DPO and CISO Notified",
+      "description": "The Data Protection Officer and CISO are notified. A breach assessment is initiated to determine PCI-DSS and GDPR notification obligations.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "ICO Notified and PCI-DSS Incident Process Followed",
+      "description": "The ICO is notified within 72 hours. The organisation's PCI-DSS QSA is engaged and the card schemes are notified in line with incident response obligations.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Data Handling Controls Strengthened",
+      "description": "Production data banned from developer workstations and removable media. Encrypted USB drives enforced. Synthetic data used for all testing environments going forward.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "USB Drive Handed In at Reception",
+      "situation": "Reception has just called you: a member of the cleaning staff found an unlabelled USB drive on a desk in an office that was not locked overnight, and has handed it in. You need to determine whether this poses a data security risk before the drive is examined further. Company policy prohibits the use of unencrypted removable media, but this is not consistently enforced.",
+      "question": "How do you handle the USB drive?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the drive as a potential security incident — do not plug it into a production system. Have IT examine it in a safe, isolated environment to identify the contents, and escalate immediately if sensitive data is found.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Plug the drive into a helpdesk workstation to check the contents and return it to its owner.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the drive at reception and send an all-staff email asking who owns it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Production Backup with Payment Card Data Discovered",
+      "situation": "IT has safely examined the drive in an isolated environment. It contains a single unencrypted database backup file. The backup contains 50,000 customer records including full names, email addresses, home addresses, and payment card numbers with expiry dates — classified as cardholder data under PCI-DSS. The backup was created two days ago. The drive has been in the unlocked office since at least yesterday evening. You cannot confirm whether the drive was examined by anyone before the cleaner found it.",
+      "question": "What is your immediate next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify the CISO and DPO, treat this as a confirmed data breach, and secure the drive as evidence. Begin a PCI-DSS breach assessment and prepare for regulatory notification.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Return the drive to the developer who created the backup and ask them to encrypt it in future — no further action needed as the drive was returned by the cleaner.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Regulatory and Scheme Notification Obligations",
+      "situation": "The DPO and CISO are engaged. The breach involves payment cardholder data, triggering both UK GDPR and PCI-DSS incident response obligations. Under PCI-DSS, the organisation must notify their acquiring bank and the card schemes (Visa, Mastercard) within defined timeframes. Under GDPR, ICO notification is required within 72 hours. The 72-hour GDPR clock began when the drive was found. Decisions must be made quickly.",
+      "question": "How do you manage notification?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify the ICO within 72 hours as required under UK GDPR, engage your PCI-DSS Qualified Security Assessor (QSA), and notify the acquiring bank and card schemes as required under your PCI-DSS incident response obligations. Prepare affected customer notifications.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Notify only the ICO and manage the PCI-DSS obligations separately at a later date.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Delay notification until a full investigation is complete to avoid notifying unnecessarily.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Unencrypted Data on Removable Media",
+      "situation": "Notifications are underway and the QSA is engaged. The root cause was a developer copying production data to a personal unencrypted USB drive for local testing — a practice that violates policy but went undetected. Leadership asks you to enforce controls that make this impossible in the future.",
+      "question": "Which controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce endpoint controls to block unencrypted removable media across all workstations, ban production data from developer environments by requiring synthetic or anonymised test data, and apply DLP policies to detect and block transfers of production database files.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue encrypted USB drives to all developers and ask them to use these instead of personal drives going forward.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The drive was handled carefully and identified as containing sensitive data. The CISO and DPO were notified immediately and both GDPR and PCI-DSS notification obligations were fulfilled within the required timeframes. Endpoint controls now block unencrypted removable media, production data is banned from developer environments, and synthetic data is used for all testing — eliminating this class of risk.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Beginner",
+  "tags": [
+    "human error",
+    "unencrypted data",
+    "data breach",
+    "PCI-DSS"
+  ]
+}

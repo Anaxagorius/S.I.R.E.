@@ -1,0 +1,161 @@
+{
+  "title": "ip_theft",
+  "description": "An R&D engineer downloads complete product designs and source code to personal cloud storage before leaving to join a competitor.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Large Upload to Cloud Storage Detected",
+      "description": "DLP alerts on an R&D engineer uploading several gigabytes of files to a personal Google Drive account during working hours.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Confidential Repositories Accessed",
+      "description": "Source code management logs confirm the engineer cloned restricted product repositories — including unreleased firmware and CAD designs — to their local machine.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Resignation Confirmed",
+      "description": "HR confirms the engineer submitted their resignation the previous day and has accepted an offer with a direct competitor.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Access Suspended Pending Investigation",
+      "description": "Security suspends the engineer's access to all systems and networks while evidence is preserved.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Legal and Executive Leadership Briefed",
+      "description": "Legal counsel, CISO, and executive leadership are notified. A digital forensics investigation is initiated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "IP Protection Measures Strengthened",
+      "description": "Repository access controls are tightened, DLP rules updated, and offboarding procedures now include immediate access revocation on resignation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "DLP Alert: Mass Upload to Personal Cloud",
+      "situation": "At 14:30, your DLP system fires a critical alert: an R&D engineer is uploading gigabytes of data to a personal Google Drive account. The engineer was granted broad access to proprietary product repositories as part of their role. HR has separately flagged to you this morning that the same individual submitted their resignation yesterday and is joining a competitor.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately escalate to the CISO and legal counsel, preserve all relevant logs and audit trails, and suspend the engineer's access pending investigation — without alerting the individual.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send the engineer an email asking them to stop the upload and explain their activity.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait until the end of the day to review the full upload log before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scope of Exfiltration Assessed",
+      "situation": "With access suspended, forensic review of source code management and DLP logs reveals the engineer cloned six restricted repositories — including unreleased firmware, CAD schematics, and a patent-pending algorithm — and uploaded them to personal cloud storage over the past 48 hours. Legal counsel is engaged and needs you to determine the full scope before drafting a cease-and-desist notice.",
+      "question": "How do you proceed with the investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commission a formal digital forensics examination of the engineer's workstation and all accessible logs. Document a complete inventory of what data was taken, when, and to where.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the engineer's manager to informally check what the engineer was working on before drawing conclusions.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Competitor Notification and Legal Action",
+      "situation": "Forensics confirms substantial intellectual property — classified as trade secrets under company policy — has been exfiltrated. Legal counsel advises that the competitor must be notified to prevent use of the stolen IP, and that the employment contract's IP assignment and non-compete clauses may support injunctive relief. A decision is needed on whether to pursue legal action.",
+      "question": "What is the appropriate course of action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorise legal counsel to issue a cease-and-desist letter to both the engineer and the competitor, and prepare evidence for potential civil litigation. Engage HR to initiate formal disciplinary proceedings.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Offer the engineer a settlement in exchange for deleting the files, and take no further action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Inform the competitor directly without involving legal counsel to resolve the matter quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventive Controls for IP Protection",
+      "situation": "The immediate incident is in the hands of legal. Leadership now wants a set of technical and process controls to prevent future IP theft, particularly from employees in notice periods.",
+      "question": "Which set of controls do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement least-privilege access to code repositories, enforce DLP rules that block uploads to personal cloud services, introduce mandatory access revocation on resignation, and establish a formal offboarding checklist that includes device retrieval and account audit.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a reminder about IP ownership to the employee handbook and rely on staff honesty.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The engineer's access was suspended promptly, preserving evidence. A thorough forensic investigation documented the full scope of the exfiltration. Legal counsel issued cease-and-desist notices, and formal proceedings are underway. Preventive controls — including least-privilege repository access, DLP rule enhancements, and a rigorous offboarding process — are now in place to protect intellectual property going forward.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "insider threat",
+    "IP theft",
+    "DLP",
+    "forensics"
+  ]
+}

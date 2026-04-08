@@ -40,6 +40,20 @@ import scenarioGeneratorFailure from "./scenarios/scenario_generator_failure.jso
 import scenarioFuelShortage from "./scenarios/scenario_fuel_shortage.json";
 import scenarioUpsFailure from "./scenarios/scenario_ups_failure.json";
 import scenarioGridInstability from "./scenarios/scenario_grid_instability.json";
+// Insider threat — malicious
+import scenarioIpTheft from "./scenarios/scenario_ip_theft.json";
+import scenarioInsiderSabotage from "./scenarios/scenario_insider_sabotage.json";
+import scenarioInsiderPrivilegeAbuse from "./scenarios/scenario_insider_privilege_abuse.json";
+import scenarioInsiderFraud from "./scenarios/scenario_insider_fraud.json";
+import scenarioSystemTampering from "./scenarios/scenario_system_tampering.json";
+import scenarioInsiderBackdoor from "./scenarios/scenario_insider_backdoor.json";
+
+// Insider threat — accidental / negligent
+import scenarioDataSentWrongRecipient from "./scenarios/scenario_data_sent_wrong_recipient.json";
+import scenarioPoorPasswordPractices from "./scenarios/scenario_poor_password_practices.json";
+import scenarioDisabledSecurityControls from "./scenarios/scenario_disabled_security_controls.json";
+import scenarioLostDevice from "./scenarios/scenario_lost_device.json";
+import scenarioUnencryptedDataExposure from "./scenarios/scenario_unencrypted_data_exposure.json";
 
 // Social engineering / phishing
 import scenarioPhishingEmail from "./scenarios/scenario_phishing_email.json";
@@ -414,6 +428,87 @@ const DEMO_SCENARIOS = [
         name: "Insider Credential Misuse",
         description: "An employee who has submitted their resignation is detected accessing and exfiltrating sensitive HR and financial records.",
         data: scenarioInsiderCredentialMisuse,
+    },
+
+    // ── Insider Threat: Malicious Actions ────────────────────────────────────
+    {
+        id: "scenario_ip_theft",
+        icon: "🧠",
+        name: "Intellectual Property Theft",
+        description: "An R&D engineer downloads complete product designs and source code to personal cloud storage before leaving to join a competitor.",
+        data: scenarioIpTheft,
+    },
+    {
+        id: "scenario_insider_sabotage",
+        icon: "💣",
+        name: "Insider Sabotage",
+        description: "A disgruntled IT administrator deliberately deletes critical production database backups and corrupts configuration files after learning they are being made redundant.",
+        data: scenarioInsiderSabotage,
+    },
+    {
+        id: "scenario_insider_privilege_abuse",
+        icon: "💸",
+        name: "Insider Privilege Abuse",
+        description: "A finance systems admin abuses their privileged access to a payroll system to grant themselves unauthorised pay rises and approve fraudulent expense claims.",
+        data: scenarioInsiderPrivilegeAbuse,
+    },
+    {
+        id: "scenario_insider_fraud",
+        icon: "🧾",
+        name: "Insider Fraud",
+        description: "A billing clerk manipulates invoice records in the ERP system to redirect vendor payments to a personal bank account over several months.",
+        data: scenarioInsiderFraud,
+    },
+    {
+        id: "scenario_system_tampering",
+        icon: "🔧",
+        name: "System Tampering",
+        description: "A departing network engineer covertly modifies firewall rules and routing configurations to weaken perimeter defences and create hidden remote-access pathways.",
+        data: scenarioSystemTampering,
+    },
+    {
+        id: "scenario_insider_backdoor",
+        icon: "🚪",
+        name: "Insider Backdoor Insertion",
+        description: "A contractor inserts a hidden authentication bypass into production source code just before their engagement ends, enabling future remote access.",
+        data: scenarioInsiderBackdoor,
+    },
+
+    // ── Insider Threat: Accidental / Negligent Errors ─────────────────────────
+    {
+        id: "scenario_data_sent_wrong_recipient",
+        icon: "📨",
+        name: "Data Sent to Wrong Recipient",
+        description: "An HR manager accidentally emails a spreadsheet containing salary and personal data for 300 employees to an external distribution list.",
+        data: scenarioDataSentWrongRecipient,
+    },
+    {
+        id: "scenario_poor_password_practices",
+        icon: "🔑",
+        name: "Poor Password Practices",
+        description: "Audit discovers multiple privileged accounts sharing the same weak password across systems with no MFA — one account has already been compromised.",
+        data: scenarioPoorPasswordPractices,
+    },
+    {
+        id: "scenario_disabled_security_controls",
+        icon: "🛡️",
+        name: "Disabled Security Controls",
+        description: "A server administrator disables endpoint protection temporarily for performance testing and forgets to re-enable it — a malware infection occurs weeks later with no detection logs.",
+        data: scenarioDisabledSecurityControls,
+    },
+    {
+        id: "scenario_lost_device",
+        icon: "💻",
+        name: "Lost Device",
+        description: "An employee reports their unencrypted work laptop missing after a business trip — it contains client files and cached VPN credentials with no remote wipe capability.",
+        data: scenarioLostDevice,
+    },
+    {
+        id: "scenario_unencrypted_data_exposure",
+        icon: "🔓",
+        name: "Unencrypted Data Exposure",
+        description: "A developer stores a production database backup containing 50,000 customer records on an unencrypted USB drive left in an unlocked office.",
+        data: scenarioUnencryptedDataExposure,
     },
 
     // ── Cyber: Access & Token Attacks ────────────────────────────────────────

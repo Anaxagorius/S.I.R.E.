@@ -1,0 +1,161 @@
+{
+  "title": "insider_privilege_abuse",
+  "description": "A finance systems admin abuses their privileged access to a payroll system to grant themselves unauthorised pay rises and approve fraudulent expense claims over several months.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous Payroll Change Flagged",
+      "description": "Internal audit's quarterly payroll reconciliation identifies an unexplained salary increase for a finance systems administrator — a change not supported by any HR authorisation record.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Pattern of Unauthorised Changes Found",
+      "description": "Audit extends the review and finds three further unauthorised salary modifications and eleven approved expense claims — all actioned under the administrator's own credentials over six months.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Account Suspended Pending Investigation",
+      "description": "The administrator's access to the payroll system and financial ERP is suspended immediately to prevent further manipulation.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "HR and Legal Notified",
+      "description": "HR and legal counsel are briefed. A formal investigation under disciplinary procedures is initiated and external forensic accountants are engaged.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Segregation of Duties Review Initiated",
+      "description": "A full access control audit of payroll and finance systems is ordered to identify other accounts with excessive or conflicting privileges.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Controls Remediated",
+      "description": "Segregation of duties enforced across all financial systems, mandatory dual-approval for salary changes implemented, and quarterly privileged access reviews scheduled.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unexplained Salary Increase Identified",
+      "situation": "During a routine quarterly payroll reconciliation, internal audit flags an unexplained salary increase of £12,000 per year for a finance systems administrator. No HR authorisation record exists for the change. The administrator has privileged access to the payroll system as part of their role maintaining the underlying infrastructure. They are currently at work and unaware their activity has been flagged.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Quietly preserve all audit logs and payroll change records, escalate confidentially to the CISO and HR director, and expand the audit review to cover all changes made under the administrator's credentials before suspending access.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Confront the administrator directly and ask them to explain the salary change.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Assume it was a data entry error and ask payroll to correct the figure and move on.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Wider Pattern of Abuse Confirmed",
+      "situation": "Extended audit review reveals three further unauthorised salary increases affecting the administrator's own record and two fictitious contractor entries. Eleven expense claims totalling £8,400 were self-approved using the administrator's own account — a privilege they should not have held. The total financial loss is estimated at £28,000. You must decide the immediate containment step.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately suspend the administrator's access to all financial systems and escalate to legal counsel for a formal investigation under disciplinary and potentially criminal proceedings.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the administrator to remain active to avoid tipping them off while the review continues.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Forensic Accounting and Evidence Preservation",
+      "situation": "Access is suspended. Legal counsel advises engaging external forensic accountants to produce an independent evidence report suitable for disciplinary hearings and potential referral to police for fraud under the Fraud Act 2006. You need to ensure the investigation is thorough and evidence is preserved correctly.",
+      "question": "How do you manage the investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commission external forensic accountants and ensure all system logs, change records, and payroll data are exported to immutable, chain-of-custody controlled storage before any remediation work begins.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have the internal audit team conduct the investigation and correct the payroll records immediately to minimise financial exposure.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Engage HR to conduct an informal interview with the administrator before involving forensic specialists.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Remediating Access Control Failures",
+      "situation": "The investigation is underway. The root cause is clear: the payroll system allowed a single privileged account to both make and approve changes — a fundamental violation of segregation of duties. Leadership wants systemic access control improvements across all financial systems.",
+      "question": "Which controls do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce segregation of duties across all financial systems so no single account can both make and approve transactions, implement mandatory dual-approval for salary and expense changes, and schedule quarterly privileged access reviews with HR sign-off.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add audit logging to the payroll system and rely on annual reviews to detect future misuse.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The administrator's access was suspended promptly and a thorough forensic investigation is underway. Evidence was preserved correctly for potential criminal proceedings. Segregation of duties, dual-approval workflows, and quarterly privileged access reviews are now enforced across all financial systems — significantly reducing the risk of similar abuse in the future.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "insider threat",
+    "privilege abuse",
+    "access control",
+    "audit"
+  ]
+}

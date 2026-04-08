@@ -1,0 +1,161 @@
+{
+  "title": "insider_sabotage",
+  "description": "A disgruntled IT administrator deliberately deletes critical production database backups and corrupts configuration files after learning they are being made redundant.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Redundancy Announcement",
+      "description": "An IT administrator is informed they are being made redundant. HR and IT management note a change in behaviour but take no immediate access action.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Backup Deletion Detected",
+      "description": "Backup monitoring alerts show that production database backups for the past 30 days have been deleted from the primary and secondary backup repositories.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Configuration File Corruption Discovered",
+      "description": "Automated health checks begin failing on four production servers. Investigation reveals critical configuration files have been deliberately corrupted.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Administrator Account Suspended",
+      "description": "Security immediately suspends the administrator's account and all associated service accounts. Physical access to data centre is also revoked.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Business Continuity Response Activated",
+      "description": "The incident response and business continuity teams activate. Off-site backup tapes are retrieved and recovery efforts begin.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Systems Restored and Controls Reviewed",
+      "description": "Production systems are restored from off-site backups. Privileged access controls and dual-authorisation requirements for backup deletion are implemented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Backup Deletion Alert Fires",
+      "situation": "Backup monitoring alerts on the complete deletion of 30 days of production database backups across both primary and secondary repositories. The deletion was performed using the credentials of an IT administrator who was informed of their redundancy earlier today. The administrator is currently still on-site and has full privileged access to production systems.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately suspend the administrator's account and all associated service accounts, revoke physical data centre access, and escalate to the CISO and IT management without alerting the individual.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Call the administrator directly and ask them to explain the backup deletions.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait to see if the backups were accidentally deleted and may have been moved to another location.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Configuration Corruption Discovered",
+      "situation": "With the account suspended, automated health checks reveal four production servers are reporting critical failures. Investigation shows that configuration files for the web application layer have been deliberately corrupted — incorrect values entered to cause service crashes. The business continuity team is on standby. You must decide on the immediate technical response.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the business continuity plan, isolate the affected servers from production traffic, retrieve off-site backup tapes, and begin an authorised forensic copy of affected systems before restoring.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to manually correct the configuration files from memory to restore services as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Scope of Sabotage Assessed",
+      "situation": "Forensic examination confirms the administrator used privileged credentials to delete backups and overwrite configuration files in a deliberate and systematic manner over a two-hour window. Logs also indicate an attempt to delete audit trails, which was partially blocked by the SIEM. Legal counsel advises that evidence must be preserved to the highest standard for potential criminal proceedings under the Computer Misuse Act.",
+      "question": "How do you ensure evidence integrity?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Preserve forensic disk images and a chain-of-custody record for all affected systems, ensure the SIEM logs are exported to immutable storage, and hand evidence to legal counsel for potential referral to law enforcement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin restoring systems from backup immediately without preserving forensic images — restoring service is the top priority.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow HR to interview the administrator about the incident before involving legal counsel.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future Insider Sabotage",
+      "situation": "Systems have been restored. Evidence is secured with legal. Leadership asks you to recommend controls to prevent a disgruntled or departing employee from carrying out similar sabotage in the future.",
+      "question": "Which controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce dual-authorisation for all destructive privileged actions (backup deletion, config changes), implement immutable off-site backup storage, revoke privileged access immediately upon redundancy notification, and deploy enhanced UEBA monitoring for at-risk staff.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a warning to the IT acceptable use policy regarding sabotage and rely on it as a deterrent.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The administrator's access was suspended promptly, preventing further damage. Business continuity procedures were activated and services were restored from off-site backups. Forensic evidence was preserved correctly for legal proceedings. Dual-authorisation controls for destructive actions, immutable backup storage, and improved access revocation procedures are now in place to defend against future insider sabotage.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "insider threat",
+    "sabotage",
+    "business continuity",
+    "incident response"
+  ]
+}

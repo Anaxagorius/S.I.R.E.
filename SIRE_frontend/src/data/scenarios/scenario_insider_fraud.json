@@ -1,0 +1,161 @@
+{
+  "title": "insider_fraud",
+  "description": "A billing clerk manipulates invoice records in the ERP system to redirect vendor payments to a personal bank account, totalling £85,000 over six months.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Vendor Dispute Triggers Review",
+      "description": "A legitimate vendor contacts accounts payable to report that two invoices totalling £14,000 have not been paid, despite showing as settled in the ERP system.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Bank Account Discrepancy Identified",
+      "description": "Finance team compares ERP payment records against bank statements and finds payments were routed to an unrecognised account number — not the vendor's registered details.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Fraudulent Pattern Confirmed",
+      "description": "Extended review identifies 23 manipulated invoices across six months, with £85,000 redirected to the same unknown account. All modifications were made by the same billing clerk account.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Clerk Account Suspended",
+      "description": "The billing clerk's access to the ERP and finance systems is immediately suspended. The individual is placed on administrative leave pending investigation.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Police and Legal Engaged",
+      "description": "The matter is referred to police under the Fraud Act 2006. Legal counsel applies for a financial freezing order on the identified bank account.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Financial Controls Strengthened",
+      "description": "Dual-approval mandated for all payment account changes. Automated reconciliation between ERP records and bank statements implemented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vendor Reports Unpaid Invoices",
+      "situation": "A long-standing vendor contacts your accounts payable team to report that two invoices totalling £14,000 have not been received, despite your ERP system showing both as paid. When finance checks the ERP records, the payment destination bank account number does not match the vendor's registered details. The last modification to these invoice records was made by a billing clerk three weeks ago.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Preserve the ERP records and audit logs without modification, escalate confidentially to the Finance Director and CISO, and initiate a broader review of all recent payment records modified by the billing clerk's account.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Correct the vendor's bank details in the ERP and reprocess the payments immediately to maintain the vendor relationship.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the billing clerk directly whether they made any changes to the payment records.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scale of Fraud Uncovered",
+      "situation": "The extended review reveals 23 manipulated invoices spanning six months. In each case, a legitimate vendor invoice was altered in the ERP to substitute the bank account number with the same unrecognised account. Total diverted payments amount to £85,000. All changes were made by the billing clerk's ERP account, always outside normal business hours. You must now decide on the immediate containment step.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately suspend the billing clerk's access to all financial systems, place them on administrative leave, and secure all digital and physical evidence before notifying law enforcement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue monitoring the clerk's activity to gather more evidence before acting.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Law Enforcement and Asset Recovery",
+      "situation": "Access is suspended and evidence secured. Legal counsel advises that the matter should be reported to police under the Fraud Act 2006, and that a Proceeds of Crime Act freezing order should be sought urgently against the identified bank account to prevent asset dissipation. A decision is needed on next steps.",
+      "question": "What action do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Refer the matter to police immediately with the full evidence package, instruct legal counsel to seek an emergency freezing order, and notify your insurance provider of a potential financial crime claim.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pursue the matter internally through HR disciplinary processes only and avoid involving police to protect the organisation's reputation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Notify the bank associated with the fraudulent account and ask them to freeze it directly, without involving legal counsel.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Strengthening Financial Controls",
+      "situation": "Law enforcement and legal are engaged. The Finance Director asks you to recommend controls to prevent a similar fraud from occurring. The root cause was a single user being able to modify payment bank details and process payments without any secondary approval or automated reconciliation check.",
+      "question": "Which controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce dual-approval for all changes to vendor payment account details, implement automated daily reconciliation between ERP payment records and bank statements, and introduce out-of-band confirmation to vendors for any bank detail changes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restrict ERP access to senior finance staff only and conduct annual spot-checks of payment records.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fraud was contained promptly, with the clerk's access suspended and evidence preserved. Law enforcement were engaged with a full evidence package, and legal counsel sought a freezing order on the identified account. Dual-approval for payment account changes, automated reconciliation, and out-of-band vendor verification are now in place — making similar fraud significantly harder to perpetrate undetected.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "insider threat",
+    "fraud",
+    "financial crime",
+    "audit"
+  ]
+}
