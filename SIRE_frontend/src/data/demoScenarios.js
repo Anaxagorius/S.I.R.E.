@@ -1102,7 +1102,7 @@ const DEMO_SCENARIOS = [
         id: "scenario_fire_single_family_occupied",
         icon: "🏠",
         name: "Single-Family Home Fire (Occupied)",
-        description: "Occupants reported inside a burning single-family home — crews must prioritise life safety, conduct a primary search, and co-ordinate fire attack.",
+        description: "Occupants reported inside a burning single-family home — crews must prioritize life safety, conduct a primary search, and coordinate fire attack.",
         data: scenarioFireSingleFamilyOccupied,
     },
     {
@@ -1137,7 +1137,7 @@ const DEMO_SCENARIOS = [
         id: "scenario_fire_electrical_wall",
         icon: "⚡",
         name: "Electrical Wall Fire",
-        description: "Fire burning inside wall cavities from an electrical fault — crews must locate hidden fire travel, open walls safely, and co-ordinate with utilities.",
+        description: "Fire burning inside wall cavities from an electrical fault — crews must locate hidden fire travel, open walls safely, and coordinate with utilities.",
         data: scenarioFireElectricalWall,
     },
     {
@@ -1230,7 +1230,7 @@ const DEMO_SCENARIOS = [
         id: "scenario_fire_school",
         icon: "🏫",
         name: "School Fire",
-        description: "A fire in a school science lab during the school day with hundreds of students on site — crews must co-ordinate with staff for rapid evacuation while suppressing the fire.",
+        description: "A fire in a school science lab during the school day with hundreds of students on site — crews must coordinate with staff for rapid evacuation while suppressing the fire.",
         data: scenarioFireSchool,
     },
     {
@@ -1274,21 +1274,21 @@ const DEMO_SCENARIOS = [
         id: "scenario_fire_threatening_residential",
         icon: "🏘️",
         name: "Wildfire Threatening Residential Area",
-        description: "A rapidly advancing wildfire moves into a densely populated residential neighbourhood with limited egress — crews must triage structures and co-ordinate mass evacuation.",
+        description: "A rapidly advancing wildfire moves into a densely populated residential neighborhood with limited egress — crews must triage structures and coordinate mass evacuation.",
         data: scenarioFireThreateningResidential,
     },
     {
         id: "scenario_fire_power_lines",
         icon: "⚡",
         name: "Downed Power Line Wildfire",
-        description: "A downed power line ignites a wildfire during high winds — crews must establish a safe zone around energised lines and co-ordinate with the utility company before suppression.",
+        description: "A downed power line ignites a wildfire during high winds — crews must establish a safe zone around energized lines and coordinate with the utility company before suppression.",
         data: scenarioFirePowerLines,
     },
     {
         id: "scenario_nighttime_wildfire",
         icon: "🌙",
         name: "Nighttime Wildfire Operations",
-        description: "A large wildfire must be managed through nighttime operations with reduced visibility and altered fire behaviour — crews apply night-specific tactics and safety protocols.",
+        description: "A large wildfire must be managed through nighttime operations with reduced visibility and altered fire behavior — crews apply night-specific tactics and safety protocols.",
         data: scenarioNighttimeWildfire,
     },
     {
@@ -1302,14 +1302,14 @@ const DEMO_SCENARIOS = [
         id: "scenario_fire_steep_terrain",
         icon: "⛰️",
         name: "Wildfire in Steep Terrain",
-        description: "A wildfire in steep, rugged terrain creates extreme fire behaviour and limits access — crews apply terrain-based safety rules and co-ordinate aerial support.",
+        description: "A wildfire in steep, rugged terrain creates extreme fire behavior and limits access — crews apply terrain-based safety rules and coordinate aerial support.",
         data: scenarioFireSteepTerrain,
     },
     {
         id: "scenario_fire_drought_conditions",
         icon: "🏜️",
         name: "Wildfire in Drought Conditions",
-        description: "A wildfire ignites during a severe multi-year drought with extreme fire behaviour and depleted water resources — crews adapt suppression strategy to scarce water supply.",
+        description: "A wildfire ignites during a severe multi-year drought with extreme fire behavior and depleted water resources — crews adapt suppression strategy to scarce water supply.",
         data: scenarioFireDroughtConditions,
     },
     {
@@ -1323,7 +1323,7 @@ const DEMO_SCENARIOS = [
         id: "scenario_fire_limited_water",
         icon: "💧",
         name: "Wildfire with Limited Water Supply",
-        description: "A wildfire breaks out in a remote area with no reliable water infrastructure — crews develop creative water sourcing strategies and prioritise high-value assets.",
+        description: "A wildfire breaks out in a remote area with no reliable water infrastructure — crews develop creative water sourcing strategies and prioritize high-value assets.",
         data: scenarioFireLimitedWater,
     },
     {
@@ -1344,7 +1344,7 @@ const DEMO_SCENARIOS = [
         id: "scenario_fire_blocking_evacuation",
         icon: "🚧",
         name: "Wildfire Blocking Evacuation Routes",
-        description: "A wildfire cuts off primary evacuation routes, trapping residents — crews co-ordinate alternative extraction methods and work with law enforcement for safe passage.",
+        description: "A wildfire cuts off primary evacuation routes, trapping residents — crews coordinate alternative extraction methods and work with law enforcement for safe passage.",
         data: scenarioFireBlockingEvacuation,
     },
     {
@@ -1358,7 +1358,7 @@ const DEMO_SCENARIOS = [
         id: "scenario_fire_wildlife_rescue",
         icon: "🦌",
         name: "Wildfire with Wildlife Rescue",
-        description: "A wildfire threatens a wildlife refuge, forcing co-ordinated rescue operations for injured animals alongside fire suppression and habitat protection.",
+        description: "A wildfire threatens a wildlife refuge, forcing coordinated rescue operations for injured animals alongside fire suppression and habitat protection.",
         data: scenarioFireWildlifeRescue,
     },
 ];
