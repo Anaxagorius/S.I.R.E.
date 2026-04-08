@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Locate and shut off the main water supply valve and restrict access to the basement.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Place warning signs and monitor the situation before calling maintenance.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Begin mopping up water immediately to prevent further spread.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Evacuate all personnel from the basement and shut down the affected electrical circuits.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Allow staff to continue working as long as the water hasn't reached the panels yet.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Initiate an emergency data backup and begin relocating portable equipment to a dry area.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Keep systems running to avoid downtime — the humidity may not cause damage.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Authorize deployment of emergency pumps and coordinate with utilities for restoration.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Wait for the water to drain naturally to avoid the cost of emergency services.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Physical",
+  "difficulty": "Beginner",
+  "tags": [
+    "flood",
+    "water damage",
+    "evacuation",
+    "physical"
+  ]
 }

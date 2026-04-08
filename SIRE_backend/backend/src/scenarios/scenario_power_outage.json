@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Confirm emergency lighting is active throughout the facility and account for all personnel.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Attempt to restore main power immediately by resetting the main breaker.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Wait for staff to report any issues before taking action.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Activate the generator and prioritize life safety systems, communications, and security equipment only.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Connect all systems to the generator to restore normal operations as quickly as possible.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Assign someone to monitor fuel levels and contact the utility company for a restoration update.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Begin restoring non-critical systems to the generator to improve staff comfort.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Gradually transfer load back to the main grid and then safely shut down and secure the generator.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Switch all systems back to grid power at once to restore operations as fast as possible.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Physical",
+  "difficulty": "Beginner",
+  "tags": [
+    "power",
+    "backup systems",
+    "continuity",
+    "physical"
+  ]
 }

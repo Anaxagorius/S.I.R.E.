@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Do not process any transfer. Independently contact the real CFO via their known mobile number to verify whether the call was genuine.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Process the transfer immediately — the CFO's face and voice were clearly visible on camera.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Reply to the video call invitation email to ask for written authorisation before transferring.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Establish a pre-shared code word procedure: for high-value requests on video calls, executives use a secret passphrase only known to core staff to confirm authenticity.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Require that all internal video calls use the official conferencing platform — this alone will prevent deepfakes.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Review and limit the amount of executive audio and video publicly posted. Add watermarks or metadata to official recordings to aid future authenticity verification.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Prohibit executives from appearing on any public video content entirely.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Update the payment authorisation policy to require dual written sign-off and an independent out-of-band call verification regardless of how the initial request was made, including video calls.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Only apply extra verification to requests made by email — video calls are harder to fake.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "deepfake",
+    "AI",
+    "fraud",
+    "impersonation"
+  ]
 }

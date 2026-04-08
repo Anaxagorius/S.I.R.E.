@@ -55,17 +55,24 @@
         {
           "label": "A",
           "text": "Alert all security personnel and dispatch to the lobby immediately.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Approach the individual yourself to assess the situation.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Wait for additional reports before taking action.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -77,12 +84,17 @@
         {
           "label": "A",
           "text": "Initiate facility-wide lockdown and call 911 immediately.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Continue monitoring cameras before triggering a lockdown.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -94,12 +106,17 @@
         {
           "label": "A",
           "text": "Instruct all personnel to stay in place, lock doors, and do not approach windows.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Tell personnel to evacuate the building immediately.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -111,12 +128,17 @@
         {
           "label": "A",
           "text": "Provide police with building schematics and access to security cameras.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Begin lifting the lockdown so staff can return to work.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -126,5 +148,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Threat",
+  "difficulty": "Intermediate",
+  "tags": [
+    "lockdown",
+    "active shooter",
+    "security",
+    "physical threat"
+  ]
 }

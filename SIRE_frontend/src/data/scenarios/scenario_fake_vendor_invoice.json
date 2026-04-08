@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Pause payment and call the supplier directly using a contact number from your existing records — not from the invoice — to verify the bank detail change.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Process the invoice immediately — the branding matches exactly and they are a long-standing supplier.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Email the invoice's reply-to address to confirm the bank change before paying.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Cross-reference all invoices against the supplier's bank details held in the financial system and require dual-sign-off before any bank detail change is recorded.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Add the real supplier's domain to an email allowlist — future invoices from them will then be safe.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Limit publicly available information about supplier relationships and procurement cycles, and ensure tender documents do not reveal payment scheduling details.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Publish a public list of approved suppliers so staff can verify invoices — transparency deters attackers.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Implement a written policy requiring phone verification via on-file contact details and dual-approval for any invoice containing changed bank details, regardless of invoice value.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Only require verification for invoices over a set threshold, such as £10,000.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "invoice fraud",
+    "BEC",
+    "social engineering",
+    "finance"
+  ]
 }

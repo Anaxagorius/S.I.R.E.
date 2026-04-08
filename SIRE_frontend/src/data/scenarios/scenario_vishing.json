@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Politely end the call and phone the IT helpdesk back using the number listed in the internal directory to verify the call is legitimate.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Cooperate with the caller — caller ID shows an internal number so it must be legitimate.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Give the caller a different employee's credentials to test them first.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Immediately disconnect the workstation from the network, terminate any active remote sessions, and escalate to the incident response team.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Uninstall the remote access tool and restart the machine — that should be sufficient.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Reset all credentials the affected employee may have typed or stored on that machine, review logs for data exfiltration, and reimage the workstation.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Only reset the employee's main account password — the session was short.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Publish a clear policy stating IT will never ask for passwords over the phone, and train staff that caller ID can be spoofed.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Install call-blocking software to prevent all unknown numbers from reaching staff.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "vishing",
+    "phone",
+    "social engineering",
+    "impersonation"
+  ]
 }

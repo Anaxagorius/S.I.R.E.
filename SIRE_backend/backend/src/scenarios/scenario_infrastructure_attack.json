@@ -1,0 +1,187 @@
+{
+  "title": "infrastructure_attack",
+  "description": "A nation-state actor targets a water treatment facility's SCADA system to contaminate the water supply.",
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": ["SCADA", "OT", "ICS", "water", "nation-state", "critical infrastructure"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous PLC Commands Detected",
+      "description": "SCADA monitoring system logs unauthorised write commands to the chlorination PLC. Chemical dosing levels spiked to 11× normal.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "HMI Compromise Suspected",
+      "description": "Operator workstation shows remote desktop session from unknown external IP. The attacker may have persistent access to the HMI.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Second Facility Impacted",
+      "description": "A sister facility reports the same PLC anomalies. The attack appears coordinated across multiple sites.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "CISA Alert Issued",
+      "description": "CISA issues an emergency advisory confirming nation-state actor targeting water treatment OT networks. IoCs published.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Water Quality Alert",
+      "description": "Field sensors downstream detect chlorine levels exceeding safe limits. Distribution may already be affected.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "Media Inquiry",
+      "description": "Local news outlet contacts the facility requesting comment on reports of unusual water odour from residents.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 6,
+      "title": "Attacker Lateral Movement",
+      "description": "IDS alerts show attacker attempting lateral movement from the OT network toward the corporate IT network via a shared historian server.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Anomalous SCADA Activity",
+      "situation": "Your SCADA operator alerts you that the chlorination PLC is receiving unauthorised write commands from an unknown source. Chemical dosing has spiked to 11 times normal levels. The operator's HMI workstation shows a remote desktop session that was not authorised.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately switch chlorination control to manual, physically isolate the affected PLC from the network, and alert your incident response team.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Monitor the activity without intervening to gather more intelligence.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the HMI workstation to terminate the remote session.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "OT Network Isolation",
+      "situation": "The chlorination PLC is now under manual control and isolated. However, the attacker still has access to the broader OT network. The IT/OT boundary firewall logs show the initial entry was via a VPN account belonging to a third-party maintenance contractor.",
+      "question": "How do you contain the threat within the OT network?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Disable all remote access including contractor VPNs, segment the OT network by shutting down inter-VLAN routing, and revoke the compromised credentials.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Only disable the compromised VPN account and continue normal operations.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Shut down the entire facility network including safety systems.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Public Health Risk Assessment",
+      "situation": "Field sensors confirm elevated chlorine in the distribution network. Water already distributed may affect consumers. You must decide how to handle the public health risk while coordinating with authorities.",
+      "question": "What is the correct action regarding the public health risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify the local health authority and EPA, issue a precautionary boil-water advisory, and coordinate with water distribution to identify affected zones.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for lab confirmation before making any public notification.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Issue a press release downplaying the situation to avoid public panic.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Threat Intelligence and Reporting",
+      "situation": "CISA has published IoCs matching malware found on your historian server. This is confirmed as a nation-state campaign targeting water infrastructure. You must formally report the incident and assist with national-level response.",
+      "question": "What reporting obligations apply and how should you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Report to CISA, the FBI's IC3, and your sector ISAC (WaterISAC). Preserve all logs and forensic artefacts without modification. Cooperate with federal investigators.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Clean the compromised systems immediately to restore operations without preserving evidence.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Handle the incident internally without notifying federal agencies to protect the organisation's reputation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "OT Forensics and Recovery",
+      "situation": "Federal investigators are on site. Forensic images of the compromised systems have been taken. You now need to safely restore OT operations. The attacker exploited a default vendor password on the historian server to pivot into the OT network.",
+      "question": "How do you safely restore OT operations and harden the environment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rebuild compromised systems from verified clean baselines, change all default credentials, patch known vulnerabilities, and implement network monitoring before bringing systems back online.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Restore from the most recent backup without investigating the initial compromise vector.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Bring systems back online immediately to minimise downtime without any additional hardening.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "IT/OT Boundary Hardening",
+      "situation": "During recovery, the security review reveals the IT/OT boundary relied on a single firewall with outdated rule sets. The historian server was dual-homed on both networks. You must prevent recurrence.",
+      "question": "What architectural change most effectively reduces future IT-to-OT lateral movement risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a demilitarised zone (DMZ) between IT and OT, remove dual-homed systems, enforce unidirectional data diodes for historian data, and deploy OT-aware IDS.",
+          "outcome": { "type": "node", "target": "node-7" }
+        },
+        {
+          "label": "B",
+          "text": "Add a second firewall with the same rule set for redundancy.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-7": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding response. The water treatment facility has been secured, public health risk was communicated promptly, federal agencies were notified, and root cause remediation prevents recurrence. Your actions limited the impact of a sophisticated nation-state attack on critical infrastructure.",
+      "question": "",
+      "options": []
+    }
+  }
+}

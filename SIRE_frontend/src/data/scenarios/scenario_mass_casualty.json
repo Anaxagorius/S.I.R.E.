@@ -1,0 +1,204 @@
+{
+  "title": "mass_casualty_incident",
+  "description": "A multi-vehicle collision produces 20+ casualties requiring rapid triage and resource coordination.",
+  "category": "Medical",
+  "difficulty": "Advanced",
+  "tags": ["MCI", "triage", "START", "EMS", "mass casualty"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collision Reported",
+      "description": "Dispatch reports a multi-vehicle pile-up on the highway involving a bus and three cars. Estimated 25+ casualties.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "First Units On Scene",
+      "description": "First EMS units arrive. Scene is chaotic — casualties scattered across 200m of road. Bystanders attempting to assist.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Additional Resources Dispatched",
+      "description": "Three additional ambulances, one fire engine, and police units en route. ETA 8 minutes.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Hospital Notification",
+      "description": "Regional trauma centre alerted. They can accept 6 critical patients immediately. Two other hospitals activated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Hazard Identified",
+      "description": "Fuel leaking from overturned truck. Fire unit called forward to manage ignition risk during triage.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Media Arriving",
+      "description": "Press and onlookers beginning to gather. Scene perimeter must be maintained to allow emergency access.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 6,
+      "title": "Transport Bottleneck",
+      "description": "Ambulance capacity reached. Air medical transport requested for two critical patients with 15-minute ETA.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrival at MCI Scene",
+      "situation": "You are the first EMS supervisor on scene of a multi-vehicle collision involving a bus. You can see at least 25 casualties — some walking, some on the ground, some motionless. Bystanders are already attempting to move injured people.",
+      "question": "What is your immediate first action as incident commander?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish incident command, declare an MCI, and call for additional resources before beginning triage.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately begin treating the most visibly injured patient first.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for all resources to arrive before taking any action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "ICS Established",
+      "situation": "You have declared an MCI and assigned roles: triage officer, treatment officer, and transport officer. Bystanders are still moving casualties. Your triage officer is ready to begin START triage.",
+      "question": "How do you handle bystanders interfering with the scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct bystanders to move away from the scene and establish a perimeter with police assistance.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Allow bystanders to continue helping — extra hands are needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Assign bystanders to carry litters without any briefing.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "START Triage Initiated",
+      "situation": "Your triage officer is applying START triage. A patient is found: not breathing after repositioning the airway. No radial pulse. Capillary refill >2 seconds.",
+      "question": "Using the START system, how should this patient be categorised?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Black (Expectant/Deceased) — airway not patent after repositioning, no pulse.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Red (Immediate) — attempt full resuscitation immediately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Yellow (Delayed) — tag and revisit after treating other patients.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Resource Allocation",
+      "situation": "Triage complete: 4 Red (Immediate), 8 Yellow (Delayed), 10 Green (Minor), 3 Black. You have 3 ambulances on scene and a trauma centre that can accept 4 critical patients immediately.",
+      "question": "How do you prioritise transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transport all 4 Red patients first to the trauma centre, coordinating with the transport officer.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Load ambulances on a first-come basis regardless of triage category.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transport Green patients first to clear the scene fastest.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Treatment Area Operations",
+      "situation": "A Yellow patient's condition deteriorates — respiratory rate now 32/min, radial pulse absent. They need re-triage to Red. All ambulances are currently transporting.",
+      "question": "What is the correct action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Upgrade patient to Red, provide immediate interventions (airway, haemorrhage control), and request the next available ambulance.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Keep the patient at Yellow and wait — the triage tag cannot be changed once assigned.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Downgrade to Black to free up resources for other Red patients.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Air Medical Coordination",
+      "situation": "Two Red patients require care beyond what ground transport can provide. An air medical helicopter is available with a 15-minute ETA. A suitable landing zone (LZ) must be established.",
+      "question": "How do you establish the LZ and coordinate the helicopter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Designate a flat, cleared area at least 100 feet from the scene as LZ, assign a ground guide, and relay GPS coordinates to the flight crew.",
+          "outcome": { "type": "node", "target": "node-7" }
+        },
+        {
+          "label": "B",
+          "text": "Have the helicopter land as close to the patients as possible regardless of hazards.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-7": {
+      "title": "Scene Stabilisation",
+      "situation": "All critical patients have been transported. Green patients are being assessed at a secondary treatment point. Incident documentation is required for the after-action review.",
+      "question": "What is the final step in MCI scene management?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a full casualty accounting, document triage tags, notify receiving hospitals, and complete the incident log before releasing the scene.",
+          "outcome": { "type": "node", "target": "node-8" }
+        },
+        {
+          "label": "B",
+          "text": "Release the scene immediately once the last ambulance departs.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-8": {
+      "title": "Scenario Complete",
+      "situation": "Excellent work. All 25 casualties have been triaged, treated, and transported according to priority. The incident command structure ensured efficient resource use and no preventable deaths occurred. Your documentation will support the after-action review.",
+      "question": "",
+      "options": []
+    }
+  }
+}

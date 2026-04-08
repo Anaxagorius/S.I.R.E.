@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Deny all push requests, do not approve any, and call the IT helpdesk straight away to report the suspicious activity.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Approve one request to make the notifications stop, then report it afterwards.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Turn off their phone to stop the notifications and deal with it later.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Force an immediate password reset to a unique strong password and review all active sessions for the account.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Simply block the IP address making the login attempts — the password is probably fine.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Yes — roll out number-matching MFA or phishing-resistant FIDO2 keys organisation-wide to eliminate fatigue attacks.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "No — educating users to deny unexpected push requests is sufficient.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Enforce unique password requirements via an enterprise password manager, and monitor for corporate credentials in breach databases using a credential monitoring service.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Send a reminder email asking employees not to reuse passwords — no technical control is needed.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "MFA",
+    "push notification",
+    "authentication",
+    "social engineering"
+  ]
 }

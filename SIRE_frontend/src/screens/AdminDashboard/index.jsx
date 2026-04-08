@@ -1,11 +1,13 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-31
+ * Last Update: 2026-04-01
  * Description: Administrator dashboard for managing session lifecycle.
  * Handles four states (selecting scenario, waiting, active session, and post-session review).
  * Connects to the backend via Socket.IO to provide real-time session management.
  * Supports admin event injection (message + severity) during active sessions.
  * Includes end-session confirmation modal with restart, home navigation, and export options.
+ * Features: category/difficulty filters on scenario selection, per-trainee score tracking,
+ * and an enhanced after-action review with highlighted correct/incorrect decisions.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -27,7 +29,20 @@ const SCENARIO_ICONS = {
     scenario_hazardous_material_spill: "☣️",
     scenario_active_threat:          "🚨",
     scenario_power_outage:           "🔌",
+    scenario_mass_casualty:          "🏥",
+    scenario_infrastructure_attack:  "⚡",
 };
+
+const CATEGORIES = ["All", "Physical", "Medical", "HAZMAT", "Threat", "Cyber"];
+const DIFFICULTIES = ["All", "Beginner", "Intermediate", "Advanced"];
+
+/** Returns the CSS class name for a difficulty badge. */
+function difficultyClass(difficulty) {
+    if (difficulty === "Beginner") return "difficulty-beginner";
+    if (difficulty === "Intermediate") return "difficulty-intermediate";
+    if (difficulty === "Advanced") return "difficulty-advanced";
+    return "";
+}
 
 /** Function that returns the AdminDashboard component for managing and monitoring session flow. */
 export default function AdminDashboard() {
@@ -72,6 +87,16 @@ export default function AdminDashboard() {
 
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
+
+    /** Per-trainee score tracking: Map<displayName, { score, decisions }>. */
+    const [traineeScores, setTraineeScores] = useState(new Map());
+
+    /** Ref tracking the last known score per trainee for correct/incorrect detection. */
+    const traineeScoreRef = useRef(new Map());
+
+    /** Category and difficulty filters for the scenario selection grid. */
+    const [filterCategory, setFilterCategory] = useState("All");
+    const [filterDifficulty, setFilterDifficulty] = useState("All");
 
     /** State for the admin inject panel. */
     const [injectMessage, setInjectMessage] = useState("");
@@ -147,12 +172,34 @@ export default function AdminDashboard() {
         });
 
         socket.on("event:log:broadcast", (payload) => {
+            /** Detect correct vs incorrect decisions by tracking score changes per trainee. */
+            let isCorrect = null;
+            if (payload.actorRole === "trainee" && payload.score !== undefined && payload.displayName) {
+                const prevScore = traineeScoreRef.current.get(payload.displayName) ?? 0;
+                isCorrect = payload.score > prevScore;
+                traineeScoreRef.current.set(payload.displayName, payload.score);
+
+                setTraineeScores((prev) => {
+                    const next = new Map(prev);
+                    const existing = next.get(payload.displayName) || { score: 0, decisions: 0 };
+                    next.set(payload.displayName, {
+                        score: payload.score,
+                        decisions: existing.decisions + 1,
+                    });
+                    return next;
+                });
+            }
+
             setEventLog((prev) => [
                 ...prev,
                 {
                     title: `${payload.displayName} (${payload.actorRole})`,
                     description: payload.action,
                     time: new Date().toLocaleTimeString(),
+                    score: payload.score,
+                    isCorrect,
+                    displayName: payload.displayName,
+                    actorRole: payload.actorRole,
                 },
             ]);
         });
@@ -199,6 +246,10 @@ export default function AdminDashboard() {
         setEventLog([]);
         setError(null);
         setShowEndModal(false);
+        setTraineeScores(new Map());
+        traineeScoreRef.current = new Map();
+        setFilterCategory("All");
+        setFilterDifficulty("All");
     }
 
     /** Function that opens the end-session confirmation modal. */
@@ -218,7 +269,11 @@ export default function AdminDashboard() {
             sessionCode,
             scenarioName,
             exportedAt: new Date().toISOString(),
-            participants: trainees.map((t) => t.displayName),
+            participants: trainees.map((t) => ({
+                displayName: t.displayName,
+                score: traineeScores.get(t.displayName)?.score ?? 0,
+                decisions: traineeScores.get(t.displayName)?.decisions ?? 0,
+            })),
             eventLog,
         };
         const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
@@ -249,6 +304,12 @@ export default function AdminDashboard() {
 
     /** Scenario selection — shown when no session is active. */
     if (!sessionCode) {
+        const filteredScenarios = scenarios.filter(
+            (s) =>
+                (filterCategory === "All" || s.category === filterCategory) &&
+                (filterDifficulty === "All" || s.difficulty === filterDifficulty)
+        );
+
         return (
             <AdminDashboardLayout>
 
@@ -268,14 +329,44 @@ export default function AdminDashboard() {
                     </div>
                 )}
 
+                {/** Category filter bar. */}
+                <div className="filter-bar">
+                    <span className="filter-label">Category:</span>
+                    {CATEGORIES.map((cat) => (
+                        <button
+                            key={cat}
+                            className={`filter-btn${filterCategory === cat ? " active" : ""}`}
+                            onClick={() => setFilterCategory(cat)}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+
+                {/** Difficulty filter bar. */}
+                <div className="filter-bar">
+                    <span className="filter-label">Difficulty:</span>
+                    {DIFFICULTIES.map((diff) => (
+                        <button
+                            key={diff}
+                            className={`filter-btn${filterDifficulty === diff ? " active" : ""}`}
+                            onClick={() => setFilterDifficulty(diff)}
+                        >
+                            {diff}
+                        </button>
+                    ))}
+                </div>
+
                 {/** Scenario cards grid. */}
                 <div className="scenario-grid">
                     {scenariosLoading ? (
                         <p>Loading scenarios...</p>
                     ) : scenariosError ? (
                         <p style={{ color: "rgb(255,80,80)" }}>{scenariosError}</p>
+                    ) : filteredScenarios.length === 0 ? (
+                        <p style={{ opacity: 0.7 }}>No scenarios match the selected filters.</p>
                     ) : (
-                        scenarios.map((scenario) => (
+                        filteredScenarios.map((scenario) => (
                             <button
                                 key={scenario.id}
                                 className="scenario-card"
@@ -285,6 +376,11 @@ export default function AdminDashboard() {
                                 <span className="scenario-card-icon">{scenario.icon}</span>
                                 <span className="scenario-card-name">{scenario.name}</span>
                                 <span className="scenario-card-desc">{scenario.description}</span>
+                                {scenario.difficulty && (
+                                    <span className={`scenario-card-difficulty ${difficultyClass(scenario.difficulty)}`}>
+                                        {scenario.difficulty}
+                                    </span>
+                                )}
                             </button>
                         ))
                     )}
@@ -341,7 +437,13 @@ export default function AdminDashboard() {
                         <h3>Trainees ({trainees.length})</h3>
                         <ul>
                             {trainees.map((t, i) => (
-                                <li key={t.socketId || i}>{t.displayName}</li>
+                                <li key={t.socketId || i}>
+                                    {t.displayName} — Score:{" "}
+                                    <strong style={{ color: "rgb(80,220,80)" }}>
+                                        {traineeScores.get(t.displayName)?.score ?? 0} pts
+                                    </strong>
+                                    {" "}({traineeScores.get(t.displayName)?.decisions ?? 0} decisions)
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -392,33 +494,77 @@ export default function AdminDashboard() {
                 </div>
             )}
 
-            {/** Post session that displays final results. */}
+            {/** Post session that displays final results (After-Action Review). */}
             {sessionState === "ended" && (
                 <div>
                     <div className="dashboard-card">
-                        <h2>Session Complete</h2>
-                        <p>Review trainee performance</p>
+                        <h2>Session Report</h2>
+                        <p><strong>Session Code:</strong> {sessionCode}</p>
+                        <p><strong>Scenario:</strong> {scenarioName}</p>
                     </div>
+
                     <div className="dashboard-card">
                         <h3>Participants ({trainees.length})</h3>
                         <ul>
-                            {trainees.map((t, i) => (
-                                <li key={t.socketId || i}>{t.displayName}</li>
-                            ))}
+                            {trainees.map((t, i) => {
+                                const stats = traineeScores.get(t.displayName);
+                                return (
+                                    <li key={t.socketId || i}>
+                                        {t.displayName} —{" "}
+                                        <strong style={{ color: "rgb(80,220,80)" }}>
+                                            {stats?.score ?? 0} pts
+                                        </strong>
+                                        {" "}({stats?.decisions ?? 0} decisions)
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
+
                     {eventLog.length > 0 && (
                         <div className="dashboard-card">
                             <h3>Session Event Log</h3>
-                            <ul>
-                                {eventLog.map((entry, i) => (
-                                    <li key={i}>
-                                        <strong>[{entry.time}] {entry.title}:</strong> {entry.description}
-                                    </li>
-                                ))}
-                            </ul>
+                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+                                <thead>
+                                    <tr style={{ borderBottom: "1px solid rgb(80,80,80)", textAlign: "left" }}>
+                                        <th style={{ padding: "0.4rem 0.5rem" }}>Time</th>
+                                        <th style={{ padding: "0.4rem 0.5rem" }}>Trainee</th>
+                                        <th style={{ padding: "0.4rem 0.5rem" }}>Decision</th>
+                                        <th style={{ padding: "0.4rem 0.5rem" }}>Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {eventLog.map((entry, i) => (
+                                        <tr
+                                            key={i}
+                                            style={{
+                                                borderBottom: "1px solid rgba(255,255,255,0.05)",
+                                                background:
+                                                    entry.isCorrect === true
+                                                        ? "rgba(40,180,40,0.08)"
+                                                        : entry.isCorrect === false
+                                                        ? "rgba(200,40,40,0.08)"
+                                                        : "transparent",
+                                            }}
+                                        >
+                                            <td style={{ padding: "0.4rem 0.5rem", opacity: 0.7 }}>{entry.time}</td>
+                                            <td style={{ padding: "0.4rem 0.5rem" }}>{entry.title}</td>
+                                            <td style={{ padding: "0.4rem 0.5rem" }}>{entry.description}</td>
+                                            <td style={{ padding: "0.4rem 0.5rem" }}>
+                                                {entry.isCorrect === true && (
+                                                    <span style={{ color: "rgb(80,220,80)", fontWeight: 600 }}>✅ Correct</span>
+                                                )}
+                                                {entry.isCorrect === false && (
+                                                    <span style={{ color: "rgb(255,100,100)", fontWeight: 600 }}>❌ Incorrect</span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     )}
+
                     <div className="session-actions">
                         <Button text="Start New Session" onClick={handleStartNewSession} />
                         <Button text="Return to Home" onClick={() => navigate("/")} />

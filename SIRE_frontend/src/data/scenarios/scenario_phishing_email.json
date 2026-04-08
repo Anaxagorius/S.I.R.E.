@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Send an urgent all-staff alert warning not to click the link, and report the email to the IT security team for analysis.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Click the link yourself to verify whether it is truly malicious before deciding what to do.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Wait for IT to notice on their own — it is their responsibility to handle suspicious emails.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,17 +78,24 @@
         {
           "label": "A",
           "text": "Immediately disable the compromised accounts and force password resets with MFA enrolment before re-enabling them.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Ask the affected employees to change their passwords themselves at their own convenience.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Leave the accounts active to monitor attacker activity without notifying the employees.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -93,12 +107,17 @@
         {
           "label": "A",
           "text": "Update email security rules to flag external links using redirect services, and enable advanced anti-phishing policies.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Block all external email links entirely, preventing employees from clicking any external URL.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -110,12 +129,17 @@
         {
           "label": "A",
           "text": "Conduct a data impact assessment, notify affected individuals per data protection obligations, and document the breach.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Keep the breach internal to avoid reputational damage — the access window was short.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -125,5 +149,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Beginner",
+  "tags": [
+    "phishing",
+    "email",
+    "social engineering",
+    "awareness"
+  ]
 }

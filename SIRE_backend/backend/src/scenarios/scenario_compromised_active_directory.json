@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Disable the suspect admin account immediately and alert the Active Directory and incident response teams.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Wait until business hours to investigate — the admin may be working remotely.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Call the administrator to verify before taking any account action.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Disable all three rogue domain admin accounts, revert the Group Policy changes, and reset passwords for all privileged accounts immediately.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Delete only the rogue accounts and monitor for further activity before reverting group policies.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Isolate affected systems, audit all AD changes from the past 7 days, and enable comprehensive AD audit logging to identify the full scope of the breach.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Re-enable the original admin account so they can help with the investigation.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Implement tiered AD administration to isolate privileged accounts, enforce privileged access workstations (PAWs) for admin tasks, and require MFA for all domain administrator accounts.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Change the AD admin password and add a reminder to the security policy document.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "Active Directory",
+    "domain compromise",
+    "credential theft",
+    "lateral movement"
+  ]
 }

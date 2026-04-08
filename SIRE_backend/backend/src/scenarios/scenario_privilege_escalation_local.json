@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Isolate the workstation from the network immediately and begin a forensic investigation.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Dismiss the alert as a false positive — standard users cannot normally gain elevated privileges.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Reboot the workstation to interrupt the exploit before investigating.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Revoke the affected user's credentials across all systems, preserve a forensic memory and disk image, and keep the workstation isolated pending full analysis.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Reboot the workstation to clear the exploit and return it to the user.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Scan all endpoints for indicators of compromise (IOCs) from the backdoor, revoke all active sessions for the affected user, and review network traffic logs for any lateral movement.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Re-image the workstation and consider the incident closed since the endpoint is isolated.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Deploy the missing patch to all 40 affected endpoints immediately, enforce least-privilege user policies, and initiate a review of the patch management process to close coverage gaps.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Only patch the single workstation involved in the incident.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "privilege escalation",
+    "local admin",
+    "Windows",
+    "endpoint"
+  ]
 }

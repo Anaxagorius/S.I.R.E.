@@ -55,17 +55,24 @@
         {
           "label": "A",
           "text": "Isolate the workstation from the network immediately by disabling its NIC, then alert the IR team.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Run an antivirus scan on the machine while it stays connected to diagnose the infection first.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Reboot the workstation to see if the activity stops.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -77,17 +84,24 @@
         {
           "label": "A",
           "text": "Segment the affected VLAN by disabling the switch ports for all infected machines and block SMB traffic at the firewall.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Shut down only the originally infected workstation and continue monitoring the others.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Take the entire network offline to halt all activity.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -99,12 +113,17 @@
         {
           "label": "A",
           "text": "Do not pay the ransom. Assess backup availability and engage law enforcement. Document everything for regulatory reporting.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Pay the ransom immediately to restore operations as quickly as possible.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -116,12 +135,17 @@
         {
           "label": "A",
           "text": "Mount the backup on an isolated, clean test system, run integrity checks, and scan for malware signatures before restoring production.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Restore directly from backup to production systems without testing to minimize downtime.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -131,5 +155,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "ransomware",
+    "encryption",
+    "backup",
+    "incident response"
+  ]
 }

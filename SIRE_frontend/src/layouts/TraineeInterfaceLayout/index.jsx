@@ -1,7 +1,8 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-23
+ * Last Update: 2026-04-01
  * Description: Layout component for the Trainee Interface.
+ * Displays elapsed timer, running score, and recent correct decision history in the left panel.
  */
 
 import Grid from "@mui/material/Grid";
@@ -10,11 +11,15 @@ import About from "../../assets/images/About.png";
 import "./TraineeInterfaceLayout.css";
 
 /** Function that returns the TraineeInterfaceLayout component. */
-export default function TraineeInterfaceLayout({ children, time }) {
+export default function TraineeInterfaceLayout({ children, time, score, decisions }) {
+
+    /** Show only the last 5 correct decisions in the history panel. */
+    const recentCorrect = (decisions || []).filter((d) => d.isCorrect).slice(-5);
+
     return (
         <Grid container spacing={0} className="trainee-container">
 
-            {/** Left section (timer & information panel). */}
+            {/** Left section (timer, score, & information panel). */}
             <Grid size={{ xs: 12, sm: 3 }}>
                 <div className="trainee-left">
                     <div className="left-content">
@@ -24,6 +29,26 @@ export default function TraineeInterfaceLayout({ children, time }) {
                             <p>Time</p>
                             <h2>{time || "00:00"}</h2>
                         </div>
+
+                        {/** Live score display. */}
+                        <div className="score-box">
+                            <p>Score</p>
+                            <div className="score-value">{score ?? 0}</div>
+                        </div>
+
+                        {/** Recent correct decision history (last 5). */}
+                        {recentCorrect.length > 0 && (
+                            <div className="history-box">
+                                <p style={{ fontSize: "0.8rem", opacity: 0.7, marginBottom: "0.25rem" }}>
+                                    Recent Decisions
+                                </p>
+                                {recentCorrect.map((d, i) => (
+                                    <div key={i} className="history-item">
+                                        ✅ {d.nodeTitle}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </Grid>
