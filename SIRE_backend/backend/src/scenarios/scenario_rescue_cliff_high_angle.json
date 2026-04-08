@@ -1,0 +1,153 @@
+{
+  "title": "cliff_high_angle_rescue",
+  "description": "A hiker has fallen and is stranded on a narrow ledge 25 metres below the cliff top with a suspected spinal injury.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["high angle rescue", "cliff rescue", "rope rescue", "litter", "spinal precautions"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Hiker Stranded on Ledge",
+      "description": "Hiker fell during descent and landed on narrow ledge 25 m below cliff edge. Conscious, complaining of neck pain.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Anchor System Established",
+      "description": "Two independent rope systems established at cliff top. Litter team preparing for lower.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Rescuer Lowered to Ledge",
+      "description": "Medical rescuer lowered on main line. Spinal precautions applied. Victim packaged in Stokes litter.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Litter Raised",
+      "description": "Litter and attendant raised to cliff top using haul system. Road-head medical team receives victim.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Victim Transported",
+      "description": "Victim transported to hospital by EMS with spinal precautions maintained. Scene demobilised.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Hiker on Cliff Ledge",
+      "situation": "A hiker has fallen during a cliff descent and landed on a ledge 25 metres below the top edge. They are conscious, reporting severe neck pain, and unable to move. Bystanders on the cliff top are considering lowering a climbing rope to the victim.",
+      "question": "How do you establish a safe rescue operation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop improvised lowering, establish a formal incident command, brief the cliff edge for exclusion zone compliance, and begin setting up a two-rope (main and belay) rescue system with independent anchors.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow bystanders to lower a climbing rope — the victim needs to be reached immediately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the victim to try to climb up to the cliff top using a rope.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Anchor System Assessment",
+      "situation": "The anchor area at the cliff top has soft soil and only one suitable rock anchor within 3 metres of the edge. A large boulder 6 metres back is available. The team has a load-sharing anchor kit.",
+      "question": "How do you set up the anchor system?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the boulder 6 metres back as the primary anchor with a load-sharing extension to the edge; set up a separate independent belay anchor — no single-point anchors over the edge.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Use the single rock anchor near the edge — it is faster and looks solid.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Anchor to the bumper of a parked truck — it is close and heavy.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Rescuer Lowered to Victim",
+      "situation": "A medical rescuer has been lowered to the ledge. The victim is conscious with a suspected C-spine injury and a possible femur fracture. The ledge is 60 cm wide. The rescuer must perform a medical assessment and package the victim for rescue.",
+      "question": "How does the rescuer manage spinal precautions on the ledge?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply manual in-line stabilisation immediately, fit a cervical collar, log-roll the victim onto a Stokes litter with full spinal precautions, and secure all straps before initiating the haul.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the victim to sit upright in a harness for the rescue — it is faster than packaging them in a litter.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Skip the cervical collar and package the victim in a quick-wrap body harness to save time.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Haul System Deployment",
+      "situation": "The victim is packaged in the litter with the rescuer attached as a litter attendant. The haul team at the top must raise approximately 120 kg total. A 3:1 mechanical advantage system is set up.",
+      "question": "What is the correct haul protocol?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain constant communication between the litter attendant and haul team, raise steadily with the belay rope tracking simultaneously, and keep the litter horizontal throughout the raise.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Haul as fast as possible to minimise time on the cliff face.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow the litter to rotate freely — the attendant can adjust position as needed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Victim at Cliff Top",
+      "situation": "The victim has been raised to the cliff top. EMS is ready. The victim is conscious, with worsening neck pain, tingling in both hands, and reduced grip strength — increasing concern for spinal cord injury.",
+      "question": "How do you transfer the victim to EMS?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Keep the victim in the litter with all spinal precautions maintained; transfer directly onto the EMS stretcher using a log-roll technique with C-spine held manually.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the victim from the litter and assist them to walk to the ambulance — they are conscious.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The victim was successfully rescued with full spinal precautions maintained throughout. A proper two-rope anchor system prevented rope failure. EMS transported the victim with appropriate C-spine immobilisation, and the neurosurgery team was pre-alerted. No rescuer injuries occurred.",
+      "question": "",
+      "options": []
+    }
+  }
+}

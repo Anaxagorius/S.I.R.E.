@@ -1,0 +1,153 @@
+{
+  "title": "cave_rescue",
+  "description": "A caving party is trapped underground after sudden flooding blocks their exit route.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["cave rescue", "speleology", "flooding", "underground", "sump diving", "victim management"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Party Overdue",
+      "description": "Six cavers fail to exit after expected 4-hour trip. Heavy rain has caused stream passage flooding. Cave rescue team mobilised.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Cave Entry Team Deployed",
+      "description": "Two-person cave rescue team enters to reconnoitre. Sump flood confirmed blocking exit passage.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Cavers Located",
+      "description": "Cavers found on dry ledge beyond sump. One hypothermic, rest dehydrated. Contact established.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Sump Bypass Planned",
+      "description": "Divers assess sump: 12 m long, 4 m deep. Diving rescue or waiting for water to drop are the two options.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 4,
+      "title": "Rescue Complete",
+      "description": "Water drops overnight. All cavers guided through shallow sump by rescue team and transported to hospital.",
+      "timeOffsetSec": 720
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Caving Party Missing Underground",
+      "situation": "Six recreational cavers are overdue from a 4-hour cave trip. Overnight heavy rain has caused significant stream flooding inside the cave system. Friends on the surface are debating whether to go in to look for them.",
+      "question": "What is your first action as cave rescue incident controller?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop all untrained surface entry attempts, gather information on the planned route, deploy only trained cave rescue specialists, and check rainfall data to assess flood risk progression.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the friends to enter — they know the cave and may find the party faster.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait 12 hours to see if the flood water drops before taking any action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Sump Flood Confirmed",
+      "situation": "The cave rescue reconnaissance team reports that the main exit passage — a normally passable stream section — is now a fully submerged sump approximately 12 metres long and 4 metres deep. The team can hear distant voices beyond the sump. No further rainfall is forecast.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish contact with the trapped cavers through the sump acoustically, supply them with food, light, and insulation via waterproof bags, and assess whether a cave diver or waiting for water to drop is safer.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately attempt to guide the cavers through the sump by breath-holding.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Begin digging a new surface shaft immediately regardless of depth or geology.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Medical Situation Beyond Sump",
+      "situation": "Contact has been established. One caver is severely hypothermic — confused, shivering uncontrollably. The others are dehydrated and exhausted but conscious. A cave diver has assessed the sump — it is passable but technically challenging and risky for non-divers.",
+      "question": "How do you manage the medical situation and plan the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pass warm fluids, food, and insulation through the sump via a supply diver; implement in-cave hypothermia management; plan the rescue for after water levels drop based on rainfall cessation forecasts.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to bring the hypothermic caver through the sump immediately — their condition is deteriorating.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Continue waiting with no supplies passed through — the cavers should be able to last another 24 hours.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Water Levels Dropping",
+      "situation": "Eight hours later, water levels have dropped 60 cm. The sump is now 6 metres long and 2.5 metres deep at its deepest point. The hypothermic caver has improved with insulation and warm fluids but remains weak. Three cavers are ready to traverse with a guide.",
+      "question": "How do you sequence the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Send the three able-bodied cavers through first with a cave rescue guide, then move the weaker cavers, and manage the hypothermic caver last with a diver and EMS team ready at the sump exit.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Send the hypothermic caver through first — they are the most critical.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have all six cavers traverse simultaneously in one group.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "All Cavers at Sump Exit",
+      "situation": "All six cavers have been safely guided through the sump. Three are at the surface. The hypothermic caver and two others are at the sump exit inside the cave. The underground walk-out to the surface takes 40 minutes. The hypothermic patient is struggling to walk.",
+      "question": "How do you manage the walk-out?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrange a stretcher carry or improvised litter for the hypothermic patient with rescuers positioned at intervals; maintain core insulation and move steadily toward the surface.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Have the hypothermic patient walk independently to conserve rescue team energy.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All six cavers reached the surface safely. The hypothermic patient was treated by EMS and transported to hospital. The decision to supply and shelter the party rather than force a dangerous sump traverse proved correct. Systematic sequencing of the rescue prevented further casualties.",
+      "question": "",
+      "options": []
+    }
+  }
+}

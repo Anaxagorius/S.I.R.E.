@@ -1,0 +1,153 @@
+{
+  "title": "structural_collapse_rescue",
+  "description": "A partial floor collapse in a commercial building traps multiple workers in the debris field.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["structural collapse", "USAR", "void space", "shoring", "search and rescue"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collapse Reported",
+      "description": "Three floors of a commercial building partially collapse during renovation. Multiple workers unaccounted for.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Structural Assessment",
+      "description": "Structural specialist identifies two survivable void spaces. Secondary collapse risk marked on site plan.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Rescue Teams Deployed",
+      "description": "Two search teams with search dogs and acoustic listening devices enter the collapse zone.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Victim Located",
+      "description": "Acoustic device detects survivor in void space B. Team begins debris removal and shoring approach.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Extrication Complete",
+      "description": "Two survivors extricated. One confirmed fatality recovered. Scene transferred to recovery mode.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Partial Building Collapse",
+      "situation": "Three floors of a commercial building under renovation have partially collapsed. Workers on site report 5 people unaccounted for. Bystanders are attempting to dig through debris with their hands. Secondary collapse is possible.",
+      "question": "What is your first action as Urban Search and Rescue (USAR) incident commander?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a collapse zone perimeter, deny entry to all untrained personnel, request a structural specialist, and initiate a systematic size-up before committing rescue teams.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow bystanders to continue digging — any help is valuable and speed saves lives.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send rescue teams in immediately to begin a rapid search.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Structural Assessment",
+      "situation": "The structural specialist has identified two probable void spaces — void A near the stairwell and void B near the loading dock. The eastern wall is unstable and could pancake. The specialist recommends shores before any rescue entry.",
+      "question": "How do you deploy rescue resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a shoring team to stabilise the eastern wall, then send acoustic listening device teams to void A and void B simultaneously.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Skip shoring and send all teams to the most accessible void space immediately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for heavy machinery to clear all debris before sending in any rescuers.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Survivor Located",
+      "situation": "The acoustic listening device team at void B detects rhythmic knocking — a survivor. Voice contact is established. The victim reports two others nearby but no movement from them. The approach tunnel requires debris removal and shoring.",
+      "question": "How do you manage the rescue approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shore the debris as the tunnel is advanced, using a breaching and shoring technique; maintain communication with the survivor throughout.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Remove debris as quickly as possible without shoring — the survivor is running out of air.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use heavy machinery to remove the slab above the void — it is the quickest option.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Victim Assessment Inside Void",
+      "situation": "The first survivor is reached — conscious, with a suspected femur fracture and crush injury. Two other victims are nearby: one is moaning, one is silent with no visible movement.",
+      "question": "What is the correct triage and extrication sequence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Perform rapid triage: treat and package the moaning victim first if they are more critical, provide care in place to the conscious victim, and assess the silent victim to determine viability before allocating resources.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Extricate the most accessible victim first regardless of medical need.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remove all victims simultaneously using multiple rescuers in the confined void.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Secondary Collapse Warning",
+      "situation": "During extrication, a spotter reports cracking sounds from the eastern wall. The structural specialist recommends immediate evacuation of the rescue team. One victim is still in the void.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sound the evacuation signal, withdraw all rescuers immediately, and reassess structural stability before re-entry.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Keep the rescue team working — the sounds may stop on their own.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Two survivors were successfully extricated. One victim was confirmed deceased. The secondary collapse warning was heeded, preventing rescuer fatalities. The scene has been secured and transferred to recovery mode with appropriate investigation initiated.",
+      "question": "",
+      "options": []
+    }
+  }
+}

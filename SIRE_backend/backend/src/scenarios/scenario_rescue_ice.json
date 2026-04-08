@@ -1,0 +1,148 @@
+{
+  "title": "ice_rescue",
+  "description": "A person has fallen through thin ice on a frozen lake and is struggling to stay afloat.",
+  "category": "Technical Rescue",
+  "difficulty": "Intermediate",
+  "tags": ["ice rescue", "cold water", "hypothermia", "reach and throw", "ice suit"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Person Through Ice",
+      "description": "Adult male has broken through ice 30 metres from shore. Air temperature -12°C. Victim conscious but tiring.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Throw Bag Deployed",
+      "description": "Rescue throw rope reaches victim. Victim grips rope but cannot self-rescue — arms over ice edge.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Rescue Sled Deployed",
+      "description": "Ice rescue sled sent out with rope. Rescuer in ice suit follows on sled to provide contact rescue.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Victim Retrieved",
+      "description": "Victim pulled onto sled and dragged to shore. Hypothermia management initiated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "EMS Transport",
+      "description": "Victim transported to hospital. Rescue personnel decontaminated and assessed for cold exposure.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Victim Through Ice",
+      "situation": "A man has fallen through lake ice approximately 30 metres from shore. Air temperature is -12°C. The ice thickness is estimated at 4–5 cm — unsafe for walking. A bystander is about to walk toward the victim to help.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop the bystander, shout instructions to the victim to kick their legs and stay on the ice edge, and immediately retrieve the nearest throw rope or ring buoy.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the bystander to walk out — they are larger and may support their own weight.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Walk toward the victim yourself to assess the ice thickness.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Throw Rope Deployed",
+      "situation": "A throw rope was tossed and the victim has grabbed it. However, their arms are exhausted and they cannot perform a self-rescue — they are unable to push themselves up onto the ice edge. The rope alone will not extract them.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy the ice rescue sled along the rope line to the victim; assign a trained ice rescue technician in a dry suit and ice pick gloves to follow on their stomach.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Instruct multiple bystanders to join hands and form a human chain to the victim.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Drive a rescue boat or snowmobile across the ice to reach the victim faster.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Contact Rescue on Ice",
+      "situation": "The ice rescue technician has reached the victim on the sled. The victim is conscious but unable to assist — arms have lost grip strength. The ice surrounding the hole is unstable and cracking as the technician approaches.",
+      "question": "What is the safest technique to extract the victim?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Distribute weight by lying flat on the sled, grab the victim's wrists (not hands), and signal shore crew to haul both rescuer and victim back using the guide rope.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Pull the victim up onto the ice from a kneeling position to get maximum leverage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have the victim climb onto the rescuer's back to be carried to shore.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Victim at Shore: Hypothermia Management",
+      "situation": "The victim is at shore — conscious, severely shivering, slurring words, and unable to stand. Estimated time in water: 12 minutes at -12°C. EMS is 5 minutes away.",
+      "question": "What is the correct immediate treatment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove wet clothing carefully, wrap in blankets and a vapour barrier, lay victim horizontally, handle gently to avoid triggering cardiac arrhythmia, and avoid having them walk or stand.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Vigorously rub the victim's limbs to restore circulation and ask them to jog in place.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Rescuer Cold Exposure",
+      "situation": "The ice rescue technician has returned to shore. Despite wearing a dry suit, they report numbness in their fingers and feet. The team wants to continue operations — there may be a second person in the water.",
+      "question": "How do you manage the technician?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove the technician from rescue duties, assess them for cold injury, and deploy a second trained technician for continued operations.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Have the technician continue operations — the numbness is normal and will pass.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The victim was successfully rescued using the reach-throw-sled-contact sequence. Hypothermia management was correctly initiated before EMS arrival. The ice rescue technician was appropriately rotated out of operations. No secondary casualties occurred.",
+      "question": "",
+      "options": []
+    }
+  }
+}

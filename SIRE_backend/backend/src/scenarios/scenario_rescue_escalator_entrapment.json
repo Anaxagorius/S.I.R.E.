@@ -1,0 +1,148 @@
+{
+  "title": "escalator_entrapment",
+  "description": "A child's clothing becomes caught in an escalator mechanism at a busy shopping centre.",
+  "category": "Technical Rescue",
+  "difficulty": "Intermediate",
+  "tags": ["escalator", "entrapment", "mechanical rescue", "emergency stop", "paediatric"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Entrapment Reported",
+      "description": "Bystanders report a child's foot trapped in the escalator comb plate at the bottom landing. Escalator is still running.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Emergency Stop Activated",
+      "description": "Security activates the emergency stop. Escalator halts. Child is conscious but in pain.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Maintenance Access",
+      "description": "Maintenance technician arrives with the step removal tool. Comb plate access panel located.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Mechanical Disassembly",
+      "description": "Steps removed and comb plate panel opened. Child's foot partially freed. EMS preparing for extraction.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Patient Released and Treated",
+      "description": "Foot released from mechanism. EMS performing assessment. Child transported to hospital.",
+      "timeOffsetSec": 180
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Child Entrapped in Escalator",
+      "situation": "A 6-year-old child's foot and shoe are caught in the comb plate at the bottom of an escalator in a shopping centre. The escalator is still moving, pulling the foot deeper. Bystanders are pulling on the child's arms.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the emergency stop button immediately and stop bystanders from pulling on the child, as pulling can worsen the entrapment injury.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Let bystanders continue pulling while you look for the stop button.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to reverse the escalator direction to free the foot.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Escalator Stopped, Mechanism Still Under Tension",
+      "situation": "The escalator has stopped but the foot remains firmly entrapped in the comb plate. The child is conscious, crying, and in pain. Shopping centre security asks whether they should restart the escalator in reverse.",
+      "question": "How do you advise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise against reversing — it can worsen injury. Lock out the escalator at the main panel to prevent accidental restart, and call for the maintenance technician with step-removal tools.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Agree to reverse the escalator to try to free the foot.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Begin cutting the surrounding escalator step with a rotary saw immediately.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Maintenance Technician On Scene",
+      "situation": "The maintenance technician has arrived with the step-removal tool and a comb plate access key. The child's foot is entrapped at the lower comb plate. EMS is on scene. The child is increasingly distressed.",
+      "question": "How do you coordinate the mechanical disassembly with patient care?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Have EMS stabilise and comfort the child while the technician removes the adjacent step and opens the comb plate access panel to relieve tension on the foot.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the shoe forcefully before the technician opens the access panel.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Cut through the foot of the shoe with shears while the comb plate is under tension.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Partial Release and Extrication",
+      "situation": "The technician has removed the comb plate and the entrapment is partially relieved. The child's foot is still held by the shoe material wrapped around a step chain link. EMS reports the child has a possible fracture and circulatory compromise.",
+      "question": "How do you complete the extrication?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cut the shoe material carefully with trauma shears to free the foot, then have EMS perform a neurovascular assessment before moving the child.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Lift the child upward to pull the foot free without cutting the shoe.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Post-Extrication Care and Scene Management",
+      "situation": "The child's foot is free. EMS is assessing neurovascular status — the foot is pale with reduced sensation. Bystanders are crowding the area and filming the scene.",
+      "question": "What are your priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a perimeter to give EMS room to work, transport the child urgently for vascular assessment, and preserve the scene with the escalator locked out for a safety investigation.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the escalator to be restarted after the child is removed — there is a long queue of shoppers waiting.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The child was successfully extricated without worsening the entrapment injury. EMS provided appropriate neurovascular monitoring and rapid transport. The escalator was locked out for investigation. Your team followed proper escalator entrapment protocols.",
+      "question": "",
+      "options": []
+    }
+  }
+}

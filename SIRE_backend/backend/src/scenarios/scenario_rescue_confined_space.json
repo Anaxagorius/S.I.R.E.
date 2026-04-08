@@ -1,0 +1,148 @@
+{
+  "title": "confined_space_rescue",
+  "description": "A worker has collapsed inside a permit-required confined space at an industrial facility.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["confined space", "rescue", "IDLH", "atmospheric monitoring", "permit-required"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collapse Reported",
+      "description": "Worker collapses inside a 10-metre-deep storage tank. Coworkers request entry to help. Establish incident command.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Atmospheric Testing",
+      "description": "4-gas monitor readings: oxygen 16%, LEL 8%, CO 200 ppm. Conditions immediately dangerous to life and health.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Rescue Team Staged",
+      "description": "Technical rescue team on scene with supplied-air respirators, tripod, and retrieval system.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Entrant Secured",
+      "description": "Rescue entrant has reached the patient. Patient is unresponsive; must be packaged for non-entry retrieval.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Patient Retrieved",
+      "description": "Patient raised to surface. EMS performing post-rescue assessment. Debrief initiated.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Collapse Inside Confined Space",
+      "situation": "A maintenance worker has collapsed inside a permit-required storage tank at a chemical plant. Two coworkers are preparing to enter without PPE to help. Atmospheric readings have not been taken.",
+      "question": "What is your immediate priority as rescue team leader?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop all unauthorised entry attempts, establish incident command, and conduct atmospheric monitoring before any rescue entry.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the coworkers to enter immediately — speed saves lives in a confined space.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Lower a rope to the victim and pull them out without entering.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Atmospheric Readings: IDLH Confirmed",
+      "situation": "4-gas monitor shows: O₂ 16% (low), LEL 8%, CO 200 ppm. Conditions are immediately dangerous to life and health (IDLH). The space requires supplied-air entry.",
+      "question": "How do you proceed with the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a supplied-air rescue entrant with a full-body harness and retrieval line attached to a tripod system. Attendant remains outside.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Have the rescue entrant use an air-purifying respirator — it is faster to deploy.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ventilate the space with a fan first, then send in an entrant with a SCBA and no retrieval line.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Non-Entry Retrieval Considered",
+      "situation": "The entrant reaches the patient but finds them wedged against an internal baffle. A non-entry retrieval by rope may injure the patient further. The entrant's air supply is at 50%.",
+      "question": "What is the correct course of action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Carefully package the patient using a rescue basket and coordinate a controlled vertical lift with the tripod while monitoring entrant air supply.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Drag the patient by the harness immediately — air supply is the priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send in a second entrant to help carry the patient without checking air supply levels.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Patient at Surface",
+      "situation": "The patient has been extracted and is unresponsive with shallow respirations. EMS is on scene. The rescue entrant is showing signs of CO exposure after post-exit assessment.",
+      "question": "How do you manage both casualties?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide high-flow oxygen to both casualties immediately and transport both to hospital for hyperbaric oxygen therapy evaluation.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Focus only on the original victim — the entrant feels well enough to continue working.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scene Secured and Debriefed",
+      "situation": "Both casualties are en route to hospital. The space has been locked out and the permit cancelled. An incident investigation is required.",
+      "question": "What is the correct post-rescue action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Preserve the scene, collect atmospheric monitoring records, complete the incident log, and initiate a formal investigation per confined space regulations.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Restore the space to service immediately once the victims are transported.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Both patients received appropriate care. The confined space has been properly secured and the incident preserved for investigation. Your team followed permit-required confined space rescue protocols correctly, preventing additional casualties.",
+      "question": "",
+      "options": []
+    }
+  }
+}

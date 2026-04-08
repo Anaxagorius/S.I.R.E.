@@ -1,0 +1,148 @@
+{
+  "title": "flood_rescue",
+  "description": "Residents are stranded on rooftops following a rapidly rising flash flood in a residential area.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["flood rescue", "swift water", "boat rescue", "helicopter", "evacuation"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Flood Waters Rising",
+      "description": "Flash flood engulfs residential streets. Multiple 000 calls reporting people trapped on rooftops.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rescue Boats Launched",
+      "description": "Two inflatable rescue boats deployed with crews. Helicopter requested for high-priority rescues.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "First Rescues Completed",
+      "description": "Six residents rescued by boat. Helicopter extracting elderly couple from roof with compromised access.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Submerged Hazard Identified",
+      "description": "Submerged fences and vehicles create navigation hazard. Boat route must be reassessed.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 4,
+      "title": "All Rescues Complete",
+      "description": "14 residents rescued. Area swept for remaining casualties. Scene transferred to recovery.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Flash Flood: Residents Stranded",
+      "situation": "A sudden flash flood has inundated a residential suburb. Water is at 1.2 metres and rising. Multiple residents are reported on rooftops and in upper storeys. Driving rain reduces visibility to 100 metres. Bystanders with private boats are offering to help.",
+      "question": "How do you organise the rescue operation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish water rescue command, assign rescue zones to trained crews, integrate willing private boaters only as observers or guides after briefing, and request air support for inaccessible locations.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Send all available boats — trained and untrained — simultaneously to maximise coverage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the water to stabilise before deploying rescue boats.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Prioritising Rescue Targets",
+      "situation": "Communications report: (A) An elderly couple on a roof — both immobile, one is on oxygen. (B) A family of four on a balcony — all able-bodied. (C) A single adult waving from an upper window — reports no medical issues. Helicopter ETA is 15 minutes.",
+      "question": "How do you prioritise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritise the elderly couple for helicopter rescue due to medical need and mobility limitations; deploy boats simultaneously to the family and the single adult.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Rescue the family first — more people, greater benefit.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Rescue the single adult first — closest location and easiest rescue.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Submerged Hazards En Route",
+      "situation": "A rescue boat heading to the family detects a submerged fence line across the waterway. The motor has nearly struck a submerged vehicle. The direct route is dangerous.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop and use poles to probe the water ahead, plot a safe alternative route around the hazard, and reduce speed in the flood zone.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Increase throttle to push through the fence line — the rescue is urgent.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tilt the motor up and allow the boat to drift across the hazard zone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Helicopter Rescue of Elderly Couple",
+      "situation": "The helicopter has arrived to rescue the elderly couple. The roof pitch is steep and one person is connected to a portable oxygen concentrator. The helicopter crew asks for ground coordination.",
+      "question": "How do you support the helicopter rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate radio communications with the helicopter crew, advise on the couple's medical status, and ensure no boats or personnel are in the rotor wash zone.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Move a rescue boat directly under the helicopter to catch anyone who falls.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Search for Remaining Casualties",
+      "situation": "The initial rescues are complete. The incident log shows 14 rescues but two people reported as trapped have not been located. Waters are still rising.",
+      "question": "How do you manage the remaining search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Systematically sweep each section of the rescue zone in a grid pattern, checking all upper floors and rooftops, and cross-reference with 000 call locations.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Declare the search complete — the remaining two people may have self-evacuated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All 14 known casualties were rescued. The systematic sweep located the two unconfirmed casualties — they had moved to a neighbour's upper floor and were safely recovered. Effective prioritisation, hazard management, and helicopter coordination resulted in no loss of life.",
+      "question": "",
+      "options": []
+    }
+  }
+}

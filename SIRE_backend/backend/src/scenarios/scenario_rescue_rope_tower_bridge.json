@@ -1,0 +1,148 @@
+{
+  "title": "rope_rescue_tower_bridge",
+  "description": "A maintenance worker is suspended and unresponsive on a harness from a communications tower after a medical event.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["rope rescue", "tower rescue", "suspension trauma", "high angle", "harness rescue"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Worker Unresponsive on Tower",
+      "description": "Worker stopped moving at 40 m height. Coworker at top confirms unresponsive. Rescue team mobilised.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rescue Rope Rigged",
+      "description": "Rescue team rigs at tower top anchor. Rescuer begins descent toward suspended victim.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Victim Reached",
+      "description": "Rescuer reaches victim at 40 m. Victim has suspension syndrome — pulseless at this point.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Emergency Lower Initiated",
+      "description": "Rescuer attaches to victim and initiates emergency lower. Victim lowered to ground in 4 minutes.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Resuscitation at Ground",
+      "description": "CPR initiated on ground. ROSC achieved. Victim transported to ICU.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Tower Worker Unresponsive",
+      "situation": "A telecommunications worker at 40 metres on a lattice tower has stopped responding. A coworker at the top confirms no movement. The worker is suspended in a full-body harness. Wind is 30 km/h. A second coworker is attempting to climb down to the victim.",
+      "question": "What is your immediate action as rescue team leader?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop the coworker from making an uncontrolled descent, dispatch a trained tower rescue team with rope systems, alert EMS for suspension trauma protocol, and begin rigging at the tower base.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the coworker to descend — they know the tower and can reach the victim fastest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Set up a ground-level aerial platform and extend it toward the victim.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rigging the Rescue System",
+      "situation": "The rescue team is at the tower top. The primary anchor is the tower's structural beam. The rescuer must descend on a controlled lower to the victim at 40 metres. A belay system is available. Wind gusts are affecting rope control.",
+      "question": "How do you manage the descent safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use a descender with a separate independent belay line managed by a second rescuer, monitor the rope for wind-induced swing, and descend steadily with communication to the ground team.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Descend as fast as possible on a single rope — speed is essential.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Clip onto the victim's anchor and free-climb down without a rescue rope.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Assessment at Height",
+      "situation": "The rescuer has reached the victim at 40 metres. The victim is unresponsive, pale, and has no palpable pulse. They have been hanging in a fully upright position for at least 20 minutes — consistent with suspension trauma/positional asphyxia.",
+      "question": "What is the priority action at height?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate an emergency lower immediately — CPR at height is impractical and ineffective. Get the victim to the ground as fast as safely possible.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Begin CPR at height while maintaining harness suspension.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Cut the victim free from the harness to allow a rapid lower without rope management.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Emergency Lower to Ground",
+      "situation": "The rescuer has attached to the victim and initiated a tandem lower. The victim's dead weight combined with wind resistance is causing the descent device to overheat. Ground team is ready to receive the victim.",
+      "question": "How do you manage the lowering safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Lower in short increments with brief pauses to dissipate heat from the descender, maintain verbal communications with ground team, and signal for immediate resuscitation upon landing.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Lower continuously at full speed — the victim is in cardiac arrest and every second counts.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Resuscitation at Ground",
+      "situation": "The victim is on the ground. EMS confirms cardiac arrest. CPR is initiated. An AED has been attached and delivers one shock. After 90 seconds of CPR, a pulse is re-established (ROSC). The victim is breathing shallowly.",
+      "question": "What is the post-ROSC priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain airway, provide supplemental oxygen, keep the victim horizontal (not upright) to prevent recurrence of suspension syndrome, and transport urgently to an ICU-capable facility.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Sit the victim upright to help them breathe more easily — prone positioning is inappropriate.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The victim was successfully lowered using a controlled rope rescue and received timely CPR and defibrillation. ROSC was achieved. Appropriate suspension trauma management (horizontal positioning post-rescue) was applied. The team's decision to prioritise rapid lowering over at-height CPR was correct.",
+      "question": "",
+      "options": []
+    }
+  }
+}

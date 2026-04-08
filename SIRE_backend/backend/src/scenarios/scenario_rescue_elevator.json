@@ -1,0 +1,148 @@
+{
+  "title": "elevator_rescue",
+  "description": "A passenger elevator stalls between floors with multiple occupants trapped inside.",
+  "category": "Technical Rescue",
+  "difficulty": "Intermediate",
+  "tags": ["elevator rescue", "entrapment", "mechanical failure", "vertical rescue"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Elevator Stalls",
+      "description": "Elevator stops between floors 4 and 5. Occupants activate emergency alarm. Establish contact.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Mechanical Assessment",
+      "description": "Building engineer confirms power failure. Elevator is resting on safety brakes. Evacuation possible from floor 4.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Manual Override Initiated",
+      "description": "Fire crew uses elevator key to manually release the car to floor 4 landing.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Door Opened",
+      "description": "Outer and inner doors opened. Occupants assisted out. One occupant has a panic attack.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Scene Cleared",
+      "description": "All occupants out. Elevator isolated. Medical assessment completed. Building engineer notified.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Elevator Stalled Between Floors",
+      "situation": "An elevator in a 10-storey office building has stalled between floors 4 and 5 during a power interruption. Six occupants are inside, including one person who is claustrophobic and becoming increasingly distressed. The building engineer is not on site.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish two-way communication with the occupants via the emergency intercom, confirm everyone is uninjured, and advise them to remain calm and not attempt to exit on their own.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately attempt to pry the outer doors open from the corridor.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the occupants to push open the roof hatch and climb out.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Car Position and Power Status",
+      "situation": "The occupants confirm they are uninjured. Power has failed to the elevator system. The car is resting on its safety brakes approximately 1.2 metres below the floor 4 landing. The building engineer is 30 minutes away.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request the building engineer's remote guidance and use the firefighter emergency key to manually release the car to the nearest floor.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Wait 30 minutes for the building engineer to arrive before taking any action.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Cut power to the entire building to reset the elevator system.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Manual Car Movement",
+      "situation": "Using the firefighter emergency key in the machine room, a crew member begins manually moving the car toward the floor 4 landing. The car is moving in 15 cm increments. The claustrophobic occupant is hyperventilating.",
+      "question": "How do you manage the occupant's medical situation while the rescue continues?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain calm verbal communication with the occupant through the intercom, guide them through slow breathing, and continue moving the car steadily to the landing.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Pause the car movement and wait for EMS before continuing — the occupant may have a medical emergency.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Speed up the manual winding to get the occupants out faster despite safety margins.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Doors Opened and Occupants Assisted",
+      "situation": "The car has reached the floor 4 landing. The outer and inner doors have been opened. There is a 15 cm sill gap between the car floor and the building floor. The claustrophobic occupant refuses to step across the gap.",
+      "question": "How do you safely assist all occupants?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position a firefighter inside the corridor to physically assist each occupant across the gap; use a step bridge if available, and offer calm reassurance to the reluctant occupant.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the reluctant occupant to wait alone in the elevator while the others are evacuated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Post-Rescue Medical Assessment",
+      "situation": "All six occupants are out. The claustrophobic occupant is still hyperventilating and showing signs of a panic attack. Others appear physically uninjured but shaken.",
+      "question": "What is the appropriate post-rescue action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Have EMS assess all occupants; isolate the elevator and place an out-of-service notice; notify the building engineer and elevator maintenance contractor.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Clear the scene once the occupants walk away — no injuries means no further action required.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All occupants have been safely rescued and assessed. The elevator has been isolated. The building engineer and maintenance contractor have been notified. Proper documentation of the incident has been completed.",
+      "question": "",
+      "options": []
+    }
+  }
+}

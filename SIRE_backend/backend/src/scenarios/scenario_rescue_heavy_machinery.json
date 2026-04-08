@@ -1,0 +1,153 @@
+{
+  "title": "heavy_machinery_entrapment",
+  "description": "A construction worker's arm is caught in a rotating drum of a concrete mixer at an active worksite.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["machinery entrapment", "industrial rescue", "lockout tagout", "degloving", "crush injury"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Entrapment Reported",
+      "description": "Worker's forearm pulled into the discharge drum of a concrete mixer. Machine still powered. Coworkers present.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Machine Isolated",
+      "description": "Electrician performs lockout-tagout on the mixer power supply. Drum stops. Arm is still trapped.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Rescue Assessment",
+      "description": "Fire rescue and EMS assess the entrapment. Rotating drum gear mechanism identified as constriction point.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Mechanical Disassembly",
+      "description": "Gearbox cover removed and specific gear disengaged under engineer guidance. Arm partially freed.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Patient Released and Treated",
+      "description": "Arm extricated with degloving injury. Tourniquet applied. Patient transported to hospital.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arm Entrapped in Concrete Mixer",
+      "situation": "A construction worker's forearm has been pulled into the discharge mechanism of a large concrete mixer. The machine is still running. Coworkers are attempting to pull the victim free by the shoulders.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop all pulling on the victim, locate and hit the emergency stop button on the machine, and isolate the power at the switchboard.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow coworkers to continue pulling — removing the arm quickly minimises tissue damage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to reverse the machine direction to back the arm out of the mechanism.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Lockout-Tagout Required",
+      "situation": "The machine has been stopped. However, the foreman warns the arm could remain trapped if the machine is restarted inadvertently. The site electrician is available. The victim is conscious but deteriorating with severe pain and blood loss.",
+      "question": "What safety step must be completed before mechanical rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete a full lockout-tagout (LOTO) procedure on the mixer — disconnect and lock the power supply and verify zero energy before any disassembly.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Rely on the emergency stop alone — LOTO takes too long when the patient is bleeding.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Cut the power cable to the machine with bolt cutters.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assessing the Mechanical Entrapment",
+      "situation": "LOTO is complete. A rescue team member is assessing the entrapment — the arm is caught between a rotating drum gear and a fixed housing. A heavy-duty wrench or gear disengagement is needed. The site engineer is available to advise on machine disassembly.",
+      "question": "How do you approach the mechanical disassembly?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with the site engineer to identify the safest gear to remove or disengage; carefully disassemble only the minimum required components to free the arm.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Use a reciprocating saw to cut through the gear housing as quickly as possible.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use heavy bolt cutters on the drum — the machine is disposable and the patient is not.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Degloving Injury Identified",
+      "situation": "As the gearbox cover is removed, a degloving injury to the forearm is visible. The arm is partially freed. Bleeding is significant. The arm cannot be fully extracted without removing one more gear coupling.",
+      "question": "How do you manage bleeding and continue the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply direct pressure and wound packing as accessible while the engineer removes the coupling; prepare a tourniquet for post-extrication application.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Apply a tourniquet above the entrapment point before the arm is freed — the bleeding is too severe.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Halt the rescue until bleeding is fully controlled — move the patient to a hospital first.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Arm Freed: Tourniquet and Transport",
+      "situation": "The arm is free. The degloving injury is extensive with arterial bleeding. A tourniquet is applied 5 cm above the wound and is effective — bleeding stops. The amputated skin tissue has been collected.",
+      "question": "What is the priority for transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Note the tourniquet application time, package the degloved tissue in saline-moistened gauze in a sealed bag on ice, and transport immediately to a trauma centre with plastic surgery capability.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Place the degloved skin directly on ice in a ziplock bag to preserve it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The worker was successfully extricated after lockout-tagout, controlled mechanical disassembly, and coordinated bleeding management. Tourniquet application time was documented. The degloved tissue was correctly preserved. The patient was transported to a trauma centre with plastic surgery capability for limb salvage assessment.",
+      "question": "",
+      "options": []
+    }
+  }
+}

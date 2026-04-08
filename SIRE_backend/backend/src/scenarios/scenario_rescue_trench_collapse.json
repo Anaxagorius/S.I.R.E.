@@ -1,0 +1,148 @@
+{
+  "title": "trench_collapse_rescue",
+  "description": "A trench wall collapses and buries two workers during a utility installation.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["trench rescue", "collapse", "shoring", "soil stabilisation", "excavation"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collapse Reported",
+      "description": "Trench wall fails, burying workers to the waist. Establish command and deny all unauthorised access.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Soil Assessment",
+      "description": "Soil classified as Type C (sandy, unstable). Secondary sloughing risk identified on opposite wall.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Shoring Initiated",
+      "description": "Rescue team installs pneumatic shores at two points. Work area has 1.5-metre clearance each side.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Victim Access",
+      "description": "Rescuer accesses trench via ladder to assess victims. One victim conscious, one unresponsive.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Extrication and Triage",
+      "description": "Both victims extricated. Crush syndrome protocol initiated. EMS transporting to trauma centre.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Trench Wall Failure",
+      "situation": "Two workers are buried to the waist following a trench wall collapse during water main installation. The trench is approximately 2.5 metres deep. A foreman is about to jump in to help.",
+      "question": "What is your immediate action as rescue team leader?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop all unauthorised personnel from entering the trench, establish a collapse zone exclusion area, and call for a technical rescue team with shoring equipment.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the foreman to enter — he knows the site and time is critical.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use an excavator to quickly remove the soil from above the victims.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Soil Classification",
+      "situation": "Rescue team assesses the soil. It is dry, sandy, and shows signs of cracking — classified as Type C (most unstable). The opposite wall shows tension cracking and is at risk of secondary collapse.",
+      "question": "How do you proceed with shoring?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Install pneumatic or hydraulic shores across the full length of the rescue zone before allowing any rescuer into the trench.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Shore only the area immediately above the victims to save time.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Skip shoring — rescuers will work quickly to minimise time in the trench.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Trench Access and Victim Assessment",
+      "situation": "Shoring is in place. A rescue entrant descends via a ladder to assess the victims. One is conscious and in pain; the other is unresponsive with slow respirations. Both are buried to the waist.",
+      "question": "In what order and how do you extricate the victims?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Extricate the unresponsive victim first using a spine board, then the conscious victim, removing soil carefully by hand to avoid further injury.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Extricate the conscious victim first because they are easier to communicate with.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Pull both victims out by the arms simultaneously to save time.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Crush Syndrome Risk",
+      "situation": "Both victims are at surface. The unresponsive victim's legs were compressed for over 30 minutes. EMS reports myoglobinuria risk — potential crush syndrome. The conscious victim is complaining of severe leg pain.",
+      "question": "What is the appropriate medical management?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate high-flow IV fluids to both victims before moving them, alert the receiving hospital to crush syndrome, and transport rapidly to a trauma centre.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Apply ice to the affected limbs to reduce swelling and allow the victims to walk to the ambulance.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scene Preservation and Investigation",
+      "situation": "Both victims are en route to hospital. The trench is still open and unstable. Utility workers want to resume work immediately.",
+      "question": "What is the correct post-rescue action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Secure and barricade the trench, preserve the scene for investigation by the workplace safety authority, and document all observations.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Allow work to resume once the victims are transported — the contractor needs to meet the deadline.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Excellent work. Both victims were extricated safely using proper shoring techniques and received appropriate crush syndrome management. The scene was preserved for investigation. Your team prevented additional casualties by enforcing the exclusion zone and following trench rescue protocols.",
+      "question": "",
+      "options": []
+    }
+  }
+}

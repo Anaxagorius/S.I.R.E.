@@ -1,0 +1,148 @@
+{
+  "title": "vehicle_extrication_with_fire",
+  "description": "An entrapped driver in a collision is at risk of a post-crash fire as fuel leaks from the engine bay.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["vehicle extrication", "vehicle fire", "fuel leak", "rapid extrication", "entrapment"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collision with Fuel Leak",
+      "description": "Front-end collision with visible fuel running from engine bay. Driver entrapped. Smoke observed from engine.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Suppression Deployed",
+      "description": "Dry powder pre-applied under engine bay. Hose line charged and in position. Firefighter protecting entry.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Rapid Extrication Initiated",
+      "description": "Door removed in 90 seconds. Medical rescuer performs in-vehicle rapid assessment.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Victim Removed",
+      "description": "Victim rapid extricated to long board and moved to safe zone 30 m from vehicle.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Vehicle Ignites",
+      "description": "Engine bay ignites 4 minutes after collision. Fire suppressed rapidly. Victim in EMS care.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Collision with Fire Risk",
+      "situation": "A front-end collision has entrapped the driver in a sedan. Fuel is running from the engine compartment onto the road and smoke is rising from the engine bay. A bystander is attempting to open the driver's door with their bare hands.",
+      "question": "What are your priorities on arrival?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Move bystanders away, charge a hose line immediately, apply dry powder to the fuel spill under the engine, and assess whether fire has ignited before committing to extrication.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Begin extrication immediately — fire hasn't started yet so there's time.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for additional resources before approaching the vehicle.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Go or No-Go Decision",
+      "situation": "A firefighter with a charged hose line is positioned to protect the work area. Dry powder has been applied. No open flame is present but smoke is increasing. The driver is conscious and screaming for help. The team leader must decide: standard extrication timeline or rapid extrication?",
+      "question": "What is the correct approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate rapid extrication — remove the door with spreaders immediately, prioritise getting the patient out over full stabilisation given the fire risk.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Proceed with a standard extrication protocol including roof removal — protect the victim properly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the driver to force the door open from inside while the team watches for fire.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Rapid Door Removal",
+      "situation": "The spreader team is working the driver's door. A firefighter is holding a hose line over the engine bay. The door is freed in 90 seconds. The medical rescuer enters to assess the patient — conscious, GCS 13, entrapped at the legs, possible spinal injury.",
+      "question": "Given the fire risk, how do you manage spinal precautions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply manual in-line C-spine stabilisation and a rapid extrication using a long board — do not delay for a full packaging sequence. Move the patient to a safe distance at least 30 metres from the vehicle.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Perform a complete packaging procedure in-vehicle — spinal injury risk outweighs the fire risk.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Drag the patient out by the arms immediately — fire risk overrules all medical considerations.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fire Ignites During Extrication",
+      "situation": "As the patient is being slid onto the long board, a small fire ignites in the engine bay. The firefighter with the hose line applies water and suppresses it within 20 seconds. The patient is now on the board at the door frame. Smoke is billowing.",
+      "question": "What is the correct action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately complete the extrication and carry the patient to the safe zone at least 30 metres from the vehicle before EMS performs further assessment.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Wait at the vehicle for the fire to be fully suppressed before moving the patient.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Patient in Safe Zone",
+      "situation": "The patient is in the safe zone 30 metres from the vehicle, which has now been fully extinguished. The patient has leg injuries and neck pain. They are conscious. EMS is assessing them.",
+      "question": "What is the post-extrication priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain spinal immobilisation, provide high-flow oxygen, complete a trauma assessment, and transport rapidly to a trauma centre with pre-notification.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Ask the patient to sit up now that they are away from the vehicle.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The patient was successfully extricated using a rapid extrication technique appropriate to the fire risk. Manual C-spine control was maintained throughout. The patient was moved to the safe zone before the fire fully developed. EMS provided timely trauma care and transport.",
+      "question": "",
+      "options": []
+    }
+  }
+}

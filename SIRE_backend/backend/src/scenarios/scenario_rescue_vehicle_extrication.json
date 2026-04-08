@@ -1,0 +1,153 @@
+{
+  "title": "vehicle_extrication_standard",
+  "description": "A two-vehicle collision has left a driver entrapped in a crushed sedan with moderate injuries.",
+  "category": "Technical Rescue",
+  "difficulty": "Intermediate",
+  "tags": ["vehicle extrication", "road rescue", "hydraulic tools", "trauma", "spinal precautions"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collision Reported",
+      "description": "Two-vehicle T-bone collision at an intersection. Driver entrapped by deformed door and dashboard. Passenger self-extricated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Safety Established",
+      "description": "Fire crew stabilises vehicles, disconnects battery, and places cribbing. Traffic management in place.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Glass Management",
+      "description": "Tempered glass removed from windows adjacent to victim. Rescuer gains access for medical assessment.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Door Removed",
+      "description": "Hydraulic spreader used to open door. Ratchet straps holding roof. Dash displaced with ram.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Extrication Complete",
+      "description": "Victim removed on long board with full spinal precautions. EMS transporting to trauma centre.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Driver Entrapped in Vehicle",
+      "situation": "A sedan has been T-boned on the driver's side. The driver is conscious, complaining of chest and neck pain. The door is deformed shut and the dashboard has intruded into the foot space. Traffic is still flowing past the scene.",
+      "question": "What are your immediate priorities on arrival?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish scene safety — manage traffic, stabilise the vehicles with cribbing, disconnect the 12V battery, and assign a medical rescuer to gain hand contact with the victim through a window.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Begin cutting the door immediately — the patient is trapped and every second counts.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to pull the driver through the window before the vehicle is stabilised.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Medical Assessment Through Window",
+      "situation": "A medical rescuer has reached the driver through a rear window. The driver is conscious with a GCS of 14, complaining of neck pain, difficulty breathing, and trapped legs. The vehicle has deployed airbags. The EMS team requests a medical status update.",
+      "question": "How do you prioritise treatment and extrication planning?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply a cervical collar in-place, monitor airway and breathing, brief EMS on mechanism and injuries, and plan a dash displacement with door removal to free the entrapped legs.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for EMS to complete a full assessment before planning extrication — they need full access first.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remove the roof immediately — it provides the widest access and quickest extrication path.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Tool Selection and Approach",
+      "situation": "The extrication plan is to: (1) remove the driver's door with hydraulic spreaders; (2) displace the dashboard with a hydraulic ram. The team has a spreader, cutters, and a ram. There is a hybrid vehicle warning sticker on the B-post.",
+      "question": "What additional safety step is required before using hydraulic tools?",
+      "options": [
+        {
+          "label": "A",
+          "text": "In addition to the 12V battery disconnect, allow 10 minutes for high-voltage capacitors to discharge in the hybrid system before cutting near the orange high-voltage cables.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "The 12V battery disconnect is sufficient — proceed with cutting immediately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Cut the orange high-voltage cables first to eliminate the risk.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Door Removal and Dash Displacement",
+      "situation": "The door has been removed. The dashboard is displaced upward and rearward using the ram, freeing the victim's legs. The victim is now accessible on three sides. They report worsening breathing difficulty.",
+      "question": "How do you extricate the victim?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Using a long spine board with manual C-spine stabilisation, slide the victim laterally from the vehicle seat onto the board in a controlled movement coordinated by EMS.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Rapidly drag the victim out through the door opening by their arms due to the respiratory concern.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have the victim lean forward and step out of the vehicle independently.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Post-Extrication Management",
+      "situation": "The victim is on the long board. EMS reports reduced air entry on the left side — possible haemopneumothorax. SpO₂ is 88% on high-flow oxygen.",
+      "question": "What is the priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Load and go — transport immediately to a trauma centre with pre-notification. Perform needle decompression if trained and indicated en route.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Stay on scene for a full assessment and IV line insertion before transport.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The victim was successfully extricated using proper vehicle stabilisation, hybrid safety protocols, and a controlled spinal extrication. Rapid transport was prioritised due to suspected haemopneumothorax. The trauma team was pre-alerted and the victim received timely surgical intervention.",
+      "question": "",
+      "options": []
+    }
+  }
+}
