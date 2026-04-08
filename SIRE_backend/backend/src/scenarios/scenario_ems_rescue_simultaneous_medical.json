@@ -1,0 +1,158 @@
+{
+  "title": "rescue_simultaneous_medical_emergency",
+  "description": "A technical rescue team is performing a rope rescue from a cliff edge when one of the rescue personnel has a sudden medical emergency. The team must manage both the ongoing rescue and the medical crisis with limited resources.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["rescue", "simultaneous emergency", "rope rescue", "high angle", "EMS", "resource management", "ICS", "medical emergency"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Rope Rescue Underway",
+      "description": "Technical rescue team lowering a rescuer to reach a climber stranded on a cliff ledge 25 metres below the rim. Conditions are stable.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rescuer Collapses at Rim",
+      "description": "The haul system operator collapses suddenly. Three crew members are at the rim, one is on rope below, and the subject is on the ledge.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Dual Emergency Managed",
+      "description": "Team leader delegates: one crew member stabilises the collapsed rescuer, two maintain the haul system.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Rescuer Assessed",
+      "description": "Collapsed rescuer found to be in cardiac arrest. CPR initiated while rope rescue continues.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Additional Resources On Scene",
+      "description": "Helicopter EMS and additional fire crew arrive. Subject raised from cliff. Both patients transported.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Haul System Operator Collapses",
+      "situation": "You are the technical rescue team leader at a cliff-edge rope rescue. Your rescuer (Firefighter Chen) is on rope 25 metres below, approaching a stranded climber on a ledge. Your haul system operator (Firefighter Okafor) suddenly collapses at the edge. Three crew members are at the rim. Firefighter Chen on rope is unaware of the collapse above. The rope system is unattended.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately secure the rope system — lock off the descender/haul to protect Firefighter Chen below. Then assess Firefighter Okafor and call for additional resources. Do not abandon the rope system while a rescuer is on the line.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Rush to Firefighter Okafor immediately — the medical emergency takes priority over the rope system.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Lower Firefighter Chen to the ledge as quickly as possible so you can free up crew for the medical emergency.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing Firefighter Okafor",
+      "situation": "The rope system is locked. You assess Firefighter Okafor — unresponsive, not breathing, no pulse. The two remaining rim crew members are managing the haul system. You are the only person available to start CPR. Firefighter Chen on rope radios: 'I'm at the ledge — what's happening up there?'",
+      "question": "How do you manage both situations simultaneously?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin CPR immediately on Firefighter Okafor — one crew member can maintain the locked haul while the other assists CPR. Inform Firefighter Chen by radio: 'Medical emergency at the rim. Rope is secured. Remain at the ledge with the subject. Await further instructions.' Call for additional resources urgently.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Haul Firefighter Chen and the subject up first — the rope rescue is the primary mission.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Abandon the rope rescue — a cardiac arrest overrides all other operations.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "AED Arrival",
+      "situation": "CPR has been ongoing for 2 minutes. Firefighter Chen confirms they are stable on the ledge with the stranded subject. A responding EMS unit has reached the rim and takes over CPR, applying an AED — VF rhythm detected. The haul system operator position is now vacant. You have: one EMS paramedic on Okafor, one crew member at the haul, and yourself.",
+      "question": "How do you safely resume the rope rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Step into the haul system operator role yourself alongside the remaining crew member. Two-person team can manage a slow controlled haul. Brief Firefighter Chen to prepare the subject for raising. Proceed with the rescue while EMS manages Firefighter Okafor.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for additional rescue personnel before resuming the haul — the minimum team is not met.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the EMS paramedic to leave Firefighter Okafor to assist with the haul — the rope rescue is the active life-safety operation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Helicopter EMS Arrives",
+      "situation": "A helicopter EMS crew has arrived at the rim with two additional medics. The stranded subject has been raised to the rim and is now being assessed — hypothermic and dehydrated after 6 hours on the ledge but conscious. Firefighter Okafor has ROSC and is being stabilised. Firefighter Chen has safely returned to the rim. You now have multiple patients.",
+      "question": "How do you prioritise patient care with the available EMS resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign the helicopter EMS crew to Firefighter Okafor — post-ROSC cardiac care requires the highest level of transport capability and the helicopter can reach a cardiac cath lab faster. Ground EMS manages the stranded subject for hypothermia and IV rehydration. Firefighter Chen to be assessed for any physical or psychological impact.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "The stranded subject is the primary rescue patient and should receive helicopter transport as the mission goal.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transport both patients by ground to the nearest hospital — the helicopter should be reserved.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "After-Action Considerations",
+      "situation": "Both patients have been transported. Firefighter Chen is physically uninjured but visibly shaken after spending 20 minutes on the rope ledge with the subject while a medical emergency unfolded above. Your crew is fatigued and stressed.",
+      "question": "What is the appropriate post-incident action for the crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ensure Firefighter Chen and all crew members receive a structured psychological defusing session before going off duty. Report the incident for safety review. Document timeline, resource gaps, and dual-emergency management for after-action review. Notify peer support services.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Clear the scene and return to quarters — the crew performed well and no formal debrief is required.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Focus only on the technical rescue review — the medical emergency was managed by EMS and is their responsibility.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Exceptional performance under extraordinary pressure. You secured the rope system before responding to the medical emergency — protecting your rescuer on the line. You managed CPR simultaneously with the rope rescue, communicated clearly with Firefighter Chen, appropriately allocated arriving resources, and made correct hospital destination and transport decisions for both patients. Your post-incident leadership in crew welfare and documentation reflects the standards of a professional emergency responder.",
+      "question": "",
+      "options": []
+    }
+  }
+}

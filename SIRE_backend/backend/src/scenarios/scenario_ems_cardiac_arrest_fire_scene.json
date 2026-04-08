@@ -1,0 +1,158 @@
+{
+  "title": "cardiac_arrest_at_fire_scene",
+  "description": "A civilian collapses in cardiac arrest while being evacuated from a residential fire. Firefighters and EMS must coordinate life-saving care while fire suppression continues.",
+  "category": "Medical",
+  "difficulty": "Advanced",
+  "tags": ["cardiac arrest", "CPR", "AED", "fire scene", "EMS", "firefighter", "triage", "rescue"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Evacuation in Progress",
+      "description": "Crews evacuating residents from a house fire. A 60-year-old male collapses on the front lawn moments after being helped out.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Cardiac Arrest Confirmed",
+      "description": "Firefighter confirms no pulse, no breathing. CPR initiated. EMS unit on scene.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "AED Deployed",
+      "description": "AED attached. Shockable rhythm identified. First shock delivered.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Fire Operations Continue",
+      "description": "Engine company holds fire inside. Incident command must balance rescue and suppression resources.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Return of Spontaneous Circulation",
+      "description": "Patient achieves ROSC after third shock and continued CPR. Pulse present. Rapid transport initiated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Civilian Collapses on Front Lawn",
+      "situation": "You are the incident commander at a residential house fire. A 60-year-old male evacuee has just collapsed on the front lawn. A firefighter shouts that the man has no pulse and is not breathing. An EMS unit is on scene. Fire suppression is ongoing at the rear of the structure with two interior crews.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the on-scene EMS crew to take charge of the cardiac arrest while you maintain command of fire suppression — keep operations separated but coordinated.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Pull interior crews from the fire to assist with CPR.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for additional EMS units before beginning CPR — better to wait for more hands.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "CPR Initiated",
+      "situation": "EMS paramedics are performing high-quality CPR. A firefighter is retrieving the AED from the apparatus. The patient is on the lawn, 15 metres from the structure. Smoke is drifting toward the treatment area.",
+      "question": "How do you manage the treatment area given smoke drift?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct EMS to move the patient upwind at least 10 metres to a clean-air zone while maintaining uninterrupted CPR — minimise interruptions during the move.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Continue treatment in place — moving the patient will interrupt CPR.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Assign a firefighter to fan the smoke away while CPR continues at the current location.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "AED Analysis",
+      "situation": "The patient is in a clean-air zone. CPR has been ongoing for 2 minutes. The AED is ready. The device analyses the rhythm and announces: 'Shock advised.' A bystander is still touching the patient's arm.",
+      "question": "What must you do before delivering the shock?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Announce 'Clear!' loudly, visually confirm no one is touching the patient, then deliver the shock.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Deliver the shock immediately — time is critical in cardiac arrest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the bystander to step back, then immediately resume CPR without shocking — CPR is more effective.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Shock CPR",
+      "situation": "Shock delivered. The AED prompts resumption of CPR immediately. A paramedic asks whether they should establish IV access now or continue uninterrupted CPR for the next 2 minutes.",
+      "question": "What is the correct resuscitation priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue uninterrupted CPR for 2 full minutes as directed by AED protocol — minimise hands-off time. IV access and medications come after the next rhythm check.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Pause CPR to establish IV access — epinephrine is the priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Deliver a second shock immediately without checking rhythm.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "ROSC and Handoff",
+      "situation": "After the third shock and continued CPR, the patient achieves return of spontaneous circulation (ROSC). Pulse present, agonal breathing noted. The paramedic reports the patient needs rapid transport to a cardiac cath lab. The closest hospital is 12 minutes away. A second hospital with a cath lab is 20 minutes away.",
+      "question": "Which hospital do you direct transport to?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transport to the hospital with the cardiac cath lab 20 minutes away — post-ROSC STEMI care requires percutaneous coronary intervention capability, which outweighs the shorter transport time.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Transport to the closest hospital at 12 minutes — shorter time to definitive care is always better.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Await a second opinion before transport — the patient is stable with a pulse.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding performance. You maintained incident command of the fire while coordinating an effective cardiac resuscitation simultaneously. The patient achieved ROSC and was transported to a cath-lab-capable facility. Key decisions — EMS delegation, smoke-free treatment zone, AED clearance, uninterrupted CPR cycles, and appropriate hospital destination — were all executed correctly.",
+      "question": "",
+      "options": []
+    }
+  }
+}

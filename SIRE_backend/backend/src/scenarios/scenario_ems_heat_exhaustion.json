@@ -1,0 +1,158 @@
+{
+  "title": "firefighter_heat_exhaustion_stroke",
+  "description": "Multiple firefighters operating at a prolonged structure fire begin showing signs of heat exhaustion and heat stroke. The rehabilitation sector must assess severity, provide treatment, and manage return-to-duty decisions.",
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["heat exhaustion", "heat stroke", "firefighter health", "rehabilitation", "NFPA 1584", "EMS", "exertional heat illness"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Extended Operations",
+      "description": "Firefighters have been operating at a large commercial structure fire for 75 minutes in full PPE. Ambient temperature is 34°C. No rehabilitation sector was established initially.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "First Firefighter Reports Ill",
+      "description": "Firefighter B reports dizziness and nausea after second rotation. Rehab sector activated belatedly.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Second Firefighter Collapses",
+      "description": "Firefighter D collapses at the apparatus. Skin is hot, dry, and flushed. Confused and not responding to name.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Cooling Initiated",
+      "description": "Aggressive cooling measures applied to Firefighter D. EMS on scene. Core temperature measured.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Return-to-Duty Assessment",
+      "description": "Remaining crew members assessed in rehab. Decisions made about who may return to operations.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "No Rehabilitation Sector",
+      "situation": "It is 75 minutes into a working commercial fire in 34°C ambient heat. Firefighters have completed two rotations with limited rest periods. The incident commander has not yet established a formal rehabilitation sector. Firefighter B reports to you — the safety officer — feeling dizzy, nauseous, and with muscle cramps after exiting the structure. Skin is pale and sweaty, HR 118 bpm, BP 100/68.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove Firefighter B from operations immediately, direct to a cool area, begin oral rehydration with sports drinks or water, apply cool wet towels, monitor vitals, and formally request the incident commander establish a rehabilitation sector per NFPA 1584 with EMS standby.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Firefighter B to drink water and return to duty after a short rest — the fire is at a critical stage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have Firefighter B sit in the shade for 5 minutes and reassess.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Firefighter D Collapses",
+      "situation": "While Firefighter B is being assessed, you hear a shout from the apparatus bay. Firefighter D has collapsed next to the engine. Assessment: hot, dry, flushed skin; temperature measured at 40.8°C rectally; HR 136 bpm; BP 88/54; GCS 10 — confused, not following commands. No sweating despite the heat.",
+      "question": "How do you differentiate this presentation from Firefighter B's, and what is the priority intervention?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Firefighter D has heat stroke (not heat exhaustion) — the hallmarks are hot, dry skin, temperature above 40°C, and altered consciousness. This is life-threatening. Begin immediate aggressive cooling: remove all PPE, apply ice packs to neck, axillae, and groin, immerse in ice water if available, fan aggressively. Activate EMS and arrange emergency transport.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Both firefighters have the same condition — treat Firefighter D the same as Firefighter B with oral fluids and rest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Firefighter D is likely having a cardiac event — begin CPR immediately.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Cooling Target and IV Access",
+      "situation": "Aggressive cooling is underway for Firefighter D. EMS has arrived. The paramedic is asking about IV fluid resuscitation and wants to know the target core temperature for cooling cessation.",
+      "question": "What are the correct answers?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish IV access and administer cool isotonic crystalloid (normal saline or Lactated Ringer's). Stop active cooling when core temperature reaches 39°C to avoid overshoot hypothermia. Continue monitoring for seizures, arrhythmias, and renal failure.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Cool to 36°C — that is normal body temperature and the logical target.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withhold IV fluids — they cause fluid overload in heat stroke patients.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Return-to-Duty Decision — Firefighter B",
+      "situation": "Firefighter B has been in rehab for 20 minutes. Current status: vitals HR 94 bpm, BP 116/72, skin now moist but no longer pale. The firefighter feels better and requests to return to operations — 'I feel fine now, they need me in there.'",
+      "question": "What is the correct return-to-duty decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Firefighter B should not return to active interior operations at this incident — NFPA 1584 and medical guidance indicate firefighters who have shown heat exhaustion symptoms should not be cleared for duty at the same incident. Release to medical evaluation and transport if indicated.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Clear Firefighter B to return — vitals have improved and the firefighter feels ready.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow return to a non-strenuous support role on scene.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Systemic Rehab Improvement",
+      "situation": "Following the two heat casualties, you brief the incident commander on the systemic failure: no rehabilitation sector was established, rotation times were not tracked, no one was monitoring for early signs of heat illness. The IC asks for your recommendations for immediate implementation.",
+      "question": "What rehabilitiation measures do you recommend be implemented immediately?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a formal rehabilitation sector in a shaded or air-conditioned area; assign an EMS crew dedicated to rehab; implement mandatory 20-minute minimum rest periods after two SCBA rotations; conduct vital sign checks on all exiting crews; track entry and exit times on a personnel accountability board; remove PPE in the rehab area.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Ensure water is available at the apparatus — individual firefighters are responsible for their own hydration.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reduce interior crew rotations from two to one and limit the fire attack to only the most senior crews.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Well done. You correctly identified heat exhaustion versus heat stroke, applied aggressive cooling for the heat stroke casualty with the correct temperature target, made the right return-to-duty decision, and identified the systemic failure of not establishing a rehabilitation sector. Your proactive safety intervention and system-level recommendations protected the rest of the crew.",
+      "question": "",
+      "options": []
+    }
+  }
+}

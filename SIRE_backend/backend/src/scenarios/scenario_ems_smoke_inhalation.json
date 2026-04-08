@@ -1,0 +1,158 @@
+{
+  "title": "smoke_inhalation_victims",
+  "description": "Multiple civilians present with smoke inhalation after a residential fire. EMS and fire crews must identify severity, manage airways, and prevent hypoxic deterioration.",
+  "category": "Medical",
+  "difficulty": "Intermediate",
+  "tags": ["smoke inhalation", "airway", "hypoxia", "EMS", "fire scene", "carbon monoxide", "cyanide"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Knocked Down",
+      "description": "Engine company has knocked down a residential fire. Six civilians self-evacuated. EMS begins assessment at the staging area.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Symptoms Developing",
+      "description": "Several patients are developing worsening cough, headache, and confusion. Two appear disoriented.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Oxygen Therapy Initiated",
+      "description": "Non-rebreather masks applied to all symptomatic patients. SpO2 monitored on all six.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Patient Deteriorates",
+      "description": "One patient's SpO2 drops to 84% despite high-flow oxygen. Signs of respiratory failure present.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 4,
+      "title": "Transport Decisions",
+      "description": "Ambulances staged. Patients assigned to facilities based on severity. Hyperbaric capability confirmed at regional hospital.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Six Civilians at Staging Area",
+      "situation": "Six civilians who self-evacuated from a residential fire are at the EMS staging area. All were exposed to heavy smoke for an unknown duration. Three are coughing. Two are confused and lethargic. One appears asymptomatic but says they were in the basement.",
+      "question": "What is your first priority for all six patients?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply 100% high-flow oxygen via non-rebreather mask to all patients and begin a rapid primary assessment — do not wait for symptoms to worsen.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Only treat the visibly symptomatic patients — the asymptomatic patient does not need intervention yet.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have all patients sit and rest while you take histories one at a time.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Pulse Oximetry Limitation",
+      "situation": "SpO2 readings are: Patient 1: 98%, Patient 2: 97%, Patient 3: 96%, Patient 4: 95%, Patient 5: 97%, Patient 6: 99%. The two confused patients (3 and 5) are reading above 95%. A firefighter suggests these patients are fine because their oxygen saturation looks normal.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain that standard pulse oximetry cannot differentiate between oxyhaemoglobin and carboxyhaemoglobin — CO poisoning produces falsely normal SpO2 readings. Confusion and smoke exposure are the key clinical indicators. Continue high-flow O2 and transport all patients.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Agree — patients with SpO2 above 95% can be discharged at the scene.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Apply supplemental oxygen only to patients with SpO2 below 95%.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Patient with Stridor",
+      "situation": "Patient 4 — one of the coughing patients — now develops stridor (high-pitched inspiratory noise) and increased work of breathing. SpO2 drops to 90% on high-flow oxygen. The patient is drooling and cannot speak in full sentences.",
+      "question": "What does this clinical picture indicate and what is the intervention?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Upper airway thermal injury causing oedema — this airway will close. Perform rapid sequence intubation (RSI) immediately before the airway is lost.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Administer nebulised salbutamol for bronchospasm.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Increase the oxygen flow rate and reassess in 5 minutes.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Cyanide Poisoning Consideration",
+      "situation": "The asymptomatic basement patient (Patient 6) suddenly becomes unresponsive. History: they were in an enclosed basement with burning synthetic materials (plastics, foam). Combustion of synthetics can produce hydrogen cyanide gas. The patient has a rapidly deteriorating consciousness level and metabolic acidosis signs.",
+      "question": "What is the appropriate treatment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Suspect cyanide poisoning — administer hydroxocobalamin (Cyanokit) IV immediately, provide 100% oxygen, and arrange urgent transport to hospital.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Continue high-flow oxygen only — cyanide poisoning is rare and the presentation could be anything.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Begin CPR — the patient is likely in cardiac arrest from CO poisoning alone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Hyperbaric Oxygen Decision",
+      "situation": "Two patients have confirmed or suspected significant CO exposure: one who was confused and found in the basement, and Patient 4 who was intubated. A regional hospital 25 minutes away has a hyperbaric oxygen chamber. The local hospital is 8 minutes away but has no hyperbaric capability.",
+      "question": "Which patients should be directed to the hyperbaric-capable facility?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Patients with loss of consciousness, neurological symptoms, or severe CO exposure should be transported to the hyperbaric-capable hospital — HBO therapy significantly reduces long-term neurological sequelae in these cases.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "All patients should go to the closest facility to minimise transport time.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hyperbaric oxygen is only indicated for decompression sickness — these patients should all go to the local hospital.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding. You recognised the limitation of pulse oximetry in CO exposure, secured a deteriorating airway before it was lost, identified cyanide poisoning from synthetic material combustion, and made appropriate hospital destination decisions including hyperbaric oxygen referral. All six patients received timely, appropriate care.",
+      "question": "",
+      "options": []
+    }
+  }
+}
