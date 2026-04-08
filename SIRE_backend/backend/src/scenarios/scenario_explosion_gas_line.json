@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_gas_line",
+  "description": "A natural gas main ruptures beneath a residential street, producing an explosion that lifts pavement, ignites two homes, and leaves multiple civilians injured.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Multiple 911 calls reporting a loud explosion and smoke rising from a residential street. Reports of pavement lifted and two houses on fire.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units On Scene", "description": "Engine arrives to find a 30-foot section of roadway displaced, two single-family homes fully involved on the first floor, and strong odor of natural gas. Utility meter is spinning rapidly. Two civilians are down in the street.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Gas Company Notified", "description": "Dispatch confirms gas company has been notified. ETA for emergency shut-off crew is 12 minutes. A third house is beginning to show smoke.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Secondary Hazard", "description": "A small secondary rupture ignites a grass strip along the sidewalk. Gas pressure appears to still be feeding the fires from below.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Utility Isolation", "description": "Gas company technician arrives and begins shutting off the main distribution valve. Fire crews report visible gas-fed flame from the crater is subsiding.", "timeOffsetSec": 300 },
+    { "index": 5, "title": "Fire Knockdown", "description": "With gas supply cut, fire crews begin aggressive attack on both residential fires. One home is saveable; the other is defensive. No additional explosions.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Gas Line Explosion — Arrival",
+      "situation": "You arrive first due to a gas main explosion. A 30-foot section of pavement is lifted and displaced. Two single-family homes are on fire from the first floor up, and the strong smell of natural gas permeates the area. Two civilians are lying injured in the street approximately 40 feet from the crater. The gas meter on one house is spinning at maximum speed. Neighboring homes are occupied.",
+      "question": "What is your immediate priority?",
+      "options": [
+        { "label": "A", "text": "Establish a large perimeter (minimum 300 feet), evacuate all neighboring homes, begin triage on the two downed civilians from outside the gas-affected zone, and immediately request gas company emergency response — do not attempt fire attack until the gas supply is confirmed isolated.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Begin aggressive fire attack on both burning homes immediately to prevent spread while awaiting utility shut-off.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Drive the apparatus into the block to get closer water supply access near the burning homes.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Perimeter and Casualty Management",
+      "situation": "Perimeter is being established. Two injured civilians are 40 feet from the crater — one appears unconscious with burns, the other is ambulatory and disoriented. A neighbor is shouting that an elderly couple may still be inside one of the burning homes. Gas company ETA is 10 minutes. You have one engine and one truck company on scene.",
+      "question": "How do you manage the casualties and possible trapped occupants?",
+      "options": [
+        { "label": "A", "text": "Move both injured civilians out of the gas zone to a safe treatment area; request ALS immediately. Do not enter the burning homes for rescue — the uncontrolled gas supply makes interior operations untenable. Have the truck crew verify via windows or exterior contact whether the couple is actually inside before committing to any entry.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Send a crew immediately into the burning home to search for the elderly couple regardless of the uncontrolled gas supply.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Treat the civilians where they are in the street and defer rescue attempts until more units arrive.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Gas Isolation and Fire Attack Decision",
+      "situation": "The gas company technician has arrived and is working to close the main valve. The technician says isolation will take 4–6 minutes. Visible flame from the crater is still active. Neighbors confirm the elderly couple evacuated on their own before you arrived. One home is approximately 40% involved; the other is 80% involved and the roof is beginning to fail.",
+      "question": "What is your fire attack plan once gas is isolated?",
+      "options": [
+        { "label": "A", "text": "Wait the 4–6 minutes for confirmed gas isolation. Once the technician confirms the main is closed and crater flame dies, transition to offensive attack on the 40%-involved home with a 2.5-inch line, and protect the collapse zone of the 80%-involved home with a defensive master stream.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Begin interior attack on the 40% home now to save it before the gas company finishes shut-off.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Commit all lines defensively to both homes and do not enter either structure at all.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Gas isolation was confirmed and the crater flame extinguished. Offensive attack on the 40%-involved home was successful — the fire was controlled and the structure was saved. The 80%-involved home was held defensively with a collapse zone; no further spread occurred. Both injured civilians received ALS treatment: one was transported with moderate burns, the other was treated and released. The elderly couple had self-evacuated. No firefighter injuries occurred. Your perimeter discipline, utility coordination, and patient fire attack decision protected both lives and property.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["explosion", "gas line", "natural gas", "fire", "perimeter", "utility coordination", "rescue", "ICS"]
+}

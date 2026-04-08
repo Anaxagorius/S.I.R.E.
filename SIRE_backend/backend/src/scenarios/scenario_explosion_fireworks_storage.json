@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_fireworks_storage",
+  "description": "A fire ignites inside a licensed fireworks storage and retail facility, threatening mass detonation of thousands of pounds of consumer and display fireworks.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reports of smoke and fire at a fireworks retail store and storage warehouse. Employee states there are large quantities of consumer and display fireworks inside.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units Arrive", "description": "Arriving units see smoke from a fireworks retail and storage facility. A single-story concrete block building with a metal roof. Smoke from the interior — no visible flame yet through the windows. A clerk outside says no customers are inside.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Inventory Assessment", "description": "Clerk provides an inventory manifest: approximately 4,000 lbs of consumer fireworks and 600 lbs of display shells stored in a rear magazine. The ATF-licensed display magazine is a reinforced concrete bunker behind the main building.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Fire Progression", "description": "Smoke thickens. Intermittent popping sounds from inside indicate consumer fireworks are beginning to ignite. The fire is growing in the retail area.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Mass Detonation Risk", "description": "Popping is increasing rapidly. An interior explosion ejects consumer fireworks through the front window. The fire is now approaching the corridor leading to the rear magazine.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Withdrawal and Perimeter", "description": "All units withdraw to minimum 1,200 feet. Mass detonation of the consumer stock occurs — spectacular display but confined to the structure. The magazine does not detonate. ATF notified.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fireworks Storage Fire — Initial Decision",
+      "situation": "You arrive to a fire at a fireworks retail facility. A clerk outside confirms no customers are inside. Smoke is visible from the interior but no visible flame through the windows. The clerk provides a manifest indicating approximately 4,000 lbs of consumer fireworks in the retail area and 600 lbs of display shells in a rear concrete magazine. Popping sounds — indicating early consumer firework ignition — can be heard from outside.",
+      "question": "What is your initial action?",
+      "options": [
+        { "label": "A", "text": "Recognize that fireworks storage fires require immediate defensive posture — do not enter or attempt interior fire attack. Establish a perimeter of at least 1,200 feet around the facility. Begin evacuation of neighboring properties. Request law enforcement and ATF notification for the licensed magazine. No offensive operations are appropriate for a fireworks storage fire.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Quickly advance a hoseline through the front door to knock down the fire before it reaches the fireworks stock.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Enter through the rear and attempt to move the fireworks out of the building to prevent ignition.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Perimeter and Escalation Management",
+      "situation": "Perimeter is being established. Intermittent popping is increasing in frequency — consumer fireworks are actively igniting. Several aerial shells launch through the roof, scattering burning debris in a 200-foot radius. A neighboring auto parts store is approximately 300 feet from the fireworks building — it is occupied, with employees and customers inside. The concrete rear magazine appears to have a fire door.",
+      "question": "How do you address the neighboring building and the magazine?",
+      "options": [
+        { "label": "A", "text": "Immediately evacuate the neighboring auto parts store — burning debris is already reaching 200 feet and it is within your minimum perimeter. Do not attempt to close or access the magazine fire door — that requires proximity to a building with active mass detonation risk. Have units protect the auto parts store from a safe exterior defensive position using a 2.5-inch line if the debris ignites the structure.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Send a crew to the rear of the fireworks building to close the magazine fire door and protect the display shells from the fire.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Stay outside the fireworks building's perimeter but advance close enough to apply water to the exterior to prevent the magazine from heating.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Mass Detonation and Post-Blast Operations",
+      "situation": "The auto parts store has been evacuated. A major interior explosion occurs — the consumer fireworks stock mass detonates. The front windows and roof of the retail building are ejected. A large fire is now burning in the structure. Scattered burning debris has started a small fire on the auto parts store's asphalt parking area. The rear concrete magazine appears intact — no detonation. The fireworks building continues to burn. ATF is 30 minutes out.",
+      "question": "How do you manage post-detonation operations?",
+      "options": [
+        { "label": "A", "text": "Maintain the 1,200-foot perimeter — the magazine has not detonated but it remains a risk as long as fire is burning nearby. Extinguish the parking lot fire from outside the perimeter using a monitor or long hoseline — this is the only offensive action appropriate. Do not approach the burning retail building. Brief incoming ATF on magazine location and status. Continue evacuation of all properties within 1,200 feet.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Advance to the burning fireworks building now that the main stock has detonated — the primary risk is past.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Enter the magazine to confirm the display shells are intact and undamaged.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The magazine did not detonate — the concrete bunker construction did its job. The retail building was a total loss from the mass detonation and subsequent fire. The parking lot brush fire was extinguished from a safe distance. No occupants or firefighters were injured. ATF arrived and took custody of the magazine inspection and scene investigation. The neighboring auto parts store sustained no structural damage. Your immediate recognition that fireworks storage fires are non-offensive incidents, your 1,200-foot perimeter, and your priority evacuation of the adjacent occupied building are the actions that prevented casualties.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["explosion", "fireworks", "storage fire", "mass detonation", "perimeter", "defensive operations", "ATF", "evacuation"]
+}

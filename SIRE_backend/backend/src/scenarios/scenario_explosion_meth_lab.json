@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_meth_lab",
+  "description": "A clandestine methamphetamine lab inside a residential home explodes due to volatile chemical vapors, causing a fire and exposing first responders to unknown toxic hazards.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reports of an explosion and fire at a single-family residence. Multiple callers report a male subject running from the back of the home on fire.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units Arrive", "description": "Engine arrives. A male subject is on the lawn with burns to his arms and torso. The home has fire in the front room and a distinct chemical odor — acetone, anhydrous ammonia notes. Neighbors report unusual smells from this address for weeks.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Clandestine Lab Suspected", "description": "Burns pattern on the male subject, chemical odors, and improvised glassware visible through the front window all indicate a clandestine drug lab. Law enforcement is dispatched.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Secondary Hazards", "description": "A crew reports seeing multiple chemical containers, tubing, and a pressure vessel in the front room through the window. Several containers appear to still be intact near the fire.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "HAZMAT En Route", "description": "HAZMAT team dispatched. ETA 20 minutes. Law enforcement has secured the perimeter. The burn victim is being treated by EMS outside the exclusion zone.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Controlled Fire Attack", "description": "With HAZMAT guidance, crews apply a defensive exterior attack to prevent fire spread while avoiding disturbing the chemical containers inside.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Meth Lab Explosion — Scene Recognition",
+      "situation": "You arrive to find a residential fire following an explosion. A male with significant burn injuries is on the front lawn. The smell of acetone and what may be anhydrous ammonia is strong. Improvised glassware and containers are visible through the front window in a room that is now on fire. Chemical containers appear to still be intact near the fire. A neighbor reports this home has produced strong chemical smells for weeks.",
+      "question": "How do you approach this scene?",
+      "options": [
+        { "label": "A", "text": "Recognize the indicators of a clandestine drug lab — burns, chemical odors, improvised glassware — and immediately declare a HAZMAT incident. Establish a large perimeter, prohibit all interior entry, request HAZMAT and law enforcement, and begin treatment of the burn victim from the safe zone upwind using SCBA as a precaution.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Treat this as a standard residential fire and advance a line inside to knock down the fire before it spreads.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Remove the chemical containers from near the fire to a safe area outside.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Perimeter and Personnel Protection",
+      "situation": "Perimeter established. Law enforcement is en route. The burn victim is conscious and asking you to go inside — he claims there is no one else in the home. HAZMAT ETA is 20 minutes. Fire continues to grow in the front room. A neighbor is trying to walk closer to see what is happening. An engine crew member mentions they got a face full of the smell approaching the scene and is asking if they need to decontaminate.",
+      "question": "How do you manage personnel safety and scene control?",
+      "options": [
+        { "label": "A", "text": "Enforce the perimeter and turn back the neighbor. Immediately evaluate the exposed crew member — move them upwind, have them remove any contaminated gear, and request EMS evaluation as a precaution. Inform the burn victim that occupancy confirmation must be done safely and that the scene is too dangerous for interior entry until HAZMAT evaluates. Document the exposure.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Send the potentially exposed crew member back in to work — they feel fine and you are short-staffed.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Trust the burn victim's claim and enter to confirm no one else is inside before HAZMAT arrives.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Control vs. Chemical Risk",
+      "situation": "HAZMAT team arrives and confirms the scene is consistent with an active methamphetamine lab using a red phosphorus and hydroiodic acid process — known to produce phosphine gas, a highly toxic byproduct. Fire is now extending toward the kitchen. HAZMAT advises that intact chemical containers in the fire area could rupture and release toxic gas. They recommend a defensive exterior attack to stop spread without disturbing the lab area.",
+      "question": "What fire attack strategy do you use?",
+      "options": [
+        { "label": "A", "text": "Follow HAZMAT guidance: use a defensive exterior attack from the upwind side with a 1.75-inch or 2.5-inch line to stop fire spread and cool the structure without advancing inside. All operating crews wear full SCBA. Maintain accountability and ensure no crew enters the interior until HAZMAT declares it safe.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Advance inside with a line to knock the fire directly and prevent kitchen involvement — the fire risk outweighs the chemical risk.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Do not apply water at all to avoid disturbing the chemical containers — let the fire burn out on its own.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Defensive exterior attack stopped fire spread. The chemical containers in the lab area did not rupture due to controlled knockdown from outside. HAZMAT team in proper Level B PPE entered after fire was knocked down and safely removed the lab materials. Law enforcement assumed custody of the scene and the burn victim, who was charged with drug offenses after hospital treatment. The exposed crew member was evaluated by EMS — no significant toxic exposure was confirmed. Your rapid lab recognition, HAZMAT escalation, perimeter enforcement, and defensive attack posture prevented a catastrophic secondary chemical event and protected your crew.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": ["explosion", "meth lab", "HAZMAT", "clandestine lab", "chemical", "perimeter", "SCBA", "law enforcement coordination"]
+}

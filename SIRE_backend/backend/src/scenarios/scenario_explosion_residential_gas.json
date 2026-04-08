@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_residential_gas",
+  "description": "A natural gas leak inside a single-family home reaches ignition and explodes, partially collapsing the structure with occupants potentially inside.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reported explosion at a single-family residence. Neighbors report the front wall of the home has been blown outward. Unknown occupancy.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units Arrive", "description": "Engine arrives to find the front wall of a one-story wood-frame home collapsed into the front yard. Moderate smoke from the interior. Strong gas odor. No visible fire yet.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Survivors Reported", "description": "A neighbor reports seeing a woman exit through the back of the home moments after the blast. Her location is unknown. An unconfirmed report of a child still inside.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Structural Concern", "description": "The ceiling joists in the front portion of the home are visibly sagging. Gas odor remains strong — the meter shows gas is still flowing.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Gas Company On Scene", "description": "Gas company technician shuts off the meter. Interior gas odor begins to dissipate. Structural hazards remain throughout the front rooms.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Search Results", "description": "Search teams confirm no victims inside. Woman found in neighbor's backyard — treated for blast injuries. No child was present in the home.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Residential Gas Explosion — On Scene",
+      "situation": "You arrive to find the front exterior wall of a single-family home blown outward into the front yard. The structure is heavily damaged — roof line is intact but the front ceiling joists are visibly sagging. Strong gas odor inside and outside the home. No visible fire. A neighbor reports a woman may have escaped out the back and a child may still be inside. The gas meter is still spinning.",
+      "question": "What is your first action?",
+      "options": [
+        { "label": "A", "text": "Establish a perimeter and prohibit entry into the structurally compromised home until the gas is isolated; request gas company immediately; begin searching the exterior perimeter for the woman; contact dispatch to confirm occupancy and the child report.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Enter the home immediately to search for the child — time is critical and you cannot wait.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Ventilate the structure by opening windows and doors to clear gas before searching.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Child Report and Structural Risk",
+      "situation": "The woman has been located in a neighbor's backyard — she is conscious, has blast injuries to her hands and face, and is requesting EMS. She states she is not sure if her child is home — the child was supposed to be at school. The gas meter continues to spin. The front portion of the home has joists visibly displaced and ceiling materials partially collapsed. Gas company ETA is 8 minutes.",
+      "question": "How do you manage the rescue decision while waiting for gas isolation?",
+      "options": [
+        { "label": "A", "text": "Treat the woman with ALS and have her clarify whether the child could be home — confirm via school contact through dispatch. Do not enter the structurally compromised gas-filled interior. Stage a FAST team at a safe distance ready to enter the rear if gas is isolated and child presence is confirmed.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Send one crew through the back door immediately since the rear of the home appears structurally intact.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait outside and do nothing until gas company arrives — the situation is too dangerous to act at all.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Clearance and Entry Decision",
+      "situation": "Dispatch confirms the school reports the child checked in this morning and is currently in class — the child is not in the home. The gas company technician has arrived and shut off the meter. Gas odor inside is still detectable but decreasing. The woman has been transported by ALS. The rear two-thirds of the home appear structurally sound based on exterior assessment.",
+      "question": "Do you conduct an interior search now?",
+      "options": [
+        { "label": "A", "text": "With child presence ruled out and gas isolated, conduct a cautious systematic search of the rear of the home using SCBA — the front area remains off-limits due to joist compromise. Use a gas monitor to confirm levels before committing crews deeper into the structure.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Search the entire home including the front rooms since the gas has been shut off.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Do not search at all — the occupancy status has been confirmed and it is not worth the risk.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The gas meter shut-off eliminated the fuel source. The rear search confirmed no victims inside. The woman was transported with blast injuries to her hands and face and is in stable condition. The child was safe at school. Structural triage confirmed the front section is a collapse risk and was immediately cordoned off for structural engineering evaluation. No secondary ignition occurred. Your perimeter discipline, occupancy verification, and staged rescue approach prevented firefighter injuries in a structurally and chemically hazardous environment.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["explosion", "natural gas", "residential", "structural collapse", "rescue", "SCBA", "perimeter"]
+}

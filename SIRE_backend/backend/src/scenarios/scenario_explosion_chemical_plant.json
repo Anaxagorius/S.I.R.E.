@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_chemical_plant",
+  "description": "An explosion at a chemical manufacturing plant ruptures a process vessel, igniting a large fire, releasing toxic vapor, and injuring multiple workers.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Plant emergency line reports a major explosion in the process building. Multiple casualties reported. Large fire visible. Toxic vapor release possible.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units Arrive", "description": "Arriving units see a large fire column from the process building. The building's west wall has been blown outward. Workers are self-evacuating. Plant emergency coordinator meets IC at the gate.", "timeOffsetSec": 45 },
+    { "index": 2, "title": "HAZMAT Indicators", "description": "Plant coordinator identifies the process unit as a chlorine-based reagent system. Wind is from the west at 8 mph, pushing any vapor plume toward the east toward a residential area 0.5 miles away.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Mass Casualty", "description": "Plant first aid reports 11 workers down — 3 critical, 8 moderate. Four are still unaccounted for near the blast area. A vapor cloud with a yellow-green tinge is visible drifting east.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Shelter-in-Place Order", "description": "IC recommends emergency management initiate shelter-in-place for residential area to the east. Emergency broadcast initiated.", "timeOffsetSec": 300 },
+    { "index": 5, "title": "HAZMAT Containment", "description": "HAZMAT team in Level A PPE confirms chlorine vapor from ruptured process line. Plant engineers isolate the process feed. Fire brought to defensive posture to prevent additional vessel involvement.", "timeOffsetSec": 600 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Chemical Plant Explosion — Arrival",
+      "situation": "You arrive to a large fire at a chemical manufacturing plant. The process building's west wall has been blown outward. Eleven workers are accounted for with injuries, four are still unaccounted for near the blast area. A yellow-green vapor cloud is drifting east at 8 mph toward a residential area 0.5 miles away. The plant coordinator tells you the process involved a chlorine-based reagent. You have two engines, one truck, and one HAZMAT unit responding.",
+      "question": "What is your first priority?",
+      "options": [
+        { "label": "A", "text": "Establish a large perimeter and unified command with the plant coordinator. Immediately advise emergency management to initiate shelter-in-place for the residential area downwind. Request HAZMAT to characterize the vapor using meters. Do not commit crews into the process building without confirmed PPE level and air monitoring — request Level A deployment for HAZMAT entry assessment.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately advance crews into the process building to locate the four missing workers before the fire spreads.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Focus all resources on the fire attack to stop the fire before addressing the vapor cloud.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Mass Casualty and Decontamination",
+      "situation": "Eleven injured workers are in the plant parking lot. Three are in critical condition with respiratory distress and chemical burns. Eight have moderate burns and blast injuries. Multiple workers may have chlorine exposure. EMS has requested guidance on decontamination before transport. HAZMAT is setting up air monitoring. The four unaccounted workers' last known location was the west section of the process building — the most heavily damaged area.",
+      "question": "How do you manage decontamination and the search for missing workers?",
+      "options": [
+        { "label": "A", "text": "Set up a decontamination corridor upwind — all workers must be decontaminated with water rinse before EMS transport to prevent contaminating hospital staff. Triage the three critical cases and transport after decon. For the four missing workers, stage a Level A HAZMAT rescue team ready to enter on IC approval once air monitoring gives preliminary readings — do not send standard fire crews into confirmed chlorine atmosphere.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Transport the critical patients immediately without decontamination — life over contamination concerns.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Send standard fire crews with SCBA into the process building to search for the four workers now.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Strategy and Process Isolation",
+      "situation": "Air monitoring confirms chlorine at 15 ppm at the perimeter — IDLH is 10 ppm. The Level A HAZMAT team is ready to enter the process building. Plant engineers report they can remotely isolate the process feed line from the control room, which would stop the chlorine source — but the control room is inside the partially evacuated plant and requires an engineer to physically operate a valve in a potentially contaminated space.",
+      "question": "How do you address the fire and chemical source simultaneously?",
+      "options": [
+        { "label": "A", "text": "Authorize the Level A HAZMAT team to enter and locate the missing workers. Simultaneously, consult with the plant coordinator to identify whether the engineer can safely reach the control room valve using supplied air — if yes, coordinate a protected entry for source isolation with HAZMAT backup. Apply defensive water streams to cool exposed vessels and prevent additional tank involvement; do not attempt offensive fire attack while chlorine concentration is above IDLH.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Hold all entry until chlorine levels drop to safe limits — do not send anyone into the plant regardless of the missing workers.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Attempt offensive fire attack on the process building to reduce the fire and lower chlorine production.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The Level A HAZMAT team located three of the four missing workers — two were alive with critical blast and inhalation injuries and were extracted and decontaminated. One was found deceased near the ruptured vessel. The fourth worker self-evacuated through a rear exit and was found by a second unit. The plant engineer, using supplied air, isolated the chlorine feed — vapor production stopped within minutes. Defensive water streams prevented secondary vessel involvement. All 11 initially injured workers were decontaminated and transported. The shelter-in-place protected the residential area — air monitoring at the downwind perimeter never exceeded 3 ppm. Your HAZMAT escalation, decontamination discipline, and source isolation coordination prevented a community-wide toxic event.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": ["explosion", "chemical plant", "HAZMAT", "chlorine", "mass casualty", "shelter-in-place", "Level A", "decontamination", "ICS", "unified command"]
+}

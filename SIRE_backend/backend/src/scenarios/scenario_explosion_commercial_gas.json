@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_commercial_gas",
+  "description": "A gas accumulation inside a commercial restaurant kitchen ignites, causing a significant explosion that collapses the kitchen area and injures kitchen staff.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reports of an explosion inside a restaurant. Unknown number of casualties. Smoke visible from the rear of the building.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units Arrive", "description": "Engine arrives to find a 2-story commercial restaurant. The rear kitchen area has blown outward — exterior brick is displaced. Heavy smoke from interior. Multiple people self-evacuating from the front entrance with burns.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Mass Casualty Indicators", "description": "At least 6 injured civilians outside, ranging from minor to severe burns. Staff report 2 kitchen employees may be unaccounted for. Heavy smoke is banking into the dining area.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Fire Development", "description": "Fire visible in the kitchen. Grease residue on hoods and surfaces is contributing to fire growth. Gas-fed flame visible at a fractured supply line behind a commercial range.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Utility Isolation", "description": "A crew isolates the gas supply at the building shut-off. Gas-fed flame subsides. Kitchen fire is now primarily a grease and structural fire.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Search Results", "description": "Two kitchen employees found near the rear exit — one ambulatory, one unresponsive. Both removed and transferred to EMS. Kitchen fire knocked down.", "timeOffsetSec": 420 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Commercial Kitchen Explosion — Command",
+      "situation": "You arrive to a 2-story commercial restaurant with the rear kitchen area heavily damaged by an explosion. Exterior brick has been displaced outward. Six civilians are outside with various burn injuries. Staff say two kitchen employees are unaccounted for. Heavy smoke is banking in the dining area and conditions in the kitchen are unknown. A gas odor is present. You have one engine and one truck company on scene.",
+      "question": "How do you organize your initial response?",
+      "options": [
+        { "label": "A", "text": "Establish ICS and request a second alarm for the mass casualty indicators. Assign the engine to locate and close the building gas shut-off and prepare a fire attack line. Assign the truck to rapid search of the kitchen area using SCBA while the gas is being isolated — the two missing employees justify calculated risk entry. Request multiple ALS units for the 6 civilians.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Stage all resources and wait for a second alarm before committing any crews to the building.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Commit all available crews to treating the exterior casualties before doing anything inside.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Interior Conditions and Gas-Fed Fire",
+      "situation": "A crew reports a gas-fed flame at a fractured supply line behind a commercial range in the kitchen. Grease on hood surfaces and prep areas is intensifying the fire. Heavy smoke throughout the kitchen. The gas shut-off location is identified — it is just outside the rear door in a utility alcove. Two truck company members have entered through the dining area toward the kitchen in full SCBA.",
+      "question": "How do you manage the gas-fed fire while the search continues?",
+      "options": [
+        { "label": "A", "text": "Have the engine crew immediately close the building gas shut-off at the utility alcove — this is the priority to eliminate the gas-fed flame. Have a charged line covering the search crew's egress route. The truck crew continues the search but must withdraw immediately if conditions deteriorate or gas supply cannot be confirmed isolated.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Apply water directly to the gas-fed flame to extinguish it before closing the valve — the valve is too far away.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Pull the search crew back out until the gas flame is fully extinguished before attempting rescue.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Victims Located",
+      "situation": "Gas has been isolated and the gas-fed flame is out. The truck crew reports finding two victims near the rear exit — both are down. One is ambulatory and alert, the other is unresponsive with severe facial burns. The kitchen fire is now a grease and structural fire. The ceiling in the kitchen is showing charring consistent with structural involvement. The crew needs guidance on extraction.",
+      "question": "How do you direct victim extraction?",
+      "options": [
+        { "label": "A", "text": "Direct the crew to immediately package and extract both victims via the rear exit — do not delay for extended treatment in a structurally compromised fire environment. The charged backup line provides protection during extraction. EMS is staged at a safe area to receive both victims immediately.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Have the crew provide full ALS-level treatment to the unresponsive victim inside the kitchen before moving them.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have the ambulatory victim walk out on their own while the crew stays inside to fight the kitchen fire.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both kitchen employees were extracted successfully. The ambulatory employee was treated and transported with moderate burns. The unresponsive employee was transported in critical condition and underwent surgery — survival was credited to rapid extraction. Gas isolation eliminated the gas-fed flame contribution. The kitchen fire was knocked down before structural failure occurred. Six exterior civilians received ALS care — two were hospitalized, four treated and released. Your command structure, rapid gas isolation, and extraction-first victim management produced the best possible outcome in a complex multi-casualty explosion event.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["explosion", "natural gas", "commercial", "restaurant", "mass casualty", "rescue", "ICS", "SCBA"]
+}
