@@ -1,0 +1,64 @@
+{
+  "title": "scenario_found_intoxicated",
+  "description": "Officers locate an intoxicated person incapable of caring for themselves in a public place. Disposition options, safety assessment, and documentation under public safety legislation are tested.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "A member of the public reports a male slumped against a bus shelter at 2:30 a.m. Temperatures are 2°C. The male is unresponsive to the caller.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Officers Arrive", "description": "A male in his 50s is slumped against the shelter. He is conscious but unable to stand or coherently respond. Strong odour of alcohol.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "Medical Assessment", "description": "He responds to stimuli, has a radial pulse, and his airway is clear. He does not consent to EMS but cannot manage his own safety.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Risk Assessment", "description": "Temperature is dropping. He is underdressed. His speech is incomprehensible. No medical alert bracelet visible.", "timeOffsetSec": 90 },
+    { "index": 4, "title": "Disposition Decision", "description": "Officers must decide between detoxification centre, hospital, or custody and which authority applies.", "timeOffsetSec": 150 },
+    { "index": 5, "title": "Transport Arranged", "description": "The individual is transported for medical assessment. Documentation completed.", "timeOffsetSec": 240 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Contact — Intoxicated Person",
+      "situation": "You locate a male in his mid-50s slumped against a bus shelter at 2:30 a.m. The temperature is 2°C and falling. He is conscious, his eyes open when you touch his shoulder, but he cannot stand or form coherent sentences. He smells strongly of alcohol. He is wearing a light jacket and jeans — inadequate for the temperature.",
+      "question": "What is your immediate priority?",
+      "options": [
+        { "label": "A", "text": "Establish whether he is medically safe — check responsiveness, airway, breathing, pulse, and visible injuries. Talk to him calmly and directly. Assess whether this is acute intoxication, a medical emergency, or both. Request EMS to attend given his level of incapacity and the ambient temperature, since you cannot rule out a medical cause for his condition at this stage.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Arrest him for being intoxicated in a public place and transport him to cells to sober up.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wake him up, tell him to move along, and leave the area since he is conscious.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Incapacity and Consent to Assistance",
+      "situation": "EMS is responding. The male is conscious but cannot comprehend the situation. He waves your hand away and mutters what sounds like 'leave me alone.' He cannot produce ID. His speech is incomprehensible. He is at risk of hypothermia given the temperature. There is no evidence of drug use beyond alcohol. No injuries visible.",
+      "question": "How do you manage his refusal of assistance?",
+      "options": [
+        { "label": "A", "text": "His refusal is not a meaningful one — he lacks the capacity to make an informed decision about his own safety given his level of intoxication and the conditions. Under applicable provincial intoxication or protective custody legislation, you have the authority to apprehend an intoxicated person who is incapable of caring for themselves and at risk of harm. Document the basis for your assessment of his incapacity.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Respect his refusal since adults have the right to make their own choices, even intoxicated ones, and leave him at the shelter.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Arrest him for causing a disturbance to justify transporting him against his will.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Disposition — Detox, Hospital, or Custody?",
+      "situation": "EMS has assessed him. His vitals are stable — he is intoxicated but not in a medical emergency. The detoxification centre in your jurisdiction has space and will accept him. The hospital is not required at this time. Custody in police cells is an available option under your jurisdiction's liquor or intoxication act.",
+      "question": "What is the most appropriate disposition?",
+      "options": [
+        { "label": "A", "text": "Transport him to the detoxification centre as the least restrictive and most appropriate option — this is a public safety matter, not a criminal one. Detox is designed for this purpose and avoids unnecessary criminalization or hospital overcrowding. Custody in police cells should be a last resort when detox is unavailable. Advise EMS of the disposition decision and complete your documentation.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Transport him to hospital since EMS attended and any transport should be to the highest level of care available.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Transport him to police cells as the most secure and controlled environment, to ensure he can be monitored.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Documentation Requirements",
+      "situation": "The male has been transported to the detox centre. He has no identification and no medical alert bracelet. He cannot currently provide his name. The detox staff will monitor him and contact police if his condition changes. You must now complete your documentation.",
+      "question": "What must your occurrence report include?",
+      "options": [
+        { "label": "A", "text": "Complete a general occurrence with: the time and location of discovery, physical condition assessment including the cold-exposure risk, your grounds for incapacity under the applicable legislation, EMS attendance and their findings, the decision to transport to detox and the reasons, and his identification status (unknown — fingerprints may be necessary if he remains unidentified). Advise communications to note his location in case of a missing person report.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Complete a brief log entry only since no criminal charges were laid.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "No documentation is required since he was released to the detox centre rather than held in custody.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the found intoxicated person call effectively: you prioritized a medical assessment over an immediate criminal lens; correctly identified that his refusal was not a capable one and invoked protective custody authority; selected the least restrictive disposition by using the detoxification centre rather than police cells; and completed a comprehensive occurrence report documenting all relevant facts.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["patrol", "found intoxicated", "public safety", "protective custody", "detoxification centre", "incapacity", "least restrictive option", "documentation"]
+}

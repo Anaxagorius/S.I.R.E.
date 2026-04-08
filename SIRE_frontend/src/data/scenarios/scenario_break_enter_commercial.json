@@ -1,0 +1,64 @@
+{
+  "title": "scenario_break_enter_commercial",
+  "description": "Officers respond to a commercial break and enter discovered at business opening. Alarm activation, scene preservation, and coordination with the business owner are key challenges.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "Alarm company reports activation at a pharmacy at 6:10 a.m. Owner is being contacted. No suspect description available.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Arrival on Scene", "description": "Rear door of the pharmacy is forced open. Glass in the door frame. No suspect visible. Alarm still audible.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "Clearance Completed", "description": "The building is cleared — no suspects on scene. Significant disorder in the pharmacy and dispensary area.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Controlled Substance Concern", "description": "The dispensary has been targeted. Narcotic storage cabinet shows signs of forced entry.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Owner Arrives", "description": "The pharmacy owner arrives. He is asked to assess what is missing without disturbing potential evidence.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Investigation Coordinated", "description": "Ident unit contacted, occurrence report initiated, narcotic theft reported to Health Canada regulator.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Commercial Alarm — Possible Break and Enter",
+      "situation": "You arrive at a pharmacy at 6:12 a.m. The rear door has been forced — the door frame is split and the door is partially open. An alarm is audible inside. The business is dark. No suspects are visible. You have no partner on scene yet; backup is two minutes away.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Hold at the perimeter. Do not enter alone. Advise dispatch of your observations and wait for backup before clearing the building. Observe for any exits in case a suspect is still inside. Attempt to isolate the building — check for other access points and position to observe.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Enter alone immediately through the rear door to locate and apprehend any suspect still on scene.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait for the owner to arrive before entering, since it is private property.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Building Clearance",
+      "situation": "Backup arrives. You enter and clear the building systematically. No suspects are located. The rear dispensary has been heavily targeted — drawers are open, product is scattered, and the narcotic storage cabinet has been pried. The retail floor also shows disorder. You must now manage the scene before the owner arrives.",
+      "question": "How do you manage the scene?",
+      "options": [
+        { "label": "A", "text": "Treat the entire affected area as a crime scene. Do not touch or move any items. Photograph the point of entry, the dispensary, and the narcotic storage cabinet in their current state. Secure the building. Do not permit any staff to enter until the owner has attended and the scene has been assessed for Ident unit involvement.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow the alarm company's technician inside immediately to reset the system, as the alarm is disruptive.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have staff begin cleaning the retail area while you focus on the dispensary, since only one area is relevant to the criminal investigation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Controlled Substance Theft — Reporting Obligations",
+      "situation": "The owner arrives and confirms that the narcotic storage cabinet has been broken into. Controlled substances — including opioid medications — appear to have been taken. The owner asks if he should call his insurance company right away and handle it internally.",
+      "question": "What are the additional reporting requirements for controlled substance theft?",
+      "options": [
+        { "label": "A", "text": "Advise the owner that theft of controlled substances from a pharmacy triggers mandatory reporting obligations beyond a standard police report — this includes notification to Health Canada under the Controlled Drugs and Substances Act and applicable provincial pharmacy regulator. The police occurrence will document the criminal offence; the owner's regulatory obligations run in parallel and are time-sensitive.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Advise the owner that a police report is sufficient and no other notifications are required.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Advise the owner to handle the narcotic theft privately with his insurer to avoid regulatory scrutiny.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Coordination — Ident Unit and Investigation",
+      "situation": "The Ident unit has been requested but will not arrive for approximately 90 minutes. The owner must keep the business closed. You must assess whether any other investigative steps can be taken now, including surveillance camera review.",
+      "question": "What investigative steps can you take before Ident arrives?",
+      "options": [
+        { "label": "A", "text": "Ask the owner whether the business has functioning surveillance cameras and request access to overnight footage — this can be reviewed without disturbing the physical scene. Canvass the exterior of the building for any additional cameras at neighbouring businesses. Record the exact entry and exit points, time of alarm activation, and approximate window of the break-in based on alarm log data. Document all findings in your notes pending the Ident unit's arrival.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Wait passively for the Ident unit to arrive before taking any further steps, to avoid compromising their work.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Begin collecting potential fingerprint evidence yourself using a kit from your cruiser rather than waiting for Ident.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the commercial break and enter effectively: you waited for backup before entering; preserved the scene after clearance; identified the controlled substance theft and associated regulatory reporting obligations; coordinated with the Ident unit; and initiated parallel investigative steps including surveillance footage review — all without compromising the integrity of the scene.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["patrol", "break and enter", "commercial", "controlled substances", "CDSA", "Health Canada", "scene preservation", "Ident unit", "surveillance"]
+}

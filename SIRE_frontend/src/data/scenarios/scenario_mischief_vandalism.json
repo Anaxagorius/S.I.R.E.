@@ -1,0 +1,64 @@
+{
+  "title": "scenario_mischief_vandalism",
+  "description": "Officers respond to a report of vandalism discovered at a local community centre. Evidence collection and witness management are key challenges.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "Maintenance staff at a community centre report graffiti and broken windows discovered when opening the building at 7:00 a.m.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Scene Assessment", "description": "You arrive and observe extensive spray-paint graffiti on the rear wall and three broken windows. No suspect is present.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Witness Located", "description": "A jogger advises she saw two youth running from the area around 2:00 a.m. She is willing to speak with police.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Evidence Identified", "description": "A spray-paint can is located in a nearby dumpster. A partial shoeprint is visible in soft ground near a window.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Value Assessment", "description": "The facility manager estimates the damage at approximately $4,200.", "timeOffsetSec": 210 },
+    { "index": 5, "title": "Report Submitted", "description": "A mischief under $5,000 occurrence is documented with exhibits and the witness statement collected.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Assessment — Mischief/Vandalism",
+      "situation": "You arrive at a community centre at 7:15 a.m. Graffiti covers approximately 12 metres of the rear masonry wall and three windows have been broken. Shards of glass are on the ground outside. The facility manager is present and upset. No suspects are on scene.",
+      "question": "What is your first priority?",
+      "options": [
+        { "label": "A", "text": "Treat the area as a crime scene. Establish a perimeter around the damaged areas to preserve evidence. Advise the manager not to disturb anything yet, including the glass. Begin photographing the scene systematically — overall, mid-range, and close-up — before approaching potential evidence items.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Allow the manager to begin cleanup immediately so the facility can open on time, and take photos afterward.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Canvass the neighbourhood for suspects before documenting the scene, since evidence can wait.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Witness and Evidence",
+      "situation": "A female jogger approaches and says she saw two youth — male, teens — running from this side of the building around 2:00 a.m. She has a partial description: one had a red hoodie, one had a backpack. She is willing to provide a statement. Nearby, a spray-paint can is visible in an open dumpster approximately 20 metres away.",
+      "question": "How do you manage the witness and potential evidence?",
+      "options": [
+        { "label": "A", "text": "Take the witness's contact information and a brief initial statement on scene. Advise her that you will arrange a follow-up for a full statement. Do not contaminate the dumpster area — photograph the spray can in situ and arrange for it to be seized as an exhibit with proper packaging and continuity. Document your actions in your notes.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Have the jogger pick up the spray can and hand it to you so you can examine it.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell the witness you don't need her statement because the evidence speaks for itself.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Damage Valuation and Offence Classification",
+      "situation": "The facility manager estimates repair and cleanup at approximately $4,200 — new windows plus paint removal and repainting. The graffiti content is gang-related symbols. You must determine the correct offence classification under the Criminal Code.",
+      "question": "What offence is disclosed and what are the key considerations?",
+      "options": [
+        { "label": "A", "text": "Document the offence as mischief under $5,000 (Criminal Code s. 430) based on the manager's valuation. Note that the gang symbolism may be relevant to intelligence and should be flagged to the Gang Unit. Confirm whether a supplemental hate-motivated or gang-related designation applies based on your service's policy.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Classify it as mischief over $5,000 because the gang graffiti adds symbolic value beyond the dollar amount.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Document it as a bylaw violation since graffiti is typically a municipal matter, and clear the call.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Report Completion and Follow-Up",
+      "situation": "You have photographed the scene, seized the spray can as an exhibit, taken the witness's contact information, and confirmed the damage valuation. The manager wants to know what happens next. You must complete your occurrence report and advise on next steps.",
+      "question": "What should your occurrence report include and what advice do you provide?",
+      "options": [
+        { "label": "A", "text": "Complete a thorough general occurrence report including: scene description, photographs (referenced as exhibits), the witness details, spray-paint can seizure with exhibit number, estimated damage value, offence classification, and next steps (follow-up interview of witness, canvass of area cameras, referral to Gang Unit). Advise the manager to obtain written repair estimates and preserve any surveillance footage.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Complete a brief note listing the offence and damage only, and leave follow-up to the investigative unit without documenting the witness or exhibits.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell the manager insurance will handle it and clear the call as filed, with no follow-up referrals.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the mischief/vandalism scene effectively: you preserved evidence before cleanup began; systematically photographed and documented the scene; properly managed the witness; seized physical evidence with continuity; correctly classified the offence; and completed a thorough report with actionable follow-up recommendations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["patrol", "mischief", "vandalism", "graffiti", "crime scene", "evidence collection", "Criminal Code s.430", "documentation"]
+}
