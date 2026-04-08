@@ -1,0 +1,177 @@
+{
+  "title": "scenario_arson_gang_related",
+  "description": "Fire suppression crews and investigators respond to a deliberate arson at a rival gang's affiliated location, operating in an active threat environment requiring close law enforcement coordination.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Structure Fire in High-Crime Area",
+      "description": "Crews dispatched to a known gang-affiliated property fire. Law enforcement advises active gang tension in the area.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Safety Concerns",
+      "description": "Law enforcement requests fire crews stage away from the address until the area is secured.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Law Enforcement Escort Established",
+      "description": "Police provide escort and perimeter. Crews advance to the structure under law enforcement protection.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Deliberate Ignition Confirmed",
+      "description": "Multiple fire origin points identified. Witnesses refuse to speak. Gang intel team activated.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Retaliatory Threat Reported",
+      "description": "Intelligence reports a potential retaliatory fire in an adjacent neighborhood within hours.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Preemptive Resource Staging",
+      "description": "Resources staged in the at-risk area. No retaliatory fire occurs. Scene investigation completed.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unsafe Scene — Stage and Wait",
+      "situation": "You are dispatched to a structure fire at an address flagged by law enforcement as a known gang location. En route, dispatch advises that law enforcement has requested all fire units stage one block away due to active gang tension and reports of individuals with weapons in the area.",
+      "question": "How do you respond to a law enforcement request to stage away from an active fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stage at the designated location, maintain radio contact with law enforcement for scene clearance, prepare equipment for rapid deployment, and do not advance until law enforcement confirms the scene is safe.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advance immediately to the fire address — delaying suppression risks structure loss.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Refuse to respond until law enforcement can guarantee complete safety for the entire operation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Operating Under Law Enforcement Protection",
+      "situation": "Law enforcement has cleared the immediate area and escorts your crew to the structure. Officers are maintaining a perimeter. Witnesses on the street are uncooperative with both police and fire crews. The structure is 50% involved with fire spreading to one side. Multiple ignition points are visible.",
+      "question": "How do you conduct fire operations in an active law enforcement perimeter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate suppression activities within the law enforcement perimeter, maintain constant communication with the assigned officer escort, and limit crew movement to suppression-critical areas to avoid interfering with the police perimeter.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct your crew to interview bystanders about what they saw while suppression is underway.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Expand your operational footprint beyond the law enforcement perimeter to access better hose positions.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Gang Intel and Retaliatory Threat",
+      "situation": "A law enforcement gang intelligence unit arrives and informs the incident commander that the fire is believed to be retaliation for an incident the previous night. They assess a high probability of a retaliatory fire in an adjacent neighborhood within the next two to four hours.",
+      "question": "How do you prepare for a potential retaliatory arson in a neighboring area?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request additional resources, coordinate with law enforcement to identify the most at-risk structures in the adjacent neighborhood, stage suppression units in the area, and brief all units on the threat assessment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Dismiss the threat assessment as speculation and maintain all resources at the current scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Publicly announce the threat via scanner communications to warn residents.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Media and Community Relations",
+      "situation": "Local media has arrived and is filming from outside the perimeter. Community members are visibly distressed. A reporter asks you directly whether this fire was gang-related and whether the community is at further risk.",
+      "question": "How do you handle media and community concerns during a gang-related arson response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Refer media questions to the designated public information officer and law enforcement spokesperson, confirm only that the fire is under investigation, and avoid confirming or denying gang involvement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Confirm the gang-related nature of the fire to alert the community to the threat.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline all media contact and direct them to leave the area.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire was suppressed safely under law enforcement protection, investigative findings were documented, preemptive resources were staged in the at-risk area, and no retaliatory fire occurred. Media and community communication was handled professionally. The case was referred to the gang crimes unit and arson investigators.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "arson",
+    "gang-related",
+    "hostile environment",
+    "law enforcement coordination",
+    "scene safety",
+    "community communication"
+  ]
+}

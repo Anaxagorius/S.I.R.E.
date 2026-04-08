@@ -1,0 +1,178 @@
+{
+  "title": "scenario_arson_domestic_violence",
+  "description": "Firefighters and investigators respond to a residential fire set by an abusive partner as an act of domestic violence, requiring coordinated response with law enforcement, victim services, and mental health resources.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Residential Fire with Occupant Inside",
+      "description": "Units dispatched to a residential fire. Caller reports a woman is trapped inside and her partner fled the scene.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Victim Rescued",
+      "description": "Crew performs rapid interior search and rescues an adult female victim with burns and smoke inhalation. She reports her partner set the fire.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Domestic Violence Indicators Identified",
+      "description": "Victim discloses ongoing abuse. Law enforcement requested. Victim advocate contacted.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Suspect at Large",
+      "description": "Suspect fled the area prior to crew arrival. BOLO issued. No children reported.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Fire Investigation Initiated",
+      "description": "Fire investigator confirms multiple ignition points consistent with deliberate ignition at exits, trapping the victim.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Victim Supported, Case Referred",
+      "description": "Victim transported and connected with domestic violence services. Case referred to arson and domestic violence units.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Victim Rescue and Initial Disclosure",
+      "situation": "Your crew rescues an adult female from a burning bedroom. She is conscious and tells you her partner locked the door from the outside and set the house on fire after an argument. She has visible injuries that appear older than tonight's incident, suggesting prior physical abuse.",
+      "question": "How do you respond to a victim disclosing that the fire was deliberately set by an intimate partner?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ensure the victim's immediate medical needs are met, listen without pressing for details, document her disclosure verbatim in your report, immediately notify dispatch of the alleged domestic arson, and request law enforcement and a victim advocate.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus entirely on medical treatment and fire suppression — treat the victim's statement as secondary until the fire is controlled.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the victim detailed questions about the relationship and the incident to help investigators while providing treatment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Multi-Agency Response Coordination",
+      "situation": "Law enforcement, EMS, a victim advocate, and a fire investigator are now on scene. The victim is being treated and is willing to cooperate. The suspect is at large. Law enforcement wants to interview the victim before she is transported. EMS indicates she needs hospital care promptly.",
+      "question": "How do you balance the victim's medical needs against the investigative interview?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with EMS and law enforcement to allow a brief, trauma-informed interview by law enforcement while EMS prepares for transport, then prioritize hospital transport — ensuring the victim advocate accompanies her.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delay transport until law enforcement completes a full interview.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Transport the victim immediately without allowing any law enforcement contact at the scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Scene as Crime Scene",
+      "situation": "The fire investigator confirms that ignition points were set at the two main exits of the bedroom, suggesting the fire was intended to trap the victim. The fire qualifies as both arson and attempted murder. The scene must be processed for both fire investigation and criminal evidence.",
+      "question": "How do you manage the dual-jurisdiction crime and fire scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish unified command with the fire investigator and lead detective, document all fire origin findings first, then coordinate with law enforcement for criminal evidence processing, ensuring no actions by either team compromise the other's evidence.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Complete fire overhaul before law enforcement begins any crime scene processing.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow law enforcement to take full control of the scene immediately upon confirmation of criminal intent.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Suspect Apprehension and Safety Assessment",
+      "situation": "Law enforcement locates the suspect at a relative's home. During the arrest, the suspect claims the fire was an accident. Law enforcement asks if investigators can provide a preliminary assessment of whether the fire burn pattern supports an accident or intentional ignition before they can hold the suspect.",
+      "question": "How do you respond to a law enforcement request for a preliminary fire cause assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide a factual summary of the burn patterns and ignition points documented so far, clearly noting that the full investigation is ongoing and your findings are preliminary — avoiding definitive conclusions that could compromise the formal investigation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Decline to provide any information until the written report is complete.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Confirm definitively that the fire was intentional based on the visible burn patterns, without completing your investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The victim was safely rescued, received medical care, and was connected with a victim advocate. The fire was properly investigated as both arson and a domestic violence crime. Law enforcement apprehended the suspect. The multi-agency response was effectively coordinated with appropriate sensitivity to the victim's trauma and investigative integrity.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "arson",
+    "domestic violence",
+    "victim rescue",
+    "law enforcement coordination",
+    "victim advocate",
+    "fire investigation",
+    "trauma-informed response"
+  ]
+}
