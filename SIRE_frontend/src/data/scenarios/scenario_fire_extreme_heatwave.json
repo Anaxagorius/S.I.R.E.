@@ -1,0 +1,155 @@
+{
+  "title": "fire_extreme_heatwave",
+  "description": "A wildfire erupts during a record-breaking heatwave, compounding health risks for firefighters and evacuees.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Ignition at Peak Heat",
+      "description": "Temperature reaches 118°F as fire ignites. Extreme heat affects personnel and equipment immediately.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Heat Illness Among Crews",
+      "description": "First reports of heat exhaustion in field crews. Rotate crews aggressively and establish rehab stations.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Cooling Center Activation",
+      "description": "Evacuee population at risk of heat illness. Activate cooling centers along evacuation routes.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Equipment Failures",
+      "description": "Several vehicles overheating. Maintenance crews address failures and establish shaded staging areas.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Medical Emergencies",
+      "description": "Three civilians collapse at evacuation staging area. EMS deployed to all staging areas.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Night Operations Shift",
+      "description": "Temperatures drop at night. Maximum suppression operations shifted to overnight hours.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire During Record Heatwave",
+      "situation": "A wildfire ignites during a multi-day record heatwave with temperatures at 118°F. Ground crews have been on shift for 2 hours and are showing signs of heat stress. The fire is growing.",
+      "question": "How do you address crew health alongside fire suppression?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement aggressive crew rotation schedules, establish shaded rehab stations, and ensure mandatory hydration and rest intervals.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep crews on the fire line — the fire is the priority and rest can come once it is controlled.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Pull all crews off the fire until temperatures drop later in the day.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuee Heat Risk",
+      "situation": "Over 2,000 residents are being evacuated. The outdoor temperature is dangerous for prolonged exposure. Many evacuation staging areas lack shade or water. Several vulnerable individuals are already showing signs of heat illness.",
+      "question": "How do you protect evacuees from heat illness?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate all available cooling centers, move evacuees indoors, and deploy EMS personnel and water supplies to staging areas.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus resources on moving evacuees away from the fire and address heat concerns at destination shelters only.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Equipment Overheating",
+      "situation": "Several fire engines and heavy equipment are reporting overheating warnings. Two vehicles have shut down entirely. Maintenance crews are stretched and the heat is affecting equipment reliability.",
+      "question": "How do you manage equipment under extreme heat?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish shaded equipment staging areas, rotate vehicles with cool-down intervals, and request additional reserve units.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Push equipment to maximum use now and deal with failures as they occur.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Night Operations Strategy",
+      "situation": "Temperatures will drop 30 degrees overnight. The fire behavior analyst indicates nighttime offers the best suppression window. Crews are rested and ready.",
+      "question": "How do you leverage the nighttime temperature drop?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maximize crew deployment during overnight hours for aggressive suppression while conditions are favorable.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue standard operations overnight and preserve maximum resources for the next day.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Overnight operations achieved significant containment progress. All crew members were kept safe from heat illness, evacuees were sheltered, and the fire is 50% contained.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "heatwave",
+    "wildland fire",
+    "crew safety",
+    "heat illness",
+    "night operations"
+  ]
+}

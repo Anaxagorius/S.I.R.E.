@@ -158,6 +158,52 @@ import scenarioIncompleteForensics from "./scenarios/scenario_incomplete_forensi
 import scenarioIneffectiveContainment from "./scenarios/scenario_ineffective_containment.json";
 import scenarioFailedLessonsLearned from "./scenarios/scenario_failed_lessons_learned.json";
 
+// Firefighter — Residential
+import scenarioFireKitchenGrease from "./scenarios/scenario_fire_kitchen_grease.json";
+import scenarioFireChimney from "./scenarios/scenario_fire_chimney.json";
+import scenarioFireSingleFamilyUnoccupied from "./scenarios/scenario_fire_single_family_unoccupied.json";
+import scenarioFireSingleFamilyOccupied from "./scenarios/scenario_fire_single_family_occupied.json";
+import scenarioFireApartmentUnit from "./scenarios/scenario_fire_apartment_unit.json";
+import scenarioFireApartmentComplex from "./scenarios/scenario_fire_apartment_complex.json";
+import scenarioFireAttic from "./scenarios/scenario_fire_attic.json";
+import scenarioFireBasement from "./scenarios/scenario_fire_basement.json";
+import scenarioFireElectricalWall from "./scenarios/scenario_fire_electrical_wall.json";
+import scenarioFireMobileHome from "./scenarios/scenario_fire_mobile_home.json";
+import scenarioFireHoarderHouse from "./scenarios/scenario_fire_hoarder_house.json";
+import scenarioFireDisabledOccupants from "./scenarios/scenario_fire_disabled_occupants.json";
+import scenarioFireOccupantsRefusingEvacuation from "./scenarios/scenario_fire_occupants_refusing_evacuation.json";
+import scenarioFireChildrenTrapped from "./scenarios/scenario_fire_children_trapped.json";
+import scenarioFireHomeOxygenTanks from "./scenarios/scenario_fire_home_oxygen_tanks.json";
+import scenarioFireLithiumIonBattery from "./scenarios/scenario_fire_lithium_ion_battery.json";
+import scenarioFireHighRiseResidential from "./scenarios/scenario_fire_high_rise_residential.json";
+
+// Firefighter — Commercial & Industrial
+import scenarioFireOfficeBuilding from "./scenarios/scenario_fire_office_building.json";
+import scenarioFireRetailStore from "./scenarios/scenario_fire_retail_store.json";
+import scenarioFireRestaurant from "./scenarios/scenario_fire_restaurant.json";
+import scenarioFireShoppingMall from "./scenarios/scenario_fire_shopping_mall.json";
+import scenarioFireSchool from "./scenarios/scenario_fire_school.json";
+import scenarioFireWarehouse from "./scenarios/scenario_fire_warehouse.json";
+
+// Wildland Fire
+import scenarioBrushFire from "./scenarios/scenario_brush_fire.json";
+import scenarioGrassFire from "./scenarios/scenario_grass_fire.json";
+import scenarioForestFire from "./scenarios/scenario_forest_fire.json";
+import scenarioWuiFire from "./scenarios/scenario_wui_fire.json";
+import scenarioFireThreateningResidential from "./scenarios/scenario_fire_threatening_residential.json";
+import scenarioFirePowerLines from "./scenarios/scenario_fire_power_lines.json";
+import scenarioNighttimeWildfire from "./scenarios/scenario_nighttime_wildfire.json";
+import scenarioWindDrivenWildfire from "./scenarios/scenario_wind_driven_wildfire.json";
+import scenarioFireSteepTerrain from "./scenarios/scenario_fire_steep_terrain.json";
+import scenarioFireDroughtConditions from "./scenarios/scenario_fire_drought_conditions.json";
+import scenarioFireExtremeHeatwave from "./scenarios/scenario_fire_extreme_heatwave.json";
+import scenarioFireLimitedWater from "./scenarios/scenario_fire_limited_water.json";
+import scenarioFireMultipleIgnitions from "./scenarios/scenario_fire_multiple_ignitions.json";
+import scenarioFireJumpingContainment from "./scenarios/scenario_fire_jumping_containment.json";
+import scenarioFireBlockingEvacuation from "./scenarios/scenario_fire_blocking_evacuation.json";
+import scenarioFireCriticalInfrastructure from "./scenarios/scenario_fire_critical_infrastructure.json";
+import scenarioFireWildlifeRescue from "./scenarios/scenario_fire_wildlife_rescue.json";
+
 /** All demo scenarios with display metadata and bundled scenario data. */
 const DEMO_SCENARIOS = [
     // ── Physical / Environmental ─────────────────────────────────────────────
@@ -1028,6 +1074,292 @@ const DEMO_SCENARIOS = [
         name: "Failed Lessons Learned Process",
         description: "A near-identical phishing-led breach occurs six months after the first. Post-incident action items from the original incident were identified but never tracked to completion.",
         data: scenarioFailedLessonsLearned,
+    },
+
+    // ── Firefighter: Residential Fires ────────────────────────────────────────
+    {
+        id: "scenario_fire_kitchen_grease",
+        icon: "🍳",
+        name: "Kitchen Grease Fire",
+        description: "Kitchen grease fire in a residential home — crews must select the correct suppression agent and verify there is no extension into the range hood ductwork.",
+        data: scenarioFireKitchenGrease,
+    },
+    {
+        id: "scenario_fire_chimney",
+        icon: "🏠",
+        name: "Chimney Fire",
+        description: "A chimney or flue fire with potential spread to the structure — crews must contain the fire, inspect for extension, and advise the homeowner on safety.",
+        data: scenarioFireChimney,
+    },
+    {
+        id: "scenario_fire_single_family_unoccupied",
+        icon: "🏠",
+        name: "Single-Family Home Fire (Unoccupied)",
+        description: "A single-family home confirmed unoccupied is fully involved — crews conduct an offensive attack, monitor for collapse, and perform thorough overhaul.",
+        data: scenarioFireSingleFamilyUnoccupied,
+    },
+    {
+        id: "scenario_fire_single_family_occupied",
+        icon: "🏠",
+        name: "Single-Family Home Fire (Occupied)",
+        description: "Occupants reported inside a burning single-family home — crews must prioritise life safety, conduct a primary search, and co-ordinate fire attack.",
+        data: scenarioFireSingleFamilyOccupied,
+    },
+    {
+        id: "scenario_fire_apartment_unit",
+        icon: "🏢",
+        name: "Apartment Unit Fire",
+        description: "A single apartment unit fire in a multi-story building — crews must confine the fire, protect the corridor, and account for all occupants.",
+        data: scenarioFireApartmentUnit,
+    },
+    {
+        id: "scenario_fire_apartment_complex",
+        icon: "🏢",
+        name: "Apartment Complex Fire (Multi-Unit)",
+        description: "Multiple units involved in a large apartment complex fire — incident command, resource management, and defensive transition are all tested.",
+        data: scenarioFireApartmentComplex,
+    },
+    {
+        id: "scenario_fire_attic",
+        icon: "🏠",
+        name: "Attic Fire",
+        description: "Fire spreading through concealed spaces in a truss-roof attic — crews must open ceilings strategically, monitor for collapse, and transition to defensive when necessary.",
+        data: scenarioFireAttic,
+    },
+    {
+        id: "scenario_fire_basement",
+        icon: "🏚️",
+        name: "Basement Fire",
+        description: "Heavy smoke pushing up a stairwell from a basement fire — crews navigate a high-risk attack position and manage ventilation in a below-grade fire.",
+        data: scenarioFireBasement,
+    },
+    {
+        id: "scenario_fire_electrical_wall",
+        icon: "⚡",
+        name: "Electrical Wall Fire",
+        description: "Fire burning inside wall cavities from an electrical fault — crews must locate hidden fire travel, open walls safely, and co-ordinate with utilities.",
+        data: scenarioFireElectricalWall,
+    },
+    {
+        id: "scenario_fire_mobile_home",
+        icon: "🏕️",
+        name: "Mobile Home Fire",
+        description: "A rapidly progressing mobile home fire with lightweight construction hazards — crews must assess survivability quickly and decide on offensive versus defensive tactics.",
+        data: scenarioFireMobileHome,
+    },
+    {
+        id: "scenario_fire_hoarder_house",
+        icon: "🏚️",
+        name: "Hoarder House Fire",
+        description: "A fire in a hoarder residence with extreme fuel load, blocked egress, and structural instability — crews balance life safety with an elevated collapse risk.",
+        data: scenarioFireHoarderHouse,
+    },
+    {
+        id: "scenario_fire_disabled_occupants",
+        icon: "♿",
+        name: "Fire with Disabled Occupants",
+        description: "A home fire where disabled or immobile occupants cannot self-evacuate — crews must plan and execute non-ambulatory rescue alongside fire attack.",
+        data: scenarioFireDisabledOccupants,
+    },
+    {
+        id: "scenario_fire_occupants_refusing_evacuation",
+        icon: "🚪",
+        name: "Occupants Refusing Evacuation",
+        description: "Occupants refuse to leave a burning structure — crews must use appropriate authority, manage the refusal, and document their actions.",
+        data: scenarioFireOccupantsRefusingEvacuation,
+    },
+    {
+        id: "scenario_fire_children_trapped",
+        icon: "🧒",
+        name: "Children Trapped in House Fire",
+        description: "Children reported trapped on the upper floor of a burning home — crews must execute an immediate ground-ladder rescue while protecting the interior staircase.",
+        data: scenarioFireChildrenTrapped,
+    },
+    {
+        id: "scenario_fire_home_oxygen_tanks",
+        icon: "🫁",
+        name: "Home Fire with Medical Oxygen Tanks",
+        description: "A residential fire with confirmed medical oxygen tanks inside creates a BLEVE risk and oxygen-enriched fire environment — defensive operations are essential.",
+        data: scenarioFireHomeOxygenTanks,
+    },
+    {
+        id: "scenario_fire_lithium_ion_battery",
+        icon: "🔋",
+        name: "Lithium-Ion Battery Fire",
+        description: "A lithium-ion battery in thermal runaway creates an uncontrollable fire risk — crews must apply continuous water cooling and manage re-ignition hazards.",
+        data: scenarioFireLithiumIonBattery,
+    },
+    {
+        id: "scenario_fire_high_rise_residential",
+        icon: "🏙️",
+        name: "High-Rise Residential Fire",
+        description: "A fire above aerial ladder reach in a high-rise residential building — crews rely on standpipe systems, stairwell staging, and floor-by-floor co-ordination.",
+        data: scenarioFireHighRiseResidential,
+    },
+
+    // ── Firefighter: Commercial & Industrial Fires ────────────────────────────
+    {
+        id: "scenario_fire_office_building",
+        icon: "🏢",
+        name: "Office Building Fire",
+        description: "A fire in a multi-story office building during business hours — crews manage large-scale evacuation, standpipe operations, and occupant accountability.",
+        data: scenarioFireOfficeBuilding,
+    },
+    {
+        id: "scenario_fire_retail_store",
+        icon: "🛒",
+        name: "Retail Store Fire",
+        description: "A fire in a retail store during peak business hours with customers inside — crews must execute rapid evacuation and navigate high fuel-load stock areas.",
+        data: scenarioFireRetailStore,
+    },
+    {
+        id: "scenario_fire_restaurant",
+        icon: "🍽️",
+        name: "Restaurant Kitchen Fire",
+        description: "A commercial kitchen fire involving grease fryers escalates beyond the hood suppression system — crews apply correct Class K tactics in a confined, high-hazard space.",
+        data: scenarioFireRestaurant,
+    },
+    {
+        id: "scenario_fire_shopping_mall",
+        icon: "🏬",
+        name: "Shopping Mall Fire",
+        description: "A fire breaks out in a retail anchor store inside a large shopping mall during peak hours — crews manage mass evacuation, complex floor plans, and multiple access points.",
+        data: scenarioFireShoppingMall,
+    },
+    {
+        id: "scenario_fire_school",
+        icon: "🏫",
+        name: "School Fire",
+        description: "A fire in a school science lab during the school day with hundreds of students on site — crews must co-ordinate with staff for rapid evacuation while suppressing the fire.",
+        data: scenarioFireSchool,
+    },
+    {
+        id: "scenario_fire_warehouse",
+        icon: "🏭",
+        name: "Warehouse Fire",
+        description: "A warehouse fire with unknown contents, high racking, and a large footprint — crews assess collapse and HAZMAT risks and manage a defensive master-stream operation.",
+        data: scenarioFireWarehouse,
+    },
+
+    // ── Wildland Fire ─────────────────────────────────────────────────────────
+    {
+        id: "scenario_brush_fire",
+        icon: "🌿",
+        name: "Brush Fire",
+        description: "A brush fire ignites near a populated trailhead and spreads rapidly toward nearby structures — crews deploy direct and indirect attack while co-ordinating evacuation.",
+        data: scenarioBrushFire,
+    },
+    {
+        id: "scenario_grass_fire",
+        icon: "🌾",
+        name: "Grass Fire",
+        description: "A grass fire ignites along a highway median and spreads rapidly across open fields toward farmland — crews use mobile attack and anchor points to establish control lines.",
+        data: scenarioGrassFire,
+    },
+    {
+        id: "scenario_forest_fire",
+        icon: "🌲",
+        name: "Forest Fire",
+        description: "A lightning-caused forest fire grows into a large complex threatening a wilderness area and a nearby town — crews manage suppression priorities and community protection.",
+        data: scenarioForestFire,
+    },
+    {
+        id: "scenario_wui_fire",
+        icon: "🏘️",
+        name: "Wildland–Urban Interface (WUI) Fire",
+        description: "A WUI fire erupts at the edge of a suburb, threatening homes and displacing residents — crews balance structure protection with wildland suppression tactics.",
+        data: scenarioWuiFire,
+    },
+    {
+        id: "scenario_fire_threatening_residential",
+        icon: "🏘️",
+        name: "Wildfire Threatening Residential Area",
+        description: "A rapidly advancing wildfire moves into a densely populated residential neighbourhood with limited egress — crews must triage structures and co-ordinate mass evacuation.",
+        data: scenarioFireThreateningResidential,
+    },
+    {
+        id: "scenario_fire_power_lines",
+        icon: "⚡",
+        name: "Downed Power Line Wildfire",
+        description: "A downed power line ignites a wildfire during high winds — crews must establish a safe zone around energised lines and co-ordinate with the utility company before suppression.",
+        data: scenarioFirePowerLines,
+    },
+    {
+        id: "scenario_nighttime_wildfire",
+        icon: "🌙",
+        name: "Nighttime Wildfire Operations",
+        description: "A large wildfire must be managed through nighttime operations with reduced visibility and altered fire behaviour — crews apply night-specific tactics and safety protocols.",
+        data: scenarioNighttimeWildfire,
+    },
+    {
+        id: "scenario_wind_driven_wildfire",
+        icon: "💨",
+        name: "Wind-Driven Wildfire",
+        description: "Extreme wind conditions drive a wildfire at dangerous speed, overwhelming standard suppression tactics — crews must execute emergency relocation and deploy fire shelters.",
+        data: scenarioWindDrivenWildfire,
+    },
+    {
+        id: "scenario_fire_steep_terrain",
+        icon: "⛰️",
+        name: "Wildfire in Steep Terrain",
+        description: "A wildfire in steep, rugged terrain creates extreme fire behaviour and limits access — crews apply terrain-based safety rules and co-ordinate aerial support.",
+        data: scenarioFireSteepTerrain,
+    },
+    {
+        id: "scenario_fire_drought_conditions",
+        icon: "🏜️",
+        name: "Wildfire in Drought Conditions",
+        description: "A wildfire ignites during a severe multi-year drought with extreme fire behaviour and depleted water resources — crews adapt suppression strategy to scarce water supply.",
+        data: scenarioFireDroughtConditions,
+    },
+    {
+        id: "scenario_fire_extreme_heatwave",
+        icon: "🌡️",
+        name: "Wildfire During Extreme Heatwave",
+        description: "A wildfire erupts during a record-breaking heatwave, compounding health risks for firefighters and evacuees — crews monitor for heat illness and adjust operational tempo.",
+        data: scenarioFireExtremeHeatwave,
+    },
+    {
+        id: "scenario_fire_limited_water",
+        icon: "💧",
+        name: "Wildfire with Limited Water Supply",
+        description: "A wildfire breaks out in a remote area with no reliable water infrastructure — crews develop creative water sourcing strategies and prioritise high-value assets.",
+        data: scenarioFireLimitedWater,
+    },
+    {
+        id: "scenario_fire_multiple_ignitions",
+        icon: "🔥",
+        name: "Multiple Wildfire Ignitions",
+        description: "Multiple simultaneous wildfire ignitions raise suspicion of deliberate arson — crews split resources across incidents while preserving evidence for investigation.",
+        data: scenarioFireMultipleIgnitions,
+    },
+    {
+        id: "scenario_fire_jumping_containment",
+        icon: "🔥",
+        name: "Wildfire Breaking Containment",
+        description: "An established wildfire breaks through containment lines — crews execute emergency repositioning, protect exposed personnel, and re-establish a new perimeter.",
+        data: scenarioFireJumpingContainment,
+    },
+    {
+        id: "scenario_fire_blocking_evacuation",
+        icon: "🚧",
+        name: "Wildfire Blocking Evacuation Routes",
+        description: "A wildfire cuts off primary evacuation routes, trapping residents — crews co-ordinate alternative extraction methods and work with law enforcement for safe passage.",
+        data: scenarioFireBlockingEvacuation,
+    },
+    {
+        id: "scenario_fire_critical_infrastructure",
+        icon: "🏗️",
+        name: "Wildfire Threatening Critical Infrastructure",
+        description: "A wildfire advances toward a water treatment facility and a natural gas hub — crews triage infrastructure protection while managing the advancing fire perimeter.",
+        data: scenarioFireCriticalInfrastructure,
+    },
+    {
+        id: "scenario_fire_wildlife_rescue",
+        icon: "🦌",
+        name: "Wildfire with Wildlife Rescue",
+        description: "A wildfire threatens a wildlife refuge, forcing co-ordinated rescue operations for injured animals alongside fire suppression and habitat protection.",
+        data: scenarioFireWildlifeRescue,
     },
 ];
 

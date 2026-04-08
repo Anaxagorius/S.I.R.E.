@@ -1,0 +1,155 @@
+{
+  "title": "wind_driven_wildfire",
+  "description": "Extreme wind conditions drive a wildfire at dangerous speed, overwhelming standard suppression tactics.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Red Flag Warning Active",
+      "description": "National Weather Service issues a Red Flag Warning. Fire weather conditions critical. Stand by.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Ignition Reported",
+      "description": "Fire ignites near a power corridor. Wind-driven spread rate is extreme. Request air resources.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Direct Attack Abandoned",
+      "description": "Winds make direct attack on fire front impossible. Pivot to indirect tactics.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Mass Evacuation Triggered",
+      "description": "Fire moving at 1 mile per hour. Initiate mass evacuation of downwind communities.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Wind Event Moderates",
+      "description": "Wind speeds dropping. Window opening for aerial suppression and line construction.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Crews Re-engage",
+      "description": "Ground crews safely re-engage as wind subsides. Fire perimeter being established.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Wind Event and Ignition",
+      "situation": "A Red Flag Warning is in effect. Sustained winds of 60 mph with gusts over 80 mph are recorded. A fire has ignited and is spreading at extreme rate — up to a mile per hour — in the downwind direction.",
+      "question": "What tactics are appropriate under these wind conditions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Abandon direct attack, shift to indirect tactics and mass evacuation of downwind communities.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Commit ground crews to direct attack to stop the fire as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the wind to subside before engaging.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Air Resource Request",
+      "situation": "Air tankers are available but the wind conditions create dangerous flying conditions. Pilots are advising caution. Ground resources are positioned safely at a distance.",
+      "question": "How do you use air resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restrict air operations to safe wind thresholds and use aircraft only to drop retardant ahead of the fire to create a buffer.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Order air tankers to make direct drops on the fire head regardless of wind conditions.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Mass Evacuation Coordination",
+      "situation": "Three communities totaling 8,000 residents are in the fire's path. Evacuation routes are limited. Winds are creating dangerous driving conditions with blowing smoke and debris.",
+      "question": "How do you manage the mass evacuation safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue immediate evacuation orders with specific route assignments to distribute traffic and deploy escorts for vulnerable populations.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open all available routes and let residents self-select their exit path.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Wind Subsides — Re-engagement Window",
+      "situation": "Wind speeds have dropped significantly. A 2-hour window is projected before conditions deteriorate again. Ground crews and air tankers can now safely engage.",
+      "question": "How do you use the re-engagement window?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rapidly deploy all available ground and air resources to establish containment lines before winds return.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use the window conservatively and position resources for the next wind event rather than aggressively engaging.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Containment lines were established during the calm window. All communities were evacuated safely. The fire is now 30% contained with favorable conditions for continued suppression.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "wind-driven wildfire",
+    "Red Flag Warning",
+    "evacuation",
+    "air operations",
+    "extreme fire behavior"
+  ]
+}

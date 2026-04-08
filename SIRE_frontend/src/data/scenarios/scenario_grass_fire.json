@@ -1,0 +1,155 @@
+{
+  "title": "grass_fire",
+  "description": "A grass fire ignites along a highway median and spreads rapidly across open fields toward farmland.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Ignition Reported",
+      "description": "Motorists report flames in a highway median. Assess size and direction of spread.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fast Flame Spread",
+      "description": "Grass fire moving at high speed across dry fields. Alert agricultural stakeholders.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Highway Closure Needed",
+      "description": "Smoke reducing visibility on the highway. Coordinate road closure with traffic control.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Farm Structures Threatened",
+      "description": "Fire approaching a farmstead with fuel storage tanks. Defensive action required.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Backfire Considered",
+      "description": "Crews evaluating use of a prescribed backfire to deprive the main fire of fuel.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Backfire successful. Main fire meets burned area and stops. Begin overhaul.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Grass Fire Along Highway",
+      "situation": "A grass fire has ignited in the dry median of a rural highway. Winds are 25 mph and the grass is bone dry after several weeks without rain. The fire is spreading fast.",
+      "question": "What is your first priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request fire crews, initiate highway closure for smoke visibility, and warn nearby farms.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a single tanker truck and monitor before escalating.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus entirely on traffic control and leave fire suppression to state resources.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Farmstead Threatened",
+      "situation": "The fire has spread across two fields and is approaching a farmstead with propane tanks and a grain silo. The farmer is still on the property.",
+      "question": "How do you handle the civilian on the property?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order immediate evacuation of the farmer and family, then position a tanker to protect the tanks.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the farmer to assist in defending the property to save resources.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Backfire Decision",
+      "situation": "The fire is 300 meters away and closing fast. Crews recommend igniting a backfire from a dirt road to consume the fuel ahead of the main fire. Conditions are suitable.",
+      "question": "Do you authorize the backfire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorize the backfire with proper lookouts and escape routes established.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Decline the backfire and commit crews to direct attack on the fire front.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Backfire in Progress",
+      "situation": "The backfire is burning toward the main fire. Wind shifts slightly, and crews need to adjust their position to remain safe.",
+      "question": "How do you manage crew safety during the wind shift?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately reposition all crews to pre-identified safety zones and monitor until fires merge.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep crews on the backfire line to maintain control despite the wind shift.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The backfire successfully stopped the main fire. The farmstead is intact and all personnel are safe. Overhaul operations are underway.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Beginner",
+  "tags": [
+    "grass fire",
+    "wildland fire",
+    "backfire",
+    "highway",
+    "farm"
+  ]
+}
