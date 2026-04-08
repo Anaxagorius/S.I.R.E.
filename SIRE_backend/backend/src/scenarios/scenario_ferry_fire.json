@@ -1,0 +1,166 @@
+{
+  "title": "ferry_fire",
+  "description": "A fire breaks out in the vehicle deck of a passenger ferry at sea, requiring Mayday declaration, passenger evacuation to muster stations, and coastguard coordination.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "ferry fire",
+    "Mayday",
+    "passenger evacuation",
+    "maritime"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Vehicle Deck Fire",
+      "description": "Fire detected on the vehicle deck. A truck engine has overheated and ignited.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Mayday Declared",
+      "description": "Captain declares Mayday on Channel 16. Coastguard acknowledges. Ferry is 6 miles offshore.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Passengers Muster",
+      "description": "PA system announces emergency. Passengers directed to muster stations. 340 passengers aboard.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Ship's Fire Party",
+      "description": "Ship's fire party enters vehicle deck in SCBA. CO2 fixed system activated in vehicle deck.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Lifeboat Launch Considered",
+      "description": "Fire spreading to adjacent vehicles. Captain assesses whether to abandon ship.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Coastguard Assets Arrive",
+      "description": "Coastguard helicopter and rescue vessel on scene. Fire spreading.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 6,
+      "title": "Evacuation Begins",
+      "description": "Captain orders abandon ship. Lifeboats launched. Coastguard coordinates recovery.",
+      "timeOffsetSec": 720
+    },
+    {
+      "index": 7,
+      "title": "All Persons Accounted",
+      "description": "All 340 passengers and 45 crew recovered. Ferry salvage operation underway.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vehicle Deck Fire at Sea",
+      "situation": "You are the captain of a passenger ferry 6 miles offshore. A fire has started on the vehicle deck. There are 340 passengers and 45 crew aboard. The vehicle deck ventilation system is running, which may be feeding the fire. Your Mayday has been acknowledged by the Coastguard.",
+      "question": "What are your immediate actions as captain?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Close all vehicle deck ventilation and fire dampers immediately to starve the fire of air. Direct passengers to muster stations via PA. Activate the ship's fire party with SCBA. Head the vessel into the wind to reduce smoke ingress to passenger areas.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Maintain ventilation \u2014 it will clear smoke from the vehicle deck.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Begin launching lifeboats immediately before assessing the fire situation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fixed Suppression System",
+      "situation": "The CO2 fixed suppression system for the vehicle deck is available. Activating it will displace oxygen and suppress the fire but will also be lethal to anyone inside the vehicle deck.",
+      "question": "Before activating the CO2 system, what must you confirm?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm via headcount and PA announcement that NO persons are in the vehicle deck and all vehicle deck access doors are sealed. Sound the CO2 alarm for the mandatory warning period. Only then authorise activation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Activate CO2 immediately \u2014 speed is critical in a ship fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Abandon Ship Decision",
+      "situation": "CO2 suppression has slowed but not stopped the fire. Smoke is now entering passenger accommodation areas. Coastguard has a rescue helicopter and vessel on scene. The captain must decide whether to order abandon ship.",
+      "question": "When should the abandon ship order be given?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order abandon ship when the fire can no longer be controlled and threatens the structural integrity of the vessel or the safety of passengers in their muster positions. Coordinate the lifeboat launch sequence with the Coastguard and account for sea state and wind direction.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Never abandon ship \u2014 the vessel is the safest place in a maritime emergency.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Lifeboat Evacuation",
+      "situation": "Abandon ship has been ordered. There are 340 passengers and 45 crew. Lifeboats on the port side cannot be launched due to the list from water-fighting operations. The sea state is moderate (1-2m waves).",
+      "question": "How do you manage the evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Launch all available starboard lifeboats and life rafts. Coordinate with the Coastguard helicopter for lifting casualties who cannot board lifeboats. Assign crew to assist passengers into lifeboats systematically by muster station. Maintain radio contact with the Coastguard throughout.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct passengers to jump into the water and be collected by the Coastguard vessel.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 340 passengers and 45 crew have been safely evacuated and recovered by lifeboats and Coastguard assets. No fatalities. The Mayday was handled correctly, CO2 suppression slowed fire spread, and the abandon ship order was given at the correct time. The ferry was later salvaged. Outstanding maritime emergency management.",
+      "question": "",
+      "options": []
+    }
+  }
+}

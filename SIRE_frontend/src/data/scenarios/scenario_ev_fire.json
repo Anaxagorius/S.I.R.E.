@@ -1,0 +1,167 @@
+{
+  "title": "ev_fire",
+  "description": "An electric vehicle suffers a lithium-ion battery thermal runaway, creating a prolonged and dangerous fire requiring specialist tactics.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "EV fire",
+    "thermal runaway",
+    "lithium battery",
+    "vehicle fire"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Thermal Event Begins",
+      "description": "Driver reports battery warning lights and smoke from the underside of the vehicle.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Ignites",
+      "description": "Battery pack ignites. Intense white smoke and flames visible from underside. Crew alerted.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Initial Suppression Attempt",
+      "description": "First crew on scene attempts to suppress. Fire resists standard attack \u2014 battery re-ignites.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Extended Water Application",
+      "description": "High-volume water cooling applied to battery pack. Thermal runaway continuing in cells.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Submersion or Pit Method Considered",
+      "description": "Battery fire persisting. Specialist EV salvage container or continued flood cooling discussed.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Battery temperature drops below ignition threshold after sustained cooling. Monitoring continues.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 6,
+      "title": "Reignition Warning",
+      "description": "Vehicle cannot be released to owner \u2014 reignition risk within 24-48 hours. Tow to safe holding area.",
+      "timeOffsetSec": 2100
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "EV Thermal Runaway",
+      "situation": "An electric vehicle is on fire on a residential street. The battery pack is involved \u2014 white smoke and intense heat are visible from underneath. The driver has self-evacuated. A standard vehicle fire attack approach is being considered.",
+      "question": "How do you approach suppression of an EV battery fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do NOT use dry powder on the battery. Apply large volumes of water (typically 3,000\u201310,000 litres) directly to the battery pack from a safe angle, establishing a wide perimeter and treating toxic smoke as a HAZMAT hazard.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply dry chemical extinguisher directly to the flames \u2014 this is the fastest suppression method.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Treat it like a standard vehicle fire and use a normal hose line attack to knock down the visible flames.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Reignition After Initial Knockdown",
+      "situation": "The visible flames appear extinguished after initial water application, but the battery re-ignites 3 minutes later. The thermal runaway is propagating through battery cells.",
+      "question": "What is the correct response to reignition?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue sustained high-volume water cooling of the battery pack \u2014 EV fires require continuous cooling for 30\u201360 minutes or more until cell temperatures stabilise. Do not declare the fire out.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The fire is out \u2014 pack up and leave. Reignition is unlikely.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Cut the high-voltage cables to stop the fire \u2014 this will interrupt the thermal runaway.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crew Safety and PPE",
+      "situation": "EV battery smoke contains toxic gases including hydrogen fluoride and carbon monoxide. Crew members not wearing SCBA are reporting irritation near the perimeter.",
+      "question": "How do you manage crew safety?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce SCBA for all personnel within the hazard zone. Expand the perimeter to keep unprotected personnel upwind and at least 25m from the vehicle. Notify nearby residents to stay indoors.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only the crew directly applying water needs SCBA \u2014 others can stay without it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Reignition Risk Post-Suppression",
+      "situation": "After 45 minutes of sustained water cooling, the fire appears fully extinguished. The driver wants the vehicle back. Battery temperatures are still elevated according to the thermal imaging camera.",
+      "question": "What is the correct action regarding vehicle release?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not release the vehicle. EV batteries can reignite 24\u201372 hours after an apparent extinguishment. Arrange tow to an open, isolated area and advise the receiving lot of the reignition risk.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Release the vehicle to the driver \u2014 the fire is out and they have a right to their property.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The EV battery fire has been suppressed after sustained water cooling. The vehicle has been towed to an isolated holding area with reignition warnings communicated to all parties. Full incident documentation including water usage and battery temperature readings has been completed. Excellent work adapting tactics to EV-specific hazards.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "title": "ship_dock_fire",
+  "description": "A cargo ship at a commercial dock catches fire in the cargo hold, requiring coordination between maritime and land-based fire resources.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "ship fire",
+    "cargo hold",
+    "maritime",
+    "dock fire"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Smoke Reported",
+      "description": "Crew report smoke from cargo hold 3 of a bulk carrier docked at port. Ship's fire alarm activated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Ship's Crew Response",
+      "description": "Ship's fire party activates CO2 fixed suppression in hold 3. Fire not yet controlled.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Port Fire Service Called",
+      "description": "Port authority alerts port fire service. Maritime salvage and tug notified.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Fire Service Arrival",
+      "description": "Port fire service arrives dockside. Ship's master provides cargo manifest.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Hold Entry Planned",
+      "description": "CO2 suppression has slowed fire. Assessment of cargo type determines entry feasibility.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Suppression Completed",
+      "description": "Combined ship and shore attack extinguishes fire in hold 3.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 6,
+      "title": "Ship Inspected",
+      "description": "Structural surveyor assesses hold integrity. Ship declared safe for crew. Marine authority investigation begins.",
+      "timeOffsetSec": 2400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Cargo Ship Fire at Dock",
+      "situation": "A bulk carrier at a commercial dock has a fire in cargo hold 3. The ship's fixed CO2 suppression system has been activated. The hold contains a mixed cargo including some bulk chemicals (ammonium sulphate fertiliser). Black smoke is venting from the hold hatch. You are the port fire service incident commander.",
+      "question": "What are your immediate priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Obtain the cargo manifest and Dangerous Goods declaration immediately. Do not open the hold hatch \u2014 this would allow oxygen ingress that could cause a backdraft or re-ignition. Assess whether the CO2 fixed system is effective. Establish a 100m perimeter around the vessel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open the cargo hold hatch immediately to assess the fire and begin suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Begin pumping water into the hold via the hatch immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Cargo Risk Assessment",
+      "situation": "The manifest confirms hold 3 contains ammonium sulphate (a fertiliser, Class 9 \u2014 not HAZMAT but reacts badly with water when on fire, producing toxic sulphur dioxide). The CO2 system has reduced but not extinguished the fire.",
+      "question": "How does the cargo type affect your suppression approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Avoid water application to burning ammonium sulphate as it can produce toxic SO2 fumes. Consider CO2 supplementation or nitrogen inerting. If water must be used, treat run-off as contaminated. Ensure all crews wear SCBA and are upwind.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply large volumes of water into the hold \u2014 water is the best general-purpose suppression agent.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Vessel Stability",
+      "situation": "Water is being used to cool the ship's hull externally. The ship's chief engineer warns that the vessel's stability could be compromised if significant water accumulates in the hold.",
+      "question": "How do you manage the water/stability risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with the ship's master and chief engineer on all water application decisions. Monitor the ship's list continuously. Have tugs standing by. If significant water is added, ensure dewatering pumps are active. Limit internal water application.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Vessel stability is the crew's responsibility \u2014 focus on fire suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Crew Accountability",
+      "situation": "The ship has a crew of 24. The muster list shows all are accounted for. The captain wants to undock the vessel and move it to an anchorage to prevent dock damage if the fire worsens.",
+      "question": "Do you allow the ship to undock?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Undocking during an active fire incident is a critical decision requiring joint approval from the port authority, harbour master, and incident commander. Consider whether moving the ship would spread the fire, impair fire fighting access, or endanger the crew. If approved, ensure a fireboat escorts the vessel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the captain to undock \u2014 it is their vessel and their decision.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The cargo hold fire was extinguished by combined CO2 supplementation and controlled suppression. The cargo hazard was correctly identified and water use was limited to prevent SO2 generation. All 24 crew members were accounted for. The vessel remained at dock under controlled conditions. Maritime investigation has been initiated.",
+      "question": "",
+      "options": []
+    }
+  }
+}

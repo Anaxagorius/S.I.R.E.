@@ -1,0 +1,139 @@
+{
+  "title": "hybrid_vehicle_fire",
+  "description": "A hybrid vehicle is involved in a collision and catches fire, presenting combined petrol fuel and high-voltage battery hazards.",
+  "category": "Physical",
+  "difficulty": "Intermediate",
+  "tags": [
+    "hybrid vehicle",
+    "HV battery",
+    "vehicle fire",
+    "collision"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collision Reported",
+      "description": "Two-vehicle collision on a suburban road. One vehicle is a hybrid \u2014 smoke visible from engine bay.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Starts",
+      "description": "Fuel ignites from ruptured fuel line. Engine bay fully involved. HV battery warning indicators visible.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Crew Arrival",
+      "description": "Fire engine arrives. Occupant of hybrid is trapped. Second vehicle occupants evacuated.",
+      "timeOffsetSec": 70
+    },
+    {
+      "index": 3,
+      "title": "Suppression and Rescue",
+      "description": "Simultaneous fire attack and extrication required. HV system must be considered.",
+      "timeOffsetSec": 100
+    },
+    {
+      "index": 4,
+      "title": "HV System Isolated",
+      "description": "Crew locates emergency response guide. HV cutoff switch identified and disabled.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Occupant Extricated",
+      "description": "Occupant removed from vehicle and handed to EMS. Fire fully suppressed.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Hybrid Vehicle Fire with Trapped Occupant",
+      "situation": "A hybrid sedan has been struck from the side. The engine bay is on fire. An occupant is trapped inside. The orange high-voltage cables are visible running along the underside. Your crew must decide whether to prioritise rescue or fire suppression first.",
+      "question": "What is your immediate approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Attack the fire with a charged hose line to protect the trapped occupant from burn injury, while a second team prepares for extrication \u2014 both operations proceed simultaneously with safety maintained.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin extrication immediately without suppressing the fire first.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for a specialist HV team before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "High-Voltage System Hazard",
+      "situation": "The engine fire is being controlled. The extrication team is about to use hydraulic tools. The orange HV cables running beneath the vehicle are exposed and possibly damaged.",
+      "question": "How do you manage the HV system hazard during extrication?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Locate the vehicle's emergency response guide (via QR code on the windscreen or manufacturer database) to identify the HV cutoff switch or service disconnect. Isolate before cutting near HV cables. Avoid cutting orange cables.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Cut through the B-pillar immediately \u2014 the HV system is probably safe if the vehicle appears intact.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply water directly to the HV cables to neutralise them before cutting.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fuel and Battery Combined Risk",
+      "situation": "HV system has been isolated. Petrol fire is suppressed. The hybrid's small battery pack shows heat stress damage but has not entered thermal runaway. EMS is treating the extricated patient.",
+      "question": "What post-suppression action do you take regarding the battery?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply cooling water to the battery housing to prevent thermal runaway and monitor battery temperature with a thermal imaging camera before handing over the scene.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The battery looks intact \u2014 leave it and clear the scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The hybrid vehicle fire has been suppressed. The HV system was safely isolated, the trapped occupant extricated and treated, and the battery pack monitored for thermal stability. Scene documentation completed. The vehicle was towed with reignition warnings noted.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "title": "bridge_vehicle_fire",
+  "description": "A vehicle fire breaks out on a major road bridge, with limited access, structural concerns, and risk to waterway below.",
+  "category": "Physical",
+  "difficulty": "Intermediate",
+  "tags": [
+    "bridge fire",
+    "vehicle fire",
+    "structural risk",
+    "water rescue"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported",
+      "description": "Traffic cameras detect a vehicle on fire in the centre of a four-lane road bridge. Bridge is 1.2km long over a navigable river.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Bridge Closed",
+      "description": "Bridge authority closes all lanes. Barrier vehicles deployed at both ends.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Units Respond",
+      "description": "Fire engines approach from both ends. Access limited to two lanes (one each direction now blocked).",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Structural Engineer Alerted",
+      "description": "Bridge authority alerts structural team. Vehicle fire could weaken deck if prolonged.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Suppression Begins",
+      "description": "Crews attack the fire from upwind end of bridge. River navigation authority alerted of run-off risk.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Fire Extinguished",
+      "description": "Vehicle fire out. Structural inspection of deck surface ordered before bridge reopens.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vehicle Fire on Road Bridge",
+      "situation": "A car is fully involved in fire at the centre of a 1.2km road bridge. The bridge deck is steel-reinforced concrete. Your engine can access from the east end only \u2014 the west approach is blocked by traffic. Water supply on the bridge is via hydrants at each end only.",
+      "question": "How do you set up for suppression?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the hydrant at the east end to supply a hose line long enough to reach the fire (600m of hose or a relay pump). Approach from upwind. Alert the river navigation authority of potential run-off into the waterway below.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Drive the engine directly to the fire on the bridge and use the on-board tank water.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for a unit from the west end before beginning suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Structural Concern",
+      "situation": "The fire has been burning for 8 minutes at high intensity. The steel reinforcement in the bridge deck below the vehicle may be affected by heat. A structural engineer has asked whether you can reduce heat impact on the deck.",
+      "question": "How do you manage the structural protection?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply water to the bridge deck surface around the vehicle to cool the concrete and reduce heat transmission to the reinforcement. Prioritise suppression of the vehicle fire to stop heat input to the deck as quickly as possible.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Structural concerns are for the engineer \u2014 focus only on extinguishing the vehicle.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Waterway Protection",
+      "situation": "Suppression run-off is flowing toward the drainage gutters of the bridge, which drain directly into the river. The vehicle contained a full fuel tank.",
+      "question": "How do you prevent hydrocarbon contamination of the river?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use drain plugs or absorbent booms to block the bridge drainage points nearest the vehicle, preventing fuel-contaminated run-off from entering the river. Alert the environment agency and coordinate with any vessel traffic on the river.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The amount of fuel is small \u2014 river contamination is not a significant concern.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The vehicle fire has been extinguished. The bridge deck has been cooled and will undergo a structural inspection before reopening. Run-off was contained and did not enter the river. The river navigation authority confirmed no vessels were affected. Well managed under challenging access conditions.",
+      "question": "",
+      "options": []
+    }
+  }
+}

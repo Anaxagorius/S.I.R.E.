@@ -1,0 +1,160 @@
+{
+  "title": "passenger_train_fire",
+  "description": "A fire breaks out in a passenger rail carriage while the train is moving, requiring driver action, passenger evacuation, and emergency service coordination.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "train fire",
+    "passenger evacuation",
+    "rail incident",
+    "carriage fire"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Detected",
+      "description": "Smoke alarm activates in carriage 4 of a 6-carriage passenger train. Train is between stations.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Driver Notified",
+      "description": "Guard contacts driver. Train emergency stop initiated. Rail control alerted.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Train Stopped",
+      "description": "Train stops on open line 400m from the next station. 180 passengers aboard.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Evacuation Begins",
+      "description": "Guard and driver direct passengers to evacuate away from the fire toward the rear carriages and onto the track via end doors.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Fire Services Arrive",
+      "description": "Fire engines arrive at track access point. Traction power isolation confirmed.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Fire Suppressed",
+      "description": "Crews board the train. Carriage 4 fully involved. Adjacent carriages cooled and protected.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 6,
+      "title": "All Passengers Accounted",
+      "description": "Headcount complete. All 180 passengers evacuated. Several treated for smoke inhalation.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire on Moving Passenger Train",
+      "situation": "You are the train guard on a busy commuter service. A smoke alarm has activated in carriage 4. You can see smoke through the carriage door window. The train is between stations on an electrified mainline.",
+      "question": "What are your immediate actions as train guard?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately contact the driver via the intercom to stop the train and call 999. Instruct passengers in carriage 4 to move to carriages away from the fire. Close fire doors to contain smoke. Do NOT open external doors on an electrified line until traction power is isolated.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to fight the fire with the on-board extinguisher before alerting the driver.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Open the external doors immediately to begin evacuating passengers onto the track.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Track Evacuation",
+      "situation": "The train has stopped. Rail control has confirmed traction power isolation and given permission for track evacuation. 180 passengers need to evacuate. Some passengers have mobility impairments.",
+      "question": "How do you manage the evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Evacuate passengers from the end doors furthest from the fire, directing them to walk along the track in the designated safe direction toward the station 400m away. Assist passengers with mobility needs last with dedicated crew support. Maintain a headcount.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open all doors simultaneously for the fastest evacuation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Service Access",
+      "situation": "Fire crews have arrived at a lineside access point 200m from the train. They need to access the train with equipment. The track is uneven and hose runs will be long.",
+      "question": "How do fire crews access and operate in this environment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Crews advance along the track with charged lines from a pump connected to on-board tanker water or a nearby hydrant via a relay. Enter through the unaffected end of the train and work toward the fire carriage. All crews wear SCBA.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for a train-borne fire vehicle \u2014 standard engines cannot operate effectively at track level.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Protecting Adjacent Carriages",
+      "situation": "Carriage 4 is fully involved. Carriages 3 and 5 are experiencing heat exposure and beginning to show smoke. Fire spread to adjacent carriages must be prevented.",
+      "question": "How do you protect the adjacent carriages?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a second hose line to cool carriage 3 and 5 exteriors. Ensure inter-carriage fire doors are confirmed closed. Attack carriage 4 from both ends simultaneously to prevent progression.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus all resources on carriage 4 \u2014 neighbouring carriages are not yet on fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 180 passengers have been safely evacuated. Carriage 4 was destroyed but fire spread to adjacent carriages was prevented. Multiple passengers were treated for smoke inhalation with no serious injuries. Traction power isolation procedures were followed correctly throughout.",
+      "question": "",
+      "options": []
+    }
+  }
+}

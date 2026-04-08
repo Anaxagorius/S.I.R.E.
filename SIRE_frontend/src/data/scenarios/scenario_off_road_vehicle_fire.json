@@ -1,0 +1,132 @@
+{
+  "title": "off_road_vehicle_fire",
+  "description": "An off-road vehicle catches fire in a remote rural area, requiring navigation to the scene and operating without mains water supply.",
+  "category": "Physical",
+  "difficulty": "Beginner",
+  "tags": [
+    "off-road fire",
+    "rural",
+    "vehicle fire",
+    "water relay"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported",
+      "description": "A farmer reports an ATV on fire in a field 3km from the nearest road. Grid reference provided.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Off-Road Unit Dispatched",
+      "description": "Light off-road fire unit dispatched. Water tanker also requested due to remote location.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Navigation Challenge",
+      "description": "Crew must navigate 1.5km of unmade track. Gate access confirmed with landowner.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Arrival",
+      "description": "ATV involved in fire. Adjacent dry grass is smouldering \u2014 wildfire risk.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Grass Fire Contained",
+      "description": "Crew creates a firebreak. ATV fire attacked with on-board tank water.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 5,
+      "title": "Tanker Arrives",
+      "description": "Water tanker arrives with 4,000L. Overhaul and grass suppression completed.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "ATV Fire in Remote Field",
+      "situation": "An ATV (quad bike) is on fire in a remote field. Dry grass around the vehicle is beginning to smoulder. There is no mains water supply nearby. Your light fire unit has 500 litres on board. A water tanker is en route with an ETA of 10 minutes.",
+      "question": "How do you prioritise your on-board water?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use your limited water to suppress the spreading grass fire first \u2014 preventing a wildfire is the higher priority. Use beaters and hand tools to create a firebreak around the ATV while reserving some water for the vehicle fire.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use all available water to extinguish the ATV fire completely.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the tanker before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Wildfire Prevention",
+      "situation": "The smouldering grass has been contained by your firebreak. The ATV is still burning. Wind is picking up from the west, which could push embers beyond your firebreak toward a tree line 100m away.",
+      "question": "How do you manage the wind-driven ember risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Extend the firebreak on the western side of the ATV and wet down the grass between the vehicle and the tree line with the remaining water. Request additional resources if the tree line becomes threatened.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The tree line is 100m away \u2014 embers will not reach it. Focus on the ATV.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Tanker Arrival and Overhaul",
+      "situation": "The water tanker has arrived. The ATV fire has been extinguished with the combined water supply. The vehicle and surrounding grass now require overhaul to prevent reignition.",
+      "question": "How do you conduct overhaul in this remote setting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Thoroughly soak the ATV chassis and surrounding grass with tanker water. Use hand tools to break up and turn over any compressed debris. Walk the firebreak perimeter to check for smouldering. Confirm with thermal imaging before leaving.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The fire appears out \u2014 overhaul is not needed in a field setting.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The ATV fire has been fully extinguished and the area overhauled. Wildfire spread was prevented by the firebreak. No injuries were sustained. The landowner has been briefed and the gate secured. A rural fire report has been submitted.",
+      "question": "",
+      "options": []
+    }
+  }
+}

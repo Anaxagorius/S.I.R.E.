@@ -1,0 +1,132 @@
+{
+  "title": "aircraft_hangar_fire",
+  "description": "A fire breaks out in an aircraft maintenance hangar with multiple aircraft and aviation fuel present, requiring foam suppression and aircraft protection.",
+  "category": "Physical",
+  "difficulty": "Intermediate",
+  "tags": [
+    "hangar fire",
+    "aviation fire",
+    "ARFF",
+    "foam suppression"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Alarm Activated",
+      "description": "Hangar fire detection system activates. Hot work welding operation has ignited fuel soaked rags near an aircraft engine.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Hangar Evacuated",
+      "description": "All maintenance staff evacuate. Two aircraft are in the hangar undergoing maintenance.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Automatic Foam Deluge",
+      "description": "Hangar foam deluge system activates. Fire is partially suppressed near origin point.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 3,
+      "title": "ARFF Arrives",
+      "description": "ARFF and airport fire units arrive. Foam deluge has reduced fire but not extinguished it.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Full Suppression",
+      "description": "Supplementary foam attack from ARFF vehicles combined with deluge system. Aircraft protected.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Fire Extinguished",
+      "description": "Fire out. Aircraft have smoke and foam damage but no structural fire damage. Investigation begins.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Aircraft Hangar Fire",
+      "situation": "A fire has started near a jet engine on a maintenance stand in the hangar. The automatic foam deluge system has activated. Two aircraft are inside. Aviation fuel from an open fuel bowser is present on the floor. Maintenance staff have evacuated.",
+      "question": "What is your approach when ARFF units arrive?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Supplement the deluge with ARFF foam from vehicle monitors, targeting the base of the fire. Priority is to cover the fuel bowser and protect the aircraft from fire spread. Enter the hangar only with SCBA and after confirming no personnel are inside.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Shut down the deluge system first \u2014 it is wasting foam and limiting visibility.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Enter the hangar immediately to move the aircraft to safety.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fuel Bowser Risk",
+      "situation": "The aviation fuel bowser is approximately 8m from the fire origin. It has not yet ignited but the foam coverage has not fully reached it.",
+      "question": "How do you protect the fuel bowser?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct a dedicated foam monitor onto the bowser to cover it with a foam blanket. If the bowser can be safely driven out by a trained operator from outside the fire zone, coordinate this with airport operations \u2014 but only if it can be done safely.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The bowser is not on fire \u2014 it is not a priority.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Aircraft Damage Assessment",
+      "situation": "The fire is extinguished. Both aircraft are covered in foam. The aircraft nearest the fire origin has heat discolouration on the engine nacelle. It is unclear whether the aircraft are safe to move.",
+      "question": "How should the aircraft be handled post-fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not move either aircraft until a qualified aircraft engineer has assessed structural and systems integrity. Tag both aircraft as unairworthy until inspected. Notify the airline operator and the Civil Aviation Authority (CAA).",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tow both aircraft out of the hangar immediately to make room for clean-up.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The hangar fire was successfully suppressed. Both aircraft were protected by the foam deluge and supplementary ARFF response. The fuel bowser was secured without ignition. Aircraft have been grounded pending engineer inspection. A full fire investigation report has been initiated.",
+      "question": "",
+      "options": []
+    }
+  }
+}

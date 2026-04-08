@@ -1,0 +1,161 @@
+{
+  "title": "passenger_vehicle_fire",
+  "description": "A passenger car catches fire on the highway after an engine fault, requiring rapid response and traffic management.",
+  "category": "Physical",
+  "difficulty": "Beginner",
+  "tags": [
+    "vehicle fire",
+    "highway",
+    "fire suppression",
+    "evacuation"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported",
+      "description": "Motorist calls 911 reporting smoke and flames from their engine compartment on the highway.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Units Dispatched",
+      "description": "Fire engine and rescue unit dispatched. Traffic control requested from police.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Arrival On Scene",
+      "description": "Fire crew arrives. Vehicle fully involved, driver standing 30m away on the shoulder.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Suppression Begins",
+      "description": "Crew advances with a charged hose line. Traffic slowing in adjacent lanes.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Fire Knocked Down",
+      "description": "Main body of fire extinguished. Overhaul in progress to check for hot spots.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 5,
+      "title": "Scene Cleared",
+      "description": "Vehicle confirmed safe. Tow truck en route. Traffic management unit restoring flow.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vehicle Fire on Highway",
+      "situation": "You are the first fire crew on scene. A passenger sedan is fully involved in flames on the hard shoulder. The driver is safe 30m away. Traffic in the nearest lane is slowing but not stopped. Fuel from the tank may ignite.",
+      "question": "What is your first priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a safety perimeter, confirm the driver is clear, then advance a charged hose line to attack the fire from the front quarter of the vehicle away from the fuel tank.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin suppression immediately from any angle to put out the fire as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for a second unit before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fuel Tank Risk",
+      "situation": "The engine fire is being knocked down. Your crew notices fuel dripping from the ruptured fuel line forming a pool under the vehicle.",
+      "question": "How do you manage the fuel pool hazard?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply a dry chemical extinguisher or foam to cover the fuel pool, preventing ignition while continuing water suppression on the vehicle body.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ignore the fuel pool \u2014 the hose line has enough flow to handle it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate the entire highway immediately before continuing suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Traffic Management",
+      "situation": "Fire is knocked down. A passing driver has stopped in the travel lane to watch, blocking traffic and creating a secondary hazard. Police have not yet arrived.",
+      "question": "How do you handle the traffic obstruction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Instruct a crew member to direct the stopped driver to move on and wave through traffic safely while overhaul continues.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the traffic situation \u2014 your job is only fire suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Overhaul",
+      "situation": "The fire appears extinguished. The vehicle hood, dashboard, and seats may contain hidden hot spots that could reignite.",
+      "question": "What is the correct overhaul procedure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Open all compartments, probe with a thermal imaging camera to locate hot spots, apply water to cool materials, and confirm no reignition before releasing the scene.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The fire is out \u2014 release the scene immediately and pack up equipment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The vehicle fire has been fully suppressed and overhauled. No injuries reported. The tow truck has removed the vehicle and traffic has returned to normal. A scene report has been completed.",
+      "question": "",
+      "options": []
+    }
+  }
+}

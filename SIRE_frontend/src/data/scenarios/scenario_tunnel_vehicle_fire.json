@@ -1,0 +1,160 @@
+{
+  "title": "tunnel_vehicle_fire",
+  "description": "A vehicle fire inside a road tunnel creates rapid smoke accumulation and traps multiple motorists, requiring specialist tunnel firefighting tactics.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "tunnel fire",
+    "smoke control",
+    "vehicle fire",
+    "trapped persons"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Tunnel Alarm",
+      "description": "Tunnel management system detects fire in the southbound bore. CCTV confirms a vehicle on fire 800m from the south portal.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Tunnel Closed",
+      "description": "Tunnel traffic management closes both portals. Ventilation system switches to extraction mode.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "First Units Position",
+      "description": "Fire engines stage at the south portal. Entry conditions assessed.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Interior Conditions",
+      "description": "CCTV shows heavy smoke at ceiling. Some motorists visible near their vehicles \u2014 unable to self-evacuate.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Jet Fan Activation",
+      "description": "Tunnel control activates jet fans to drive smoke south, away from trapped persons toward the south portal.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Fire Attack and Rescue",
+      "description": "Crews enter from south in SCBA, guided by tunnel radio. Advancing hose line with rescue team.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 6,
+      "title": "Persons Evacuated",
+      "description": "All trapped motorists guided to emergency cross-passages and south portal. Fire extinguished.",
+      "timeOffsetSec": 720
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vehicle Fire in Road Tunnel",
+      "situation": "A car is on fire 800m inside a 1.5km road tunnel. CCTV shows 6 other vehicles stopped between the fire and the north portal \u2014 their occupants are outside their cars. Smoke is building rapidly. You are incident commander at the south portal. The ventilation system is awaiting your instructions to tunnel control.",
+      "question": "What is your first command decision regarding ventilation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with tunnel control to activate longitudinal jet fans pushing smoke AWAY from trapped persons and toward the south portal (your entry side) \u2014 this protects persons north of the fire. Brief crews that smoke will be directed toward them.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct tunnel control to push air from the south portal toward the fire to help crews advance.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Shut down all ventilation to prevent smoke spread.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Crew Entry Decision",
+      "situation": "Smoke is visible at the south portal entrance. Tunnel radio is operational. Crews are ready to enter with SCBA. Water supply from the hydrant standpipe system in the tunnel has been confirmed.",
+      "question": "What is the correct crew entry protocol?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enter with full SCBA, charged hose line connected to the tunnel dry riser, a team of minimum 3 (attack + backup), maintain radio contact with tunnel control, and use the right-hand wall as a navigation guide. Deploy a guideline for withdrawal.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Crews can enter without SCBA \u2014 smoke appears light near the portal.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Trapped Motorists",
+      "situation": "Advancing crews make contact with 4 of the 6 trapped motorists via radio. They are north of the fire in deteriorating smoke conditions. Two motorists have not responded to radio calls.",
+      "question": "How do you manage the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The attack team continues to the fire to suppress it and improve conditions. A dedicated rescue team moves through the emergency pedestrian cross-passage (parallel tunnel) to approach the motorists from the north side, avoiding the fire entirely.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "All crews advance past the fire to reach the trapped motorists as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fire Suppression in Tunnel",
+      "situation": "The attack team has reached the burning vehicle. The fire is intense. Tunnel walls and ceiling are radiating heat. Water supply from the dry riser is confirmed at 300 L/min.",
+      "question": "What suppression technique is used in a tunnel?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use a three-dimensional fog attack \u2014 applying water fog to cool the hot gas layer at ceiling level before advancing to the vehicle with a solid or straight stream. This reduces ceiling temperature and protects the crew from flashover.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct all water at the base of the vehicle fire immediately with a solid stream.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All six motorists were safely evacuated through the emergency cross-passages. The vehicle fire was extinguished. Ventilation strategy was correctly implemented. No crew injuries. A full post-incident review of the tunnel fire response plan has been recommended.",
+      "question": "",
+      "options": []
+    }
+  }
+}

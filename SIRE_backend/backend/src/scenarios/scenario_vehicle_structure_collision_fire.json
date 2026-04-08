@@ -1,0 +1,138 @@
+{
+  "title": "vehicle_structure_collision_fire",
+  "description": "A vehicle crashes into a building and catches fire, threatening both vehicle occupants and the structural integrity of the building.",
+  "category": "Physical",
+  "difficulty": "Intermediate",
+  "tags": [
+    "vehicle fire",
+    "structural fire",
+    "collision",
+    "building"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collision Reported",
+      "description": "Vehicle has crashed into a ground-floor retail unit. Fuel has ignited. People inside the shop reported.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Units Dispatched",
+      "description": "Two fire engines and rescue unit dispatched. Building type: two-storey brick.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Arrival",
+      "description": "Vehicle lodged in shop front. Engine bay on fire. Shopfront has collapsed partially.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Structural Assessment",
+      "description": "Engineer requested. Crew must assess if structure is safe to enter for rescue.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Occupants Located",
+      "description": "Driver pinned. Two shop occupants trapped by debris in rear of shop.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Simultaneous Rescue",
+      "description": "Fire attack, extrication, and interior rescue conducted simultaneously.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 6,
+      "title": "All Clear",
+      "description": "All persons rescued. Fire extinguished. Building declared unsafe \u2014 red-tagged.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vehicle Into Building",
+      "situation": "A car has driven through the front wall of a ground-floor shop. The engine is on fire. Part of the upper floor has collapsed onto the vehicle. The driver is visible but pinned. Two staff are reportedly in the rear of the shop.",
+      "question": "What is your immediate size-up and first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a rapid structural assessment \u2014 check for signs of imminent collapse before committing crews inside. Deploy a hose line to suppress the vehicle fire and protect rescuers. Request a structural engineer and additional rescue resources.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter the building to search for the shop occupants.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Extinguish the vehicle fire completely before any rescue attempts.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rescue Priority",
+      "situation": "Structural assessment suggests the front portion of the building is at risk but the rear is currently stable. The driver is pinned in the most structurally compromised area. The two shop staff are in the stable rear section.",
+      "question": "How do you prioritise the rescues?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a team with shoring equipment to the rear to rescue the shop staff from the stable section first, while the fire attack team suppresses the engine fire to allow safer access to the pinned driver in the compromised zone.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rescue the driver first \u2014 they are in the most danger from the fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Structural Shoring",
+      "situation": "The shop staff have been rescued. The vehicle fire is suppressed. The rescue team must now extricate the driver. The partially collapsed ceiling above the vehicle area is unstable.",
+      "question": "How do you manage the structural hazard during driver extrication?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy acrow props and shoring equipment to stabilise the ceiling above the working area before beginning extrication. Brief the rescue team on the collapse risk and establish a lookout.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin extrication immediately \u2014 shoring takes too long and the driver needs help.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All three people have been safely rescued. The vehicle fire was extinguished. Structural shoring was deployed to enable safe extrication. The building has been red-tagged as unsafe by the structural engineer. All actions have been documented.",
+      "question": "",
+      "options": []
+    }
+  }
+}

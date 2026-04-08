@@ -1,0 +1,132 @@
+{
+  "title": "boat_marina_fire",
+  "description": "A boat at a marina catches fire and threatens to spread to neighbouring vessels, requiring fireboat or shore-based suppression and marina evacuation.",
+  "category": "Physical",
+  "difficulty": "Intermediate",
+  "tags": [
+    "marina fire",
+    "boat fire",
+    "marine",
+    "fire spread"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported",
+      "description": "Marina operator reports a motorboat on fire in a pontoon berth. Adjacent boats are wooden-hulled.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Units Dispatched",
+      "description": "Fire engines and a marine unit dispatched. Marina staff begin moving adjacent vessels.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Arrival",
+      "description": "Fire crews arrive on the quayside. Boat is fully involved. Three adjacent boats exposed.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Pontoon Access",
+      "description": "Crews access the pontoon on foot. Marine unit arrives offshore to provide water from the harbour side.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Exposure Protection",
+      "description": "Lines protecting adjacent boats. Burning boat sinks partially as hull burns through.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Fire Extinguished",
+      "description": "Boat fire controlled. Adjacent boats sustained minor scorching only. Marine pollution reported.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Boat Fire at Marina",
+      "situation": "A 10-metre motorboat is fully involved in fire in a pontoon berth. Fuel from its tanks is burning on the water surface. Three wooden-hulled sailing boats are berthed 3-5m away. Marina staff are on the pontoon attempting to move the adjacent vessels.",
+      "question": "What is your first action on arrival at the quayside?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a quayside command post. Immediately request marina staff to move adjacent boats if it is safe to do so. Deploy hose lines on the pontoon to protect the exposed boats. Alert Coastguard and harbourmaster of burning fuel on the water.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attack the burning boat directly with hose lines immediately from the quayside.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the marine fireboat before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Pontoon Safety",
+      "situation": "Crew needs to advance onto the floating pontoon to get closer to the fire. The pontoon is made of fibreglass \u2014 a slip hazard when wet. Burning fuel on the water surface is drifting toward the pontoon.",
+      "question": "How do you manage pontoon access safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance onto the pontoon in pairs with a charged line. If burning fuel on water approaches the pontoon, use a water spray to disperse and cool the surface fuel. All pontoon crew wear lifejackets. Establish a water rescue safety line.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advance onto the pontoon without additional precautions \u2014 it is a stable surface.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fuel on Water",
+      "situation": "The burning boat's fuel tanks have ruptured. Burning fuel is spreading on the water surface toward the marina entrance where pleasure boats are moored.",
+      "question": "How do you address the burning fuel on water?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with the marine unit to apply AFFF foam to the water surface to blanket and extinguish the spreading fuel fire. Notify the harbourmaster to close the marina entrance and prevent other vessels from entering.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply water jets to the burning fuel on the water \u2014 this will extinguish it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The boat fire has been extinguished. Foam blanket contained the fuel fire on the water. Adjacent vessels sustained only minor scorching. The harbourmaster closed the marina during the incident. An environmental report has been filed regarding marine fuel contamination. Good coordinated maritime fire response.",
+      "question": "",
+      "options": []
+    }
+  }
+}

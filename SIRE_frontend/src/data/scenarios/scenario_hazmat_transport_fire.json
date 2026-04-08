@@ -1,0 +1,154 @@
+{
+  "title": "hazmat_transport_fire",
+  "description": "A vehicle transporting classified hazardous materials catches fire, requiring HAZMAT protocols, specialist units, and public protection.",
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "transport fire",
+    "chemical",
+    "decontamination"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported",
+      "description": "A van with HAZMAT placards is on fire at the roadside. Passersby report an unusual odour.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "HAZMAT Identified",
+      "description": "Placards indicate UN 1789 (hydrochloric acid) in the load. HAZMAT team and specialist units requested.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Exclusion Zone Set",
+      "description": "400m exclusion zone established. Local residents downwind being evacuated.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "HAZMAT Team Arrives",
+      "description": "Level A suits donned. Fire is exposing containers of acid \u2014 some releasing chlorine vapour.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Suppression and Containment",
+      "description": "Fine water spray used to suppress fire without scattering chemical. Run-off contained.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Decontamination",
+      "description": "All crew and vehicle surfaces decontaminated. Air monitoring confirms safe return for clean-up.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "HAZMAT Vehicle Fire",
+      "situation": "A delivery van with HAZMAT placards is on fire. A distinctive pungent odour is in the air. You are the first fire crew on scene with no HAZMAT unit yet. The placard reads UN 1789 (Hydrochloric Acid). The fire is growing.",
+      "question": "What is your immediate action as first-arriving crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify the substance using the Emergency Response Guidebook (UN 1789 = Hydrochloric Acid, Guide 157). Establish a 400m initial isolation zone. Do NOT engage with standard PPE \u2014 await HAZMAT team. Notify all agencies including environmental authority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin suppression with the hose line immediately to prevent the fire from spreading.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Approach the vehicle to read the shipping manifest from the cab.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Public Protection",
+      "situation": "Wind is carrying fumes toward a residential area 250m downwind. Residents are visible in their gardens. Police have not yet arrived to assist with evacuation.",
+      "question": "How do you protect the public?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the fire engine PA system and crew members at the perimeter to instruct residents downwind to shelter-in-place (close windows and doors) until police arrive for formal evacuation. Provide this advisory via radio to dispatch for community broadcast.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The residential area is outside your perimeter \u2014 leave public management to police.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "HAZMAT Suppression",
+      "situation": "HAZMAT team has arrived in Level A suits. The acid containers are exposed to fire and some are venting vapour. Water run-off from suppression could contaminate a nearby drainage channel.",
+      "question": "What suppression approach is appropriate?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use a fine water fog (not a solid stream) to suppress flames while minimising scatter of acid containers. Block drain entry points with absorbent materials or earth to prevent run-off contamination. Contain all effluent.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use a full-pressure solid water stream to knock the fire down quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Decontamination",
+      "situation": "Fire is suppressed. The HAZMAT team has completed their work. Crew members who worked within the hazard zone need decontamination before returning to normal operations.",
+      "question": "How do you conduct crew decontamination?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a formal decontamination corridor: primary wash-down with water, secondary chemical rinse if indicated, PPE doffing in a controlled sequence, and medical monitoring. Document all exposed personnel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "A quick rinse of the suits is sufficient \u2014 the crew was only briefly exposed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The HAZMAT vehicle fire has been suppressed. All exposed personnel have been decontaminated and medically assessed. Environmental run-off was contained. The incident has been reported to the environmental agency and a full HAZMAT incident report filed. Outstanding performance.",
+      "question": "",
+      "options": []
+    }
+  }
+}

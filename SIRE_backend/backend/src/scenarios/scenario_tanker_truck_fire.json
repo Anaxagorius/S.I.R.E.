@@ -1,0 +1,167 @@
+{
+  "title": "tanker_truck_fire",
+  "description": "A tanker truck carrying flammable liquid is on fire on a highway, with risk of BLEVE and explosion requiring specialist tactics.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "tanker fire",
+    "BLEVE",
+    "flammable liquid",
+    "HAZMAT"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Tanker Fire Reported",
+      "description": "Highway patrol reports tanker truck on fire. Vapour cloud visible around the vehicle. Vehicles stopped 200m back.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "HAZMAT Alarm",
+      "description": "Placard identified: flammable liquid (Class 3). HAZMAT and specialist foam units requested.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Large Perimeter Established",
+      "description": "300m exclusion zone established. Road closed in both directions. Railway line 400m away notified.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Relief Valve Venting",
+      "description": "Pressure relief valve on tanker is venting \u2014 whining sound audible. BLEVE risk elevated.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Foam Attack",
+      "description": "Foam tender arrives. Foam blanket applied to spill area. Water cooling on tanker shell continues.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Foam blanket suppresses vapour cloud and spill fire. Tanker shell temperature dropping.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 6,
+      "title": "Product Transfer",
+      "description": "Specialist product transfer vehicle arranged to off-load remaining liquid before towing.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Tanker Truck on Fire \u2014 BLEVE Risk",
+      "situation": "A tanker truck carrying petrol is on fire on the highway. Flames are impinging on the tank shell. A relief valve is venting with a high-pitched whine. BLEVE (Boiling Liquid Expanding Vapour Explosion) is a real risk. Your crew has arrived first with one engine.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a minimum 300m perimeter immediately. Do not approach the tanker with personnel. Request foam units, HAZMAT, and additional resources. If safely possible from distance, begin water cooling on the tank shell to reduce BLEVE risk.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attack the fire at the base of the flames immediately with your hose line.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Close the pressure relief valve manually to stop the venting.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "BLEVE Warning Signs",
+      "situation": "The relief valve is now screaming. The tank shell shows discolouration (flame impingement). Crew are asking whether to continue water cooling on the shell. The fire is growing.",
+      "question": "You observe escalating BLEVE indicators \u2014 what do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "If there is ANY indication that BLEVE is imminent (screaming relief valve, tank discolouration, bulging), immediately withdraw ALL personnel to at least 600m and take cover behind solid structures. Do not expose crew to potential BLEVE.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue advancing \u2014 the relief valve venting means the pressure is being managed safely.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Foam Attack Preparation",
+      "situation": "BLEVE has not occurred. The foam tender has arrived. The fire involves a burning pool of fuel around the tanker. Foam application is being planned.",
+      "question": "What is the correct foam attack strategy?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply alcohol-resistant foam (AFFF or AR-AFFF) to the fuel pool fire from upwind, covering the burning liquid surface to exclude oxygen. Simultaneously continue water cooling on the tanker shell to reduce vapour pressure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply foam directly onto the tanker \u2014 this will suppress the tank fire fastest.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Use water jets on the fuel pool \u2014 foam is not necessary.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Product Transfer",
+      "situation": "The fire is suppressed. The tanker still contains approximately 60% of its liquid load. Moving the tanker in this state risks reignition or tank failure.",
+      "question": "How do you manage transport of the tanker?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrange for a specialist product transfer vehicle to off-load the remaining liquid at the scene before the tanker is moved. Maintain the foam blanket until transfer is complete.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the tow truck to take the tanker immediately \u2014 time is critical for reopening the highway.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The tanker fire has been suppressed using foam. Product has been safely transferred. The highway has been reopened after environmental sampling confirmed no contamination. Exceptional incident management \u2014 BLEVE was avoided through correct standoff and cooling tactics.",
+      "question": "",
+      "options": []
+    }
+  }
+}

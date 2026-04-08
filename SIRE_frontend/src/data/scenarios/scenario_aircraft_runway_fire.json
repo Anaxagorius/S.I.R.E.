@@ -1,0 +1,160 @@
+{
+  "title": "aircraft_runway_fire",
+  "description": "An aircraft catches fire during landing rollout on the runway, requiring ARFF (Aircraft Rescue and Fire Fighting) response, foam application, and passenger evacuation.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "ARFF",
+    "aircraft fire",
+    "runway",
+    "aviation fire"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Mayday Declared",
+      "description": "Aircraft declares Mayday \u2014 main gear has collapsed on landing. Fuselage dragging on runway, sparks visible.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "ARFF Vehicles Deploy",
+      "description": "ARFF units launch from the fire station. Two foam tenders and a rapid intervention vehicle respond.",
+      "timeOffsetSec": 10
+    },
+    {
+      "index": 2,
+      "title": "Aircraft Stops",
+      "description": "Aircraft comes to rest 600m down runway. Underside is on fire. Fuel venting from wing.",
+      "timeOffsetSec": 40
+    },
+    {
+      "index": 3,
+      "title": "Foam Attack Begins",
+      "description": "ARFF foam tenders apply AFFF to fuselage underside and runway. Foam path created for evacuation.",
+      "timeOffsetSec": 55
+    },
+    {
+      "index": 4,
+      "title": "Slides Deployed",
+      "description": "Crew opens exits and deploys evacuation slides. Passengers evacuating.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 5,
+      "title": "Evacuation Complete",
+      "description": "All 168 passengers and crew evacuated. ARFF continues foam application. Aircraft fully involved.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 6,
+      "title": "Fire Extinguished",
+      "description": "Aircraft fire controlled. Investigation team on site. Runway closed for 6 hours.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Aircraft Fire on Runway",
+      "situation": "An aircraft with 168 passengers has crash-landed. The underside of the fuselage is on fire and aviation fuel is venting from the right wing. Your ARFF vehicles are 60 seconds away. The aircraft has stopped on the runway centre line.",
+      "question": "What is the ARFF first priority on arrival?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply foam immediately to the fuselage underside fire and create a foam path along the planned evacuation routes on both sides of the aircraft, protecting passengers as they evacuate via slides. Coordinate with ATC and the flight crew.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Extinguish the wing fire first to prevent the fuel from igniting.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the passengers to fully evacuate before approaching the aircraft.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation Support",
+      "situation": "Evacuation slides are deployed on the left (clear) side of the aircraft. Passengers are evacuating. The right wing fire is growing and threatening to spread to the fuselage. Some passengers are standing near the right wing.",
+      "question": "How do you manage passenger safety during evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct ARFF crew to guide passengers away from the right wing fire using bullhorns, while foam application on the right wing is prioritised to protect the fuselage. Keep the foam path on the left side clear for evacuees.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Halt the evacuation until the right wing fire is extinguished.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Interior Entry",
+      "situation": "All passengers have evacuated but two crew members are reported missing inside the aircraft. The interior is now filling with smoke. Foam has suppressed the exterior fire.",
+      "question": "How do you conduct interior search and rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a two-person ARFF entry team in full SCBA and proximity suits. Enter via the flight deck door or a forward exit, maintaining contact with a safety line and radio communication. Conduct a systematic search from front to rear.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do not enter until exterior fires are completely extinguished.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Evacuation Fire Control",
+      "situation": "Both crew members have been rescued. The aircraft interior is now fully involved in fire. Large volumes of foam are required for final suppression.",
+      "question": "What is the final suppression strategy?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue high-volume foam application from multiple ARFF vehicles on all burning surfaces. Use piercing nozzles through the fuselage if needed for interior application. Maintain foam coverage until all fire is out and no reignition is observed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Switch to water only \u2014 there is enough foam on the ground already.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 168 passengers and crew survived. The aircraft fire was controlled using ARFF foam tactics. Interior rescue was performed safely. The airport's ARFF response met ICAO category requirements. The runway was reopened after a full safety inspection.",
+      "question": "",
+      "options": []
+    }
+  }
+}

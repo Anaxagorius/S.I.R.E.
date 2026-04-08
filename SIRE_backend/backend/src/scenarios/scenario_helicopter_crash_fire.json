@@ -1,0 +1,132 @@
+{
+  "title": "helicopter_crash_fire",
+  "description": "A helicopter makes a forced landing in a field and catches fire after a hard landing, with rotor hazards and fuel fire requiring specialist response.",
+  "category": "Physical",
+  "difficulty": "Intermediate",
+  "tags": [
+    "helicopter fire",
+    "crash fire",
+    "ARFF",
+    "aviation"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Mayday Transmitted",
+      "description": "Helicopter pilot transmits Mayday \u2014 engine failure. Forced landing in a field near a small town.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Hard Landing",
+      "description": "Helicopter lands hard. Tail boom separates. Fuel ignites from ruptured tank.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Emergency Services Respond",
+      "description": "Fire and EMS dispatched. Pilot and two passengers reported on board.",
+      "timeOffsetSec": 35
+    },
+    {
+      "index": 3,
+      "title": "Arrival",
+      "description": "First unit arrives. Fire is from the engine and fuel tank. Main rotor is stationary. Occupants visible in wreckage.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Suppression and Rescue",
+      "description": "Foam applied to fuel fire. Rescue team extracts occupants from the airframe.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Scene Secured",
+      "description": "All occupants extracted. Fire extinguished. Aircraft wreckage secured. AAIB notified.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Helicopter Post-Crash Fire",
+      "situation": "A helicopter has crash-landed in a field. The engine compartment and fuel tank are on fire. The main rotor has stopped but the tail rotor may still be moving. Three occupants are visible inside the wreckage, at least one is moving. Your unit has AFFF foam.",
+      "question": "What is your approach to this scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approach from the side or front of the helicopter \u2014 never from the tail rotor arc. Confirm the tail rotor is stopped before any crew approaches the rear. Apply AFFF foam to the fuel fire to protect occupants. Brief the rescue team on rotor hazard zones.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Approach from any direction \u2014 the crash means rotors will not be spinning.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for a specialist ARFF unit before approaching.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fuel Fire Suppression",
+      "situation": "Foam is being applied to the fuel fire. The fire is reducing but the wreckage is still hot. Rescue crew needs to cut through the distorted door to access the occupants.",
+      "question": "How do you support the rescue while managing the fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain continuous foam coverage on the fuel and engine compartment fire while the rescue team works. Assign a dedicated crew member to monitor for reignition and protect the rescue team with a charged hose line.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stop foam application while rescue works \u2014 foam interferes with the rescue team's footing.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Occupant Extraction",
+      "situation": "The pilot has been extracted. One passenger is unconscious and their seatbelt is jammed. The helicopter structure is unstable. EMS is standing by.",
+      "question": "How do you manage the unstable structure during extraction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use shoring or stabilisation blocks to prevent further airframe movement before continuing extrication. Cut the seatbelt with a rescue knife rather than attempting to release the mechanism. Protect the casualty's c-spine during extraction.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Drag the casualty clear as quickly as possible \u2014 structural concerns are secondary to speed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All three occupants have been safely extracted and handed to EMS. The fuel fire was fully suppressed. The helicopter wreckage has been secured and the Air Accidents Investigation Branch (AAIB) notified. Correct approach to rotor hazards prevented crew injury.",
+      "question": "",
+      "options": []
+    }
+  }
+}

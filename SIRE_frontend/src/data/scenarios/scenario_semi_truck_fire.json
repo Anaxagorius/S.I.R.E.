@@ -1,0 +1,160 @@
+{
+  "title": "semi_truck_fire",
+  "description": "A semi-truck catches fire on the highway, requiring lane closures, traffic management, and coordination with transport authorities.",
+  "category": "Physical",
+  "difficulty": "Intermediate",
+  "tags": [
+    "semi-truck",
+    "highway fire",
+    "traffic management",
+    "HGV"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported",
+      "description": "Motorists report a semi-truck with smoke from the rear trailer on a busy highway.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Units Dispatched",
+      "description": "Two fire engines and highway patrol dispatched. Unknown cargo aboard.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Arrival On Scene",
+      "description": "Trailer rear on fire. Driver confirmed safe. Cargo manifest being sought.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Cargo Identified",
+      "description": "Cargo is general freight \u2014 clothing and household goods. No HAZMAT.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Aggressive Attack",
+      "description": "Two hose lines attacking fire from upwind. Third line protecting exposures.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 5,
+      "title": "Fire Extinguished",
+      "description": "Main fire knocked down. Overhaul of trailer cargo required. Highway partially reopened.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 6,
+      "title": "Scene Release",
+      "description": "Scene handed to highway authority. Tow and load transfer arranged.",
+      "timeOffsetSec": 720
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Semi-Truck Fire on Highway",
+      "situation": "A semi-truck's trailer is fully involved in fire on a three-lane highway. The driver is safe. Traffic is backing up. You do not yet have the cargo manifest. Approach and scene setup must be decided.",
+      "question": "How do you set up on scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position apparatus to block traffic from the fire, approach from upwind/uphill, request the cargo manifest urgently, establish a 50m perimeter, and begin fire attack only after confirming no HAZMAT cargo.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin aggressive fire attack immediately from all sides to extinguish as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait on the hard shoulder until the manifest is received before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Traffic and Exposure Management",
+      "situation": "Cargo confirmed as general freight \u2014 no HAZMAT. Fire is intense. Vehicles in adjacent lanes are slowing to watch. An overhead road sign gantry is 20m from the fire.",
+      "question": "How do you manage traffic and exposures?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request highway patrol to close all lanes and divert traffic via the previous exit. Deploy a dedicated line to cool the road sign gantry structure. Establish a forward command post.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep one lane open for traffic flow \u2014 closing all lanes will cause major disruption.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hose Line Deployment",
+      "situation": "Two lines are attacking the trailer fire. The fifth wheel and cab connector area are also showing heat damage. The cab may become involved.",
+      "question": "How do you deploy your resources to protect the cab?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign a third hose line to protect the cab from fire spread by cooling the fifth wheel area and trailer front wall, while attack lines continue on the main fire body.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Concentrate all lines on the main fire \u2014 the cab can wait.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Overhaul of Cargo",
+      "situation": "The main fire is knocked down. The trailer contains bales of clothing that are deeply seated and smouldering inside. The trailer walls are still hot.",
+      "question": "How do you conduct overhaul?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use pike poles and hand tools to open bales and expose smouldering material, applying water throughout. Use a thermal imaging camera to confirm complete extinguishment before releasing the scene.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The visible fire is out \u2014 overhaul is unnecessary. Release the tow truck.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The semi-truck trailer fire has been fully extinguished and overhauled. The highway has been partially reopened. A full incident report has been filed with the transport authority and the tow company has been briefed on residual heat risks.",
+      "question": "",
+      "options": []
+    }
+  }
+}

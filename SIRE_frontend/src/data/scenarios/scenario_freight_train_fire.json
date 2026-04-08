@@ -1,0 +1,138 @@
+{
+  "title": "freight_train_fire",
+  "description": "A freight train wagon catches fire while in transit, requiring emergency stop coordination, perimeter establishment, and cargo identification.",
+  "category": "Physical",
+  "difficulty": "Intermediate",
+  "tags": [
+    "train fire",
+    "freight",
+    "rail incident",
+    "cargo fire"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Observed",
+      "description": "Lineside observer reports flames from a freight wagon. Train driver alerted via signaller.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Emergency Stop",
+      "description": "Driver stops train at safe location clear of tunnels and bridges. Rail control notified.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Fire Confirmed",
+      "description": "Driver walks the train \u2014 two wagons of timber are on fire. Cargo manifest requested.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Emergency Services Arrive",
+      "description": "Fire engines reach the lineside. Rail access route confirmed. Traction power isolation requested.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Traction Power Isolated",
+      "description": "Network Rail confirms 25kV overhead lines isolated and earthed. Crew clear to work.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "Suppression Underway",
+      "description": "Two hose lines attack the wagon fires. Neighbouring wagons cooled to prevent spread.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 6,
+      "title": "Fire Controlled",
+      "description": "Both wagons extinguished. Overhaul begins. Line remains closed pending investigation.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Freight Train Fire",
+      "situation": "A freight train has made an emergency stop in open country. Two timber wagons are on fire. The train runs on electrified rail (25kV overhead lines). Your crews are staging at the lineside road. Traction power isolation has been requested but not yet confirmed.",
+      "question": "What is the critical safety action before crews approach the train?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do NOT allow any crew to approach the train until written confirmation is received from Network Rail that the overhead traction power is isolated AND earthed. A 25kV overhead line can arc several metres.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin suppression immediately \u2014 the crew will stay below the overhead line level.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Only wait for isolation if the crew needs to touch the train \u2014 hose lines can be applied from a safe distance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Cargo Identification",
+      "situation": "Traction power is now confirmed isolated and earthed. The cargo manifest shows the burning wagons contain untreated timber. Three wagons further forward contain fertiliser (ammonium nitrate compounds).",
+      "question": "How does the fertiliser cargo affect your tactics?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the fertiliser wagons as a HAZMAT risk. Apply cooling water to protect them from heat exposure. Establish an expanded perimeter. Notify HAZMAT teams and request emergency services to treat ammonium nitrate as a potential explosion risk if involved in fire.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The fertiliser wagons are not on fire \u2014 they require no special attention.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Lineside Water Supply",
+      "situation": "There are no fire hydrants at the lineside location. The nearest road hydrant is 800m away. You have two tankers with 8,000L combined capacity.",
+      "question": "How do you sustain your water supply for a prolonged fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a tanker shuttle from the road hydrant 800m away while using on-scene tanker water for initial attack. Request additional tankers from dispatch and consider using a portable pump to draw from a nearby stream if available.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use all available tanker water quickly to knock down the fire before resupply is needed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both burning wagons have been extinguished. The fertiliser wagons were protected by cooling water and showed no involvement. The line remains closed pending investigation. Water supply was maintained via a tanker relay. Traction power isolation procedures were followed correctly \u2014 no electrical injuries.",
+      "question": "",
+      "options": []
+    }
+  }
+}

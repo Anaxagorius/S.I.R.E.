@@ -1,0 +1,160 @@
+{
+  "title": "train_derailment_fire",
+  "description": "A freight train derailment causes multiple wagons to overturn and catch fire, with HAZMAT risk and potential casualties requiring a complex multi-agency response.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "train derailment",
+    "HAZMAT",
+    "train fire",
+    "MCI"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Derailment",
+      "description": "A freight train derails at speed. Multiple wagons overturn. Witnesses report explosions and fire.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Emergency Declared",
+      "description": "Major incident declared. All emergency services mobilised. HAZMAT units requested.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "First Units Arrive",
+      "description": "Scene is chaotic. 6 wagons derailed, 3 on fire. One wagon leaking unknown liquid.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "HAZMAT Identified",
+      "description": "Placard on leaking wagon identified. HAZMAT exclusion zone established.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Suppression and Containment",
+      "description": "Fires attacked. Leaking wagon foam-blanketed. Run-off managed.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Search Completed",
+      "description": "Train crew of 2 accounted for. No passengers. Scene stabilised.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 6,
+      "title": "Investigation Begins",
+      "description": "RAIB (Rail Accident Investigation Branch) notified. Scene preserved for investigation.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Train Derailment with Fire",
+      "situation": "A freight train has derailed in a rural area near a small town. Three wagons are on fire. One overturned wagon bears a HAZMAT placard but you cannot yet read it due to smoke. The two crew members have not been located. Major incident has been declared.",
+      "question": "What are your first command priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a large initial exclusion zone (300m minimum) around all wagons given unknown HAZMAT. Request HAZMAT identification teams. Locate train crew immediately as life safety priority. Deploy resources to control fires that do not involve the unknown wagon.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attack all fires simultaneously to stop the situation from deteriorating.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Locate the train crew before taking any other action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "HAZMAT Identification",
+      "situation": "The HAZMAT placard has been identified: UN 1203 (Petrol/Gasoline, Class 3 Flammable Liquid). The wagon is leaking from a ruptured tank, creating a pool that is not yet ignited. Two of the burning wagons are carrying steel coil \u2014 a non-HAZMAT cargo.",
+      "question": "How do you address the petrol wagon?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply foam blanket to the petrol pool immediately to prevent ignition, using an AFFF foam attack from upwind. Maintain the foam blanket continuously. Keep ignition sources well away from the area. Coordinate with environment agency regarding run-off.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The petrol wagon is not on fire \u2014 focus on the burning steel wagons first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Train Crew Search",
+      "situation": "Train crew has been located: the driver is conscious near the front locomotive, the guard is unaccounted for. The locomotive cab is partially crushed and there is risk of further movement from the derailed wagons.",
+      "question": "How do you manage the driver rescue and guard search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the driver immediately with EMS and extract from the locomotive with rescue equipment. Deploy a search team with SCBA and structural awareness along the full train length to locate the guard, checking cab, between wagons, and the immediate trackside.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Treat the driver on-scene without moving them until the guard is found.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scene Preservation",
+      "situation": "Both crew members have been found and treated. The fires are extinguished. The Rail Accident Investigation Branch (RAIB) must conduct an investigation.",
+      "question": "How do you manage scene preservation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify the RAIB immediately and preserve the scene as found \u2014 do not move wagons, collect debris, or clean up until RAIB investigators have attended and given permission. Photograph the scene thoroughly and record all actions taken.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin clearing the scene to reopen the railway line as soon as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The train derailment has been successfully managed. Both crew members survived. HAZMAT was contained before ignition. RAIB has been notified and the scene preserved. Excellent major incident management under complex conditions.",
+      "question": "",
+      "options": []
+    }
+  }
+}

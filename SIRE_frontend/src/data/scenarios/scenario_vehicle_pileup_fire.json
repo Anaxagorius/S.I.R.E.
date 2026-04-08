@@ -1,0 +1,160 @@
+{
+  "title": "vehicle_pileup_fire",
+  "description": "A multi-vehicle pileup on a motorway results in multiple simultaneous vehicle fires with casualties requiring triage, suppression, and resource coordination.",
+  "category": "Physical",
+  "difficulty": "Advanced",
+  "tags": [
+    "vehicle fire",
+    "MCI",
+    "motorway",
+    "multi-vehicle"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Pileup Reported",
+      "description": "Motorway control reports a chain-reaction collision involving 12 vehicles. Multiple fires visible from CCTV.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Mass Casualty Declared",
+      "description": "Multiple casualties reported. MCI declared. Fire, EMS, and police mobilised.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "First Units Arrive",
+      "description": "Two fire engines arrive from the south. Scene extends 400m. Three vehicles fully involved.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Triage and Suppression",
+      "description": "Concurrent triage and fire suppression required. Casualties near burning vehicles.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 4,
+      "title": "Additional Resources",
+      "description": "Four more fire engines, two foam tenders, and six ambulances arrive.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "All Fires Controlled",
+      "description": "All vehicle fires extinguished. Scene divided into sectors. Overhaul and recovery begins.",
+      "timeOffsetSec": 720
+    },
+    {
+      "index": 6,
+      "title": "Scene Handover",
+      "description": "Scene handed to police for investigation. Motorway remains closed for 4 hours.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Motorway Multi-Vehicle Pileup",
+      "situation": "You are the first incident commander on scene of a 12-vehicle pileup. Three vehicles are fully involved in fire, two are partially burning, and you can see at least 8 people injured \u2014 some near the burning vehicles. You have two fire engines. A fuel tanker truck is at the rear of the pileup but not yet on fire.",
+      "question": "What is your first command priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare an MCI, establish forward command, request additional fire and EMS resources immediately, and assign your two engines: one to attack fires threatening trapped casualties first, one to protect the tanker from ignition.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin treating casualties before tackling the fires.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus all fire resources on extinguishing every fire completely before dealing with casualties.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Protecting Casualties Near Fire",
+      "situation": "Two casualties are located within 5m of a fully-involved car. They appear conscious but unable to move \u2014 possibly trapped by debris. The fire is spreading toward them.",
+      "question": "How do you protect the casualties from the approaching fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a hose line to create a water curtain between the burning vehicle and the casualties, buying time for a rescue team to extract them while the main attack crew suppresses the vehicle fire.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus the hose line on extinguishing the fire completely before attempting rescue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Tanker Exposure Protection",
+      "situation": "The fuel tanker at the rear of the pileup is undamaged but is now 15m from a spreading vehicle fire. Its driver is sheltering behind the crash barrier.",
+      "question": "How do you manage the tanker exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign a dedicated hose line to cool the tanker shell and the ground around it, preventing ignition. If possible, request the driver to move the tanker further away if it is safe to start it.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The tanker is undamaged \u2014 focus all resources on the other fires.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Resource Coordination",
+      "situation": "Additional units have arrived. The scene spans 400m and is chaotic. EMS is struggling to reach casualties near the centre of the pileup. Fire crews need to coordinate access routes.",
+      "question": "How do you coordinate the multi-agency response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Divide the scene into sectors (forward, middle, rear). Assign a sector commander to each. Establish a clear access route for EMS through the near side shoulder. Hold a rapid face-to-face command briefing with police and EMS commanders.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Let each agency manage their own resources independently to avoid coordination overhead.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All vehicle fires have been extinguished. All casualties have been treated and transported. The tanker was protected and did not ignite. Scene has been handed to police for investigation. Exceptional incident command under extreme pressure.",
+      "question": "",
+      "options": []
+    }
+  }
+}
