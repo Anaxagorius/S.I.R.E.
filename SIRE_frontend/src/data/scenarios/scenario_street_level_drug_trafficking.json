@@ -1,0 +1,150 @@
+{
+  "title": "scenario_street_level_drug_trafficking",
+  "description": "An officer on patrol observes suspected street-level drug trafficking in a known drug-dealing area. The officer must establish reasonable grounds through surveillance, effect a lawful arrest, conduct a search incident to arrest, and properly document findings under the CDSA and Criminal Code.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Patrol Briefing",
+      "description": "Morning briefing identifies an area near a transit station as a known drug-trafficking hotspot. Intel reports multiple hand-to-hand transactions throughout the day involving a male in a red jacket.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Surveillance Initiated",
+      "description": "Officer positions themselves covertly near the transit station and observes a male in a red jacket approach multiple individuals, exchange small packages for cash, and return to a nearby bench.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Third Transaction Observed",
+      "description": "Over 25 minutes, the officer observes three separate hand-to-hand exchanges. Each buyer departs quickly after the exchange. The male's body language is consistent with street-level dealing: frequent lookouts, phone contact before each transaction.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Grounds Established",
+      "description": "The officer concludes they have reasonable and probable grounds to believe the male is trafficking a controlled substance contrary to CDSA s.5(1). The officer calls for backup before approaching.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Arrest Effected",
+      "description": "With backup on scene, the officer approaches and arrests the male. A search incident to arrest yields a quantity of individually wrapped substances, a cell phone, and $840 in small bills.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Documentation and Processing",
+      "description": "The accused is transported to the station. Drug exhibit samples are packaged for Health Canada analysis. Notes are completed contemporaneously. Crown is briefed on grounds for arrest and search.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Establishing Grounds — Surveillance",
+      "situation": "You are on plainclothes patrol near a transit station identified in intelligence briefings as a high-activity drug-trafficking area. Over 25 minutes you observe a male in a red jacket make three separate hand-to-hand exchanges — passing small wrapped packages in exchange for cash from three different individuals who each depart hurriedly. The male makes periodic phone calls before each transaction and repeatedly scans the area. You are a uniformed officer who has changed into plainclothes for this patrol. You must decide when and how to act to ensure a lawful arrest.",
+      "question": "What is the correct course of action at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue surveillance to document all observed transactions in your notes — recording times, descriptions of buyers, and exchange details — until you have established reasonable and probable grounds to believe the male is trafficking a controlled substance contrary to CDSA s.5(1). Radio for backup before approaching, so as not to compromise safety or the arrest. Document all grounds contemporaneously to support a later Information to Obtain (ITO) if required.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Approach the male immediately after the first observed exchange and detain him for investigative purposes, relying solely on the known drug-area designation as grounds.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Request a uniformed patrol unit move in immediately and conduct a street check of everyone at the transit station without observing any further exchanges.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Effecting the Arrest",
+      "situation": "After three observed hand-to-hand exchanges and thorough notes documenting the transactions, you have reasonable and probable grounds to believe the male is committing drug trafficking contrary to CDSA s.5(1). Backup has arrived. You approach the male in a red jacket in a public area to effect an arrest. He appears nervous and begins to reach into his jacket pocket when he notices you approaching.",
+      "question": "How do you correctly effect this arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify yourself clearly as police, announce the arrest for trafficking a controlled substance contrary to CDSA s.5(1), and immediately advise the male of his Charter s.10(a) right to be informed of the reason for arrest and his s.10(b) right to retain and instruct counsel without delay. Control his hands to prevent disposal of evidence before searching his person under the common law power of search incident to arrest. Do not use more force than reasonably necessary.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Arrest the male without announcing the reason for arrest, and wait until you arrive at the station to advise him of his right to counsel to avoid a scene in public.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the male to reach into his pocket to retrieve whatever he is reaching for before announcing the arrest, in order to obtain more evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Search Incident to Arrest and Documentation",
+      "situation": "The male has been arrested and advised of his Charter rights. He has invoked his right to counsel. A search incident to arrest of his person and immediate area yields: 23 individually wrapped packages of a white crystalline substance, a cell phone with recent text messages consistent with drug transactions, and $840 in mixed small denomination bills. The male remains silent as instructed by duty counsel. You must properly handle the evidence and complete documentation.",
+      "question": "What are your correct steps for evidence handling and documentation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Package each exhibit separately, apply unique exhibit numbers, and complete an exhibit continuity form to establish chain of custody. Photograph the items in place before packaging. Submit the suspected controlled substances to Health Canada for analysis under the CDSA. Document all grounds for arrest and search in your notes, written contemporaneously. Complete the Criminal Code s.489 seizure report and arrange for a production order for the cell phone contents rather than searching it without further judicial authority, consistent with R. v. Fearon.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Place all items in a single evidence bag to avoid confusion, noting the total weight, and search the cell phone incident to arrest to immediately review messages for further investigation leads.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Return the cash to the accused as it cannot be seized without a proceeds-of-crime restraint order, and hold only the drug packages as evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Health Canada analysis confirmed the 23 packages contained cocaine, a Schedule I substance under the CDSA. The accused was charged with trafficking a controlled substance contrary to CDSA s.5(1). Your contemporaneous notes detailing three observed transactions established the reasonable and probable grounds for arrest. Proper Charter compliance at arrest, lawful search incident to arrest, meticulous exhibit handling with individual continuity forms, and a production order application for the cell phone resulted in a complete and Charter-compliant prosecution package. Crown counsel confirmed the investigation met the standard for a reasonable prospect of conviction.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "drug trafficking",
+    "CDSA",
+    "street crime",
+    "surveillance",
+    "search incident to arrest",
+    "patrol",
+    "grounds for arrest",
+    "Canada"
+  ]
+}

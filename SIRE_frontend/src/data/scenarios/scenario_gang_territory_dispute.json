@@ -1,0 +1,150 @@
+{
+  "title": "scenario_gang_territory_dispute",
+  "description": "Officers respond to a gang-related altercation in a known territory dispute area. Multiple individuals are present, potential weapons are involved, and rival gang members are identified. The scenario covers scene safety, identifying and documenting gang affiliations, arresting suspects, seizing gang identifiers, and documenting intelligence for the gang unit.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch Received",
+      "description": "Officers dispatched to a reported fight involving multiple males in a parking lot, known to be disputed territory between two street gangs. Caller reports possible weapons. Shots fired not confirmed.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival on Scene",
+      "description": "Two patrol units arrive. Approximately 12 males are present in two distinct groups. Several are shouting. One male is on the ground. No active fighting at time of arrival, but tensions are extremely high.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Weapons Concern",
+      "description": "An officer observes a male quickly place an object in his waistband when police arrive. Another male is clutching a bag tightly. GIU CPIC queries identify at least three individuals as known gang members from rival factions.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Scene Containment",
+      "description": "Additional units are requested. Officers form a perimeter. The injured male on the ground receives first aid pending EMS. The two groups are physically separated and controlled.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Arrests and Seizures",
+      "description": "The male who concealed the object is arrested after a lawful pat-down for officer safety reveals a prohibited firearm. Gang-affiliated clothing, jewellery, and hand signs are documented as intelligence identifiers.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Intelligence Documentation",
+      "description": "All attendees, vehicles, clothing, affiliations, and physical descriptions are documented and submitted to the GIU. A scene canvass identifies video surveillance cameras at a nearby business.",
+      "timeOffsetSec": 540
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Arrival — Safety and Initial Control",
+      "situation": "You and your partner arrive at a parking lot with two groups of approximately six males each, visibly agitated and shouting. One male is on the ground, apparently injured. A caller reported possible weapons. You observe that one male quickly tucks something into his waistband when he sees your cruiser arrive. You have two officers on scene; two more units are 3 minutes away. The area is known for gang territorial disputes and prior weapons incidents. You must establish control without escalating the situation.",
+      "question": "What is the correct immediate tactical approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not rush to isolate or pursue a single individual — control the scene first. Use your vehicle and positioning to create a physical buffer between the two groups. Announce police presence loudly and clearly. Radio for additional units before approaching either group. Attend to the injured male as a priority alongside scene control, directing your partner to manage one group while you manage the other upon arrival of additional units. The male who concealed the item is a priority subject to be isolated, but officer safety requires additional resources before a pat-down approach.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately pursue and tackle the male who concealed the object, leaving your partner alone with the remaining eleven individuals.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Order all twelve males to get on the ground at gunpoint immediately, treating the entire group as armed suspects to maximize officer safety.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Investigative Detention and Weapons Safety Pat-Down",
+      "situation": "Additional units have arrived. The two groups have been separated and controlled. The injured male has received first aid and EMS is en route. CPIC queries identify three individuals as known gang members. The male who concealed an object in his waistband upon police arrival — now confirmed as a known gang member — is being held separately. You have reasonable grounds to suspect he is involved in the altercation and that he may be armed based on the observed waistband concealment. You must decide how to proceed with him.",
+      "question": "What is the lawful basis and procedure for a pat-down search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Detain the male for investigative purposes — you have reasonable grounds to suspect his involvement in the altercation and reasonable grounds to believe he may be armed based on the observed concealment gesture. Under the ancillary powers doctrine (R. v. Mann), you may conduct a pat-down for weapons during an investigative detention where there are reasonable grounds to believe officer or public safety is at risk. Advise him he is being detained and the reason. Conduct a pat-down of his outer clothing only, limited to detecting weapons. If a weapon is felt, remove it and arrest him.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conduct a full search of the male and his bag without any articulated grounds, relying on the gang member CPIC designation alone to justify the search.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Release the male since you cannot prove he has a weapon without searching him, and you cannot search him without arresting him first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Arrest, Gang Identifiers, and Intelligence Documentation",
+      "situation": "The pat-down revealed a prohibited firearm — a loaded handgun — in the male's waistband. He is arrested for possession of a prohibited firearm contrary to Criminal Code s.92(1). A search incident to arrest yields ammunition and a phone. Several other individuals at the scene are wearing colours, insignia, and jewellery associated with one of the known gangs. Some display hand signs when photographed for a scene record. The gang intelligence unit has been notified. You must document the intelligence value of the scene and handle the remaining individuals.",
+      "question": "How do you correctly handle gang identifier documentation and the remaining individuals?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Photograph the scene, including individuals' clothing, visible tattoos, jewellery, and insignia from a respectful distance, as these are gang identifiers of intelligence value under established police intelligence-gathering practices. Record the names, dates of birth, and addresses of all individuals present using lawful identification requests under provincial police act powers or as witnesses. Document all association intelligence — who was standing with whom, vehicle associations, and any overheard statements — and submit to the GIU. Ensure all photographs are documented with individual consent notation or the lawful basis for taking them. Release non-arrested individuals unless grounds for arrest exist.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Arrest all twelve individuals for gang membership, as their presence at a gang altercation constitutes grounds for arrest under the Criminal Code.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Release all individuals except the firearm suspect without recording their information, as gathering gang intelligence is the GIU's job and documenting non-arrested persons may raise privacy concerns.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The suspect was charged with possession of a prohibited firearm (Criminal Code s.92(1)) and possession of a prohibited firearm while prohibited (s.117.01). Business surveillance footage obtained through a production order confirmed the altercation was gang-related and captured additional evidence. Your intelligence documentation — photographs of gang identifiers, associations, vehicle descriptions, and attendee identifications — was submitted to the GIU and contributed to a larger gang suppression operation. Your tactical decision to await additional units before approaching the armed suspect prevented a dangerous lone-officer confrontation. The injured male was treated and provided a statement identifying additional suspects.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "gang",
+    "territory dispute",
+    "gang identifiers",
+    "scene safety",
+    "Criminal Code",
+    "weapons",
+    "intelligence",
+    "Canada"
+  ]
+}

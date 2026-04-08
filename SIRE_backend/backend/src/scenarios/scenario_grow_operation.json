@@ -1,0 +1,151 @@
+{
+  "title": "scenario_grow_operation",
+  "description": "An officer investigates a suspected commercial-scale cannabis grow operation in a residential home that far exceeds personal-use limits under the Cannabis Act. The scenario covers establishing reasonable grounds from observable indicators, obtaining a search warrant under Criminal Code s.487, executing the warrant, and distinguishing CDSA production charges from legal home cultivation limits.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Tip Received",
+      "description": "Officer receives a Crime Stoppers tip that a residential property has unusual hydro meter activity, covered windows with visible grow lighting, and strong cannabis odour detectable from the sidewalk.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Preliminary Observations",
+      "description": "Officer conducts a drive-by of the address and notes covered basement windows with a faint green-purple light emanating around the edges, a strong cannabis odour from the public sidewalk, and a hydro junction box with an aftermarket connection consistent with electricity diversion.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Hydro Authority Check",
+      "description": "With the property owner's consent (utility company), electricity usage records show consumption approximately 12 times the neighbourhood average — consistent with commercial-scale indoor grow lighting and ventilation systems.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "ITO Drafted",
+      "description": "The officer drafts an Information to Obtain (ITO) for a search warrant under Criminal Code s.487, incorporating observations, utility data, and the Crime Stoppers tip. Crown reviews the ITO and the officer swears it before a Justice of the Peace.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Warrant Granted and Executed",
+      "description": "Search warrant granted. Entry team executes. Inside they find over 400 cannabis plants across three rooms, professional grow lighting, irrigation, and CO2 enrichment systems. No occupants are present.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "Evidence Seizure",
+      "description": "All plants, harvested cannabis, equipment, and financial records are seized. Charges are assessed under the CDSA and Cannabis Act. The hydro theft is referred to the utility company for a civil claim.",
+      "timeOffsetSec": 540
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Establishing Grounds — Observation and Records",
+      "situation": "You have received a Crime Stoppers tip and conducted a drive-by of the residential address. From the public sidewalk — a location where you are lawfully entitled to be — you personally observe: (1) covered basement windows with faint grow-light emanation, (2) a strong fresh cannabis odour, and (3) an aftermarket hydro connection consistent with meter bypass. The electricity utility has confirmed, through their own business records check, consumption approximately 12 times the neighbourhood average. The Cannabis Act permits adults to grow up to 4 plants per residence; this scale is far beyond personal use. You must now decide how to proceed lawfully.",
+      "question": "What is the correct next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not enter the residence at this stage — your observations from public space and the utility records are evidence, not yet a basis for warrantless entry. Prepare a detailed Information to Obtain (ITO) for a Search Warrant under Criminal Code s.487, incorporating your personal observations (odour, lighting, hydro bypass), the utility consumption data, and the Crime Stoppers tip (noting its limitations as anonymous information). Have Crown counsel review the ITO for Charter compliance before swearing it before a Justice of the Peace. Warrantless entry would violate Charter s.8.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enter the residence immediately using the cannabis odour and utility records as exigent circumstances — the evidence may be destroyed if you wait.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Knock on the door and ask the occupants to consent to an inspection, since cannabis is legal under the Cannabis Act and this is a routine compliance check.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Warrant Execution — Entry and Scene Control",
+      "situation": "A Justice of the Peace has granted a Search Warrant under Criminal Code s.487 for the residential address, authorizing search for evidence of production of a controlled substance contrary to CDSA s.7, cannabis in excess of legal limits, and proceeds of crime. You are the warrant officer leading the entry team. The team makes entry, announces 'POLICE — SEARCH WARRANT,' and clears the residence. No occupants are found. Three rooms in the basement and main floor are fully outfitted as indoor cannabis grow rooms with approximately 400–450 plants under professional lighting systems.",
+      "question": "What are your correct actions upon securing the scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Secure the scene and ensure no unauthorized persons enter. Photograph and video the entire scene in situ before any items are moved. Assign exhibit numbers to each category of seizure — plants, harvested material, equipment, and financial records. Count and weigh the cannabis plants and harvested product in the presence of a witness officer. Seize all production equipment as evidence. Document the hydro bypass for referral. Ensure all seizures are recorded on a Criminal Code s.489 Report to a Justice.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow team members to take plants as informal compensation for the operation and document only a portion of the plants, as the total count is not critical to the charge.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately destroy the plants on scene to prevent re-use, as the charge does not require physical plant evidence once the scale is documented.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Charge Assessment — CDSA vs. Cannabis Act",
+      "situation": "The scene has been fully documented and secured. 412 cannabis plants have been seized along with approximately 8 kg of harvested cannabis, grow equipment, and financial ledgers consistent with commercial sales. The residence owner is identified from property records and is located nearby. You must now decide what charges are appropriate and whether to arrest.",
+      "question": "What is the correct charge assessment and arrest decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Charge the identified owner with production of cannabis — a controlled substance — contrary to CDSA s.7(1). The Cannabis Act permits only up to 4 plants per household for personal use; 412 plants is commercial-scale production subject to the CDSA, not the Cannabis Act's personal possession provisions. Additionally, assess a charge of possession for the purpose of distribution contrary to CDSA s.5(2) for the 8 kg of harvested material. Arrest the owner and ensure Charter s.10(a) and s.10(b) rights are provided. Refer financial records to Crown for a proceeds of crime analysis.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue only a Cannabis Act regulatory ticket since cannabis is a legal substance, and refer the matter to the provincial cannabis licensing authority.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Charge only for the hydro theft, as the cannabis cultivation itself is a regulatory matter under the Cannabis Act regardless of scale.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The residence owner was arrested and charged with production of cannabis contrary to CDSA s.7(1) and possession for the purpose of distribution contrary to CDSA s.5(2). Your thorough ITO — grounded in personal observations from public space, utility consumption data, and the Crime Stoppers tip with appropriate caveats — withstood Charter s.8 scrutiny at a pre-trial hearing. The detailed in-situ photography, precise plant count, and meticulous chain-of-custody documentation provided Crown with a complete prosecution package. The financial ledgers supported a proceeds of crime application. The distinction between the Cannabis Act's personal cultivation provisions and commercial-scale production under the CDSA was correctly identified and applied.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "grow operation",
+    "cannabis",
+    "CDSA",
+    "Cannabis Act",
+    "search warrant",
+    "Criminal Code s.487",
+    "production",
+    "residential",
+    "Canada"
+  ]
+}

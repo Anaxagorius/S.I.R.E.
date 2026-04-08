@@ -1,0 +1,148 @@
+{
+  "title": "scenario_money_laundering_investigation",
+  "description": "An officer identifies potential money laundering during a financial crimes investigation referral. A business linked to known drug traffickers is making suspicious cash transactions. The scenario covers Criminal Code s.462.31, FINTRAC reporting obligations, financial disclosure requests, and working with specialized financial crimes and organized crime units.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Investigation Referral Received",
+      "description": "The financial crimes unit receives a referral from FINTRAC flagging unusual cash transactions at a local business — large structured cash deposits just below the $10,000 mandatory reporting threshold, consistent with 'structuring.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Background Check",
+      "description": "Investigation reveals the business owner is a known associate of a drug trafficking organization. The business — a cash-intensive restaurant — has reported consistent losses for three years while continuing to expand operations.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Financial Analysis",
+      "description": "A financial analyst reviews bank records voluntarily provided by the financial institution under a production order. Cash deposits over 18 months total $2.3 million, inconsistent with the restaurant's reported revenue of $180,000 per year.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Expert Consultation",
+      "description": "Forensic accountant retained by the unit identifies classic layering techniques — frequent transfers to shell companies, foreign wire transfers, and property purchases. A dedicated money laundering investigation is formally opened.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Production Orders Executed",
+      "description": "Production orders are obtained under Criminal Code s.487.012 for banking records, business records, and corporate filings. Records confirm $2.3 million in laundered proceeds linked to drug trafficking.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "Arrest and Charges",
+      "description": "The business owner is arrested and charged with laundering proceeds of crime under Criminal Code s.462.31(1). A restraint order is obtained for all business assets and linked properties pending forfeiture.",
+      "timeOffsetSec": 540
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Recognizing Money Laundering Indicators",
+      "situation": "You are assigned to a financial crimes investigation following a FINTRAC referral. The referral identifies a restaurant making repeated cash deposits of $9,500–$9,900 over 18 months — just under the $10,000 mandatory reporting threshold under the Proceeds of Crime (Money Laundering) and Terrorist Financing Act. The restaurant owner is a known associate of a drug trafficking organization. The business has reported consistent annual losses but has expanded twice in three years. You must assess whether there are grounds to pursue a money laundering investigation.",
+      "question": "What is the correct initial investigative approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recognize the deposit pattern as structuring — deliberately keeping deposits below the $10,000 mandatory FINTRAC reporting threshold — which is itself an indicator of money laundering under the Proceeds of Crime (Money Laundering) and Terrorist Financing Act s.9.2. Open a formal investigation for money laundering contrary to Criminal Code s.462.31(1). Apply for a Production Order under Criminal Code s.487.012 for the business's bank records rather than seeking voluntary disclosure, to ensure judicial oversight and admissibility. Engage a forensic accountant early in the process. Coordinate with the organized crime unit given the known drug trafficking links.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact the business owner directly and ask for a voluntary explanation of the cash deposits, as a simple explanation may negate the need for a formal investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Request the bank to freeze all accounts immediately and seize the business records without any court order, as the laundering indicators justify immediate action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Production Orders and Financial Disclosure",
+      "situation": "Production Orders under Criminal Code s.487.012 have been granted for 18 months of bank records and business financial records. The records reveal $2.3 million in cash deposits against declared annual revenue of $180,000 — a massive discrepancy. A forensic accountant has identified layering techniques: frequent transfers to shell companies registered in British Columbia and Alberta, foreign wire transfers to a Caribbean jurisdiction, and two property purchases. You must now decide how to legally compel further financial disclosure to trace the full laundering trail.",
+      "question": "What is the correct mechanism for compelling further financial disclosure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply for additional Production Orders under Criminal Code s.487.012 for the corporate records of the identified shell companies and the real estate transaction records. Apply for a Tracking Warrant under s.492.1 or Monitor Order under s.462.32 if real-time financial monitoring is needed. All compelled disclosure from financial institutions and corporations requires judicial authorization — do not seek voluntary disclosure from the suspect's known associates, as this may alert the subject and trigger dissipation of assets. Share the financial trail with FINTRAC and coordinate with the Canada Revenue Agency regarding unreported income.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue a verbal demand to the shell companies' directors for their financial records, as they are under a legal obligation to cooperate with police on a money laundering investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Access the shell companies' financial records through FINTRAC's database without a production order, since FINTRAC reporting makes those records available to investigators directly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Arrest and Charge — Criminal Code s.462.31",
+      "situation": "The investigation has traced $2.3 million in drug proceeds through the restaurant, shell companies, and two properties. The forensic accountant has prepared an expert report. The organized crime unit has confirmed the drug trafficking organization's proceeds were deposited through the restaurant. You now have reasonable and probable grounds to arrest the business owner for laundering proceeds of crime contrary to Criminal Code s.462.31(1). You must also address the seized assets and prepare the Crown package.",
+      "question": "What are the correct arrest, charge, and asset preservation steps?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrest the business owner for laundering proceeds of crime contrary to Criminal Code s.462.31(1) and advise him of his Charter s.10(a) and s.10(b) rights. Simultaneously apply for a Restraint Order under Criminal Code s.462.33 to freeze all identified business assets and real properties pending forfeiture — this must be done concurrently with the arrest to prevent dissipation. Prepare a Crown disclosure package including the forensic accountant's report, production order returns, traced money flow chart, and the organized crime unit's trafficking evidence linking the source funds. Consult Crown about charges under both s.462.31(1)(a) (using proceeds) and s.462.31(1)(b) (facilitating use of proceeds).",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Arrest the business owner but wait until the criminal conviction before applying for a restraint order, as the presumption of innocence prohibits asset restraint during an active criminal proceeding.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Charge only the employees who made the bank deposits, as they physically conducted the transactions and the business owner has deniability.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The business owner was charged with laundering proceeds of crime contrary to Criminal Code s.462.31(1)(a) and (b). A Restraint Order under s.462.33 froze the restaurant, two properties, and linked bank accounts. The forensic accountant testified as an expert witness, tracing the $2.3 million laundering trail from drug proceeds through the restaurant to shell companies and real estate. The court convicted the accused and ordered forfeiture of all restrained assets under s.462.37. Your recognition of structuring as a laundering indicator, disciplined use of production orders for all financial disclosure, early engagement of a forensic accountant, and concurrent restraint order application at the time of arrest resulted in a complete and legally sound prosecution and full asset forfeiture.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "money laundering",
+    "Criminal Code s.462.31",
+    "FINTRAC",
+    "financial crime",
+    "organized crime",
+    "Canada"
+  ]
+}
