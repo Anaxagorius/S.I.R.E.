@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_propane_bleve",
+  "description": "A propane tank at a residential propane distribution yard is engulfed in fire and undergoes a Boiling Liquid Expanding Vapor Explosion (BLEVE), creating a catastrophic fireball and pressure wave.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reported fire at a propane distribution facility. Multiple tanks visible on-site. Caller states one tank has been on fire for several minutes.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units En Route", "description": "While en route, dispatch advises the fire has been burning for approximately 8 minutes. IC recognizes BLEVE risk window is open. Adjusts approach to staging point well outside the facility.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Staging Established", "description": "Units stage 1,000 feet upwind of the facility. Visible fire impinging directly on a 500-gallon propane tank. Pressure relief valve is audibly venting — tank is building pressure.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "BLEVE Occurs", "description": "The tank undergoes a BLEVE — massive fireball and pressure wave. Projectile fragments travel approximately 600 feet. Neighboring structure catches fire from the fireball. No firefighters injured due to distance.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Post-BLEVE Operations", "description": "Fireball dissipates. Multiple residual fires burning from expelled liquid propane. A fragment has struck a neighboring shed. Neighboring house may have occupants.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Secondary BLEVE Risk", "description": "A second propane tank on the distribution pad is now exposed to radiant heat. Pressure relief valve on second tank begins venting. Secondary BLEVE risk is active.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "BLEVE Risk Recognition — En Route",
+      "situation": "You are the first due engine responding to a reported fire at a propane distribution facility. Dispatch advises the fire has been burning for 8 minutes and at least one propane tank is directly impinged by fire. You know that flame impingement on an LP tank can cause a BLEVE — tank failure with fireball and high-velocity projectiles — within 8–15 minutes of sustained impingement. You are 2 minutes from the facility.",
+      "question": "How do you approach and set up?",
+      "options": [
+        { "label": "A", "text": "Do not approach the facility. Stage all units at least 1,000 feet from the tank, upwind and at an angle — not directly in line with the tank's ends (highest projectile risk). Notify dispatch and begin evacuating residents within 1,000 feet. Advise incoming units to stage at the same location. Do not attempt fire attack on a BLEVE-risk tank with impingement in progress.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Drive into the distribution yard and begin applying water to the tank to cool it and prevent BLEVE.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Stage at the facility entrance — you need to be close enough to see conditions and respond quickly.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Post-BLEVE Operations",
+      "situation": "While units are staged safely, the tank BLEVEs — a massive fireball erupts and the pressure wave is felt at your staging point 1,000 feet away. No firefighters are injured. Tank fragments have landed up to 600 feet from the facility. A neighboring shed is on fire from the fireball exposure. The neighbor's house is approximately 80 feet from the shed — it may be occupied. A second 500-gallon propane tank on the distribution pad is now exposed to radiant heat from the burning expelled propane.",
+      "question": "How do you approach post-BLEVE operations?",
+      "options": [
+        { "label": "A", "text": "Maintain perimeter — the second tank is now a BLEVE risk. Confirm the second tank's status and treat it as a full BLEVE hazard until cooled and the fuel source is eliminated. Evacuate the neighboring house from a safe angle away from both tank ends. Request a second alarm. Address the shed fire only after confirming the second tank is not impinged or after it is cooled with water from a safe unmanned monitor position.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Advance immediately to knock out the shed fire and protect the neighboring house — the BLEVE already happened so the risk is past.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Begin investigating fragment landing zones to check for additional ignition sources before addressing the shed fire.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Second Tank Management",
+      "situation": "The second propane tank's pressure relief valve is audibly venting — it is building pressure from radiant heat exposure. You have a 2.5-inch monitor available that can be set to flow water onto the second tank from an unmanned position at 300 feet, but it must be physically positioned and aimed before activation. The neighboring house has been confirmed unoccupied — the family self-evacuated during the first BLEVE. The shed fire is growing toward a wooden privacy fence.",
+      "question": "How do you address the second tank and the growing shed fire?",
+      "options": [
+        { "label": "A", "text": "Position the unmanned 2.5-inch monitor at 300 feet to flow cooling water onto the second tank — this is the highest life safety priority. Allow one crew to quickly position the monitor and retreat before activation. Manage the shed fire with a defensive line only after the monitor is flowing on the tank. Do not place crews between the tank and the shed fire.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Commit crews to the shed fire immediately — the shed is the active fire and the tank is secondary.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Manually cool the second tank with a handline — get a crew within 100 feet to apply water directly.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The unmanned monitor flowed cooling water onto the second tank. The relief valve audible venting gradually decreased over 8 minutes and stopped — indicating pressure stabilization. The propane company's emergency shut-off team arrived and isolated the distribution pad supply. The shed fire was contained with a defensive line without firefighter injury. The privacy fence sustained minor char but did not spread to the unoccupied house. The first tank BLEVE caused no firefighter casualties due to your recognition of BLEVE indicators and safe staging. Your pre-BLEVE recognition, safe staging, second-tank cooling decision, and protective ordering of operations reflect textbook BLEVE management.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["explosion", "BLEVE", "propane", "LP gas", "tank fire", "fireball", "perimeter", "unmanned monitor", "fire suppression"]
+}

@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_dust",
+  "description": "A combustible dust explosion occurs inside a grain elevator, causing a series of pressure blasts through connected silos and severely injuring workers in the facility.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reports of an explosion at a grain elevator. Multiple workers down. A secondary explosion reported moments after the first. Heavy dust cloud visible.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units Arrive", "description": "Arriving units find a large grain elevator complex with visible structural damage to the top floor of the processing building. Dust cloud in the air. Several workers outside with blast injuries. Fire visible inside on the upper floor.", "timeOffsetSec": 45 },
+    { "index": 2, "title": "Secondary Explosion Risk", "description": "The facility manager warns that residual grain dust suspended throughout the conveyor galleries and lower silos poses significant secondary explosion risk. At least four workers unaccounted for inside the processing building.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Structural Damage Assessed", "description": "Truck company reports the top two floors of the processing building are heavily compromised. Conveyor galleries connecting to silos appear structurally intact but full of dust. A slow fire is burning on the upper level.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Rescue Operations", "description": "SCBA-equipped crews enter the lower processing floor and locate two injured workers near the base of the elevator legs. A third worker is found on the ground floor mezzanine.", "timeOffsetSec": 300 },
+    { "index": 5, "title": "Fire Suppression", "description": "Water applied carefully using fog patterns to avoid disturbing settled dust. Structural engineers called to evaluate the processing building. One additional worker located and evacuated.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Grain Elevator Explosion — Arrival",
+      "situation": "You arrive to a large grain elevator complex. The top floor of the processing building has visible structural damage — portions of the wall are gone. A dust cloud hangs around the complex. Five workers are outside with blast injuries ranging from minor to serious. The facility manager tells you four workers are unaccounted for inside the processing building and that residual combustible grain dust is suspended throughout the conveyor galleries and silos — any spark or disruption could cause a secondary explosion.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Establish a large perimeter — dust explosion zones require a minimum 500-foot standoff for the silo area. Prohibit any radio transmissions near the conveyor galleries. Begin triage of the five exterior casualties. Request a structural engineer for the damaged processing building. Plan a cautious SCBA entry to the lower processing floors — avoid areas where dust is visibly suspended, use extreme caution to avoid generating sparks.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately advance all available crews into the processing building to search for the four missing workers.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Use fans to ventilate the facility and clear the dust before conducting the search.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Secondary Explosion Risk Management",
+      "situation": "Two SCBA-equipped crews are staged at the lower entrance of the processing building. The lower floor appears intact structurally based on exterior assessment. The facility manager advises that the conveyor galleries have automatic dust suppression systems — he can activate them remotely, which would wet down settled dust and reduce secondary risk. However, activation may cause settled dust to become briefly airborne before wetting.",
+      "question": "Do you authorize dust suppression activation and how do you manage entry?",
+      "options": [
+        { "label": "A", "text": "Authorize suppression system activation — brief airborne suspension is outweighed by the longer-term reduction in secondary explosion risk. Hold crews outside during the 2-minute suppression cycle, then enter the lower processing floor in a small team (2-person) using SCBA, moving slowly to avoid stirring dust, with a charged hoseline at the entrance for emergency use. All crews must have radio communications on the scene channel and PASS devices active.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Enter immediately before suppression activation — the workers inside can't wait 2 minutes.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Do not activate suppression since it will briefly aerate the dust, and stage all crews outside until conditions naturally improve.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Locations and Structural Risk",
+      "situation": "The suppression system has been activated. Your search crew enters the lower processing floor and locates two workers at the base of the elevator legs — one is ambulatory with blast injuries, the other has a suspected spinal injury and cannot be moved without spinal precautions. A third worker is found on the mezzanine level above — that mezzanine has minor floor cracking but appears passable. The upper floors remain structurally unsafe.",
+      "question": "How do you manage the multiple victim locations?",
+      "options": [
+        { "label": "A", "text": "Extract the ambulatory victim first and have them met by EMS outside. Apply spinal precautions to the non-ambulatory victim and extract using a backboard with the crew — do not delay. For the mezzanine worker, evaluate structural integrity by stepping slowly onto the mezzanine before committing — if it holds, extract the third victim. All extractions exit through the lower entrance; avoid the upper floors entirely.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Move all three workers quickly without spinal precautions since the building could have another explosion at any time.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave the spinal injury victim in place and only extract the ambulatory workers — wait for a technical rescue team for spinal patients.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All three located victims were extracted successfully. The ambulatory worker was treated for blast injuries. The spinal injury victim was packaged properly and transported — hospital confirmed a thoracic fracture; proper spinal precautions during extraction prevented further injury. The mezzanine held and the third victim was extracted with minor injuries. A fourth missing worker was found by a second crew near the exterior loading dock — he had self-evacuated but was disoriented and did not respond to initial roll call. No secondary explosion occurred. The dust suppression system, careful entry technique, and strict avoidance of the upper floors protected your crews and the victims.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["explosion", "dust explosion", "grain elevator", "combustible dust", "secondary explosion", "structural collapse", "rescue", "SCBA"]
+}

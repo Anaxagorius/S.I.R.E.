@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_boiler",
+  "description": "An overpressure boiler explosion in a commercial laundry facility destroys the boiler room, injures workers, and threatens a connected occupied building.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reports of an explosion at a commercial laundry facility. Reports of a loud boom and roof collapse in a section of the building. Workers are running out.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units Arrive", "description": "Engine arrives to find a one-story commercial laundry facility. The boiler room — a separate attached structure on the north side — has lost its roof and one wall. Light smoke and steam visible. Three workers are outside with blast injuries. Two workers unaccounted for.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Steam and Structural Hazard", "description": "Live steam is escaping from ruptured piping inside the boiler room. The shared wall between the boiler room and the main laundry floor shows cracking and bow-out. Workers report a co-worker was directly adjacent to the boiler at the time of the explosion.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Utility Assessment", "description": "A crew locates the steam system shut-off outside the building — it requires manual operation at a valve approximately 20 feet from the boiler room entrance.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Victim Located", "description": "A crew wearing full PPE locates one victim just inside the boiler room door — severe blast and thermal injuries. A second victim is found on the main laundry floor near the shared wall — moderate injuries.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Secondary Concerns", "description": "Structural engineers are requested. The main laundry floor shared wall is confirmed unstable. Workers from the main building are fully evacuated. Scene transitions to technical rescue and utility control.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Boiler Explosion — On Scene",
+      "situation": "You arrive to a commercial laundry facility where the attached boiler room has suffered a catastrophic overpressure explosion. The roof is gone and one exterior wall has collapsed outward. Live steam is escaping from the interior. Three workers are outside — two are ambulatory with lacerations and minor blast injuries, one is on the ground with more serious injuries. Two workers are unaccounted for. The shared wall between the boiler room and the main laundry floor is bowed outward and cracked.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Establish a collapse zone around the boiler room and the suspect shared wall. Evacuate all workers from the main laundry floor immediately. Request EMS for the three exterior casualties. Identify and close the steam supply shut-off to eliminate the live steam hazard before considering any rescue entry into the boiler room.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately enter the boiler room to search for the two missing workers — live steam is a manageable hazard with PPE.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Focus on the three exterior casualties first before doing anything else.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Steam Control and Rescue Preparation",
+      "situation": "Workers from the main floor are evacuated. The steam shut-off valve is 20 feet from the boiler room entrance — it is in a partially exposed area with steam drifting toward it. One of your crew members suggests they can reach the valve in full structural PPE in about 30 seconds. The boiler room interior is obscured by steam. You can hear a groan from inside the boiler room.",
+      "question": "How do you approach steam shut-off and the audible victim?",
+      "options": [
+        { "label": "A", "text": "Authorize one crew member in full structural PPE with a hoseline backup to approach the valve from the upwind side and close it — the steam is the primary hazard blocking rescue. Do not enter the boiler room interior until steam is reduced. The audible groan confirms a live victim, but steam obscuring visibility and live scalding hazard make unprotected entry too dangerous. Stage a two-person rescue team ready to enter immediately once steam subsides.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Enter the boiler room immediately following the sound of the victim — do not wait for steam control.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Do not close the steam valve — it may disturb the structural integrity of the remaining piping.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Extraction Under Structural Risk",
+      "situation": "The steam shut-off has been successfully closed. Steam in the boiler room is dissipating. A two-person rescue team enters and locates one victim just inside the boiler room door — the victim is conscious but has severe blast injuries and thermal burns to the upper body and cannot walk. The shared wall behind you continues to bow and crack audibly. A second victim report comes from the main laundry floor near the shared wall.",
+      "question": "How do you manage extraction with an unstable shared wall?",
+      "options": [
+        { "label": "A", "text": "Rapidly extract the boiler room victim through the exterior opening — avoid passing under the suspect shared wall. Have the crew call a PAR and ensure all personnel are tracked. Address the second victim on the laundry floor through the main building entrance — do not route anyone under the bowed shared wall. Request structural assessment before allowing any non-essential personnel near the wall.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Move both victims simultaneously through the most direct route, which passes under the bowed shared wall.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave the boiler room victim in place and address the more accessible laundry floor victim first.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both victims were extracted safely — the boiler room victim through the exterior opening, the laundry floor victim through the main entrance. The boiler room victim received ALS on scene and was transported in critical condition with blast injuries and severe burns. The laundry floor victim had moderate injuries and was transported in stable condition. The bowed shared wall was cordoned off — structural engineers later confirmed it required shoring before re-entry. Steam shut-off eliminated the primary thermal hazard and enabled successful rescue. The three exterior workers were treated and released. Your perimeter discipline, sequential hazard control, and structural awareness produced two successful rescues from a high-danger confined space.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["explosion", "boiler", "overpressure", "steam", "rescue", "structural collapse", "commercial", "PPE"]
+}

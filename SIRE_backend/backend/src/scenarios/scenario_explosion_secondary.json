@@ -1,0 +1,54 @@
+{
+  "title": "scenario_explosion_secondary",
+  "description": "During active firefighting operations at a burning warehouse, a series of secondary explosions from stored aerosol cans and compressed gas cylinders injure crew members and force an emergency withdrawal.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reported fire at a single-story warehouse. Unknown contents. Dispatch advises a neighboring business reports the building stores janitorial supply products.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Units On Scene", "description": "Engine arrives to find a 10,000 sq ft single-story commercial warehouse with heavy smoke from the roofline. Overhead door is open. IC establishes command. Two companies make entry with a 2.5-inch line.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Pre-Fire Indicators Overlooked", "description": "Crews advance inside. Stacked pallets of aerosol products are visible near the west wall. Compressed gas cylinders are stored in a cage in the northeast corner. Fire is in the southeast corner.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "First Explosion", "description": "A pallet of aerosol cans near the west wall detonates — multiple simultaneous explosions send shrapnel across the western half of the warehouse. One firefighter is struck in the shoulder. Crew retreats toward the entrance.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Secondary Explosions Continue", "description": "Additional aerosol cans continue to explode at intervals of 10–15 seconds. A crew member trips during withdrawal. Compressed gas cylinder cage is now in the fire's path.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Full Withdrawal", "description": "IC calls a Mayday withdrawal — all crews out. PASS devices activate. All personnel accounted for within 90 seconds. One injury. Fire transitions to defensive operations.", "timeOffsetSec": 240 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Warehouse Fire — Pre-Entry Intelligence",
+      "situation": "You arrive to a 10,000 sq ft warehouse fire with heavy smoke from the roofline. The overhead door is open and you can see heavy smoke banking from the ceiling. A neighbor advises the building stores janitorial supply products. Before committing crews inside, you can see through the open door that stacked pallets of products — some appear to be aerosol cans — are visible along the west wall. A cage of compressed gas cylinders is in the northeast corner. Fire is visible in the southeast corner.",
+      "question": "How do you handle the size-up and entry decision?",
+      "options": [
+        { "label": "A", "text": "Immediately identify the aerosol cans and compressed gas cylinders as secondary explosion hazards. Do not advance interior crews past the threshold until you confirm the product inventory from the occupant or manifest. If aerosols and cylinders cannot be isolated or confirmed non-flammable, transition to a defensive attack and cool the building from outside to prevent secondary explosions — interior attack is not appropriate.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Advance two companies with a 2.5-inch line through the overhead door to reach the fire in the southeast corner — the fire is away from the stored products.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have one crew member enter and quickly move the aerosol pallets away from the fire area before advancing the attack line.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Secondary Explosion Mid-Operation",
+      "situation": "Due to a communication breakdown, a company officer has already advanced a crew inside before your guidance was relayed. Crews are approximately 60 feet inside the building near the southeast corner attack position. The aerosol pallet near the west wall begins venting — multiple small explosions followed by a larger detonation. One firefighter is struck in the shoulder by shrapnel and is down. Remaining crew members are retreating. Additional aerosol cans continue to explode at 10-15 second intervals.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately declare a Mayday and order all crews out of the building — no exceptions. Confirm the down firefighter's PASS device is activating and that crew members assist them to the exit. The second company provides a charged hoseline at the entrance to protect the egress path during withdrawal. All personnel account for immediately upon exit.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Direct remaining interior crews to advance toward the injured firefighter with the hoseline to protect them while treating the injury on scene.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Order all crews except one to withdraw — have one crew stay to finish the fire attack so the explosions stop sooner.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Accountability and Defensive Transition",
+      "situation": "All crews are out of the building. PAR is called. One firefighter is injured — shoulder trauma from shrapnel, alert and able to walk with assistance. All other crew members are accounted for. The compressed gas cylinder cage is now being impinged by fire — a second category of secondary explosion risk is now active. The building is continuing to burn. Additional resources from a second alarm are arriving.",
+      "question": "What is your operational posture going forward?",
+      "options": [
+        { "label": "A", "text": "Establish a minimum 500-foot perimeter around the cylinder cage area. Transition to a fully defensive posture — no re-entry. Apply water streams from outside to cool the cylinder cage and prevent BLEVE of the compressed gas cylinders. Request ALS for the injured firefighter. Brief incoming second alarm resources on the secondary explosion hazard areas before committing them. Notify dispatch of the defensive transition and begin exposure protection.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Send the second alarm crews inside immediately — the aerosol fire has mostly exhausted itself and the building is still saveable.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have one crew reenter to manually move the compressed gas cylinders out of the fire's path.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The defensive posture protected all personnel from the compressed gas cylinder involvement — two cylinders launched from the cage during the fire, but the perimeter kept all firefighters safe. The warehouse was a total loss but no further injuries occurred. The injured firefighter received ALS treatment for a shoulder laceration and non-displaced fracture and was transported in stable condition. The post-incident review identified the initial intelligence failure — the aerosol and cylinder hazards should have halted interior operations before entry. Your rapid Mayday call, full withdrawal order, PAR verification, defensive transition, and perimeter establishment for the cylinder cage were correct actions that prevented additional casualties after the secondary explosion occurred.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["explosion", "secondary explosion", "aerosol", "compressed gas", "warehouse fire", "Mayday", "withdrawal", "accountability", "defensive operations", "size-up"]
+}
