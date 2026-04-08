@@ -1,0 +1,63 @@
+{
+  "title": "scenario_third_party_api_outage",
+  "description": "A critical third-party payment processing API goes offline, causing transaction failures across your e-commerce platform and customer-facing services.",
+  "timeline": [
+    { "index": 0, "title": "Payment Failures Reported", "description": "Customer service receives a surge of reports that checkout is failing. The payment processing API is returning 503 errors.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Outage Confirmed", "description": "The payment processor's status page confirms a major outage affecting all regions. No ETA is given.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Fallback Provider Activated", "description": "Traffic is being routed to the backup payment provider. Pending transactions are queued for retry.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Customer Communication Issued", "description": "A service status update is published. Affected customers are notified via email and the website banner.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Primary Provider Restored", "description": "The primary payment processor is back online. Traffic is being gradually re-routed after validation.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Fallback procedures were activated successfully, customers were kept informed, and the primary provider was restored without revenue loss.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Payment API Returning 503 Errors",
+      "situation": "Your monitoring system alerts that the third-party payment processing API has been returning HTTP 503 errors for 8 minutes. Checkout conversion has dropped to zero. Customer service is receiving complaints. Your platform handles approximately £40,000 of transactions per hour during this peak period.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Confirm the outage by checking the payment processor's status page and your own API health dashboards, declare an incident, and notify the on-call engineering team to activate the documented failover procedure.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Wait 30 minutes to see if the outage self-resolves before activating any fallback procedures.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Disable the payment function on the website entirely and display a maintenance page while waiting for the API to recover.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Outage Confirmed — Failover Required",
+      "situation": "The payment processor's status page confirms a major multi-region outage with no estimated resolution time. Your business continuity plan includes a pre-configured backup payment provider. The engineering team is ready to activate failover, but the backup provider integration was last tested 6 months ago.",
+      "question": "How do you activate the failover to the backup payment provider?",
+      "options": [
+        { "label": "A", "text": "Activate the backup payment provider failover, run a quick smoke test with a low-value transaction to confirm it is working, then route live traffic to the backup provider while monitoring error rates.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Route all live traffic immediately to the backup provider without testing, to restore service as fast as possible.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Attempt to fix the primary payment API integration rather than activating the backup, assuming the issue may be on your side.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Customer Communication and Transaction Recovery",
+      "situation": "The backup payment provider is live and accepting transactions. However, approximately 340 customers experienced failed transactions during the outage window. Some may have been charged without receiving order confirmation. Customers are posting on social media about failed payments.",
+      "question": "How do you handle customer communication and transaction recovery?",
+      "options": [
+        { "label": "A", "text": "Publish a service status update on your website and social media channels, email all affected customers with an explanation and assurance that no duplicate charges occurred, and queue retry logic for failed orders with customer notification on successful retry.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Only post a generic social media apology without directly contacting affected customers or addressing potential duplicate charges.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Primary Provider Restoration and Lessons Learned",
+      "situation": "The primary payment processor announces service restoration. You must safely re-route traffic back to the primary provider and capture lessons learned to improve your resilience for future API outages.",
+      "question": "How do you manage the cut-back to the primary provider and improve future resilience?",
+      "options": [
+        { "label": "A", "text": "Gradually re-route traffic to the primary provider while monitoring error rates, conduct a post-incident review, and schedule quarterly failover tests with the backup payment provider to ensure readiness.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Immediately cut all traffic back to the primary provider without validation and close the incident without a post-incident review.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Switch permanently to the backup provider without assessing whether the primary provider meets SLA requirements.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The third-party API outage was handled effectively. The incident was declared promptly, failover to the backup payment provider was validated before live traffic was switched, affected customers were proactively communicated with, and a post-incident review with scheduled failover testing strengthens future resilience.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Supply Chain",
+  "difficulty": "Intermediate",
+  "tags": ["third-party", "API", "outage", "payment", "business continuity"]
+}

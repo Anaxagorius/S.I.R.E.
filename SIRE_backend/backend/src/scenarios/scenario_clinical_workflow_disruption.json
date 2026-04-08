@@ -1,0 +1,63 @@
+{
+  "title": "scenario_clinical_workflow_disruption",
+  "description": "A ransomware attack encrypts critical clinical systems including laboratory results, radiology imaging, and order management, forcing the hospital to divert ambulances and cancel elective procedures.",
+  "timeline": [
+    { "index": 0, "title": "Ransomware Detected", "description": "At 03:00, IT security detects ransomware spreading across the hospital network. Laboratory, radiology, and order management systems are encrypted and offline.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Ambulance Diversion Activated", "description": "The Medical Director declares a major incident. Ambulance services are notified to divert to alternative hospitals. Elective procedures are cancelled.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Clinical Downtime Procedures Active", "description": "Full clinical downtime procedures are activated. Paper-based workflows are implemented across all departments.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Ransomware Contained", "description": "IT has isolated affected network segments. Spread of ransomware is stopped. Forensic investigation begins.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Recovery Prioritised", "description": "System restoration is underway in clinical priority order from clean backups. No ransom payment is made.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Patient safety was maintained through downtime procedures, ransomware was contained, systems were restored from clean backups, and a comprehensive post-incident review was initiated.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ransomware Encrypting Clinical Systems",
+      "situation": "At 03:00, your IT security operations centre detects ransomware spreading rapidly across the hospital network. Within 20 minutes, the laboratory information system, PACS radiology system, and clinical order management system are encrypted and offline. The EHR is still operational but degraded. The emergency department has 45 patients and the ICU has 18 ventilated patients. The hospital is the sole trauma centre for a large urban area.",
+      "question": "What is your immediate clinical and operational response?",
+      "options": [
+        { "label": "A", "text": "Wake the on-call Medical Director and Chief Nursing Officer immediately, declare a major incident, activate full clinical downtime procedures, notify ambulance services of the situation and recommend diversion while patient safety is assessed, and cancel all elective procedures.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Wait for IT to assess the extent of the attack before waking clinical leadership, as it may resolve quickly.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Pay the ransom demand immediately to restore systems before clinical leadership is notified.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Containing the Ransomware Spread",
+      "situation": "The major incident is declared. Ambulance diversion is active. Clinical downtime procedures are activated and paper-based workflows are running. IT must now contain the ransomware to prevent further system encryption. The ransomware has been identified as a known strain that spreads via SMB protocol. Network segmentation could stop the spread.",
+      "question": "How does IT contain the ransomware?",
+      "options": [
+        { "label": "A", "text": "Isolate all affected network segments by disabling inter-VLAN routing, disable SMB protocol traffic across all network boundaries, identify and isolate patient-zero endpoint, and preserve affected systems for forensic investigation without wiping them.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Power off the entire hospital network to stop the spread, including systems still functioning that are supporting clinical care.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Run antivirus scans on all affected systems while they remain connected to the network, allowing the ransomware to continue spreading.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Managing Clinical Safety During Extended Downtime",
+      "situation": "The ransomware spread is contained. Restoration from backup will take an estimated 48-72 hours. The hospital must manage patient safety during this extended downtime period. Critical challenges include: communicating critical laboratory results, managing medication administration for 340 inpatients, and supporting the ICU without electronic monitoring integration.",
+      "question": "How do you manage patient safety during extended downtime?",
+      "options": [
+        { "label": "A", "text": "Activate the extended downtime patient safety protocol: implement manual critical result communication directly between laboratory and clinical teams, increase nursing observation frequency for ICU patients, establish a command centre for clinical coordination, and assess patients for early discharge if clinically safe to reduce inpatient volume.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Continue normal clinical operations relying on staff memory and informal communication without structured downtime protocols.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "System Restoration Priority and Ransom Decision",
+      "situation": "Patient safety is being maintained. The attackers have left a ransom note demanding payment for decryption keys. Your security team confirms you have clean offline backups of all critical systems from 24 hours before the attack. Recovery from backup is possible within 48-72 hours. The ransom demand is $2.5 million.",
+      "question": "What is your decision regarding the ransom and restoration approach?",
+      "options": [
+        { "label": "A", "text": "Do not pay the ransom. Begin system restoration from verified clean backups in clinical priority order: EHR first, then laboratory systems, then order management, then PACS. Engage law enforcement and inform the relevant regulatory bodies of the ransomware attack.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Pay the ransom to achieve faster recovery, without engaging law enforcement or disclosing the incident to regulators.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Restore from backup and also pay the ransom as insurance, in case the backup restoration is incomplete.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The ransomware attack was handled correctly. Patient safety was the immediate priority — downtime procedures were activated, ambulance diversion was implemented, and clinical care continued through structured paper-based workflows. The ransomware was contained through network isolation, systems were restored from clean backups without paying the ransom, and law enforcement and regulators were notified. A post-incident review will address the vulnerabilities that allowed the ransomware to enter and spread.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Healthcare",
+  "difficulty": "Advanced",
+  "tags": ["clinical", "ransomware", "healthcare", "patient safety", "diversion"]
+}

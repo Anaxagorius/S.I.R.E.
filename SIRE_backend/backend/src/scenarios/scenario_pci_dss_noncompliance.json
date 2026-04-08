@@ -1,0 +1,63 @@
+{
+  "title": "scenario_pci_dss_noncompliance",
+  "description": "A PCI DSS audit reveals that cardholder data is being stored unencrypted in log files across multiple systems, in direct violation of PCI DSS requirements.",
+  "timeline": [
+    { "index": 0, "title": "PCI DSS Audit Finding", "description": "A Qualified Security Assessor (QSA) discovers that application debug logs contain full Primary Account Numbers (PANs) and CVV codes in plaintext across 8 systems.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Logging Suspended", "description": "Debug logging is disabled on affected systems. Log files are quarantined and access restricted.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Exposure Assessment Underway", "description": "Teams are assessing who has accessed the log files, for how long the data has been stored, and how many cardholders may be affected.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Card Brands and Acquirer Notified", "description": "The acquiring bank and relevant card brands are notified of the potential cardholder data exposure.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Remediation Plan Submitted", "description": "A remediation plan addressing log sanitisation and cardholder data handling is submitted to the QSA.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Cardholder data in logs was secured, the acquirer and card brands were notified, and remediation addressed root cause logging practices.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unencrypted Cardholder Data Found in Log Files",
+      "situation": "During a PCI DSS Level 1 audit, your Qualified Security Assessor discovers that application debug logs on 8 systems in the cardholder data environment contain full Primary Account Numbers (PANs) and CVV security codes in plaintext. PCI DSS Requirement 3 strictly prohibits storage of sensitive authentication data (including CVVs) after authorisation and requires PANs to be encrypted or masked wherever stored. The logs date back 18 months.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately disable debug logging on all affected systems to stop new cardholder data being written to logs, quarantine all existing log files with restricted access, and notify your incident response team and legal counsel.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Encrypt the log files where they are to bring them into compliance before taking any other action.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delete all log files immediately to remove the cardholder data before the auditor can fully document the finding.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing the Cardholder Data Exposure",
+      "situation": "Debug logging is stopped and log files are quarantined. Forensic review of the 18 months of logs reveals approximately 200,000 transaction records containing PANs, and 85,000 records containing CVV codes. Log access records show the logs were accessible to 40 staff members with application support access. A forensic investigation is needed to determine if data was accessed or exfiltrated.",
+      "question": "How do you assess the scope of exposure?",
+      "options": [
+        { "label": "A", "text": "Engage a PCI forensic investigator (PFI) to conduct a forensic examination of the log access records, determine whether cardholder data was accessed or exfiltrated beyond legitimate operational access, and document findings for notification obligations.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Accept that no breach occurred because none of the 40 staff with access have reported misuse, and proceed directly to remediation without a forensic investigation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Notifying the Acquirer and Card Brands",
+      "situation": "The PFI investigation cannot rule out unauthorised access. Under PCI DSS requirements and card brand rules, you must notify your acquiring bank and the relevant card brands (Visa, Mastercard, etc.) of the potential cardholder data compromise. This may trigger card brand forensic requirements and potentially a card replacement programme for affected cardholders.",
+      "question": "How do you manage the notification to the acquirer and card brands?",
+      "options": [
+        { "label": "A", "text": "Notify your acquiring bank immediately with the forensic investigation findings, cooperate with card brand forensic investigators, provide full details of the affected card ranges and timeframes, and engage your legal team to manage the notification process.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Attempt to self-remediate and notify the acquirer only after all remediation is complete, potentially exceeding mandatory notification timeframes.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Only notify Visa and Mastercard, ignoring other card brands present in the affected transaction data.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Remediation and Preventing Recurrence",
+      "situation": "Notifications are issued and card brand investigations are underway. You must now remediate the root cause — application debug logging that captures cardholder data — and implement controls to prevent this class of PCI DSS violation recurring.",
+      "question": "What remediation actions do you implement?",
+      "options": [
+        { "label": "A", "text": "Implement log data masking and filtering to automatically redact PANs and CVVs from all application logs, conduct a code review across all applications in the cardholder data environment, and deploy a log monitoring solution that alerts on patterns resembling card data in log streams.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Disable all application logging permanently across the cardholder data environment, preventing detection of future incidents.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Restrict log file access to a smaller group of administrators without addressing the root cause of cardholder data being written to logs.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The PCI DSS noncompliance was addressed correctly. Debug logging was immediately stopped, log files were quarantined, a PFI forensic investigation was conducted, the acquirer and card brands were notified promptly, and robust log data masking and code review processes were implemented to prevent cardholder data appearing in logs in future.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Compliance",
+  "difficulty": "Intermediate",
+  "tags": ["PCI DSS", "cardholder data", "compliance", "encryption", "audit"]
+}

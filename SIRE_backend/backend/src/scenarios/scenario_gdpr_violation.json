@@ -1,0 +1,63 @@
+{
+  "title": "scenario_gdpr_violation",
+  "description": "An internal audit reveals that customer personal data has been retained far beyond defined retention periods and is being used for purposes not covered by the original consent.",
+  "timeline": [
+    { "index": 0, "title": "Audit Finding Raised", "description": "An internal data audit flags that customer personal data going back 9 years is still held in production systems despite a 3-year retention policy.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "DPO Assessment Begins", "description": "The DPO begins a full assessment of data categories, purposes, and legal bases in scope.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Scope of Violation Confirmed", "description": "Retention violations confirmed across 3 systems. Unlawful secondary use of data also identified in a marketing analytics pipeline.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Data Remediation Plan Approved", "description": "A data deletion and remediation plan is approved by legal and the DPO. Deletion is being executed under supervision.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Regulator Notified", "description": "Voluntary disclosure made to the data protection authority alongside the remediation plan.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Retained data beyond policy was deleted, unlawful processing was stopped, the regulator was notified, and data governance processes were strengthened.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Data Retained Beyond Retention Policy",
+      "situation": "An internal audit reveals that your organisation has been retaining customer personal data, including names, contact details, purchase history, and behavioural data, for up to 9 years. Your published privacy notice and internal data retention policy state a maximum retention period of 3 years. Additionally, data originally collected for transaction processing appears to be fed into a marketing analytics platform without customers having consented to this use.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately escalate findings to the DPO and legal counsel, suspend the marketing analytics data feed pending review, and commission a full data mapping exercise to scope all systems containing data beyond retention limits.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Update the privacy notice to extend the retention period to 9 years retroactively and continue current practices.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delete all customer data immediately without conducting any scoping or legal assessment, risking destruction of data still required for legitimate purposes.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing the Full Scope of the Violation",
+      "situation": "The DPO's assessment confirms: three production systems contain personal data in excess of the 3-year retention limit covering approximately 480,000 individuals, and a marketing analytics pipeline has been processing this data for targeting without a valid legal basis. The GDPR principles of storage limitation and purpose limitation have both been violated. Regulatory disclosure should be considered.",
+      "question": "How do you proceed with the legal assessment and regulatory exposure?",
+      "options": [
+        { "label": "A", "text": "Prepare a full legal assessment documenting which GDPR principles were breached, the categories of data and number of individuals affected, the period of violation, and whether voluntary disclosure to the supervisory authority is appropriate given the scale.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Remediate the systems first and only approach the regulator if contacted, minimising regulatory engagement.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Executing Data Remediation",
+      "situation": "Legal and the DPO have agreed on a remediation plan: delete all personal data beyond the 3-year retention limit, stop the unlawful marketing analytics processing, and make a voluntary disclosure to the supervisory authority. The deletion must be carefully executed to avoid accidentally deleting data still within retention, and records of deletion must be maintained.",
+      "question": "How do you execute the data remediation?",
+      "options": [
+        { "label": "A", "text": "Implement deletion scripts reviewed by the DPO and a technical lead, run on a test environment first, maintain deletion logs as evidence of remediation, and execute in phases starting with the highest-risk data categories.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Run bulk deletion scripts in production immediately without testing or logging to remediate as quickly as possible.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Archive rather than delete the out-of-retention data, arguing that archiving satisfies the storage limitation principle.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Regulatory Disclosure and Process Improvement",
+      "situation": "Data remediation is complete and verified. The voluntary disclosure to the supervisory authority must now be submitted. You must also implement process improvements to prevent retention and purpose violations recurring.",
+      "question": "What process improvements do you implement?",
+      "options": [
+        { "label": "A", "text": "Submit voluntary disclosure to the data protection authority with full remediation evidence, implement automated data retention enforcement tooling, establish a data governance committee to review new processing activities, and schedule annual data audits.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Submit the disclosure but make no structural process changes, relying on staff awareness to prevent recurrence.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delay submitting the disclosure until the regulator's annual reporting cycle to minimise regulatory interaction.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The GDPR violations were remediated effectively. Out-of-retention data was deleted in a carefully controlled and evidenced process, unlawful marketing analytics processing was stopped, voluntary disclosure was made to the supervisory authority, and automated retention enforcement and annual data auditing were implemented to prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Compliance",
+  "difficulty": "Intermediate",
+  "tags": ["GDPR", "data protection", "compliance", "retention", "consent"]
+}

@@ -1,0 +1,63 @@
+{
+  "title": "scenario_breach_notification_failure",
+  "description": "A data breach that occurred 30 days ago is discovered to have not been reported to regulators within the legally required 72-hour window, creating significant regulatory exposure.",
+  "timeline": [
+    { "index": 0, "title": "Late Discovery of Unreported Breach", "description": "An internal security review reveals a data breach that occurred 30 days ago was never reported to the data protection authority, despite meeting notification thresholds.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "DPO and Legal Engaged", "description": "The DPO and legal counsel are briefed. The extent of the original breach and the notification failure are being documented.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Voluntary Disclosure Prepared", "description": "A voluntary late disclosure package is being prepared for the supervisory authority including an explanation of the notification failure.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Regulator Contacted", "description": "Voluntary late notification submitted to the data protection authority with full incident documentation.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Process Remediation Initiated", "description": "Internal breach notification processes and detection capabilities are being reviewed and strengthened.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Voluntary late disclosure was made, the original breach was fully documented, and notification processes were overhauled to prevent recurrence.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unreported Breach Discovered 30 Days Later",
+      "situation": "An internal security review uncovers that a phishing attack 30 days ago resulted in an employee account compromise, exposing personal data of 3,500 customers including names, addresses, and account numbers. The incident was handled by the IT team as a routine account recovery but was never escalated to the DPO. GDPR requires notification to the supervisory authority within 72 hours of becoming aware of a qualifying breach.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately escalate to the DPO and legal counsel, document all facts about the original breach and the notification failure, and begin preparing a voluntary late disclosure to the supervisory authority.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Suppress the incident internally and avoid notifying the regulator, hoping the breach is never discovered.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Notify affected customers first before engaging legal counsel or the DPO, without informing the regulator.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Preparing the Voluntary Late Disclosure",
+      "situation": "Legal counsel advises that voluntary late disclosure with a full explanation of why notification was delayed is significantly better than waiting to be discovered by the regulator. The disclosure must include: the nature of the breach, categories and approximate number of affected individuals, likely consequences, and measures taken to address it. The DPO must sign off the notification.",
+      "question": "What must the disclosure package include?",
+      "options": [
+        { "label": "A", "text": "Prepare a comprehensive disclosure including: the nature and timeline of the original breach, the categories and number of affected data subjects, the reason for the 30-day notification delay, consequences of the breach, and remediation actions already taken.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Submit a minimal disclosure with only basic breach facts, omitting the explanation of the notification failure to reduce scrutiny.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delay preparing the disclosure until legal counsel negotiates a settlement with the regulator in advance.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Notifying Affected Individuals",
+      "situation": "Alongside the regulatory disclosure, 3,500 affected customers must be notified. Their data has been exposed for 30 days, which may have allowed fraud or identity theft. Notification must be made without undue further delay.",
+      "question": "How do you handle individual notification?",
+      "options": [
+        { "label": "A", "text": "Send clear breach notification letters to all 3,500 affected customers explaining what data was exposed, the potential risks, and practical guidance on protecting themselves such as monitoring credit reports, without unnecessary delay.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Delay individual notification until the regulator responds to the disclosure, as the regulator may decide notification is not required.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Fixing the Notification Process",
+      "situation": "The regulatory disclosure has been submitted and customers have been notified. The root cause of the notification failure was that the IT team lacked a clear escalation path to the DPO and did not recognise the incident as a qualifying breach. Internal processes must be overhauled.",
+      "question": "What process improvements do you implement?",
+      "options": [
+        { "label": "A", "text": "Implement a mandatory breach triage checklist for all IT security incidents, create a clear escalation path to the DPO with defined thresholds, conduct breach notification training for IT and security teams, and review all historic incidents for potential missed notifications.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Send a reminder email to the IT team about breach notification requirements and consider the issue resolved.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Only implement changes after receiving regulatory enforcement action, to determine the minimum required changes.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The unreported breach was handled correctly once discovered. Voluntary late disclosure was made to the supervisory authority with full documentation, affected customers were notified, and comprehensive process improvements were implemented to ensure future qualifying breaches are identified and reported within the 72-hour window.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Compliance",
+  "difficulty": "Intermediate",
+  "tags": ["breach notification", "GDPR", "regulatory", "compliance", "data breach"]
+}

@@ -1,0 +1,64 @@
+{
+  "title": "scenario_ehr_outage",
+  "description": "The Electronic Health Record (EHR) system goes offline during peak clinical hours, preventing clinicians from accessing patient records, medication orders, and clinical history.",
+  "timeline": [
+    { "index": 0, "title": "EHR System Offline", "description": "At 09:15, the EHR system becomes inaccessible to all clinical users across the hospital. The IT helpdesk is flooded with calls.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Downtime Procedures Activated", "description": "Clinical downtime procedures are activated. Paper-based charts and downtime medication sheets are distributed to wards.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Patient Safety Priorities Assessed", "description": "Clinical leadership prioritises patient safety. Critical patients are identified and verbal medication orders are confirmed.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "IT Investigation Underway", "description": "IT team identifies a failed database server cluster. Restoration from backup is initiated.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "EHR Partially Restored", "description": "EHR is partially restored for critical areas including ICU and emergency department. Full restoration is underway.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Downtime procedures ensured patient safety, IT restored the EHR from backup, and post-downtime data reconciliation was completed.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "EHR Offline During Peak Clinical Hours",
+      "situation": "It is 09:15 on a weekday morning. The EHR system has suddenly become inaccessible to all clinical users. Clinicians cannot access patient records, view medication orders, or document care. The pharmacy system is also integrated with the EHR and cannot process new prescriptions. There are 340 inpatients and a busy emergency department. Elective procedures are scheduled for this morning.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Activate clinical downtime procedures immediately: notify all ward managers and department heads, distribute pre-prepared paper downtime packs, halt elective procedures where safe to do so, and escalate to IT and the clinical leadership team.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Wait 30 minutes to see if the system self-recovers before activating downtime procedures, to avoid the disruption of unnecessary paperwork.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Allow clinicians to proceed from memory for current patients without activating any downtime procedures.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Medication Orders and Patient Safety",
+      "situation": "Downtime procedures are activated. The most immediate patient safety risk is medication administration — nurses cannot view scheduled medication orders for 340 inpatients in the EHR. Time-critical medications such as insulin, anticoagulants, and IV antibiotics must be identified and administered on schedule.",
+      "question": "How do you ensure safe medication administration during EHR downtime?",
+      "options": [
+        { "label": "A", "text": "Direct nurses to use downtime medication administration records (MARs) that were printed from the EHR during the last scheduled downtime print cycle, and for patients admitted since the last print, verify medication orders verbally with the prescribing clinician with double-sign-off.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Suspend all medication administration until the EHR is restored to avoid any errors from working without electronic records.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Allow nursing staff to administer medications from memory and informal notes without any structured downtime documentation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "IT Restoration Priorities",
+      "situation": "Patient safety is being managed through downtime procedures. IT has identified that a database server cluster failure caused the outage. Restoration from backup is possible but will take an estimated 4 hours for full restoration. IT asks which clinical systems should be prioritised for partial restoration first.",
+      "question": "What restoration priority order do you advise?",
+      "options": [
+        { "label": "A", "text": "Prioritise restoration in clinical criticality order: ICU and critical care first, then emergency department, then surgical theatres (if procedures are proceeding), then general wards. Pharmacy integration should be restored alongside clinical access to allow prescription processing.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Restore systems alphabetically by department name to maintain fairness.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Restore administrative billing systems first to prevent financial losses before restoring clinical access.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Downtime Data Reconciliation",
+      "situation": "The EHR has been restored. During the 4-hour downtime, clinical staff documented all care activities on paper. This paper documentation must now be reconciled and entered into the EHR to ensure patient records are complete and accurate. A backlog of paper records exists across all wards.",
+      "question": "How do you manage post-downtime data reconciliation?",
+      "options": [
+        { "label": "A", "text": "Implement a structured reconciliation process: assign dedicated staff to transcribe paper records into the EHR in clinical priority order, starting with medication administration, then clinical observations, then care documentation. Set a completion deadline and verify against the paper originals.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Allow ward staff to enter paper records into the EHR in their own time over the next week, without a structured reconciliation process.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Discard the paper records and resume normal EHR documentation going forward, accepting a gap in patient records.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The EHR outage was managed safely. Downtime procedures were activated immediately, medication safety was maintained through printed MARs and verbal verification, IT restoration was prioritised by clinical criticality, and a structured post-downtime reconciliation process ensured complete patient records. A post-incident review will examine the database cluster failure and improve downtime procedure readiness.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Healthcare",
+  "difficulty": "Intermediate",
+  "tags": ["EHR", "healthcare", "outage", "clinical", "downtime procedures"]
+}

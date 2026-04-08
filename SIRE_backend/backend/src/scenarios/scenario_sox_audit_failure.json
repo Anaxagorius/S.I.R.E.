@@ -1,0 +1,63 @@
+{
+  "title": "scenario_sox_audit_failure",
+  "description": "External SOX auditors discover that IT general controls are deficient: access controls to financial systems are inadequate and change management processes lack required approvals.",
+  "timeline": [
+    { "index": 0, "title": "SOX Audit Finding Issued", "description": "External auditors issue a material weakness finding: 45 active user accounts in financial systems belong to former employees, and 30% of production changes lacked required approval documentation.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Emergency Access Review", "description": "An emergency access review is underway for all financial systems. Former employee accounts are being disabled.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Change Management Gap Addressed", "description": "All changes made without proper approval are being documented retrospectively and a process hold is placed on future changes pending new controls.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Executive Escalation", "description": "The CFO and audit committee are briefed. A remediation plan is presented to the external auditors.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Compensating Controls Implemented", "description": "Compensating controls including enhanced monitoring are deployed to bridge the gap while permanent fixes are implemented.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Material weakness findings were addressed with access remediation, change management process fixes, compensating controls, and executive-level assurance to auditors.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "SOX Material Weakness Finding Issued",
+      "situation": "External SOX auditors have issued a draft report identifying a material weakness in IT General Controls (ITGCs). Two findings: 45 user accounts in your core financial systems (ERP, payroll, treasury) belong to former employees who left the organisation in the past 12 months, and an analysis of 200 production change tickets shows 60 lacked the required dual-approval and change advisory board sign-off. These deficiencies could affect the reliability of financial reporting.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Disable all 45 former employee accounts immediately, place an emergency hold on all pending financial system changes pending review, and escalate to the CISO and CFO to brief them on the material weakness before responding to the auditors.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Respond to the auditors requesting more time to investigate before taking any remediation action.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Disable only the highest-risk former employee accounts and continue processing changes under existing procedures while preparing the auditor response.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Access Review and Change Management Gap",
+      "situation": "All 45 former employee accounts have been disabled. Review of the accounts confirms two had access to payroll and treasury approval functions. Logs show these accounts were used 17 times after the employees left — analysis is needed to determine if this represents unauthorised access or shared credential use. The 60 unapproved changes must also be reviewed for financial reporting impact.",
+      "question": "How do you investigate the former employee account activity and unapproved changes?",
+      "options": [
+        { "label": "A", "text": "Perform a forensic review of all 17 post-termination account uses to determine if they represent unauthorised transactions, and review all 60 unapproved changes for financial reporting impact to provide the auditors with a complete risk assessment.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Assume the account usage was benign shared credential use and document the 60 unapproved changes as low-risk without investigation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Presenting Remediation to Auditors and Executives",
+      "situation": "Investigation confirms the post-termination account accesses were legitimate shared credential use by current employees covering for colleagues, which is itself a control deficiency. The 60 unapproved changes were all routine patches with no material financial reporting impact. The CFO and audit committee must be briefed, and a credible remediation plan must be presented to the external auditors to prevent the material weakness from affecting the annual report.",
+      "question": "How do you present the situation to the audit committee and external auditors?",
+      "options": [
+        { "label": "A", "text": "Present the audit committee and external auditors with a comprehensive remediation plan including: immediate access control fixes, a 90-day change management process overhaul, compensating controls to bridge the gap, and a timeline for sustainable ITGC compliance.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Minimise the findings in the presentation to the audit committee, emphasising that no fraud occurred rather than addressing the control deficiencies.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Bypass the audit committee briefing and communicate directly to the external auditors only, keeping the board uninformed of the material weakness.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Implementing Compensating Controls and Sustainable Fixes",
+      "situation": "The audit committee has accepted the remediation plan. Compensating controls are needed immediately while the permanent process fixes are implemented. Compensating controls must demonstrably reduce risk to an acceptable level during the remediation period.",
+      "question": "What compensating controls do you implement?",
+      "options": [
+        { "label": "A", "text": "Deploy enhanced monitoring on all financial system transactions with daily review, implement an emergency manual change approval checklist requiring CFO sign-off, and establish an automated access provisioning process integrated with HR's leavers workflow to prevent recurrence.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Increase audit log retention as the sole compensating control, without addressing the approval process gaps or access lifecycle weaknesses.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Pause all financial system operations until permanent controls are implemented, causing business disruption that is disproportionate to the risk.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The SOX material weakness was addressed effectively. All former employee accounts were immediately disabled, forensic investigation of suspicious account use was completed, a comprehensive remediation plan was presented to the audit committee and external auditors, and compensating controls including enhanced monitoring and automated leavers access revocation were deployed. The change management process overhaul is on track for completion within 90 days.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Compliance",
+  "difficulty": "Intermediate",
+  "tags": ["SOX", "audit", "compliance", "access controls", "change management"]
+}

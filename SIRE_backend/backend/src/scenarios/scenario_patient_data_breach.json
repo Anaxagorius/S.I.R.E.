@@ -1,0 +1,63 @@
+{
+  "title": "scenario_patient_data_breach",
+  "description": "An insider at a healthcare facility has been accessing and selling patient records to third parties. Approximately 8,000 patient records have been compromised.",
+  "timeline": [
+    { "index": 0, "title": "Suspicious Access Pattern Detected", "description": "Audit log analysis flags a member of staff who has accessed 8,000 patient records over 3 months — far exceeding their clinical caseload.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Insider Threat Confirmed", "description": "HR and the Information Governance team confirm the access patterns are not clinically justified. The employee's access is suspended.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Scope of Breach Determined", "description": "Forensic analysis identifies all records accessed. Evidence of data exfiltration via personal email is confirmed.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Law Enforcement Engaged", "description": "The case is referred to law enforcement. HR disciplinary processes are coordinated with the criminal investigation.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Breach Notification Issued", "description": "HIPAA breach notification is submitted to HHS. Affected patients are notified by letter.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "The insider was identified, access was revoked, law enforcement was engaged, and affected patients were notified as required.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious EHR Access Pattern Flagged",
+      "situation": "Your EHR audit logging system has generated an alert flagging a healthcare assistant who has accessed 8,000 distinct patient records over the past 3 months. Their role only requires access to patients on a single 24-bed ward. The pattern shows weekend and out-of-hours access to patients in departments they have no clinical involvement with. This is a clear indicator of inappropriate access.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately suspend the employee's EHR access and IT system access pending investigation, preserve all audit logs related to their access, and escalate to HR, the Information Governance team, and your Data Protection Officer concurrently.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Confront the employee directly before suspending their access, giving them the opportunity to delete evidence.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Monitor the employee's access for another month to gather more evidence before taking action.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Confirming the Insider Breach and Scope",
+      "situation": "Access has been suspended. Forensic review of audit logs and email gateway records shows that the employee forwarded patient records including names, dates of birth, diagnoses, and contact details to a personal email address on multiple occasions. The data appears to have been sold to insurance fraud rings. A forensic investigation must now definitively scope all 8,000 affected records.",
+      "question": "How do you scope and document the breach?",
+      "options": [
+        { "label": "A", "text": "Engage a forensic investigator to analyse all audit log records, email gateway logs, and endpoint activity to definitively identify every patient record accessed and exfiltrated, preserving all evidence under chain of custody for law enforcement.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Scope the breach based only on the audit log alerts without a full forensic investigation, potentially underestimating the number of affected patients.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delete the employee's access logs after confirming the breach to protect the organisation from further scrutiny.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Engaging Law Enforcement",
+      "situation": "Forensic investigation confirms 8,000 patients' records were accessed and exfiltrated to a personal email account, then sold to third parties. This constitutes a criminal offence under healthcare privacy laws and data protection legislation. Law enforcement must be engaged, and the criminal investigation must be coordinated carefully with HR disciplinary processes.",
+      "question": "How do you manage law enforcement engagement and HR processes?",
+      "options": [
+        { "label": "A", "text": "Refer the case to law enforcement immediately with all forensic evidence under chain of custody, coordinate with legal counsel to ensure HR disciplinary proceedings do not compromise the criminal investigation, and suspend HR proceedings pending law enforcement guidance.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Proceed with HR disciplinary proceedings and dismiss the employee before engaging law enforcement, which may compromise the criminal case.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "HIPAA Breach Notification to HHS and Affected Patients",
+      "situation": "Law enforcement is engaged and the investigation is proceeding. HIPAA breach notification obligations require notification to HHS and all 8,000 affected patients within 60 days of discovery. Patients are at risk of fraud and identity theft given the nature of the data sold. Notification must include clear guidance to protect themselves.",
+      "question": "How do you execute breach notification?",
+      "options": [
+        { "label": "A", "text": "File the HIPAA breach report with HHS, send individual written notification to all 8,000 affected patients detailing what information was accessed, the nature of the breach, steps taken, and guidance on protecting themselves including fraud monitoring services.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Delay patient notification until the criminal case is resolved to avoid compromising the prosecution, which may extend beyond the 60-day notification deadline.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Notify only patients whose records were confirmed exfiltrated and not those whose records were accessed but not definitively forwarded.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The insider data breach was handled correctly. The employee's access was immediately suspended with evidence preserved, a full forensic investigation scoped all affected patients, law enforcement was engaged with full evidence under chain of custody, and HIPAA breach notifications were made to HHS and all 8,000 affected patients within the required timeframe with practical guidance on protecting themselves.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Healthcare",
+  "difficulty": "Intermediate",
+  "tags": ["patient data", "insider threat", "healthcare", "HIPAA", "data breach"]
+}

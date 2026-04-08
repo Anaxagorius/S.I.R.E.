@@ -1,0 +1,63 @@
+{
+  "title": "scenario_contract_termination",
+  "description": "A critical SaaS vendor announces immediate service termination due to their own financial collapse, giving your organisation 72 hours to migrate data and services.",
+  "timeline": [
+    { "index": 0, "title": "Vendor Termination Notice", "description": "An email arrives from your SaaS vendor announcing they are ceasing operations in 72 hours due to insolvency. Data export must begin immediately.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Business Continuity Plan Activated", "description": "The incident response and business continuity teams are assembled. Critical data export has begun.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Data Export Underway", "description": "Bulk data export is running. Teams are evaluating alternative SaaS providers for emergency migration.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Alternative Provider Selected", "description": "An alternative SaaS provider is selected and emergency onboarding is initiated. Data import is being prepared.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Migration Validated", "description": "Migrated data and workflows are validated. Users are transitioned to the new platform before the 72-hour deadline.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "All critical data was exported and migrated to an alternative provider within the 72-hour window. Service continuity was maintained.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "SaaS Vendor Announces 72-Hour Shutdown",
+      "situation": "Your organisation relies on a SaaS platform for core project management, document storage, and customer communication workflows used by 200 staff. The vendor has announced insolvency and will terminate all services in exactly 72 hours. After that point, access to data will be permanently lost. The platform holds 3 years of critical business records.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately declare a business continuity incident, activate the emergency response team, begin bulk data export using the vendor's API and export tools, and notify all staff of the situation and interim working procedures.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Contact the vendor to negotiate an extension before beginning any data export, losing hours of the 72-hour window.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Focus on identifying an alternative vendor first before starting data export, risking losing data if export takes longer than expected.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Data Export in Progress — Prioritisation Required",
+      "situation": "Data export has started but the full export is estimated to take 36 hours given the volume. You have 72 hours total. Some data export formats from the vendor are proprietary and may require conversion. You must decide how to prioritise what is exported first in case time runs short.",
+      "question": "How do you prioritise the data export?",
+      "options": [
+        { "label": "A", "text": "Prioritise the most business-critical data first: active contracts, customer records, and financial documents, then historical records. Assign teams to run parallel exports of different data categories to maximise throughput.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Export data alphabetically by project name to maintain consistency, without considering business criticality.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Only export data from the last 12 months to save time, accepting permanent loss of older records.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Selecting an Alternative Provider Under Time Pressure",
+      "situation": "Critical data export is 60% complete. You have approximately 30 hours remaining. You must now select an alternative SaaS provider and begin onboarding. Three candidate platforms have been shortlisted by your team: two are fully mature but require formal procurement approval, and one can be provisioned immediately on a credit card but lacks some compliance certifications.",
+      "question": "How do you handle provider selection under time pressure?",
+      "options": [
+        { "label": "A", "text": "Engage your procurement and legal team in an emergency procurement review, obtain emergency approval for the most suitable compliant provider, and begin provisioning immediately while completing due diligence in parallel.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Immediately sign up for the non-compliant provider on a personal credit card to save time, bypassing procurement entirely.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Migration Validation and User Transition",
+      "situation": "The new platform is provisioned and data import has begun. You have 12 hours remaining before the vendor shuts down. A sample validation of imported data shows some formatting issues with exported documents. Users need to be transitioned before the deadline.",
+      "question": "How do you manage the final transition?",
+      "options": [
+        { "label": "A", "text": "Validate a representative sample of critical records on the new platform, document any known data quality issues for remediation, communicate the transition plan to all staff with clear guidance on the new platform, and cut over before the deadline.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Validate 100% of all records before allowing any user access, which will exceed the deadline.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Cut over all users immediately without any validation, accepting potential data integrity issues without documenting them.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The emergency SaaS migration was completed within the 72-hour window. Critical data was prioritised and exported before the deadline, an alternative compliant provider was procured via an emergency process, data was imported and validated, and users were transitioned successfully. The incident highlighted the need for vendor financial due diligence and data portability requirements in future contracts.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Supply Chain",
+  "difficulty": "Intermediate",
+  "tags": ["vendor", "SaaS", "contract termination", "data migration", "business continuity"]
+}

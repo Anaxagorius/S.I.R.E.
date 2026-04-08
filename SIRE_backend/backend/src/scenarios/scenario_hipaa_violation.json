@@ -1,0 +1,63 @@
+{
+  "title": "scenario_hipaa_violation",
+  "description": "A misconfigured cloud storage bucket exposes protected health information (PHI) of 15,000 patients publicly for an unknown period, triggering HIPAA breach notification requirements.",
+  "timeline": [
+    { "index": 0, "title": "Public Exposure Discovered", "description": "A security researcher notifies your organisation that an AWS S3 bucket containing patient records is publicly accessible without authentication.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Bucket Secured", "description": "The misconfigured bucket is immediately made private. Access logs are being preserved for forensic analysis.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "PHI Scope Assessed", "description": "The data in the bucket is identified: 15,000 patient records containing names, diagnoses, and insurance information.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "HIPAA Breach Risk Assessment", "description": "A HIPAA breach risk assessment is underway to determine if notification to HHS and patients is required.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Notification Process Initiated", "description": "HHS is notified and patient notification letters are being prepared and sent.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "The PHI exposure was secured, a HIPAA breach risk assessment was completed, and HHS and affected patients were notified within required timeframes.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Public S3 Bucket Containing PHI Discovered",
+      "situation": "A security researcher has reported, via your responsible disclosure programme, that an AWS S3 bucket is publicly accessible and contains what appears to be patient records. Initial review confirms the bucket contains records for 15,000 patients including names, dates of birth, diagnoses, treatment notes, and insurance policy numbers — all classified as Protected Health Information (PHI) under HIPAA. The bucket's access logs show it has been publicly accessible for at least 45 days.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately secure the S3 bucket by removing all public access permissions, preserve all access logs without alteration for forensic and legal purposes, and notify your Privacy Officer and legal counsel to begin the HIPAA breach assessment process.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Delete the bucket contents immediately to prevent further access before conducting any forensic preservation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Restrict access to the bucket and wait to see if any patients report harm before initiating a formal breach process.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Conducting the HIPAA Breach Risk Assessment",
+      "situation": "The bucket is secured. HIPAA requires a breach risk assessment to determine whether notification is required. The assessment must evaluate: the nature and extent of PHI involved, who accessed it and for what purpose, the extent to which risk has been mitigated. Under HIPAA's Breach Notification Rule, covered entities must notify HHS and affected individuals within 60 days of discovery. With 15,000 individuals, media notification may also be required.",
+      "question": "How do you conduct the breach risk assessment?",
+      "options": [
+        { "label": "A", "text": "Analyse the S3 access logs to identify all IP addresses and patterns of access during the 45-day window, assess the sensitivity of the PHI categories exposed, document the risk assessment findings, and engage HIPAA legal counsel to evaluate notification obligations.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Assume no unauthorised access occurred because no patients have complained, and document this assumption as the basis for not notifying.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Notify all 15,000 patients immediately without completing the risk assessment, before legal obligations and messaging are confirmed.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Notifying HHS and Affected Patients",
+      "situation": "The breach risk assessment confirms that notification is required. Access logs show numerous unknown IP addresses accessed the bucket multiple times. With 15,000 affected individuals and a qualifying breach confirmed, HIPAA requires notification to: affected individuals (within 60 days), HHS (within 60 days), and prominent media outlets in relevant states (for breaches affecting more than 500 residents of a state).",
+      "question": "How do you execute the HIPAA notification requirements?",
+      "options": [
+        { "label": "A", "text": "File the HHS breach notification via the HHS online portal, send individual written notification to all 15,000 patients describing what happened, PHI involved, steps taken, and how to protect themselves, and issue media notifications in states with more than 500 affected residents.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Only notify HHS and not individual patients, as the breach risk assessment shows the data may not have been misused.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future PHI Exposure",
+      "situation": "Notifications have been issued to HHS, patients, and media. The root cause of the bucket misconfiguration was a developer who disabled public access controls to troubleshoot a deployment issue and forgot to re-enable them. Technical and procedural controls must be implemented to prevent recurrence.",
+      "question": "What controls do you implement to prevent future PHI exposure?",
+      "options": [
+        { "label": "A", "text": "Deploy automated cloud security posture management (CSPM) tooling to continuously detect and alert on public cloud storage misconfigurations, implement mandatory peer review for cloud storage configuration changes, and provide HIPAA-specific cloud security training for all engineers.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Issue a reminder email to the development team about cloud security and rely on manual checks.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Prohibit developers from accessing any cloud storage configuration settings, centralising all control to IT operations without providing CSPM tooling.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The HIPAA PHI exposure was handled correctly. The bucket was immediately secured with logs preserved, a thorough breach risk assessment was completed, HHS was notified, individual patients were sent written notification, and media notifications were issued as required. CSPM tooling and mandatory code review for cloud configurations prevent future misconfigurations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Compliance",
+  "difficulty": "Intermediate",
+  "tags": ["HIPAA", "PHI", "healthcare", "cloud", "breach notification"]
+}
