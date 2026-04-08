@@ -1,0 +1,150 @@
+{
+  "title": "scenario_hazmat_confined_space",
+  "description": "A utility worker is overcome by toxic hydrogen sulfide gas while performing maintenance inside a municipal sewer manhole, requiring a technical confined space rescue with atmospheric monitoring.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Worker Distress Reported",
+      "description": "Coworker calls 911 after losing communication with a worker who descended into a sewer manhole 10 minutes ago. No response to shouting.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "On Scene",
+      "description": "Worker visible at the bottom of the manhole, approximately 12 feet down, unresponsive. Strong odor of rotten eggs. Confined space entry permit is not visible.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Atmosphere Testing",
+      "description": "Atmospheric monitoring shows H2S at 210 ppm (IDLH is 50 ppm), oxygen at 17% (deficient), and LEL at 22%. Entry not authorized without SCBA.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Rescue Entry",
+      "description": "Confined space rescue team in SCBA and full protective gear initiates entry with mechanical retrieval system.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Victim Extracted",
+      "description": "Worker extracted and receiving CPR and oxygen on surface. H2S detected on victim's clothing.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Victim Transported",
+      "description": "Victim transported to hospital. Scene secured. OSHA notified of confined space entry incident as required.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unresponsive Worker in Sewer Manhole",
+      "situation": "You arrive to a sewer manhole where a utility worker is unresponsive at the bottom, approximately 12 feet below the surface. A coworker who was the topside attendant reports the downed worker descended without a retrieval harness and that a confined space entry permit cannot be located. You detect a strong rotten egg odor—consistent with hydrogen sulfide (H2S). The coworker's face is pale and he states he 'almost went down' to help before thinking better of it.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct atmospheric testing at the manhole opening before any entry. Do not allow any personnel to enter the space without SCBA and full confined space rescue PPE. Treat this as an immediately dangerous to life and health (IDLH) atmosphere until proven otherwise. Establish a hot zone around the manhole. Call for a confined space rescue team.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Descend immediately using SCBA to check the victim's pulse and begin CPR in the manhole.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Lower a rope to the victim and ask the topside coworker to help pull him out without entry.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Atmospheric Results and Entry Decision",
+      "situation": "Atmospheric monitoring confirms: H2S at 210 ppm (IDLH is 50 ppm), oxygen at 17% (deficient; normal is 20.9%), and lower explosive limit at 22%. The victim has been unresponsive for an estimated 15 minutes. One firefighter is urging entry now, arguing the victim will die if you wait for the full rescue team. Your confined space rescue team is 5 minutes out. You have two SCBA-equipped firefighters immediately available but without a mechanical retrieval system or a trained rescue attendant.",
+      "question": "Do you authorize immediate entry with available resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not authorize entry without a mechanical retrieval system and proper attendant in place. Position a charged ventilation fan at the manhole to introduce fresh air and begin reducing H2S levels. Wait the 5 minutes for the confined space rescue team—the risk of losing a second victim to an unauthorized entry in a 210 ppm H2S atmosphere is unacceptable. Maintain continuous atmospheric monitoring.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Authorize entry—two SCBA-equipped firefighters on a simple rope can retrieve the victim in time to save his life.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Lower a powered ventilation fan into the manhole to clear the H2S before attempting any entry.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Confined Space Rescue Entry",
+      "situation": "The confined space rescue team has arrived with a tripod, mechanical winch, retrieval harness, and team members in SCBA with full encapsulating suits. Continuous ventilation has reduced H2S to 60 ppm—still above IDLH. Oxygen is now 18.5%. The victim has been down for approximately 20 minutes. The rescue team lead advises they are ready to enter. The coworker asks why entry hasn't happened yet and is becoming agitated.",
+      "question": "How do you authorize the rescue entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorize entry with the full rescue team using the mechanical retrieval system. Require one SCBA-equipped attendant at the surface monitoring the entrant's air supply. Maintain continuous air monitoring. Brief the entry team that H2S remains at 60 ppm—above IDLH—and to begin extraction immediately upon reaching the victim without performing extended medical assessment in the confined space.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait until H2S drops below 10 ppm before authorizing any entry, even with full rescue PPE.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Authorize entry but have the rescue team remove their SCBA inside the manhole to make movement easier.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Victim extracted successfully using the mechanical retrieval system. CPR was initiated on the surface. H2S detected on the victim's clothing required the EMS team to wear respiratory protection during transport. The victim was transported to a hyperbaric oxygen facility for H2S poisoning treatment. The topside coworker was also evaluated and found to have mild H2S exposure symptoms. OSHA was notified of the confined space fatality near-miss as required by law. Your refusal to authorize an unauthorized entry in an IDLH atmosphere, rapid ventilation initiation, and disciplined confined space rescue protocol saved the rescue team from becoming victims.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "confined space",
+    "hydrogen sulfide",
+    "H2S",
+    "atmospheric monitoring",
+    "SCBA",
+    "rescue",
+    "IDLH"
+  ]
+}

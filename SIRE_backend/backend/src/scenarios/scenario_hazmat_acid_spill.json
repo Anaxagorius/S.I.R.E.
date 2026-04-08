@@ -1,0 +1,150 @@
+{
+  "title": "scenario_hazmat_acid_spill",
+  "description": "A large quantity of concentrated sulfuric acid is spilled at an industrial battery recycling facility when a forklift ruptures a storage tank, creating a corrosive emergency with multiple exposure victims.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Spill Reported",
+      "description": "Forklift operator reports rupturing a 500-gallon sulfuric acid storage tank. Acid flowing across the floor. Strong acrid odor noted.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Casualties",
+      "description": "Two workers splashed by acid. One with significant burns to forearms and face. Acid flowing toward a floor drain connected to the municipal sewer.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Neutralization Decision",
+      "description": "Plant manager suggests using sodium hydroxide pellets to neutralize the acid spill. Hazmat team sizing up in Level B PPE.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Containment",
+      "description": "Acid contained with chemical-resistant booms. Drain blocked. Affected workers in emergency decontamination shower.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Neutralization Complete",
+      "description": "Dilute sodium bicarbonate solution used to neutralize pH. Environmental agency contacted. Waste collected for disposal.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Clear",
+      "description": "All victims transported. Spill neutralized and collected. Sewer system integrity verified. No environmental discharge.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Concentrated Sulfuric Acid Spill",
+      "situation": "You arrive at a battery recycling facility where a forklift has ruptured a 500-gallon concentrated sulfuric acid (H2SO4) storage tank. Approximately 200 gallons have spilled onto the production floor. Two workers have been splashed: one has visible acid burns on their forearms and face and is in distress; the second has splashed clothing with acid contact to one arm. Acid is flowing toward a floor drain that connects to the municipal sanitary sewer system. A strong acrid odor is present. The plant manager is suggesting they have sodium hydroxide pellets on-site to neutralize the spill immediately.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately begin emergency decontamination for both victims: flush with copious running water for a minimum of 20 minutes, remove all acid-contaminated clothing while flushing. Simultaneously block the floor drain to prevent acid from entering the sewer. Do not add sodium hydroxide pellets—exothermic reaction with concentrated acid creates a violent heat release and splatter hazard.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately apply sodium hydroxide pellets to the acid spill to neutralize it before it reaches the drain.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Remove the acid-burned worker's contaminated clothing immediately before beginning water flushing to save time.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Managing the Acid Pool",
+      "situation": "Both workers are in the emergency decontamination shower with copious water flushing underway. The floor drain has been partially blocked. The acid pool is approximately 15 feet in diameter and still spreading slightly from the tank trickle. The hazmat team has arrived in Level B PPE. The plant manager is insisting that their standard procedure is sodium hydroxide neutralization and they want it done immediately.",
+      "question": "How do you manage neutralization of the acid pool?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reject the sodium hydroxide pellet approach. Instead, use dilute sodium bicarbonate solution applied carefully at the edges to gradually neutralize the acid from perimeter inward, monitoring pH with test strips. This avoids the violent exothermic reaction of concentrated sodium hydroxide with concentrated sulfuric acid. Fully block the drain with chemical-resistant booms and begin product recovery with acid-resistant pumps.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Agree to the sodium hydroxide pellet approach since the plant has experience using it and it is fast.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply large volumes of water to dilute and flush the acid toward the drain to remove it from the floor quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Environmental Notification and Victim Status",
+      "situation": "The spill is neutralized and the drain is confirmed blocked—no acid entered the sewer system. The worker with facial and forearm burns is transported by EMS. The second worker has been cleared by EMS after decontamination. The plant manager asks whether they need to notify the environmental agency given the acid was contained and did not enter the sewer.",
+      "question": "What environmental and regulatory notification do you advise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the plant manager that a reportable quantity of sulfuric acid has been spilled. Environmental notification is required regardless of containment. They must contact the state environmental agency and the EPA's National Response Center as sulfuric acid spills exceeding reportable quantities are mandatorily reportable under CERCLA. Document the quantity spilled, containment actions, and neutralization approach.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since the acid was contained and did not enter the environment, no regulatory reporting is required.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reporting is the plant's decision—your role ends when the hazmat scene is stabilized.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Worker with acid burns admitted for treatment of second-degree chemical burns to forearms and face—prognosis good with prompt decontamination. Second worker fully recovered. Acid spill contained, neutralized with dilute sodium bicarbonate, and collected for licensed hazardous waste disposal. Municipal sewer system verified unaffected. State environmental agency and National Response Center notified as required. Your rapid victim decontamination, correct neutralization agent selection, drain protection, and regulatory notification fulfilled all safety and legal obligations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Intermediate",
+  "tags": [
+    "HAZMAT",
+    "acid spill",
+    "sulfuric acid",
+    "chemical burns",
+    "decontamination",
+    "neutralization",
+    "environmental protection",
+    "regulatory notification"
+  ]
+}
