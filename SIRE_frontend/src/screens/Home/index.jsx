@@ -26,9 +26,6 @@ export default function Home() {
             {/** Demo mode button — runs entirely in the browser without a backend. */}
             <Button text="Demo" to="/demo" />
 
-            {/** Showcase mode button — auto-playing kiosk loop of demo scenarios. */}
-            <Button text="Showcase" to="/showcase" />
-
             {/** Main carousel content — rendered in the right panel by HomeLayout. */}
             <HomeCarousel />
         </HomeLayout>
