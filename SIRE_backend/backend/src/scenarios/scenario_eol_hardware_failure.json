@@ -1,0 +1,154 @@
+{
+  "title": "eol_hardware_failure",
+  "description": "End-of-life hardware fails with no vendor support available, requiring an emergency migration.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Legacy Server Failure",
+      "description": "A server that reached end-of-life 2 years ago fails. The hardware is no longer supported by the vendor.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "No Vendor Support Available",
+      "description": "Support ticket opened with vendor is immediately rejected. Hardware is past EOL with no spare parts available.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Application Inventory Review",
+      "description": "Teams scramble to document what applications were running on the EOL server.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Emergency Provisioning",
+      "description": "New virtual or cloud infrastructure is provisioned as an emergency replacement.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Application Migration",
+      "description": "Applications are migrated and reconfigured on the new infrastructure.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Services Restored",
+      "description": "All workloads are operational on new infrastructure. EOL hardware decommissioned.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "EOL Server Has Failed",
+      "situation": "A server that has been past vendor end-of-life for 2 years has failed with a motherboard fault. No spare parts exist. The server hosts 3 business-critical applications. The CMDB entry for this server is incomplete and the applications on it are not well documented.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a P1 incident, notify application owners to identify running workloads from logs and documentation, and begin provisioning emergency replacement infrastructure in parallel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Spend time searching for third-party refurbished parts before taking any other action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restore a backup to the same failing hardware without addressing the underlying hardware fault.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Application Discovery",
+      "situation": "Application owners have identified the 3 workloads: a legacy CRM, a file share, and a batch processing job. Only the CRM has current documentation. The file share and batch job configs must be recovered from disk backups of the failed server.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mount the failed server disk in a recovery mode environment to retrieve application configs and data, while provisioning new VM infrastructure for all three workloads.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only restore the documented CRM application and postpone the others until full documentation is available.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Emergency Migration",
+      "situation": "Application configs and data have been recovered. New VMs are provisioned. You need to migrate the applications and validate them before directing users back to the services.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Migrate each application to the new VMs, run smoke tests for each service, update DNS records, and confirm with application owners that functionality is restored before closing.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Update DNS to point to the new VMs before testing the applications, to restore access as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Incident Hardening",
+      "situation": "All three applications are migrated and operational. This incident exposed a gap: multiple EOL servers still exist in the datacenter. Management asks what should be done to prevent this from happening again.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a full EOL hardware audit, create a prioritized replacement roadmap with business impact assessments, update the CMDB, and establish an EOL monitoring process with proactive alerts before EOL dates.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Replace EOL hardware only as it fails, since proactive replacement is too costly to justify.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed a complex EOL hardware failure with incomplete documentation, successfully recovered application data, migrated all workloads to new infrastructure, and initiated a proactive EOL replacement program.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "EOL",
+    "hardware",
+    "legacy",
+    "migration"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "dns_resolution_failure",
+  "description": "DNS resolution failures cause widespread application connectivity issues across the organization.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Application Errors Reported",
+      "description": "Multiple applications simultaneously report connection failures. Error messages reference hostname resolution failures.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "DNS Query Testing",
+      "description": "Engineers test DNS resolution from affected systems and find queries timing out or returning SERVFAIL.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Internal DNS Server Issue",
+      "description": "The primary internal DNS server is unresponsive. Secondary DNS is still operational but overloaded.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Root Cause Identified",
+      "description": "The primary DNS server process crashed due to a zone file corruption caused by a failed zone transfer.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "DNS Server Restored",
+      "description": "Zone file is restored from backup and the DNS server process is restarted successfully.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Resolution Restored",
+      "description": "All systems are resolving hostnames correctly. Application connectivity is restored.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "DNS Resolution Failures",
+      "situation": "Multiple applications are failing with hostname resolution errors. Testing confirms DNS queries are timing out from most systems. The secondary DNS server is responding but slowly. You need to diagnose whether this is a DNS server issue or a network problem.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Test DNS resolution directly against both primary and secondary DNS servers using dig/nslookup, confirm whether the primary DNS server is responding, and check its service status.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately restart the DNS server service without diagnosing whether the issue is in the server or the zone data.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Manually update the /etc/hosts file on all affected servers as a workaround before diagnosing the DNS issue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Primary DNS Server Down",
+      "situation": "The primary DNS server process is not running. Server logs show it crashed with a zone file parsing error during an automatic zone transfer from the authoritative server. The secondary DNS is handling queries but at reduced capacity. The crashed zone file is corrupted.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore the zone file from the last known-good backup, validate the zone file syntax before restarting the DNS service, and restart the primary DNS server once the clean zone file is in place.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart the DNS service immediately with the corrupted zone file and hope it recovers on startup.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "DNS Server Recovery",
+      "situation": "The primary DNS server is back online with the restored zone file. You need to verify it is handling queries correctly and that all systems are resolving hostnames properly.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run comprehensive DNS resolution tests for all critical hostnames, confirm the primary server is responding with correct answers, flush DNS caches on key clients, and monitor query response times.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume recovery is complete after the DNS process starts without testing resolution for key hostnames.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Root Cause Remediation",
+      "situation": "DNS is fully operational. The root cause was a corrupted zone file caused by a failed zone transfer. You need to prevent this from happening again while ensuring the zone transfer process is robust.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement zone file integrity validation before zone transfers are applied, configure automated zone file backups on every successful transfer, and add monitoring for DNS server process health and zone transfer failures.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Disable automatic zone transfers and rely on manual DNS updates to prevent the issue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You diagnosed the DNS failure by testing resolution directly, identified the crashed primary DNS server with a corrupted zone file, restored from backup with syntax validation, and implemented preventive controls for zone transfer integrity.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "DNS",
+    "zone-file",
+    "resolution",
+    "name-server"
+  ]
+}

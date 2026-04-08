@@ -1,0 +1,154 @@
+{
+  "title": "router_misconfiguration",
+  "description": "A misconfigured router causes routing loops and network instability after a change window.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Change Window Closes",
+      "description": "A planned router configuration change is applied and the change window closes.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Routing Instability Detected",
+      "description": "BGP neighbors begin flapping and CPU utilization on the router spikes to 100%.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Network Degradation Spreads",
+      "description": "Routing loops cause packet loss across multiple network segments. User-facing services degrade.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Change Identified as Root Cause",
+      "description": "Network team correlates timing and identifies the recent change introduced an incorrect static route.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Configuration Rollback Initiated",
+      "description": "Engineers begin rolling back the router configuration to the pre-change baseline.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Network Stability Restored",
+      "description": "Rollback completes. BGP sessions re-establish and routing tables converge normally.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Post-Change Network Instability",
+      "situation": "Minutes after a planned router configuration change, network monitoring shows BGP flapping, routing loops, and 100% CPU on the core router. Multiple services are degraded. The change was applied by a junior engineer and the pre-change configuration was saved.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare an incident, halt any further changes, review the change log to identify what was modified, and assess whether an immediate rollback is warranted.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply additional configuration changes to try to fix the routing loop without reviewing what the previous change did.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the router immediately to clear the routing table and BGP sessions.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Root Cause Analysis",
+      "situation": "The change log shows a new static route was added that points a /16 network back through the router itself, creating a routing loop. BGP is consuming all CPU trying to propagate the looping routes. The pre-change config backup is confirmed clean.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately remove the incorrect static route to break the routing loop, then monitor BGP convergence before applying a full rollback to the clean baseline.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Perform a full router reboot to clear all state, which will also drop all BGP sessions for several minutes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "BGP Recovery",
+      "situation": "The incorrect static route has been removed. Router CPU has dropped to 35%. BGP sessions are re-establishing but two peers have not yet converged. You need to decide whether to wait or intervene.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Monitor BGP session recovery passively for 5 minutes, then use soft-reset commands on unconverged peers if they do not re-establish naturally.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately hard-reset all BGP sessions to force rapid reconvergence, causing a temporary complete routing outage.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Full Rollback and Validation",
+      "situation": "All BGP sessions have converged. The network is stable. You now need to apply the full rollback to the clean baseline config and establish safeguards to prevent this recurrence.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the full baseline rollback during a brief maintenance window, validate routing tables, implement a peer-review requirement for all router changes, and document the incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the current partial configuration in place since BGP is stable and avoid the rollback to reduce risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You effectively identified the misconfigured static route causing the routing loop, surgically removed it to restore stability, allowed BGP to converge naturally, and implemented a peer-review change control improvement.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "router",
+    "BGP",
+    "routing-loop",
+    "change-management"
+  ]
+}

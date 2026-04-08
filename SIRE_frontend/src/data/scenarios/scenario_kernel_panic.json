@@ -1,0 +1,154 @@
+{
+  "title": "kernel_panic",
+  "description": "A server experiences a kernel panic, requiring expert diagnosis of a low-level system fault.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Kernel Panic Occurs",
+      "description": "The server abruptly halts. Monitoring loses all connectivity. IPMI console shows a kernel panic stack trace.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Crash Dump Captured",
+      "description": "kdump captures a memory dump before the system reboots. The system begins the reboot cycle.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Services Offline",
+      "description": "All services on the affected host are down. Users report service unavailability.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "System Returns Online",
+      "description": "Server boots successfully after the panic-triggered reboot. Services begin recovering.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Crash Dump Analyzed",
+      "description": "Engineers use crash analysis tools to examine the memory dump and identify the offending code path.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Root Cause Identified and Patched",
+      "description": "A kernel bug triggered by specific hardware configuration is identified. Patch applied and tested.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Kernel Panic Stack Trace",
+      "situation": "A production server has experienced a kernel panic. The IPMI console shows a kernel panic message with a stack trace referencing the ext4 filesystem driver. The system has triggered kdump and is rebooting. You need to manage the incident and the recovery process.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the panic message and stack trace from the IPMI console, notify stakeholders, allow the kdump-initiated reboot to proceed, and ensure the crash dump is preserved for analysis.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Interrupt the reboot process to manually investigate the kernel panic interactively.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately provision a replacement server and abandon the panicking host without capturing diagnostic data.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Post-Panic Boot Assessment",
+      "situation": "The server has rebooted successfully. A crash dump file is available at /var/crash/. Services are recovering but two of them have not yet started. The crash dump needs expert analysis but you must also address the unstarted services.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Manually start the two failed services after checking their logs for startup errors, confirm the full service inventory is healthy, and assign the crash dump to the kernel team for analysis.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reboot the server again without investigating why two services failed to start.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crash Dump Analysis",
+      "situation": "All services are running. The kernel team begins analyzing the crash dump. Initial findings point to a race condition in the ext4 driver triggered by a specific I/O pattern under high load. A kernel patch is available in the upstream repository.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Obtain the upstream kernel patch, test it in a staging environment with simulated I/O load, and schedule a production patching window with a rollback plan.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply the upstream kernel patch directly to the production server without staging tests.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Patch Deployment and Validation",
+      "situation": "Staging tests confirm the patch resolves the race condition without introducing new issues. The production patching window is scheduled. You need to plan the deployment carefully to minimize risk.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy the kernel patch during the maintenance window, verify system stability under load, monitor for any recurrence of the panic, and write a detailed post-incident report with timeline and recommendations.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy the patch immediately outside the maintenance window to reduce the time the system is at risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the kernel panic professionally: preserving crash diagnostics, recovering services, coordinating expert crash dump analysis, and safely deploying a tested upstream kernel patch with proper change control.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Advanced",
+  "tags": [
+    "kernel-panic",
+    "crash-dump",
+    "Linux",
+    "system-stability"
+  ]
+}

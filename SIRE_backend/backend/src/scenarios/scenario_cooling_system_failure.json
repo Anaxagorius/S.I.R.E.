@@ -1,0 +1,154 @@
+{
+  "title": "cooling_system_failure",
+  "description": "A datacenter cooling unit fails, causing rising temperatures that threaten server hardware.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Temperature Alert Triggered",
+      "description": "Environmental monitoring detects rack temperatures rising above 27 °C threshold. CRAC unit alarm is active.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "CRAC Unit Failure Confirmed",
+      "description": "Facilities team confirms a computer room air conditioning unit has failed. Temperatures are rising 2 °C per minute.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Critical Threshold Approaching",
+      "description": "Rack temperatures reach 35 °C. Servers begin thermal throttling. Some hardware starts shutting down for self-protection.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Emergency Cooling Requested",
+      "description": "Emergency portable cooling units are requested while HVAC engineers are dispatched.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Non-Critical Workloads Migrated",
+      "description": "Non-critical servers are gracefully shut down or migrated to reduce heat generation.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Cooling Restored",
+      "description": "Portable units lower temperatures. Primary CRAC unit is repaired. All servers operational.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Datacenter Temperature Rising",
+      "situation": "Environmental monitoring shows rack temperatures rising rapidly after a CRAC unit failure. Current temperature is 33 °C and climbing. Server self-protection shutdowns have begun. You have authority to initiate emergency procedures.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the datacenter thermal emergency procedure: notify facilities for HVAC repair, request portable cooling units, and prepare to gracefully shut down non-critical systems.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open all datacenter doors to allow ambient building air to cool the racks.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the CRAC unit to self-recover before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Emergency Cooling Prioritization",
+      "situation": "Facilities confirms repair will take 90 minutes. Portable coolers will arrive in 20 minutes. Temperature is now 38 °C. You must decide which workloads to shut down to reduce heat load while protecting critical services.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Using the CMDB, identify and gracefully shut down non-critical servers (dev/test/batch), while keeping production and DR systems running, to reduce thermal load until cooling is restored.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Shut down all servers immediately including production systems to protect hardware from thermal damage.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Portable Cooling Deployment",
+      "situation": "Non-critical servers are shut down. Portable coolers have arrived. Temperature has stabilized at 41 °C but is no longer climbing. You need to position the portable units for maximum effectiveness.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position portable coolers to direct cold air into the hottest aisles using hot-aisle/cold-aisle containment principles, and continuously monitor temperatures until the primary unit is repaired.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Place all portable coolers in one corner of the room and assume they will cool the entire space evenly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recovery and Restart",
+      "situation": "The primary CRAC unit is repaired. Temperatures have dropped back to 24 °C. You need to safely restore the shut-down systems and validate the environment.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gradually power on non-critical servers in staged batches to avoid a power surge, verify hardware health after the thermal event, and document the incident with a review of cooling redundancy.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Power on all servers simultaneously as quickly as possible to restore full capacity.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You responded to the cooling failure by activating emergency procedures, selectively shutting down non-critical workloads, deploying portable cooling effectively, and overseeing a staged recovery once primary cooling was restored.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": [
+    "cooling",
+    "datacenter",
+    "HVAC",
+    "thermal-management"
+  ]
+}

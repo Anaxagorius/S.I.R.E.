@@ -1,0 +1,154 @@
+{
+  "title": "update_rollback_failure",
+  "description": "A system update causes a critical failure and the rollback procedure itself fails.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Update Applied",
+      "description": "A major application update is deployed to production during a maintenance window.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Critical Errors Detected",
+      "description": "Post-deployment monitoring shows critical errors. The decision is made to roll back.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Rollback Fails",
+      "description": "The automated rollback procedure encounters an error due to a database schema migration that cannot be reversed automatically.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "System in Limbo",
+      "description": "The application is in an inconsistent state between the old and new versions. Data writes are halted to prevent corruption.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Manual Recovery Initiated",
+      "description": "Engineers develop a manual recovery procedure to restore a consistent application state.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Application Restored",
+      "description": "Manual recovery procedure successfully restores the previous version. Database is consistent.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Rollback Failure",
+      "situation": "A production application update has been flagged for rollback due to critical errors. However, the automated rollback script has failed because the database schema migration cannot be reversed automatically. The application is in a mixed state and new data writes have been halted to prevent corruption.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Place the application in full maintenance mode to stop all user traffic, notify stakeholders of the extended outage, and convene the engineering team to develop a manual recovery plan.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to re-run the automated rollback script multiple times hoping it will eventually succeed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Continue running the partially rolled-back application in its inconsistent state to avoid further downtime.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Manual Recovery Planning",
+      "situation": "The engineering team has assembled. The database schema has 3 new columns added by the failed update. A pre-update database backup exists from 2 hours ago. The team must choose between restoring the backup or manually reversing the schema migration.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assess data written between backup and halt: if minimal, restore from pre-update backup. If significant, manually script the schema reversal and redeploy the previous application version.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore the 2-hour-old database backup without first assessing how much data would be lost.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Schema Reversal Execution",
+      "situation": "Assessment shows 45 minutes of data writes occurred before the halt. Restoring the backup would lose this data. The team decides to manually reverse the schema migration. Scripts have been written and reviewed. A point-in-time database snapshot has been taken as a safety net.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Execute the manual schema reversal scripts in a transaction, verify data integrity after each step, and deploy the previous application binary once the schema is confirmed clean.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Execute all schema reversal scripts simultaneously without wrapping them in a transaction.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recovery Validation",
+      "situation": "The schema reversal has completed. The previous application version has been deployed. Maintenance mode is still active. You must verify everything is consistent before restoring user access.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run a full data integrity check, execute regression tests against the restored application, confirm monitoring is green, then gradually restore user access while monitoring error rates.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately disable maintenance mode and restore full user access without running integrity checks.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed a complex double failure (update failure + rollback failure) by methodically assessing data loss risk, executing a manual schema reversal with proper transaction safety, and validating full integrity before restoring user access.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "rollback",
+    "database-migration",
+    "update-failure",
+    "recovery"
+  ]
+}

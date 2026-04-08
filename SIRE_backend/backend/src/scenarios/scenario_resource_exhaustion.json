@@ -1,0 +1,154 @@
+{
+  "title": "resource_exhaustion",
+  "description": "Unexpected traffic surge exhausts server resources, causing widespread service degradation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Traffic Spike Begins",
+      "description": "A viral social media post drives 10x normal traffic to the platform. Load balancers begin queueing requests.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "CPU and Memory Saturated",
+      "description": "All web servers hit 100% CPU and memory utilization. Response times climb to 30+ seconds.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Services Begin Failing",
+      "description": "Worker processes start timing out and dying. The platform becomes effectively unusable.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Auto-Scaling Triggered",
+      "description": "Cloud auto-scaling group begins provisioning additional instances but they take 5 minutes to become healthy.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Rate Limiting Implemented",
+      "description": "Engineers implement emergency rate limiting at the load balancer to protect existing capacity.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Platform Stabilized",
+      "description": "New instances are healthy and rate limiting is tuned. Platform returns to normal operation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Resources Fully Exhausted",
+      "situation": "Your platform is experiencing a 10x traffic surge from a viral event. All servers are at 100% CPU. Response times are over 30 seconds. The platform is essentially down for most users. Auto-scaling is provisioning new instances but they will take 5 minutes to be ready.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement emergency rate limiting at the load balancer level to protect current capacity, notify stakeholders, and prioritize keeping core platform functions working while auto-scaling catches up.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart all web server processes to free resources, which will cause a complete outage while they restart.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do nothing and wait for auto-scaling to provision enough instances to handle the load.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Capacity Triage",
+      "situation": "Rate limiting has been applied at 50% of normal per-IP limits. New auto-scaling instances are coming online. However, the database is also under heavy load and starting to become a bottleneck. Connection pool is exhausted.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enable database read replicas for read traffic, increase connection pool limits temporarily, and shed non-essential background jobs to redirect database capacity to user-facing requests.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart the database server to clear the connection pool, causing a complete database outage during the incident.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Platform Stabilization",
+      "situation": "New web servers are healthy and online. Rate limiting is keeping load manageable. Database load has dropped with the read replica traffic distribution. Response times are recovering. You need to decide how to gracefully handle the ongoing elevated traffic.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gradually loosen rate limits as new capacity confirms stability, monitor all resource metrics closely, and keep auto-scaling policies active to handle any further spikes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Remove all rate limiting immediately now that new instances are online, risking a second resource exhaustion.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Incident Capacity Planning",
+      "situation": "The platform is stable. The traffic surge has begun to subside. The incident revealed several capacity planning gaps. Management wants to ensure this level of traffic can be handled gracefully in the future.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a capacity planning review, lower auto-scaling trigger thresholds, implement proactive rate limiting policies, add database read replicas as standard configuration, and document the incident with lessons learned.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Simply scale down back to pre-incident capacity and treat the event as a one-off anomaly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the resource exhaustion crisis by implementing emergency rate limiting, leveraging database read replicas, and allowing auto-scaling to restore capacity, while establishing proactive policies to handle future traffic events more gracefully.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "resource-exhaustion",
+    "auto-scaling",
+    "rate-limiting",
+    "capacity-planning"
+  ]
+}

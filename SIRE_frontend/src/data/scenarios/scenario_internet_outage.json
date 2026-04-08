@@ -1,0 +1,154 @@
+{
+  "title": "internet_outage",
+  "description": "The organization loses all internet connectivity, impacting external communications and cloud services.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Internet Connectivity Lost",
+      "description": "All external connectivity drops simultaneously. External websites and cloud services become unreachable.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Internal Network Verified",
+      "description": "Internal LAN is confirmed operational. The outage is isolated to the internet uplink.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "ISP Contacted",
+      "description": "The ISP is contacted and confirms a network issue on their end affecting the circuit.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Failover Assessment",
+      "description": "Engineers assess whether a backup internet circuit or LTE failover is available.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Failover Activated",
+      "description": "Backup internet circuit is activated and routing is updated to use the secondary uplink.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Internet Connectivity Restored",
+      "description": "All internet connectivity is restored via the backup circuit. ISP continues primary circuit repair.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Complete Internet Outage",
+      "situation": "All external internet connectivity has dropped simultaneously. Internal network is functioning. Users cannot reach cloud services, external APIs, or the internet. The organization relies on internet connectivity for cloud-hosted business systems.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Verify the internal network is intact, check the border router and ISP uplink for connectivity, contact the ISP to report the outage and get an ETA, and notify stakeholders.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reboot the core router without first diagnosing whether the problem is internal or with the ISP.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait 30 minutes assuming the ISP will resolve the issue automatically before taking action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "ISP Engagement and Failover",
+      "situation": "The ISP confirms a fiber cut affecting your circuit with an estimated repair time of 4 hours. Your organization has a backup LTE failover router but it has not been tested in 6 months. You also have a secondary ISP circuit with limited bandwidth (100 Mbps vs primary 1 Gbps).",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the secondary ISP circuit first as the more reliable option, update BGP or static routes to use it, and test connectivity before communicating restored access to users.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt the untested LTE failover router first, which has unknown reliability and limited capacity.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Bandwidth Management",
+      "situation": "The secondary circuit is active and internet connectivity is restored. However, the 100 Mbps secondary circuit is significantly less than the normal 1 Gbps. High bandwidth activities are saturating the link. You need to manage bandwidth to prioritize critical traffic.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement QoS policies on the firewall to prioritize business-critical traffic (VoIP, cloud business apps) and throttle or block non-essential traffic (streaming, large file transfers) until the primary circuit is restored.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow all traffic equally and accept that the secondary circuit will be saturated until the primary is restored.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recovery Monitoring and Planning",
+      "situation": "QoS is managing the bandwidth effectively. Critical services are running on the secondary circuit. The ISP has updated the repair ETA to 2 hours. You need to plan for the primary circuit restoration and assess lessons learned.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Monitor the ISP repair progress, prepare to switch back to the primary circuit with minimal disruption when restored, and document the incident with a recommendation to test failover circuits quarterly.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately switch back to the primary circuit as soon as the ISP says it is restored without validating connectivity first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You diagnosed the internet outage quickly, activated the secondary ISP circuit as a reliable failover, implemented QoS to prioritize critical traffic on the constrained link, and identified a gap in failover testing procedures.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": [
+    "internet-outage",
+    "ISP",
+    "failover",
+    "network-connectivity"
+  ]
+}

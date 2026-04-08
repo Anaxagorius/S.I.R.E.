@@ -1,0 +1,154 @@
+{
+  "title": "isp_failure",
+  "description": "The primary ISP experiences a major outage affecting internet connectivity and cloud service access.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "ISP Outage Begins",
+      "description": "The primary ISP experiences a major network event. All traffic through the ISP is dropped.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Internet Access Lost",
+      "description": "All internet-dependent services go offline. Cloud-hosted applications become unreachable.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "ISP Status Confirmed",
+      "description": "ISP status page confirms a major outage affecting multiple regions. No ETA provided.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Secondary ISP Assessment",
+      "description": "Engineers verify the availability and capacity of the secondary ISP connection.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "BGP Failover to Secondary ISP",
+      "description": "BGP routing is updated to prefer the secondary ISP. Traffic begins flowing through the backup path.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Services Restored",
+      "description": "All services are accessible via the secondary ISP. Primary ISP recovery is monitored.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Primary ISP Major Outage",
+      "situation": "Your primary ISP has gone offline with no ETA for recovery. All internet-dependent services including cloud applications and customer-facing websites are down. You have a secondary ISP with BGP dual-homing configured, but the secondary ISP normally carries only 10% of traffic.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Verify the secondary ISP circuit is healthy, confirm BGP session with the secondary ISP is active, update BGP local preference to route all traffic through the secondary, and notify stakeholders.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact the primary ISP for a recovery ETA before taking any failover action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Provision new cloud resources in a different region to bypass the ISP dependency entirely.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Secondary ISP Capacity",
+      "situation": "BGP failover is active and traffic is routing via the secondary ISP. However, the secondary ISP has 200 Mbps capacity vs the primary 1 Gbps. Current traffic is at 350 Mbps, exceeding the secondary capacity. Packet loss is occurring.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement traffic shaping to prioritize business-critical traffic, shed bulk transfers and non-essential traffic, and communicate bandwidth constraints to users and stakeholders.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the packet loss as unavoidable and do not intervene in traffic management.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Extended Outage Management",
+      "situation": "The primary ISP has now been down for 2 hours with no ETA. Traffic shaping is working but some services are still degraded. Management is asking whether additional secondary ISP capacity can be provisioned to reduce constraints.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the secondary ISP to request a temporary capacity upgrade, explore adding an LTE bonding solution as an additional path, and give management a realistic update on the situation and options.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell management nothing can be done until the primary ISP recovers and make no further attempts to improve the situation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Primary ISP Recovery",
+      "situation": "The primary ISP has restored service. You need to transition traffic back from the secondary ISP carefully to avoid disruption during the failback.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gradually update BGP local preferences to shift traffic back to the primary ISP over 15 minutes, verify primary ISP stability before removing secondary preference, and document the full incident with ISP SLA review.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately switch all traffic back to the primary ISP as soon as BGP sessions restore without monitoring for stability.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the ISP failover effectively by activating BGP failover to the secondary ISP, implementing traffic shaping to manage capacity constraints, pursuing additional capacity options, and gracefully failing back to the primary ISP upon restoration.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": [
+    "ISP",
+    "BGP",
+    "failover",
+    "internet-outage"
+  ]
+}

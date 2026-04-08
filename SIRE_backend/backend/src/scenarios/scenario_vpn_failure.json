@@ -1,0 +1,154 @@
+{
+  "title": "vpn_failure",
+  "description": "The corporate VPN gateway fails, locking out all remote workers from corporate systems.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "VPN Gateway Unresponsive",
+      "description": "Remote workers begin reporting VPN connection failures. The gateway stops accepting connections.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Mass Disconnection",
+      "description": "All active VPN sessions are terminated. 500 remote workers lose access to corporate systems.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Gateway Health Check",
+      "description": "The VPN gateway appliance is physically accessible. CPU is at 100% and the process is unresponsive.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Failover Gateway Assessment",
+      "description": "Engineers check whether a secondary VPN gateway or cloud-based backup is available.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Emergency VPN Restored",
+      "description": "Secondary gateway activated or cloud VPN provisioned. Workers begin reconnecting.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Primary Gateway Restored",
+      "description": "Primary gateway is repaired. Traffic migrated back. All remote workers have connectivity.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "VPN Gateway Failure",
+      "situation": "The primary VPN gateway has stopped accepting connections. 500 remote workers cannot access any corporate resources. The gateway appliance is consuming 100% CPU and its management interface is unresponsive. You have console access to the physical appliance.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify all remote workers of the outage, assess the gateway state via console, and immediately begin activating the secondary VPN gateway to restore connectivity while the primary is investigated.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reboot the primary VPN gateway immediately without notifying workers or activating a failover, causing additional disruption.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask all remote workers to use personal tools to access work systems while the VPN is down.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Secondary Gateway Activation",
+      "situation": "The secondary VPN gateway exists but its configuration is 2 months out of date. Some user accounts and access policies added in the last 2 months may not work. The alternative is to quickly provision a cloud VPN that can pull the current user directory from Active Directory.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provision the cloud VPN using the current Active Directory integration to ensure all users can authenticate, accepting a slightly longer setup time for a fully functional failover.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Activate the stale secondary gateway knowing 2 months of user changes will be missing and some workers will still be locked out.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "User Communication and Reconnection",
+      "situation": "The cloud VPN is operational. Workers need to connect using a new endpoint URL and install a new VPN client profile. You need to communicate this to 500 workers efficiently.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Send a mass communication via email and Slack (accessible without VPN) with clear step-by-step reconnection instructions, and set up a help desk queue for workers who need individual assistance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Post instructions only on the internal intranet, which requires VPN to access, leaving workers unable to find reconnection guidance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Primary Gateway Repair",
+      "situation": "Most workers have reconnected via the cloud VPN. The primary gateway issue has been diagnosed: a runaway IKE negotiation process caused by a bug in the firmware version. A firmware update resolves the issue and a patch is available.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the firmware patch to the primary gateway in a test environment, validate it, then apply to production during a low-traffic window, and migrate users back gradually while keeping the cloud VPN as a standby.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply the firmware patch to the primary production gateway immediately without testing to restore it as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the VPN gateway failure by quickly activating a cloud VPN failover with current AD integration, communicating recovery steps to 500 remote workers via accessible channels, and safely patching the primary gateway before returning it to service.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "VPN",
+    "remote-access",
+    "gateway",
+    "failover"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "configuration_drift",
+  "description": "Gradual configuration drift across the server fleet causes intermittent failures that are hard to diagnose.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Intermittent Errors Reported",
+      "description": "Users report sporadic application errors that occur on some requests but not others. Error rate is 3%.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Load Balancer Logs Checked",
+      "description": "Load balancer logs reveal errors only occur on requests routed to specific backend servers.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Configuration Comparison",
+      "description": "Engineers compare configurations across the fleet and discover significant drift between servers.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Drift Root Cause Found",
+      "description": "Hotfixes applied manually to some servers months ago were never codified in the configuration management system.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Configuration Remediation",
+      "description": "The correct configuration is applied uniformly across all servers using the configuration management tool.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Fleet Stabilized",
+      "description": "Error rate drops to zero. All servers now have consistent configurations matching the golden baseline.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Intermittent Errors Under Investigation",
+      "situation": "Your application has a 3% error rate that has been growing for weeks. The errors are inconsistent and affect only some requests. Standard application debugging has found nothing obvious. Monitoring shows the errors are not correlated with specific times of day or load patterns.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Analyze load balancer logs to determine if errors correlate with specific backend servers, which would indicate configuration inconsistency across the fleet.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately roll back the last application deployment assuming it caused the errors.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restart all application servers simultaneously to clear any runtime state that might be causing the errors.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fleet Configuration Audit",
+      "situation": "Load balancer logs confirm that errors only occur on requests routed to 6 specific servers out of 20. You need to identify what is different about those 6 servers.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use your configuration management tool to generate a diff report comparing all 20 servers against the golden baseline, identifying exactly which settings differ on the 6 affected servers.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Manually SSH into each of the 6 servers and visually inspect configuration files one by one.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Drift Root Cause Identified",
+      "situation": "The config management diff report shows the 6 affected servers are missing a critical thread pool configuration parameter added via a manual hotfix 4 months ago. The hotfix was never committed to the configuration management codebase, so it was never propagated to servers provisioned after that date.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Codify the missing configuration parameter in the configuration management codebase, test the change in staging, and apply it uniformly to all 20 servers via the automation tool.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Manually apply the configuration fix to only the 6 affected servers via SSH scripts.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fleet Remediation and Process Improvement",
+      "situation": "The configuration has been applied uniformly to all servers. Error rates have dropped to zero. Management asks how to prevent configuration drift from recurring.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement automated continuous compliance checks that alert on any configuration drift from the baseline, enforce a policy that all manual changes must be committed to config management within 24 hours, and document the incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident without process changes, relying on engineers to remember to commit manual changes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You diagnosed a subtle configuration drift problem by correlating errors with specific servers, identified an undocumented manual hotfix as the root cause, applied a codified fix uniformly, and established automated drift detection to prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Advanced",
+  "tags": [
+    "configuration-drift",
+    "config-management",
+    "fleet-management",
+    "infrastructure-as-code"
+  ]
+}

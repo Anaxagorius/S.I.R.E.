@@ -1,0 +1,154 @@
+{
+  "title": "server_failure",
+  "description": "A production server fails unexpectedly, taking down hosted services.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Monitoring Alert Triggered",
+      "description": "Monitoring systems detect the production server has stopped responding to health checks.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Services Go Offline",
+      "description": "Web applications and APIs hosted on the server become unreachable. Users begin reporting outages.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "On-Call Engineer Paged",
+      "description": "The on-call engineer receives a PagerDuty alert and begins initial triage.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Root Cause Identified",
+      "description": "Investigation reveals a hardware fault caused a kernel panic and server halt.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Failover Initiated",
+      "description": "Traffic is redirected to standby servers while the failed host is examined.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Services Restored",
+      "description": "All services are restored on standby infrastructure. Post-incident review is scheduled.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Production Server Unresponsive",
+      "situation": "You receive a critical alert: a production server is not responding to health checks and all hosted services are down. Users are actively impacted. You have remote access to the management console.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the alert, notify stakeholders of the outage, and begin triage by checking the server console for error messages.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately reboot the server without investigating the cause to restore services as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait 15 minutes to see if the server recovers on its own before taking action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Console Diagnostics",
+      "situation": "The server console shows a kernel panic caused by a hardware fault on the primary NIC. Monitoring confirms no network packets have been received for 12 minutes. A warm standby server is available.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate failover by redirecting DNS and load-balancer traffic to the standby server while preserving the failed server for forensic analysis.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to hot-swap the NIC in the running server without powering it down.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Failover Execution",
+      "situation": "Traffic has been redirected to the standby server and services are recovering. You must now validate service health and ensure the standby can sustain production load.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run automated smoke tests against the standby, monitor CPU and memory metrics, and confirm all dependent services are operational.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Declare the incident resolved immediately after traffic redirection without verifying service health.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Failover Stabilization",
+      "situation": "The standby server is handling production traffic. The failed server has been isolated. Management asks for an estimated time to full resolution.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the incident timeline, coordinate hardware replacement for the failed server, and schedule a post-incident review within 48 hours.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Bring the failed server back online immediately without replacing the faulty hardware to reduce costs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You successfully identified the hardware fault, executed a clean failover to the standby server, validated service health, and initiated the post-incident review process. Production services are fully restored.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": [
+    "server",
+    "hardware",
+    "failover",
+    "incident-response"
+  ]
+}

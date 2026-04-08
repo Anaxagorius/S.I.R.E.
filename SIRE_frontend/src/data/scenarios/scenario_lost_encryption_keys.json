@@ -1,0 +1,154 @@
+{
+  "title": "lost_encryption_keys",
+  "description": "Encryption keys for critical data stores are lost or become inaccessible, threatening data availability.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Key Vault Access Failure",
+      "description": "Applications begin failing with decryption errors. The key management service is returning errors.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Encrypted Data Inaccessible",
+      "description": "All data encrypted with the affected keys is inaccessible. Services depending on this data go offline.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Key Vault Investigation",
+      "description": "Engineers investigate the key management service and find it entered a sealed state after unexpected restarts.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Unseal Process Initiated",
+      "description": "The key vault unseal procedure is initiated using distributed unseal keys held by key custodians.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Key Vault Unsealed",
+      "description": "Three of five key custodians provide their unseal key shares. The vault unseals successfully.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Data Access Restored",
+      "description": "Applications regain access to encryption keys. All encrypted data is accessible again.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Encryption Key Access Failure",
+      "situation": "Applications are failing with decryption errors across all services that use data-at-rest encryption. The HashiCorp Vault cluster has entered a sealed state after multiple unexpected pod restarts in Kubernetes. All data protected by these keys is currently inaccessible.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a P1 incident, identify and contact all key custodians who hold Vault unseal key shares, verify the Vault cluster is intact (not corrupted), and initiate the formal unseal procedure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to access the Vault data directory directly to extract keys without using the unseal procedure.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Re-initialize the Vault cluster with new keys, permanently losing access to all previously encrypted data.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Unseal Procedure",
+      "situation": "The Vault cluster integrity is confirmed \u2014 all data is intact. The unseal procedure requires 3 of 5 key shares (Shamir secret sharing). Two key custodians are immediately available. A third is reachable by phone. The remaining two are on vacation and unreachable.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gather the 3 available unseal key shares from the two on-site custodians and the one reachable by phone, following proper identity verification for the phone-based custodian, and submit shares to unseal the vault.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait until all 5 custodians are available before beginning the unseal procedure, prolonging the outage unnecessarily.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Vault Unsealed and Services Restored",
+      "situation": "The Vault has been unsealed and applications are regaining access to encryption keys. However, the root cause of the Vault sealing must be addressed: the Kubernetes auto-unseal configuration was misconfigured and is not functioning. Without auto-unseal, every Vault restart will require manual unsealing.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Investigate and fix the Kubernetes auto-unseal configuration (e.g., AWS KMS or Azure Key Vault auto-unseal), test the auto-unseal in a staging environment, and deploy the fix to prevent future manual unseal requirements.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the manual unseal requirement and rely on custodians being available every time Vault restarts.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Key Management Resilience Review",
+      "situation": "Auto-unseal is now correctly configured and tested. The incident has exposed several gaps in the key management strategy: two custodians were unreachable (barely meeting quorum), and there is no documented key custodian succession plan.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a key management policy review: increase the custodian pool from 5 to 7 with a 3-of-7 quorum, establish clear custodian succession and availability requirements, implement key custodian contact drills, and document the incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident after auto-unseal is fixed without addressing the custodian availability gaps.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the key management crisis by following the proper unseal procedure with available custodians, restoring service access, fixing the broken auto-unseal configuration, and improving the key custodian resilience policy to prevent future availability gaps.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Advanced",
+  "tags": [
+    "encryption",
+    "key-management",
+    "HashiCorp-Vault",
+    "secrets-management"
+  ]
+}

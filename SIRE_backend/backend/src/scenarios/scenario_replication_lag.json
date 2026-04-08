@@ -1,0 +1,154 @@
+{
+  "title": "replication_lag",
+  "description": "Database replication lag grows to critical levels, causing read replicas to serve stale data.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Replication Lag Alert",
+      "description": "Monitoring alerts show database replication lag has grown from normal 2 seconds to 45 minutes.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Stale Data Reports",
+      "description": "Users report seeing outdated data when reading from the application. Read-heavy pages show data from 45 minutes ago.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Replica Investigation",
+      "description": "DBAs check the replica and find the replication thread is stalled on a large DDL operation.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "DDL Operation Analysis",
+      "description": "A large ALTER TABLE operation with 80 million rows is blocking the replica replication thread.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Read Traffic Redirection",
+      "description": "Read traffic is redirected from the lagging replica to the primary while the DDL completes.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Replication Catches Up",
+      "description": "DDL completes on the replica. Replication lag drops to normal. Read traffic restored to replica.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Critical Replication Lag",
+      "situation": "Replication lag on your primary read replica has grown to 45 minutes and is continuing to grow. Users are seeing stale data on read-heavy pages. The application uses read replicas for all SELECT queries. The primary database is healthy.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Redirect read traffic from the lagging replica back to the primary to serve fresh data, notify users of the issue, and investigate the cause of the replication lag on the replica.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart the replication service on the replica immediately without diagnosing the lag cause.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave read traffic on the lagging replica and wait for it to catch up on its own without investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Replication Stall Diagnosis",
+      "situation": "Read traffic has been redirected to the primary, serving fresh data. Investigation of the replica shows the replication SQL thread is blocked on an ALTER TABLE operation on the orders table (80 million rows). This DDL was initiated on the primary 2 hours ago and the replica must apply it serially.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Allow the DDL to complete on the replica (it cannot be safely interrupted without risking data inconsistency), monitor progress, and keep read traffic on the primary until the replica catches up.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Kill the replication thread and reset replication to bypass the DDL, risking replica data inconsistency.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Load Management on Primary",
+      "situation": "The primary database is now handling both write and read traffic. CPU on the primary has increased to 78%. The DDL on the replica is estimated to complete in 90 minutes. You need to manage the increased primary load for this period.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement read query caching at the application layer to reduce redundant database reads on the primary, shed non-critical reporting queries to off-peak hours, and monitor primary CPU to ensure it stays below critical thresholds.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the increased primary load without any mitigations and hope it does not cause a cascading failure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Replica Recovery and Process Improvement",
+      "situation": "The DDL has completed on the replica. Replication lag is dropping rapidly. The replica is expected to catch up fully within 15 minutes. You need to plan the return of read traffic and address why this large DDL was run without a replication lag plan.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gradually restore read traffic to the replica after confirming lag is under 5 seconds, then implement a policy requiring large DDL operations to use pt-online-schema-change or gh-ost to avoid replica replication stalls.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore all read traffic to the replica immediately once the DDL completes without waiting for lag to normalize.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the replication lag by redirecting reads to the primary, diagnosing the blocking DDL operation, managing primary load through caching, and implementing an online schema change tool requirement to prevent future replication stalls from DDL operations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Advanced",
+  "tags": [
+    "replication",
+    "database",
+    "DDL",
+    "MySQL"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "load_balancer_failure",
+  "description": "A load balancer failure causes all web traffic to concentrate on a single backend, leading to overload.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Load Balancer Alert",
+      "description": "Monitoring shows one of two load balancer nodes has become unresponsive. Traffic is now routing through a single node.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Backend Overload Begins",
+      "description": "The single active load balancer is sending all traffic to all backends unevenly. One backend is receiving 90% of traffic.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Service Degradation",
+      "description": "The overloaded backend begins returning 503 errors. User-facing error rate climbs to 25%.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Load Balancer Diagnosis",
+      "description": "Engineers investigate the failed load balancer node and identify a configuration corruption after an automated update.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Load Balancer Node Restored",
+      "description": "The failed node is restored with a clean configuration. Active-active load balancing resumes.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Traffic Balanced and Services Restored",
+      "description": "Traffic is now distributed correctly across all backends. Error rates return to zero.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Load Balancer Node Failure",
+      "situation": "One of your two active-active load balancer nodes has failed. All traffic is routing through the surviving node, which is distributing traffic unevenly \u2014 one backend is receiving 90% of requests and is returning 503 errors. Users are experiencing a 25% error rate.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Adjust the surviving load balancer configuration to distribute traffic more evenly across healthy backends, then diagnose the failed node while restoring user experience.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Take the overloaded backend offline to reduce error rates, further concentrating traffic on fewer servers.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the failed load balancer node to auto-recover without taking any immediate action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Failed Node Diagnosis",
+      "situation": "Traffic is now balanced across backends and error rates have dropped to under 2%. You are examining the failed load balancer node. Its management interface is accessible but the load balancing process is in a crash loop. Configuration files show corruption consistent with a partial automated update.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore the failed node configuration from the known-good backup taken before the automated update, verify the configuration is clean, and prepare to reintroduce the node to the active-active cluster.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delete and recreate the failed node from scratch using only default configuration settings without the production-specific configuration.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Node Reintroduction",
+      "situation": "The failed node has been reconfigured from backup. It is ready to be reintroduced to the active-active cluster. You need to do this without causing another traffic disruption.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Add the restored node back to the cluster with a low traffic weight (10%), monitor that it handles traffic correctly for 5 minutes, then gradually increase its weight to 50% for full active-active operation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add the restored node back immediately at full 50% traffic weight without a warm-up period.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Prevention and Monitoring",
+      "situation": "Both load balancer nodes are active and traffic is balanced correctly. You need to investigate why the automated update caused configuration corruption and prevent it from happening again.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review the automated update process, implement pre-update configuration backups and post-update health checks, add a canary step that updates one node and validates before updating the second, and document the incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Disable automated updates entirely and rely only on manual updates performed during maintenance windows.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You quickly mitigated user impact by rebalancing traffic on the surviving node, restored the failed node using a clean configuration backup, reintroduced it with a gradual warm-up, and improved the automated update process to prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "load-balancer",
+    "high-availability",
+    "traffic-management",
+    "configuration"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "data_corruption",
+  "description": "Silent data corruption is discovered in a production database, affecting data integrity.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Data Inconsistency Reported",
+      "description": "Users report incorrect balances and mismatched records. Data anomalies are confirmed across multiple tables.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Corruption Scope Assessment",
+      "description": "DBA runs integrity checks and finds corruption affecting 3 tables with an estimated 12,000 affected rows.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Write Operations Halted",
+      "description": "All write operations to affected tables are immediately suspended to prevent corruption spread.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Point-in-Time Recovery Assessed",
+      "description": "Teams identify when the corruption began using binary logs and determine a clean restore point.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Data Restoration Initiated",
+      "description": "Affected tables are restored from a point-in-time backup predating the corruption event.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Integrity Verified and Services Restored",
+      "description": "Data integrity checks pass. Services resume. Post-mortem reveals the corruption source.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Database Corruption Discovered",
+      "situation": "Users are reporting data inconsistencies in the production database. DBAs have confirmed corruption in 3 critical tables affecting approximately 12,000 rows. The corruption appears to have occurred over the past 36 hours based on user reports. The database is still accepting writes.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately halt all write operations to the affected tables to prevent further corruption spread, notify stakeholders, and begin binary log analysis to determine when the corruption started.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow operations to continue while investigating to minimize user impact from the write halt.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately restore the entire database from the last full backup without assessing the scope of corruption.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Corruption Timeline Analysis",
+      "situation": "Binary log analysis shows the corruption began approximately 28 hours ago following an ORM framework update that introduced a bug in a multi-table update transaction. The clean restore point is identified as T-30 hours. However, 28 hours of legitimate data changes exist that must not be lost if possible.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Extract and save all non-corrupted data written in the 28-hour window, restore the three tables from the T-30 hour point-in-time backup, then selectively replay the clean transactions to minimize data loss.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore the full database from the T-30 hour backup, accepting 28 hours of complete data loss as simpler to execute.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Restoration and Validation",
+      "situation": "The three affected tables have been restored to the T-30 hour baseline. The team has replayed 24 of the 28 hours of clean transactions. The remaining 4 hours contain some transactions that cannot be cleanly separated from corrupted ones and will be lost.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run comprehensive integrity checks on the restored tables, document the 4-hour data gap, notify affected users of the data loss with specifics, and re-enable write operations only after integrity checks pass.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Re-enable writes immediately after restoration without running integrity checks to minimize downtime.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Root Cause Remediation",
+      "situation": "Data integrity checks have passed. Write operations are restored. The root cause is identified as a bug in the ORM framework update that incorrectly handled multi-table update transactions. The framework update must be rolled back.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Roll back the ORM framework to the previous stable version, add automated database integrity checks to the CI/CD pipeline to detect corruption early, and file a bug report with the ORM framework vendor.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the buggy ORM version in place while waiting for the vendor to release a fix, with no interim protection.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You halted writes to prevent corruption spread, used binary log analysis to find the clean restore point, minimized data loss through selective transaction replay, validated integrity before restoring services, and implemented automated integrity checks in the CI/CD pipeline.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": [
+    "data-corruption",
+    "database",
+    "integrity",
+    "point-in-time-recovery"
+  ]
+}

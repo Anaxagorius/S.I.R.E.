@@ -1,0 +1,154 @@
+{
+  "title": "database_crash",
+  "description": "A production database crashes unexpectedly, taking down all database-dependent services.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Database Process Crashes",
+      "description": "The production database process terminates unexpectedly. All application connections are dropped instantly.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Application Cascade Failures",
+      "description": "All applications that depend on the database begin returning 500 errors. User traffic is completely impacted.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Database Error Logs Examined",
+      "description": "DBAs review database error logs and find an InnoDB storage engine corruption message before the crash.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Recovery Mode Attempted",
+      "description": "DBAs attempt to start the database in recovery mode to assess and repair the corruption.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Table Repair and Restart",
+      "description": "Corrupted tables are identified and repaired using database recovery tools. Database is restarted.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Database and Services Restored",
+      "description": "Database is fully operational. Applications reconnect and services return to normal.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Database Process Crashed",
+      "situation": "The production database has crashed and all applications are failing with connection errors. You have access to the database server. The database server hardware appears healthy. You need to diagnose and restore the database as quickly as possible.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review the database error log immediately to understand why the process crashed, notify stakeholders of the outage, and assess whether the crash indicates corruption that requires recovery mode versus a simple restart.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately attempt to restart the database without reviewing error logs, which could worsen corruption if present.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Initiate a full database restore from backup immediately without investigating whether a faster in-place recovery is possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Corruption Recovery Mode",
+      "situation": "Error logs show InnoDB detected page corruption in the tablespace for the orders table before crashing. The corruption is localized to one table. The database cannot start normally due to the corrupted InnoDB page. You must use recovery mode to bypass the corruption and extract data.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Start the database with innodb_force_recovery=1 (minimal recovery mode), attempt to dump the corrupted orders table, identify the extent of corruption, and progressively increase the recovery level if needed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Start the database with innodb_force_recovery=6 (maximum recovery mode) immediately to bypass all integrity checks.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Table Data Recovery",
+      "situation": "Recovery mode level 1 allows the database to start. A dump of the orders table reveals corruption in approximately 200 rows at the end of the table. The rest of the 4 million rows are intact. The corrupted 200 rows can potentially be recovered from the last backup.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Export the intact 3,999,800 rows from the corrupted table, restore the full orders table from the last backup to a staging environment, extract the 200 missing rows, merge them into the recovered dataset, and rebuild the production table.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore the entire orders table from backup, losing all transactions since the last backup.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Database Restart and Application Recovery",
+      "situation": "The orders table has been rebuilt with all data intact. The database is ready to restart in normal mode. Applications have been queueing connections and will attempt to reconnect immediately upon database availability.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restart the database in normal mode, implement connection limiting initially to prevent a thundering herd, gradually allow application connection pools to reconnect, and monitor for any remaining instability.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart the database and immediately allow all applications to reconnect simultaneously, risking a connection storm that could destabilize the recovering database.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You expertly managed the database crash by diagnosing InnoDB corruption, using incremental recovery mode to minimize data loss, merging recovered rows with exported intact data, and managing the application reconnection process to ensure a stable recovery.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": [
+    "database",
+    "InnoDB",
+    "crash-recovery",
+    "MySQL"
+  ]
+}

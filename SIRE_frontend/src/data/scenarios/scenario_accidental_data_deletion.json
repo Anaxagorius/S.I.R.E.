@@ -1,0 +1,154 @@
+{
+  "title": "accidental_data_deletion",
+  "description": "An administrator accidentally deletes critical production data from the database.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Accidental DELETE Executed",
+      "description": "An administrator runs a DELETE statement without a WHERE clause on a production customer table. 50,000 records are deleted.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Error Recognized",
+      "description": "The administrator immediately realizes the mistake and reports it. The transaction has already committed.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Incident Declared",
+      "description": "A P1 incident is declared. Applications dependent on the deleted data begin failing.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Recovery Options Assessed",
+      "description": "DBA team evaluates recovery options: transaction log replay, backup restore, or database-level recycle bin.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Data Recovery Initiated",
+      "description": "Point-in-time recovery is initiated using transaction logs to reconstruct the deleted records.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Data Restored",
+      "description": "50,000 records are restored. Data integrity verified. Applications return to normal operation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "50,000 Records Accidentally Deleted",
+      "situation": "An administrator has accidentally executed a DELETE without a WHERE clause on the production customer table, deleting 50,000 records. The transaction has committed. Applications are now failing. You are the incident commander. The database has binary logging enabled.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a P1 incident, put the affected application in maintenance mode to prevent additional data writes that complicate recovery, preserve all transaction logs, and begin evaluating recovery options.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately restore the entire database from the most recent backup without assessing log-based recovery options.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Try to recreate the deleted records manually from application logs and user reports.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Recovery Strategy Selection",
+      "situation": "Recovery options available: (1) Point-in-time restore using binary logs \u2014 can recover all 50,000 records with no data loss but requires 2-3 hours; (2) Last backup restore \u2014 available from 4 hours ago, would lose 4 hours of other legitimate changes; (3) Flash-back query (if supported by DB engine) \u2014 fastest option, 30 minutes, but only if database has flashback enabled.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use binary log point-in-time recovery to reconstruct and re-insert only the deleted records without losing any other data changes, accepting the 2-3 hour recovery time.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore from the 4-hour-old backup to recover faster, losing 4 hours of all other users transactions.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Recovery Execution",
+      "situation": "Binary log recovery is in progress. The DBA is extracting INSERT statements from the binary logs to reconstruct the deleted records. The reconstruction script is at 60% completion. You need to plan for validation before re-inserting records.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Have the DBA validate a sample of the reconstructed records against application audit logs before bulk re-insertion, then re-insert in batches with checkpoints to verify row counts at each step.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Re-insert all 50,000 reconstructed records in a single transaction without validation sampling.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Verification and Process Improvement",
+      "situation": "All 50,000 records have been restored and verified. Application maintenance mode is being lifted. Management wants to know how to prevent this from happening again.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the incident, implement SQL query review requirements for production DBA operations, deploy a database activity monitoring tool to alert on mass DELETE/UPDATE without WHERE clauses, and enable soft-delete patterns for critical tables.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident after data restoration and rely on DBAs to be more careful in the future.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the accidental deletion by selecting the optimal binary log recovery strategy to avoid data loss, validating reconstructed records before insertion, restoring all 50,000 records, and implementing database activity monitoring and SQL review controls.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": [
+    "data-deletion",
+    "recovery",
+    "binary-logs",
+    "database"
+  ]
+}

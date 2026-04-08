@@ -1,0 +1,154 @@
+{
+  "title": "power_supply_failure",
+  "description": "A server power supply unit fails, causing an unexpected server shutdown.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Server Shuts Down",
+      "description": "A production server powers off unexpectedly. Monitoring detects loss of all connectivity and fires a P1 alert.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Physical Inspection",
+      "description": "Datacenter technician inspects the server. PSU fault LED is illuminated. No power is being delivered.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Redundant PSU Check",
+      "description": "Technician verifies whether the server has a redundant PSU that should have taken over.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "PSU Replacement Sourced",
+      "description": "A compatible replacement PSU is retrieved from spare parts inventory.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "PSU Replaced and Server Restarted",
+      "description": "Faulty PSU is hot-swapped and the server powers on automatically with the new unit.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Server Back Online",
+      "description": "Server boots successfully with the new PSU. Services resume and monitoring confirms normal operation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unexpected Server Shutdown",
+      "situation": "A production server has powered off without warning. The PSU fault LED is illuminated. The server has dual PSU slots but the secondary PSU did not take over. Services on this server are offline and users are impacted.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify stakeholders of the outage, physically inspect both PSU slots to determine why the redundant PSU failed to take over, and check spare parts inventory for a compatible replacement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to power on the server with the faulty PSU still installed to verify it is actually broken.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Begin migrating all services to another server before investigating the PSU failure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Redundancy Investigation",
+      "situation": "Physical inspection reveals the secondary PSU slot is empty \u2014 the second PSU was never installed. This means there was no actual redundancy. A compatible replacement PSU is available in the spare parts room. The server supports hot-swap PSU replacement.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hot-swap the failed PSU with the replacement unit. The server should power on automatically once a working PSU is detected.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Install the replacement PSU in the secondary slot without removing the failed primary PSU first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Server Boot Validation",
+      "situation": "The replacement PSU is installed and the server has powered on. The OS is booting. You need to verify the server comes back to a healthy state and all services restart correctly.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Monitor the boot process via the console, verify all services start correctly, run health checks, and confirm monitoring returns to green status.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Walk away after the server powers on and assume services will restart without verification.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Root Cause and Prevention",
+      "situation": "The server is fully operational. The incident lasted 22 minutes. You discover through the CMDB that several other servers in the rack also have only one PSU installed despite being listed as having redundant power.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the incident, audit all servers flagged as redundant in the CMDB for actual PSU count, and raise a change request to install missing secondary PSUs during the next maintenance window.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident ticket and only address the other servers if they also fail.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You resolved the PSU failure through a hot-swap, restored services, and identified a systemic CMDB inaccuracy where servers were incorrectly documented as having redundant power supplies. A proactive audit and remediation plan is underway.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": [
+    "power-supply",
+    "hardware",
+    "redundancy",
+    "datacenter"
+  ]
+}
