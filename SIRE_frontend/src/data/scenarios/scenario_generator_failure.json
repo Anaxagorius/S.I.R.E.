@@ -1,0 +1,155 @@
+{
+  "title": "generator_failure",
+  "description": "The backup generator fails to start during a mains power outage, leaving critical systems without power.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Mains Power Loss",
+      "description": "Utility power fails across the facility. Generator start sequence initiates automatically.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Generator Fails to Start",
+      "description": "Generator cranks but does not start. UPS systems are now providing the only power to critical systems.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "UPS Runtime Countdown",
+      "description": "UPS battery runtime estimated at 20 minutes for current load. Manual generator start attempted.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 3,
+      "title": "Generator Engineer Called",
+      "description": "Emergency generator engineer dispatched. ETA 45 minutes — longer than UPS runtime.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 4,
+      "title": "Graceful Shutdown Initiated",
+      "description": "Non-critical systems gracefully shut down to extend UPS runtime for priority systems.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 5,
+      "title": "Generator Restored",
+      "description": "Engineer identifies fuel injection fault and restarts generator. Systems restored.",
+      "timeOffsetSec": 180
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Generator Fails to Start",
+      "situation": "Mains power has failed across the entire facility. The automatic generator start sequence initiated, but after three crank attempts the generator has not started. Facilities staff are hearing a clicking sound. UPS systems have taken over and are providing power to critical IT systems. UPS runtime at current load is approximately 20 minutes.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Attempt a manual generator start using the local control panel, simultaneously contact the emergency generator maintenance engineer, and notify IT to prepare for potential UPS depletion.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the automatic start sequence to retry — it may start on the next attempt without intervention.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Begin an immediate full shutdown of all servers to protect data before the UPS runs out.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "UPS Runtime Reducing",
+      "situation": "The manual start attempt has also failed. The emergency generator engineer has been contacted but their estimated arrival time is 45 minutes — 25 minutes longer than the current UPS runtime. UPS battery is now at 70% with 14 minutes of runtime remaining at current load.",
+      "question": "How do you extend UPS runtime?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately initiate graceful shutdowns of all non-critical systems to reduce the load on the UPS, extending runtime for priority systems such as core databases, network infrastructure, and communications.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep all systems running — 14 minutes may be enough and the engineer might arrive earlier than expected.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Prioritising Critical Systems",
+      "situation": "Non-critical systems have been shut down. UPS runtime for remaining critical systems is now estimated at 35 minutes. The generator engineer has confirmed they are 30 minutes away. The utility company reports the power outage may last another 2–4 hours. Your critical systems include a real-time transaction database, VoIP communications, and a customer-facing API.",
+      "question": "How do you prepare for potential full UPS depletion?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify IT leadership, begin controlled failover of the customer-facing API to a cloud standby environment, flush transaction database logs, and prepare shutdown scripts so that if the engineer does not arrive in time, shutdown will be clean rather than abrupt.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do nothing further — the engineer will arrive before the UPS runs out and this will resolve itself.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Generator Engineer Arrives",
+      "situation": "The generator engineer has arrived with 7 minutes of UPS runtime remaining for core systems. They have identified a seized fuel injector as the cause of failure. They estimate they can restore the generator in approximately 10 minutes — slightly longer than the remaining UPS runtime.",
+      "question": "Do you wait for the generator fix or initiate emergency shutdown?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate graceful shutdown of the transaction database now to protect data integrity — 7 minutes is insufficient margin. Allow the engineer to restart the generator while the system is safely offline and restart afterwards.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep everything running and trust the engineer will fix it within the remaining 7 minutes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The generator engineer replaced the seized fuel injector and restarted the generator successfully. The graceful shutdown of the transaction database protected all data with no corruption detected. Systems have been fully restored. A root-cause analysis has been commissioned and the generator maintenance schedule is being reviewed to prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Advanced",
+  "tags": [
+    "generator failure",
+    "power",
+    "UPS",
+    "continuity",
+    "BCDR"
+  ]
+}

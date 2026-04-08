@@ -1,0 +1,155 @@
+{
+  "title": "datacenter_fire",
+  "description": "Smoke detectors activate in the datacenter after a server-rack electrical fault ignites.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Smoke Detected",
+      "description": "Environmental sensors detect smoke in the main server room. Fire alarm activates.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Evacuation of Datacenter",
+      "description": "Datacenter personnel evacuate. Access restricted pending fire service assessment.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Fire Service Arrival",
+      "description": "Fire service confirms a localised rack fire. Suppression system activated.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Power Isolation",
+      "description": "Emergency power-off triggered to prevent further electrical ignition.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Damage Assessment",
+      "description": "Fire extinguished. Damage limited to two racks. Residual suppression agent requires clean-up.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Failover and Recovery",
+      "description": "Workloads failing over to DR site. Physical damage documented. Clean-up and restoration begins.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Datacenter Fire Alarm Activated",
+      "situation": "Smoke detectors in the main server room have triggered. The fire alarm is sounding. Two datacenter engineers are currently working inside the room. Visible smoke is coming from a server rack in row 3.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately evacuate all personnel from the datacenter, do not attempt to fight the fire manually, seal the room, and contact the fire service. Treat it as a real fire until confirmed otherwise.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the engineers inside to investigate the smoke source and attempt to use a portable extinguisher on the rack.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reset the alarm — server racks occasionally produce smoke without a real fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fire Service Response",
+      "situation": "All personnel have evacuated. The fire service has arrived and confirmed a localised electrical fire in two adjacent rack units in row 3. The automated gas suppression system has activated. The engineers want to re-enter to shut down servers before they overheat from loss of cooling.",
+      "question": "Do you allow re-entry to perform server shutdowns?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not allow re-entry until the fire service has formally cleared the room. Instead, initiate remote graceful shutdown of at-risk systems from a safe external console if available.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the engineers to re-enter wearing office clothing — the fire service says the main fire is out.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Emergency Power-Off Decision",
+      "situation": "The fire service recommends triggering the Emergency Power-Off (EPO) system to cut all electrical supply to the room and prevent re-ignition. This will cause an unclean shutdown of all remaining running servers. Some systems have unsaved transactions.",
+      "question": "Do you activate the EPO?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the EPO on the advice of the fire service — life safety and preventing re-ignition takes priority over data integrity. Data recovery can be attempted from transaction logs after the incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Refuse to activate the EPO until all transaction data can be flushed — the fire appears contained.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Damage Assessment and DR Activation",
+      "situation": "The fire is extinguished. The fire service has cleared the room for a damage assessment. Two full racks are destroyed. Suppression agent residue covers affected equipment. The DR site BCP requires activation. Business leadership is asking for an RTO estimate.",
+      "question": "How do you manage the recovery?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Formally declare a disaster, activate the DR site failover for affected systems, provide a realistic RTO based on the DR plan, and begin a documented damage assessment for insurance and root-cause purposes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to recover the damaged servers in-place before activating DR to avoid the complexity of a failover.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The DR site has successfully taken over affected workloads within the agreed RTO. All personnel are safe. The damaged racks have been documented and the insurance claim initiated. A post-incident review has been scheduled to assess the fire detection, suppression, and EPO systems.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Advanced",
+  "tags": [
+    "datacenter fire",
+    "fire",
+    "DR",
+    "EPO",
+    "BCDR"
+  ]
+}

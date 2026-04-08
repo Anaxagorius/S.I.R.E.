@@ -1,0 +1,155 @@
+{
+  "title": "heatwave",
+  "description": "An extreme heatwave creates dangerous working conditions and threatens critical IT infrastructure.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Extreme Heat Advisory",
+      "description": "National weather service issues extreme heat advisory. Temperatures forecast to reach 42°C for 5 days.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Cooling System Strain",
+      "description": "HVAC systems running at maximum capacity. Datacenter inlet temperatures rising above thresholds.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Staff Welfare Concerns",
+      "description": "Non-air-conditioned office areas become uncomfortable. Staff reporting heat exhaustion symptoms.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "HVAC Overload",
+      "description": "One HVAC unit trips due to overload. Datacenter temperatures rising rapidly.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Grid Demand Warning",
+      "description": "Utility company requests voluntary power reduction due to grid strain from peak air conditioning demand.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Heatwave Subsides",
+      "description": "Temperatures drop. Systems restored to normal. Review of cooling capacity undertaken.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Extreme Heat Advisory",
+      "situation": "The national weather service has issued an extreme heat advisory. Temperatures are forecast to reach 42°C (108°F) for 5 consecutive days. Your facility's HVAC system is rated for conditions up to 38°C ambient. The datacenter is already running at the upper edge of its thermal envelope.",
+      "question": "What is your immediate planning action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Convene an emergency facilities and IT meeting: assess HVAC capacity limits, identify non-essential IT workloads that can be suspended to reduce heat, plan staff welfare measures, and check generator fuel for potential HVAC failures.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue normal operations — the HVAC system should handle it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Shut down all non-essential systems immediately without assessing which systems are truly non-essential.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Staff Welfare",
+      "situation": "Temperatures outside have reached 40°C. Several open-plan office areas without air conditioning are reaching 35°C. Two staff members are showing symptoms of heat exhaustion — confusion and excessive sweating. HVAC units are running at full capacity.",
+      "question": "How do you address staff welfare?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Move affected staff to cooled areas immediately, administer first aid and summon medical assistance if needed, allow remote work for staff in uncooled areas, and set up a designated cool rest area with water.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open windows to create airflow in uncooled offices and allow staff to use personal fans.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "HVAC Unit Trip",
+      "situation": "One of three HVAC units has tripped due to thermal overload. Datacenter inlet temperatures are rising at 1.5°C per minute and have reached 32°C. The remaining two HVAC units are at maximum load. A portable cooler is available in the equipment store.",
+      "question": "How do you respond to the HVAC failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy the portable cooler to the datacenter hot aisle, begin gracefully suspending non-critical servers to reduce heat generation, reset the tripped HVAC unit if it is safe to do so, and monitor temperatures continuously.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep all servers running to maintain availability and wait for the HVAC technician to arrive.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Grid Demand Reduction Request",
+      "situation": "The utility company has issued a voluntary demand reduction request due to grid strain from regional peak air conditioning use. Complying means reducing non-essential electrical loads. Your generator is fuelled and ready but activating it during grid strain events risks overloading the local distribution network.",
+      "question": "How do you respond to the grid demand request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reduce non-essential electrical loads (lighting, non-critical equipment) to comply with the voluntary request, while maintaining HVAC and critical IT systems. Do not activate the generator during the grid strain event.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Activate the generator to take the facility off-grid and eliminate the need to reduce loads.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The heatwave has subsided. Staff welfare measures prevented any serious heat-related illness. The tripped HVAC unit has been serviced and the datacenter returned to normal thermal operating conditions. A review of cooling capacity and redundancy is now being commissioned.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "heatwave",
+    "natural disaster",
+    "HVAC",
+    "staff welfare",
+    "BCDR"
+  ]
+}

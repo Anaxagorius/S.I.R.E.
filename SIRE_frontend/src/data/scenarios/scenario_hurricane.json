@@ -1,0 +1,155 @@
+{
+  "title": "hurricane",
+  "description": "A Category 2 hurricane is forecast to make landfall near the facility within 48 hours.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Hurricane Watch Issued",
+      "description": "National Weather Service issues a hurricane watch. 48-hour preparation window begins.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Preparation Phase",
+      "description": "Secure outdoor equipment, protect windows, and back up critical data to offsite locations.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Hurricane Warning — 24 Hours",
+      "description": "Warning upgraded. Landfall expected in 24 hours. Staff dismissal and remote work activation.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 3,
+      "title": "Storm Makes Landfall",
+      "description": "Hurricane makes landfall. Sustained winds of 100 mph. Facility on generator power.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Post-Storm Assessment",
+      "description": "Storm passes. Begin damage assessment before allowing any re-entry.",
+      "timeOffsetSec": 330
+    },
+    {
+      "index": 5,
+      "title": "Recovery Operations",
+      "description": "Coordinate with utilities, insurance, and facilities. Begin phased operations recovery.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Hurricane Watch Issued",
+      "situation": "The National Weather Service has issued a hurricane watch for your region. A Category 2 storm is forecast to make landfall in approximately 48 hours. You have a 48-hour preparation window.",
+      "question": "What is your first priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the hurricane Business Continuity Plan: brief leadership, assign preparation teams, and identify staff, systems, and assets that require protection or relocation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Monitor the storm track for the next 24 hours before taking any action — forecasts often change.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately evacuate all staff and close the facility.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Facility Preparation",
+      "situation": "The BCP is activated. Preparation teams are assembling. Critical tasks include: securing outdoor furniture and signage, protecting ground-floor windows, backing up data to offsite systems, fuelling the generator, and documenting the asset inventory.",
+      "question": "How do you prioritise the preparation tasks?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Address life-safety items first (secure outdoor hazards, protect windows), then critical systems (offsite data backup, generator fuel), and finally document assets for insurance purposes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus entirely on completing the asset documentation for insurance before doing anything physical.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Warning Upgrade — 24 Hours to Landfall",
+      "situation": "The watch has been upgraded to a hurricane warning. Landfall is now 24 hours away. The governor has issued an evacuation order for coastal zones, but your facility is inland. Non-essential staff are asking whether to come in tomorrow.",
+      "question": "How do you manage staff for the storm period?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Dismiss all non-essential staff and activate remote work procedures. Retain only a critical skeleton crew on-site with appropriate safety provisions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Require all staff to report as normal — the facility is not in an evacuation zone.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Storm Impact",
+      "situation": "The hurricane has made landfall. Sustained winds of 100 mph are battering the facility. The main grid power has failed and the generator is running. A window on the ground floor has blown in.",
+      "question": "How do you respond to the window breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Keep all skeleton crew personnel away from the affected area, seal it off as best as possible using available materials, and log the breach. Do not attempt exterior repairs during the storm.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send two maintenance staff to board up the window from the outside before rain enters.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The storm has passed. A post-storm damage assessment has been completed safely. Minor structural damage and the broken window are documented. Grid power is expected to be restored within 48 hours. The recovery plan is underway and all staff are safe.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "hurricane",
+    "natural disaster",
+    "weather",
+    "BCP",
+    "BCDR"
+  ]
+}

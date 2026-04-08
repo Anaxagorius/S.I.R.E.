@@ -1,0 +1,155 @@
+{
+  "title": "lightning_strike",
+  "description": "A direct lightning strike causes a power surge that damages critical infrastructure and triggers a fire alarm.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Lightning Strike",
+      "description": "A direct lightning strike hits the building's lightning rod system. Immediate power surge detected.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Power Surge Effects",
+      "description": "Several UPS units alarming. Network switches and unprotected equipment may be damaged.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Fire Alarm Activation",
+      "description": "Electrical fault triggers fire alarm in the comms room. Fire service dispatched.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 3,
+      "title": "Systems Assessment",
+      "description": "Initial assessment of surge-damaged equipment underway. Some servers fail to respond.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Electrical Inspection",
+      "description": "Electrician inspects the main panel and surge protection devices. Replacements ordered.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Systems Restoration",
+      "description": "Damaged components identified. Replacement hardware sourced. Phased restoration begins.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Lightning Strike and Power Surge",
+      "situation": "A direct lightning strike has hit the building's lightning protection system during a severe thunderstorm. A loud bang was heard and the lights flickered. Multiple UPS units are alarming and several network switches have gone offline. The fire alarm has activated in the communications room.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the fire alarm as a real fire: evacuate the communications room, contact the fire service, and do not re-enter until cleared. Simultaneously assign IT staff to monitor system status remotely.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ignore the fire alarm — it is almost certainly a false alarm caused by the electrical surge. Focus on assessing the equipment damage.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reset the fire alarm panel and continue normal operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fire Service Response",
+      "situation": "The fire service has arrived and confirmed there is no actual fire — the alarm was triggered by an electrical fault from the surge. The communications room is cleared for re-entry. Multiple network switches and two servers are not responding. A burning smell persists near the patch panel.",
+      "question": "How do you assess the surge damage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not power up potentially damaged equipment. Conduct a visual inspection for burn marks and physical damage. Check UPS logs for surge events and isolate damaged devices before attempting any restart.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Power cycle all non-responding equipment immediately to restore connectivity as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Damage Assessment",
+      "situation": "Visual inspection reveals two network switches have burn damage on their circuit boards and are beyond recovery. Three servers show no physical damage and may be restarted safely. One server has a burnt power supply unit. The main surge protection device at the building entry point needs inspection by a qualified electrician.",
+      "question": "How do you proceed with recovery?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restart the three visually undamaged servers in sequence, monitoring closely for anomalies. Order replacement switches and the burnt PSU from the spare parts inventory. Call a licensed electrician to inspect the main surge protection device before restoring full building power.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart all servers including the one with the burnt PSU — it may still work.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Electrician Inspection",
+      "situation": "The licensed electrician has inspected the main surge protection device and confirmed it absorbed the strike but is now degraded and must be replaced before the next storm. The replacement unit will take 48 hours to arrive. Another thunderstorm is forecast for tomorrow.",
+      "question": "How do you manage the 48-hour window with degraded surge protection?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrange expedited delivery of the replacement surge device, shut down non-essential equipment during the forecast storm window to reduce exposure, and ensure all critical systems are on functional UPS units with surge protection.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue full operations — the lightning rod will protect the equipment even without the surge device.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire alarm was correctly treated as a live incident, the surge damage was properly assessed without causing further harm, recovery was staged safely, and the degraded surge protection was addressed before the next storm. A post-incident review of surge protection infrastructure has been scheduled.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "lightning",
+    "power surge",
+    "natural disaster",
+    "electrical",
+    "BCDR"
+  ]
+}

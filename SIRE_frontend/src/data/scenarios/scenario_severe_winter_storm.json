@@ -1,0 +1,155 @@
+{
+  "title": "severe_winter_storm",
+  "description": "A severe winter storm dumps heavy snow and ice, isolating the facility and threatening operations.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Winter Storm Watch",
+      "description": "National Weather Service issues a winter storm watch for 18–24 hours of heavy snow and ice.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Remote Work Preparation",
+      "description": "Staff advised to prepare for remote work. Critical on-site roles identified and staffed appropriately.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Storm Arrives",
+      "description": "Heavy snowfall and ice accumulation begin. Road access becomes hazardous.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 3,
+      "title": "Roof Load Alert",
+      "description": "Facilities reports heavy snow accumulation on the flat roof section. Structural threshold approaching.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Power Fluctuations",
+      "description": "Ice on power lines causes voltage fluctuations. UPS systems engaged.",
+      "timeOffsetSec": 330
+    },
+    {
+      "index": 5,
+      "title": "Storm Passes",
+      "description": "Storm clears. Roads being treated. Facility inspection and phased return underway.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Winter Storm Watch Issued",
+      "situation": "The National Weather Service has issued a winter storm watch. 18–24 inches of snow and significant ice accumulation are forecast over the next 24 hours. The storm is expected to begin overnight and peak during the morning commute.",
+      "question": "How do you prepare the organisation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the winter weather BCP: brief department heads, identify critical on-site roles, advise non-essential staff to prepare for remote work, check generator fuel, and inspect the roof drainage system.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait to see how the storm develops before making any decisions — forecasts are often inaccurate.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Close the facility for the day and send everyone home immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Storm Begins",
+      "situation": "The storm has arrived overnight. 14 inches of snow have fallen and roads are closed. A skeleton crew of essential IT and facilities staff made it in before conditions became hazardous. Remote staff are operational.",
+      "question": "How do you manage the on-site skeleton crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief the skeleton crew on emergency procedures, confirm their safety contact schedule, verify they have food and shelter provisions if conditions prevent them from leaving, and maintain regular check-ins.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Let the skeleton crew manage themselves — they are experienced professionals.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Roof Load Alert",
+      "situation": "Facilities reports that the flat section of the roof now has an estimated 20 inches of snow accumulation. The structural engineer advises that the load is approaching the design limit and recommends controlled snow removal.",
+      "question": "How do you respond to the roof load alert?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Evacuate the areas directly below the affected roof section, contact a qualified snow removal contractor, and restrict all access to the roof until conditions are safe and the contractor has cleared the load.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send two maintenance staff onto the roof to manually clear the snow with shovels.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Power Fluctuations",
+      "situation": "Ice has accumulated on overhead power lines causing repeated voltage fluctuations. UPS systems have engaged for critical servers but one fluctuation caused an unplanned reboot of a production database server.",
+      "question": "How do you respond to the power instability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the backup generator to provide clean stable power for critical systems, validate the database server's integrity after the unplanned reboot, and notify the utility company of the line icing issue.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the UPS systems to handle fluctuations and continue monitoring — activating the generator is unnecessary.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The storm has passed. The roof snow load has been cleared safely by contractors. Critical systems ran stably on generator power throughout the storm. The database server integrity check confirmed no data loss. A phased return to full operations is now underway.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "winter storm",
+    "natural disaster",
+    "snow",
+    "BCP",
+    "BCDR"
+  ]
+}

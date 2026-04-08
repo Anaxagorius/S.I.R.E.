@@ -17,6 +17,30 @@ import scenarioPower from "./scenarios/scenario_power_outage.json";
 import scenarioMassCasualty from "./scenarios/scenario_mass_casualty.json";
 import scenarioInfrastructureAttack from "./scenarios/scenario_infrastructure_attack.json";
 
+// BCDR: Natural Disasters
+import scenarioEarthquake from "./scenarios/scenario_earthquake.json";
+import scenarioHurricane from "./scenarios/scenario_hurricane.json";
+import scenarioTornado from "./scenarios/scenario_tornado.json";
+import scenarioWildfire from "./scenarios/scenario_wildfire.json";
+import scenarioSevereWinterStorm from "./scenarios/scenario_severe_winter_storm.json";
+import scenarioHeatwave from "./scenarios/scenario_heatwave.json";
+import scenarioLightningStrike from "./scenarios/scenario_lightning_strike.json";
+
+// BCDR: Environmental & Facility Incidents
+import scenarioDatacenterFire from "./scenarios/scenario_datacenter_fire.json";
+import scenarioFireSuppressionMisfire from "./scenarios/scenario_fire_suppression_misfire.json";
+import scenarioWaterDamage from "./scenarios/scenario_water_damage.json";
+import scenarioHvacFailure from "./scenarios/scenario_hvac_failure.json";
+import scenarioStructuralDamage from "./scenarios/scenario_structural_damage.json";
+import scenarioPhysicalAccessCompromise from "./scenarios/scenario_physical_access_compromise.json";
+import scenarioBuildingEvacuation from "./scenarios/scenario_building_evacuation.json";
+
+// BCDR: Power & Utility Failures
+import scenarioGeneratorFailure from "./scenarios/scenario_generator_failure.json";
+import scenarioFuelShortage from "./scenarios/scenario_fuel_shortage.json";
+import scenarioUpsFailure from "./scenarios/scenario_ups_failure.json";
+import scenarioGridInstability from "./scenarios/scenario_grid_instability.json";
+
 // Social engineering / phishing
 import scenarioPhishingEmail from "./scenarios/scenario_phishing_email.json";
 import scenarioSpearPhishing from "./scenarios/scenario_spear_phishing.json";
@@ -120,6 +144,138 @@ const DEMO_SCENARIOS = [
         name: "Power Outage",
         description: "A facility-wide power outage interrupts critical systems.",
         data: scenarioPower,
+    },
+
+    // ── BCDR: Natural Disasters ───────────────────────────────────────────────
+    {
+        id: "scenario_earthquake",
+        icon: "🌍",
+        name: "Earthquake",
+        description: "A significant earthquake strikes during business hours, threatening staff safety and facility integrity.",
+        data: scenarioEarthquake,
+    },
+    {
+        id: "scenario_hurricane",
+        icon: "🌀",
+        name: "Hurricane",
+        description: "A Category 2 hurricane is forecast to make landfall near the facility within 48 hours.",
+        data: scenarioHurricane,
+    },
+    {
+        id: "scenario_tornado",
+        icon: "🌪️",
+        name: "Tornado",
+        description: "A tornado warning is issued with a confirmed funnel cloud approaching the facility.",
+        data: scenarioTornado,
+    },
+    {
+        id: "scenario_wildfire",
+        icon: "🔥",
+        name: "Wildfire",
+        description: "A rapidly spreading wildfire threatens the facility as evacuation orders are issued for surrounding areas.",
+        data: scenarioWildfire,
+    },
+    {
+        id: "scenario_severe_winter_storm",
+        icon: "❄️",
+        name: "Severe Winter Storm",
+        description: "A severe winter storm dumps heavy snow and ice, isolating the facility and threatening operations.",
+        data: scenarioSevereWinterStorm,
+    },
+    {
+        id: "scenario_heatwave",
+        icon: "🌡️",
+        name: "Heatwave",
+        description: "An extreme heatwave creates dangerous working conditions and threatens critical IT infrastructure.",
+        data: scenarioHeatwave,
+    },
+    {
+        id: "scenario_lightning_strike",
+        icon: "⚡",
+        name: "Lightning Strike",
+        description: "A direct lightning strike causes a power surge that damages critical infrastructure and triggers a fire alarm.",
+        data: scenarioLightningStrike,
+    },
+
+    // ── BCDR: Environmental & Facility Incidents ──────────────────────────────
+    {
+        id: "scenario_datacenter_fire",
+        icon: "🔥",
+        name: "Datacenter Fire",
+        description: "Smoke detectors activate in the datacenter after a server-rack electrical fault ignites.",
+        data: scenarioDatacenterFire,
+    },
+    {
+        id: "scenario_fire_suppression_misfire",
+        icon: "💨",
+        name: "Fire Suppression Misfire",
+        description: "The datacenter's gaseous fire suppression system discharges accidentally with no fire present.",
+        data: scenarioFireSuppressionMisfire,
+    },
+    {
+        id: "scenario_water_damage",
+        icon: "💧",
+        name: "Water Damage",
+        description: "A burst pipe in the ceiling causes water damage to office and server room areas.",
+        data: scenarioWaterDamage,
+    },
+    {
+        id: "scenario_hvac_failure",
+        icon: "🌬️",
+        name: "HVAC Failure",
+        description: "The facility's central HVAC system fails during peak summer, threatening both staff welfare and IT equipment.",
+        data: scenarioHvacFailure,
+    },
+    {
+        id: "scenario_structural_damage",
+        icon: "🏗️",
+        name: "Structural Damage",
+        description: "An unexpected structural crack is discovered in a load-bearing wall following a minor tremor.",
+        data: scenarioStructuralDamage,
+    },
+    {
+        id: "scenario_physical_access_compromise",
+        icon: "🚪",
+        name: "Physical Access Compromise",
+        description: "An unknown individual is discovered in a restricted server room after bypassing access controls.",
+        data: scenarioPhysicalAccessCompromise,
+    },
+    {
+        id: "scenario_building_evacuation",
+        icon: "🚨",
+        name: "Building Evacuation",
+        description: "A bomb threat triggers a full building evacuation requiring systematic accountability of all personnel.",
+        data: scenarioBuildingEvacuation,
+    },
+
+    // ── BCDR: Power & Utility Failures ───────────────────────────────────────
+    {
+        id: "scenario_generator_failure",
+        icon: "⚙️",
+        name: "Generator Failure",
+        description: "The backup generator fails to start during a mains power outage, leaving critical systems without power.",
+        data: scenarioGeneratorFailure,
+    },
+    {
+        id: "scenario_fuel_shortage",
+        icon: "⛽",
+        name: "Fuel Shortage",
+        description: "The backup generator is running during an extended outage when a fuel delivery failure leaves tanks critically low.",
+        data: scenarioFuelShortage,
+    },
+    {
+        id: "scenario_ups_failure",
+        icon: "🔋",
+        name: "UPS Failure",
+        description: "Multiple UPS units fail simultaneously during a planned maintenance window, leaving critical systems unprotected.",
+        data: scenarioUpsFailure,
+    },
+    {
+        id: "scenario_grid_instability",
+        icon: "🔌",
+        name: "Grid Instability",
+        description: "Repeated grid brownouts and voltage sags threaten critical systems during a regional power supply crisis.",
+        data: scenarioGridInstability,
     },
 
     // ── Medical ──────────────────────────────────────────────────────────────

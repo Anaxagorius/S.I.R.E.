@@ -1,0 +1,155 @@
+{
+  "title": "hvac_failure",
+  "description": "The facility's central HVAC system fails during peak summer, threatening both staff welfare and IT equipment.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "HVAC System Offline",
+      "description": "Central HVAC control panel shows a compressor fault. Cooling has stopped across all office floors.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Temperature Rising",
+      "description": "Office temperatures rising 2°C per 15 minutes. Staff reporting discomfort. Datacenter on separate system.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Welfare Concern",
+      "description": "Outdoor temperature is 34°C. Office areas projected to reach unsafe heat thresholds within 90 minutes.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "HVAC Engineer On-Site",
+      "description": "Facilities engineer confirms compressor failure. Replacement part has a 4-hour lead time.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Temporary Measures",
+      "description": "Portable cooling units deployed. Staff relocated to cooler areas. Remote work activated.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 5,
+      "title": "HVAC Restored",
+      "description": "Compressor replaced. Full HVAC operation restored. Office temperatures returning to normal.",
+      "timeOffsetSec": 330
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Central HVAC Failure",
+      "situation": "The central HVAC control panel has reported a compressor fault and cooling has stopped across all office floors. It is 11:00 AM on a 34°C summer day. The office areas are currently at 24°C but rising. The datacenter has a separate dedicated cooling system that is currently operating normally.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the facilities HVAC contractor immediately for an emergency callout, assess available portable cooling units, and identify which areas will become unsafe first so you can plan staff welfare actions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open all windows to cool the building naturally — the HVAC will likely restart on its own.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Continue normal operations and monitor — office staff can tolerate mild heat discomfort.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Staff Welfare Decision",
+      "situation": "Office temperatures have reached 29°C and are projected to exceed 35°C within 90 minutes. The HVAC engineer has confirmed a 4-hour repair window. You have 5 portable cooling units available which can adequately cool 2 of the 4 office floors. Staff with medical conditions are reporting distress.",
+      "question": "How do you manage staff welfare?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy portable coolers to prioritise the floors with the most at-risk staff, activate remote work for staff on uncooled floors, provide water, and send any staff experiencing heat-related symptoms to a cooled area or home.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask staff to endure the heat for 4 hours until the repair is complete — operational continuity is important.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Datacenter Monitoring",
+      "situation": "The datacenter cooling is functioning normally and is on a separate system. However, a facilities manager has suggested routing the failed HVAC ducts through the datacenter room to draw cool air from it into the offices. This would require opening the datacenter doors.",
+      "question": "Do you allow the improvised cooling routing through the datacenter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reject the suggestion — opening datacenter doors disrupts airflow management, introduces humidity and contaminants, creates physical security vulnerabilities, and could overwhelm the datacenter cooling. Maintain operational separation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow it — the datacenter cooling can handle the extra load and it will help staff welfare significantly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Repair Delay",
+      "situation": "The HVAC engineer has encountered a complication — the replacement compressor does not fit the original mounting brackets and a further 2-hour delay is now expected. Total downtime is now estimated at 6 hours. Several business units are demanding confirmation that operations will continue normally.",
+      "question": "How do you manage the extended outage and stakeholder expectations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Communicate the revised timeline honestly, expand the remote working activation to additional staff to reduce the number of people on-site, and document the welfare actions taken for both staff safety and compliance records.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assure stakeholders the HVAC will be fixed within the original 4-hour estimate to avoid concern.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The HVAC compressor has been replaced and full cooling has been restored. All staff welfare concerns were managed appropriately. No heat-related injuries occurred. A review of the HVAC maintenance schedule, portable cooling inventory, and the business continuity plan for HVAC failure has been commissioned.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Beginner",
+  "tags": [
+    "HVAC failure",
+    "facility incident",
+    "staff welfare",
+    "cooling",
+    "BCDR"
+  ]
+}

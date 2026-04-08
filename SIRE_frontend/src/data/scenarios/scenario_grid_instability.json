@@ -1,0 +1,155 @@
+{
+  "title": "grid_instability",
+  "description": "Repeated grid brownouts and voltage sags threaten critical systems during a regional power supply crisis.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "First Brownout",
+      "description": "Lights dim briefly throughout the facility. UPS units log a voltage sag to 195V.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Repeated Voltage Events",
+      "description": "Three brownouts in 20 minutes. Utility company warns of potential rolling blackouts.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "UPS Batteries Depleting",
+      "description": "Frequent UPS engagement is depleting batteries faster than they can recharge.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Generator Pre-Start",
+      "description": "Generator started and warming up to take load from the unstable grid.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Switchover to Generator",
+      "description": "Load transferred from grid to generator. Grid power disconnected until stability confirmed.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 5,
+      "title": "Grid Stability Restored",
+      "description": "Utility confirms stable grid supply. Controlled switchover back to mains power.",
+      "timeOffsetSec": 330
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Repeated Brownouts Detected",
+      "situation": "The facility has experienced three brownouts in the past 20 minutes. During each event, voltage dropped to approximately 195V (nominal is 230V). UPS units are engaging on each sag and then recharging, but the frequency is causing battery levels to trend down. The utility company has issued a warning about potential rolling blackouts due to regional grid demand.",
+      "question": "What is your response to the grid instability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat this as a developing power emergency: start the generator and bring it to temperature, notify IT leadership, review current UPS battery levels, and prepare to transfer critical load to generator power before the next brownout.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The UPS units are handling the brownouts — continue normal operations and monitor the situation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately shut down all servers to protect them from the voltage instability.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "UPS Battery Depletion Risk",
+      "situation": "The generator is warming up. A fourth brownout has occurred. UPS batteries across the server room are now at an average of 45% charge due to the repeated engagement cycles. At this rate, if brownouts continue for another 20 minutes before the generator is ready to take load, UPS batteries may not sustain a full outage.",
+      "question": "How do you manage the UPS depletion risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reduce load on the UPS by gracefully shutting down non-critical servers now to preserve UPS capacity for critical systems. Accelerate the generator readiness check so load transfer can occur as soon as it is safe.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep all systems running — 45% UPS charge should last long enough for the generator to be ready.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Generator Readiness and Load Transfer",
+      "situation": "The generator is at operating temperature and ready to accept load. UPS batteries are at 35%. The next step is to transfer the critical server room load from the grid to the generator. A fifth brownout occurs during the transfer preparation. An engineer is at the transfer switchgear.",
+      "question": "How do you execute the load transfer?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Execute the load transfer to the generator following the documented switchover procedure: confirm generator is stable at full speed, transfer loads in a defined sequence, and verify each circuit before transferring the next.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Transfer all loads simultaneously as quickly as possible before another brownout occurs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Operating on Generator — Grid Restoration Monitoring",
+      "situation": "All critical systems are now running on the generator. The grid is disconnected. The utility company reports they expect to stabilise the grid within 2–3 hours. Generator fuel is at 85%. IT leadership wants to restore non-critical systems on the generator to resume normal operations.",
+      "question": "Do you restore non-critical systems on the generator?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore non-critical systems gradually, but check that the total load does not exceed the generator's rated capacity, monitor fuel consumption rate against the expected grid restoration timeline, and maintain contingency fuel margin.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore all systems immediately — the generator can handle it and normal operations must resume.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The utility company has confirmed grid stability has been restored. A controlled switchover back to grid power has been successfully completed and the generator has been shut down safely. No data loss occurred. A post-incident review of the grid monitoring, UPS maintenance, and generator readiness procedures has been scheduled.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "grid instability",
+    "brownout",
+    "power",
+    "generator",
+    "BCDR"
+  ]
+}

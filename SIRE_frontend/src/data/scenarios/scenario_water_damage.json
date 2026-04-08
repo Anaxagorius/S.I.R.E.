@@ -1,0 +1,155 @@
+{
+  "title": "water_damage",
+  "description": "A burst pipe in the ceiling causes water damage to office and server room areas.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Water Dripping Reported",
+      "description": "Staff report water dripping through ceiling tiles. A burst pipe is suspected above the dropped ceiling.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Water Supply Isolated",
+      "description": "Facilities team locates and shuts off the water supply to the affected zone.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Spread Assessment",
+      "description": "Water has spread to an adjacent server room. Electrical panels at risk.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Equipment Protection",
+      "description": "Critical hardware being protected or relocated. Absorption materials deployed.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Damage Inspection",
+      "description": "Plumber and facilities assess structural and electrical damage. Remediation plan developed.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Drying and Restoration",
+      "description": "Industrial drying equipment deployed. Affected systems assessed and carefully powered on.",
+      "timeOffsetSec": 330
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Burst Pipe Discovered",
+      "situation": "Staff have reported water dripping through ceiling tiles in the open office on floor 2. The dripping is increasing in volume. The server room is located 15 metres away on the same floor. The source is a burst pipe above the dropped ceiling.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact facilities to locate and shut off the water supply to the affected zone immediately, restrict access to the affected area, and warn the IT team of the proximity to the server room.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Place buckets under the drips and continue working — facilities will fix it during normal maintenance hours.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Instruct staff to move their laptops away from the drips and continue working at their desks.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Water Reaching the Server Room",
+      "situation": "The water supply to the zone is now shut off, but water has already seeped along the ceiling void and is now dripping near a network rack in the edge of the server room. The server room has active electrical equipment and raised flooring with cables below.",
+      "question": "How do you protect the server room?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shut down electrical systems in the immediate vicinity of the water intrusion within the server room, place waterproof covers over at-risk equipment, and arrange for emergency water extraction.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The amount of water is small — keep the servers running and monitor the situation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Electrical Hazard Assessment",
+      "situation": "Water has seeped under the raised floor and is approaching a power distribution unit (PDU). The PDU supplies 12 servers. Shutting it down will take those servers offline, impacting a customer-facing application. An electrician is 45 minutes away.",
+      "question": "Do you shut down the PDU?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shut down the PDU immediately — water near live electrical equipment is a serious electrocution hazard and the risk to life outweighs the service impact. Notify stakeholders of the planned outage.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the electrician to arrive before deciding — the water is not touching the PDU yet.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Damage Assessment",
+      "situation": "The PDU has been safely powered down. The electrician has arrived and confirmed water ingress under the raised floor. Water extraction is underway. The plumber has confirmed the burst pipe and is preparing the repair. Management wants to know if the affected servers can be restarted once the water is removed.",
+      "question": "How do you manage the equipment restart decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not restart equipment until the area is fully dried and the electrician has certified the PDU and cabling are free of moisture contamination. Moisture in electrical components can cause delayed shorts and further damage.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restart the servers as soon as the standing water is removed — the equipment looks physically undamaged.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Industrial drying equipment has been deployed. The electrician certified the PDU and cabling as dry and safe after 36 hours of drying. Servers were restarted in a staged sequence with monitoring. No data loss occurred. The pipe repair is complete and a review of the facility water leak detection system has been commissioned.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "water damage",
+    "burst pipe",
+    "facility incident",
+    "electrical hazard",
+    "BCDR"
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "title": "earthquake",
+  "description": "A significant earthquake strikes during business hours, threatening staff safety and facility integrity.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Earthquake Strikes",
+      "description": "Tremors begin without warning. Staff must immediately drop, cover, and hold on.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Initial Shaking Stops",
+      "description": "Primary shaking subsides. Assess for injuries and visible structural damage before moving.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Evacuation Decision",
+      "description": "Structural engineer recommends partial evacuation of upper floors. Stairwells are cleared for use.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Aftershock Warning",
+      "description": "Seismic monitoring reports aftershocks expected within the hour. Staff at assembly points.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Utility Shut-Off",
+      "description": "Gas and water mains shut off as a precaution. Backup power activated for critical systems.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Structural Assessment",
+      "description": "Structural engineers begin formal inspection. Damage assessment and re-entry criteria established.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Earthquake Strikes",
+      "situation": "A 5.8-magnitude earthquake begins shaking the building without warning. Staff are at their desks. Ceiling tiles are falling and some shelving units have toppled.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Instruct all staff to immediately drop, cover under sturdy furniture, and hold on until shaking stops.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct everyone to evacuate the building immediately through the nearest exit.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stand in a doorframe and wait for the shaking to stop.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Initial Assessment",
+      "situation": "Shaking has stopped. Several staff report minor injuries from falling objects. Cracks are visible in two interior walls and the lift is not responding. There is no confirmed gas leak yet.",
+      "question": "How do you proceed with the initial assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Account for all personnel, administer first aid to the injured, shut off gas and water supplies as a precaution, and await a structural assessment before re-entry or evacuation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow staff to return to their desks to resume work since the shaking has stopped.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evacuation Decision",
+      "situation": "A structural engineer has conducted a rapid visual assessment and recommends evacuating floors 3 and 4 due to wall cracks near load-bearing columns. The stairwells are confirmed clear. An aftershock is possible within the hour.",
+      "question": "How do you manage the evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Evacuate floors 3 and 4 via designated stairwells to the outdoor assembly point, accounting for all personnel. Establish a perimeter and await further structural clearance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use the lifts to speed up the evacuation process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Aftershock Management",
+      "situation": "All staff are accounted for at assembly points. Seismic monitoring confirms a 4.2 magnitude aftershock struck 20 minutes later. No new injuries. Leadership is asking whether staff can re-enter to retrieve personal items.",
+      "question": "How do you handle re-entry requests?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deny re-entry until a certified structural engineer signs off on building safety and aftershock risk has subsided. Communicate this clearly to all staff.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow senior managers to re-enter briefly to retrieve laptops and critical documents.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The structural assessment is complete. Floors 1 and 2 are cleared for limited re-entry. Floors 3 and 4 remain closed pending repairs. All staff are safe, utilities are secured, and a recovery plan is being coordinated with facilities management.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "earthquake",
+    "natural disaster",
+    "evacuation",
+    "structural damage",
+    "BCDR"
+  ]
+}

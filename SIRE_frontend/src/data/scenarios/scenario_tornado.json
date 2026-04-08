@@ -1,0 +1,155 @@
+{
+  "title": "tornado",
+  "description": "A tornado warning is issued with a confirmed funnel cloud approaching the facility.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Tornado Warning Issued",
+      "description": "National Weather Service issues tornado warning. Funnel cloud confirmed 8 miles away.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Shelter-in-Place Activated",
+      "description": "All staff directed to interior rooms on lowest floor. Windows and exterior doors avoided.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Tornado Passes",
+      "description": "Tornado passes within one mile. Structural damage reported to northern wing roof.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "All-Clear Evaluation",
+      "description": "Local emergency management lifts active warning. Building inspection required before re-entry of damaged areas.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Damage and Injury Assessment",
+      "description": "Search conducted for injured personnel. Structural damage mapped and utilities inspected.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Operations Recovery",
+      "description": "Undamaged areas cleared for use. Recovery team activated to address structural repairs.",
+      "timeOffsetSec": 270
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Tornado Warning Received",
+      "situation": "The National Weather Service has issued a tornado warning. A confirmed funnel cloud is 8 miles away and moving toward the facility at 35 mph. Estimated time of impact is under 15 minutes. Sirens are active.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately activate the tornado shelter-in-place procedure: broadcast an all-staff alert, direct everyone to designated interior shelter areas on the lowest floor away from windows.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Evacuate staff to the car park so they can drive away from the storm.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow staff to watch the tornado from the windows to assess whether it changes course.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Shelter-in-Place",
+      "situation": "Staff are sheltering in interior corridors on the ground floor. A manager reports two staff are still at their desks on the third floor and one person is in the car park. The tornado is now 4 miles away.",
+      "question": "How do you handle the staff not yet sheltering?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately send a floor warden to direct the third-floor staff to shelter, and use the PA system to urgently call in the person in the car park. Do not wait.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Trust that the siren will alert them and focus on accounting for the staff already sheltering.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Tornado — Initial Check",
+      "situation": "The tornado has passed. Sirens have stopped. Structural damage is visible on the northern wing — part of the roof is compromised and debris is scattered. Staff are asking to leave the shelter areas.",
+      "question": "How do you manage the all-clear?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Keep staff in sheltered areas until a rapid structural check confirms the main building is safe. Restrict access to the northern wing until a formal assessment is complete.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow all staff to return to their normal work areas now that the warning has passed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Injury and Damage Assessment",
+      "situation": "A sweep of the building has confirmed all staff are accounted for. Two minor injuries from falling debris are treated on-site. The northern wing has significant roof damage and exposed wiring. Gas and water mains need to be inspected.",
+      "question": "What is your next recovery priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shut off gas and electricity to the damaged northern wing, contact utilities for inspection, and notify emergency services. Document all damage for insurance and begin alternate work arrangements for displaced staff.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow staff from the northern wing to retrieve their belongings before utilities are inspected.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All personnel are accounted for and injuries have been treated. The damaged northern wing is secured and isolated. Utilities have been safely inspected and shut off where necessary. The BCP has been activated to support staff displaced from the damaged area.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Beginner",
+  "tags": [
+    "tornado",
+    "natural disaster",
+    "shelter-in-place",
+    "weather",
+    "BCDR"
+  ]
+}

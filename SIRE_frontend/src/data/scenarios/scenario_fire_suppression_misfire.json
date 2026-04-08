@@ -1,0 +1,155 @@
+{
+  "title": "fire_suppression_misfire",
+  "description": "The datacenter's gaseous fire suppression system discharges accidentally with no fire present.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Accidental Discharge",
+      "description": "Gaseous suppression system discharges unexpectedly. Loud bang heard throughout the datacenter.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Personnel Evacuation",
+      "description": "All datacenter personnel evacuate. Suppression agent concentration checked before re-entry.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "No Fire Confirmed",
+      "description": "Fire service confirms there is no fire. Misfire attributed to faulty detector.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Equipment Impact Assessment",
+      "description": "Some servers powered off due to loss of cooling airflow from agent discharge. Hard drives assessed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Suppression System Offline",
+      "description": "Suppression system now depleted and offline. Temporary fire watch established.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Restoration",
+      "description": "Ventilation complete. Systems powered back on. Suppression contractor scheduled for recharge.",
+      "timeOffsetSec": 270
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suppression System Accidental Discharge",
+      "situation": "A loud bang and hiss has come from the datacenter. The fire suppression system has discharged. The fire alarm is sounding. Three engineers are working inside the room. Visibility is severely reduced by the suppression agent cloud.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately evacuate all personnel — suppression agents can displace oxygen and cause asphyxiation. Sound the evacuation alarm and account for all staff before assessing whether a fire is present.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have personnel stay inside to check if there is an actual fire causing the discharge.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Open the datacenter doors to clear the agent cloud and allow staff to continue working.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Accountability and Fire Service Response",
+      "situation": "All three engineers have evacuated safely. The fire service has arrived. They confirm there is no fire — the discharge appears to be a misfire triggered by a faulty smoke detector. They advise the room needs ventilation before re-entry. Leadership wants to know when systems will be back online.",
+      "question": "How do you manage expectations and the recovery timeline?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Communicate honestly that re-entry requires proper ventilation and air quality testing before it is safe, and that a realistic recovery timeline will be provided only after the room is cleared and equipment is assessed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Commit to having systems back online within 30 minutes to reassure leadership and push for immediate re-entry.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Equipment Assessment",
+      "situation": "Ventilation is complete and air quality is confirmed safe. Engineers re-enter and find that the suppression discharge caused several servers to power off due to the sudden disruption to airflow. Some spinning hard drives may have been damaged by the vibration of the discharge.",
+      "question": "How do you assess and restart equipment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not power on servers immediately. First perform a physical inspection of hard drive trays and check SMART data on any drives that were spinning at the time of discharge. Bring systems online in a staged sequence with health monitoring.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Power on all servers simultaneously as quickly as possible to restore services.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Suppression System Now Offline",
+      "situation": "The suppression system is fully depleted and will not be recharged until the contractor visits tomorrow. The datacenter is now operating without fire suppression for up to 24 hours. There is no alternative suppression coverage.",
+      "question": "How do you manage the datacenter risk without suppression?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a continuous fire watch — assign trained staff to monitor the datacenter in rotating shifts, ensure portable extinguishers are accessible, prohibit any hot work, and notify the facilities and risk teams until suppression is restored.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The risk is low for 24 hours — no fire watch is needed and operations can continue normally.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All personnel evacuated safely during the misfire. Equipment was assessed methodically, with two drives flagged for precautionary replacement. A fire watch was established and the suppression contractor has arrived to recharge the system. The faulty detector has been identified and replaced. A full review of the suppression system and detector calibration is underway.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "fire suppression",
+    "misfire",
+    "datacenter",
+    "facility incident",
+    "BCDR"
+  ]
+}
