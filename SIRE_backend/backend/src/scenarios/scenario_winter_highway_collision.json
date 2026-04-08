@@ -1,0 +1,152 @@
+{
+  "title": "scenario_winter_highway_collision",
+  "description": "A Canadian police officer responds to a multi-vehicle collision on an icy Trans-Canada Highway during a blizzard. The scenario involves scene management, secondary collision prevention, EMS coordination, and assessment of Highway Traffic Act charges.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Officer dispatched to a reported multi-vehicle collision on the Trans-Canada Highway. Blizzard conditions — visibility less than 50 metres. Temperature: -28°C. At least three vehicles reported in the ditch, one tractor-trailer jackknifed.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "On Scene",
+      "description": "Officer arrives. Tractor-trailer is jackknifed blocking both lanes. Two passenger vehicles are in the ditch. One driver is unresponsive. Approaching headlights visible through blowing snow.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "EMS and Tow Requested",
+      "description": "Officer requests EMS (two ambulances), tow trucks, and highway maintenance for sand/salt. Activates all emergency lights and deploys flares and triangles.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Secondary Collision Averted",
+      "description": "Officer uses traffic control position in whiteout to slow approaching vehicles, averting a secondary collision.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "EMS Arrives",
+      "description": "EMS triages injured: one critical (blunt head trauma), two minor injuries. Officers gather witness accounts and photograph scene.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Investigation and Charges",
+      "description": "Officer identifies primary causal driver. Evidence gathered for charge consideration under provincial HTA and Criminal Code.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrive on Scene — Immediate Priorities",
+      "situation": "You arrive at the collision scene at 03:10. A tractor-trailer has jackknifed across both lanes of the Trans-Canada Highway in a blizzard — visibility is under 50 metres. Two passenger vehicles are in the ditch; a third has impacted the trailer. One driver in the third vehicle is unresponsive and remains in their seat. You can see approaching headlights through the blowing snow. You are the only officer on scene. Temperature is -28°C.",
+      "question": "What are your immediate priorities upon arrival?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Park your cruiser uphill and offset of the scene with all emergency lights activated to warn approaching traffic — your vehicle is a warning device. Immediately request EMS (multiple units), additional police cover, tow trucks, and highway maintenance. Deploy road flares and reflective triangles uphill of the scene as far as safely possible. Do not move injured persons unless there is immediate fire or imminent danger — cervical spine injury risk.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately extract all injured parties from their vehicles and move them to the shoulder, then worry about traffic control.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Park behind the tractor-trailer in the blind zone and approach the injured driver first, leaving the roadway unprotected from approaching vehicles.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Traffic Control in Whiteout Conditions",
+      "situation": "A transport truck is approaching at highway speed through the blizzard. Your flares are deployed but visibility is extremely poor. The jackknifed tractor-trailer is blocking both lanes. EMS and backup are five minutes away. You must manually slow and redirect approaching traffic to prevent a secondary collision that would likely be fatal. You have a traffic safety vest and a flashlight.",
+      "question": "How do you manage approaching traffic?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position yourself in a visible but protected position uphill of your emergency lights — never stand in the driving lane in whiteout conditions. Use your flashlight and high-visibility vest to signal approaching vehicles to slow down. Direct traffic to stop or turn around if possible. Request communications broadcast a highway closure warning over CB channel 19 and notify the provincial Ministry of Transportation (MTO) for emergency highway closure authority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stand in the centre of the highway waving your arms to stop all traffic, relying on drivers seeing you in the blizzard.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Remain in your police vehicle with lights on and leave traffic management to approaching drivers, as stopping in blizzard conditions on a highway is too dangerous for you.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evidence Collection and Charge Assessment",
+      "situation": "EMS has arrived and is treating the injured. Backup units are on scene and managing traffic. The scene is now protected. You must gather evidence for the collision investigation. Witnesses report that one vehicle — a southbound sedan — was travelling at an estimated 130 km/h in the blizzard before it struck the jackknifed trailer. The posted speed limit is 110 km/h; however, in these conditions, safe speed would be significantly lower. The tractor-trailer driver states their brakes faded on an icy downgrade.",
+      "question": "What charges do you consider and what evidence do you need?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Photograph tyre marks, damage, and road conditions before any evidence is disturbed. Obtain witness statements. Consider charging the sedan driver with 'Speed Too Fast for Conditions' under the provincial Highway Traffic Act — this offence applies even if travelling below the posted limit. If there is evidence the truck had known brake defects, consider Criminal Negligence Causing Bodily Harm under Criminal Code s.221. Document road surface, visibility conditions, and temperatures precisely for court.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since the collision was caused by icy roads — a natural weather event — do not lay any charges and treat it as an unavoidable accident.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Charge only the tractor-trailer driver automatically since large commercial vehicles must always be held responsible in a multi-vehicle collision.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The scene was properly protected, preventing a secondary collision. EMS treated all injured parties: the critical patient was airlifted to a trauma centre. The sedan driver was charged with Speed Too Fast for Conditions under the provincial Highway Traffic Act. Investigation revealed the tractor-trailer's brake defects were pre-trip detectable — the carrier faces a separate NSC regulatory violation. Your immediate scene protection, communications with MTO and EMS, systematic evidence collection, and measured charge assessment demonstrated professional collision investigation standards consistent with Canadian policing practice.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "winter collision",
+    "Trans-Canada Highway",
+    "Highway Traffic Act",
+    "scene management",
+    "blizzard",
+    "whiteout",
+    "traffic control",
+    "criminal negligence",
+    "Canada",
+    "MVC investigation"
+  ]
+}

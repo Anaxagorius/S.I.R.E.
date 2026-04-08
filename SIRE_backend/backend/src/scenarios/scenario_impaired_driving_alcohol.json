@@ -1,0 +1,151 @@
+{
+  "title": "scenario_impaired_driving_alcohol",
+  "description": "A Canadian police officer pulls over a swerving vehicle on a provincial highway at night. The driver exhibits classic signs of alcohol impairment. The officer must navigate an Approved Screening Device demand, Charter rights, and a formal breath demand at the detachment.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Initial Observation",
+      "description": "Officer observes a vehicle weaving between lanes and braking erratically on a rural provincial highway at 23:15.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Traffic Stop Initiated",
+      "description": "Officer activates emergency lights and the vehicle comes to a slow, unsteady stop on the shoulder. Driver takes 45 seconds to bring the vehicle fully to rest.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Driver Contact",
+      "description": "Officer approaches the driver side window. Driver has glassy eyes, slurred speech, and a strong odour of an alcoholic beverage. Driver states they had 'only two beers.'",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "ASD Demand Made",
+      "description": "Officer makes a lawful demand for a breath sample into an Approved Screening Device. Driver is advised of right to counsel under Charter s.10(b).",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "ASD Result: FAIL",
+      "description": "ASD registers FAIL. Driver is placed under arrest for impaired operation of a conveyance under Criminal Code s.320.14. Demand for breath samples at detachment is made.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Breathalyser Results",
+      "description": "Two breath samples taken by qualified breath technician at detachment. Results: 140 mg and 138 mg per 100 mL of blood — well above the 80 mg Criminal Code legal limit. Charges laid under s.320.14(1)(b).",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Impaired Driving — Initial Stop",
+      "situation": "You are a constable on patrol on a provincial highway at 23:15. You observe a sedan weaving between lanes, crossing the centre line twice, and nearly striking a guardrail. You stop the vehicle. As you approach the driver's window, you detect a strong odour of an alcoholic beverage, observe glassy and bloodshot eyes, slurred speech, and an open can of beer visible in the centre console. The driver is slow to produce their licence and says they had 'only two beers.' You have reasonable suspicion that the driver has alcohol in their body.",
+      "question": "What is your correct first course of action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Make a demand for a breath sample into an Approved Screening Device (ASD) under Criminal Code s.320.27(1) based on reasonable suspicion of alcohol in the body. Advise the driver of their right to retain and instruct counsel without delay under Charter s.10(b), and that they are not required to answer questions but must comply with the ASD demand.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the driver to step out and perform informal balance tests before making any formal demand, allowing several minutes for the driver to sober up slightly.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately arrest the driver for impaired operation without making an ASD demand, relying solely on your observations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "ASD Result: FAIL — Arrest and Breath Demand",
+      "situation": "The driver blows into the ASD. The device registers a FAIL, indicating a blood alcohol concentration at or above 100 mg per 100 mL of blood. You now have grounds to arrest the driver for operation of a conveyance while impaired or with a blood alcohol concentration exceeding 80 mg under Criminal Code s.320.14. The driver is becoming agitated and demands to call a lawyer immediately before blowing again.",
+      "question": "What are your correct next steps following the ASD FAIL?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrest the driver under Criminal Code s.320.14, read them the Charter s.10(b) right to counsel caution and the breath demand caution. Transport them to the detachment and provide a genuine opportunity to contact a lawyer before the evidentiary breath samples are taken by the qualified breath technician. Seize the vehicle and arrange for a tow.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the driver to contact a lawyer at roadside by borrowing your personal cell phone before making the arrest, delaying the arrest and potentially compromising the breath samples.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Administer a second ASD test immediately at roadside and wait for that result before deciding whether to arrest, losing valuable time within the two-hour window.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evidentiary Breath Samples at Detachment",
+      "situation": "At the detachment, the driver speaks privately with duty counsel for 15 minutes. The qualified breath technician (QBT) is ready. The driver now says they want to contact their own lawyer, not duty counsel, and demands an hour to reach them. It is 00:20 — one hour and five minutes since the stop. The two-hour window for evidentiary samples under Criminal Code s.320.14(1)(b) is closing. Duty counsel has already been provided.",
+      "question": "How do you handle the driver's request for a second lawyer contact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the driver that their right to counsel has been satisfied by the opportunity to speak with duty counsel. Explain that any further delay is not reasonable given the two-hour statutory window. Proceed with the evidentiary breath demand. Document all Charter notifications, responses, and timings thoroughly. If the driver refuses to provide samples, arrest for refusal under s.320.15.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Grant the driver another full hour to locate their private lawyer, allowing the two-hour window to potentially expire, which would make the over-80 charge unavailable.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Skip the evidentiary samples entirely and rely only on the ASD result and officer observations to lay the impaired operation charge.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Two evidentiary breath samples were taken: 140 mg and 138 mg per 100 mL of blood. The driver is charged under Criminal Code s.320.14(1)(a) (impaired operation) and s.320.14(1)(b) (over 80 mg). The driver's licence is served with an administrative suspension under provincial Highway Traffic Act legislation. All Charter notifications were documented. Your handling of the ASD demand, right to counsel, arrest, and evidentiary breath process was lawful and thorough, protecting the evidentiary value of the samples.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "impaired driving",
+    "alcohol",
+    "ASD",
+    "Criminal Code s.320.14",
+    "Charter s.10(b)",
+    "breath demand",
+    "RCMP",
+    "traffic enforcement",
+    "Canada"
+  ]
+}

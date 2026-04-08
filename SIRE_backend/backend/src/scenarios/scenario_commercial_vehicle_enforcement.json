@@ -1,0 +1,153 @@
+{
+  "title": "scenario_commercial_vehicle_enforcement",
+  "description": "A Canadian police officer conducts a roadside inspection of a transport truck at a check stop. The officer discovers a logbook violation, an overweight axle, and brake defects meeting CVSA out-of-service criteria under NSC standards and the provincial Highway Traffic Act.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Commercial Vehicle Stopped",
+      "description": "Officer stops a tractor-trailer at a provincial highway check stop. Officer identifies the driver, requests driver's licence (CVOR Class A), carrier abstract, daily log (Hours of Service), and IFTA permit.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Documents Reviewed",
+      "description": "Driver's logbook shows no entries for the past 11 hours of driving. Driver admits to not completing the log. This constitutes a Hours of Service (HOS) violation under federal Motor Vehicle Transport Act regulations.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Weight Violation Found",
+      "description": "Officer uses portable axle scales. Rear drive axle group is 4,000 kg over the provincial HTA limit. A weight permit has not been obtained.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "CVSA Brake Inspection",
+      "description": "Officer conducts a CVSA North American Standard Level I inspection. Brake inspection reveals two steering axle brakes with brake lining below minimum thickness — CVSA out-of-service criteria met.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Out-of-Service Order Issued",
+      "description": "Officer issues a CVSA Out-of-Service Order for brake defects. Vehicle cannot be moved until brakes are repaired by a licensed mechanic. Carrier is notified.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Charges Laid",
+      "description": "Provincial HTA charges issued for overweight axle and HOS logbook violation. Out-of-service order documented. Carrier compliance investigation referred to NSC authority.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Document Check — Logbook Violation",
+      "situation": "You stop a loaded tractor-trailer at a provincial highway check stop. The driver presents a Class A commercial driver's licence and an IFTA permit. When you request their Hours of Service daily log, the driver produces a paper logbook with no entries for the previous 11 hours. Federal Motor Vehicle Transport Act regulations require commercial drivers to maintain an accurate record of duty status. The driver says: 'I forgot to fill it in.'",
+      "question": "How do you handle the logbook violation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a provincial HTA charge for the logbook/Hours of Service violation. Document the specific entries that are missing and the number of hours not recorded. Run the carrier through the National Safety Code (NSC) database to check their safety rating and prior violation history. Advise the driver that operating without a completed log is a compliance offence and proceed to a full Level I CVSA inspection given the HOS non-compliance red flag.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the driver's explanation and allow them to fill in the missing log entries from memory before continuing, since it is an administrative error.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Issue a warning only and do not charge the driver, since a missing logbook entry does not affect vehicle or road safety.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Overweight Axle — Weight Enforcement",
+      "situation": "Using portable axle scales, you weigh the vehicle. The rear tandem axle group registers 21,000 kg — 4,000 kg over the provincial HTA limit of 17,000 kg. The driver does not have a special vehicle weight permit for the excess load. An overweight fine in most provinces is calculated per kilogram over the limit and can be several thousand dollars. The carrier's NSC record shows two prior overweight violations in the past 12 months.",
+      "question": "What actions do you take for the overweight violation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a provincial HTA overweight charge calculated at the provincial per-kilogram rate for the excess 4,000 kg. The vehicle cannot proceed until the load is brought within legal weight limits — either by redistribution of axle weight or off-loading excess cargo. Document the carrier's repeat overweight history for referral to the provincial NSC authority for possible CVOR sanctions. Note all findings in a Commercial Vehicle Inspection Report.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the vehicle to proceed since the weight violation is a civil matter between the carrier and the Ministry of Transportation, not a criminal or safety concern.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Simply advise the carrier by phone of the violation and allow the vehicle to continue to its destination, as pulling a loaded truck off the road is an extreme inconvenience.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "CVSA Brake Inspection — Out-of-Service",
+      "situation": "You conduct a CVSA North American Standard Level I Inspection. During the brake inspection, you find that two brake assemblies on the steering axle have brake lining thickness below the CVSA out-of-service threshold of 3.2 mm for steering axle brakes. CVSA out-of-service criteria are met. A vehicle with steering axle brakes below minimum lining thickness is at significantly elevated risk of brake failure — especially relevant given the overweight load. The driver states the truck just came from a maintenance facility.",
+      "question": "What do you do with the brake out-of-service finding?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a CVSA Out-of-Service Order for the brake defects. The vehicle is placed out of service — it cannot be moved until the defective brakes are repaired by a licensed commercial vehicle mechanic and the out-of-service order is cleared. Notify the carrier immediately by phone, documenting the conversation. The driver is not responsible for the maintenance failure — however, the driver should have detected this in their pre-trip inspection. Record the pre-trip inspection log and note whether the driver documented any defects.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the vehicle to proceed to the nearest truck stop since the brake defect is minor and the vehicle is only a short distance from its destination.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Issue the out-of-service order but allow the driver to slowly drive the truck off the highway at reduced speed to clear the check stop location.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The tractor-trailer was placed out of service for the steering axle brake defects. A licensed mechanic attended the roadside and replaced the brake linings, after which the out-of-service order was cleared. Provincial HTA charges were issued for the Hours of Service logbook violation and the overweight axle. The carrier's NSC file was updated and referred to the provincial safety authority for a compliance review given the repeat violations. The driver's pre-trip inspection log failed to note the brake defect, suggesting a systematic maintenance and inspection failure by the carrier. Your thorough CVSA Level I inspection prevented a potentially fatal brake failure on a heavily loaded commercial vehicle.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "commercial vehicle",
+    "CVSA",
+    "NSC",
+    "HOS",
+    "logbook violation",
+    "overweight",
+    "brake inspection",
+    "out-of-service",
+    "Highway Traffic Act",
+    "Canada",
+    "transport truck"
+  ]
+}

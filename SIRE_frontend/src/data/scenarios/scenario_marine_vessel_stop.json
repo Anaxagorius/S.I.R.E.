@@ -1,0 +1,152 @@
+{
+  "title": "scenario_marine_vessel_stop",
+  "description": "A police marine unit stops a pleasure craft on a Canadian lake. The vessel operator is suspected of impaired operation. The scenario covers Criminal Code Part VIII.1 vessel impairment provisions, Transport Canada safety equipment requirements, Canada Shipping Act boarding authority, and the process for shore transport and breath demand.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Marine Patrol",
+      "description": "Police marine unit observes a pleasure craft operating at high speed near a congested swim area, weaving between other vessels. Officers approach and signal the vessel to stop.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Vessel Boarded",
+      "description": "Officers board the vessel under their authority. The operator has glassy eyes, slurred speech, and there are multiple open liquor containers on the deck. Three passengers are also on board.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Safety Equipment Check",
+      "description": "Officers conduct a Transport Canada safety equipment inspection. One lifejacket is missing and the boat's fire extinguisher is expired. These are Canada Shipping Act violations.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "ASD Demand Made",
+      "description": "Based on reasonable suspicion of alcohol impairment, officer makes an ASD demand under Criminal Code s.320.27. Operator is advised of Charter s.10(b) right to counsel.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "ASD Result: FAIL",
+      "description": "Operator fails the ASD. Operator arrested for impaired operation of a vessel. Vessel is secured to a police dock. Operator transported to shore detachment for evidentiary breath samples.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Breath Samples Taken",
+      "description": "At the shore detachment, evidentiary breath samples confirm BAC of 165 mg per 100 mL. Charges laid under Criminal Code and provincial boating safety legislation.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Marine Stop — Boarding the Vessel",
+      "situation": "You are a constable on a police marine unit on a busy summer lake. You observe a 6-metre pleasure craft operating at excessive speed near a designated swim area, weaving erratically through anchored vessels. You signal the operator to stop using your boat's lights and PA horn. The vessel stops. You approach to board. The operator — a male, approximately 40 years old — appears unsteady, has glassy eyes, and you can smell alcohol from a metre away. Several open beer cans are visible on the bow deck.",
+      "question": "What authority allows you to board this vessel and what is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Canadian police have authority to board and inspect pleasure craft under Criminal Code s.320.27 (impaired operation of a vessel) and the Canada Shipping Act 2001 for safety compliance. Board the vessel safely, identify yourself and your authority. Identify the operator and all passengers. Note all observations: open liquor containers, operator's appearance, speech, balance. Advise the operator that you intend to conduct a safety inspection and will be making further inquiries.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct the operator to bring the vessel to shore themselves for inspection at the dock, as boarding at sea creates officer safety risks.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Board the vessel only if the operator consents, since a private pleasure craft on a lake is private property requiring consent to board.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "ASD Demand — Vessel Operator",
+      "situation": "You are on board the vessel. The operator has strong indicia of alcohol impairment: glassy bloodshot eyes, heavy odour of alcohol on their breath, slightly slurred speech, and difficulty maintaining balance on the vessel deck. You have an Approved Screening Device with you. You make a demand under Criminal Code s.320.27(1) — the definition of 'conveyance' in s.2 includes a vessel. You advise the operator of their right to retain and instruct counsel under Charter s.10(b). The operator states: 'You can't make me blow on a lake — I'm not on a road.'",
+      "question": "How do you respond and proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Clearly advise the operator that the Criminal Code definition of 'conveyance' under s.2 expressly includes vessels, and that the impaired operation provisions in Part VIII.1 apply on all Canadian waters. The ASD demand is lawful regardless of location. Advise them that refusal is a criminal offence. Note that providing right to counsel at this stage on a vessel at mid-lake does not require you to provide a phone — advise that counsel access will be provided at shore detachment. Proceed with the ASD demand.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the operator's argument and do not proceed with the ASD demand, as the Criminal Code impaired driving provisions are unclear regarding vessels on inland lakes.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the operator to dock the vessel themselves to reach shore before making any demands, since you need to get to the detachment anyway.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "ASD FAIL — Arrest, Vessel Security, Shore Transport",
+      "situation": "The operator provides a breath sample into the ASD. The device registers FAIL. You arrest the operator for impaired operation of a conveyance (vessel) under Criminal Code s.320.14. There are three passengers on board. The vessel cannot be left unmanned on the lake. The operator is under arrest and cannot operate the vessel. None of the passengers are sober enough to operate the vessel safely. Your marine unit has limited space.",
+      "question": "How do you manage the vessel, the passengers, and the transport of the arrested operator?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Radio for a second police marine unit or a harbour authority vessel to attend and escort or tow the pleasure craft to the dock. If a qualified sober person is unavailable among the passengers, secure the vessel to a buoy or your marine unit until towing can be arranged. Transport the arrested operator to shore on the police vessel. At shore detachment, provide a genuine opportunity to contact counsel and then make the evidentiary breath demand under Criminal Code s.320.27(3). Issue Transport Canada safety charges (missing lifejacket, expired fire extinguisher) to the operator as vessel master.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow one of the impaired passengers to drive the vessel to shore, since they appear less impaired than the operator.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the vessel and all passengers on the lake and take only the arrested operator to shore immediately, abandoning the vessel without securing it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The operator was transported to shore. The pleasure craft was secured by the second marine unit and towed to the police dock. At the detachment, the operator contacted duty counsel. Evidentiary breath samples were taken: 165 mg and 162 mg per 100 mL of blood. The operator was charged under Criminal Code s.320.14(1)(a) (impaired operation of a vessel) and s.320.14(1)(b) (over 80 mg). As vessel master, Transport Canada charges were issued for failing to carry a required lifejacket (Canada Shipping Act 2001 Small Vessel Regulations) and having an expired fire extinguisher. The operator's boating licence is subject to suspension under provincial boating legislation. Your correct application of Criminal Code impaired provisions to a vessel operator, and the lawful boarding and evidence collection process, ensured a complete prosecution package.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "marine",
+    "vessel",
+    "impaired boating",
+    "Criminal Code s.320.14",
+    "Canada Shipping Act",
+    "Transport Canada",
+    "ASD",
+    "pleasure craft",
+    "Charter s.10(b)",
+    "Canada"
+  ]
+}

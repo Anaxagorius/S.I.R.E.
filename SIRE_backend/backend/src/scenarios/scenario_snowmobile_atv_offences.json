@@ -1,0 +1,152 @@
+{
+  "title": "scenario_snowmobile_atv_offences",
+  "description": "A Canadian police officer intercepts a snowmobile operating illegally on a public road, with the operator suspected of impaired operation. The scenario covers provincial Motorized Snow Vehicles Act enforcement, Criminal Code impaired operation of an off-road vehicle, registration, insurance, and trail permit requirements.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Complaint Received",
+      "description": "Officer receives a complaint of a snowmobile operating on a provincial road, weaving and travelling at high speed. Snowmobiles are prohibited on public roads in this province except when crossing.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Snowmobile Located",
+      "description": "Officer intercepts the snowmobile travelling on the road shoulder. The operator initially attempts to flee onto a field but stops when the officer activates emergency lights.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Operator Contacted",
+      "description": "Operator is a 22-year-old male. Strong odour of alcohol. Slurred speech. Eyes glassy. Admits to 'a few drinks at the ice hut.' Snowmobile has no trail permit displayed and registration is unknown.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "ASD Demand Made",
+      "description": "Officer advises Criminal Code ASD demand applies to off-road vehicles. Demand is made. Operator complies. ASD registers FAIL.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Arrest Made",
+      "description": "Operator arrested for impaired operation of a conveyance under Criminal Code s.320.14. Charter rights read. Snowmobile secured on roadside pending tow.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Additional Charges Assessed",
+      "description": "Officer issues provincial charges for operating a motorized snow vehicle on a highway, no trail permit, and no proof of insurance.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Snowmobile on Provincial Road — Stop and Identify",
+      "situation": "You intercept a snowmobile operating on the travelled portion of a provincial highway shoulder in an area where snowmobiles are prohibited on roads except for direct crossings under the provincial Motorized Snow Vehicles Act. The operator has stopped. The operator is a young male, wearing a helmet with the visor up. You detect a strong odour of an alcoholic beverage. The operator's speech is slurred and their eyes are glassy. The snowmobile has no trail permit sticker. You request identification.",
+      "question": "What are your initial enforcement priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify the operator and request proof of registration and insurance for the snowmobile — required under the provincial Motorized Snow Vehicles Act. Note the absence of a trail permit. Given the clear indicia of alcohol impairment, advise the operator that the Criminal Code provisions governing impaired operation of a conveyance apply to snowmobiles and off-road vehicles. Prepare to make an ASD demand under Criminal Code s.320.27(1).",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue only a provincial ticket for operating a snowmobile on a highway and allow the operator to drive the snowmobile home, since the provincial offence is the primary issue.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the operator to park the snowmobile at the roadside and arrange their own ride, treating the alcohol as a personal matter since they are on private equipment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "ASD Demand — Impaired Operation of a Snowmobile",
+      "situation": "The operator confirms they have been drinking at an ice fishing hut and drove the snowmobile approximately 3 km on the road to get back to town. You make an ASD demand under Criminal Code s.320.27(1) — the definition of 'conveyance' under s.2 includes motorised snow vehicles and all-terrain vehicles. The operator states: 'You can't breathalyse me on a snowmobile. That's only for cars.' They hesitate to comply.",
+      "question": "How do you respond to the operator's claim and proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Clearly advise the operator that the Criminal Code definition of 'conveyance' in s.2 explicitly includes motorised snow vehicles and off-road vehicles. The ASD demand is lawful. Advise them that refusal is a criminal offence under s.320.15. Provide one further opportunity to comply. Document their initial hesitation and the clarification provided.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the operator's claim and do not proceed with the ASD demand, since snowmobiles may not be covered by the Criminal Code provisions.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the operator immediately for impaired operation without administering the ASD, since the evidence of impairment is already strong enough.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "ASD FAIL — Arrest and Charges",
+      "situation": "The operator complies with the ASD demand. The device registers FAIL. You arrest the operator for impaired operation of a conveyance under Criminal Code s.320.14. You read the Charter caution and right to counsel. The snowmobile must now be secured — it cannot be left on the road. The operator has no insurance documents and the snowmobile's registration shows it belongs to a different registered owner with a different surname.",
+      "question": "What additional steps and charges do you address?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrange for the snowmobile to be towed and impounded — it cannot be left on a public road, and the registered owner may need to be contacted. Issue provincial Motorized Snow Vehicles Act charges for: operating a snowmobile on a highway, failure to have a trail permit, and failure to produce proof of insurance. Investigate whether the snowmobile is stolen (CPIC check on the VIN). Transport the operator to the detachment for evidentiary breath samples under Criminal Code s.320.27(3). Document all findings.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Release the operator at roadside with a promise to appear and leave the snowmobile on the shoulder without arranging a tow, since it is not on the main travelled portion of the road.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Charge the operator only under the provincial Act for the highway use offence and do not proceed with the Criminal Code impaired charge, to simplify the paperwork.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The operator was transported to the detachment. Evidentiary breath samples confirmed a blood alcohol concentration of 148 mg per 100 mL of blood. The operator was charged under Criminal Code s.320.14(1)(a) (impaired operation) and s.320.14(1)(b) (over 80 mg). Provincial charges under the Motorized Snow Vehicles Act were issued for operating on a highway, no trail permit, and no insurance. A CPIC check on the snowmobile VIN confirmed it was not stolen — it was registered to the operator's father. The snowmobile was released to the registered owner. Your application of Criminal Code impaired driving provisions to a snowmobile, and the concurrent provincial enforcement, demonstrated comprehensive knowledge of Canadian off-road vehicle law.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "snowmobile",
+    "ATV",
+    "Motorized Snow Vehicles Act",
+    "impaired driving",
+    "off-road vehicle",
+    "Criminal Code s.320.14",
+    "ASD",
+    "trail permit",
+    "insurance",
+    "Canada"
+  ]
+}

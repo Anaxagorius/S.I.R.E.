@@ -1,0 +1,150 @@
+{
+  "title": "scenario_breath_demand_refusal",
+  "description": "A suspected impaired driver refuses to provide a breath sample following a lawful ASD demand. The officer must handle the refusal offence under Criminal Code s.320.15, advise on consequences, and manage a subsequent offer to comply at the detachment.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Traffic Stop",
+      "description": "Officer stops a vehicle for crossing the centre line. Driver has glassy eyes and smells of alcohol.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "ASD Demand Made",
+      "description": "Officer makes a lawful ASD demand. Driver states 'I'm not blowing into anything' and crosses their arms.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Refusal Documented",
+      "description": "Officer provides the driver a second opportunity to comply and clearly advises them that refusal is a criminal offence. Driver maintains refusal.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Arrest for Refusal",
+      "description": "Driver arrested under Criminal Code s.320.15 for failing or refusing to comply with a breath demand. Driver is advised of Charter rights.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "En Route to Detachment",
+      "description": "During transport, the driver states they have changed their mind and will now cooperate with the breath test.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Decision at Detachment",
+      "description": "Officer must decide how to handle the driver's belated offer to comply and complete the investigation.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Refusal — ASD Demand",
+      "situation": "You stop a vehicle for crossing the centre line on a residential street at 22:00. The driver has glassy, bloodshot eyes, slurred speech, and you detect a strong odour of an alcoholic beverage on their breath. You make a lawful demand for a breath sample into an Approved Screening Device (ASD) under Criminal Code s.320.27(1). The driver says 'I'm not blowing into anything. You have no right.' They cross their arms and look away.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Clearly and calmly advise the driver that the ASD demand is lawful under the Criminal Code and that failure or refusal to comply without a reasonable excuse is itself a criminal offence under s.320.15, carrying the same minimum penalties as impaired driving. Provide them one final opportunity to comply. Document the refusal precisely — time, words used, body language — in your notes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Let the driver go since the ASD demand requires their consent and you cannot force them to blow.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Physically force the driver to provide a breath sample by holding the device to their mouth.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Arrest for Refusal Under s.320.15",
+      "situation": "The driver has been clearly advised of the consequences of refusal and given a second opportunity to comply. They continue to refuse, stating 'I want a lawyer before I do anything.' The right to counsel does not suspend the obligation to comply with a breath demand — the demand must be complied with first. The driver's refusal is now complete. You have grounds to arrest for refusal under Criminal Code s.320.15.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrest the driver for failing or refusing to comply with a breath demand without a reasonable excuse under Criminal Code s.320.15. Read the Charter caution, advise of the right to retain and instruct counsel under s.10(b), and transport the driver to the detachment. Document all grounds for the demand, the refusal, and the arrest. Note that the refusal offence carries the same minimum sentence as an over-80 conviction.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the driver to contact a lawyer at roadside before completing the refusal, which would delay and potentially invalidate the arrest.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Issue a provincial traffic ticket for the refusal instead of making a criminal arrest, since the driver has not actually driven impaired as far as you can prove.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Belated Offer to Comply",
+      "situation": "En route to the detachment, the driver states: 'Okay, okay. I'll blow now. I was just scared. Can we do it here?' You are 10 minutes from the detachment. It has been 28 minutes since the initial ASD demand. The driver's belated offer to comply does not nullify the refusal offence that is already complete. However, you may still choose to proceed with evidentiary breath samples at the detachment to gather additional evidence.",
+      "question": "How do you handle the driver's belated offer to comply?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the driver that the refusal offence under s.320.15 is already complete and cannot be undone by a belated offer. Proceed to the detachment and, upon arrival, provide the driver a genuine opportunity to contact counsel. Then make a new formal demand for evidentiary breath samples under s.320.27(3), as this additional evidence may assist the prosecution and confirm the impairment. Maintain the refusal charge alongside any results obtained.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the belated compliance and withdraw the refusal charge, treating the matter as though no refusal occurred.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Refuse to take any further breath samples since the refusal charge has already been laid and no additional evidence is required.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "At the detachment, the driver was provided the right to counsel and contacted duty counsel. Evidentiary breath samples were taken: 128 mg and 125 mg per 100 mL of blood. The driver was charged with both refusal under Criminal Code s.320.15 and operation with a blood alcohol concentration over 80 mg under s.320.14(1)(b). Your careful documentation of the refusal — including the exact words of the demand, the driver's response, and the second opportunity given — provided a strong prosecution package. Courts have consistently upheld that a belated offer to comply does not negate a completed refusal.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "breath demand refusal",
+    "Criminal Code s.320.15",
+    "ASD",
+    "Charter s.10(b)",
+    "impaired driving",
+    "refusal offence",
+    "Canada",
+    "RCMP"
+  ]
+}

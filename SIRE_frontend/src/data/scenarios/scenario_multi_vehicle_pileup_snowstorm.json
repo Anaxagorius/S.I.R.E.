@@ -1,0 +1,153 @@
+{
+  "title": "scenario_multi_vehicle_pileup_snowstorm",
+  "description": "A Canadian police officer is the first to arrive at a 12-plus vehicle pileup on a divided highway during whiteout conditions. The officer must manage a mass casualty incident, coordinate highway closure, prevent additional collisions, and initiate a preliminary collision investigation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "First on Scene",
+      "description": "Officer is first to arrive at a massive pileup. Multiple vehicles are stopped across all lanes. Whiteout conditions. Screaming and horns audible. At least five persons appear seriously injured.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Mass Casualty Declaration",
+      "description": "Officer transmits a mass casualty declaration. Requests all available EMS, fire, police, and highway closure authority. Communications activates the regional mass casualty protocol.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Incoming Traffic Halted",
+      "description": "Officer coordinates with communications and MTO to initiate emergency highway closure. Vehicles approaching from both directions in the storm are flagged to stop.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "EMS and Fire Arrive",
+      "description": "First EMS and fire units arrive and begin triage. Officer transitions from emergency care to scene coordination and control of the incident perimeter.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Triage Underway",
+      "description": "EMS establishes START triage. Multiple red-tag patients. Air ambulances requested. Officer logs all vehicles and drivers for the preliminary investigation.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Investigation Initiated",
+      "description": "With scene stabilised, officer begins gathering statements and physical evidence. Technical Traffic Collision Investigation (TTCI) team requested.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "First on Scene — Mass Casualty",
+      "situation": "You arrive first on scene on a divided highway during a near-total whiteout. You count at least 14 vehicles — cars, SUVs, and two transport trucks — stopped across all four lanes and the median. The pileup stretches approximately 400 metres. People are screaming. At least five people appear seriously injured outside their vehicles. Headlights approaching from both directions are visible through blowing snow. You are alone.",
+      "question": "What is your immediate priority as the sole officer on scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transmit an emergency broadcast declaring a mass casualty incident. Request all available EMS (multiple ambulances), fire, police units, and immediate highway closure authority from the Ministry of Transportation. Activate all emergency lights on your vehicle and position it as a warning device uphill of the scene. You cannot treat all casualties alone — your first priority is getting resources en route and preventing additional vehicles from entering the collision zone.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin providing first aid to the most visibly injured person before calling for help, since saving a life takes priority over communications.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Drive through the pileup to the other end of the scene to assess how far it extends before calling for assistance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Highway Closure and Secondary Collision Prevention",
+      "situation": "You have declared a mass casualty incident and help is en route — ETA 12 minutes for the first EMS unit. Vehicles are still approaching from both directions at highway speeds in the whiteout. On your side of the highway, a transport truck is approaching from approximately 300 metres and has not yet begun to brake. If it enters the pileup zone, it will cause catastrophic additional casualties.",
+      "question": "How do you immediately prevent secondary collisions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position yourself in a protected position — not in the travel lane — as far back from the pileup as safely reachable, using your flashlight and high-visibility vest to signal the approaching transport truck to stop. Request that communications immediately broadcast on CB channel 19 to warn commercial vehicles of the road closure. Instruct MTO to activate dynamic message signs and close on-ramps at the nearest interchange. All approaching vehicles must be stopped before the pileup zone.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stand in the centre lane directly in front of the approaching transport truck, waving both arms to stop it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore approaching traffic and focus on the existing casualties, trusting that drivers will slow down when they see the pileup.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Coordination with EMS — Investigation Begins",
+      "situation": "EMS, fire, and additional police units have arrived. The highway is closed in both directions. EMS has established START triage: six red-tag patients (critical), four yellow-tag (delayed), and four green-tag (minor). Two air ambulances are inbound. Incident command has been established with the fire chief as incident commander. You are transitioning from emergency response to collision investigation. Multiple drivers are wandering the scene; physical evidence including skid marks and vehicle resting positions is being disturbed.",
+      "question": "How do you begin the collision investigation while preserving evidence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Photograph and video the scene comprehensively before further disturbance — vehicle resting positions, tyre marks, debris fields, weather and road conditions, and signage. Assign arriving officers to gather driver/witness identification and separate witnesses to prevent discussion of events. Request a Technical Traffic Collision Investigator (TTCI) for reconstruction. Establish an evidence perimeter around key physical evidence. Brief the incident commander on investigation needs so that vehicle removal is coordinated with your evidence documentation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Clear all vehicles from the highway as quickly as possible to restore traffic flow, then try to reconstruct the collision from driver statements alone.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus only on driver impairment checks and ignore the physical scene, since driver error must have caused the pileup.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The mass casualty incident was successfully managed. Six critically injured patients were transported by air ambulance to trauma centres; four have since recovered. No secondary collisions occurred due to early highway closure. Comprehensive scene documentation was completed by the TTCI team. Investigation revealed three drivers were charged with Speed Too Fast for Conditions under the provincial Highway Traffic Act. One transport truck driver, who had disabled a collision mitigation system, was further investigated for Criminal Negligence Causing Bodily Harm under Criminal Code s.221. Your mass casualty declaration, immediate resource request, and coordinated scene management were critical to preventing further casualties and preserving the integrity of the investigation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "mass casualty",
+    "pileup",
+    "snowstorm",
+    "whiteout",
+    "highway closure",
+    "MTO",
+    "START triage",
+    "TTCI",
+    "Criminal Code s.221",
+    "HTA",
+    "Canada"
+  ]
+}
