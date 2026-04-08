@@ -1,0 +1,112 @@
+{
+  "title": "fire_911_center",
+  "description": "A fire breaks out in a building complex that houses the regional 911 Emergency Communications Centre and an adjacent urgent care clinic, threatening the area's entire emergency dispatch capability.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["critical infrastructure", "911 center", "dispatch", "hospital", "continuity of operations", "ICS", "life safety", "training"],
+  "timeline": [
+    { "index": 0, "title": "Fire Reported at 911 Centre Complex", "description": "Smoke alarms activate in the server room of the regional 911 Communications Centre. Staff report visible smoke near the HVAC intake. Dispatch operations have not yet been affected.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Dispatch Operations at Risk", "description": "Fire is confirmed in the server room. Dispatch supervisor initiates partial evacuation but cannot fully evacuate — active calls are being handled for a concurrent medical emergency.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Backup Dispatch Centre Activation", "description": "Regional backup dispatch centre is activated. Call transfer is initiated but will take 8–12 minutes.", "timeOffsetSec": 75 },
+    { "index": 3, "title": "Smoke Reaches Urgent Care Clinic", "description": "The adjacent urgent care clinic reports smoke entering through shared HVAC ducts. Patients are present, including two on oxygen.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Fire Contained to Server Room", "description": "Engine crews isolate fire to the server room using suppression foam. HVAC is shut down to prevent spread.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "All Clear", "description": "Fire extinguished. Backup dispatch operational. Urgent care clinic patients relocated. All personnel accounted for.", "timeOffsetSec": 420 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire in 911 Centre — Active Operations Cannot Stop",
+      "situation": "You are the Incident Commander at the regional 911 Emergency Communications Centre. A fire has been confirmed in the server room. Dispatch staff are still active on calls — including coordinating a concurrent cardiac arrest response elsewhere in the county. You cannot order a full evacuation without interrupting dispatch operations. The backup dispatch centre activation is in progress but will take 8 minutes.",
+      "question": "How do you balance fire suppression with continuity of dispatch operations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work directly with the Dispatch Supervisor to protect the minimum staff necessary to maintain call-taking operations in the safest area of the building while all non-essential personnel evacuate. Advance fire crews immediately to the server room to isolate the fire before it spreads. Do not delay suppression for the full evacuation — fire spread will make the situation worse for both the building and its occupants.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Order an immediate full evacuation of the entire 911 centre — life safety comes first. Dispatch operations must be suspended until the building is clear.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hold all crews at the exterior until the building is cleared by the dispatch supervisor — you cannot operate inside a building that is not evacuated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Server Room Access — Suppression Agent Decision",
+      "situation": "Your crew has reached the server room. The fire is a small but growing electrical fire in the server rack array. Standard water suppression will destroy the remaining active servers — the ones still handling the 8-minute backup transition period. Clean agent suppression is available in the server room's built-in system but it has not activated. The manual override panel is 3 metres inside the smoke-filled room.",
+      "question": "What suppression method do you use?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Manually activate the clean agent suppression system via the override panel — this is the correct agent for an electrical server fire and will suppress the fire without destroying server hardware. A crew member in full PPE and SCBA enters briefly to activate the panel while the crew stands by with a water line for backup if the clean agent fails.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Use the water hoseline immediately — fire suppression is the priority; equipment replacement is a secondary concern.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the clean agent system to auto-activate — do not enter the server room until the suppression system has discharged.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Smoke in Urgent Care Clinic — Patient Evacuation",
+      "situation": "The adjacent urgent care clinic is reporting smoke entering through shared HVAC ducts. There are 12 patients in the clinic, including two receiving supplemental oxygen. The clinic staff have begun an internal evacuation but are not trained for mass patient movement. HVAC for the shared system is not yet shut down.",
+      "question": "How do you handle the clinic evacuation and HVAC threat?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately direct a crew to shut down the shared HVAC system at the mechanical room — this is the fastest way to stop smoke spread into the clinic. Simultaneously, assign a crew to assist clinic staff with patient movement, prioritising the two oxygen-dependent patients for immediate relocation outdoors. Confirm with clinic staff whether any patients cannot be moved without medical equipment.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "The clinic is a separate structure — leave the patient evacuation to clinic staff and focus all crews on the 911 centre fire.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate all clinic patients through the main 911 centre entrance — it is the closest and fastest exit point.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Critical Infrastructure Recovery — What Comes Next?",
+      "situation": "The server room fire has been suppressed by the clean agent system. HVAC is shut down. The clinic patients have been relocated safely to the parking area. The backup dispatch centre is now fully operational. The 911 centre building is structurally intact. You must now manage the transition from emergency response to recovery operations and prepare to hand off to the building owner and utilities.",
+      "question": "What are your immediate post-suppression priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a full PAR for all fire personnel and clinic staff. Notify utilities that the HVAC and electrical systems need inspection before re-occupancy. Preserve the server room as a potential evidence scene for origin-and-cause investigation. Brief the 911 centre director on building status and do not authorise re-occupancy until building safety is confirmed by structural and electrical inspectors.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Allow 911 centre staff to re-enter and restart primary dispatch operations as quickly as possible — getting dispatch back online is the top priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ventilate and clear the building yourself and authorise re-occupancy — the fire is out and the building looks structurally sound.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire was suppressed using the appropriate clean agent without destroying active dispatch infrastructure. Dispatch continuity was maintained through the backup centre. Clinic patients were safely relocated and HVAC smoke spread was stopped. All personnel are accounted for. Recovery handoff to building management and utilities was handled correctly. A post-incident review should address critical infrastructure fire pre-plans and continuity-of-operations coordination protocols.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

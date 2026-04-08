@@ -1,0 +1,112 @@
+{
+  "title": "fire_severe_weather",
+  "description": "A structure fire breaks out during an active severe weather event — high winds are driving fire behavior, driving rain is limiting aerial and hoseline effectiveness, and lightning is striking in the vicinity of operations.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["severe weather", "wind-driven fire", "lightning", "crew safety", "weather-driven fire behavior", "ICS", "training"],
+  "timeline": [
+    { "index": 0, "title": "Alarm During Severe Storm", "description": "A structure fire is reported during an active severe weather warning with 70 km/h wind gusts, heavy rain, and active lightning in the area. Visibility is reduced.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Wind-Driven Fire on Arrival", "description": "Engine 1 arrives to find a single-family dwelling with flames extending horizontally from second-floor windows. Wind is pushing fire toward an adjacent structure.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Lightning Strike Near Scene", "description": "A lightning strike hits a tree 50 metres from the incident. Crew are exposed on the fireground. The tree is smouldering.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Wind Shift", "description": "Wind direction shifts 90 degrees — fire now driving toward the primary attack position.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Exposure Structure Threatened", "description": "Adjacent structure is showing smoke from wind-driven ember cast. Exposure protection is now a priority.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Fire Controlled", "description": "Fire is knocked down. Exposure structure protected. All crew are safe and accounted for.", "timeOffsetSec": 420 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Wind-Driven Fire at Arrival — Storm Conditions",
+      "situation": "You arrive as Incident Commander to a single-family dwelling with wind-driven fire extending from second-floor windows. Winds are 70 km/h with gusts higher. Rain is reducing visibility. There are no reports of occupants inside — neighbour says the house appeared unoccupied. An adjacent structure is 8 metres to the leeward side of the fire building.",
+      "question": "How do you approach the wind-driven fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a rapid exterior size-up — confirm no occupant risk before committing to interior operations. With confirmed wind-driven conditions at 70 km/h, a wind-driven fire tactical adjustment is required: position attack hoselines on the windward side, close all ground-floor openings to control wind direction, and focus initial suppression on the leeward exposure rather than interior operations in these conditions.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter the structure to conduct primary search — until you confirm no occupants, life safety is the priority regardless of weather.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Set up a defensive exterior attack and begin flowing water on the fire building immediately from the leeward side.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Lightning Strike — Crew Exposure",
+      "situation": "A lightning strike has hit a tree 50 metres from the fireground. The smouldering tree is not currently a fire threat but the strike illustrates active electrical storm conditions. Two crew are exposed on the exterior while deploying hose lines. The severe weather warning includes a tornado watch. Do you modify crew positioning?",
+      "question": "How do you manage crew safety during active lightning?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct all exposed crew to shelter in the apparatus cab or behind the fire building (using the structure as a wind and lightning shield) when not actively deploying hose lines. Brief all crew: do not remain in the open during active lightning — operate in short exposures and rotate. Continue suppression but implement lightning safety positioning protocols immediately.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Do not alter operations — lightning is a background risk that firefighters accept on outdoor operations.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Suspend all exterior operations and shelter all crew in apparatus until the lightning risk passes.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Wind Shift — Attack Position Now Leeward",
+      "situation": "The wind has shifted 90 degrees. Your primary attack hoseline is now positioned on the leeward side of the fire — directly in the path of wind-driven fire and embers. The crew on that line are at risk if fire accelerates in the new wind direction. You must react quickly.",
+      "question": "How do you respond to the wind shift?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately radio the exposed crew: 'All units — IC. Wind shift — your position is now leeward. Withdraw the attack line now. Reposition to windward side.' Do not wait to assess — wind-driven fire can accelerate in the direction of a shift within seconds. Confirm all crew withdraw before re-engaging.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Ask the crew on the leeward line to assess whether the wind shift is significant before ordering a withdrawal — you don't want to lose the progress already made.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Order the crew to hold their position and flow more water — a higher flow rate will overcome the wind-driven fire push.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Exposure Structure — Ember Ignition",
+      "situation": "The adjacent structure has a smouldering patch on its roof, caused by wind-driven ember cast from the fire building. The smouldering area is approximately one square metre. You have one engine available to address the exposure. The original structure fire is now mostly knocked down in the main floor but the second floor is still involved.",
+      "question": "How do you prioritise between the exposure and the fire building?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign one crew to exposure protection — apply water to the smouldering patch on the adjacent roof immediately before it develops into a full ignition. Maintain one crew on the primary structure fire. A smouldering roof can be extinguished with a single crew; a fully involved exposure structure will require significantly more resources.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Focus all resources on the primary fire building — knock it down completely before addressing the exposure.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Direct all resources to the exposure structure — prevent the second fire rather than fighting the fire that is already mostly knocked down.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The primary structure fire was knocked down and the adjacent structure's smouldering roof was extinguished before full ignition. All crew remained safe throughout despite wind-driven fire, active lightning, and a wind shift. Wind-driven fire tactics, lightning safety positioning, and rapid wind-shift response were all executed correctly. A post-incident review should examine severe weather operational protocols and pre-incident weather briefing procedures.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

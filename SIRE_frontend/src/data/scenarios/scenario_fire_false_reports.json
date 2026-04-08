@@ -1,0 +1,112 @@
+{
+  "title": "fire_false_reports",
+  "description": "During a major structure fire, the Incident Commander is overwhelmed by a flood of unverified reports — conflicting information about trapped victims, structural collapse warnings from unqualified observers, and false mayday transmissions — making command decisions extremely difficult.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["false reports", "information management", "ICS", "command overwhelm", "credibility assessment", "MAYDAY", "span of control", "training"],
+  "timeline": [
+    { "index": 0, "title": "Working Fire — Initial Reports Credible", "description": "A three-alarm structure fire in a warehouse. IC receives structured reports from crew leaders. Conditions are controlled.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Bystander Reports Flood IC", "description": "Bystanders and social media posts begin generating unverified reports of trapped workers, explosions, and collapse — flooding the command net.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Unverified MAYDAY — Source Unknown", "description": "A MAYDAY transmission is received on the command channel but no crew can identify the caller. RIT activates.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Conflicting Structural Reports", "description": "One supervisor reports the roof is stable. A bystander relays through a police officer that 'the roof is about to collapse'. IC cannot immediately determine which is accurate.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "PAR Completed — No Missing Crew", "description": "PAR confirms all crew accounted for. The MAYDAY is traced to an equipment malfunction on a bystander's radio scanner.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Operations Normalised", "description": "Unverified reports filtered. Command regains information clarity. Fire attack continues effectively.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unverified Reports Flooding Command — Information Overload",
+      "situation": "You are the Incident Commander at a three-alarm warehouse fire. Your first two alarms were structured and well-managed. Suddenly, police officers at the perimeter are relaying bystander reports directly to you over the command channel: 'A lady says there are workers trapped inside,' 'Someone is saying there was an explosion,' 'A man says the roof is going to collapse.' None of these reports have come through your crew leaders on scene.",
+      "question": "How do you manage the flood of unverified bystander reports?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately assign a dedicated information officer to filter and triage all incoming reports — only verified information from your crew leaders reaches you directly. Broadcast on command: 'All units — IC. Route all non-crew reports to Information Officer [name/unit]. Crew leaders report verified conditions only on command channel.' Do not act on bystander reports until they are verified by your deployed crew.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Treat all bystander reports as potentially valid — any one of them could be accurate and a false negative could cost lives.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore all bystander-sourced reports and rely solely on crew reports — bystanders never provide reliable information at a fire scene.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Unverified MAYDAY Transmission",
+      "situation": "A MAYDAY transmission has been received on the command channel. It is incomplete — you heard 'MAYDAY MAYDAY' and then static. You cannot identify the caller unit. All crew leaders on scene are continuing normal operations and none have acknowledged losing contact with their crew. Your RIT has activated.",
+      "question": "How do you respond to the unverified MAYDAY?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct an immediate full PAR — transmit: 'All units — IC. MAYDAY received, source unconfirmed. All crew leaders — respond with PAR now.' RIT remains activated and staged until PAR is complete. Do not commit RIT to an unknown location until you have a confirmed missing firefighter. Clear the command channel for PAR responses only.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Commit RIT to a sweep of the building immediately — every second matters in a MAYDAY and you cannot wait for PAR.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Disregard the MAYDAY until you receive a second confirmed transmission — a single incomplete transmission is likely equipment error.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Conflicting Structural Assessment Reports",
+      "situation": "PAR is underway. While waiting for crew leader responses, you receive two conflicting reports about roof integrity: your Division Alpha supervisor — a credentialed structural officer with 15 years' experience — radios that the roof is stable and showing no signs of imminent failure. A police officer relays that a construction worker bystander is 'certain the roof will collapse within minutes.' You must assess these competing claims.",
+      "question": "How do you evaluate the conflicting structural reports?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Trust your Division Alpha supervisor's direct on-scene assessment — they are a credentialed officer with direct observation of the roof and the training to interpret structural indicators. Route the bystander report to your Information Officer for documentation and to determine if the construction worker has specific structural knowledge worth consulting. Do not evacuate based on an unverified bystander claim when a qualified crew supervisor has directly assessed the opposite.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Order an immediate defensive transition — when there is any uncertainty about structural integrity, crew safety requires erring on the side of caution.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the bystander construction worker to come to the command post and assess the building — their professional knowledge may be more relevant than firefighter assessment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "PAR Complete — MAYDAY Source Identified",
+      "situation": "PAR is complete. All crew are accounted for. The MAYDAY source has been identified — it was a scanner enthusiast bystander operating a radio programmed to transmit on the emergency channel. They have been escorted away by police. The false reports have significantly consumed command bandwidth. Your operations are 15 minutes behind where they should be. The fire is still active.",
+      "question": "How do you restore operational momentum after the false report disruption?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm RIT stand-down with the clear PAR result. Conduct a brief command reset — reassess current fire status, crew positions, and resources against the current tactical plan. Communicate the confirmed all-clear to all crew leaders so they can refocus. Issue a command update that re-establishes operational priorities going forward. Document the false MAYDAY source for the post-incident report.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Continue exactly where you were before the disruption — the situation has been resolved and no reset is needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transition to defensive operations — the disruption has compromised your situational awareness and a defensive posture is the safest reset.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire was successfully managed despite severe information overload from unverified bystander reports, a false MAYDAY transmission, and conflicting structural assessments. An information officer was designated to filter non-crew reports. PAR was correctly used to assess the unverified MAYDAY. Verified crew assessment was prioritised over unqualified bystander claims. Operations were reset and fire attack resumed effectively. A post-incident review should examine information management protocols, command channel discipline, and procedures for scanner-related false MAYDAY transmissions.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

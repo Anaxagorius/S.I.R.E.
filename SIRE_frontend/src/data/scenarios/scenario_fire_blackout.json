@@ -1,0 +1,112 @@
+{
+  "title": "fire_blackout",
+  "description": "A structure fire occurs during a widespread power blackout — street lighting is out, traffic signals are non-functional, building emergency lighting is failing, and elevator evacuation is unavailable in a mid-rise residential building.",
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["blackout", "power outage", "thermal imaging", "elevator", "residential", "ICS", "low light operations", "training"],
+  "timeline": [
+    { "index": 0, "title": "Power Blackout — Widespread Outage", "description": "A regional power blackout has been in effect for 2 hours. Streetlights and traffic signals are non-functional across the district.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Structure Fire Reported", "description": "A fire is reported in a 7-storey residential building. All power to the building is out including emergency exit lighting. Elevators are non-functional.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Residents Unable to Evacuate — Darkness", "description": "Residents on upper floors are unable to navigate stairwells in darkness. Panicked residents are calling from windows.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Fire Located — Third Floor", "description": "Crews locate the fire on the third floor. Suppression is underway. Thermal imaging camera is the primary navigation tool in the smoke and darkness.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Generator Restored — Partial Lighting", "description": "A portable generator partially restores lighting to the stairwells.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Building Cleared", "description": "Fire extinguished. All residents evacuated via stairwells with firefighter assistance. Full PAR confirmed.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrival — No Power, Residents Calling from Windows",
+      "situation": "You arrive at a 7-storey residential building during a power blackout. The building has no lighting — emergency exit signs are dark. Residents on floors 4 through 7 are calling from windows. You can see fire glow from third-floor windows on the left side of the building. Elevators are non-functional. You have two engines and a ladder company.",
+      "question": "What are your immediate priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish command. Assign Ladder 1 to ground-ladder and aerial access for upper-floor residents showing distress — prioritise confirmed life threats visible at windows. Assign Engine 1 to fire attack on the third floor via the stairwell with thermal imaging cameras as primary navigation. Assign Engine 2 to stairwell evacuation support — crew with portable lighting and thermal cameras assist residents down stairwells from upper floors.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Focus all resources on fire attack first — eliminating the fire threat is the fastest way to make the building safe for all residents.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for utility crews to restore power before committing to interior operations — operating in a blacked-out building without lighting is too hazardous.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Stairwell Navigation in Darkness",
+      "situation": "Your crew is advancing up the stairwell with thermal imaging cameras and portable lights. A group of 8 residents has gathered on the fourth-floor landing — they are panicked and reluctant to use the stairwell because it is completely dark below them. The fire on the third floor is creating smoke that is beginning to bank into the stairwell.",
+      "question": "How do you manage the panicked residents in the stairwell?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Place a crew member at the fourth-floor landing with a portable light. Instruct residents to maintain contact with the handrail and follow the light. Brief them clearly: 'I am going to lead you down. Stay low, stay together, do not stop.' Escort the group down to the lobby. Do not rush — a controlled single-file descent is safer than a panicked rush.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Tell residents to shelter in place on the fourth floor — the stairwell smoke is too hazardous for a civilian evacuation right now.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use the aerial ladder to remove all fourth-floor residents from a window — avoid the smoke-filled stairwell entirely.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Thermal Imaging Navigation — Third Floor Fire",
+      "situation": "Your fire attack crew is on the third floor with the thermal imaging camera as their primary navigation tool. The TIC shows the fire confined to a single apartment — unit 3C. The hallway is heavily smoke-charged. A crew member spots a shape on the TIC at the end of the hallway that could be a person. Battery life on the TIC is at 30%.",
+      "question": "How do you manage the possible victim and TIC battery concern?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance to investigate the shape immediately — possible victim identification must be acted on. At the same time, radio command to request a TIC battery swap or replacement unit from the apparatus. Maintain hose line advancement as you approach the shape — do not separate from your hose line or your crew to investigate.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Return to the stairwell to swap the TIC battery before advancing — operating with 30% battery is too risky in a zero-visibility environment.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the shape — the TIC produces artefacts and a confirmed victim report has not been received.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Portable Generator Arrives — Partial Lighting Restored",
+      "situation": "A utility crew has connected a portable generator that restores emergency stairwell lighting on floors 1 through 4. Floors 5 through 7 remain dark. Your fire attack crew has knocked down the fire in unit 3C. A resident was found at the end of the hallway — unconscious, no visible burns. EMS are at the lobby. The TIC battery has been swapped.",
+      "question": "How do you manage the unconscious resident extraction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin victim removal via the stairwell — three floors with a ground-level entry is manageable and faster than aerial. Call EMS up to the third floor to provide initial assessment before movement if the victim's condition warrants it. Notify command of the victim find and condition. Maintain a hose line at the door of 3C during extraction.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Lower the victim from the third-floor hallway window using the aerial ladder — faster than stairwell extraction.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the victim in the hallway until the building is fully ventilated — moving an unconscious patient through a smoke environment risks additional harm.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire was extinguished. An unconscious victim was located using thermal imaging and extracted via stairwell to EMS. Panicked residents were guided safely down darkened stairwells with firefighter-provided portable lighting. Aerial resources addressed upper-floor residents in distress. Power restoration via portable generator assisted later-stage operations. A post-incident review should examine pre-plan protocols for buildings without generator backup, TIC battery management, and stairwell evacuation procedures during blackout conditions.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

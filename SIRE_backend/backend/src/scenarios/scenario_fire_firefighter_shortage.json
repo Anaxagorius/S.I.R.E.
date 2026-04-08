@@ -1,0 +1,112 @@
+{
+  "title": "fire_firefighter_shortage",
+  "description": "A working structure fire is reported during a period of extreme staffing shortage — illness, a local emergency, and scheduled leave have left the department with fewer than half its normal on-duty complement.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["staffing shortage", "resource management", "mutual aid", "ICS", "understaffed", "risk management", "training"],
+  "timeline": [
+    { "index": 0, "title": "Alarm Received — Reduced Staffing", "description": "A structure fire is reported at a two-storey residential building. On duty: Engine 1 (3 crew), Engine 2 (2 crew). Normal minimum is 4 per engine. Ladder and rescue are offline — crews unavailable.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Arrival — Working Fire", "description": "Engine 1 arrives to find smoke showing from second floor windows. Occupants may still be inside.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Mutual Aid Requested", "description": "IC requests mutual aid. Nearest available unit is 14 minutes away.", "timeOffsetSec": 45 },
+    { "index": 3, "title": "Entrapment Reported", "description": "A bystander reports seeing a person at a second-floor window before the window was obscured by smoke.", "timeOffsetSec": 90 },
+    { "index": 4, "title": "Mutual Aid Arrives", "description": "First mutual aid engine arrives with 4 crew. Interior conditions have worsened.", "timeOffsetSec": 300 },
+    { "index": 5, "title": "Incident Stabilised", "description": "Fire is knocked down. All occupants accounted for. Post-incident review examines minimum staffing protocols.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrival with Minimum Staffing — Possible Entrapment",
+      "situation": "You are the crew leader of Engine 1, the first arriving unit. You have yourself and two firefighters. Engine 2 with two crew is 3 minutes behind you. Smoke is showing from the second floor. A bystander is reporting a person at the window. You have no ladder company and no rescue unit. Mutual aid is 14 minutes away.",
+      "question": "What is your initial action with three crew and reported entrapment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish command, conduct a size-up, and confirm the entrapment report with bystanders. Deploy one firefighter to ground-ladder the second floor for rescue access while you and the third firefighter stretch a hose line to the front door — do not enter until a second crew is present for a 2-in/2-out compliant operation unless the rescue requires immediate action to save a saveable life.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "All three crew immediately enter the structure for search and rescue — there is a reported entrapment and waiting risks a life.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hold all operations at the exterior and wait for mutual aid before committing any crew — you cannot meet minimum safe staffing standards.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Engine 2 Arrives — 2-in/2-out Now Possible",
+      "situation": "Engine 2 has arrived with two crew. You now have five firefighters total. The ground ladder is up to the second floor. No occupant is visible at the window. Smoke conditions have worsened slightly. You must decide how to crew your operations within strict staffing limitations.",
+      "question": "How do you assign the five available crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign two firefighters to interior attack with you as the hose team — you enter together. Assign Engine 2's crew leader as Exterior Safety Officer with their firefighter as the 2-out/RIT standby at the front door. This meets 2-in/2-out. No crew enters until this assignment is in place.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Send all five crew inside to search and attack simultaneously — with so few crew, you cannot afford to have anyone standing outside.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send the Engine 2 crew for interior search while your crew maintains exterior hose line — this keeps more people outside for safety.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Interior Search — Worsening Conditions",
+      "situation": "You and your two firefighters are inside conducting primary search on the second floor. Conditions are heavy smoke throughout. You locate a bedroom door that is hot to the touch. You hear no sounds from within. Your air is at 60% and mutual aid is now 8 minutes away.",
+      "question": "How do you approach the hot bedroom door?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position low beside the door frame, bleed the door, check for rollover or pressure, then open slowly while crouching and advance the hose line into the room ahead of your search. Make one rapid primary search pass of the room while flowing water. Maintain your exit route.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Bypass the hot door — without ladder company backup and with reduced staffing, entering a room that may flash is not justified.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Force the door open quickly and search the room without water — the faster you search, the sooner you can get out.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Occupant Located — Mutual Aid Arrives",
+      "situation": "You found an unconscious adult in the bedroom. Fire is extending from the closet. Mutual aid has arrived and you radio the exterior: 'Command — crew leader. Unconscious occupant, second floor rear bedroom. Fire in closet. Request immediate crew entry to assist.' The exterior crew is ready to enter.",
+      "question": "How do you manage extraction with limited crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the newly arrived mutual aid engine crew to enter with a second hose line to support the extraction and knock the closet fire. Your crew begins moving the occupant toward the exit stairway while the mutual aid line protects the egress route. Maintain radio communication throughout.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Extract the occupant yourself with your two crew immediately — do not wait for the mutual aid crew to enter and set up.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Lower the occupant via the ground ladder from the bedroom window — faster than bringing them down the stairway.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The occupant was extracted and transferred to EMS. Fire was extinguished. All crew accounted for. The incident demonstrated disciplined risk management under severe staffing constraints: 2-in/2-out was maintained, mutual aid was called early, and no crew exceeded their capability limits. The post-incident review should examine minimum staffing policies and pre-planned mutual aid agreements.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
