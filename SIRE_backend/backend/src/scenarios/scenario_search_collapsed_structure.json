@@ -1,0 +1,112 @@
+{
+  "title": "scenario_search_collapsed_structure",
+  "description": "Search and rescue operations inside a fire-damaged structure with partial floor collapse",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["search and rescue", "structural collapse", "USAR", "void space", "firefighter safety", "secondary collapse"],
+  "timeline": [
+    { "index": 0, "title": "Collapse Reported", "description": "Fire in a three-story apartment building causes partial floor collapse on the second level. Multiple residents unaccounted for.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Size-Up", "description": "IC identifies two sections: an unstable pancake collapse zone and a lean-to collapse with probable void space. Search dog alerts at the lean-to.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Search Entry", "description": "Rescue team equipped with acoustic devices and hand tools approaches the lean-to void from the exterior breach point.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Survivor Contact", "description": "Voice contact established with a survivor in the void. Structural cracking heard from overhead slab.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Extrication", "description": "Shoring installed. Survivor extricated through the breach. Secondary collapse occurs seconds after team withdraws.", "timeOffsetSec": 480 },
+    { "index": 5, "title": "Scene Secured", "description": "All rescue personnel accounted for. Scene transitioned to recovery mode for remaining areas.", "timeOffsetSec": 600 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Collapsed Structure Size-Up",
+      "situation": "A floor collapse in a fire-damaged apartment building has created two debris fields. Section A is a pancake collapse — floors stacked on each other with minimal void space. Section B is a lean-to collapse against a bearing wall with a probable survivable void. A search dog is alerting at Section B. What is your search strategy?",
+      "question": "How do you prioritize and approach the search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Focus initial rescue resources on Section B where the dog alert indicates a probable survivor. Establish a collapse zone perimeter, request a structural specialist, and deny entry to Section A until stability is assessed.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Commit teams to both sections simultaneously to maximize coverage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Begin with Section A — pancake collapses often have survivors in stairwells and bathrooms.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Entry into Lean-To Void",
+      "situation": "The structural specialist confirms the lean-to in Section B has a survivable void and can be safely approached from the exterior wall. Entry will require breaching through brick and moving debris. The overhead slab is supported but shows cracking. How do you enter?",
+      "question": "What is your entry method?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Breach the exterior wall at the base of the lean-to, install temporary shore as the team advances, and use an acoustic listening device to pinpoint the survivor before committing rescuers into the void.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Enter from the top of the debris pile and dig down toward the void — it is the shortest path.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use a crane to lift the collapsed slab before sending in rescuers.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Secondary Collapse Warning",
+      "situation": "Rescuers are 2 metres into the void when a spotter outside reports cracking and popping sounds from the overhead slab. The survivor is audible and close. The rescuer in the void estimates the victim is about one minute away from being reached.",
+      "question": "How do you respond to the warning?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sound the evacuation signal immediately. All rescuers withdraw from the void. Reassess structural stability with the specialist before any re-entry, even though the survivor is close.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the rescuer to press forward — they are almost there and evacuating may cost the survivor's life.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Keep one rescuer in the void to maintain voice contact while the others withdraw.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Re-Entry Decision",
+      "situation": "The structural specialist has reassessed and installed additional shoring at two critical points. She gives a conditional green light for re-entry through the original breach with the new shoring in place. The survivor is still responding to voice. Crew air supply is at 50%. How do you proceed?",
+      "question": "What is your re-entry plan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rotate in fresh air supply crew. Re-enter via the breach using established shoring, advance to the survivor, package for extrication with a rescue harness, and maintain constant communication with the outside spotter.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Have the same crew re-enter immediately to minimize time loss even though their air is low.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Lower a rope from above the collapse debris for the survivor to self-extricate.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The survivor was extricated through the breach point using a harness and backboard. Seconds after all rescuers withdrew, the overhead slab shifted with a secondary collapse. No rescuers were injured. Your controlled approach, immediate compliance with evacuation signals, shoring-before-entry discipline, and crew rotation resulted in a successful rescue and zero rescuer casualties.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

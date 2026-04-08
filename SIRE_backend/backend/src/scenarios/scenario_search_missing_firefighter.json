@@ -1,0 +1,112 @@
+{
+  "title": "scenario_search_missing_firefighter",
+  "description": "MAYDAY response and search for a missing firefighter inside a burning structure",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["search and rescue", "MAYDAY", "missing firefighter", "RIT", "rapid intervention", "crew accountability", "firefighter rescue"],
+  "timeline": [
+    { "index": 0, "title": "MAYDAY Declared", "description": "Interior crew reports MAYDAY — Firefighter Smith is missing. Last known position: second-floor bedroom, side Charlie.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "RIT Activated", "description": "IC activates the Rapid Intervention Team. All non-essential radio traffic suspended. Fire attack continues to support egress.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "RIT Entry", "description": "RIT team enters via the side-Charlie exterior window with a search rope, extra air pack, and rescue tools.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "PASS Device Located", "description": "RIT team hears the PASS device activation tone from behind a closed door.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Firefighter Found", "description": "Missing firefighter located — entangled in debris, SCBA low air alarm sounding.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Rescue Complete", "description": "Firefighter removed via exterior window. Transferred to EMS. Fire knocked. All personnel accounted for.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "MAYDAY Received — IC Response",
+      "situation": "You are incident commander. A MAYDAY has been declared: Firefighter Smith is missing on the second floor, side Charlie. Smith's PASS device has not yet activated. Interior crews are still operating. How do you manage the MAYDAY?",
+      "question": "What is your immediate IC response to the MAYDAY?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the MAYDAY on radio, clear the channel, activate the RIT, order all non-essential interior crews to exit or hold position, continue fire attack to protect egress routes, and assign a dedicated rescue division supervisor.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Order all interior crews to immediately withdraw and begin an exterior defensive operation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send the nearest interior crew to search for Smith without activating RIT — RIT is a last resort.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "RIT Entry Strategy",
+      "situation": "The RIT team of three is ready to enter. The last known position of the missing firefighter is the second-floor bedroom, side Charlie. The main staircase is smoke-charged but passable. An exterior window on side Charlie provides direct second-floor access via ladder. RIT equipment includes a search rope, spare SCBA pack, forcible entry tools, and a charged rescue line.",
+      "question": "How does RIT enter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enter via the side-Charlie exterior window directly to the second floor — it is the closest route to last known position and avoids the smoke-charged staircase. Anchor the search rope at the window before entry.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Enter via the main front door to maintain a familiar entry route.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stage at the exterior and wait for Smith's PASS device to fully activate to pinpoint the location before entry.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "PASS Device Located",
+      "situation": "RIT is on the second floor. The PASS device alarm is audible behind a closed door in the hallway. The door appears partially blocked by debris from a ceiling collapse. One team member can force it; another will need to hold the search rope. Air conditions inside the room are unknown.",
+      "question": "How does RIT approach the door?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check the door for heat. Force the door while the third member holds the rope anchor. One member enters low while the other maintains the doorway as a reference point and monitors conditions.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "All three members force the door and enter together for speed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Radio IC to request a thermal imaging camera be brought up before forcing the door.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Firefighter Located — Entangled",
+      "situation": "Firefighter Smith is found face down, entangled in collapsed shelving material. Smith is conscious and communicating. The low-air alarm is sounding. Smith cannot self-extricate. RIT has a spare air pack and rescue harness. Smoke is moderate and conditions are tenable for now.",
+      "question": "How do you manage the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Connect the spare air pack to Smith's SCBA immediately to extend air supply. Free Smith from the entanglement using cutting tools. Apply the rescue harness and drag Smith to the window for extraction.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the entanglement first, then apply the air pack — air connection takes time and you can move faster without it.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remove Smith's facepiece and mask to provide fresh air before moving.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Firefighter Smith was extricated through the side-Charlie window and lowered to crew below via the rescue harness. Smith was transferred to EMS — no significant injuries. Your rapid MAYDAY acknowledgement, RIT activation, direct entry to last known position, methodical door approach, and immediate air supply intervention saved your crew member. All personnel were accounted for and the fire was subsequently knocked.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "title": "scenario_search_thermal_imaging_failure",
+  "description": "Primary search when the thermal imaging camera fails inside a smoke-filled structure",
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["search and rescue", "thermal imaging", "equipment failure", "primary search", "smoke", "manual search", "SCBA"],
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "House fire with occupant reported missing. Two-story structure, dense smoke from upper windows.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Entry", "description": "Search crew enters with TIC. Initial readings appear normal. Smoke is moderate on ground floor.", "timeOffsetSec": 40 },
+    { "index": 2, "title": "TIC Failure", "description": "Thermal imaging camera screen goes blank 10 metres inside the structure. Battery fault indicated.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Manual Search", "description": "Crew continues without TIC using tactile and auditory search methods.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Victim Located", "description": "Crew hears laboured breathing from behind a closed bedroom door.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Rescue Complete", "description": "Victim removed and transferred to EMS. Primary search complete.", "timeOffsetSec": 330 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Thermal Imaging Camera Fails",
+      "situation": "Your two-person search team is 10 metres inside a smoke-filled two-story home. Visibility is near zero. Your thermal imaging camera screen goes black — a battery fault error is displayed. You cannot restore it. One occupant is still unaccounted for. Your hose line runs back to the front door. Air is at 80%.",
+      "question": "How do you proceed without the TIC?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue the search using manual techniques: right-hand wall contact, sweeping the floor with a tool, and listening for sounds. Maintain crew contact and radio IC to report the TIC failure and your intent to continue.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Exit immediately and wait for a replacement TIC — searching without thermal imaging is too dangerous.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send one crew member out to retrieve the spare TIC while the other continues searching alone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Navigating Without Visual Aid",
+      "situation": "Without the TIC, your crew must rely entirely on tactile navigation. You are following the right-hand wall but encounter a wide-open room — likely the living room. The wall disappears into open space and you cannot determine the room's size or exits.",
+      "question": "How do you navigate the open room?",
+      "options": [
+        {
+          "label": "A",
+          "text": "One member stays anchored at the point where the wall ended, holding the search rope. The other sweeps the room in a circular pattern from that anchor point, maintaining physical rope contact throughout, then returns before advancing.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Both members cross the room together trying to find the far wall by moving straight forward.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Skip the room — open living areas are rarely where victims collapse.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Auditory Clue — Closed Door",
+      "situation": "As your crew moves into the hallway beyond the living room, you hear laboured breathing on the other side of a closed door. The door feels warm to the touch but not excessively hot. The door opens toward you.",
+      "question": "How do you approach the closed door?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stay low. Open the door slowly while positioned to one side to avoid any heat or fire release. One member holds the door, the other enters low to sweep the floor of the room immediately.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Push the door fully open and both members enter together quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Radio IC to advise of the victim and wait for a fresh crew with a functioning TIC before entry.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Victim Located — Victim Guidance Without TIC",
+      "situation": "A semi-conscious adult is on the floor near the bed. Smoke inhalation is evident. The victim is alert enough to respond to commands but cannot stand. There is no TIC to confirm there are no fire hazards in the room. Your air is at 55%.",
+      "question": "How do you remove the victim?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Quickly feel the surrounding floor and ceiling area for excessive heat, then perform a blanket drag or coat drag toward the door. One member leads with the search rope toward the hose line, the other drags the victim. Maintain constant direction reference on the hose line.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to walk the victim out upright — it is faster and uses less air.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stay with the victim and radio for more crew to assist — you cannot safely move the victim with two people and no TIC.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The victim was dragged to the entrance and transferred to EMS. TIC failure did not halt your search — your manual search techniques, open-room anchor sweep, cautious door approach, and disciplined drag-to-hose-line egress were all executed correctly. The second crew confirmed one room remained to search, which was clear. Primary search was complete.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

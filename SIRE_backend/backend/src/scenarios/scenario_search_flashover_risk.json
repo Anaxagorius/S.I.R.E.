@@ -1,0 +1,112 @@
+{
+  "title": "scenario_search_flashover_risk",
+  "description": "Search under extreme time pressure as flashover conditions develop in an occupied structure",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["search and rescue", "flashover", "time pressure", "primary search", "thermal layers", "fire behavior", "life safety"],
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reports of residential fire with person trapped. Witness says occupant is on the ground floor and smoke is heavy.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Heavy black smoke from upper windows. Rollover visible at ceiling level through the front window. Classic pre-flashover indicators.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Entry", "description": "Search crew enters. Rollover heat is intense at ceiling. Thermal layer is descending rapidly.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Victim Located", "description": "Victim found on the floor near the couch — unconscious. IC warns flashover is imminent.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Forced Egress", "description": "Crew drags victim toward exit as ceiling layer ignites. Crew exits seconds before full flashover.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Rescue Confirmed", "description": "Victim removed and transferred to EMS. Structure flashes over. All crew accounted for.", "timeOffsetSec": 210 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Pre-Flashover Recognition",
+      "situation": "You arrive at a single-story residence. Through the front window you can see rollover — flame rolling across the ceiling layer. Smoke is dark and turbulent. A witness says an elderly occupant is inside and did not evacuate. The attack line is not yet charged. You have a two-person search crew at the door.",
+      "question": "How do you manage entry given pre-flashover indicators?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recognize the rollover as a critical flashover warning. Order the attack line to charge immediately and begin flowing water through the front door to cool the ceiling layer before search entry. Commit search crew only after ceiling temperature drops.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Enter immediately without the attack line — every second counts and the victim may be seconds from death.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ventilate the roof first to relieve heat buildup before committing search crew.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Ceiling Layer Conditions Inside",
+      "situation": "The attack crew has knocked the rollover and flow is reduced to a fog pattern to cool the ceiling. The search crew is now inside. The thermal layer is still 90 cm from the floor and descending. Breathing is limited to a crawl. IC advises you have an estimated two minutes before conditions become untenable.",
+      "question": "How do you direct your search crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct crew to stay below the thermal layer, search systematically from the entry outward in the most likely victim location areas — near exits and sleeping areas — and stay on radio with IC for real-time time warnings.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Stand up to search — the victim may be on furniture and you can cover more area upright.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send one crew member forward while the other monitors at the door to save time.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Found — IC Calls Time Warning",
+      "situation": "Your crew locates an unconscious victim near the couch at 90 seconds into the search. IC radios: 'Warning — 30 seconds to untenable. Conditions critical.' The victim is heavy. You are roughly 6 metres from the front door.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin immediate drag — both crew members on the victim using whatever technique is fastest. Do not stop to package or assess. Drag directly toward the door. Alert IC you are exiting with a victim.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Quickly assess the victim's airway and breathing before moving to ensure medical stability.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "One crew member drags the victim while the other exits first to guide direction from the doorway.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Ceiling Ignites During Egress",
+      "situation": "As you drag the victim toward the door, the ceiling layer ignites behind you. The temperature inside spikes instantly. You are 2 metres from the door. The heat is intense on your back.",
+      "question": "How do you complete the egress?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue the drag at maximum speed — do not stop, do not look back. Exit the structure with the victim. Call for EMS on exit.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Drop the victim and exit to safety — the fire has caught up and you cannot make it with the victim.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Shelter in place at the front door threshold and use your coat to shield the victim from radiant heat.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Both crew members exited with the victim one second before full flashover engulfed the living room. The victim was transferred to EMS — alive with burns and smoke inhalation. The structure was lost to flashover. Your recognition of pre-flashover indicators, disciplined ceiling suppression before entry, time-aware search, and immediate drag on victim contact with no delay saved the victim and your crew.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "title": "scenario_search_primary_zero_visibility",
+  "description": "Primary search of a structure fire with zero visibility conditions",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["search and rescue", "primary search", "zero visibility", "SCBA", "structural fire", "crew accountability"],
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Structure fire reported in a two-story residential home. Caller states occupants may be inside and smoke is filling the rooms.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Heavy smoke showing from a block away. Dispatch confirms two people unaccounted for.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Dense black smoke banking floor-to-ceiling at the front door. Visibility is zero inside. Fire appears to be in the rear kitchen.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Search Initiated", "description": "Entry team advances with charged line. Contact with any surface produces no visual reference.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Victim Contact", "description": "Search team makes contact with an unresponsive victim near the base of the stairs.", "timeOffsetSec": 210 },
+    { "index": 5, "title": "Search Complete", "description": "Primary search concluded. Both victims located and removed. Fire knocked by attack line.", "timeOffsetSec": 330 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Zero Visibility Entry",
+      "situation": "Your crew is at the front door. Smoke is floor-to-ceiling and zero visibility is confirmed inside. The fire appears active in the rear kitchen. Two occupants are unaccounted for. The attack line is charged at the door.",
+      "question": "How do you conduct the primary search under zero visibility?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain crew integrity, use right-hand wall search technique, keep constant contact with the wall and each other. One member leads the search while another maintains the hose line as a lifeline reference.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Split crew to cover more ground quickly — one member searches left, one searches right independently.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for ventilation to improve visibility before committing anyone inside.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Navigation Challenge",
+      "situation": "Your crew is inside and moving along the right wall. You encounter an open doorway. You cannot determine if it leads to a room or another hallway. Your thermal imaging camera has limited value with heat saturation from the active fire.",
+      "question": "How do you handle the doorway?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sweep the doorway threshold with a tool to gauge depth and check for floor integrity, then one member enters while the other maintains position at the door frame as a reference point.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Skip the doorway and continue along the wall — the fire is in the rear so victims are more likely further in.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Both crew members enter the doorway together to stay close.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Located — Unresponsive",
+      "situation": "Your search member finds an unresponsive adult near the base of the stairs. Conditions are deteriorating. The victim is heavy and the crew member is alone in the room.",
+      "question": "How do you manage victim removal under zero visibility?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Drag victim to the doorway while calling for the second crew member. Use the hose line to orient to the exit. Call a MAYDAY-assist if the victim cannot be moved without additional help.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the victim in place and exit to report the location to IC so a fresh crew can come in.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to carry the victim upright toward where you think the exit is.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Second Victim — Upper Floor",
+      "situation": "First victim is handed off to crew at the door. The second occupant is still unaccounted for. The attack line has slowed fire progress. Conditions on the first floor are becoming more tenable. The second floor has not been searched.",
+      "question": "Do you commit to a second-floor search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm staircase integrity by testing each step, advance with the hose line, and conduct a systematic right-hand wall search of the second floor. Keep radio contact with IC throughout.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Declare primary search complete — the first victim is out and zero visibility makes the second floor too dangerous.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send only one crew member up the stairs to search alone while the other monitors from below.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The second occupant was found in a bedroom, unconscious from smoke inhalation. Both victims were removed and transferred to EMS. The attack line successfully knocked the kitchen fire. Your systematic wall-search technique, crew integrity, and decisive staircase commitment under zero visibility saved two lives.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
