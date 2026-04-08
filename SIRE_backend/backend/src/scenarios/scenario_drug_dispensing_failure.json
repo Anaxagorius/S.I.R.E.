@@ -1,0 +1,64 @@
+{
+  "title": "scenario_drug_dispensing_failure",
+  "description": "The automated drug dispensing system (ADDS) fails, locking nurses out of medication cabinets across the hospital. Critical medications cannot be dispensed in time-sensitive situations.",
+  "timeline": [
+    { "index": 0, "title": "ADDS System Failure", "description": "The automated drug dispensing system fails at 06:00 during morning medication rounds. Nurses across 14 wards are unable to access medication cabinets.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Pharmacy Notified", "description": "The on-call pharmacist is immediately notified. Manual override procedures are being assessed.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Manual Override Activated", "description": "Emergency manual override access to ADDS cabinets is implemented with dual-nurse sign-off procedures.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Critical Medication Prioritisation", "description": "Time-critical medications are being dispensed manually first: insulin, anticoagulants, antibiotics, and cardiac medications.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "IT Restoration Underway", "description": "IT is working to restore the ADDS. Pharmacy is providing manual dispensing support across all wards.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Manual override procedures ensured safe medication dispensing, critical medications were prioritised, and ADDS was restored with no patient harm.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "ADDS Fails During Morning Medication Round",
+      "situation": "At 06:00, the automated drug dispensing system server crashes. Medication cabinet touch screens across all 14 wards display error messages and are locked. Morning medication rounds are due to begin. Time-critical medications including morning insulin for diabetic patients, anticoagulants, cardiac medications, and antibiotics must be administered within specific time windows. There are 340 inpatients.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately notify the on-call pharmacist and pharmacy manager, alert all ward charge nurses to the ADDS failure, identify patients with immediately time-critical medications (insulin, anticoagulants, IV antibiotics), and initiate the ADDS downtime procedure.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Delay all medication rounds until IT restores the ADDS, regardless of how long restoration takes.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Allow nurses to share their individual ADDS access overrides with colleagues so multiple staff can access any cabinet simultaneously without a structured plan.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Activating Manual Override Procedures",
+      "situation": "The ADDS downtime procedure specifies a manual override mechanism: each cabinet has a physical key override accessible to the pharmacist on each ward. However, the only on-call pharmacist covers the entire hospital. A dual-nurse sign-off procedure must be implemented as a compensating control to maintain medication security and accountability without the electronic audit trail.",
+      "question": "How do you implement safe manual medication dispensing?",
+      "options": [
+        { "label": "A", "text": "Deploy the on-call pharmacist to unlock each ward's ADDS cabinet in priority order starting with time-critical wards. Implement dual-nurse manual dispensing sign-off for each medication withdrawn, documenting drug name, dose, patient ID, time, and both nurse signatures on paper records.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow single nurses to access unlocked cabinets and dispense medications without dual sign-off to speed up the process.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Keep all ADDS cabinets locked and only dispense medications that pharmacy can prepare manually in the central pharmacy, causing severe delays for ward-level medications.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Prioritising Time-Critical Medications",
+      "situation": "Manual dispensing is underway but the pharmacist cannot open all 14 ward cabinets simultaneously. A clinical triage of medication urgency is needed. Time-critical medications that pose patient safety risk if delayed include: insulin for 23 diabetic patients (due by 07:30), IV antibiotics for 8 sepsis patients (due by 08:00), anticoagulants for 15 post-surgical patients, and cardiac medications for 12 patients.",
+      "question": "How do you prioritise medication dispensing across 14 wards?",
+      "options": [
+        { "label": "A", "text": "Categorise medications by clinical urgency in consultation with the ward nurses and on-call doctors: IV antibiotics for sepsis patients first, then insulin for all diabetic patients, then anticoagulants, then cardiac medications. Route the pharmacist and any additional pharmacy staff to wards in this priority order.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Prioritise by ward number in ascending order to maintain fairness.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Ask ward nurses to decide their own priorities without clinical pharmacy oversight, risking inconsistent safety decisions.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "ADDS Restoration and Documentation",
+      "situation": "All time-critical medications have been safely dispensed manually. IT has restored the ADDS server after a 2.5-hour outage. The ADDS cabinets are now back online. Manual dispensing records must be reconciled with the ADDS system records to ensure a complete medication administration audit trail. Additionally, the downtime procedure must be reviewed for improvement.",
+      "question": "How do you manage restoration and documentation?",
+      "options": [
+        { "label": "A", "text": "Reconcile all manual paper dispensing records with the ADDS system to ensure complete accountability for every medication withdrawn, enter manual records into the pharmacy and patient medication record systems, and conduct a post-incident review to improve the downtime procedure.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Discard the manual paper records now that the ADDS is restored, as the electronic system is now the system of record.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Reconcile only the records from the highest-risk wards and accept gaps in documentation for lower-acuity wards.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The ADDS failure was managed safely with no patient harm. Downtime procedures were activated immediately, the pharmacist deployed manual override access in clinical priority order, dual-nurse sign-off ensured medication accountability during downtime, time-critical medications were administered within safe windows, and manual records were fully reconciled into the electronic system after restoration.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Healthcare",
+  "difficulty": "Intermediate",
+  "tags": ["drug dispensing", "ADDS", "healthcare", "medication", "patient safety"]
+}

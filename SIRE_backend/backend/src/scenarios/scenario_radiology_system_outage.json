@@ -1,0 +1,64 @@
+{
+  "title": "scenario_radiology_system_outage",
+  "description": "The PACS (Picture Archiving and Communication System) and radiology information system go offline, preventing radiologists from viewing imaging studies and generating reports.",
+  "timeline": [
+    { "index": 0, "title": "PACS Offline", "description": "The PACS system and radiology information system (RIS) both go offline at 11:00. Radiologists cannot view any imaging studies.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Radiology Downtime Declared", "description": "The radiology department declares a downtime situation. Pending imaging requests are being triaged for clinical urgency.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Critical Imaging Prioritised", "description": "Emergency and time-critical imaging requests are being managed via portable and alternative imaging pathways.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Stakeholder Communication", "description": "Clinical departments, surgical theatres, and emergency department are notified of the outage and the impact on imaging availability.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "System Restoration Begins", "description": "IT identifies a storage array failure and begins PACS restoration. ETA for full restoration is 4 hours.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Critical imaging was maintained, stakeholders were informed, PACS was restored, and long-term storage redundancy improvements were planned.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "PACS and RIS Systems Offline",
+      "situation": "At 11:00, the PACS and radiology information system (RIS) both go offline simultaneously. Radiologists cannot view any existing or newly acquired imaging studies. The modalities (CT, MRI, X-ray) are still physically operational and can acquire images, but images cannot be transferred to PACS for viewing or reporting. The emergency department has 3 CT trauma activations pending and there are 12 post-operative patients awaiting imaging review.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Notify the radiology department lead and IT immediately, declare a radiology downtime situation, triage all pending imaging requests by clinical urgency, and assess which imaging modalities can operate in a local storage mode for emergency cases.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Stop all imaging acquisitions immediately until PACS is restored to avoid images being acquired without a reporting pathway.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Continue acquiring images on all modalities and store them locally, without notifying clinical teams of the PACS outage or the resulting reporting delay.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Managing Emergency Imaging During PACS Outage",
+      "situation": "The radiology downtime is declared. The 3 CT trauma activations in the emergency department are immediate life-or-death situations. Most CT scanners have local workstations that can display images directly from the scanner without PACS. Radiologists can view images on the scanner console and provide verbal reports to clinical teams, which clinicians can document in the patient record.",
+      "question": "How do you manage emergency imaging without PACS?",
+      "options": [
+        { "label": "A", "text": "Direct radiologists to review emergency CT images on the scanner console workstations and provide verbal reports directly to the treating clinical teams using a structured read-back communication protocol. Document verbal reports in the clinical record immediately.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Defer all CT trauma activations to an alternative hospital while PACS is offline.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Allow clinicians to review CT images on the scanner console themselves without radiologist input, as the radiologist cannot provide a formal report without PACS.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Communicating the Outage to Clinical Departments",
+      "situation": "Emergency imaging is being managed. However, 14 other clinical departments, surgical theatres, and the outpatient clinics have imaging requests queued in the RIS that clinicians are expecting to be reported. They are unaware of the PACS outage. Surgical teams are making operative decisions pending imaging results. Clear, timely communication is critical.",
+      "question": "How do you communicate the outage impact to clinical teams?",
+      "options": [
+        { "label": "A", "text": "Issue an immediate hospital-wide communication from the radiology department outlining the PACS outage, the expected restoration timeline, the triage approach for new requests, and the process for requesting urgent imaging review during the downtime period.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Only notify the emergency department and leave other clinical departments to discover the outage themselves when their requests are not fulfilled.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Continue processing imaging requests as normal and notify departments only when they call to chase results, causing confusion and delays.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "PACS Restoration and Backlog Management",
+      "situation": "IT has identified a storage array failure and estimates full PACS restoration in 4 hours. During the outage, images have been stored locally on modality workstations. Once PACS is restored, approximately 180 images across multiple modalities will need to be transferred to PACS and reported. A structured backlog management plan is required to ensure clinical priority is maintained.",
+      "question": "How do you manage PACS restoration and image backlog?",
+      "options": [
+        { "label": "A", "text": "On PACS restoration, transfer and report images in clinical urgency order: emergency and intraoperative cases first, then post-operative reviews, then urgent outpatient cases, then routine. Assign additional radiologist resource if available to manage the backlog and set realistic reporting turnaround expectations for clinical teams.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Transfer and report all images in the order they were acquired regardless of clinical urgency.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Require all imaging from the downtime period to be repeated after PACS restoration, dismissing all locally stored images.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The PACS outage was managed effectively. Emergency imaging was maintained through scanner console reviews with verbal reporting, clinical departments were promptly informed of the outage and the triage process, PACS was restored, and image backlog was managed in clinical priority order. IT is implementing storage array redundancy and PACS high-availability architecture to prevent a recurrence of this single point of failure.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Healthcare",
+  "difficulty": "Intermediate",
+  "tags": ["radiology", "PACS", "healthcare", "imaging", "outage"]
+}

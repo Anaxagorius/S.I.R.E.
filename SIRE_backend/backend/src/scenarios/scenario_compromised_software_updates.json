@@ -1,0 +1,63 @@
+{
+  "title": "scenario_compromised_software_updates",
+  "description": "An attacker compromises a software build pipeline to inject malicious code into a legitimate software package widely used in your organisation.",
+  "timeline": [
+    { "index": 0, "title": "Anomalous Build Detected", "description": "A developer notices unexpected code in a recently published internal package and raises an alert with the security team.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Build Pipeline Compromised", "description": "Investigation confirms the CI/CD build pipeline has been tampered with. Malicious code was injected into three package releases.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Distribution Blocked", "description": "Affected package versions are pulled from the internal repository and downstream systems are assessed.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Forensics Initiated", "description": "Forensic analysis of the build environment and affected systems is underway to determine attacker access and intent.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Pipeline Integrity Restored", "description": "The build pipeline is rebuilt from a trusted baseline with additional integrity controls applied.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "The compromised build pipeline was identified and shut down, affected packages were pulled, and integrity controls prevent future injection attacks.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Malicious Code Found in Internal Package",
+      "situation": "A developer reviewing a routine update to an internal library notices a code block that appears to exfiltrate environment variables to an external URL. The package was published 48 hours ago via the automated CI/CD pipeline and has been pulled by 80 internal services.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately quarantine and yank all affected package versions from the internal repository, notify all consuming teams to stop using the affected versions, and begin forensic investigation of the build pipeline.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Publish a patched version of the package and wait for teams to update at their own pace before investigating the pipeline.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Assume the code is a developer mistake rather than an attack and ask the package maintainer to review it.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "CI/CD Pipeline Compromise Confirmed",
+      "situation": "Forensic review of the CI/CD system reveals that an attacker gained access via a compromised build service account credential and modified the build scripts to inject malicious code. Three package versions over 5 days were affected. The build system must be taken offline.",
+      "question": "How do you handle the compromised build pipeline?",
+      "options": [
+        { "label": "A", "text": "Take the build pipeline offline immediately, revoke all build service account credentials, preserve pipeline logs and artefacts for forensic analysis, and prevent any new releases until the pipeline is rebuilt from a clean, verified baseline.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Change the compromised service account password and continue using the pipeline while conducting investigation in the background.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delete all build pipeline logs to remove traces of the attacker activity and rebuild from scratch immediately.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Assessing Affected Systems",
+      "situation": "80 services consumed the malicious package versions. The malicious code attempted to exfiltrate environment variables, which may include database credentials, API tokens, and internal service keys. You must assess which services were successfully exploited.",
+      "question": "How do you assess and remediate affected services?",
+      "options": [
+        { "label": "A", "text": "Analyse network logs for outbound connections to the attacker's exfiltration URL from each of the 80 services, rotate all credentials that may have been exposed via environment variables, and patch all services with a clean package version.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Only patch services in production environments and defer credential rotation until the investigation is complete.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Restoring Build Pipeline Integrity",
+      "situation": "All affected services have been patched and credentials rotated. You must now restore a secure, trustworthy build pipeline with controls to prevent this type of attack recurring.",
+      "question": "What controls do you implement on the restored build pipeline?",
+      "options": [
+        { "label": "A", "text": "Implement build artefact signing and verification, enforce multi-party approval for build script changes, apply least-privilege service accounts, integrate SAST scanning for all build outputs, and require code review before publishing packages.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Restore the pipeline from the most recent backup and add only a password rotation policy for build service accounts.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Switch to a third-party CI/CD service without applying any additional integrity controls to the new pipeline.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The compromised build pipeline was taken offline before further damage occurred. Affected package versions were pulled, environment variable exposure was assessed and credentials rotated, and the pipeline was rebuilt with artefact signing, least-privilege access, and mandatory code review controls to prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Supply Chain",
+  "difficulty": "Advanced",
+  "tags": ["supply chain", "build pipeline", "software update", "malicious code"]
+}

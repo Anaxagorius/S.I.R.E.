@@ -1,0 +1,63 @@
+{
+  "title": "scenario_legal_hold_failure",
+  "description": "A legal hold notice was issued but data relevant to active litigation was deleted by an automated retention policy that was never suspended, creating spoliation risk.",
+  "timeline": [
+    { "index": 0, "title": "Data Deletion Discovered", "description": "Legal counsel discovers that email archives relevant to active litigation were deleted by an automated 12-month retention purge that was not suspended when the legal hold was issued.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Deletion Halted", "description": "The automated retention policy is immediately suspended across all systems covered by the legal hold.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Recovery Attempted", "description": "IT and forensic teams are attempting to recover deleted data from backup systems and email server archives.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Legal Counsel Briefed", "description": "Legal counsel is given a complete factual account of the deletion and recovery efforts. Litigation risk is being assessed.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Process Remediation", "description": "Legal hold procedures are being overhauled to automatically suspend retention policies when a hold is issued.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Further deletion was stopped, recovery was maximised, legal counsel was fully briefed, and robust legal hold procedures were implemented.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Legal Hold Data Deleted by Automated Retention Policy",
+      "situation": "Your organisation issued a legal hold notice 4 months ago covering email communications from 15 custodians related to a commercial dispute. Legal counsel has now discovered that an automated email retention policy — which purges emails older than 12 months — was never suspended for these custodians. As a result, approximately 8,000 email messages potentially relevant to the litigation have been automatically deleted over the past 4 months.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately suspend all automated retention and deletion policies across all systems and data sources covered by the legal hold, preventing any further deletion, and notify legal counsel of the discovered deletion.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Wait until the next scheduled IT review to suspend the retention policy, as the damage has already been done.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delete the remaining custodian data to remove any evidence of the legal hold failure before informing legal counsel.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Attempting Data Recovery",
+      "situation": "The retention policy has been suspended. Forensic and IT teams are now attempting to recover the deleted emails. Your email system retains deleted items in a recoverable state for 30 days, and your backup tapes retain full mailbox snapshots for 90 days. Some of the deleted emails may be recoverable through these channels, though coverage is incomplete given the 4-month deletion window.",
+      "question": "How do you maximise data recovery?",
+      "options": [
+        { "label": "A", "text": "Restore all available backup tapes covering the relevant period to recover email snapshots, run forensic recovery tools against email server logs and soft-deleted item stores, and document exactly what has been recovered and what cannot be recovered to present to legal counsel.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Only check the 30-day recoverable deleted items store, and if unsuccessful, declare the data unrecoverable without checking backup tapes.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Recreate deleted email content from memory and other documents to replace what was lost, without disclosing to legal counsel that the originals were deleted.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Briefing Legal Counsel on Spoliation Risk",
+      "situation": "Recovery efforts have retrieved approximately 5,000 of the 8,000 deleted emails. 3,000 emails are unrecoverable. Legal counsel must be given a full, accurate account of: what was deleted, when, why, what was recovered, and what remains unrecoverable. Depending on jurisdiction, this may need to be disclosed to the opposing party and/or the court, and adverse inference risks must be assessed.",
+      "question": "How do you manage the spoliation disclosure?",
+      "options": [
+        { "label": "A", "text": "Provide legal counsel with a complete factual record including the timeline of the legal hold, the deletion events, and recovery outcomes. Allow legal counsel to determine the appropriate disclosure obligations to the court and opposing party under the applicable rules of procedure.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Only disclose recovered emails to the opposing party without mentioning the deletion of 3,000 unrecoverable messages.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Overhauling Legal Hold Procedures",
+      "situation": "The spoliation risk has been assessed and legal counsel is managing disclosure obligations. The root cause was a manual legal hold process that required IT to manually suspend retention policies — a step that was missed. The process must be redesigned to eliminate this single point of failure.",
+      "question": "What improvements do you make to the legal hold process?",
+      "options": [
+        { "label": "A", "text": "Implement an eDiscovery management platform that automatically places custodian data under hold and suspends retention policies when a legal hold is issued, with automated compliance confirmation back to legal counsel and audit logging of hold status.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Add a checklist reminder to the legal hold notification email asking IT to suspend retention policies, without any system-level automation or verification.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Suspend all automated retention policies organisation-wide permanently, retaining all data indefinitely regardless of legal hold status.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The legal hold failure was addressed correctly. Further deletion was immediately stopped, all available recovery channels were exhausted to maximise data recovery, legal counsel received a complete and honest account of the situation to manage disclosure obligations, and an eDiscovery management platform was implemented to automatically enforce legal holds and suspend retention policies, eliminating the manual process gap.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Compliance",
+  "difficulty": "Advanced",
+  "tags": ["legal hold", "litigation", "data retention", "spoliation", "eDiscovery"]
+}

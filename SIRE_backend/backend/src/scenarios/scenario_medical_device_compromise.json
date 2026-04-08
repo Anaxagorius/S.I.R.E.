@@ -1,0 +1,63 @@
+{
+  "title": "scenario_medical_device_compromise",
+  "description": "Network scans reveal that multiple networked medical devices (infusion pumps and patient monitors) are actively communicating with an external IP address not associated with any vendor.",
+  "timeline": [
+    { "index": 0, "title": "Anomalous Device Traffic Detected", "description": "Network monitoring detects multiple medical devices transmitting data to an unrecognised external IP address. Affected devices include 12 infusion pumps and 8 patient monitors.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Patient Safety Assessment", "description": "Clinical engineering and nursing staff assess whether any device operation has been affected. Patient safety is confirmed as the top priority.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Devices Isolated from Network", "description": "Affected devices are moved to an isolated network segment while continuing to function in standalone mode for patient care.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Forensic Investigation Begins", "description": "A forensic investigation of the device firmware and network traffic is underway. The vendor is contacted.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Regulatory Notification", "description": "The relevant medical device regulator and hospital leadership are notified of the suspected device compromise.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Patient safety was protected, devices were isolated without disrupting care, forensic investigation identified the compromise, and regulators were notified.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Medical Devices Communicating with Unknown External IP",
+      "situation": "Your network security team has detected that 12 infusion pumps and 8 patient monitors are transmitting data packets to an external IP address not associated with any medical device vendor or update service. The devices are active and connected to patients in general wards and the ICU. You cannot immediately determine whether the device functionality has been compromised or whether this is a data exfiltration channel.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Alert clinical engineering and the ward charge nurses immediately, assess patient safety status on all affected devices with nursing staff, and simultaneously block the external IP address at the firewall while planning careful network isolation of the affected devices.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately disconnect all affected devices from the network and power without consulting clinical staff, prioritising security over patient safety.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Monitor the traffic for 24 hours to gather more information before taking any action that might disrupt clinical care.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Isolating Devices While Maintaining Patient Care",
+      "situation": "Clinical staff confirm all affected patients are currently stable. The devices are functioning normally from a clinical perspective — the anomalous traffic appears to be a background process. Clinical engineering advises that infusion pumps can operate in standalone mode without network connectivity. You must isolate the devices from the main network without disrupting active infusions or patient monitoring.",
+      "question": "How do you isolate the devices without disrupting patient care?",
+      "options": [
+        { "label": "A", "text": "Work with clinical engineering to move all affected devices to an isolated VLAN that retains local device functionality but blocks external communication. For devices that cannot be isolated without disruption, coordinate with nursing staff to replace with unaffected spare devices.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Pull the network cable from all affected devices simultaneously without clinical coordination, causing monitoring alarms and potential infusion disruption.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave the devices on the main network but implement enhanced monitoring, taking no isolation action.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Forensic Investigation and Vendor Engagement",
+      "situation": "All 20 affected devices are safely isolated. Network traffic logs show the anomalous communication began 11 days ago and appears to exfiltrate device telemetry data including patient identifiers and infusion settings. The device vendor must be contacted to determine if this is a known vulnerability or active exploitation. Patient data may have been exfiltrated, triggering potential HIPAA or data protection obligations.",
+      "question": "How do you conduct the forensic investigation and manage the vendor relationship?",
+      "options": [
+        { "label": "A", "text": "Preserve all network traffic logs and device logs under chain of custody, contact the device vendor's security team with full technical details, and engage your DPO to assess whether exfiltrated patient data triggers breach notification obligations.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Contact only the vendor's sales account manager rather than the security team, and delay breach notification assessment until the vendor confirms the issue.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Regulatory Notification and Device Security Improvements",
+      "situation": "The vendor has confirmed a known vulnerability in the device firmware that enabled a remote attacker to access the device management interface. A firmware patch is available. Patient telemetry data was confirmed exfiltrated. Regulatory notification to the medical device regulator and data protection authority is required. Long-term device security controls must also be implemented.",
+      "question": "What actions do you take for notification and long-term security?",
+      "options": [
+        { "label": "A", "text": "Notify the medical device regulator and data protection authority, apply the vendor firmware patch to all affected devices after clinical validation, implement a dedicated isolated network segment for all medical devices, and establish a medical device security review process for future procurement.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Apply the firmware patch without notifying regulators and without implementing any network segmentation for medical devices.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Replace all affected devices with new devices from the same vendor without applying firmware patches or implementing network isolation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The medical device compromise was handled with patient safety as the primary priority. Devices were isolated through careful coordination with clinical staff without disrupting patient care, forensic investigation confirmed the vulnerability and exfiltration, the vendor provided a patch, regulatory notifications were made, and medical device network segmentation and a procurement security review process were implemented.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Healthcare",
+  "difficulty": "Advanced",
+  "tags": ["medical device", "IoT", "healthcare", "network compromise", "patient safety"]
+}

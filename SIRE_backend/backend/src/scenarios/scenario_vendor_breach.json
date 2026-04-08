@@ -1,0 +1,63 @@
+{
+  "title": "scenario_vendor_breach",
+  "description": "A key software vendor announces they have suffered a data breach that may have exposed your organisation's credentials and API keys stored in their system.",
+  "timeline": [
+    { "index": 0, "title": "Vendor Breach Notification", "description": "Your software vendor sends an urgent email: their systems were breached and customer data including API keys and credentials may be exposed.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Exposure Assessment Begins", "description": "Security team begins cataloguing all credentials and API keys stored with the breached vendor.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Suspicious API Activity Detected", "description": "SIEM alerts show unusual API calls using credentials associated with the vendor's platform.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Credentials Rotated", "description": "All potentially exposed credentials and API keys have been revoked and replaced. Affected services are being re-authenticated.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Stakeholders Notified", "description": "Internal stakeholders and affected teams are briefed. Vendor security review is underway.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Exposed credentials were revoked, suspicious activity was blocked, and a vendor security review was initiated to prevent recurrence.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vendor Breach Notification Received",
+      "situation": "Your software vendor has confirmed a data breach affecting their customer portal. Your organisation stored API keys, service account credentials, and integration tokens in that portal. The breach occurred 5 days ago and may have given attackers access to your credentials since then.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately revoke and rotate all credentials and API keys stored with the vendor, and begin scanning logs for any suspicious use of those credentials in the past 5 days.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Wait for the vendor to confirm exactly which credentials were accessed before taking any action.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Change only the passwords to the vendor portal itself and monitor for further notifications.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Suspicious API Activity Detected in Logs",
+      "situation": "Log analysis reveals several API calls made with your credentials during the breach window from IP addresses not associated with your organisation. These calls queried customer data endpoints and attempted to enumerate internal service configurations.",
+      "question": "How do you respond to the suspicious API activity?",
+      "options": [
+        { "label": "A", "text": "Block the malicious IP addresses, preserve all relevant logs for forensic analysis, assess what data was accessed via the suspicious API calls, and engage your DPO to assess breach notification obligations.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Revoke the specific API key used in the suspicious calls and consider the incident resolved.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Contact the vendor and ask them to investigate the API activity on your behalf before taking any internal action.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Customer Data May Have Been Accessed",
+      "situation": "Analysis of the suspicious API calls shows that queries were made against endpoints containing customer names and email addresses for approximately 2,000 customer records. Regulatory breach notification obligations may be triggered. Legal counsel and your DPO must be engaged.",
+      "question": "How do you manage the potential regulatory obligation?",
+      "options": [
+        { "label": "A", "text": "Engage your DPO and legal counsel immediately, document the scope of data accessed, and prepare a breach notification to the relevant data protection authority within the 72-hour window if threshold criteria are met.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Defer notification until you can confirm with absolute certainty that personal data was exfiltrated, even if this exceeds the 72-hour window.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Vendor Security Review Required",
+      "situation": "Credentials have been rotated, suspicious activity has been blocked, and regulatory notification is underway. You must now assess whether this vendor can continue to hold sensitive credentials and what controls should be imposed going forward.",
+      "question": "What steps do you take regarding the vendor relationship?",
+      "options": [
+        { "label": "A", "text": "Conduct a formal vendor security review, require the vendor to provide their incident report and security remediation plan, enforce least-privilege API credential scoping, and implement secrets management tooling to avoid storing credentials in third-party portals.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Continue the vendor relationship unchanged once the immediate incident is resolved, trusting the vendor to improve their own security.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Immediately terminate the vendor contract without conducting any review, losing access to critical services.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The vendor breach was handled effectively. All exposed credentials were rotated immediately, suspicious API activity was investigated and blocked, breach notification obligations were assessed and actioned, and a vendor security review was initiated. Secrets management tooling is now in place to reduce future exposure.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Supply Chain",
+  "difficulty": "Intermediate",
+  "tags": ["vendor", "breach", "third-party", "credentials"]
+}

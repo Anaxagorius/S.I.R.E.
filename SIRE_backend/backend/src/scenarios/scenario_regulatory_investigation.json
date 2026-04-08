@@ -1,0 +1,63 @@
+{
+  "title": "scenario_regulatory_investigation",
+  "description": "Your organisation receives a formal notice of investigation from a data protection authority following a complaint about your data handling practices.",
+  "timeline": [
+    { "index": 0, "title": "Investigation Notice Received", "description": "A formal written notice arrives from the data protection authority stating that a complaint has been made and a formal investigation into your data handling practices has been opened.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Legal Counsel Engaged", "description": "External legal counsel specialising in data protection regulatory matters is engaged immediately.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Evidence Preservation Ordered", "description": "An internal evidence preservation order is issued. All data handling records related to the complaint period are secured.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Information Request Responded To", "description": "The regulator's information request is responded to within the stated deadline with a complete and accurate response.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Internal Review Underway", "description": "An internal review of data handling practices is underway to identify and remediate any genuine compliance gaps.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "The investigation was handled professionally. Evidence was preserved, legal counsel managed the regulatory response, and internal remediation addressed identified compliance gaps.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Formal Regulatory Investigation Notice Received",
+      "situation": "Your Data Protection Officer has received a formal written notice from your national data protection authority (DPA). A complaint was filed by a former customer alleging that your organisation failed to honour their right of erasure request, continued to send marketing communications after opt-out, and shared their data with third parties without consent. The DPA has opened a formal investigation and requires your organisation to respond to an information request within 28 days.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Engage external legal counsel with data protection regulatory experience immediately, issue an internal evidence preservation notice to secure all records related to the complainant and the practices under investigation, and notify your DPO and senior leadership.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Respond directly to the DPA yourself without engaging legal counsel, to demonstrate openness and speed.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delete records related to the complainant to avoid providing damaging evidence to the regulator.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Preparing for the Regulator's Information Request",
+      "situation": "Legal counsel advises that the 28-day response deadline is firm and that incomplete or inaccurate responses to the DPA significantly increase enforcement risk. The information request asks for: all personal data held about the complainant, records of the erasure request and your response, consent and marketing preference records, and third-party data sharing records. All of this must be compiled carefully and accurately.",
+      "question": "How do you prepare the response to the DPA's information request?",
+      "options": [
+        { "label": "A", "text": "Conduct a comprehensive data subject access review for the complainant's records, compile all erasure request correspondence and marketing preference records, and prepare an accurate, complete response reviewed by legal counsel and the DPO before submission.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Submit a partial response with only easily accessible records and indicate that the rest is being compiled, missing the deadline for a complete response.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Prepare the response without legal counsel review to save cost, and submit it directly to the DPA.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Conducting the Internal Compliance Review",
+      "situation": "The response has been submitted on time. Internal review of the records has revealed that the erasure request was processed but the complainant's email address remained in a marketing suppression list rather than being fully deleted, and was later re-added to active marketing campaigns after a system migration. This is a genuine compliance failure. The DPA will likely identify this too.",
+      "question": "How do you approach the identified compliance failure?",
+      "options": [
+        { "label": "A", "text": "Proactively inform legal counsel of the identified compliance failure, allow legal counsel to assess whether voluntary supplementary disclosure to the DPA is appropriate, and begin immediate remediation to fix the system migration process that caused the re-subscription.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Do not disclose the compliance failure proactively and hope the DPA does not identify it in the submitted records.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Cooperation Strategy and Remediation",
+      "situation": "Legal counsel recommends proactive supplementary disclosure of the compliance failure along with evidence of immediate remediation. This cooperative approach is likely to result in lower enforcement action than if the DPA discovers the failure independently. A remediation plan must be presented to the DPA demonstrating that the root cause has been addressed.",
+      "question": "What remediation do you present to the DPA?",
+      "options": [
+        { "label": "A", "text": "Submit a supplementary disclosure to the DPA acknowledging the compliance failure, providing a root cause analysis of the system migration issue, and presenting a remediation plan including data migration validation processes, automated opt-out preservation checks, and staff training.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Only present a written policy update to the DPA without implementing any technical or process controls, and without acknowledging the specific compliance failure.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Engage a lobbying firm to manage the DPA relationship instead of addressing the compliance issues substantively.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The regulatory investigation was managed professionally. External legal counsel was engaged immediately, evidence was preserved, the information request was responded to fully and on time, an internal compliance review identified a genuine failure, a proactive supplementary disclosure was made with concrete remediation, and cooperation with the DPA demonstrated good faith. The DPA acknowledged the remediation steps in their investigation outcome.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Compliance",
+  "difficulty": "Intermediate",
+  "tags": ["regulatory", "investigation", "DPA", "data protection", "GDPR"]
+}

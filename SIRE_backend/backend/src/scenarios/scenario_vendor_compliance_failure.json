@@ -1,0 +1,63 @@
+{
+  "title": "scenario_vendor_compliance_failure",
+  "description": "An audit reveals that a key data processor vendor has been storing your customers' personal data in non-compliant jurisdictions without proper safeguards, violating contractual and regulatory obligations.",
+  "timeline": [
+    { "index": 0, "title": "Audit Finding Reported", "description": "A third-party audit of your data processor vendor reveals customer personal data is being stored in jurisdictions outside the agreed scope without adequate legal transfer mechanisms.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Vendor Contacted", "description": "Your DPO contacts the vendor to understand the scope, duration, and nature of the non-compliant data storage.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Legal Assessment Underway", "description": "Legal counsel and the DPO are assessing regulatory exposure and contractual breach. Remediation options are being evaluated.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Regulator Notified", "description": "The data protection authority is notified of the compliance failure. A remediation plan is submitted.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Remediation Enforced", "description": "The vendor has begun migrating data back to compliant jurisdictions. Enhanced contractual controls are being implemented.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "The vendor compliance failure was reported, legally assessed, disclosed to the regulator, and remediated with enhanced contractual safeguards.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Non-Compliant Data Storage Discovered",
+      "situation": "An annual third-party audit of your CRM vendor — classified as a data processor under GDPR — reveals that customer personal data including names, email addresses, and purchase history has been replicated to servers in a country without an adequacy decision. Your Data Processing Agreement with the vendor only permits processing within the EEA. The data of approximately 150,000 customers is affected and has been in this location for at least 8 months.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Escalate immediately to your DPO and legal counsel, formally notify the vendor of the contractual breach in writing, and request an urgent written explanation of the scope, duration, and nature of the data transfers.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Contact the vendor informally and give them 30 days to fix the issue before taking any further action.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Immediately terminate the vendor contract without assessing regulatory obligations or giving the vendor opportunity to remediate.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing Legal and Regulatory Exposure",
+      "situation": "The vendor confirms that due to a misconfigured data replication policy, customer data was being replicated to a data centre in a non-adequate third country. No Standard Contractual Clauses or other transfer mechanisms were in place. Your DPO advises this is a potential GDPR violation both by the vendor and by your organisation as the data controller. A voluntary disclosure to the supervisory authority should be considered.",
+      "question": "How do you approach regulatory disclosure?",
+      "options": [
+        { "label": "A", "text": "Prepare a voluntary disclosure to your supervisory data protection authority documenting the nature of the transfer, the affected data subjects, the duration, and the remediation steps being taken. Engage legal counsel to manage the disclosure process.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Avoid proactive disclosure and only respond if the regulator contacts you, to minimise regulatory attention.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Notify all 150,000 affected customers before notifying the regulator, causing unnecessary alarm before the legal situation is fully assessed.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Vendor Remediation Requirements",
+      "situation": "The regulator has acknowledged your voluntary disclosure and requested a remediation plan within 30 days. The vendor has confirmed they can migrate the data back to EEA servers within 2 weeks. You must decide whether to continue with this vendor or find an alternative, and what additional contractual safeguards to impose.",
+      "question": "How do you manage the vendor relationship and remediation?",
+      "options": [
+        { "label": "A", "text": "Issue a formal remediation notice to the vendor requiring data migration back to EEA within 14 days, implement enhanced DPA clauses and audit rights, and conduct an independent verification audit once migration is complete before reinstating full trust.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Accept the vendor's verbal assurance that data will be migrated without any formal contractual remediation or independent verification.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future Third-Party Compliance Failures",
+      "situation": "The vendor has completed data migration to EEA servers. Independent verification confirms compliance. The regulator's 30-day deadline is approaching. You must submit the remediation plan and implement broader third-party risk controls.",
+      "question": "What broader controls do you implement to prevent future vendor compliance failures?",
+      "options": [
+        { "label": "A", "text": "Submit the verified remediation plan to the regulator, implement mandatory annual data processor audits, require all vendors to provide data flow mapping demonstrating compliant data locations, and include automatic contract termination clauses for repeated compliance failures.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Submit the remediation plan and make no further changes to third-party risk management processes.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Replace all data processor vendors with in-house solutions without considering the cost and feasibility implications.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The vendor compliance failure was handled appropriately. The issue was escalated to the DPO and legal counsel immediately, a voluntary disclosure was made to the supervisory authority, contractual remediation was enforced with independent verification, and a stronger third-party compliance monitoring programme was implemented to prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Supply Chain",
+  "difficulty": "Intermediate",
+  "tags": ["vendor", "compliance", "GDPR", "data processor", "third-party risk"]
+}

@@ -1,0 +1,63 @@
+{
+  "title": "scenario_evidence_preservation_failure",
+  "description": "During an active legal case, it is discovered that forensic evidence from a cybersecurity incident was not properly preserved and may have been overwritten, potentially compromising litigation.",
+  "timeline": [
+    { "index": 0, "title": "Evidence Gap Discovered", "description": "Legal counsel discovers that forensic disk images from the original incident were stored on a server that was later repurposed, potentially overwriting key evidence.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Preservation Failure Assessed", "description": "A forensic expert is engaged to assess what evidence remains, what was overwritten, and what can potentially be recovered.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Remaining Evidence Secured", "description": "All remaining digital evidence is immediately secured under proper chain of custody. Overwriting is halted.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Legal Counsel Briefed", "description": "Legal counsel is fully briefed on the preservation failure. Litigation strategy is being reconsidered.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Spoliation Risk Documented", "description": "A full spoliation risk assessment is documented and alternative evidence sources are being identified.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Remaining evidence was secured, legal counsel was fully briefed, alternative evidence sources were identified, and evidence management procedures were strengthened.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Forensic Evidence May Have Been Overwritten",
+      "situation": "Your organisation is involved in active litigation arising from a cybersecurity incident that occurred 9 months ago. Legal counsel has discovered that forensic disk images taken during the incident response were stored on a server that was subsequently repurposed for another project 3 months ago. The server has been written to extensively since. A forensic examiner must be engaged immediately to assess what evidence survives.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately take the repurposed server offline to prevent any further overwriting, engage an independent forensic expert to assess what original evidence can be recovered, and notify your legal counsel of the discovery without delay.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Continue normal operations on the server and investigate the preservation failure during business hours to avoid operational disruption.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Recreate the forensic evidence from memory and system documentation to replace what was lost, and not inform legal counsel of the original preservation failure.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Forensic Recovery Assessment",
+      "situation": "The forensic expert confirms that the original disk images have been substantially overwritten. Approximately 30% of the original forensic data may be recoverable through carving techniques. However, other sources of evidence from the original incident may still exist: network flow logs, SIEM records, email archives, and endpoint detection and response (EDR) tool telemetry. These must be urgently identified and secured.",
+      "question": "How do you identify and secure alternative evidence sources?",
+      "options": [
+        { "label": "A", "text": "Immediately inventory all alternative digital evidence sources from the incident period including SIEM logs, EDR telemetry, network flow records, email archives, and any cloud provider audit logs. Place all identified sources under formal chain of custody documentation.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Rely solely on the 30% recoverable disk image data and not pursue alternative evidence sources.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Request that the opposing party share their copy of any forensic evidence they hold, before securing your own alternative evidence.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Spoliation Risk Assessment and Legal Strategy",
+      "situation": "Alternative evidence sources have been secured. Legal counsel must now be fully briefed on the preservation failure to assess the litigation risk. In some jurisdictions, destruction of evidence relevant to litigation (even inadvertently) can result in an adverse inference instruction or sanctions. The opposing party may be notified. Legal counsel needs a complete factual account of what happened.",
+      "question": "How do you brief legal counsel and manage the spoliation risk?",
+      "options": [
+        { "label": "A", "text": "Provide legal counsel with a complete, honest account of the preservation failure including what was lost, the timeline of events, and all alternative evidence sources secured. Allow legal counsel to advise on whether voluntary disclosure to the court or opposing party is appropriate.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Minimise the preservation failure in the briefing to legal counsel, omitting details about what was overwritten and when.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Strengthening Evidence Management Procedures",
+      "situation": "Legal counsel has the full picture and is advising on litigation strategy. The preservation failure was caused by the absence of a formal evidence management policy — forensic images were stored informally without documentation of their legal hold status, making them invisible to IT asset management. This process failure must be corrected to prevent recurrence in future incidents.",
+      "question": "What evidence management controls do you implement?",
+      "options": [
+        { "label": "A", "text": "Implement a formal digital evidence management policy requiring all forensic artefacts to be catalogued in a dedicated evidence vault with chain of custody documentation, integrate evidence hold status into the IT asset management system, and train the incident response team on evidence preservation requirements.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Store all future forensic images on a shared drive with a naming convention to indicate their sensitivity, without a formal policy or chain of custody process.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Outsource all future incident forensics to external providers without building internal evidence management capabilities.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The evidence preservation failure was handled appropriately. The server was immediately taken offline, a forensic expert assessed recovery options, alternative evidence sources were identified and placed under proper chain of custody, legal counsel received a full and honest briefing, and a formal evidence management policy with chain of custody procedures was implemented to prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Compliance",
+  "difficulty": "Advanced",
+  "tags": ["evidence preservation", "forensics", "legal", "chain of custody", "eDiscovery"]
+}

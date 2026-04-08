@@ -1,0 +1,63 @@
+{
+  "title": "scenario_hardware_supply_chain",
+  "description": "Security researchers report that a batch of network switches from a major vendor may contain hardware implants capable of intercepting and exfiltrating network traffic.",
+  "timeline": [
+    { "index": 0, "title": "Researcher Advisory Published", "description": "A public security advisory warns that a specific batch of enterprise network switches contain suspected hardware implants discovered during firmware analysis.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Affected Hardware Identified", "description": "Asset inventory reveals your organisation deployed 34 switches from the affected batch across three sites.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Anomalous Traffic Detected", "description": "Network analysis detects low-volume periodic traffic leaving the network on unusual ports consistent with covert exfiltration.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Switches Isolated", "description": "All 34 affected switches are taken offline and replaced with unaffected hardware. Network traffic analysis is preserved for forensics.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Supply Chain Review Initiated", "description": "A formal hardware supply chain review is underway. All hardware procurement is being audited.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Affected hardware was identified and isolated, exfiltration was stopped, and a supply chain review ensures verified sourcing of future hardware.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Hardware Implant Advisory Released",
+      "situation": "A credible security research firm has published findings that network switches from a major vendor manufactured between specific dates contain suspected hardware implants in the management chip. These implants can capture and exfiltrate plaintext network traffic. Your procurement records show you deployed 34 switches from this affected production batch across your headquarters and two branch offices.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Cross-reference asset inventory against the affected serial number ranges to confirm which switches are implicated, and begin network traffic analysis on segments served by those switches to detect any anomalous outbound traffic.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Wait for the vendor's official response before taking any action, as the research findings may be disputed.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Apply a firmware update provided by the vendor to remove the implant without conducting any traffic analysis.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Anomalous Outbound Traffic Detected",
+      "situation": "Network traffic analysis on segments served by the 34 affected switches shows periodic low-volume DNS queries to an unusual external domain, consistent with covert data exfiltration via DNS tunnelling. This traffic has been present in logs for at least 6 months. The switches are positioned in networks carrying sensitive internal communications and database replication traffic.",
+      "question": "How do you respond to the confirmed exfiltration activity?",
+      "options": [
+        { "label": "A", "text": "Block all outbound traffic to the suspicious DNS domains immediately, preserve all relevant network logs for forensic analysis, and begin planning emergency replacement of all 34 affected switches with clean hardware.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Simply block the suspicious DNS domains and continue operating the switches while you procure replacement hardware over the coming weeks.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Power off all 34 switches immediately without planning for traffic continuity, causing an uncontrolled network outage.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Emergency Hardware Replacement",
+      "situation": "Traffic to the malicious DNS domains is blocked. You have confirmed 34 affected switches must be replaced. Given the sensitive traffic these switches handled over 6 months, you must also assess what data may have been exfiltrated and determine breach notification obligations.",
+      "question": "How do you manage the replacement and breach assessment?",
+      "options": [
+        { "label": "A", "text": "Coordinate a phased switch replacement with minimal downtime, engage your DPO and legal team to assess what sensitive data transited the affected network segments over 6 months, and determine whether regulatory breach notification thresholds are met.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Replace all 34 switches simultaneously causing a full network outage, and defer breach notification assessment until after the hardware is replaced.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Hardware Supply Chain Review",
+      "situation": "All 34 affected switches have been replaced with verified clean hardware. A 6-month data exfiltration window has been assessed and regulatory notifications are being prepared. You must now implement controls to prevent future hardware supply chain attacks.",
+      "question": "What supply chain controls do you implement for hardware procurement?",
+      "options": [
+        { "label": "A", "text": "Implement hardware verification procedures including firmware integrity checks and supply chain provenance validation for all new network hardware, restrict hardware procurement to authorised distributors, and establish a hardware asset register with serial number tracking.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Continue purchasing hardware from the same vendor but request a letter of assurance that future batches are free of implants.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Only apply controls to switches and ignore other network hardware such as routers and firewalls.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The hardware supply chain compromise was effectively handled. Affected switches were identified through asset inventory, anomalous exfiltration traffic was detected and blocked, all 34 switches were replaced in a controlled manner, and breach notification obligations were addressed. Hardware provenance and firmware integrity verification controls now protect against future hardware supply chain attacks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Supply Chain",
+  "difficulty": "Advanced",
+  "tags": ["hardware", "supply chain", "implant", "network", "firmware"]
+}

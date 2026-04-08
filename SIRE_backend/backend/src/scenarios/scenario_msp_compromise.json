@@ -1,0 +1,63 @@
+{
+  "title": "scenario_msp_compromise",
+  "description": "Your managed service provider (MSP) is compromised. Attackers use the MSP's privileged access to deploy ransomware and exfiltrate data across multiple client organisations including yours.",
+  "timeline": [
+    { "index": 0, "title": "MSP Security Alert", "description": "Your MSP contacts you to report they have suffered a security breach and are investigating unusual activity in their management tools.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Ransomware Deployed", "description": "Ransomware is detected on systems managed by the MSP. Multiple client organisations are affected.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "MSP Access Revoked", "description": "All MSP remote access credentials and management tool access are revoked pending investigation.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Affected Systems Isolated", "description": "Systems with confirmed ransomware activity are isolated from the network. Backup availability is being assessed.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Incident Coordination Active", "description": "Joint incident response between your team and the MSP is underway. Law enforcement has been notified.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "MSP access was revoked, ransomware was contained, and coordinated recovery was initiated with data from secure backups.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "MSP Compromise Notification Received",
+      "situation": "Your MSP has informed you that their remote management and monitoring (RMM) platform has been compromised. Attackers are using the MSP's privileged access — which includes administrative rights to your core servers and network devices — to move laterally across client environments. You have already noticed encrypted files appearing on several file servers.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately revoke all MSP remote access credentials, disable VPN tunnels and remote management connections from the MSP, and isolate systems showing signs of ransomware encryption.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Contact the MSP and wait for their instructions before taking any independent action to avoid disrupting their investigation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Only monitor network traffic from MSP connections and gather more evidence before taking action.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Ransomware Spreading Through MSP-Managed Systems",
+      "situation": "With MSP access revoked, you can now assess the damage. Ransomware has encrypted files on 15 servers. Three domain controller logs show the attackers used MSP service accounts to create new privileged accounts before deploying the ransomware. Data exfiltration indicators are also present.",
+      "question": "How do you contain the ransomware and stop further spread?",
+      "options": [
+        { "label": "A", "text": "Isolate all 15 affected servers, disable all accounts created by the attackers, change all domain administrator passwords, and conduct a network scan to identify any other compromised endpoints before beginning recovery.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Begin restoring the 15 affected servers from backup immediately without first stopping the active spread of ransomware.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Pay the ransom demand immediately to minimise business disruption.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Data Exfiltration and Backup Assessment",
+      "situation": "Network forensics confirms that the attackers exfiltrated approximately 200GB of data before deploying ransomware. Your backups are stored in an immutable backup system the MSP did not have access to. Recovery is feasible but breach notification obligations must be assessed.",
+      "question": "How do you manage the data exfiltration and recovery?",
+      "options": [
+        { "label": "A", "text": "Engage DPO and legal to assess data exfiltration scope and regulatory notification obligations, notify affected parties as required, and begin recovery from immutable backups starting with the most critical business systems.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Begin system recovery from backups first and delay breach notification assessment until all systems are restored.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "MSP Relationship and Future Security Posture",
+      "situation": "Critical systems are being restored. You must now decide how to structure the ongoing MSP relationship and what controls to implement to prevent a recurrence of this attack vector.",
+      "question": "What security controls do you implement for third-party access?",
+      "options": [
+        { "label": "A", "text": "Implement just-in-time privileged access for all MSP activities, require multi-factor authentication for all MSP remote sessions, deploy a privileged access workstation (PAW) model, and conduct a formal security review before reinstating MSP access.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Reinstate the MSP's previous level of access once their incident investigation concludes, trusting them to have improved their own security.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Terminate the MSP contract immediately and manage all IT operations in-house without planning for the transition.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The MSP compromise was effectively contained. MSP access was revoked immediately, ransomware spread was stopped, affected systems were isolated, and data exfiltration was assessed and notified. Recovery from immutable backups was successful, and just-in-time privileged access controls now govern all third-party remote access.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Supply Chain",
+  "difficulty": "Advanced",
+  "tags": ["MSP", "managed service", "supply chain", "ransomware", "lateral movement"]
+}
