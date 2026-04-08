@@ -1,8 +1,8 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-25
+ * Last Update: 2026-04-08
  * Description: Administrator screen for creating a new session.
- * Displays 8 scenario cards the admin can click to immediately create and launch a session.
+ * Displays all available training scenarios with category and difficulty filtering.
  */
 
 import { useState } from "react";
@@ -10,25 +10,26 @@ import { useNavigate } from "react-router-dom";
 import CreateSessionLayout from "../../layouts/CreateSessionLayout";
 import BackButton from "../../components/BackButton";
 import { createSession } from "../../services/api/api";
+import DEMO_SCENARIOS from "../../data/demoScenarios";
 
-/** Static list of the 8 available training scenarios. */
-const STATIC_SCENARIOS = [
-    { id: "scenario_fire",                     icon: "🔥", name: "Fire",                    description: "A fire starts in a storage area and spreads toward occupied floors." },
-    { id: "scenario_flood",                    icon: "🌊", name: "Flood",                   description: "Burst water main begins flooding lower levels." },
-    { id: "scenario_medical_emergency",        icon: "🚑", name: "Medical Emergency",        description: "A medical emergency occurs during a busy shift." },
-    { id: "scenario_severe_weather",           icon: "⛈️", name: "Severe Weather",           description: "Severe weather warnings threaten facility operations." },
-    { id: "scenario_cyber_attack",             icon: "💻", name: "Cyber Attack",             description: "A coordinated phishing and ransomware attack targets staff systems." },
-    { id: "scenario_hazardous_material_spill", icon: "☣️", name: "Hazardous Material Spill", description: "A corrosive chemical spill in a lab corridor escalates over time." },
-    { id: "scenario_active_threat",            icon: "🚨", name: "Active Threat",            description: "An active threat reported near main entrance escalates to facility-wide lockdown." },
-    { id: "scenario_power_outage",             icon: "🔌", name: "Power Outage",             description: "A facility-wide power outage interrupts critical systems." },
-];
+const CATEGORIES = ["All", "Physical", "Medical", "HAZMAT", "Threat", "Cyber", "Network", "Web", "Cloud"];
+const DIFFICULTIES = ["All", "Beginner", "Intermediate", "Advanced"];
+
+/** Returns the CSS class name for a difficulty badge. */
+function difficultyClass(difficulty) {
+    if (difficulty === "Beginner") return "difficulty-beginner";
+    if (difficulty === "Intermediate") return "difficulty-intermediate";
+    if (difficulty === "Advanced") return "difficulty-advanced";
+    return "";
+}
 
 /** Function that returns the CreateSession component for the admin session creation screen. */
 export default function CreateSession() {
 
-    /** Constants for UI state. */
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [filterCategory, setFilterCategory] = useState("All");
+    const [filterDifficulty, setFilterDifficulty] = useState("All");
 
     const navigate = useNavigate();
 
@@ -48,26 +49,74 @@ export default function CreateSession() {
         }
     }
 
+    const filteredScenarios = DEMO_SCENARIOS.filter(
+        (s) =>
+            (filterCategory === "All" || s.data?.category === filterCategory) &&
+            (filterDifficulty === "All" || s.data?.difficulty === filterDifficulty)
+    );
+
     return (
         <CreateSessionLayout>
 
             {/** Back navigation. */}
             <BackButton to="/" />
 
-            {/** Scenario selection cards. */}
-            <div className="scenario-grid">
-                {STATIC_SCENARIOS.map((scenario) => (
+            {/** Category filter bar. */}
+            <div className="filter-bar">
+                <span className="filter-label">Category:</span>
+                {CATEGORIES.map((cat) => (
                     <button
-                        key={scenario.id}
-                        className="scenario-card"
-                        onClick={() => handleSelectScenario(scenario)}
+                        key={cat}
+                        className={`filter-btn${filterCategory === cat ? " active" : ""}`}
+                        onClick={() => setFilterCategory(cat)}
                         disabled={loading}
                     >
-                        <span className="scenario-card-icon">{scenario.icon}</span>
-                        <span className="scenario-card-name">{scenario.name}</span>
-                        <span className="scenario-card-desc">{scenario.description}</span>
+                        {cat}
                     </button>
                 ))}
+            </div>
+
+            {/** Difficulty filter bar. */}
+            <div className="filter-bar">
+                <span className="filter-label">Difficulty:</span>
+                {DIFFICULTIES.map((diff) => (
+                    <button
+                        key={diff}
+                        className={`filter-btn${filterDifficulty === diff ? " active" : ""}`}
+                        onClick={() => setFilterDifficulty(diff)}
+                        disabled={loading}
+                    >
+                        {diff}
+                    </button>
+                ))}
+            </div>
+
+            {/** Scenario selection cards. */}
+            <div className="scenario-grid">
+                {filteredScenarios.length === 0 ? (
+                    <p style={{ opacity: 0.7 }}>No scenarios match the selected filters.</p>
+                ) : (
+                    filteredScenarios.map((scenario) => {
+                        const difficulty = scenario.data?.difficulty || "";
+                        return (
+                            <button
+                                key={scenario.id}
+                                className="scenario-card"
+                                onClick={() => handleSelectScenario(scenario)}
+                                disabled={loading}
+                            >
+                                <span className="scenario-card-icon">{scenario.icon}</span>
+                                <span className="scenario-card-name">{scenario.name}</span>
+                                <span className="scenario-card-desc">{scenario.description}</span>
+                                {difficulty && (
+                                    <span className={`scenario-card-difficulty ${difficultyClass(difficulty)}`}>
+                                        {difficulty}
+                                    </span>
+                                )}
+                            </button>
+                        );
+                    })
+                )}
             </div>
 
             {/** Creating session indicator. */}

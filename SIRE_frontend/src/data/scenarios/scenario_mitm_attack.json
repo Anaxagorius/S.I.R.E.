@@ -1,0 +1,154 @@
+{
+  "title": "mitm_attack",
+  "description": "An attacker intercepts unencrypted network traffic between a remote employee's laptop and a corporate file server, silently reading and altering data in transit.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous Traffic Detected",
+      "description": "IDS alerts on unexpected ARP activity and unusual routing behaviour for traffic between a remote laptop and the file server.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Data Interception Suspected",
+      "description": "Packet analysis reveals plaintext credentials and sensitive documents transiting through an unrecognised intermediate host.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "MITM Host Identified",
+      "description": "The rogue intermediate host is identified as a compromised network appliance in the remote office. Traffic is being relayed and logged.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Session Terminated",
+      "description": "The compromised appliance is isolated. The affected user's session is terminated and credentials invalidated.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Encryption Enforced",
+      "description": "TLS enforcement enabled for all file server connections. VPN mandatory for remote access.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Forensic Review Complete",
+      "description": "Scope of data intercepted determined. Regulatory notification obligations assessed. Post-incident hardening implemented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Traffic Interception Detected",
+      "situation": "Your IDS alerts on anomalous routing for traffic between a remote employee's laptop and the corporate file server. Packet captures show plaintext credentials and document content passing through an unrecognised host at 10.5.10.99.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Terminate the affected session, isolate the unrecognised host, and block the traffic path while preserving packet capture evidence.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Alert the remote employee to change their password but leave the connection active to continue monitoring.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the file server to clear the connection and reassess.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Compromised Appliance Identified",
+      "situation": "The intermediate host is a remote-office network appliance that was compromised. You need to determine how it was compromised and what data was intercepted before taking remediation steps.",
+      "question": "How do you investigate the compromised appliance?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Preserve the appliance image for forensics, review access logs to determine compromise timeline and data intercepted, then rebuild from clean firmware.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Factory reset the appliance immediately to restore normal operations without forensic analysis.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Scope of Data Exposure",
+      "situation": "Forensics shows credentials and sensitive HR documents were intercepted over a 6-hour window. The credentials may have been used to access additional systems. You need to contain further damage.",
+      "question": "How do you contain the credential compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Force password resets for all accounts whose credentials transited the compromised path, audit access logs for the stolen credentials, and engage HR about the exposed documents.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only reset the credentials for the original remote employee and assume no other accounts were accessed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Enforce Encryption for All Traffic",
+      "situation": "The attack succeeded because file server traffic was unencrypted. You must enforce encryption and mandate VPN for all remote access to prevent future interception attacks.",
+      "question": "What controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce TLS for all file server connections, mandate VPN for remote access, and implement certificate pinning to prevent future MITM attacks.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rely on the firewall to block future rogue hosts without encrypting the file server traffic.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The MITM attack was contained. The compromised appliance was forensically analysed and rebuilt. Affected credentials were reset, and TLS encryption plus mandatory VPN now protect all remote file server traffic.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Network",
+  "difficulty": "Advanced",
+  "tags": [
+    "MITM",
+    "interception",
+    "encryption",
+    "network"
+  ]
+}

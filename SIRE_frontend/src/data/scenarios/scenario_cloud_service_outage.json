@@ -1,0 +1,154 @@
+{
+  "title": "cloud_service_outage",
+  "description": "A major cloud provider region goes offline unexpectedly, taking down all production services that depend on a single-region deployment with no failover.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Production Services Down",
+      "description": "All production services go offline simultaneously. Cloud provider status page shows a major outage in eu-west-1. All systems hosted in a single region are affected.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "RTO Breach Imminent",
+      "description": "15 minutes into the outage with no cloud provider ETA. Your RTO for production services is 30 minutes. No secondary region is configured.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Business Impact Escalating",
+      "description": "Customer-facing services are down. Revenue impact accumulating. Executive leadership is demanding immediate action and status updates.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Emergency Failover Initiated",
+      "description": "Emergency DR procedures initiated. Static maintenance page deployed via CDN. Data recovery from cross-region backups begun.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Partial Service Restored",
+      "description": "Critical services restored in backup region eu-west-2 from automated backup snapshots. Non-critical services still offline. RTO breached by 45 minutes.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Full Recovery and Review",
+      "description": "All services restored. Business impact documented. Architecture review initiated to implement active-active multi-region deployment.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "All Production Services Offline \u2014 Regional Outage",
+      "situation": "All production services are down due to a major cloud provider outage in eu-west-1. Your entire production environment is in this single region with no configured failover. The cloud provider has no ETA for restoration. Your RTO is 30 minutes.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate your disaster recovery plan, deploy a static maintenance page via CDN to manage customer expectations, and initiate recovery procedures in your secondary region.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the cloud provider to restore the region since all infrastructure is provider-managed and there is nothing you can do.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to restart all services in eu-west-1 by rebooting instances via the management console, which is also affected by the outage.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "No Pre-Configured Secondary Region",
+      "situation": "Your DR plan references a secondary region (eu-west-2) but it was never fully configured. You have automated daily backup snapshots available in eu-west-2 but no pre-built infrastructure. Management needs status updates every 10 minutes.",
+      "question": "How do you communicate and prioritise recovery?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a war room with regular management updates, prioritise recovery of revenue-critical services first using IaC to deploy infrastructure in eu-west-2 from your backup snapshots.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to restore all services simultaneously in eu-west-2 without prioritisation, which will split the team's focus and delay critical service recovery.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Restoring Critical Services from Backups",
+      "situation": "IaC scripts are deploying infrastructure in eu-west-2. The most recent backup snapshot is from 4 hours ago, meaning up to 4 hours of data may be lost (RPO breach). You need to manage data loss implications and prioritise which services to restore first.",
+      "question": "How do you manage data loss and service prioritisation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore payment processing and customer authentication first (business-critical), document the RPO breach for regulatory and contractual reporting, and notify affected customers of potential data loss.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore all services in alphabetical order and address data loss concerns after full restoration.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Recovery Architecture Review",
+      "situation": "Critical services are restored in eu-west-2 with an RTO breach of 45 minutes. The outage lasted 3.5 hours for full recovery. You must now redesign the architecture to prevent future total outages from single-region failures.",
+      "question": "What architectural changes do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement an active-active multi-region architecture with automated failover, reduce backup intervals to meet your RPO, and conduct a DR test exercise quarterly to validate recovery procedures.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep the single-region architecture but negotiate a stronger SLA with the cloud provider to compensate for future outages.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The cloud outage was managed with a disaster recovery response despite the lack of pre-configured failover. Services were prioritised and restored in a secondary region. An active-active multi-region architecture with automated failover is now being implemented to meet RTO and RPO targets for future incidents.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cloud",
+  "difficulty": "Intermediate",
+  "tags": [
+    "cloud",
+    "outage",
+    "availability",
+    "business continuity"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "supply_chain_compromise",
+  "description": "A trusted third-party software vendor is compromised, and a malicious update is pushed to thousands of organisations including yours, installing a backdoor.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Vendor Security Advisory",
+      "description": "A trusted software vendor issues an emergency advisory: their update server was compromised and a malicious update containing a backdoor was distributed for 3 days.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Affected Systems Identified",
+      "description": "Asset management confirms 340 systems in your organisation received the malicious update during the distribution window.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Backdoor Activity Detected",
+      "description": "Threat hunting reveals C2 beacon traffic from 12 systems to known attacker infrastructure associated with the backdoor.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Backdoored Systems Isolated",
+      "description": "All 340 affected systems isolated from the network. Active C2 traffic terminated. Emergency change freeze implemented.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Forensic Triage Underway",
+      "description": "IR team triaging all 340 systems to determine which show active compromise indicators beyond the backdoor installation.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Clean Rebuild Initiated",
+      "description": "All affected systems rebuilt from clean images. Vendor software removed pending security assurance. Supply chain review initiated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Malicious Vendor Update Installed on 340 Systems",
+      "situation": "A trusted software vendor confirms their update mechanism was compromised. A backdoored update was distributed for 3 days. Your asset management shows 340 systems installed the malicious update. The backdoor enables remote access for the attackers.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate all 340 affected systems from the network, block the vendor's update server at the firewall, and activate the incident response team for a full threat hunt.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the vendor to release a clean update and apply it to remove the backdoor without isolating affected systems.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Uninstall the vendor software on all affected systems while they remain connected to the network.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Active C2 Traffic from 12 Systems",
+      "situation": "Threat hunting reveals active C2 beacon traffic from 12 of the 340 affected systems to known attacker infrastructure. These systems may have had data exfiltrated or be under active control. The remaining 328 systems show the backdoor but no confirmed active exploitation.",
+      "question": "How do you prioritise the investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Perform emergency forensic triage on the 12 actively beaconing systems first to assess data exfiltration and attacker actions, while keeping all 340 systems isolated.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus on the 328 non-beaconing systems first since they are less likely to be compromised.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Data Exfiltration Confirmed on 3 Systems",
+      "situation": "Forensics on the 12 active systems confirms data exfiltration on 3 systems, including a finance server and two developer workstations with access to source code repositories. Breach notification obligations apply.",
+      "question": "How do you manage the breach and recovery?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage legal and DPO for regulatory notification, rotate credentials for all accounts on compromised systems, revoke code signing certificates if developer systems are affected.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only notify the vendor about the breach and defer regulatory notification pending completion of the full investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Rebuild and Strengthen Supply Chain Controls",
+      "situation": "All affected systems are being rebuilt from clean images. You must now implement controls to prevent future supply chain compromises from having this impact.",
+      "question": "What supply chain controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement software update validation (code signing verification), deploy an internal update staging environment for testing before production rollout, and integrate third-party risk assessments for all software vendors.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Disable automatic updates and rely on manual update approval alone without code signing verification.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The supply chain compromise was contained. Active C2 systems were forensically investigated, breach notifications were made, and all 340 systems were rebuilt. Code signing verification and a staged update process now protect against future malicious vendor updates.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Advanced",
+  "tags": [
+    "supply chain",
+    "third-party",
+    "backdoor",
+    "software update"
+  ]
+}

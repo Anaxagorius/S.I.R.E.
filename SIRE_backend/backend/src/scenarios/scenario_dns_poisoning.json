@@ -1,0 +1,154 @@
+{
+  "title": "dns_poisoning",
+  "description": "An attacker poisons the DNS cache of the corporate resolver, redirecting staff browser traffic to a credential-harvesting clone of the corporate portal.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous DNS Resolution",
+      "description": "Staff report being redirected to an unfamiliar login page when accessing the corporate portal. SIEM flags unexpected DNS responses.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Cache Poisoning Confirmed",
+      "description": "Network team confirms the internal DNS resolver is returning a rogue IP address for the corporate portal domain.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Credential Harvesting Active",
+      "description": "The rogue site is collecting credentials. Estimated 47 staff members may have entered their passwords in the last 20 minutes.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Resolver Flushed",
+      "description": "DNS cache flushed and resolver hardened. Legitimate DNS responses are returning. Rogue site still reachable directly.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Affected Accounts Reset",
+      "description": "All accounts that authenticated during the poisoning window have been forced to reset passwords and invalidate sessions.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "DNSSEC Rollout Initiated",
+      "description": "DNSSEC validation enabled on all resolvers. Post-incident review scheduled to prevent future cache poisoning.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Staff Redirected to Fake Portal",
+      "situation": "Multiple staff members report that the corporate portal login page looks different. Your SIEM shows the internal DNS resolver is returning 198.51.100.45 for the portal domain instead of the legitimate IP. You suspect DNS cache poisoning.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Flush the DNS resolver cache immediately, block the rogue IP at the firewall, and alert staff not to enter credentials.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reboot the DNS server to resolve the issue without investigating the cause.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Continue monitoring to gather more evidence before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Identify Affected Users",
+      "situation": "The rogue DNS entry has been cleared. However, approximately 47 staff members may have visited the fake portal and entered credentials in the last 20 minutes. You need to identify and protect affected accounts.",
+      "question": "How do you address the compromised credentials?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Force password resets and session invalidation for all users who authenticated during the poisoning window, and enable MFA enforcement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send an email advisory asking staff to voluntarily change their passwords if they think they were affected.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Root Cause: Resolver Vulnerability",
+      "situation": "Analysis shows the resolver was vulnerable to Kaminsky-style DNS poisoning due to predictable source port randomisation being disabled. The resolver software is outdated.",
+      "question": "How do you remediate the resolver vulnerability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Patch the resolver software, enable source port randomisation, and configure DNSSEC validation to cryptographically verify DNS responses.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Simply re-enable the service with default settings and rely on the firewall for protection.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Prevent Recurrence",
+      "situation": "The immediate threat is contained and resolver is hardened. You now need to implement monitoring to detect future DNS anomalies before they affect users.",
+      "question": "What monitoring do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy DNS query logging with anomaly detection, alert on unexpected record changes, and schedule regular DNSSEC health checks.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "No additional monitoring needed \u2014 the DNSSEC implementation is sufficient protection.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "DNS cache poisoning was detected and contained. Affected credentials were reset, the resolver was patched and hardened with DNSSEC, and ongoing DNS monitoring is now active. The post-incident review is underway.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Network",
+  "difficulty": "Advanced",
+  "tags": [
+    "DNS",
+    "cache poisoning",
+    "network",
+    "redirect"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "title": "network_segmentation_failure",
+  "description": "A misconfigured switch VLAN allows a compromised guest Wi-Fi device to reach the internal production network, bypassing all perimeter controls.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous Internal Access",
+      "description": "IDS alerts on port scans originating from the guest Wi-Fi subnet (192.168.100.0/24) reaching production servers on VLAN 10.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "VLAN Misconfiguration Found",
+      "description": "Network team discovers a trunk port was misconfigured without a native VLAN restriction, allowing guest traffic to reach production VLANs.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Production Systems Probed",
+      "description": "The guest device has successfully connected to several internal services including a database server and HR portal using default credentials.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Guest Network Isolated",
+      "description": "The misconfigured trunk port is corrected. Guest VLAN traffic is restricted to internet-only access. Internal access blocked.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Compromised Services Assessed",
+      "description": "All services accessed by the guest device are audited. Default credentials changed. Access logs reviewed for data exfiltration.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Network Segmentation Audit",
+      "description": "Full VLAN and firewall ruleset audit completed. Automated configuration compliance checking implemented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Guest Device Reaching Production Network",
+      "situation": "IDS alerts show port scanning activity from IP 192.168.100.55 (guest Wi-Fi range) against production servers on 10.0.10.0/24. Guest network traffic should be completely isolated from production. A VLAN misconfiguration is suspected.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block the guest device at the firewall immediately, identify and correct the VLAN misconfiguration on the switch, and alert the IR team.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a warning to the guest user via the Wi-Fi captive portal and monitor for further activity.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Disable the entire guest Wi-Fi network until the issue is fully understood.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Production Systems Already Accessed",
+      "situation": "Investigation reveals the guest device connected to a database server and HR portal using default credentials before the firewall block was applied. You need to determine what data was accessed or exfiltrated.",
+      "question": "How do you assess the breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review access logs on the database and HR portal, identify all queries and downloads performed, and engage the data protection officer to assess regulatory obligations.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Change the default credentials and assume no sensitive data was accessed since the access was brief.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fix the VLAN Misconfiguration",
+      "situation": "Log analysis shows limited data exposure. The root cause is a misconfigured trunk port that allowed VLAN hopping. You must now remediate the segmentation failure and prevent recurrence.",
+      "question": "How do you fix the network segmentation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Correct the trunk port configuration with explicit VLAN allowed lists, enable VLAN pruning, and implement ACLs between VLANs at the layer-3 switch or firewall.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Simply assign the guest network to a different IP subnet without fixing the VLAN trunk configuration.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Validate and Audit All Segmentation",
+      "situation": "The specific misconfiguration is fixed. However, this incident reveals that other switch configurations may have similar issues. A comprehensive segmentation audit is needed.",
+      "question": "What do you implement for ongoing assurance?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a full switch configuration audit against a hardening baseline, implement automated compliance checks for VLAN configurations, and schedule quarterly network segmentation reviews.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only audit the switch where the misconfiguration was found and rely on periodic manual reviews.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The network segmentation failure was identified and remediated. VLAN trunk configurations were hardened, automated compliance checks are active, and a quarterly audit schedule ensures ongoing segmentation integrity.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Network",
+  "difficulty": "Advanced",
+  "tags": [
+    "network segmentation",
+    "VLAN",
+    "perimeter",
+    "misconfiguration"
+  ]
+}

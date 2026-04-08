@@ -1,0 +1,154 @@
+{
+  "title": "sql_injection",
+  "description": "An attacker exploits an unsanitised login form to inject SQL commands, dumping the entire user database including hashed passwords.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "WAF Alert Triggered",
+      "description": "Web Application Firewall alerts on SQL metacharacters in the login form submission. Database error messages are appearing in HTTP responses.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Database Dump Detected",
+      "description": "Database monitoring shows unusually large SELECT queries returning the entire users table. An automated SQLMap-like tool is suspected.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "User Table Exfiltrated",
+      "description": "Evidence confirms the users table including 45,000 hashed passwords and email addresses has been exfiltrated over the past 30 minutes.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Vulnerable Endpoint Patched",
+      "description": "The login endpoint is taken offline and patched with parameterised queries. WAF rules updated to block SQLi patterns.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Users Notified",
+      "description": "Affected users notified of the breach. Password resets enforced. Regulatory body notified per data breach obligations.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Application Security Review",
+      "description": "Full code review identifies three additional injection vulnerabilities. Parameterised queries enforced application-wide. Penetration test commissioned.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "SQL Injection Attack in Progress",
+      "situation": "Your WAF alerts on SQL metacharacters in login form submissions. Database monitoring shows mass SELECT queries being run against the users table. The attack appears automated. 45,000 user records including hashed passwords may be at risk.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take the vulnerable login endpoint offline, update WAF rules to block SQLi payloads, and engage the development team to apply parameterised queries immediately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rate-limit the login endpoint and continue monitoring to gather attacker intelligence without interrupting the application.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the database server to interrupt the active queries and assess damage afterwards.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Confirmed Data Exfiltration",
+      "situation": "Network logs confirm the entire users table (45,000 records with email addresses and bcrypt hashes) was exfiltrated. You must now manage the breach \u2014 user notification, regulatory obligations, and ongoing attacker access must be addressed.",
+      "question": "How do you manage the data breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify affected users to reset passwords, report the breach to the data protection authority within the regulatory window (e.g., 72 hours under GDPR), and engage legal counsel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Quietly reset all passwords internally without notifying users or regulators to avoid reputational damage.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Remediate the Vulnerable Code",
+      "situation": "The development team has fixed the login endpoint with parameterised queries. However, a code review may reveal additional injection vulnerabilities elsewhere in the application.",
+      "question": "How do you ensure comprehensive remediation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commission a full application code review and DAST scan to identify all injection vulnerabilities, and mandate parameterised queries across the entire codebase.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only fix the reported login endpoint and re-open the application assuming all other code is safe.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Strengthen Application Security Posture",
+      "situation": "The code review found three additional SQLi vulnerabilities, all now patched. You need to implement controls to prevent future injection vulnerabilities from reaching production.",
+      "question": "What security controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Integrate SAST into the CI/CD pipeline to catch injection flaws pre-deployment, enforce WAF in blocking mode, and schedule annual penetration tests for the application.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Increase WAF sensitivity and rely on runtime detection alone without changing the development pipeline.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The SQL injection attack was contained, data breach notifications were issued within regulatory timelines, all injection vulnerabilities were patched, and SAST tooling now prevents future injection flaws from reaching production.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Intermediate",
+  "tags": [
+    "SQL injection",
+    "web",
+    "database",
+    "injection"
+  ]
+}

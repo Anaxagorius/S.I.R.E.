@@ -1,0 +1,154 @@
+{
+  "title": "malicious_cloud_admin",
+  "description": "A rogue cloud administrator with elevated privileges creates persistent backdoor IAM users, exfiltrates data to external storage, and disables CloudTrail logging to cover their tracks.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "CloudTrail Logging Disabled",
+      "description": "AWS Security Hub alerts that CloudTrail logging was disabled in two regions by an admin account during non-business hours.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rogue IAM Users Created",
+      "description": "Before logging was disabled, CloudTrail captured creation of three new IAM admin users with programmatic access. These do not match any known staff accounts.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Data Exfiltration to External Storage",
+      "description": "S3 replication rules to an external AWS account are discovered on production data buckets. An estimated 500 GB of data may have been exfiltrated.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Admin Account Suspended",
+      "description": "The rogue admin account is suspended. CloudTrail re-enabled in all regions. Rogue IAM users deleted and access keys revoked.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Forensic Reconstruction Underway",
+      "description": "Using VPC flow logs and S3 access logs (which were not disabled), investigators reconstruct a timeline of the rogue admin's activities.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Controls Hardened",
+      "description": "SCPs preventing CloudTrail disablement deployed. Mandatory MFA for root and admin accounts. Privileged access workstations and just-in-time admin access implemented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "CloudTrail Disabled by Rogue Admin",
+      "situation": "AWS Security Hub alerts that CloudTrail logging was disabled in eu-west-1 and us-east-1 by a cloud admin account at 2 AM. Before logging was disabled, CloudTrail captured the creation of three rogue IAM admin users. This is consistent with an insider threat or compromised admin account.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Re-enable CloudTrail in all regions immediately, suspend the admin account, delete the rogue IAM users and revoke their access keys, and alert your IR team.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact the admin to ask if they disabled CloudTrail for maintenance before taking any account action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Only re-enable CloudTrail and monitor for further activity before suspending the account.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Data Exfiltration via S3 Replication",
+      "situation": "Investigation finds S3 cross-account replication rules pointing to an external AWS account (123456789012) have been added to production data buckets. This was not captured in CloudTrail due to the logging blackout but VPC flow logs show significant outbound traffic to S3.",
+      "question": "How do you stop and assess the data exfiltration?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove all unauthorised S3 replication rules immediately, use VPC flow logs and S3 server access logs to reconstruct what data was replicated and to which account.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delete the S3 buckets to prevent further replication without assessing what was already exfiltrated.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Breach Assessment and Regulatory Notification",
+      "situation": "Analysis of S3 access logs (which were not affected by the CloudTrail blackout) confirms 500 GB of customer data including PII was replicated to the external account. Breach notification is required.",
+      "question": "How do you manage breach notifications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify the supervisory authority within the regulatory deadline, prepare customer notifications, engage law enforcement regarding the insider threat, and preserve all forensic evidence for investigation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only internally document the breach pending a full internal investigation before making any external notifications.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Prevent CloudTrail Disablement and Admin Abuse",
+      "situation": "The attack was facilitated by an overprivileged admin who could disable audit logging. Structural controls must prevent this from happening regardless of admin privilege level.",
+      "question": "What controls prevent future admin abuse?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy SCPs that deny cloudtrail:StopLogging and cloudtrail:DeleteTrail for all accounts, implement just-in-time admin access with approval workflows, and enforce MFA for all admin actions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Require two-person authorisation for CloudTrail changes but allow admins to retain persistent admin access.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The rogue admin's access was revoked, rogue IAM users deleted, and S3 replication stopped. Regulatory notifications were made and law enforcement engaged. SCPs preventing audit log disablement and just-in-time admin access now prevent future insider threat scenarios.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cloud",
+  "difficulty": "Advanced",
+  "tags": [
+    "cloud",
+    "insider threat",
+    "IAM",
+    "audit logging"
+  ]
+}

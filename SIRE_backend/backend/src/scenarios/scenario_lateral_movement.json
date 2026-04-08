@@ -1,0 +1,154 @@
+{
+  "title": "lateral_movement",
+  "description": "After compromising one workstation via phishing, an attacker uses pass-the-hash and SMB exploitation to spread laterally across the corporate network.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Initial Compromise Detected",
+      "description": "EDR alerts on credential dumping activity (Mimikatz pattern) on a Finance workstation after a phishing email was opened.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Lateral Movement Observed",
+      "description": "SIEM detects SMB authentication attempts from the Finance workstation to 12 other hosts using a cached admin hash.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Multiple Systems Compromised",
+      "description": "Three additional workstations and one file server confirm unauthorised access. Attacker appears to be moving toward the domain controller.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Domain Controller Targeted",
+      "description": "SIEM alerts on DCSync-like LDAP queries from a compromised workstation. Domain admin credentials may be at risk.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Containment Achieved",
+      "description": "Affected systems isolated. Domain admin password rotated. Kerberos ticket invalidation initiated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Domain Rebuilt and Hardened",
+      "description": "Compromised accounts remediated. Credential Guard deployed. SMB signing enforced across the domain.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Credential Dumping on Finance Workstation",
+      "situation": "Your EDR alerts on Mimikatz-like behaviour on a Finance workstation. The user opened a phishing attachment 10 minutes ago. Credential dumping from LSASS is occurring. The attacker likely has cached NTLM hashes for admin accounts.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the workstation from the network immediately to prevent pass-the-hash lateral movement, and alert the IR team to investigate the extent of the compromise.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Run an antivirus scan on the workstation while it remains connected to verify the alert is not a false positive.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the user to log off their session and wait for IT to investigate next business day.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Lateral Movement Across Multiple Hosts",
+      "situation": "Despite isolating the Finance workstation, SIEM shows prior SMB lateral movement to 3 workstations and a file server using stolen admin NTLM hashes. The attacker appears to be moving toward the domain controller.",
+      "question": "How do you contain the lateral movement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate all confirmed compromised hosts, rotate all admin credentials immediately, and block SMB traffic laterally between workstations at the firewall.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Monitor the attacker's movement passively to gather intelligence before taking containment action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Domain Controller Under Threat",
+      "situation": "SIEM detects DCSync-like LDAP queries originating from a compromised workstation. The attacker may be attempting to dump all domain password hashes. The domain controller must be protected immediately.",
+      "question": "How do you protect the domain controller?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block DCSync-related LDAP traffic from non-DC hosts at the network level, initiate a krbtgt password reset to invalidate all Kerberos tickets, and isolate the DC's network segment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reboot the domain controller to interrupt the DCSync attempt without changing credentials.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Harden Against Pass-the-Hash",
+      "situation": "The incident is contained. Now you must implement controls to prevent pass-the-hash and credential theft from enabling future lateral movement across the domain.",
+      "question": "What hardening measures do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy Windows Credential Guard to protect LSASS, enforce SMB signing to prevent relay attacks, implement tiered admin model (PAWs), and deploy LAPS for local admin passwords.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Increase antivirus scan frequency and rely on EDR alerts alone to detect future credential dumping.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Lateral movement was contained before the domain controller was compromised. All stolen credentials were rotated, Kerberos tickets invalidated, and hardening measures including Credential Guard, SMB signing, and LAPS now protect the domain from future pass-the-hash attacks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Network",
+  "difficulty": "Advanced",
+  "tags": [
+    "lateral movement",
+    "pass-the-hash",
+    "SMB",
+    "network"
+  ]
+}

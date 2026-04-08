@@ -1,0 +1,154 @@
+{
+  "title": "misconfigured_iam",
+  "description": "An overly permissive IAM role attached to a Lambda function is exploited by an attacker to pivot across cloud services and exfiltrate data from production databases.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Lambda Anomaly Detected",
+      "description": "AWS GuardDuty alerts on unusual API calls made by a Lambda function execution role \u2014 the function is calling sts:AssumeRole and listing RDS databases.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "IAM Role Abuse Confirmed",
+      "description": "The Lambda function's IAM role has AdministratorAccess. An attacker who compromised the Lambda function is using the role to pivot to RDS and S3.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Data Exfiltration from RDS",
+      "description": "CloudTrail logs show the attacker creating RDS snapshots and copying them to an external AWS account. Production customer data is being exfiltrated.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Lambda Role Revoked",
+      "description": "Lambda execution role replaced with a least-privilege role. Active sessions using the old role revoked via STS. RDS snapshot sharing disabled.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "IAM Audit Initiated",
+      "description": "Full IAM audit of all Lambda, EC2, and ECS roles to identify other AdministratorAccess or wildcard policy attachments.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Least Privilege Enforced",
+      "description": "All service roles reduced to least privilege. IAM Access Analyzer deployed. SCPs restricting sts:AssumeRole across services implemented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Lambda Function Abusing Overly Permissive IAM Role",
+      "situation": "GuardDuty alerts that a Lambda function's execution role (with AdministratorAccess) is making unusual API calls: listing all RDS databases, creating snapshots, and attempting to share them cross-account. An attacker has compromised the Lambda function and is pivoting using its overly permissive role.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Revoke the Lambda function's current IAM role, replace it with a deny-all policy, and revoke all active STS tokens issued to that role to halt the attacker's access.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Disable the Lambda function itself without revoking existing STS sessions, allowing the attacker to continue using already-issued tokens.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reduce the IAM role permissions to read-only while the attacker is still active to limit damage.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "RDS Snapshots Being Shared Cross-Account",
+      "situation": "Despite revoking the Lambda role, RDS snapshot sharing was initiated before revocation. The snapshots may now be accessible in the attacker's AWS account. You must stop the exfiltration and assess what was taken.",
+      "question": "How do you stop the RDS snapshot exfiltration?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove all cross-account sharing from affected RDS snapshots, encrypt existing unencrypted snapshots with a new KMS key, and review CloudTrail to determine which snapshots were successfully shared.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delete the shared RDS snapshots in your account and assume the attacker cannot access any copies made in their account.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assess Data Exfiltration and Breach Obligations",
+      "situation": "CloudTrail confirms 2 RDS snapshots containing production customer data were successfully shared to an external account. This is a confirmed data breach requiring regulatory notification.",
+      "question": "How do you manage the data breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage the DPO to notify the supervisory authority within the regulatory deadline, identify affected customers for notification, and document the full scope of data in the shared snapshots.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rotate all database credentials and assume the snapshots are secure since they require AWS account access to read.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Enforce Least Privilege Across All Service Roles",
+      "situation": "The breach resulted from an AdministratorAccess policy on a Lambda execution role \u2014 a classic least-privilege violation. A full IAM audit of all service roles is needed.",
+      "question": "What IAM governance controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy IAM Access Analyzer to identify over-permissive policies, implement SCPs to block attachment of AdministratorAccess to service roles, and require IAM policy reviews in the CI/CD pipeline before deployment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Manually review Lambda roles only since that is the service that was exploited.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The overly permissive Lambda IAM role was revoked and RDS snapshot exfiltration was contained. Regulatory notifications were made on time, all service roles were audited and reduced to least privilege, and IAM Access Analyzer with SCPs now prevent future privilege misconfigurations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cloud",
+  "difficulty": "Intermediate",
+  "tags": [
+    "IAM",
+    "cloud",
+    "privilege escalation",
+    "least privilege"
+  ]
+}
