@@ -1,0 +1,112 @@
+{
+  "title": "scenario_search_smoke_filled_maze",
+  "description": "Search and rescue in a smoke-filled maze-like commercial building with complex layout",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["search and rescue", "smoke", "maze", "commercial", "crew accountability", "navigation", "SCBA"],
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Fire reported in a large commercial warehouse converted to office cubicles. Multiple workers reported still inside.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Heavy smoke from all ground-floor vents. Building layout confirmed as open floor plan with high cubicle walls — maze-like configuration.", "timeOffsetSec": 45 },
+    { "index": 2, "title": "Search Entry", "description": "Two-person search team enters via the main entrance. Hose line deployed as a guideline.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Disorientation Event", "description": "Search team reports they have become turned around inside the cubicle maze. Smoke is floor-to-ceiling.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Victim Contact", "description": "Team makes physical contact with a conscious victim crouched under a desk.", "timeOffsetSec": 270 },
+    { "index": 5, "title": "Egress Confirmed", "description": "Team guides victim out via hose line to main entrance. Secondary search team enters.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Entry into Maze-Like Structure",
+      "situation": "You arrive at a large converted warehouse. The interior is configured as a maze of high-walled office cubicles on an open floor plate. Heavy smoke is banking from ceiling to about waist height. Multiple workers are reported still inside. You have one search team ready to enter.",
+      "question": "What is your search strategy before entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a search rope or charged hose line from the entry point. Brief the team on the right-hand wall technique, set a turn-back air pressure limit, establish radio check intervals with IC, and ensure both members have personal escape tools.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Enter quickly without a guideline — the smoke layer is high enough to see at waist height and time is critical.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for ventilation crews to clear the smoke before committing any search team.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Disorientation Inside the Maze",
+      "situation": "Your team is 25 metres inside the structure. The smoke has thickened significantly and now covers the floor. The cubicle walls have broken your wall-contact technique because you cannot feel an external wall. You are unsure of your position relative to the entrance.",
+      "question": "How do you reorient your team?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop immediately. Do not move until you regain orientation. Follow the hose line coupling direction back toward the entrance if needed. Radio IC with your last known position and request a PAR check.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Keep moving — pausing wastes air and time while victims may be nearby.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Split up — each member can cover more area and one of you will find a wall.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Located — Conscious but Panicking",
+      "situation": "While reorienting along the hose line you hear coughing nearby. You locate a conscious worker crouched under a desk, approximately 3 metres off the hose line. The victim is coughing badly and is panicking, refusing to move. Air supply is now at 60%.",
+      "question": "How do you manage the victim?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calm the victim verbally, stay low with them, place a hand on their shoulder. If available, share a buddy air regulator or pass-around mask. Physically guide them back to the hose line and toward the exit without releasing the line.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the victim to follow the sound of your voice and move ahead quickly to the exit.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave one firefighter with the victim and send the other out for help.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Egress Under Low Air",
+      "situation": "You are moving toward the exit with the victim along the hose line. Your air gauge shows 33% — the turn-back pressure you set before entry. There are additional unaccounted workers reported. You can hear distant coughing.",
+      "question": "What is your decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue guiding the victim out — do not abandon them to search further. Relay the coughing location to IC via radio so a fresh team can be dispatched immediately.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the victim on the hose line — they can follow it out — and push forward to the coughing sounds.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call a MAYDAY and wait for rescue rather than moving — your air situation is concerning.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The victim was guided out safely and transferred to EMS. Your radio relay of the additional coughing location allowed a fresh team to locate and rescue two more workers within minutes. Your pre-entry guideline setup, disciplined reorientation, victim-management technique, and air discipline all combined to produce a successful outcome without rescuer injury.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

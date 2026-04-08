@@ -1,0 +1,112 @@
+{
+  "title": "scenario_search_compromised_floor",
+  "description": "Search and rescue in a structure where floor integrity is compromised by fire damage",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["search and rescue", "floor integrity", "structural fire", "firefighter safety", "floor collapse", "fire ground survival", "rescue"],
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Structure fire in a two-story Victorian home with reported occupant on second floor. Building is over 100 years old with wood frame construction.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "On Scene", "description": "Fire visible on first floor rear. Heavy smoke from second floor. Age of structure and fire location raise floor integrity concerns.", "timeOffsetSec": 40 },
+    { "index": 2, "title": "Entry", "description": "Search crew enters. First-floor hallway boards show charring. IC warns of potential floor failure on first-floor-fire path.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Floor Warning", "description": "Crew hears cracking under foot near the kitchen entrance. IC orders caution.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Victim Located", "description": "Victim found on second floor. Return path shows partial floor compromise on the staircase landing.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Rescue Complete", "description": "Victim removed via exterior ladder. All crew accounted for. Structure transitioned to defensive.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Assessing Floor Integrity Before Entry",
+      "situation": "You arrive at a century-old two-story wood-frame Victorian home. Fire is active on the first floor rear. A resident reports their parent is on the second floor and cannot self-evacuate. The construction type and fire location raise serious floor integrity concerns for the first floor and staircase.",
+      "question": "How do you manage the floor integrity risk during search entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief crew on floor failure indicators — spongy feeling, cracking sounds, smoke from floor seams. Advance by hugging the walls where joists are strongest, test each step before committing full weight, and identify a secondary egress via exterior ladders before entry.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Move quickly — hesitation increases exposure time and puts the victim at greater risk.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not enter — the floor integrity risk makes interior operations unacceptable. Search from exterior only.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Spongy Floor Detected",
+      "situation": "Your crew is advancing along the right wall of the first-floor hallway toward the staircase. One firefighter reports the floor feels spongy and soft underfoot near the kitchen entrance — a sign the floor joist below may be compromised. The staircase is just beyond this section.",
+      "question": "How do you navigate the compromised floor section?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop movement. Re-route via the wall opposite the kitchen, staying as close to the load-bearing exterior wall as possible. Distribute weight by moving one person at a time across the suspect zone. Notify IC of the compromised floor location.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Move quickly over the spongy section — brief contact with a weak floor is safer than prolonged weight.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Both crew members cross together — if the floor goes, they need each other on the same side.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Staircase Integrity Check",
+      "situation": "Your crew reaches the staircase. The lower two steps appear charred on the underside. IC confirms the fire has been burning in the first-floor kitchen below the staircase. The treads flex when you press on them. The victim is reported on the second floor.",
+      "question": "How do you assess and use the staircase?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Test each step with a tool before body weight. Distribute load by ascending with 1.5–2 metre spacing between crew members — never two on the same step. If any step fails, abort and use the exterior ladder as the pre-planned secondary egress.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Climb normally — the staircase is the fastest route and EMS needs the victim quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Carry up a floor ladder to lay across the steps to distribute weight across multiple treads at once.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Victim Found — Return Path Compromised",
+      "situation": "You locate the victim in a second-floor bedroom — conscious but unable to walk due to mobility impairment. While planning egress, IC radios: 'The staircase landing on the first floor has partially collapsed — do not use the stairs for egress.' The pre-planned secondary egress — an exterior ladder at the bedroom window — is in place.",
+      "question": "How do you remove the victim?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the exterior ladder egress as planned. Signal the ground crew to position the ladder at the window. Lower the victim using a rescue harness or chair carry with a firefighter above for control, and guide the victim down the ladder.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt the staircase anyway — a partial collapse may still leave a passable path.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Shelter in the second-floor bedroom and wait for IC to arrange interior shoring before exiting.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The victim was successfully lowered via the exterior ladder to waiting ground crew and transferred to EMS. The staircase landing failed completely moments later. Your pre-entry egress planning, floor assessment technique, load distribution on the staircase, and pre-planned ladder egress execution allowed a successful rescue while all crew members exited safely.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

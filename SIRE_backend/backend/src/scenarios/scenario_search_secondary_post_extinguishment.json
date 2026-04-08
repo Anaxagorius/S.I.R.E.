@@ -1,0 +1,112 @@
+{
+  "title": "scenario_search_secondary_post_extinguishment",
+  "description": "Secondary search of a structure following fire extinguishment, seeking missed victims and confirming all clear",
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["search and rescue", "secondary search", "overhaul", "post-fire", "victim recovery", "structural fire"],
+  "timeline": [
+    { "index": 0, "title": "Fire Knocked", "description": "Engine crew reports the main body of fire is out. Primary search accounted for three of four reported occupants.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Secondary Search Ordered", "description": "IC orders secondary search teams to conduct a thorough search. Smoke still moderate, structure partially damaged.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Teams Deployed", "description": "Two teams enter from separate entry points for overlapping coverage. Crew accountability tracking is initiated.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Anomaly Found", "description": "Team 2 finds a closed closet door on the upper landing that was missed during primary search.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Victim Found", "description": "A child is located in the closet — alive but unconscious from smoke inhalation.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "All Clear", "description": "Secondary search complete. All areas checked. One additional victim located and removed.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Organizing the Secondary Search",
+      "situation": "The fire is out. Three of four reported occupants have been accounted for — two self-evacuated, one removed during primary. The fourth person, a child, is still unaccounted for. The structure has moderate smoke and some areas have been burned. How do you organize the secondary search?",
+      "question": "What is your approach to the secondary search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy two teams entering from different access points for overlapping coverage. Conduct a methodical room-by-room search including all closed spaces — closets, bathrooms, and under furniture — and document each area cleared.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Have the primary search team re-enter and quickly repeat their previous path, since they know the layout.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Begin overhaul immediately — fire is out and the missing child likely self-evacuated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Structural Hazards During Search",
+      "situation": "Team 1 is on the first floor and encounters a portion of the ceiling that has partially collapsed over a hallway. The debris field is passable but unstable. The hallway leads to a rear bedroom that was not fully cleared in the primary search.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Test stability of the debris before entry. If passable, one firefighter advances while the other monitors from outside the collapse zone. Notify IC of the hazard location.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Skip the rear bedroom — the debris makes it too risky to enter and the fire started at the front of the house.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Both team members push through quickly together — speed reduces exposure time.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Closed Door on Upper Landing",
+      "situation": "Team 2 reaches the upper landing and finds a closed closet door. The primary team's radio report indicated they searched this hallway but did not note the closet. There is no visible smoke or heat coming from under the door.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check the door for heat, open it carefully, and conduct a thorough search of the closet including feeling the floor and walls — victims, especially children, may hide in concealed spaces.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Mark it as cleared since the primary team searched the hallway and move on.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Open the door briefly, look in with a flashlight, and move on if no one is visible.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Child Located — Medical Response",
+      "situation": "A child, approximately 6 years old, is found curled at the back of the closet under clothing — unconscious but breathing. Smoke inhalation is likely. The child needs to be removed rapidly but the closet is small and the hallway above has moderate smoke.",
+      "question": "How do you remove and hand off the child?",
+      "options": [
+        {
+          "label": "A",
+          "text": "One firefighter carefully carries the child using a blanket drag toward the staircase while the other clears the path and radios IC to have EMS standing by at the exit.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Apply a pediatric resuscitation mask from your kit and begin CPR in place before moving.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Lower the child from the window to crew below — the staircase is smoky and the window is faster.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The child was removed and transferred to EMS with a pulse. The secondary search teams completed full coverage of all rooms, hallways, and concealed spaces. No further victims were found. The missed closet during primary search was the critical gap your team corrected. All areas were documented and an all-clear was issued to IC.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
