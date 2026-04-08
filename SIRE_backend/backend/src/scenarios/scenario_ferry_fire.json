@@ -1,0 +1,147 @@
+{
+  "title": "scenario_ferry_fire",
+  "description": "Fire aboard a passenger ferry mid-crossing with passengers trapped and limited escape routes",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Coast Guard relays distress call from the MV Cascade, a passenger ferry mid-crossing with 210 passengers. Engine room fire. Ferry is 2.5 miles from shore.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Fireboat and Coast Guard both responding. Ferry crew reports engine room fire and loss of propulsion. Smoke filling lower passenger decks. Ferry drifting.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Ferry drifting with thick black smoke from the stern. Passengers crowding the bow. Life rings deployed but no life boats yet. Ferry crew of 8 still aboard managing passengers.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Panic Aboard",
+      "description": "Passengers beginning to jump into 58\u00b0F water. Ferry crew unable to control crowd. Fire visible from engine room hatch. Smoke reaching upper passenger deck.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Fireboat Alongside",
+      "description": "Fireboat alongside stern. Water rescue team pulling swimmers from water. Foam applied to engine room from fireboat. Coast Guard vessel taking passengers from bow.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Engine room fire suppressed with foam. All 210 passengers transferred to Coast Guard and fireboat. 6 hypothermia cases from swimmers. No fatalities.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "The ferry is drifting 2.5 miles offshore with 210 passengers. Smoke is filling lower decks. Passengers are beginning to jump into 58\u00b0F water. The engine room fire is fed by diesel fuel. The fireboat is 4 minutes from reaching the ferry. The Coast Guard has a vessel 6 minutes out.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Radio the ferry captain to activate the ship's PA and order all passengers to the bow and upper decks only\u2014away from the smoke and engine room\u2014while deploying your fireboat's water rescue team to retrieve any passengers already in the water.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Proceed directly to the engine room stern to apply foam and extinguish the fire before addressing passenger management.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Order an immediate full passenger abandonment into the water since the ferry may sink.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Patient Rescue in Water",
+      "situation": "Fireboat is alongside the stern. Six passengers are in the water. Water temperature is 58\u00b0F\u2014cold incapacitation occurs within 30 minutes. Two swimmers are visibly struggling. The engine room fire is spreading along fuel lines. You must balance water rescue and fire attack.",
+      "question": "How do you allocate your fireboat crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign 2 crew to water rescue operations to retrieve the struggling swimmers immediately, while 2 crew prepare foam attack on the engine room\u2014prioritizing life safety of those in the water since cold incapacitation is a faster kill than the fire timeline.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Commit all crew to engine room fire suppression since controlling the fire prevents more passengers from entering the water.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for Coast Guard to arrive before performing water rescue since your fireboat crew is needed for fire attack.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ferry Passenger Transfer",
+      "situation": "Six swimmers have been retrieved. Engine room fire is being attacked with AFFF foam from the fireboat's monitor. Coast Guard vessel has arrived at the bow. Passengers can be transferred from the ferry bow to the Coast Guard vessel in groups. Remaining 204 passengers are on upper decks and bow.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with Coast Guard to begin systematic passenger transfer from the ferry bow\u2014priority order: children, elderly, injured\u2014while the fireboat maintains foam application on the engine room; establish a unified command with Coast Guard.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin transferring passengers to the fireboat from the stern to minimize walking distance for passengers.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stop passenger transfer and wait until the fire is fully extinguished to prevent passenger panic during transfer.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All 210 passengers were transferred to the Coast Guard vessel and fireboat. Engine room fire was suppressed with AFFF. Six water rescue patients were treated for mild hypothermia and released. No fatalities. The ferry was towed to port for investigation. Your rapid passenger deck redirection, prioritized water rescue, foam fire attack, and coordinated mass passenger transfer under unified command with Coast Guard demonstrated exceptional marine incident command.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "ferry",
+    "marine fire",
+    "passenger evacuation",
+    "life safety",
+    "water rescue"
+  ]
+}

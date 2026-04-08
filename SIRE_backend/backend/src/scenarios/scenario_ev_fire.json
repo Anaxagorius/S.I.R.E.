@@ -1,0 +1,146 @@
+{
+  "title": "scenario_ev_fire",
+  "description": "Electric vehicle battery fire on a highway with thermal runaway risk",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Report of a smoking electric vehicle on the highway median. Caller states the vehicle is not on fire yet but emitting thick white smoke.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Dispatch confirms the EV is now showing visible flames from the undercarriage. Hazmat team notified. Driver has self-evacuated.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Tesla sedan in median with orange flames erupting from battery pack. Intense white smoke. Driver standing 30 feet away. HOV lane blocked.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Thermal Runaway",
+      "description": "Battery pack cells venting audibly. Temperature readings near 800\u00b0C at pack surface. Reignition cycle beginning. Flames pulse in and out every 30 seconds.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Mass Water Application",
+      "description": "2.5-inch line applying 300 GPM directly into battery pack area. Thermal camera shows cooling beginning in outer cells.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Suppressed",
+      "description": "Active flames suppressed after 45 minutes of continuous water application. Vehicle moved to containment area for extended monitoring.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "You arrive to find a late-model electric sedan in the highway median with orange flames erupting from the undercarriage. White toxic smoke is billowing. The driver is self-evacuated and uninjured 30 feet upwind. Wind is pushing smoke toward the travel lanes. Traffic is backing up.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a 150-foot perimeter upwind, request hazmat response and additional water supply, don SCBA before approaching, and identify the vehicle make and battery type from the manufacturer's emergency response guide.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply a dry chemical extinguisher to the battery compartment to quickly knock down the fire and reopen the highway.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Disconnect the 12V auxiliary battery under the hood to cut power to the high-voltage battery management system before applying water.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Water Application Strategy",
+      "situation": "Hazmat is 15 minutes out. The battery pack is in full thermal runaway\u2014cells are venting and reigniting. Your ERG and manufacturer guide indicate the pack requires continuous high-volume water immersion. You have one 2.5-inch line available producing 300 GPM. The undercarriage is inaccessible without breaching the battery enclosure.",
+      "question": "How do you attack the battery fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply continuous high-volume water (300 GPM) directly into the undercarriage battery area from a safe distance, accepting that suppression will take 30\u201360 minutes and prepare for multiple reignition cycles.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to pierce the battery enclosure with a TIC-guided drill to inject water directly into cells for faster suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Cover the vehicle with a fire blanket to smother the battery fire and conserve water.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Reignition Management",
+      "situation": "After 20 minutes of water application, the flames appear knocked down but the battery pack reignites twice within 5 minutes. Hazmat has arrived. Thermal imaging shows two cell modules still above 600\u00b0C. The highway authority is demanding the road be cleared. Your water supply is adequate but the tanker needs to relay.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain continuous water application, coordinate a tanker relay to sustain supply, advise the highway authority the scene cannot be cleared prematurely due to reignition risk, and arrange post-suppression vehicle transport to a quarantine area.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Declare the fire suppressed after the visible flames go out and release the scene to allow traffic to resume.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply foam concentrate over the battery area to create a vapor seal and end the water application.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "After 50 minutes of sustained high-volume water application, the battery pack temperature dropped below 200\u00b0C and reignition ceased. The vehicle was transported to a designated impound lot for 72-hour monitoring per manufacturer protocol. SCBA use throughout the operation protected crews from toxic cell off-gases. Hazmat documented the runaway event. Your correct tactical approach\u2014high-volume water, perimeter control, and reignition awareness\u2014demonstrated best practice for EV battery fire response.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "electric vehicle",
+    "battery fire",
+    "thermal runaway",
+    "hazmat"
+  ]
+}

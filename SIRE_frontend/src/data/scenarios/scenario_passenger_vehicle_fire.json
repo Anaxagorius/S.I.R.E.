@@ -1,0 +1,146 @@
+{
+  "title": "scenario_passenger_vehicle_fire",
+  "description": "Passenger vehicle fire on a busy highway with possible occupants trapped",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "911 calls report a vehicle on fire on the highway. Multiple callers state the vehicle is fully engulfed and a person may still be inside.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Heavy black smoke visible from two miles out. Dispatch confirms one caller reports seeing movement inside the vehicle.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Sedan fully involved on the highway shoulder. Traffic stopped in all lanes. Bystanders standing dangerously close.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Fire Intensifies",
+      "description": "Flames are reaching 10 feet. The rear bumper area shows signs of fuel-fed fire. A bystander yells that someone is slumped in the driver's seat.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Rescue Attempt",
+      "description": "One crew member approaches with a charged line. Bystanders are being pushed back. Fuel tank area is crackling.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Fire knocked down. Victim removed by rescue crew and transferred to EMS. Scene secured and traffic management underway.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "You arrive first on scene. A sedan is fully engulfed on the highway right shoulder. Traffic has stopped and approximately 20 bystanders are within 50 feet of the vehicle. A bystander shouts that someone is inside. Your engine has one 1\u00be-inch pre-connected line and a charged booster reel.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish scene safety by positioning the apparatus to block traffic, push bystanders back at least 100 feet, and stretch a 1\u00be-inch attack line before approaching the vehicle.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rush to the driver's door immediately to attempt extrication before the fire spreads further.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Use the booster reel to knock down the fire from a distance and skip bystander management since traffic has stopped.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rescue Assessment",
+      "situation": "Bystanders are back. Attack line is charged. You can see the driver slumped against the steering wheel. The driver's door is accessible but the vehicle's A-pillar is already showing fire. The fuel tank area is producing a crackling sound.",
+      "question": "How do you approach the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply water to the driver's door and A-pillar to cool the immediate rescue area, then have a crew member open the door while the hoseman maintains water application on the fire.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advance directly to knock down the engine compartment fire first to prevent fuel-line ignition, delaying the rescue.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Declare the vehicle unsafe and go defensive, waiting for the fire to burn out before approaching.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Extrication Decision",
+      "situation": "Door is opened. The driver is unconscious but breathing, seat-belted in. Flames are being held at bay by the hoseman. The fuel tank crackling has intensified and you can smell raw fuel. EMS is 2 minutes out.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Perform a rapid manual extrication\u2014cut the seat belt, drag the driver clear of the vehicle immediately, and move the victim upwind at least 50 feet before EMS arrives.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for EMS to arrive before moving the patient to avoid liability for a potential spinal injury.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to drive the burning vehicle off the roadway to improve access before extracting the patient.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The driver was rapidly extricated and moved to a safe distance. Moments after removal, the fuel tank ruptured. The attack line prevented fire extension to the victim during extrication. EMS assumed care of the driver. Traffic management was established and the scene was secured. Your rapid scene safety setup, controlled rescue approach, and decisive extrication prevented a fatality.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Beginner",
+  "tags": [
+    "vehicle fire",
+    "roadway",
+    "rescue",
+    "traffic management"
+  ]
+}

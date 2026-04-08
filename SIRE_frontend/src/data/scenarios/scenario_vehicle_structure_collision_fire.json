@@ -1,0 +1,146 @@
+{
+  "title": "scenario_vehicle_structure_collision_fire",
+  "description": "Vehicle collides with a building, causing both vehicle and structure fire",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Vehicle into building reported at a strip mall. Caller reports fire from both the vehicle and the building interior. Multiple people inside.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Dispatch confirms vehicle breached the front wall of a occupied restaurant. Gas leak reported by building manager.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "SUV embedded in restaurant wall with engine compartment fire. Natural gas flame visible at breach point. Six patrons visible inside past vehicle.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Gas Feed",
+      "description": "Natural gas is feeding the fire at the breach point. Structure wall is igniting. Patrons visible and ambulatory but trapped by the vehicle blocking exit.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Gas Shutoff",
+      "description": "Gas company en route. Utility shut-off valve located by crew at building exterior. Patrons being guided out rear emergency exit.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Gas shut off. Vehicle fire extinguished. Structure fire knocked down. All six patrons evacuated with minor injuries.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "An SUV is embedded in a restaurant wall with its engine compartment on fire. A natural gas line at the breach point is feeding a flame. Six patrons are visible inside and attempting to exit but the vehicle is blocking the main entrance. The structure wall is starting to show fire involvement.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify dispatch to contact the gas utility for emergency shutoff, locate the exterior gas shut-off valve, guide patrons to a rear emergency exit, and apply a water line to protect egress and prevent vehicle fire from extending into the structure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Drive the SUV out of the wall with your apparatus push bumper to reopen the main entrance for evacuation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attack the gas-fed fire directly with water to knock it down before doing anything else.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Patron Evacuation",
+      "situation": "Patrons are located. The rear emergency exit is clear but some patrons are panicking and not responding to direction. The gas-fed fire at the wall breach is intensifying. Structure wall is now showing 10 feet of fire involvement. The exterior gas shut-off has been found.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Have one crew member shut off the exterior gas valve immediately to stop the gas feed, while a second crew member leads panicking patrons to the rear exit using calm, clear commands and physical direction.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Force the patrons out through the burning breach point since it is the fastest route.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the gas company to shut off the gas before doing anything else since the gas feed is the primary hazard.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Structure Fire Attack",
+      "situation": "Gas is shut off. All six patrons have exited through the rear. The wall fire continues burning residual gas and structure materials. The vehicle engine compartment fire is spreading to the vehicle interior. A crew member reports hearing cracking sounds in the ceiling above the breach point.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not enter under the cracked ceiling; deploy a 1\u00be-inch line through the breach opening to knock the interior structure fire from outside, and use a second line to extinguish the vehicle fire while structural integrity is assessed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a crew inside to make an aggressive interior fire attack to prevent the ceiling collapse.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the structure fire to burn and focus only on the vehicle since the structure will need to be demolished anyway.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Gas shutoff stopped the fuel source. Wall fire was knocked down from outside the breach, preventing full structural collapse. Vehicle fire was extinguished. The ceiling sustained partial collapse in the breach area with no crew inside. All six patrons evacuated with minor injuries (cuts, one smoke inhalation). Structural engineers were called for assessment. Your scene size-up correctly identified dual hazards, prioritized life safety, and executed a safe fire attack without exposing crew to collapse risk.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "vehicle collision",
+    "structure fire",
+    "hybrid incident",
+    "rescue"
+  ]
+}

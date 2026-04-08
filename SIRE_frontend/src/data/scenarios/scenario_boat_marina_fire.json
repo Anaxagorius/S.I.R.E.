@@ -1,0 +1,147 @@
+{
+  "title": "scenario_boat_marina_fire",
+  "description": "Boat fire spreading at a marina with fuel tanks and adjacent vessels at risk",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Marina attendant reports a cabin cruiser on fire at Slip 14. Fire spreading rapidly. Multiple boats in adjacent slips. Propane tanks aboard some vessels.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Marina confirms three boats now showing fire. Boat owners are untying and attempting to move adjacent vessels. No injuries reported yet.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Two cabin cruisers fully involved at slips 13 and 14. A third boat in slip 15 has caught fire. Dock is engulfed. Water access for apparatus limited to the main dock approach.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Dock Burns",
+      "description": "Dock structure burning. Boat owners still attempting to move vessels. Propane tank aboard slip 15 boat showing flame. BLEVE risk imminent.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Propane Tank Relief",
+      "description": "Propane tank vents via PRV without BLEVE. Water cooling applied. Boat owners cleared from dock. Fireboat requested for water-side attack.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Three boats destroyed. Fire contained to slips 13-15. Dock partially destroyed. Fireboat and shore crews prevented fire reaching 12 remaining vessels. No injuries.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "Three boats are burning and the dock structure is on fire. Boat owners are on the dock attempting to untie adjacent boats to move them. One boat in slip 15 has a propane tank with visible flame impingement. Your apparatus can only access from the main dock approach. A fireboat is available 10 minutes away.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Clear all civilians from the dock immediately due to dock fire, propane BLEVE risk, and falling debris; request the fireboat; and deploy a 2.5-inch line to cool the propane tank on slip 15 from the dock approach to prevent BLEVE.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Help the boat owners move adjacent vessels to create a firebreak before focusing on the burning boats.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply foam to all three burning boats simultaneously to knock down the fire before it spreads further.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "BLEVE Management",
+      "situation": "Civilians are cleared from the dock. Water is cooling the propane tank in slip 15. The tank pressure relief valve activates\u2014you hear a loud venting sound. The PRV is working as designed but the fire is feeding on the venting propane. The tank is not yet in BLEVE territory but fire is intensifying.",
+      "question": "How do you manage the propane tank situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue sustained water cooling on the propane tank\u2014never extinguish a flammable gas fire from the PRV unless you can shut the gas off, as re-ignition of unburned gas creates an explosion risk. Maintain cooling until the tank is consumed or removed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply a dry chemical extinguisher to the PRV flame to knock it down.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Send a crew member to manually close the propane tank valve to stop the gas feed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Spread Prevention",
+      "situation": "Propane tank is cooling. The fireboat is 3 minutes away. Three boats are burning with fire spreading along the dock structure toward 12 more vessels in slips 1\u201312. You have one 2.5-inch line on the dock approach and limited water access. The dock structure fire is the fire spread vector.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Redirect the 2.5-inch line to attack the dock structure fire that is spreading toward slips 1-12, using it as a firebreak, and coordinate with the fireboat on arrival to attack the burning boats from the water side.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue focusing water on the three burning boats since they are the primary fire source.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stage and wait for the fireboat before applying any water, since shore-based attacks are ineffective on marine fires.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The dock structure fire was controlled at slip 12, protecting the remaining 12 vessels. The fireboat arrived and attacked the three burning boats from the water side with foam. The propane tank was consumed by controlled burn without BLEVE. All civilians were safely evacuated from the dock. Three boats were lost but no injuries occurred. Your propane cooling protocol, civilian evacuation, dock firebreak prioritization, and fireboat coordination prevented a catastrophic marina loss.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "boat fire",
+    "marina",
+    "fuel tanks",
+    "marine firefighting",
+    "fire spread"
+  ]
+}

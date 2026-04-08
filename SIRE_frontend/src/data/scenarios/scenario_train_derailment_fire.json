@@ -1,0 +1,147 @@
+{
+  "title": "scenario_train_derailment_fire",
+  "description": "Freight train derailment with multiple cars on fire and hazmat release risk",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Report of a freight train derailment near mile post 44. Multiple cars off the tracks. Fire reported. Rail emergency line contacted.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Railroad confirms 8 cars derailed. Manifest lists car 4 as ethylene oxide (UN 1040) and car 7 as gasoline (UN 1203). Both cars on fire.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Eight freight cars derailed across 600 feet. Cars 3 and 4 are burning. Orange flames from gasoline car 7 visible. Dense smoke. Railroad and EPA en route.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Hazmat Release",
+      "description": "Ethylene oxide (car 4) is venting\u2014colorless gas with explosive range of 3-100%. Vapor cloud drifting northeast toward a residential community 0.3 miles away.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Evacuation",
+      "description": "Law enforcement evacuating 0.5-mile radius. Hazmat establishing exclusion zone. Water fog being used to disperse vapor cloud. BLEVE risk monitored.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilized",
+      "description": "Vapor cloud dispersed. Gasoline car 7 fire extinguished with foam. Ethylene oxide car isolated and monitored by hazmat. Evacuation completed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "Eight freight cars are derailed. Cars 3 and 7 are burning. The railroad manifest confirms car 4 is ethylene oxide (UN 1040)\u2014flammable, toxic, with an explosive range of 3\u2013100%. Car 4 is venting a colorless vapor cloud drifting northeast toward residential homes 0.3 miles away. You are first on scene with one engine.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stage upwind at least 1,000 feet, request hazmat and law enforcement for immediate 0.5-mile evacuation downwind, contact the railroad emergency line for the full manifest and CHEMTREC for ethylene oxide guidance, and do NOT apply water to ethylene oxide without hazmat direction.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply water fog immediately to the venting car 4 to knock down the vapor cloud before it reaches the homes.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advance to car 7 to extinguish the gasoline fire and prevent it from spreading to car 4.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation Priority",
+      "situation": "Hazmat is 20 minutes out. Law enforcement has 4 units available. The ethylene oxide vapor cloud is visible on air monitoring equipment at 2.5%\u2014within the explosive range. The residential community northeast is 0.3 miles away and has approximately 400 residents.",
+      "question": "How do you coordinate the evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct all 4 law enforcement units to immediate door-to-door evacuation of the residential community downwind; request LRAD or reverse-911 alert; and keep fire crews staged upwind ready to support as hazmat arrives\u2014no fire crew in the hot zone.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send 2 fire crew into the hot zone to identify the leak source and manually close the vent valve on car 4.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply water to cool car 4 from maximum distance to reduce venting rate while evacuation proceeds.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hazmat Operations",
+      "situation": "Hazmat has arrived in Level A. Evacuation is 80% complete. Hazmat team advises they can use water fog to disperse the ethylene oxide vapor cloud away from the community. The gasoline car 7 fire is still burning and threatening car 6 (empty lumber). Hazmat requests fire to suppress car 7 while they manage the vapor cloud.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with hazmat: deploy 2.5-inch line with foam concentrate to suppress the gasoline car 7 fire from a safe upwind approach angle identified by hazmat, while hazmat manages vapor cloud dispersion with water fog\u2014unified command with railroad and EPA.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply water only (no foam) to car 7 to avoid introducing a new chemical into the spill area.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline to advance on car 7 since it is within the hazmat exclusion zone.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Gasoline car 7 was extinguished with AFFF foam. Water fog dispersed the ethylene oxide vapor cloud below the explosive range. Evacuation of 400 residents was completed with no casualties. Hazmat in Level A secured the ethylene oxide car. EPA managed environmental containment. Unified command with railroad, hazmat, law enforcement, and fire was established successfully. Your disciplined non-approach, rapid evacuation coordination, and expert-guided fire attack demonstrated best practice for a multi-hazard rail derailment.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "train derailment",
+    "rail",
+    "hazmat",
+    "mass casualty",
+    "BLEVE risk"
+  ]
+}

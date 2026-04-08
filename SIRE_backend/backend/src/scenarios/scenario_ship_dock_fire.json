@@ -1,0 +1,147 @@
+{
+  "title": "scenario_ship_dock_fire",
+  "description": "Large commercial ship fire at a dock with cargo holds, fuel stores, and confined firefighting challenges",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Port authority reports fire aboard the MV Harrington at Berth 7. Fire in cargo hold 3. Ship carries containerized general cargo. 28 crew aboard.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Port authority confirms fire is in hold 3 of 5. Cargo manifest lists general goods, electronics, and one container of Class 4.1 flammable solids. Crew attempting internal firefighting.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "200-foot cargo vessel at dock with heavy black smoke from hold 3 ventilation hatches. Crew muster confirms 26 of 28 crew on deck. Two crew missing in hold 3 area. Captain on radio.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Crew Missing",
+      "description": "Two crew members were attempting to fight the fire internally and are now unaccounted for. Ship's CO2 fixed system is charged but has not been activated. Hatches can be sealed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Search Underway",
+      "description": "SCBA-equipped crew descends into hold via accommodation ladder. Two missing crew located unconscious at hold 3 stairwell. CO2 system held pending rescue.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Two crew extracted and treated for smoke inhalation. CO2 system activated to smother hold 3 fire. Fire extinguished. Vessel secured for investigation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A 200-foot cargo ship at the dock has fire in hold 3. Two crew are unaccounted for inside the hold. The ship's CO2 fixed fire suppression system can be activated to smother the fire, but this will also be immediately fatal to anyone inside. The hold 3 hatches can be sealed. You are the IC on the dock.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Instruct the Captain to NOT activate the CO2 system until the missing crew status is confirmed; don SCBA and establish a search team to locate the crew; notify the Captain to prepare but hold the CO2 activation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately seal the hatches and activate the CO2 system to rapidly extinguish the fire and protect the rest of the ship.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deny entry to the ship until the fire is confirmed extinguished by natural smothering.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Confined Space Entry",
+      "situation": "Two-person search team is ready in SCBA. Hold 3 entry is via a vertical ladder 30 feet down. The hold atmosphere has CO levels measured at 800 ppm and oxygen below 18% at the bottom of the access. Fire is visible at the aft end of the hold. The team has 30-minute SCBA cylinders.",
+      "question": "How do you manage the confined space entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief the team on entry/exit procedures, ensure a tended safety line is deployed, limit entry to 15 minutes maximum (half their air supply for exit reserve), establish a rescue team in standby at the entry point, and maintain radio contact throughout.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send the team in without a time limit since the missing crew's survival depends on speed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Have the search team remove their SCBAs for better maneuverability in the tight hold spaces.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Victims Found, CO2 Decision",
+      "situation": "Both missing crew are located unconscious at the stairwell\u2014they collapsed from smoke inhalation. The fire is growing in the aft end of the hold. The Captain is requesting permission to activate CO2. The search team is extracting the victims. CO2 activation will kill the fire but the team is still in the hold for approximately 3 more minutes.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order the search team to expedite victim removal at all possible speed, confirm the moment they clear the hold, and then immediately authorize the Captain to activate CO2\u2014do NOT activate while any crew is inside.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Authorize CO2 activation immediately since the fire risk to the ship outweighs the risk to the rescue team in the final 3 minutes.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Continue delaying CO2 indefinitely until the fire self-extinguishes to ensure complete crew safety.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both victims were extracted from the hold. The moment the last firefighter cleared the access ladder, the Captain activated the CO2 system under your authorization. The hold fire was extinguished within 90 seconds. Both missing crew recovered from smoke inhalation and were transported to a hospital, later discharged. The Class 4.1 containers were undamaged. Your decision to delay CO2 activation until personnel were clear, combined with disciplined confined space protocol, saved two lives and controlled a dangerous ship fire.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "ship fire",
+    "dock",
+    "marine",
+    "cargo",
+    "confined firefighting"
+  ]
+}

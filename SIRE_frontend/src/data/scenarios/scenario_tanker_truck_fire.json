@@ -1,0 +1,147 @@
+{
+  "title": "scenario_tanker_truck_fire",
+  "description": "Tanker truck fire on a highway with flammable liquid cargo threatening BLEVE",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Report of a tanker truck fire on Highway 61. Caller states the tanker is leaking and on fire. Placard information unknown.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Dispatch confirms placard reads UN 1203 (Gasoline). Flames visible from 4 miles. Mutual aid and hazmat requested.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Gasoline tanker truck overturned on highway. Fuel actively burning beneath the tank. Tank skin showing heat discoloration. Driver unaccounted for.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "BLEVE Warning Signs",
+      "description": "Pressure relief valve is venting audibly. Tank skin turning red in a 4-foot diameter spot. Pinging sounds from tank shell. BLEVE risk is imminent.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Cooling Operations",
+      "description": "Two 2.5-inch lines applying water to tank surface from 500 feet. Driver found 200 feet from truck, conscious.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilized",
+      "description": "Tank cooled below danger threshold. Fuel fire extinguished with foam. Driver treated for burns. Highway evacuated 1 mile in each direction.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A gasoline tanker (UN 1203) is overturned with fuel-fed fire burning under the tank shell. The tank skin is showing heat discoloration and the pressure relief valve is venting. The driver's location is unknown. You are first on scene with one engine. Nearest mutual aid is 8 minutes.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a 500-foot evacuation perimeter, request immediate mutual aid and foam supply, do NOT approach the tank, contact dispatch for driver's last known position, and begin cooling the tank with maximum water from maximum safe distance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Approach the tanker immediately to close the pressure relief valve and stop the venting.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply foam directly to the burning pool fire first to eliminate the fuel source before addressing the tank.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "BLEVE Indicators",
+      "situation": "The tank skin is developing a bright red discoloration approximately 4 feet in diameter. You hear audible pinging sounds\u2014classic BLEVE pre-indicators. Mutual aid is 5 minutes out. A bystander reports seeing the driver stumble away from the truck. Your crew is positioned at 500 feet applying water.",
+      "question": "How do you respond to the BLEVE indicators?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately order all personnel behind substantial cover or to evacuate beyond 1,000 feet, continue water application only if crews are behind hard cover, and broadcast an urgent radio warning to all units.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Move crews closer to 200 feet to apply more effective water to the hot spot on the tank.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Send one crew member to investigate the driver's location while others maintain cooling.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Driver Located",
+      "situation": "All personnel are behind cover. The driver is spotted 200 feet from the tanker on the median, moving but injured. The BLEVE indicators appear to be stabilizing as water cooling takes effect\u2014the red spot is fading and pinging has slowed. Mutual aid with foam has arrived.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Wait for TIC confirmation that the tank skin temperature has dropped to a safe threshold, then coordinate a rapid medical rescue of the driver using a protected approach route from the end of the tank\u2014never the side\u2014while foam is applied to the pool fire.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rush to the driver immediately now that the BLEVE risk appears reduced, approaching from the closest direction.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Declare the BLEVE risk over and move all equipment to within 100 feet to begin foam application.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The tank was successfully cooled below BLEVE threshold. Foam application extinguished the pool fire. The driver was rescued via a protected approach from the tank end and transferred to EMS with second-degree burns to both arms. The highway was evacuated for one mile in each direction. HazMat managed product recovery. Your disciplined approach\u2014perimeter establishment, BLEVE recognition, crew protection, and deliberate rescue timing\u2014prevented a catastrophic incident.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "tanker truck",
+    "flammable liquid",
+    "BLEVE",
+    "hazmat",
+    "evacuation"
+  ]
+}

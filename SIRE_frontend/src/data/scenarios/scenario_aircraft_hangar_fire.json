@@ -1,0 +1,147 @@
+{
+  "title": "scenario_aircraft_hangar_fire",
+  "description": "Fire in an airport hangar with aircraft fuel, high ceilings, and suppression system challenges",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Airport reports fire alarm activation in Hangar 5. Hangar contains 3 private aircraft. Fuel stored on site. Hangar suppression system has activated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Airport security confirms visible fire in hangar. Suppression system is running but fire is not controlled. One aircraft has ignited. Two mechanics unaccounted for.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Hangar door partially open. One aircraft burning. Foam suppression system active but ineffective on the fire's spread. 60-foot ceiling. Dense smoke filling upper volume. Mechanics' truck parked outside.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Search",
+      "description": "One mechanic found outside, one unaccounted for. Fire spreading to second aircraft. Fuel drums in northwest corner at risk.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Interior Search",
+      "description": "Search team located unconscious mechanic in service pit beneath burning aircraft. Extracted with SCBA team. Foam hoseline suppressing aircraft fire.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Fire extinguished. Both mechanics accounted for. Second aircraft protected by foam application. Fuel drums cooled and protected. Scene secured.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A hangar with a 60-foot ceiling has one aircraft burning. The fixed foam suppression system is running but not controlling the fire. There is a 55-gallon drum fuel storage area in the northwest corner. One mechanic is unaccounted for. Smoke is banking down from the ceiling.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Don SCBA and send a search team into the hangar to locate the missing mechanic while a second team deploys a foam hoseline to supplement the suppression system and protect the fuel drum storage area.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait outside for the suppression system to control the fire before entering since the system may still work.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Force all hangar doors fully open to improve visibility and create a cross-ventilation effect to clear smoke.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Mechanic Located",
+      "situation": "The missing mechanic has been found unconscious in a service pit beneath the burning aircraft. He has no visible fire burns but shows signs of smoke inhalation. The service pit is 4 feet deep and 12 feet long. The aircraft above is burning and shedding flaming debris into the pit area.",
+      "question": "How do you execute the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Have the foam hoseman apply foam suppression to the undercarriage of the burning aircraft to protect the rescue team, then have two crew descend into the pit, secure the mechanic, and lift him out while protected by the foam application.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Lower a rope into the pit and instruct the unconscious mechanic to grab it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Drag the burning aircraft away from the pit using a vehicle before attempting the rescue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Secondary Aircraft Threat",
+      "situation": "Mechanic has been extracted and transferred to EMS. The primary aircraft fire is continuing. Fire is now spreading to the second aircraft 40 feet away. Fuel drums in the northwest corner are showing heat discoloration at 200\u00b0F per TIC. A hoseline is required to protect the drums.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a second foam hoseline to protect the fuel drums and suppress the spread to the second aircraft simultaneously, accepting that two focused applications are more effective than concentrating on only the primary fire.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Concentrate both lines on the primary aircraft fire to extinguish it first, then address the secondary aircraft and fuel drums.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Move the fuel drums by hand to the hangar exterior to eliminate that hazard.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Foam application stopped fire spread to the second aircraft. Fuel drums were cooled below ignition temperature. Primary aircraft fire was extinguished. The mechanic was treated for smoke inhalation and recovered. The fixed suppression system was found to have been undersized for the fire load. Your search priority, foam-protected pit rescue, and dual-threat hoseline deployment demonstrated expert aviation hangar firefighting operations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "aircraft hangar",
+    "airport",
+    "aviation fire",
+    "foam",
+    "high ceiling"
+  ]
+}
