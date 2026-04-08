@@ -1,0 +1,178 @@
+{
+  "title": "scenario_failed_lessons_learned",
+  "description": "Six months after a significant phishing-led breach, a near-identical attack succeeds again because the action items identified in the post-incident review were never tracked to completion. The team must respond to the second incident while addressing the failure of the lessons learned process.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Second Phishing Breach Confirmed",
+      "description": "A second phishing-led breach is confirmed. Initial analysis reveals the attack method is near-identical to the breach that occurred six months ago.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Lessons Learned Failure Identified",
+      "description": "Review of the prior incident's post-incident report confirms that all relevant action items to prevent recurrence were identified but none were completed.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Active Incident Contained",
+      "description": "The current breach is contained and remediated. The attacker is evicted from the environment.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Action Item Accountability Review Completed",
+      "description": "Review of why prior action items were not completed identifies absent ownership, no tracking mechanism, and no management review of completion status.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Lessons Learned Process Rebuilt",
+      "description": "A structured action item tracking process with owners, deadlines, and management accountability is implemented.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The second breach was contained. The failure of the lessons learned process was systematically root-caused and a new process with mandatory ownership, tracking, and executive accountability was implemented. The action items from both incidents are now being tracked to completion.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Near-Identical Breach Occurs Six Months Later",
+      "situation": "A phishing campaign has compromised a staff member's credentials and an attacker is active in your environment. During initial triage, a team member retrieves the post-incident report from a phishing breach six months ago. The attack vector, compromised credential type, and lateral movement pattern are near-identical. The prior report contains seven action items including MFA enforcement on all accounts, phishing simulation training, and email link sandboxing. None of the seven action items have been completed.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the IR plan to contain the current breach, disable the compromised credentials, and simultaneously flag the lessons learned failure to IR leadership as an urgent process issue requiring root cause analysis alongside the active incident response.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately begin implementing all seven prior action items before containing the active breach, prioritising prevention over the live incident.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Contain the current breach and treat the prior incomplete action items as a separate issue to be reviewed at the next quarterly meeting.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Containing the Active Breach",
+      "situation": "The compromised credentials have been disabled. The attacker has accessed a SharePoint site containing project documentation and a shared mailbox, and attempted but failed to move laterally to a privileged account due to a partial MFA rollout covering 40% of accounts. The attacker is still active through a session token that persists beyond password reset. Full containment requires session token invalidation and a sweep of all systems the attacker touched.",
+      "question": "How do you complete containment of the active breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Invalidate all active session tokens for the compromised account across all services, sweep EDR telemetry for the attacker's activity to identify all accessed systems, revoke any OAuth tokens or API keys associated with the compromised account, and conduct a targeted phishing simulation sweep of the full organisation to identify if other credentials were compromised in the same campaign.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reset the compromised password only and assume containment is complete, without invalidating session tokens or sweeping for additional compromised accounts.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Block the attacker's source IP address only, which does not prevent re-entry through the still-valid session token or alternative IPs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Root-Causing the Lessons Learned Failure",
+      "situation": "The breach is fully contained. Review of the seven incomplete action items from the prior incident reveals: each action item was assigned to a team but no individual owner was named, there was no tracking mechanism beyond the post-incident report document, no deadline was set for any item, and management received no update on completion status in the six months since the incident. The individual responsible for following up had left the organisation three months ago and no handover of the tracking responsibility occurred.",
+      "question": "How do you root-cause and document the lessons learned process failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document all root causes: absent individual ownership, no tracking system, no deadlines, no management reporting, and no handover of accountability when the responsible person left. Quantify the impact of the failure as the cost and damage of the second breach, and use this as the evidence base for executive commitment to a new process.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attribute the failure solely to the individual who left the organisation without addressing the systemic process gaps that made the failure possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Acknowledge the failure informally but avoid quantifying its impact to management, reducing the urgency and executive attention needed to drive process change.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Rebuilding the Lessons Learned Process",
+      "situation": "Executive leadership has acknowledged the process failure and committed to improvement. Both incidents' action items must now be tracked to completion. A new lessons learned process must be designed to ensure future action items have accountability structures that survive personnel changes, are visible to management, and are driven to completion with deadlines.",
+      "question": "What lessons learned process do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a lessons learned tracking process requiring: a named individual owner for each action item, a defined completion deadline, integration into the team's existing project tracking tool with management visibility, monthly status reporting to the CISO, and a post-incident review of lessons learned completion at the six-month mark. Apply this process retrospectively to all open action items from both incidents.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Create a lessons learned register spreadsheet shared with the team but without management reporting or accountability mechanisms.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Prioritise only the MFA action item as it would have prevented both breaches, and defer the remaining six action items to the next annual security programme review.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The second breach was fully contained. The lessons learned process failure was root-caused, revealing absent individual ownership, no tracking mechanism, no deadlines, and no management visibility. A new process with named owners, deadlines, project tracking integration, monthly CISO reporting, and a six-month completion review was implemented. All open action items from both incidents are now being actively tracked to completion.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IR Process",
+  "difficulty": "Intermediate",
+  "tags": [
+    "lessons learned",
+    "post-incident review",
+    "phishing",
+    "action items",
+    "IR process",
+    "process improvement",
+    "accountability"
+  ]
+}

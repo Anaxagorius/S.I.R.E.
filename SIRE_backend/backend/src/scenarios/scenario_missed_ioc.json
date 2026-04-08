@@ -1,0 +1,178 @@
+{
+  "title": "scenario_missed_ioc",
+  "description": "During an active ransomware response, threat intelligence reveals that the attacker's indicators of compromise were present in the organisation's logs three weeks before detonation, and were available in public threat intelligence feeds that the team subscribes to. The team must reconstruct the attacker's full timeline and close intelligence integration gaps.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Ransomware Detonates",
+      "description": "Ransomware detonates across 60 servers. IR team is activated and initial containment begins.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Threat Intelligence Match Found",
+      "description": "A threat intelligence analyst identifies that the attacker's C2 infrastructure matches IOCs published on a public feed three weeks prior to detonation.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Historical Log Review Confirms Early Presence",
+      "description": "Log analysis confirms attacker activity dating back 22 days, all associated with IOCs that were publicly available and subscribed to.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Full Attacker Timeline Reconstructed",
+      "description": "The complete intrusion timeline is mapped from initial access through to ransomware deployment, identifying every stage of the attack lifecycle.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Intelligence Integration Improvements Deployed",
+      "description": "Automated IOC ingestion and blocking is implemented, closing the gap between intelligence subscription and operational use.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Ransomware was contained and systems restored. The attacker's full 22-day timeline was reconstructed, missed IOCs were retrospectively applied, and automated threat intelligence integration was implemented to prevent future intelligence-to-action delays.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ransomware Detonation and Intelligence Gap Discovered",
+      "situation": "Ransomware has detonated across 60 servers in your environment. During initial triage, a threat intelligence analyst flags that the attacker's command-and-control IP addresses and file hashes exactly match a threat actor profile published on your subscribed threat intelligence feed 22 days ago. A search of SIEM logs immediately returns hits for these IOCs going back three weeks, confirming the attacker was present long before detonation and was not actioned despite available intelligence.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate parallel workstreams: contain the active ransomware outbreak using network isolation, and begin a retrospective IOC hunt across all log sources from the past 30 days to reconstruct the full attacker timeline and identify all compromised systems.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus exclusively on ransomware recovery and restore from backup without investigating the prior access period, leaving the initial access vector and full compromise scope unknown.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Block only the IOCs currently known and begin recovery, without conducting a historical retrospective to find all attacker activity.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Reconstructing the 22-Day Attacker Timeline",
+      "situation": "The ransomware outbreak has been partially contained. Historical log analysis has confirmed attacker activity across 22 days. The attack progression shows initial access via a phishing email, credential theft, lateral movement across 14 systems, data staging on a file server, and then ransomware deployment. All stages are associated with IOCs that were present in your subscribed threat intelligence feed before each stage occurred. You need to complete the timeline and understand all systems touched.",
+      "question": "How do you complete the timeline reconstruction and scope the full compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use all available log sources including SIEM, EDR, firewall, DNS, and proxy logs to build a chronological attack chain, map every system the attacker touched to the IOC that should have detected them, and identify any systems not yet confirmed as compromised but at risk.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reconstruct the timeline only for systems directly affected by ransomware, ignoring the earlier lateral movement phase where the attacker may have established additional persistence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Rely solely on the attacker's known IOCs without reviewing additional log sources, potentially missing attacker activity associated with previously unknown tooling.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Closing the Intelligence Integration Gap",
+      "situation": "The full attacker timeline across 22 days has been reconstructed across 18 systems. Analysis of why the IOCs were missed reveals a critical gap: the organisation subscribes to three threat intelligence feeds but manually reviews their reports weekly. IOC data is not automatically ingested into the SIEM or used to generate blocking rules. The 22-day window represents the gap between intelligence publication and the next manual review cycle.",
+      "question": "How do you close the gap between threat intelligence and operational detection?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement automated threat intelligence platform (TIP) integration to ingest IOCs from subscribed feeds directly into the SIEM and firewall blocklists in near-real-time, with a defined IOC lifecycle management process to handle expiry and false positive rates.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Increase the manual review frequency from weekly to daily, which still leaves a window for IOC misses and does not scale with feed volume.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Unsubscribe from the intelligence feeds that failed to prevent the attack, removing useful intelligence sources rather than fixing the integration process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recovery and Validation of Intelligence Programme",
+      "situation": "Automated IOC ingestion is now live and the ransomware-affected systems are being restored from backup. The intelligence integration improvement must be validated and the lessons from the missed IOC incident must be formalised into the IR process to ensure threat intelligence is systematically applied during future incidents.",
+      "question": "How do you validate the intelligence programme improvements and embed them into the IR process?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a validation exercise confirming that new IOCs from subscribed feeds are ingested and actioned within a defined SLA (e.g., 1 hour), update the IR playbook to include mandatory retrospective IOC hunting as a step in every incident, and schedule quarterly intelligence programme reviews.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy the automated integration without validation testing, assuming it works correctly without verifying end-to-end IOC flow from feed to detection.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Document the lessons learned but make no changes to the IR playbook, leaving future responders without a process for applying threat intelligence during incidents.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The ransomware outbreak was contained and systems were recovered. The full 22-day attacker timeline was reconstructed using retrospective IOC hunting across all log sources. The root cause of missed intelligence was identified as a manual review process too slow to operationalise IOCs. Automated threat intelligence integration was implemented and validated, and mandatory retrospective IOC hunting was embedded into the IR playbook.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IR Process",
+  "difficulty": "Advanced",
+  "tags": [
+    "threat intelligence",
+    "IOC",
+    "ransomware",
+    "detection gap",
+    "SIEM",
+    "IR process",
+    "retrospective analysis"
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "title": "scenario_ineffective_containment",
+  "description": "During a malware outbreak, the IR team isolates one infected host but fails to identify that the malware has already spread to 15 other systems via shared network drives. Overnight, the malware re-activates from an uncontained system and spreads further.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Malware Detected on Single Host",
+      "description": "EDR alerts identify malware on a single workstation. Initial containment isolates only this host.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Overnight Re-Activation Detected",
+      "description": "The following morning, EDR and SIEM alerts indicate the malware is active on 12 additional systems, spreading from an uncontained host overnight.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Full Scope Identified",
+      "description": "A comprehensive environment sweep identifies 15 originally infected systems that were not contained, plus 8 newly infected systems from overnight spread.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Comprehensive Containment Applied",
+      "description": "All 23 affected systems are isolated and the malware's lateral movement mechanism via shared network drives is blocked.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Containment Verification Process Established",
+      "description": "A containment completeness checklist and verification process is implemented to prevent scope-limited containment in future incidents.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The malware outbreak was fully contained after the scope limitation failure was identified. A comprehensive environment-wide sweep identified all affected systems, lateral movement mechanisms were blocked, and a containment completeness verification process was implemented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Malware Re-Activates Overnight from Uncontained Systems",
+      "situation": "It is 08:30. Overnight EDR and SIEM alerts show the malware your team contained yesterday evening has re-activated across 12 systems. Yesterday at 17:00, the team isolated the single workstation where malware was first detected and closed the incident. Investigation now reveals the malware was spreading via a mapped shared network drive and had already infected 15 systems before the initial host was isolated. The team's containment was effective only for the one host they knew about.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately activate the IR team, conduct an environment-wide EDR sweep to identify all systems with malware indicators, identify the shared network drive as a spread vector and remove access to it, and treat the full environment as potentially compromised until the complete scope is established.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Isolate the 12 newly detected systems and close the incident again, without investigating why containment failed or whether additional systems are affected.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restore all affected systems from backup immediately without first completing containment, risking re-infection from still-active malware.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Establishing Full Scope of the Outbreak",
+      "situation": "The environment-wide EDR sweep has been initiated. The shared network drive has been taken offline. Initial sweep results show 15 systems were infected prior to initial containment (visible in telemetry timestamps) and 8 systems were infected overnight from the uncontained hosts, for a total of 23 affected systems. The malware appears to be a ransomware precursor: it establishes persistence and exfiltrates data before detonating. No ransomware detonation has occurred yet, but the window before detonation may be limited.",
+      "question": "How do you prioritise containment across 23 affected systems?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritise containment of the 8 recently infected systems (newest infections with highest detonation risk), then systematically isolate all 15 originally infected systems, apply network-level blocks on the malware's known C2 destinations across the entire environment, and preserve forensic images before remediation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Isolate all 23 systems simultaneously regardless of business criticality, maximising disruption to operations without a tiered approach.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus containment only on systems holding sensitive data, leaving other infected systems active as they are considered lower priority.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Root-Causing the Initial Containment Failure",
+      "situation": "All 23 systems are contained and network-level blocks are in place. Ransomware detonation has been prevented. Review of the initial containment decision yesterday reveals: the analyst who responded isolated only the alerted host, did not check whether the malware could spread laterally, did not search for the malware's indicators on other systems, and closed the incident without a containment completeness review. The IR team has no defined containment verification checklist.",
+      "question": "How do you root-cause and document the containment failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the containment failure as a process incident: identify that the lack of a containment scope assessment step and the absence of a verification checklist were root causes, quantify the additional impact caused by overnight spread (8 systems, potential ransomware risk), and use this evidence to justify a containment process improvement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attribute the failure solely to the individual analyst's performance without examining systemic process gaps.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Note the failure informally but make no changes to the IR process, accepting that scope-limited containment will recur.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implementing Containment Completeness Verification",
+      "situation": "The malware outbreak is fully contained and remediation is underway. A containment process improvement must be designed and implemented. The improvement must ensure that future containment actions are scope-assessed before closure, lateral movement vectors are always investigated, and containment effectiveness is verified before an incident is closed.",
+      "question": "What containment verification process do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a mandatory containment completeness checklist for all malware incidents covering: lateral movement vector identification and blocking, environment-wide IOC sweep before containment closure, containment verification review by a second team member, and a 24-hour hold before incident closure to monitor for re-activation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Require analysts to document their containment rationale without providing a structured checklist, leaving completeness assessment to individual judgement.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Implement automatic incident closure after 4 hours with no active alerts, removing human verification of containment completeness.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The malware outbreak was fully contained after the initial scope-limited containment failure was identified. An environment-wide sweep identified all 23 affected systems, ransomware detonation was prevented, and all infected systems were remediated. A mandatory containment completeness checklist requiring lateral movement assessment, environment-wide sweeps, second-reviewer sign-off, and a 24-hour re-activation monitoring hold was implemented.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IR Process",
+  "difficulty": "Intermediate",
+  "tags": [
+    "containment",
+    "malware",
+    "lateral movement",
+    "IR process",
+    "ransomware precursor",
+    "scope assessment",
+    "verification"
+  ]
+}

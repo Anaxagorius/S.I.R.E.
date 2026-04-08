@@ -1,0 +1,177 @@
+{
+  "title": "scenario_alert_fatigue",
+  "description": "A security analyst team receiving over 2,000 SIEM alerts per day with a 97% false positive rate has developed habitual alert dismissal behaviours, resulting in a genuine intrusion alert being dismissed. The team must address the active incident while tackling the systemic alert fatigue problem.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Intrusion Alert Dismissed",
+      "description": "A review of closed alerts reveals that a genuine intrusion detection alert was dismissed as a false positive by an overwhelmed analyst processing hundreds of alerts per shift.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Active Compromise Confirmed",
+      "description": "Investigation of the dismissed alert confirms an attacker is active in the environment. The IR team is activated.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Alert Fatigue Root Cause Identified",
+      "description": "Analysis confirms a 97% false positive rate across SIEM alerts. Analysts have been bulk-dismissing alert categories to manage workload.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Incident Contained and Alert Programme Audited",
+      "description": "The active incident is contained and a full audit of SIEM alert quality is underway.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Alert Quality Programme Implemented",
+      "description": "Tuning and triage process improvements reduce daily alert volume and improve fidelity significantly.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The active incident was contained, the alert fatigue root cause was addressed through systematic alert tuning and process improvement, and analyst capacity was matched to sustainable alert volumes.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Genuine Alert Dismissed Amid Alert Fatigue",
+      "situation": "A shift supervisor reviewing closed alerts notices that a medium-severity SIEM alert indicating successful authentication from a known malicious IP address was dismissed 18 hours ago without investigation. Your team processes over 2,000 SIEM alerts per day and the dismissal appears to have been part of a bulk-close action. The source IP is confirmed malicious in three threat intelligence feeds. You need to determine whether there is an active compromise and address the systemic conditions that allowed this to happen.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately investigate the dismissed alert by reviewing authentication logs, EDR telemetry, and network traffic for the associated account and IP, activate the IR team if compromise is confirmed, and flag the alert fatigue issue for urgent review.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Re-open the alert and assign it to the same analyst queue without any immediate investigation, assuming it is still a false positive.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Instruct analysts to avoid bulk-closing alerts going forward without addressing the underlying volume or quality issues causing the fatigue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Active Compromise Confirmed",
+      "situation": "Investigation confirms the authentication event was legitimate attacker activity. The compromised account has been used to access a file server and exfiltrate an undetermined amount of data over the past 18 hours. The attacker appears to still be active. Simultaneously, your analysts are continuing to process 2,000+ alerts per shift, and three additional potentially relevant alerts are found in the closed queue from the same period.",
+      "question": "How do you manage the active incident alongside the alert backlog review?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the full IR team for incident response, assign a dedicated analyst to review all dismissed alerts from the past 48 hours for additional missed detections, and temporarily reduce analyst alert load by suspending known low-value alert categories pending a tuning review.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus all analyst resource on the active incident and continue processing the remaining 2,000 daily alerts as normal, risking further missed detections.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Disable the SIEM alerting system temporarily to give analysts relief from the volume while responding to the incident.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Containing the Incident and Auditing Alert Quality",
+      "situation": "The incident is being actively contained. The attacker's account access has been revoked and network connections severed. Three additional dismissed alerts are confirmed to have been related to the same intrusion. The alert fatigue audit reveals that 1,940 of the 2,000 daily alerts come from eight noisy, poorly-tuned rules. Analysts have developed an informal practice of bulk-closing entire alert categories without review.",
+      "question": "How do you address the root cause of the alert fatigue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commission a structured alert tuning exercise for the eight highest-volume rules, establish a false positive rate target (below 20%) for all production rules, implement a documented alert triage process with category-specific investigation steps, and require management sign-off before any alert suppression is applied.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Simply raise the alert severity threshold across the SIEM to reduce volume, which will suppress genuine medium-severity detections.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Hire additional analysts to absorb the alert volume without addressing alert quality, perpetuating the fatigue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implementing Sustainable Alert Operations",
+      "situation": "The incident has been fully contained and remediated. Alert tuning has reduced daily volume from 2,000 to 340 alerts, with a measured false positive rate of 18%. Analyst morale and engagement have improved. The organisation must now formalise these improvements and prevent regression.",
+      "question": "How do you sustain the alert quality improvements?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a monthly alert quality review meeting, publish false positive rate metrics to management, create a formal alert lifecycle process requiring periodic review of all production rules, and include alert quality KPIs in the security operations performance framework.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Declare the tuning exercise complete and return to normal operations without any ongoing quality governance, risking gradual regression.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Outsource all alert triage to a third-party MSSP without providing them with the tuning improvements or context, transferring the fatigue externally.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The genuine intrusion was contained and remediated. The alert fatigue root cause was addressed through systematic tuning, reducing daily alert volume by 83% while improving detection fidelity. A formal alert lifecycle governance process was established with ongoing false positive rate metrics, and analyst capacity is now matched to a sustainable and effective alert programme.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IR Process",
+  "difficulty": "Intermediate",
+  "tags": [
+    "alert fatigue",
+    "SIEM",
+    "false positives",
+    "alert tuning",
+    "SOC",
+    "IR process"
+  ]
+}

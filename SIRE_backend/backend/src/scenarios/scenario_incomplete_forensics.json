@@ -1,0 +1,178 @@
+{
+  "title": "scenario_incomplete_forensics",
+  "description": "After a major breach, the forensic investigation is critically hampered by disabled logging on key systems, evidence overwritten through premature reimaging, and no memory captures taken. The team must reconstruct what evidence remains and implement forensic readiness to prevent recurrence.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Breach Discovered and Forensic Gaps Emerge",
+      "description": "A major breach is confirmed and the forensic investigation immediately runs into evidence gaps: key servers have no logs, three systems have already been reimaged, and no memory was captured.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Available Evidence Inventoried",
+      "description": "The forensic team catalogs all available evidence sources and identifies what can and cannot be recovered.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Partial Timeline Reconstructed",
+      "description": "Using available evidence, a partial attacker timeline is reconstructed. Significant gaps remain due to missing logs and overwritten systems.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Forensic Readiness Assessment Completed",
+      "description": "A forensic readiness assessment identifies all systemic gaps in logging, evidence preservation, and memory capture capability.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Forensic Readiness Programme Initiated",
+      "description": "A programme to deploy comprehensive logging, evidence preservation procedures, and memory capture capability is approved and initiated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The available evidence was fully exploited to reconstruct as much of the attacker's timeline as possible. A comprehensive forensic readiness programme addressing logging coverage, evidence preservation, and memory capture capability was implemented to prevent recurrence.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Major Breach with Critical Evidence Gaps",
+      "situation": "A major data breach has been confirmed. Sensitive customer data and intellectual property have been exfiltrated. The forensic investigation immediately encounters critical gaps: the primary database server has had audit logging disabled for six months due to a performance complaint, three application servers were reimaged by IT before forensics were notified, and no memory captures were taken from any system before remediation began. You must make the best of the available evidence while managing the active investigation.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately halt any further reimaging or system changes, place forensic holds on all remaining systems in scope, conduct a rapid inventory of all available evidence sources (surviving logs, network flow data, cloud audit trails, backup snapshots), and engage external forensic support given the compromised evidence base.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Proceed with reimaging all remaining affected systems to restore operations as quickly as possible, accepting that the investigation will be incomplete.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for IT to complete their own assessment of affected systems before beginning forensic collection, allowing further evidence loss.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Maximising Evidence Recovery from Available Sources",
+      "situation": "Forensic holds have been placed and a rapid evidence inventory completed. Available evidence includes: firewall and proxy logs (90-day retention), DNS query logs, cloud provider audit logs, EDR telemetry (covering 60% of endpoints), email gateway logs, and backup snapshots of two of the three reimaged servers taken 72 hours before reimaging. The database server has no audit logs but transaction logs may contain some activity data. The investigation must extract maximum value from these incomplete sources.",
+      "question": "How do you extract maximum value from the available evidence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Systematically process all available evidence sources in priority order: EDR telemetry for endpoint activity, firewall and proxy logs for network behaviour, cloud audit logs for cloud resource access, DNS logs for C2 communication, backup snapshots for file system state at 72 hours prior, and database transaction logs for data access activity.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus forensic effort only on the most complete evidence sources and ignore partial or indirect sources, missing potentially critical artefacts in non-traditional log types.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Declare the investigation inconclusive due to evidence gaps and move immediately to remediation without attempting to reconstruct the attacker timeline.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Reconstructing a Partial Timeline and Communicating Uncertainty",
+      "situation": "Evidence processing has produced a partial attacker timeline. Initial access via a compromised vendor credential is confirmed. Lateral movement to the database server is inferred from network flow data but the exact database queries executed cannot be determined due to absent audit logs. The three reimaged servers cannot be conclusively placed in the attack chain. Significant uncertainty exists about the full scope of exfiltrated data. This uncertainty must be communicated accurately to leadership and regulators.",
+      "question": "How do you communicate the investigation findings given significant evidentiary uncertainty?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prepare an investigation report that clearly distinguishes confirmed findings from inferred findings and unknown gaps, quantifies the data at risk based on what the attacker could have accessed given the access confirmed, and explains the evidence gaps to regulators and leadership with full transparency about what cannot be determined.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Report only what is definitively confirmed, understating the potential scope of exfiltration to reduce regulatory and reputational impact.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Overstate findings by treating all systems the attacker could have accessed as confirmed compromised, without evidentiary basis, potentially triggering unnecessary breach notifications.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implementing Forensic Readiness",
+      "situation": "The investigation is concluded with the available evidence. A forensic readiness assessment has identified systemic gaps: 23% of servers have audit logging disabled or unconfigured, no memory capture capability or procedure exists, no evidence preservation procedure was in place to prevent premature reimaging, and log retention periods are inconsistent across systems. A forensic readiness programme must be implemented to ensure future investigations are not similarly hampered.",
+      "question": "What forensic readiness programme do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a forensic readiness programme covering: mandatory audit logging standards for all systems with a compliance review process, a documented evidence preservation procedure requiring IR team sign-off before any system modification during an incident, deployment of memory capture tooling to all critical systems, standardised minimum log retention periods, and annual forensic readiness exercises.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enable audit logging on only the systems directly involved in this breach, leaving the remaining 23% of systems with inadequate logging.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Purchase a forensic tool licence without implementing any procedural changes or logging standards, providing tooling without the process to use it effectively.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The breach investigation extracted maximum value from available evidence despite critical gaps caused by disabled logging, premature reimaging, and absent memory capture. Investigation findings were communicated transparently to leadership and regulators with appropriate uncertainty quantification. A comprehensive forensic readiness programme covering mandatory logging standards, evidence preservation procedures, memory capture capability, and annual exercises was implemented.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IR Process",
+  "difficulty": "Advanced",
+  "tags": [
+    "forensics",
+    "evidence preservation",
+    "logging",
+    "forensic readiness",
+    "IR process",
+    "breach investigation",
+    "memory forensics"
+  ]
+}
