@@ -1,0 +1,149 @@
+{
+  "title": "scenario_fire_lithium_ion_battery",
+  "description": "Lithium-ion battery fire in a residential home with thermal runaway risk",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Report of fire from an e-bike battery charging in a garage. Occupants evacuated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Smoke from garage. Caller confirms e-bike battery is on fire and making popping sounds.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Garage with active lithium-ion battery fire. Bright white flames, popping, and smoke. Fire has not extended to the home yet.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Thermal Runaway",
+      "description": "Battery cells continuing to vent and reignite. Standard extinguishment not working. Extension to garage storage rack beginning.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Cooling Applied",
+      "description": "Large volumes of water applied continuously to cool the battery pack and prevent further thermal runaway.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Scene Secured",
+      "description": "Battery cooled. Fire out. Batteries placed in isolation container. Scene secured for monitoring.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Lithium-Ion Fire Recognition",
+      "situation": "You arrive to an e-bike battery fire in an attached garage. The battery is venting white smoke and making popping sounds \u2014 classic signs of thermal runaway. Bright white flames are present. The fire has not extended to the main structure yet. Occupants are safely outside.",
+      "question": "What is your primary suppression approach for this lithium-ion fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply large volumes of water continuously to cool the battery cells \u2014 water is the correct agent for lithium-ion fires to manage thermal runaway, cool cells, and prevent reignition.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use a CO2 extinguisher to smother the fire since it leaves no residue and works on electrical fires.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Use dry chemical ABC extinguisher since it is rated for all fire classes including electrical.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Managing Reignition Risk",
+      "situation": "The visible flames are knocked down with water but the battery pack is continuing to vent smoke and heat. Lithium-ion batteries can reignite minutes or hours later as individual cells reach critical temperature. You cannot simply declare the fire out.",
+      "question": "How do you manage the reignition risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue applying water to maintain cooling of the battery pack. Do not stop water application prematurely. Plan to isolate the battery in a metal container filled with water for transport to a safe location.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The fire appears out \u2014 stop water application and begin overhaul of the garage.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Remove the battery from the premises immediately by hand and place it in the yard away from structures.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Isolation and Monitoring",
+      "situation": "The battery has been cooled with continuous water application. You need to safely isolate it for monitoring. The battery cannot be left unattended due to reignition risk. You have a metal salvage drum available.",
+      "question": "What is your battery isolation procedure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use non-conductive tools to move the battery into the metal drum filled with water. Seal loosely to allow venting. Arrange for extended monitoring or specialized disposal \u2014 do not leave the scene until this is complete.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the battery in the garage with windows open for ventilation and check back in an hour.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Place the battery in a plastic bin filled with sand to absorb any remaining heat.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The e-bike battery was successfully isolated in a water-filled metal drum with a loose lid for venting. The fire department arranged for hazardous battery disposal by a certified vendor. The garage sustained minor damage. The home was protected. Crew PPE including SCBA was used throughout due to toxic battery off-gas. Well done \u2014 correct water application, reignition management, and proper isolation procedures were all executed correctly.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "fire",
+    "residential",
+    "lithium-ion battery",
+    "thermal runaway",
+    "e-bike",
+    "reignition",
+    "hazmat"
+  ]
+}

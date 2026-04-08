@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_mobile_home",
+  "description": "Mobile home fire with rapid fire progression",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Report of structure fire at a mobile home park. Caller reports flames visible from outside.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Large column of smoke visible from distance. Fire progressing rapidly.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Single-wide mobile home with fire venting from multiple windows. Rapid fire progression typical of lightweight construction. One neighbor says occupant may be inside.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Rapid Deterioration", "description": "Roof section showing signs of collapse. Windows failing. Fire intensity increasing. Conditions deteriorating within 3 minutes of arrival.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Exterior Attack", "description": "Crew sets up exterior attack lines. Defensive master stream applied. Exposure mobile homes protected.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Fire Knocked", "description": "Main body of fire knocked from exterior. Roof has partially collapsed. No survivable conditions were present inside.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Mobile Home Fire Decision",
+      "situation": "You arrive to find a single-wide mobile home with fire venting from multiple windows and the front door. A neighbor reports a resident may be inside but is not certain. The structure is showing signs of rapid fire spread typical of lightweight construction — thin walls, low-mass materials, and synthetic furnishings. The roof is beginning to buckle.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Given the lightweight construction and rapid fire progression with roof buckling, declare a defensive operation — do not enter the structure. Establish exterior attack and notify dispatch of potential victim while protecting neighboring units.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Make entry immediately since there may be a victim inside — speed is critical for rescue.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait for a second company to arrive before committing to any action since you need more resources.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Exposure Protection",
+      "situation": "You are maintaining a defensive exterior attack. Adjacent mobile homes are 10 feet away on both sides and are starting to show radiant heat effects — paint is blistering on the closest unit. One of the neighboring units has an elderly occupant who may not have evacuated yet.",
+      "question": "How do you handle the exposures and potential occupant?",
+      "options": [
+        { "label": "A", "text": "Assign one crew to knock on the neighboring unit and assist the elderly occupant to evacuate while another crew sets up an exposure protection line between the burning unit and the adjacent homes.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Focus all water on the burning unit to knock it down before worrying about exposures.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Apply water to the exterior siding of the adjacent units from a distance to keep them cool without sending anyone to check for occupants.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Knockdown Operations",
+      "situation": "The main body of fire has been knocked down. The mobile home is a total loss. The roof has partially collapsed. There may still be a victim inside. Smoldering debris is throughout the structure. You need to decide how to approach post-knockdown operations given the collapsed roof.",
+      "question": "How do you approach overhaul and victim search?",
+      "options": [
+        { "label": "A", "text": "Wait until the structure is assessed for stability, then use pike poles and tools from the exterior to pull debris and search for victims, with crew remaining outside the collapse zone.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Send a crew inside immediately since fire is knocked down and any victim still inside needs to be found quickly.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Flood the entire structure with water from the master stream before any overhaul to ensure all fire is out.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The exterior search and debris pull using tools from outside the collapse zone was the correct approach. Sadly, one victim was found in the debris — conditions inside at arrival were non-survivable. The neighboring occupant was safely evacuated and the adjacent units were spared. Fire cause was determined to be an overloaded electrical circuit. Well done — your recognition of lightweight construction collapse risk, defensive posture, and safe overhaul procedures protected your crew while managing all life-safety priorities.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "structural", "mobile home", "lightweight construction", "collapse risk", "defensive operations"]
+}

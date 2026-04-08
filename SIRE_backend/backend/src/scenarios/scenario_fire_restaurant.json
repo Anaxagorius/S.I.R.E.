@@ -1,0 +1,90 @@
+{
+  "title": "scenario_fire_restaurant",
+  "description": "A restaurant kitchen fire involving grease fryers and commercial cooking equipment escalates beyond the hood suppression system.",
+  "timeline": [
+    { "index": 0, "title": "Kitchen Fire Reported", "description": "Restaurant staff reports flames from fryer; hood suppression activated but fire not controlled.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Units Dispatched", "description": "Engine and truck companies dispatched. Reports of heavy smoke showing from rear of building.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Arrival and Size-Up", "description": "Fire visible from kitchen exhaust ducts. Propane tanks at rear of building. Staff evacuating.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Fire Extension", "description": "Fire has extended into exhaust duct system and is spreading toward roof void space.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Propane Cylinder Exposed", "description": "Exterior propane tanks are being impinged by flames. Pressure relief valve hissing audible.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Fire Controlled", "description": "Fire knocked down in kitchen and duct system. Tanks cooled. Overhaul underway.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Kitchen Fire on Arrival",
+      "situation": "You arrive to find the restaurant's hood suppression system has discharged but the fryer fire is still burning. Staff say customers have evacuated. Heavy smoke is showing from the kitchen exhaust vents on the roof. Propane supply tanks are visible at the rear of the building.",
+      "question": "What is your immediate size-up action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shut off propane supply valves at the exterior tanks, then advance a 1¾-inch line into the kitchen for fire attack.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Apply water directly to the fryer to extinguish the grease fire.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Open the kitchen's rear door to ventilate the smoke before entering.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Duct Fire Extension",
+      "situation": "Propane is shut off. The kitchen fire is knocked down but fire has traveled up the grease-laden exhaust duct and is now burning in the duct run above the ceiling. Smoke is showing from the roofline. The duct presents a hidden fire path to the roof structure.",
+      "question": "How do you address the duct fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Open the duct at access panels and at the roof termination; apply foam or dry chemical into the duct to extinguish the grease fire.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "The kitchen fire is out—declare the incident under control and begin overhaul.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Flood the duct system with water from a hoseline.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Propane Tanks Impinged",
+      "situation": "While working the duct fire, a crew reports that the exterior propane tanks are being licked by flames from burning grease drips at the exhaust termination. A pressure relief valve is hissing. There is no flame impingement on the tank body yet but the situation is worsening.",
+      "question": "What is the correct action for the propane cylinders?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply continuous water cooling to the tank body; keep crews at a safe angle away from tank ends; do not move the tank while pressurized.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately move the propane tanks away from the building to a safe distance.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Close the pressure relief valve to stop the hissing gas release.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The duct fire is extinguished, the propane tanks are cooled and stabilized, and the kitchen is fully overhauled. The building is secured and the gas company has been notified to inspect the supply system before the restaurant reopens. No injuries. Well done!",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "commercial", "restaurant", "grease fire", "Class K", "propane", "duct fire"]
+}

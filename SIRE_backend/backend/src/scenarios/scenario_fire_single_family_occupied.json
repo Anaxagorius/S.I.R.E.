@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_single_family_occupied",
+  "description": "Single-family home fire with occupants reported inside",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "911 call reports smoke and flames from a single-family residence. Neighbors report occupants are inside.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Smoke visible two blocks out. Dispatch confirms neighbors say occupants inside and not seen exiting.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Heavy smoke from front door and first-floor windows. Visible flames in rear of structure. Neighbor reports family of four lives here.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Fire Grows", "description": "Flames now visible from rear and side windows. Smoke darkening and pressure increasing. Civilian reports seeing a child in upstairs window.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Rescue Underway", "description": "Entry team advances through front. One victim found near stairs. Fire still active in rear kitchen area.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Fire Controlled", "description": "Primary search complete. Fire knocked down in kitchen. All occupants accounted for.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "You arrive first due as company officer. Heavy smoke from front door and first-floor windows. Flames visible in rear. A neighbor is yelling that a family of four was inside when the fire started. The front door is closed but smoke is pushing around the frame.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        { "label": "A", "text": "Declare a working structure fire, request additional resources, and begin a primary search while the second crew stretches the attack line to the front door.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Begin fire attack immediately to knock down the rear kitchen fire before searching, since controlling the fire protects everyone.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait for a second unit to arrive before committing any crew, since it may be unsafe with only one company.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Search Decision",
+      "situation": "Your crew is inside. Conditions are tenable on the first floor with limited visibility. The staircase is accessible. Dispatch confirms a child may be on the second floor. The attack line is charged but not yet advancing past the foyer. Fire is roaring in the rear kitchen.",
+      "question": "How do you direct your crew?",
+      "options": [
+        { "label": "A", "text": "Send search crew up the stairs immediately for the reported child while the attack line holds position at the base of the stairs to protect egress.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Pull all crew out to go defensive since conditions are deteriorating and it is too dangerous.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Advance the attack line to the kitchen first, then search once the fire is out.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Located",
+      "situation": "Search team locates an unresponsive child in a bedroom on the second floor. Fire is beginning to extend from the kitchen into the hallway below. The attack line crew reports they need to advance now or may lose the stairwell.",
+      "question": "What do you order?",
+      "options": [
+        { "label": "A", "text": "Order the attack line to advance and knock the hallway fire while search crew exits via bedroom window using the ground ladder that was placed during size-up.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Tell search crew to shelter in place until fire attack clears the hallway.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Order all crews out immediately and abandon the victim rescue.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The child was removed safely via ground ladder and transferred to EMS. The attack line knocked the hallway fire and the kitchen fire was extinguished. All four occupants were accounted for—two self-evacuated, one rescued on first floor, and the child removed from the second floor. Overhaul operations are underway. Well done—your rapid size-up, proper resource request, coordinated search, and decisive rescue saved lives.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "structural", "residential", "search and rescue", "rescue priority"]
+}

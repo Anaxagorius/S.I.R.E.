@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_apartment_complex",
+  "description": "Multi-unit apartment complex fire with multiple units involved",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reports of a building fire at a 24-unit apartment complex. Multiple 911 calls. Smoke and flames visible from the street.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Alarm", "description": "First alarm units respond. Visible fire confirmed from two units in the same wing. Residents streaming out.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "3-story wood-frame apartment complex. Two units on the 2nd floor fully involved. Fire extending to a third unit. Multiple residents unaccounted for.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Resource Surge", "description": "IC requests second alarm. Multiple residents calling from windows on upper floors. Three separate search teams deployed.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Rescue Operations", "description": "Two occupants rescued from upper windows via aerial. Fire spreading through void spaces in the wood-frame construction.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Defensive Shift", "description": "Structural integrity compromised in the fire wing. IC orders crews to defensive operations. Master streams deployed.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Command Establishment",
+      "situation": "You arrive first and assume command. Two second-floor units are fully involved in a 3-story wood-frame complex. Multiple residents are calling from windows. You have one engine, one truck, and one rescue company on scene. Fire is spreading rapidly through the wood-frame void spaces. Multiple rescues needed simultaneously.",
+      "question": "How do you organize your initial response?",
+      "options": [
+        { "label": "A", "text": "Establish ICS: assign the truck company to ground ladder rescues, the rescue company to search of uninvolved units, and the engine to fire attack and exposure protection, while requesting a second alarm.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Commit all crews to firefighting to stop the spread first, then search once the fire is controlled.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Focus all resources on evacuating all 24 units by ground before doing anything else.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Resource Allocation Under Pressure",
+      "situation": "Two residents are rescued from windows via aerial. A crew reports the fire is extending through the attic into a third wing. The wood-frame void spaces are allowing rapid fire spread. You have additional resources arriving from the second alarm. You must decide where to commit them.",
+      "question": "How do you direct incoming second alarm resources?",
+      "options": [
+        { "label": "A", "text": "Assign one engine to cut off fire spread in the attic void space with a charged line, assign a second engine to protect the uninvolved third wing as an exposure line, and continue search with the truck.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Send all second alarm crews into the burning wing to reinforce the primary attack and overpower the fire.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Pull all crews back to wait for a third alarm and more resources before committing further.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Defensive Transition Decision",
+      "situation": "A crew reports the floor in the fire wing is soft and beginning to sag. The attic fire is out of control in the affected wing. All confirmed rescues have been made. A PAR (Personnel Accountability Report) is called and all crews are accounted for. The IC must now decide whether to continue offensive operations.",
+      "question": "What is your operational mode decision?",
+      "options": [
+        { "label": "A", "text": "Immediately transition to defensive operations — withdraw all crews from the structure, establish a collapse zone, and deploy master streams to protect the uninvolved wing and exposures.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Keep the crews in the unaffected wing since that area seems safe to continue searching.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have one crew stay inside to monitor conditions while others pull back.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Defensive master streams knocked down the fire and protected the uninvolved wing. The compromised wing sustained collapse in the roof area. All residents were accounted for — six were displaced, two were treated for smoke inhalation, and all rescues were successful. No firefighter injuries occurred due to the timely defensive transition. Well done — your ICS, resource management, and life-safety-first decisions were textbook.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "structural", "apartment", "ICS", "resource management", "search and rescue", "defensive operations"]
+}

@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_single_family_unoccupied",
+  "description": "Single-family home fire confirmed unoccupied",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Reports of smoke from a single-family residence. Neighbor confirms the family is away on vacation.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Light smoke visible from a distance. Condition appears to be in early stages.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Smoke from rear of structure. No signs of occupancy. Neighbor confirms no one home. Flames visible through rear window.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Assessment", "description": "Fire contained to rear room. Structure appears sound. No exposures immediately threatened.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Fire Attack", "description": "Crew advances line through front door. Fire knocked down in rear bedroom.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Overhaul", "description": "Fire extinguished. Overhaul reveals fire originated from electrical outlet near bed.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Offensive vs. Defensive Decision",
+      "situation": "You arrive to find smoke from the rear of a single-family home. A neighbor confirms the owners are on vacation and no one is inside. Flames are visible through a rear window in what appears to be a bedroom. The structure looks sound with no signs of compromise. You have one engine with a full crew.",
+      "question": "What mode of operation do you initiate?",
+      "options": [
+        { "label": "A", "text": "Initiate an offensive attack — conduct a rapid primary search to confirm no occupants, then advance the attack line to the seat of the fire.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Go defensive immediately — set up master streams and do not enter since the structure may be compromised.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait for a second engine before making entry since regulations require two-in two-out.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Entry and Advance",
+      "situation": "Primary search confirms no occupants. The fire is in the rear bedroom and appears limited to one room. Smoke is moderate. You can see the base of the fire from the hallway. Your attack crew is ready with a charged 1¾-inch line.",
+      "question": "How do you advance the attack line?",
+      "options": [
+        { "label": "A", "text": "Advance the line low, staying below the thermal layer, approach the doorway and knock the fire from the threshold before entering the room.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Open the nozzle at full fog pattern from the hallway to cool the entire area, then enter.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Open the bedroom window first for ventilation before advancing the hose line.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Overhaul Decision",
+      "situation": "The main fire is knocked down. There is residual smoke in the room. The ceiling shows scorching and the wall near the outlet is charred. You need to ensure the fire is completely out and will not re-ignite.",
+      "question": "What is your overhaul action?",
+      "options": [
+        { "label": "A", "text": "Open the wall cavity around the outlet, pull ceiling if scorching extends above, check with thermal imaging camera, and apply water to any hot spots found.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Ventilate the room, declare the fire out visually, and return to quarters.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Apply a large volume of water to the entire room to ensure all embers are out.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Overhaul revealed fire had extended slightly into the wall cavity behind the outlet. The void was opened, hotspots were extinguished, and the thermal imager confirmed full extinguishment. The structure was secured and the homeowners were notified. Fire cause was determined to be an electrical fault. Well done — your proper size-up, safe offensive attack, and thorough overhaul prevented a rekind and a more serious loss.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Beginner",
+  "tags": ["fire", "structural", "residential", "offensive attack", "overhaul"]
+}

@@ -1,0 +1,148 @@
+{
+  "title": "scenario_fire_office_building",
+  "description": "Office building fire with workers evacuating",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Fire alarm activation in a 5-story office building. Workers evacuating. Smoke reported on floor 3.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Building fire confirmed. Workers evacuating via stairwells. Smoke visible from third-floor windows.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "5-story commercial office building. Fire sprinkler system activated on floor 3. Evacuation in progress. Smoke from third-floor windows.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Sprinkler Activated",
+      "description": "Building engineer confirms sprinkler head activated in conference room 3B. Fire may be controlled but verification needed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Fire Attack",
+      "description": "Crew advances to floor 3. Sprinkler has controlled fire. Overhaul and mop-up needed.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "All Clear",
+      "description": "Fire out. All workers accounted for via accountability check outside. Sprinkler shut off. Building cleared.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Office Building Fire Response",
+      "situation": "You arrive to a 5-story office building with smoke from the third floor. The building fire alarm is active and workers are evacuating in an orderly manner. The building has an automatic sprinkler system. The building engineer meets you at the lobby and reports a single sprinkler head activated in conference room 3B.",
+      "question": "What is your initial action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish command at the fire command center in the lobby. Confirm evacuation is complete via the building's floor warden system, then advance a crew to floor 3 to assess and complete extinguishment while keeping the sprinkler active.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Shut off the sprinkler system immediately since the fire crew will handle suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait outside until all workers have evacuated before committing any crew to the building.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Floor 3 Assessment",
+      "situation": "Your crew reaches floor 3. The sprinkler has controlled the fire in conference room 3B. Heavy smoke is in the corridor. The fire appears to be a conference room table that ignited \u2014 likely from a candle. You need to complete extinguishment and check for extension.",
+      "question": "How do you complete extinguishment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance a hoseline to the room, apply water to any remaining hot spots, use a thermal imager to check walls and ceiling for extension, then request the sprinkler shut off once confirmed out.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Shut the sprinkler off first so crew can work without getting wet, then complete extinguishment.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Declare the fire out since the sprinkler controlled it and begin ventilation immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Worker Accountability",
+      "situation": "The fire is out and the building is being ventilated. The building manager is asking when workers can return. You need to confirm that all workers are accounted for before clearing the building for re-entry.",
+      "question": "How do you manage re-entry and accountability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with floor wardens to confirm all personnel are accounted for at the designated assembly areas. Conduct a primary search sweep of floor 3 before authorizing re-entry. Coordinate with building management on re-entry timing.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow re-entry floor by floor starting from floor 1 since only floor 3 was involved.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Authorize re-entry once ventilation is complete without a formal accountability check.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All 87 workers were accounted for at the assembly area. A sweep of floor 3 confirmed no remaining occupants. The building was cleared for re-entry to all floors except floor 3 which remained closed for cleanup and investigation. Fire cause confirmed as unattended candle in the conference room. Well done \u2014 your command center coordination, proper sprinkler management, extinguishment protocol, and worker accountability were all correctly executed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "fire",
+    "commercial",
+    "office building",
+    "sprinkler system",
+    "evacuation",
+    "accountability"
+  ]
+}
