@@ -1,0 +1,178 @@
+{
+  "title": "scenario_ot_it_crossover_breach",
+  "description": "A ransomware infection on the corporate IT network propagates through an improperly segmented network boundary into the OT network, reaching engineering workstations connected to industrial control systems at a manufacturing plant.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Ransomware Detected on IT Network",
+      "description": "The IT SOC detects ransomware encrypting files on corporate workstations. The infection originated from a phishing email opened by an engineer.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "OT Network Propagation Detected",
+      "description": "The OT team identifies encrypted files on an engineering workstation in the manufacturing control room \u2014 the ransomware has crossed the IT/OT boundary.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "IT/OT Boundary Isolation Enacted",
+      "description": "The network connection between the corporate IT network and OT network is severed. Manufacturing systems are assessed for impact.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Affected OT Assets Identified",
+      "description": "Three engineering workstations in the OT environment are confirmed infected. Control system software on two of them requires restoration. PLCs are verified unaffected.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "OT Systems Restored from Verified Backups",
+      "description": "Affected engineering workstations are rebuilt from verified clean images. PLC programs are validated against engineering baselines.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The ransomware was contained at the IT/OT boundary, affected OT engineering workstations were restored, PLC integrity was verified, and the improperly segmented network boundary was redesigned.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ransomware Crosses IT/OT Network Boundary",
+      "situation": "You are the OT/IT Security Lead at an automotive components manufacturing plant. At 11:20, the IT Security Operations Centre alerts you that ransomware is actively encrypting files on the corporate network following a phishing email opened at 10:47. Forty-three corporate workstations are affected. At 11:31, you receive a second alert: the OT monitoring system has detected file encryption activity on EWS-03, an engineering workstation in the manufacturing control room that is connected to the CNC production line controllers. EWS-03 is connected to both the OT network and the corporate IT network via a shared switch that was installed 18 months ago to allow engineers to access both systems without switching computers. The manufacturing production line is currently running at full capacity.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately physically disconnect the shared network switch to sever the IT/OT connection, isolate EWS-03 from the OT network (disconnect its OT network cable), instruct production floor operators to switch all CNC controllers to local manual control mode, and alert the plant manager while the OT team assesses which other OT assets may be affected.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus on the IT network ransomware response only, as the OT network is probably still protected by its firewall and the shared switch is unlikely to have allowed ransomware to spread.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Shut down all production line PLCs and CNC controllers immediately to prevent any possible ransomware spread to control hardware, halting all manufacturing before the scope of OT impact is known.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing OT Network Impact",
+      "situation": "The shared switch has been disconnected. EWS-03 is isolated. CNC controllers are in local manual mode. The OT security team is conducting a rapid assessment of other OT assets. A scan of the OT network using an isolated OT network monitoring tool identifies two additional engineering workstations (EWS-07 and EWS-11) with file system activity consistent with ransomware encryption. The PLCs and CNC controllers themselves show no signs of compromise \u2014 ransomware typically targets Windows file systems and these controllers run proprietary firmware. However, EWS-07 contains the master PLC programming environment for the production line's primary robot welding controllers.",
+      "question": "How do you manage the OT impact assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately isolate EWS-07 and EWS-11 from the OT network, verify the integrity of all PLC programs on the robot welding controllers against the engineering change management baseline (to confirm the encryption hasn't affected any deployed PLC programs), and catalogue all data and software on affected workstations.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pay the ransomware demand to obtain the decryption key and restore EWS-07 quickly, as it contains the critical PLC programming environment.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Use the most recently available IT network backup to restore EWS-07, without verifying whether the backup was taken before or after the ransomware infection.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Verifying PLC Integrity and Restoring OT Systems",
+      "situation": "EWS-07 and EWS-11 are isolated. PLC integrity checks on the robot welding controllers confirm their programs match the engineering baseline \u2014 the ransomware did not modify deployed control programs, only encrypted files on the Windows-based workstations. EWS-03 is fully encrypted and inoperable. EWS-07 and EWS-11 are partially encrypted; some engineering project files are unrecoverable from these machines. Verified clean backups of all three workstations exist from 3 days ago, stored on an isolated OT backup server that was not connected to either the IT or compromised OT workstations.",
+      "question": "How do you restore the affected OT engineering workstations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rebuild all three workstations (EWS-03, EWS-07, EWS-11) from verified clean OS images, restore engineering software and project files from the isolated OT backup server backups taken 3 days ago, validate restored PLC programming environments connect correctly to controllers and load programs matching the engineering baseline, and return to production only after full validation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore only the encrypted files on EWS-07 and EWS-11 from backup without reimaging the operating system, leaving any ransomware components that may be resident in the OS.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restore EWS-07 from backup and return it to the OT network immediately to restore the PLC programming capability, before the other workstations are investigated.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Redesigning the IT/OT Network Boundary",
+      "situation": "All three engineering workstations have been rebuilt and validated. PLC programs are confirmed intact. Manufacturing is restarting under close supervision. The root cause is clear: the shared switch between IT and OT networks provided a direct propagation path with no traffic filtering, no intrusion detection, and no network segmentation controls. This architecture violated the company's own IT/OT separation policy. The boundary must be redesigned before the IT network is reconnected.",
+      "question": "How do you redesign the IT/OT boundary?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a properly segmented network architecture: remove the shared switch, deploy an industrial-grade firewall with strict whitelist-based rules between IT and OT zones, add a dedicated jump server with MFA and session recording for cross-zone access, deploy OT-specific network intrusion detection, implement separate computers for IT and OT access for engineers, and conduct a network segmentation audit across all plant sites.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Replace the shared switch with a VLAN-segmented switch, which provides logical separation but allows traffic to cross between VLANs if misconfigured.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Keep the existing shared switch but install antivirus on all OT engineering workstations, relying on endpoint protection rather than network segmentation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The ransomware was contained before reaching PLC hardware. All three affected OT engineering workstations were rebuilt from clean images. PLC program integrity was verified. The improper shared switch between IT and OT networks was replaced with a properly segmented architecture including an industrial firewall, jump server, and OT intrusion detection. Manufacturing resumed with no loss of control system integrity.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "OT/ICS",
+  "difficulty": "Advanced",
+  "tags": [
+    "ransomware",
+    "IT/OT convergence",
+    "network segmentation",
+    "manufacturing",
+    "PLC",
+    "engineering workstation",
+    "lateral movement"
+  ]
+}

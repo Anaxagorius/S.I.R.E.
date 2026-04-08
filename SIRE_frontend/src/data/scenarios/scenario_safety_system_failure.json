@@ -1,0 +1,179 @@
+{
+  "title": "scenario_safety_system_failure",
+  "description": "The Safety Instrumented System at an oil refinery fails to respond during a high-pressure alarm event. With the SIS offline, operators must manually manage a dangerous high-pressure situation while simultaneously diagnosing why the safety system did not activate.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "High-Pressure Alarm Triggered",
+      "description": "A high-pressure alarm fires in distillation unit DU-7. The SIS, which should automatically initiate an emergency shutdown, does not respond.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "SIS Offline Confirmed",
+      "description": "Operators confirm the SIS is in a faulted state. The high-pressure condition in DU-7 is escalating. Manual intervention is the only available safety mechanism.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Manual Emergency Shutdown Initiated",
+      "description": "Operators manually initiate a controlled shutdown of DU-7, isolating feedstock and reducing pressure through manual valve operation.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "SIS Fault Root Cause Under Investigation",
+      "description": "The safety systems engineer investigates the SIS fault. Evidence points to a software update pushed to the SIS controller that introduced a logic error.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "SIS Restored After Verification",
+      "description": "The SIS is restored from the previous verified logic version. Functional testing confirms all safety functions are operational before DU-7 is restarted.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "DU-7 was safely shut down manually, the SIS fault was diagnosed and corrected, functional safety testing was completed, and the change management process for SIS software was overhauled.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "SIS Non-Response During High-Pressure Alarm",
+      "situation": "You are the Safety and OT Security Lead at an oil refinery. At 07:18, a level-2 high-pressure alarm activates in distillation unit DU-7. Pressure is at 87 bar, against a design limit of 95 bar and a safety relief valve setpoint of 92 bar. Under your Safety Instrumented System design, the SIS should have automatically initiated a partial emergency shutdown to reduce pressure. Instead, the SIS console shows a fault state \u2014 red LED, no response to commands, and a 'logic solver offline' error. The SIS has been non-responsive for an unknown period. Operations are currently staffed at a reduced night-shift crew of four. DU-7 contains hydrocarbon vapour under pressure. Pressure continues to rise.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately declare a process emergency, direct operators to manually execute the DU-7 emergency shutdown procedure from the operator console (isolate feed, open pressure relief routing, reduce furnace firing), evacuate non-essential personnel from the DU-7 area, and notify the shift supervisor and safety officer while assigning one engineer to diagnose the SIS fault separately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to reboot the SIS logic solver first before taking any manual action, hoping the SIS will come back online and handle the shutdown automatically.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for pressure to reach the relief valve setpoint of 92 bar so the mechanical relief valve actuates, avoiding the need for a manual shutdown that could cause production loss.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Executing Manual Emergency Shutdown",
+      "situation": "The manual emergency shutdown of DU-7 is underway. Feed isolation valves are closing. Pressure peaked at 91.2 bar and is now decreasing \u2014 currently at 88.5 bar and trending down. The area around DU-7 has been cordoned off. The refinery emergency response team has been activated. With DU-7 being manually managed, you must now diagnose why the SIS failed without risking further system instability. The SIS covers five other process units in this refinery and its availability is critical.",
+      "question": "How do you approach diagnosing the SIS failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign the functional safety engineer to review SIS event logs and identify the last state change before the fault, check the change management register for any recent SIS modifications, and do not attempt to reboot or restore the SIS until the root cause is understood \u2014 keeping the other five units under heightened manual monitoring.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately restore the SIS from its last backup to bring it back online as fast as possible, without first diagnosing the root cause of the fault.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Power cycle the SIS logic solver to clear the fault state, as this is standard IT troubleshooting practice.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Identifying the Root Cause of SIS Failure",
+      "situation": "DU-7 pressure is now at 76 bar and stable under manual control. The safety engineer has reviewed SIS logs and the change management register. Findings: a software update to the SIS logic solver firmware was applied at 06:45 \u2014 33 minutes before the alarm \u2014 by a remote maintenance session from a vendor engineer. The update introduced a logic error in the high-pressure interlock for DU-7, DU-8, and DU-9, causing the interlock logic to evaluate to a permanently inhibited state. The vendor engineer has been contacted and has confirmed the error. All three units' safety interlocks are currently non-functional.",
+      "question": "How do you manage the expanded scope of the SIS failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Place DU-8 and DU-9 into reduced-throughput safe operating mode with dedicated operator manual monitoring for each, formally document the inhibited safety functions as a 'safety override' in the permit-to-work system, obtain the vendor-verified corrected firmware version, and plan a controlled SIS restoration with functional testing before restoring any unit to normal automated operation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue running DU-8 and DU-9 at full throughput with only standard operator monitoring, as no pressure alarms have occurred on those units yet.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply the vendor's emergency patch to the SIS immediately without functional testing to restore safety coverage as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Restoring the SIS with Full Functional Testing",
+      "situation": "DU-8 and DU-9 are operating in reduced-throughput mode under dedicated manual monitoring. The vendor has supplied the corrected firmware. Before restoring the SIS, comprehensive functional testing of all affected interlocks must be completed. Additionally, the incident must be reported to the relevant process safety regulator. The SIS restoration and testing plan must be approved by the functional safety engineer before execution.",
+      "question": "How do you restore and validate the SIS?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the corrected firmware to the SIS logic solver in the maintenance workshop on a test rig first, conduct full factory acceptance testing of the DU-7, DU-8, and DU-9 interlocks against the Safety Requirements Specification, install the tested firmware on the live SIS, perform site acceptance testing with simulated process inputs, obtain sign-off from the functional safety engineer, and report the incident to the process safety regulator.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply the corrected firmware directly to the live SIS and perform basic I/O checks only, as the vendor has already validated the firmware.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Accept the vendor's test certificate as sufficient and restore the SIS without any site acceptance testing.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "DU-7 was safely shut down manually before reaching the relief valve setpoint. The root cause of the SIS failure \u2014 a faulty vendor firmware update \u2014 was identified. DU-8 and DU-9 were placed under safe manual monitoring. The corrected SIS firmware was rigorously tested and validated before restoration. The process safety regulator was notified. The SIS change management process was updated to require vendor patches to undergo site acceptance testing before deployment.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "OT/ICS",
+  "difficulty": "Advanced",
+  "tags": [
+    "SIS",
+    "safety system",
+    "oil refinery",
+    "high pressure",
+    "functional safety",
+    "IEC 61511",
+    "OT security",
+    "emergency shutdown"
+  ]
+}

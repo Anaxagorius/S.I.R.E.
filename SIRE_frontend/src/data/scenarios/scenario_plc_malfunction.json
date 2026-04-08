@@ -1,0 +1,178 @@
+{
+  "title": "scenario_plc_malfunction",
+  "description": "A PLC in a water treatment facility begins issuing erratic pump commands, causing abnormal pressure readings. Operators must determine whether the fault is hardware failure, misconfiguration, or malicious tampering before infrastructure damage or a safety incident occurs.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Abnormal Pump Commands Detected",
+      "description": "SCADA operators notice PLC-04 is issuing repeated high-speed pump commands inconsistent with current demand and setpoints.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Pressure Readings Spike",
+      "description": "Downstream pressure sensors in pumping zone 3 show readings 40% above normal operating range. No safety interlock has triggered.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "PLC Isolated for Investigation",
+      "description": "Engineering team isolates PLC-04 from the control network while backup manual controls are engaged to stabilise pressure.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Forensic Analysis Underway",
+      "description": "ICS security specialist begins examining PLC logic, recent change logs, and network traffic for signs of tampering or misconfiguration.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Root Cause Identified",
+      "description": "Unauthorised modification to PLC ladder logic confirmed. An attacker accessed the engineering workstation to push a malicious control program.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "PLC-04 was restored with verified firmware, the engineering workstation was secured, network access controls were hardened, and the incident was reported to the relevant authorities.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Erratic PLC Commands Causing Pressure Anomaly",
+      "situation": "You are the OT security lead at a municipal water treatment facility. At 02:14, the SCADA system raises an alert: PLC-04, which controls pumps in zone 3, is issuing continuous high-speed pump commands despite normal demand levels. Downstream pressure gauges read 40% above the normal operating range of 3.5 bar, now reading 4.9 bar. The Safety Instrumented System (SIS) has not triggered. No maintenance or change window is scheduled. Operators are uncertain whether this is a hardware fault, a misconfiguration from a recent patch applied yesterday, or an active attack on the control system.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately engage manual control to stabilise zone 3 pressure, isolate PLC-04 from the control network without powering it down (to preserve forensic state), and alert the OT security team and plant manager while restricting access to the engineering workstation used to manage PLC-04.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Power cycle PLC-04 to reset it to default behaviour, as this is most likely a transient hardware glitch and the quickest fix.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Roll back yesterday's patch on all PLCs immediately to restore a known-good state without investigating the root cause first.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Investigating the PLC Fault",
+      "situation": "Zone 3 pressure has been stabilised via manual control. PLC-04 is isolated on a maintenance VLAN. The plant manager and OT security team are on-site. A review of SCADA historian logs shows the erratic commands began at 01:47, approximately 27 minutes before the alert fired. The engineering workstation (EWS-02) that manages PLC-04 programming shows a successful remote desktop login at 01:31 from an IP outside the OT network. The user account used belongs to a contractor who last worked on-site three weeks ago.",
+      "question": "How do you proceed with the investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Preserve a forensic image of EWS-02 before any remediation, revoke the contractor account immediately, pull full network logs for the 01:00\u201302:30 window, and engage an ICS forensic specialist to examine PLC-04 ladder logic for unauthorised modifications.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Log into EWS-02 using the same administrator account to inspect the PLC program, which may overwrite forensic artefacts.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Contact the contractor to ask whether they were working remotely, giving a potential attacker warning that they have been detected.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Confirming Unauthorised PLC Modification",
+      "situation": "Forensic analysis of EWS-02 confirms that the contractor account was used by an unknown party to connect via the internet-facing remote access portal. The attacker uploaded a modified PLC ladder logic program to PLC-04 at 01:44 that removed upper pressure limits from pump control loops. Network logs show the attacker also attempted to connect to two other PLCs but failed due to incorrect credentials. The modified PLC program must be removed and a verified clean version restored.",
+      "question": "How do you restore PLC-04 to safe operation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore PLC-04 using a verified backup of the authorised ladder logic from the change management system, validate the restored program against the engineering specification, test on isolated bench equipment if possible, then reconnect to the control network under close monitoring.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Download the current PLC program, remove only the lines that appear different, and reload it without full verification against the engineering baseline.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reconnect PLC-04 immediately in auto mode and monitor SCADA to see if the problem recurs before committing to a full restore.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Securing the Environment and Reporting",
+      "situation": "PLC-04 has been restored with a verified control program and is operating normally under close SCADA monitoring. The contractor's account and all other dormant contractor accounts have been suspended. However, the remote access portal remains accessible from the internet. The incident must be reported to the water sector regulator and relevant national cybersecurity authority. Systemic improvements to prevent recurrence are needed.",
+      "question": "What systemic improvements do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Disable internet-facing remote access to the OT network, implement jump-server with MFA and session recording for all remote OT access, enforce periodic review and deprovisioning of contractor accounts, notify the water sector regulator and national cybersecurity authority, and commission a full ICS security assessment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Change the remote access portal password and resume normal operations without further structural changes.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Handle the incident internally and defer reporting to authorities until legal counsel has reviewed the disclosure obligations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "PLC-04 was restored with verified logic, the attack vector via the unprotected remote access portal was closed, contractor account management was overhauled, the incident was reported to the appropriate authorities, and a comprehensive ICS security assessment was commissioned to identify further vulnerabilities across the facility.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "OT/ICS",
+  "difficulty": "Intermediate",
+  "tags": [
+    "PLC",
+    "water treatment",
+    "OT security",
+    "SCADA",
+    "remote access",
+    "ladder logic",
+    "ICS"
+  ]
+}
