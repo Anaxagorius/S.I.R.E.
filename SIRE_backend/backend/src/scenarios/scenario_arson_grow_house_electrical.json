@@ -1,0 +1,163 @@
+{
+  "title": "scenario_arson_grow_house_electrical",
+  "description": "Firefighters respond to a residential fire caused by improvised electrical wiring in an illegal cannabis grow house, presenting hazardous structural conditions, drug evidence, and law enforcement coordination challenges.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Residential Fire Reported",
+      "description": "Units dispatched to a reported house fire with neighbors noting blackout curtains and unusual smells over recent weeks.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Illegal Grow Operation Identified",
+      "description": "First-in crew observes extensive grow lighting, improvised wiring, and plant material throughout the structure.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Electrical Hazard Assessment",
+      "description": "Improvised bypass wiring to the electrical panel identified. Utility company requested to shut power to the structure.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Law Enforcement Notified",
+      "description": "Police and narcotics unit respond. Joint scene management established.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Structural Integrity Concerns",
+      "description": "Floor joists weakened by extensive moisture and grow equipment weight. Structural collapse risk identified.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Fire Suppressed, Scene Secured",
+      "description": "Fire extinguished, electrical power isolated, and scene turned over to law enforcement for narcotics investigation.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Illegal Grow House Discovered",
+      "situation": "Your crew enters what appears to be a residential structure fire and immediately observes dense plant material, high-intensity grow lighting, and improvised electrical wiring running throughout multiple rooms. The origin appears to be an overloaded electrical panel with a bypass around the meter.",
+      "question": "How do you manage the discovery of an illegal operation during active suppression?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue fire suppression focused on crew safety, request utility company shutoff for the improvised electrical system, notify dispatch of the illegal operation for law enforcement response, and avoid disturbing non-fire-affected areas unnecessarily.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Halt suppression until law enforcement arrives to photograph and document the drug evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Proceed with full overhaul including removal of all plant material to access hot spots without notifying law enforcement.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Electrical Bypass Hazard",
+      "situation": "The electrical panel shows clear evidence of a meter bypass — wiring has been directly connected ahead of the utility metering point to steal power. Live wires are exposed and the bypassed current is still energizing the structure even after the main breaker was tripped.",
+      "question": "How do you handle an active electrical hazard with improvised bypass wiring?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat all wiring in the structure as energized, restrict crew to protective hose streams avoiding direct contact with wiring, and await utility company personnel to physically disconnect power at the transformer or meter base.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Flip all available breakers and treat the structure as de-energized.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Cut the bypass wiring manually to isolate power.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Structural Compromise from Grow Equipment",
+      "situation": "A crew member reports that the second-floor feels soft and is bouncing underfoot. Extensive grow equipment, water reservoirs, and humidity damage have significantly weakened the floor structure. The fire is mostly knocked down but embers remain in the ceiling void above the grow room.",
+      "question": "How do you address remaining fire in a structurally compromised grow house?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Withdraw all crew from the second floor, use thermal imaging to confirm fire location, and apply water from the first floor or exterior through openings — avoiding re-entry until structural assessment is completed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a crew to the second floor with a hook to open the ceiling and complete extinguishment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Law Enforcement Scene Transfer",
+      "situation": "Narcotics detectives want to enter the structure to begin evidence collection before the fire investigator has completed the origin and cause examination. Both agencies have valid interests in the scene.",
+      "question": "How do you manage the transition of scene authority to law enforcement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate a walkthrough with the fire investigator and narcotics detectives together, ensure fire investigator completes origin documentation first, then formally transfer authority of non-fire areas to law enforcement while maintaining jurisdiction over the fire origin.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately turn over the entire scene to narcotics detectives once suppression is complete.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire was suppressed safely, electrical hazards managed through utility shutoff, structural risks avoided through withdrawal from the compromised floor, and the scene transferred to law enforcement in coordination with the fire investigator. All agencies achieved their investigative objectives.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "arson",
+    "grow house",
+    "electrical fire",
+    "illegal operations",
+    "law enforcement coordination",
+    "structural hazard"
+  ]
+}

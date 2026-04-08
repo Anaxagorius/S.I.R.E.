@@ -1,0 +1,170 @@
+{
+  "title": "scenario_arson_homicide_concealment",
+  "description": "A structure fire is suppressed and investigators discover evidence suggesting a homicide victim was placed in the structure before it was deliberately ignited to destroy evidence.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Structure Fire Reported",
+      "description": "Crews respond to a fully involved single-family home fire in the early morning hours.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Human Remains Discovered",
+      "description": "During overhaul, crews locate human remains in the master bedroom. Scene operations are immediately halted.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Scene Becomes a Homicide Investigation",
+      "description": "Law enforcement, medical examiner, and fire investigator respond. Joint command established.",
+      "timeOffsetSec": 75
+    },
+    {
+      "index": 3,
+      "title": "Cause of Death vs. Cause of Fire",
+      "description": "Investigators examine both the fire origin and the remains. Evidence suggests the victim died before the fire started.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Accelerant Evidence Located",
+      "description": "Pour patterns consistent with deliberate ignition found at multiple entry points.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Joint Investigation Ongoing",
+      "description": "Scene properly processed by all agencies. Case referred to homicide detectives and arson investigators.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Human Remains Discovered During Overhaul",
+      "situation": "Your crew is conducting overhaul of a single-family home fire when a firefighter locates human remains partially burned in the master bedroom. The occupant was reported to live alone. The medical examiner has not yet arrived.",
+      "question": "What is your immediate response upon discovering human remains?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Halt all overhaul operations immediately, preserve the scene, notify dispatch requesting law enforcement and the medical examiner, and document the location and condition of the remains without disturbing them.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue overhaul to ensure all hot spots are extinguished before stopping.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Move the remains to a more accessible location to assist the medical examiner.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Joint Command Established",
+      "situation": "Law enforcement has arrived and taken command of the homicide investigation while the fire marshal retains authority over the fire scene. The medical examiner is 30 minutes away. Detectives want access to areas your crew believes still have re-ignition risk.",
+      "question": "How do you coordinate jurisdiction between fire and law enforcement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a unified command structure, brief law enforcement on remaining fire hazards, clear only those areas necessary for life safety, and escort investigators into safe zones.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Turn the entire scene over to law enforcement immediately regardless of residual fire hazards.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deny law enforcement access until all overhaul is completed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Pre-Fire Trauma Indicators",
+      "situation": "The medical examiner arrives and notes indicators suggesting the victim suffered blunt force trauma inconsistent with fire injury. The fire investigator simultaneously identifies multiple separate ignition points. Both investigators believe the fire was set to conceal a homicide.",
+      "question": "How should fire and medical investigators coordinate their parallel findings?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hold a joint briefing with law enforcement detectives to share findings from both the medical and fire investigations, establish a unified evidence log, and avoid speculation with the media.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Each investigator proceeds independently and shares findings only in their own agency's report.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Media Pressure and Scene Integrity",
+      "situation": "News crews have gathered at the perimeter. A reporter claims to have received information from a first responder about the suspected homicide. Leadership requests guidance on media relations while the investigation is active.",
+      "question": "How do you handle media pressure during a homicide concealment investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a brief factual statement confirming only that a fatality occurred and the investigation is ongoing, designate a single public information officer, and reinforce to all personnel that no additional information is to be shared.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow investigators to hold individual press interviews to demonstrate transparency.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deny any fatality occurred to avoid speculation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The scene was properly preserved, jurisdiction coordinated effectively, and the dual investigation processed both the fire origin and the cause of death. Media relations were handled through a unified public information strategy. The case has been referred to homicide detectives with full evidence documentation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "arson",
+    "homicide",
+    "fire investigation",
+    "evidence preservation",
+    "law enforcement coordination",
+    "medical examiner"
+  ]
+}

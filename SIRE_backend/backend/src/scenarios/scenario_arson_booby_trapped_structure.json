@@ -1,0 +1,163 @@
+{
+  "title": "scenario_arson_booby_trapped_structure",
+  "description": "Firefighters respond to a structure fire and encounter evidence that the building has been deliberately booby-trapped, creating extreme hazards for suppression crews and investigators.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Structure Fire Reported",
+      "description": "Units dispatched to a vacant industrial building fire with reports of unusual sounds from inside.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Booby Trap Indicators Identified",
+      "description": "First-in crew observes trip wires near the primary entrance and unusual containers near windows.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Operations Halted",
+      "description": "Incident commander halts interior operations and establishes a wider perimeter. Bomb squad requested.",
+      "timeOffsetSec": 40
+    },
+    {
+      "index": 3,
+      "title": "Bomb Squad Arrival",
+      "description": "Bomb disposal unit arrives and begins systematic sweep of the structure exterior.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Device Located and Neutralized",
+      "description": "Two incendiary devices located. One neutralized; one rendered safe by controlled burn.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Suppression Resumes Safely",
+      "description": "After bomb squad clearance, suppression operations resume. No crew injuries.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Booby Trap Indicators at Entry",
+      "situation": "Your crew arrives at a working fire in an abandoned industrial building. As the nozzle team approaches the primary entrance, they spot a thin wire stretched across the doorway at ankle height and several glass containers stacked just inside the door. The building has reportedly been used for illegal activity.",
+      "question": "What is your immediate response upon identifying potential booby trap indicators?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately withdraw all crews from the immediate entry area, establish a larger perimeter, halt interior operations, notify dispatch to request bomb squad and law enforcement, and treat the structure as a hostile environment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Carefully step over the wire and proceed with interior attack, reasoning that fire suppression cannot wait.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Remove the wire before entering and push the containers aside to continue suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Defensive Operations Decision",
+      "situation": "With interior attack halted, the fire is growing. The structure is fully vacant — no life safety risk confirmed. The incident commander must decide whether to conduct defensive exterior operations or wait for bomb squad clearance before any suppression activity.",
+      "question": "How do you maintain fire control while the scene is assessed for booby traps?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct exterior defensive operations from a safe standoff distance using master streams, ensuring no crews approach the structure, while awaiting bomb squad clearance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Suspend all suppression activity until bomb squad completes full clearance.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow crew members to approach windows for suppression while bomb squad assesses entry points only.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Bomb Squad Discovers Additional Devices",
+      "situation": "Bomb squad reports two incendiary devices in addition to the entry trip wire. One device is attached to a secondary exit door. The other is located near the building's electrical panel. Bomb squad assesses they can neutralize one but may need to initiate a controlled burn for the second.",
+      "question": "How do you coordinate fire suppression resources with bomb squad's controlled burn decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stage suppression resources at bomb squad's designated safe standoff, prepare to apply water immediately after controlled burn if fire spreads beyond acceptable limits, and ensure all actions are coordinated through unified command.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Oppose the controlled burn and demand bomb squad neutralize both devices using mechanical methods only.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Crew Accountability and Rehabilitation",
+      "situation": "Operations have been lengthy and several crew members have exceeded air management limits during the defensive phase. The incident is still active. Bomb squad has cleared the exterior but not the full interior.",
+      "question": "How do you manage crew welfare during an extended operation with ongoing hazards?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rotate crews through rehabilitation, maintain crew accountability using a tracking system, allow no interior entry until bomb squad issues full clearance, and request additional resources to maintain operational capacity.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep the same crews on suppression to maintain continuity, delaying rehabilitation until the incident is fully controlled.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Bomb squad cleared the structure, both devices were rendered safe, and suppression crews extinguished the fire without injuries. Crew accountability was maintained throughout and all hazard indicators were preserved for law enforcement investigation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "arson",
+    "booby trap",
+    "bomb squad",
+    "hostile environment",
+    "crew safety",
+    "unified command"
+  ]
+}

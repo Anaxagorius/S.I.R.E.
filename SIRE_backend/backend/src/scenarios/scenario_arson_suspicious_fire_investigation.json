@@ -1,0 +1,162 @@
+{
+  "title": "scenario_arson_suspicious_fire_investigation",
+  "description": "Fire investigators and fire suppression crews respond to a residential structure fire showing multiple indicators of deliberate ignition.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Structure Fire Reported",
+      "description": "Units dispatched to a residential fire. Neighbors report the fire started in three places simultaneously.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Suspicious Burn Patterns Observed",
+      "description": "First-arriving crews note multiple separate char patterns inconsistent with a single accidental ignition.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Fire Marshal Requested",
+      "description": "Incident commander requests fire marshal and law enforcement respond to the scene.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Origin and Cause Investigation",
+      "description": "Fire is knocked down. Investigators begin systematic examination of the burn patterns and point of origin.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Accelerant Detected",
+      "description": "Canine unit detects the presence of a flammable accelerant. Samples collected and scene preserved.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Investigation Concluded",
+      "description": "Scene documentation complete. Evidence packaged for lab analysis. Case referred to arson task force.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Multiple Ignition Points Observed",
+      "situation": "Your engine company arrives at a working residential structure fire. The homeowner is not on scene. Neighbors report hearing a loud crack before fire appeared simultaneously in the garage, front room, and back bedroom. Burn patterns on the exterior are inconsistent with a single point of origin.",
+      "question": "How do you handle the initial approach given the suspicious indicators?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Suppress the fire using standard tactics while photographing all unusual burn patterns, and immediately notify dispatch to request fire marshal and law enforcement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delay suppression until investigators arrive to preserve the scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Proceed with full suppression and overhaul without documenting unusual observations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evidence Preservation During Overhaul",
+      "situation": "The fire is knocked down. Your crew is preparing to overhaul when investigators arrive and identify areas they want preserved. Some smoldering material in those areas poses a re-ignition risk.",
+      "question": "How do you balance fire safety with evidence preservation during overhaul?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with investigators to mark evidence areas, minimally wet down active hot spots only, and avoid disturbing materials identified for collection.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conduct full overhaul as normal — fire safety takes complete precedence over evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Hand over the scene entirely to investigators and leave without completing any overhaul.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Accelerant Canine Detection",
+      "situation": "An accelerant-detection canine alerts on the living room floor and along a hallway. Investigators ask your crew to assist with clearing debris from the suspected pour path without contaminating sample collection points.",
+      "question": "How do you assist investigators while maintaining scene integrity?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Wear clean PPE, use designated tools, remove only debris outside the marked collection points as directed by investigators, and document your actions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Freely clear all debris to speed up the investigation without following the investigator's guidance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Witness Interview Coordination",
+      "situation": "A neighbor reports seeing an unfamiliar vehicle parked in front of the house approximately 45 minutes before the fire was reported. Law enforcement wants to interview the neighbor while your crew remains on scene for standby.",
+      "question": "What is your role during the witness interview phase?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Secure the scene perimeter, document your crew's observations in writing, provide any relevant timeline information to investigators upon request, and maintain standby.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin your own informal questioning of bystanders and share findings directly with the media.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire has been suppressed, evidence collected, and the scene properly turned over to investigators. Your crew's documentation and careful overhaul approach preserved critical evidence for the arson investigation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "arson",
+    "fire investigation",
+    "evidence preservation",
+    "law enforcement coordination",
+    "suspicious fire"
+  ]
+}

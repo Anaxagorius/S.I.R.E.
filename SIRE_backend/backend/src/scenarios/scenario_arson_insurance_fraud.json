@@ -1,0 +1,177 @@
+{
+  "title": "scenario_arson_insurance_fraud",
+  "description": "Fire investigators work with insurance adjusters and law enforcement to investigate a commercial building fire where the owner's financial history and fire behavior strongly suggest deliberate ignition for insurance fraud.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Commercial Structure Fire",
+      "description": "Units respond to a fire at a restaurant that was closed for renovation. The owner filed a large insurance increase two weeks prior.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Financial Red Flags Identified",
+      "description": "Background check reveals the owner is six months behind on mortgage payments and recently doubled fire coverage.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Fire Scene Analysis Begins",
+      "description": "Origin and cause investigation identifies multiple low burn indicators and absence of normal combustibles.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Accelerant Testing Ordered",
+      "description": "Floor samples sent to lab for accelerant analysis. Results expected within 48 hours.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Insurance Adjuster Coordination",
+      "description": "Investigators coordinate with insurance company investigators on shared evidence under legal authority.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Arrest Warrant Issued",
+      "description": "Lab confirms accelerant. Owner arrested on arson and insurance fraud charges.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Commercial Fire",
+      "situation": "You are investigating a fire at a closed restaurant. The building's contents appear largely absent — equipment, fixtures, and inventory that should be present for a renovation are missing. The fire burned low and along the floor in a pattern inconsistent with accidental ignition. The building was insured for significantly more than its appraised value.",
+      "question": "What are your initial investigative priorities when insurance fraud is suspected?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the fire burn patterns and point of origin thoroughly, note the absence of expected combustibles, request financial background on the owner from law enforcement, and notify the insurance company that the claim is under investigation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Determine the origin and cause conclusively before involving law enforcement or the insurance company.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Defer to the insurance adjuster and let them lead the investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Background and Financial Analysis",
+      "situation": "Law enforcement background checks reveal the owner increased fire insurance coverage by 300% six weeks before the fire, has three months of unpaid mortgage payments, and a previous fire claim at a business they owned five years ago. These are significant fraud indicators.",
+      "question": "How do you incorporate financial background into the fire investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the financial indicators as part of the investigative report, coordinate with law enforcement to formally open a fraud investigation, and maintain separation between physical fire investigation findings and financial evidence to protect the integrity of both.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conclude the fire was intentional based on financial evidence alone without completing the physical fire investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Share all financial findings directly with the media to alert the public.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Accelerant Evidence and Lab Coordination",
+      "situation": "Floor samples have been collected from the suspected pour areas. The lab has confirmed the presence of a petroleum-based accelerant not consistent with any kitchen or restaurant operation. The insurance company's investigator also wants access to the samples.",
+      "question": "How do you handle evidence sharing with the insurance company investigator?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Allow insurance investigators access to scene photographs and the lab report once available, but ensure all physical evidence remains under law enforcement chain of custody and that evidence sharing complies with applicable legal frameworks.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the insurance investigator to handle and independently test physical evidence samples.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deny the insurance investigator any access until criminal proceedings are complete.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Owner Interview Request",
+      "situation": "The property owner requests a meeting with fire investigators, stating they want to cooperate fully. Law enforcement advises the owner has retained a defense attorney. The insurance company wants investigators to question the owner before law enforcement does.",
+      "question": "How do you manage the owner interview given the legal considerations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate the interview with law enforcement and the owner's legal counsel present, conduct only questions within the fire investigator's authority, and ensure any admissions are properly documented and legally obtained.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conduct the interview at the insurance company's request without notifying law enforcement.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline to interview the owner entirely and rely solely on physical evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The physical investigation, financial background, and lab analysis produced a strong evidentiary case. The interview was conducted legally and properly documented. An arrest warrant was issued for arson and insurance fraud. The investigation was model in its coordination between fire investigators, law enforcement, and the insurance company.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "arson",
+    "insurance fraud",
+    "fire investigation",
+    "financial fraud",
+    "law enforcement coordination",
+    "evidence chain of custody"
+  ]
+}

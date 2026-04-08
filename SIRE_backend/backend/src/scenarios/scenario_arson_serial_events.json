@@ -1,0 +1,170 @@
+{
+  "title": "scenario_arson_serial_events",
+  "description": "A jurisdiction experiences a series of deliberately set fires over several weeks, stretching resources and requiring coordinated investigation and prevention efforts.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Third Fire in Two Weeks",
+      "description": "A third suspicious structure fire occurs within a four-block radius in 14 days. A serial arsonist is suspected.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Pattern Analysis Initiated",
+      "description": "Fire marshal and law enforcement analyze ignition locations, times, and methods for a behavioral pattern.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Task Force Formed",
+      "description": "An arson task force is assembled including fire investigators, police detectives, and a behavioral analyst.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Fourth Fire Occurs",
+      "description": "A fourth fire is set before the task force can identify a suspect. Community concern escalates.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Surveillance Deployed",
+      "description": "Covert camera systems placed at high-risk locations based on pattern analysis.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Suspect Identified and Apprehended",
+      "description": "Surveillance footage leads to a suspect identification. Subject arrested. No further fires occur.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Third Fire in the Area",
+      "situation": "A third fire has been set in an abandoned commercial block over 14 days. All fires occurred between 0200 and 0400. Each used a similar ignition method at a rear entry point. The fire marshal requests your input on operational response and coordination.",
+      "question": "What is your immediate priority when a serial arsonist pattern is confirmed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Formally declare a serial arson event, notify law enforcement leadership, establish a joint task force, and brief all field personnel on scene awareness indicators.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Treat each fire independently and wait for law enforcement to establish a pattern before changing operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Increase suppression resources only and do not adjust community communication strategy.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Task Force Strategy Meeting",
+      "situation": "The arson task force meets to develop a prevention and detection strategy. A behavioral analyst suggests the arsonist is likely local, moves on foot, and targets properties with concealed rear access. The group must decide how to deploy limited surveillance and patrol resources.",
+      "question": "How do you allocate resources for serial arson prevention?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use pattern analysis to identify the highest-risk properties matching the profile, deploy covert cameras and plainclothes patrols at those sites, and conduct community outreach for tips.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Flood the entire area with marked patrol units around the clock regardless of risk profiling.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for a fifth fire to gather more data before deploying surveillance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fourth Fire Occurs Before Disruption",
+      "situation": "Despite initial task force efforts, a fourth fire is set at a location not covered by surveillance. Community outrage grows. Media is reporting that authorities have failed to stop the arsonist. Leadership requests a public statement.",
+      "question": "How do you manage public communication during an active serial arson investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a factual public statement acknowledging the ongoing investigation, the task force's efforts, and request community tips through a tip line — without disclosing investigative details.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Release all investigative details including the suspect profile to reassure the public.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Make no public statement to avoid alerting the suspect.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Tip Line Yields Suspect Lead",
+      "situation": "An anonymous tip describes a person seen near two of the fire sites who matches the behavioral profile. Investigators want to surveil the individual, but need a warrant to access a security camera on private property that may have captured additional activity.",
+      "question": "How do you proceed with the investigative lead?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pursue the warrant through proper legal channels, continue covert surveillance of the suspect from public areas, and brief the arrest team on safety protocols given the arson risk.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Access the private camera without a warrant to save time.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The warrant was obtained, the private camera footage confirmed the suspect's identity, and the individual was apprehended without incident. No further fires have been reported. The task force approach — combining pattern analysis, targeted surveillance, and community engagement — successfully resolved the serial arson series.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "arson",
+    "serial arson",
+    "investigation",
+    "pattern analysis",
+    "law enforcement coordination",
+    "community communication"
+  ]
+}
