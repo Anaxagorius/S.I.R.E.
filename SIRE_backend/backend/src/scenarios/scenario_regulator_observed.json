@@ -1,0 +1,157 @@
+{
+  "title": "regulator_observed",
+  "description": "A financial regulator observes a live incident response exercise to assess whether the organisation's incident response capabilities meet supervisory expectations \u2014 all decisions and processes are under scrutiny and may inform the regulator's supervisory assessment.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Regulator Arrives for Observation",
+      "description": "Regulatory observers are seated in the exercise room. The facilitator confirms all exercise actions are visible to regulators.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scenario Injected: Data Breach Reported",
+      "description": "Facilitator injects: customer-facing web application breached. Attacker accessed 50,000 customer records.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Regulatory Notification Decision",
+      "description": "Team must decide whether and when to notify the regulator \u2014 the regulator is watching.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 3,
+      "title": "Escalation and Command Observed",
+      "description": "Regulators observe the escalation process, decision logs, and command structure.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 4,
+      "title": "Containment and Evidence Decisions Assessed",
+      "description": "Regulators ask questions about evidence preservation and forensic decisions.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 5,
+      "title": "Regulator Debrief",
+      "description": "Regulatory observers provide a verbal feedback session. Findings to follow in writing.",
+      "timeOffsetSec": 180
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "All Eyes on You \u2014 How Do You Manage Regulator Presence?",
+      "situation": "Two regulatory observers from the financial regulator are seated in the exercise room. They have authority to ask questions during the exercise and their observations will feed into the organisation's supervisory rating. The facilitator injects the first scenario: your customer-facing web application has been breached. Attackers accessed 50,000 customer financial records. Your team must respond. The regulator is watching every decision.",
+      "question": "How do you approach the exercise with regulators present?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Respond exactly as you would in a real incident \u2014 following your documented incident response procedures. Do not cut corners or perform for the regulators. Authentic adherence to process is what demonstrates competence. Brief the team beforehand that observers are present but that this changes nothing about how they should respond.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Designate a senior executive to handle all interactions with the regulators and instruct the team to direct all regulator questions through that executive.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Slow down and over-explain every decision for the regulators' benefit, even if this would not reflect realistic incident response speed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Regulatory Notification \u2014 When and How?",
+      "situation": "Under your regulatory framework, you are required to notify the financial regulator of material cyber incidents within four business hours of detection. The team has confirmed the breach is real (in the exercise scenario). The regulator is sitting in the room. Your Legal team member is unsure whether the exercise notification should be made as if real, or whether the 'regulator present' situation changes the notification decision.",
+      "question": "How do you handle the regulatory notification decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Exercise the notification decision as if it were real: based on the scenario facts, a regulatory notification is required within four hours. Execute the notification process in the exercise \u2014 prepare a draft notification, have it reviewed by Legal, and submit it through the proper channel (even if marked 'exercise'). The regulator is assessing whether you know when and how to notify.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the regulator directly whether to submit a real notification or treat this as hypothetical \u2014 defer to their guidance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Regulators Ask About Evidence Preservation",
+      "situation": "A regulatory observer asks the team: 'If this were a real incident, how would you ensure forensic evidence is preserved for our investigation?' This is a technical question directed at the team mid-exercise. The observer is assessing whether your team understands their obligations to preserve evidence for regulatory enquiries.",
+      "question": "How does your team respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The team explains: forensic images of all affected systems are taken before any remediation activity. A legal hold is issued for all relevant logs, backups, and communications. Chain of custody is maintained throughout. No systems are wiped or reimaged without forensic preservation. The team references its documented evidence handling procedure to demonstrate the process is formalised.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "A team member explains that IT will handle evidence preservation and that the technical details are the IT department's responsibility.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Regulators Observe Escalation Breakdown",
+      "situation": "During the exercise, the escalation from the incident response team to the CRO (Chief Risk Officer) is delayed because the team is uncertain whether the incident meets the materiality threshold for CRO escalation. The regulator notes this delay and asks: 'What is your escalation threshold for this type of incident?'",
+      "question": "How do you respond and what improvement does this identify?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge transparently that the team experienced uncertainty about the materiality threshold. Explain the threshold as currently documented. Commit to a post-exercise action: clarify and communicate escalation thresholds for different incident types so decision-makers can escalate without hesitation in future. Regulators value honest gap identification over performance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Explain to the regulator that the escalation was proceeding correctly and the delay was intentional while awaiting more information.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The regulator-observed exercise was conducted with authentic adherence to documented incident response procedures. Regulatory notification decisions were exercised correctly. Evidence preservation practices were clearly articulated. An escalation threshold gap was transparently identified and committed to remediation. Regulators observed a team that follows process, knows its obligations, and is honest about gaps \u2014 the foundations of a positive supervisory assessment.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "regulator",
+    "supervisory",
+    "financial services",
+    "tabletop",
+    "compliance",
+    "incident response",
+    "governance"
+  ]
+}

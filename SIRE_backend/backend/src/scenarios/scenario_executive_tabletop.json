@@ -1,0 +1,157 @@
+{
+  "title": "executive_tabletop",
+  "description": "The CEO, CFO, General Counsel, and board members participate in a ransomware tabletop exercise focused on business continuity, communications, and governance decisions \u2014 with no technical jargon \u2014 testing executive decision-making under a cyber crisis.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Scenario Briefing",
+      "description": "Facilitator briefs executives: core business systems encrypted, recovery 48\u201372 hours, ransom demand received.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "First Decision Point: Ransom",
+      "description": "Executives must decide whether to pay or not within the first 30 minutes of the exercise.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Communication Decisions",
+      "description": "Board discusses external communications: customers, media, regulators, and investors.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 3,
+      "title": "Business Continuity Choices",
+      "description": "CFO presents financial impact projections. COO presents manual fallback options.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 4,
+      "title": "Governance and Accountability",
+      "description": "Board asks accountability questions: Who knew? What controls existed? Were they adequate?",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 5,
+      "title": "Lessons Identified",
+      "description": "Facilitator debriefs. Key governance and communication gaps identified.",
+      "timeOffsetSec": 180
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ransomware \u2014 The CEO Is in the Room",
+      "situation": "You are the facilitator of an executive tabletop exercise. The scenario: it is 8 a.m. on a Monday and your core ERP and CRM systems are encrypted by ransomware. IT estimates 48\u201372 hours to restore from backup. The attacker is demanding \u00a3500,000 in cryptocurrency within 24 hours. The CFO has calculated \u00a32 million per day of lost revenue. The CEO is chairing this session. What is the first governance decision they must make?",
+      "question": "What is the CEO's first decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The CEO convenes an emergency board sub-committee with Legal, the CFO, and the CISO (or equivalent technical advisor) to formally authorise the response strategy. The first governance decision is: activate the crisis management plan and establish decision-making authority and thresholds. This is not a technical decision \u2014 it is a governance one.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The CEO asks the IT team for a recommendation on whether to pay the ransom and defers the decision entirely to IT.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "The CEO immediately authorises payment of the ransom to minimise business disruption, without consulting Legal or the board.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "To Pay or Not to Pay \u2014 Board-Level Decision",
+      "situation": "Legal has advised that payment may violate OFAC sanctions if the ransomware group is a designated entity. The CFO notes that 48-hour downtime at \u00a32M/day equals \u00a34M \u2014 eight times the ransom. Cyber insurance may cover the ransom but the insurer requires police notification before payment. The CISO advises the backups are intact and restoration is feasible. The board must decide.",
+      "question": "How does the board decide?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The board decides not to pay: (1) Legal has identified sanctions risk; (2) backups are viable; (3) paying funds criminal organisations and does not guarantee decryption. Instead, authorise full backup restoration, engage the cyber insurer for coverage of restoration costs, notify law enforcement as required by the insurer, and instruct Communications to prepare external messaging.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Authorise payment immediately \u2014 the financial loss from downtime outweighs the ransom and the legal risk is theoretical.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Investor and Regulatory Communications",
+      "situation": "The company is publicly listed. The breach may be material and require a market disclosure under securities regulations. GDPR notifications are required within 72 hours if personal data is affected. The General Counsel advises that the CEO must personally sign off on any public statements. A journalist is already calling the communications team.",
+      "question": "How does the board manage communications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The General Counsel leads: immediately assess whether a securities market disclosure is required (consult the company's securities lawyer). File the GDPR notification in parallel \u2014 this can be an initial notification updated later. Prepare a factual press statement approved by the CEO and Legal. Brief the board chair so they are aligned before any public disclosure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct the Communications team to issue a brief 'no comment' response to all media enquiries and defer all formal notifications until recovery is complete.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Board Accountability Questions",
+      "situation": "During the tabletop, the board chair asks the CEO three accountability questions: (1) What security investments did the organisation make in the past 12 months? (2) Was this attack a known risk that had been reported to the board? (3) Is the organisation's current security posture adequate? These are real questions boards ask after incidents.",
+      "question": "How should the CEO have prepared for these questions before an incident occurs?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The CEO should ensure: (1) a regular security risk report is presented to the board at least annually, including the current threat landscape and key risks; (2) material cyber risks are on the board risk register with agreed risk appetite; (3) the CISO (or equivalent) has direct board access; (4) security investments are presented in the context of risk reduction, not just IT spend.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delegate all board cyber reporting to the IT department and assure the board that the professionals are handling it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The executive tabletop revealed key governance decisions: establishing crisis decision-making authority, rejecting ransom payment based on legal risk and viable backups, managing securities disclosure obligations, and identifying what boards need to know before an incident occurs. Executives now understand their roles in a cyber crisis and have identified governance improvements including a formal security risk reporting framework for the board.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "executive tabletop",
+    "board",
+    "ransomware",
+    "governance",
+    "crisis management",
+    "communications",
+    "GDPR"
+  ]
+}

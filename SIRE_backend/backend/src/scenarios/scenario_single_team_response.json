@@ -1,0 +1,157 @@
+{
+  "title": "single_team_response",
+  "description": "A small IT team of three people must detect, contain, and recover from a ransomware incident entirely on their own, with no dedicated security function, no external IR retainer, and limited tooling \u2014 testing their ability to prioritise under resource constraints.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Ransomware Alert Triggers",
+      "description": "Windows Defender alerts on file encryption activity on the file server. The team of three is alerted.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Triage and Initial Assessment",
+      "description": "One team member triages the alert while the others handle incoming helpdesk calls about missing files.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "File Server Isolated",
+      "description": "Team isolates the file server by disabling its network adapter. Backup status checked.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Backup Restoration Begun",
+      "description": "Clean backup from 24 hours ago identified. Restoration begun on spare hardware.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Root Cause Identified",
+      "description": "Investigation reveals ransomware entered via an unpatched RDP service exposed to the internet.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Systems Restored and Hardened",
+      "description": "File server restored. RDP secured. Patch schedule reviewed and accelerated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ransomware \u2014 Just You and Two Colleagues",
+      "situation": "Your organisation has a three-person IT team. Windows Defender has alerted on ransomware activity on the main file server. Staff are calling the helpdesk about missing files. You have no dedicated security team, no external IR retainer, no SIEM, and no EDR beyond Windows Defender. You must triage and respond with the resources you have.",
+      "question": "How do you prioritise with three people?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign one team member to isolate the file server from the network immediately. Assign one to check the status of backups and identify the most recent clean backup. You take responsibility for communication \u2014 notify management, instruct staff to stop using affected systems, and check whether cloud services are impacted. Document every action.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Try to remove the ransomware from the file server first before isolating it, to minimise data loss.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus all three team members on the file server and ignore the helpdesk calls until the server is dealt with.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Backups \u2014 Are They Clean?",
+      "situation": "The file server is isolated. You have identified backups taken at midnight last night. However, the ransomware may have been active for longer than 24 hours \u2014 if so, the backup may also contain encrypted files or the initial infection vector. You must verify backup integrity before restoring.",
+      "question": "How do you verify the backup is clean?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore the backup to an isolated test environment or spare machine first. Verify file integrity by checking a sample of files from different time periods. Check backup logs for any anomalies during the backup window. Only proceed with full production restoration once the backup is confirmed clean.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore the most recent backup directly to the production server to get systems running as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Root Cause \u2014 Finding the Entry Point",
+      "situation": "Backup is confirmed clean and restoration is underway. You must identify how the ransomware got in to ensure the same entry point is not exploited again immediately after recovery. Windows event logs are available. You have limited time as management is pressing for restoration.",
+      "question": "How do you identify the entry point under time pressure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review Windows event logs for the earliest signs of the ransomware process and trace back to the authentication event or process that preceded it. Check for any internet-facing services (RDP, FTP, VPN) that may have been exploited. Do this in parallel with the restoration \u2014 assign one team member to log analysis while the other two manage recovery.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Complete the restoration first, then investigate root cause \u2014 analysis can wait until systems are back online.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Securing the Restored Environment",
+      "situation": "Root cause confirmed: RDP was exposed directly to the internet on port 3389 with weak credentials. The attacker brute-forced the RDP login over three days before deploying ransomware. The file server is now restored. You must harden the environment to prevent immediate re-compromise.",
+      "question": "What immediate hardening steps do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately disable public RDP. If remote access is needed, place it behind a VPN with MFA. Force password resets for all accounts. Enable Windows Firewall on all systems. Review all other internet-facing services for similar exposure. Implement an accelerated patch schedule with weekly reviews.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Change the RDP password to a stronger one and rely on Windows Defender to detect the next intrusion attempt.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A small three-person IT team successfully triaged, contained, and recovered from a ransomware incident without external support. Roles were divided effectively, backup integrity was verified before restoration, root cause was identified in parallel with recovery, and the entry point (exposed RDP) was secured immediately after restoration. Management has been briefed and a basic security improvement roadmap has been presented.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "ransomware",
+    "small team",
+    "tabletop",
+    "single-team",
+    "RDP",
+    "backup recovery",
+    "resource constraints"
+  ]
+}

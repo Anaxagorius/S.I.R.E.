@@ -1,0 +1,157 @@
+{
+  "title": "multi_geography_incident",
+  "description": "A worm propagates from an office in Asia-Pacific across a flat global WAN, reaching offices in Europe and the Americas within hours, triggering different regulatory notification obligations in each jurisdiction and creating a coordination nightmare across time zones.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Worm Detected in APAC Office",
+      "description": "EDR in the Singapore office alerts on self-propagating malware targeting unpatched SMB services.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Worm Spreads to European Offices",
+      "description": "SIEM shows propagation across the global WAN to London and Frankfurt offices within two hours.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Americas Offices Impacted",
+      "description": "New York and S\u00e3o Paulo offices report system failures as the worm reaches the Americas segment.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Inter-Region WAN Isolated",
+      "description": "Network team implements emergency WAN segmentation, isolating regions. Global operations are disrupted but spread is halted.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Multi-Jurisdictional Regulatory Notifications",
+      "description": "Legal teams in each region begin assessing breach notification obligations under GDPR, PDPA, LGPD, and CCPA.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Global Recovery Coordinated",
+      "description": "Patching and reimaging coordinated across all regions. Central incident command manages recovery prioritisation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Worm in APAC \u2014 How Fast Can It Spread Globally?",
+      "situation": "Your Singapore EDR console shows a self-propagating worm exploiting an unpatched SMB vulnerability, spreading rapidly across the APAC office network. Your global WAN connects all offices without regional firewall boundaries. If the worm reaches the WAN, it will spread to Europe and the Americas within hours. The Singapore IT team is the only one currently aware of the incident \u2014 it is 9 a.m. in Singapore, 2 a.m. in London, and 9 p.m. the previous day in New York.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately alert the global CISO and wake the relevant on-call staff in all regions. Request emergency WAN segmentation to isolate the APAC region from the global WAN before the worm can propagate. Simultaneously patch or isolate unpatched hosts in APAC. Do not wait until business hours in other regions to act.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contain the worm within APAC first, then notify other regions during business hours once the situation is better understood.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deploy antivirus updates across all APAC systems and monitor to see if the worm is contained by the updates before escalating globally.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Worm Reaches Europe \u2014 Multi-Region Coordination Required",
+      "situation": "Despite the APAC isolation request, the worm has already reached the European WAN segment \u2014 it began propagating 90 minutes before the Singapore team detected it. London and Frankfurt offices are now affected. European GDPR obligations may be triggered. You must coordinate incident response across three regions simultaneously, in three time zones, with different regulatory frameworks.",
+      "question": "How do you structure the multi-region response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a single global incident command with the CISO as incident commander. Assign regional incident leads for APAC, EMEA, and Americas. Establish a dedicated communication bridge with scheduled updates. Immediately engage European legal counsel for GDPR notification assessment. Implement WAN segmentation between all regions now to prevent further spread.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow each regional team to manage their own response independently to move faster, with status updates shared by email.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Multi-Jurisdictional Regulatory Obligations",
+      "situation": "The worm has affected systems containing personal data in Singapore (PDPA), Germany (GDPR), Brazil (LGPD), and California (CCPA). Each jurisdiction has different breach notification thresholds, timeframes, and notification authorities. Legal teams in each region are assessing obligations simultaneously. The 72-hour GDPR clock may already be running.",
+      "question": "How do you manage multi-jurisdictional notification obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage specialist privacy counsel in each affected jurisdiction to run parallel notification assessments. Create a shared incident documentation repository accessible to all regional legal teams. Prioritise GDPR notification assessment given the shortest statutory deadline. Designate a global privacy coordinator to ensure no jurisdiction is missed and notifications are consistent.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Notify only the EU supervisory authority since GDPR is the strictest framework, and assume this covers obligations in other jurisdictions.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Coordinating Global Recovery Across Time Zones",
+      "situation": "Worm spread is contained. Recovery involves patching unpatched SMB hosts across all five affected offices, reimaging severely compromised systems, and restoring from backup where needed. Recovery must be coordinated globally, with limited hours where all regional teams overlap. Some regions are further ahead in recovery than others.",
+      "question": "How do you coordinate global recovery efficiently?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Create a global recovery tracker with per-office status updated in real time. Prioritise offices with the most business-critical systems. Use 'follow-the-sun' resourcing so the IR team is always active in whichever region is in business hours. Establish a minimum recovery standard all regions must meet before reconnecting to the global WAN.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow each region to recover at its own pace and reconnect to the global WAN as soon as local teams believe their segment is clean.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A self-propagating worm affecting five global offices across four regulatory jurisdictions was managed through global incident command, regional incident leads, emergency WAN segmentation, parallel multi-jurisdictional regulatory notifications, and follow-the-sun recovery coordination. A global network segmentation project has been commissioned to prevent future flat-WAN propagation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "worm",
+    "multi-geography",
+    "GDPR",
+    "PDPA",
+    "global response",
+    "WAN segmentation",
+    "regulatory"
+  ]
+}

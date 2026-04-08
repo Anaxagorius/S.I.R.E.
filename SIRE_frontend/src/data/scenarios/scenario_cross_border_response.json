@@ -1,0 +1,158 @@
+{
+  "title": "cross_border_response",
+  "description": "A multi-national organisation conducts a cross-border incident response drill involving teams in the UK, EU, US, and Singapore, testing their ability to coordinate response activities, manage conflicting legal obligations, and maintain unified communications across jurisdictions.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Drill Initiated Simultaneously Across Regions",
+      "description": "Drill scenario injected to all four regional teams at once: shared cloud environment breached, data in all regions potentially affected.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Regional Teams Begin Parallel Triage",
+      "description": "UK, EU, US, and Singapore teams begin independent triage, each assessing their regional impact.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Global Coordination Call Established",
+      "description": "Global incident commander convenes a cross-border coordination call within 15 minutes.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Conflicting Legal Advice Emerges",
+      "description": "Legal teams in different jurisdictions give conflicting advice on notification obligations and data handling.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Unified Global Response Plan Agreed",
+      "description": "Global commander arbitrates between conflicting advice and issues a unified response plan.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Drill Debrief \u2014 Cross-Border Gaps Identified",
+      "description": "All four regions debrief together. Coordination, escalation, and legal harmonisation gaps documented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Breach in the Shared Cloud \u2014 Four Regions Affected",
+      "situation": "A breach of your shared cloud environment has potentially affected customer data in the UK, EU, US (California), and Singapore \u2014 each with different data protection laws (UK GDPR, EU GDPR, CCPA, and PDPA respectively). Four regional teams have received the drill scenario simultaneously. You are the global incident commander. Your first task is to establish cross-border coordination before four independent responses diverge.",
+      "question": "How do you establish global incident command?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately convene a global coordination call with all four regional leads within 15 minutes. Establish clear rules of engagement: (1) each region handles its own triage but no region takes containment actions without global commander approval; (2) all legal advice is funnelled through a designated global legal coordinator; (3) all external communications are approved centrally. Assign a global comms lead and a global legal lead.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow each regional team to manage their own response independently given the different legal frameworks, and collect status updates by email.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Appoint the US team as lead given they have the largest IR team, and have other regions report to them.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Conflicting Legal Advice Across Jurisdictions",
+      "situation": "The global coordination call has revealed a conflict: the EU legal team (under GDPR) advises that data must not be transferred outside the EU for forensic analysis. The US legal team advises that US federal law enforcement requires certain logs to be preserved in the US. The Singapore team advises PDPA allows a 30-day notification window. The UK team notes their notification window is 72 hours under UK GDPR. You must harmonise these positions.",
+      "question": "How do you handle conflicting legal requirements?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage a single specialist law firm with multi-jurisdictional privacy expertise to provide a harmonised legal position. In the interim: assume the most restrictive timeframe applies globally (UK/EU 72-hour notification window). For data transfer conflicts, use regional forensic teams to analyse data in-region rather than centralising. Document the legal position clearly for all teams.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Follow the most lenient legal advice (30-day PDPA window) to give the team maximum time to investigate before making any notifications.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Time Zone Coordination \u2014 Who Works When?",
+      "situation": "It is 9 a.m. in London. That means it is 10 a.m. in Frankfurt, 5 a.m. in New York (where the US team is just waking up), and 5 p.m. in Singapore (where the team is ending their day). Full round-the-clock coordination is needed. The 72-hour notification clock is running. You need a continuous follow-the-sun staffing model.",
+      "question": "How do you structure follow-the-sun incident coverage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish three shifts: APAC (Singapore leads, APAC hours), EMEA (UK/EU leads, European hours), and Americas (US leads, US hours). Each shift briefs the incoming shift at handover using a standardised handover document with current status, open actions, and pending decisions. The global incident commander receives written handover summaries at each shift change.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep the London team on extended hours since they are the global headquarters and can coordinate with all other regions.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Regulator Notifications Across Four Jurisdictions",
+      "situation": "The 72-hour GDPR notification window is approaching. Notifications must be filed with the ICO (UK), a lead EU DPA (likely the Irish DPA given EU headquarters), and considered for the California AG (CCPA) and Singapore PDPC (PDPA). Each notification requires different formats, different information, and different channels.",
+      "question": "How do you coordinate multi-jurisdictional regulatory notifications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign a dedicated legal point of contact for each jurisdiction, working under the global legal coordinator. Create a shared notification tracker showing each jurisdiction's deadline, required format, authority, and submission status. Each regional legal team prepares its notification using a common factual baseline (breach scope, affected data types, remediation steps) and adapts it to local format requirements. Global legal coordinator reviews all before submission.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "File one notification with the ICO and request that the ICO coordinate with other EU and non-EU regulators on your behalf.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The cross-border drill successfully tested global incident command, cross-jurisdictional legal harmonisation, follow-the-sun staffing, and multi-jurisdictional regulatory notification coordination. Key gaps identified included: conflicting legal advice requiring a single harmonised position, lack of a pre-agreed follow-the-sun rota, and absence of a global notification tracker. Corrective actions have been assigned to address all gaps before the next exercise.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "cross-border",
+    "multi-jurisdictional",
+    "GDPR",
+    "CCPA",
+    "PDPA",
+    "global response",
+    "follow-the-sun",
+    "tabletop"
+  ]
+}

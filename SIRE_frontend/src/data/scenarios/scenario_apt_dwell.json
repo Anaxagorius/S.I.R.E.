@@ -1,0 +1,164 @@
+{
+  "title": "apt_dwell",
+  "description": "A threat-intelligence vendor alerts your organisation that its infrastructure indicators have been observed in a known APT's recently published campaign report \u2014 suggesting an attacker may have been present in your environment for months without detection.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Threat Intelligence Alert Received",
+      "description": "A third-party threat intel feed flags your public IP range and a subdomain in a published APT campaign report.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "C2 Beaconing Confirmed",
+      "description": "Retrospective analysis of DNS and proxy logs reveals periodic beaconing to APT-associated C2 infrastructure dating back 11 months.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Implants Identified on Three Hosts",
+      "description": "EDR retrospective hunt identifies dormant implants on a domain controller, a HR workstation, and a finance laptop.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Scope and Dwell Time Established",
+      "description": "Forensic review estimates 11-month dwell time. All data accessible from compromised hosts is potentially exfiltrated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Eradication and Recovery Initiated",
+      "description": "Compromised hosts reimaged. Credentials reset globally. New network segmentation and monitoring deployed.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Board-Level Reporting and Lessons Learned",
+      "description": "Full incident report presented to the board. Detection gap analysis completed. MDR provider engaged.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Your Infrastructure in an APT Report \u2014 Are You Compromised?",
+      "situation": "A threat intelligence vendor has shared a newly published report linking a sophisticated APT group to indicators including your company's public IP range and an internal subdomain visible in DNS passive data. The report covers a campaign running for over a year. Your SIEM has not raised any related alerts historically. You must determine whether you are or were compromised.",
+      "question": "How do you initiate the investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat this as a confirmed compromise until proven otherwise. Immediately run a retrospective threat hunt across DNS, proxy, EDR, and firewall logs using the published IOCs. Engage a specialist threat hunting firm if internal capacity is insufficient. Notify the CISO and begin preparing for potential breach notification.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Check the SIEM for any matching alerts from the past 30 days. If none are found, conclude you are not affected and file the intelligence report for reference.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Contact the threat intelligence vendor to request clarification on whether the IOCs definitely relate to your environment before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "C2 Beaconing Found \u2014 11 Months of Dwell Time",
+      "situation": "Retrospective DNS and proxy log analysis confirms periodic beaconing to APT-associated C2 infrastructure beginning 11 months ago. The beaconing is low-frequency and blends with legitimate traffic \u2014 explaining why automated alerting missed it. EDR retrospective hunts identify dormant implants on a domain controller, a HR server, and two finance workstations. All data accessible from these systems over the past year must be treated as potentially exfiltrated.",
+      "question": "How do you scope and contain the incident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate identified compromised hosts immediately without alerting the attacker by abruptly killing C2 channels \u2014 coordinate timing so all hosts are isolated simultaneously. Begin a full data classification review to determine what data was accessible. Engage Legal for breach notification assessment. Do not attempt eradication until the full scope is understood.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately reimage all compromised hosts and force a global password reset to evict the attacker as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the implants in place and passively monitor C2 traffic to gather intelligence on the attacker before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assessing the Full Blast Radius",
+      "situation": "The domain controller compromise means the attacker likely had access to all Active Directory objects, including every user account's password hash. The HR server held employee PII. The finance workstations held financial models and M&A documents under NDA. Regulatory obligations under GDPR (employee PII) and potential securities law (M&A documents) may apply. You must assess and act on notifications.",
+      "question": "How do you manage the regulatory and legal obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately convene a cross-functional team of Legal, DPO, HR, Finance, and CISO. Assess GDPR breach notification requirements for the HR PII (72-hour clock may have already started). Engage securities legal counsel regarding the M&A document exposure. Notify law enforcement. Prepare factual communications for affected individuals if required.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delay all notifications until the forensic investigation is complete and you have full certainty about what was exfiltrated.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Eradication, Recovery, and Hardening",
+      "situation": "Legal and regulatory notifications are in progress. You must now safely eradicate the APT from the environment, recover affected systems, and deploy controls to prevent re-compromise \u2014 knowing the attacker may attempt to re-enter if they detect the eviction.",
+      "question": "How do you execute eradication and recovery safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Simultaneously isolate and reimage all compromised hosts. Perform a full Active Directory credential reset including krbtgt and all service accounts. Rotate all secrets, API keys, and certificates. Deploy an MDR (Managed Detection and Response) service for ongoing monitoring. Validate clean state before reconnecting systems.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reimage only the hosts with confirmed implants and reset passwords for accounts directly accessed during the known compromise period.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A retrospective threat hunt uncovered an 11-month APT dwell. Simultaneous host isolation and eradication evicted the attacker. Full Active Directory reset and secrets rotation closed reentry paths. Regulatory notifications were filed within required timeframes. An MDR provider is now delivering continuous threat detection to prevent future long-dwell campaigns from going unnoticed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "APT",
+    "long-dwell",
+    "threat hunting",
+    "C2",
+    "Active Directory",
+    "forensics",
+    "MDR"
+  ]
+}

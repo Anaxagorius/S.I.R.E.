@@ -1,0 +1,157 @@
+{
+  "title": "nation_state_attack",
+  "description": "A sophisticated nation-state threat actor exploits a supply chain vulnerability in a widely-used network monitoring tool to gain persistent access to government contractor systems, exfiltrating classified programme data over six months.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Vendor Discloses Supply Chain Compromise",
+      "description": "A network monitoring software vendor issues an emergency advisory disclosing that trojanised updates were distributed to customers for six months.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Trojanised Binary Confirmed in Environment",
+      "description": "Asset management confirms the affected software version is installed on 34 systems including servers in a restricted programme network.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Covert Backdoor Activity Discovered",
+      "description": "Forensic analysis finds the implant has been beaconing to attacker infrastructure and staging data in disguised temporary files.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Government CERT Notified",
+      "description": "National CERT and relevant government agencies notified in line with classified incident reporting obligations.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Network Isolation and Remediation",
+      "description": "Affected systems disconnected from network. Forensic images taken. Clean rebuilds initiated from known-good baselines.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Programme Security Review",
+      "description": "Full review of accessed programme data conducted. Classification review team engaged. Damage assessment report submitted.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Supply Chain Advisory \u2014 Are You in Scope?",
+      "situation": "A major network monitoring software vendor has disclosed that a nation-state threat actor compromised their build pipeline and delivered a trojanised update to customers for the past six months. CISA and the national CERT have issued emergency directives to assess exposure immediately. Your organisation is a government contractor operating sensitive programme networks. You must determine your exposure within hours.",
+      "question": "How do you assess your exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately query asset management and software inventory systems for all installations of the affected product and version. Cross-reference against the published IOCs in the advisory. Treat all matching systems as compromised pending investigation. Escalate to the CISO, Legal, and your government programme security officer immediately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for your software vendor to contact you directly with confirmation of whether you received the trojanised update before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Uninstall the affected software from all systems immediately to remove the threat before conducting any forensic investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Trojanised Software on Restricted Networks",
+      "situation": "Asset management confirms the trojanised software version is installed on 34 systems, including servers inside a restricted classified programme network. Forensic analysis confirms the implant has been active and beaconing to attacker-controlled infrastructure. Staged data files suggest document exfiltration. You must act within your government contractor classified incident reporting obligations.",
+      "question": "How do you meet your reporting obligations while managing the incident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify your government programme security officer (PSO) and the national CERT per classified incident reporting requirements. Do not attempt unilateral remediation on classified networks without government authorisation. Preserve all forensic evidence. Engage a government-approved incident response team.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin remediation immediately on all affected systems to minimise data exposure before making any external notifications.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Forensics on Classified Systems",
+      "situation": "The government has authorised a forensic investigation of the affected classified programme systems. Your government-approved IR team must determine the scope of data accessed and whether persistence mechanisms beyond the initial implant exist \u2014 all while maintaining chain-of-custody requirements for classified forensic evidence.",
+      "question": "How do you conduct forensics in this environment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Follow government-mandated forensic procedures for classified systems, including approved forensic tooling, proper handling and labelling of classified evidence, and reporting findings only through authorised channels. Produce a detailed timeline of attacker activity and a data exposure assessment for the damage assessment board.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use standard commercial forensic tools and share findings in an unclassified incident report to speed up the process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Rebuilding and Hardening After Nation-State Compromise",
+      "situation": "Forensics is complete. The attacker accessed design documents and contractor personnel data across six months of dwell time. All classified systems must be rebuilt from verified clean baselines. Leadership asks what long-term security improvements should be mandated.",
+      "question": "Which strategic improvements do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mandate software supply chain verification (SBOM, signed builds, and vendor security attestation) for all software on sensitive networks. Implement network segmentation isolating classified networks from any vendor-managed software. Deploy continuous threat hunting on all classified networks. Require government-approved MDR coverage.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Replace the compromised software vendor with an alternative product and retrain staff on security awareness.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You identified the nation-state supply chain compromise, met classified incident reporting obligations, engaged a government-approved forensic team, and delivered a full damage assessment. Rebuilds from clean baselines are underway. Supply chain verification, network segmentation, and continuous threat hunting on classified networks have been mandated. Long-dwell nation-state access has been confirmed, scoped, and eradicated.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "nation-state",
+    "supply chain",
+    "APT",
+    "classified",
+    "government",
+    "espionage",
+    "SBOM"
+  ]
+}

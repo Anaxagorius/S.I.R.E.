@@ -1,0 +1,156 @@
+{
+  "title": "holiday_incident",
+  "description": "A ransomware attack is detected at 11 p.m. on Christmas Eve when only a skeleton IT crew is available, key decision-makers are unreachable, and on-call escalation paths have not been updated for holiday coverage.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Alert at 11 p.m. Christmas Eve",
+      "description": "SIEM generates a high-priority ransomware alert. The on-call analyst is the only available responder.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Escalation Paths Fail",
+      "description": "On-call numbers for CISO and IR manager are out-of-date. First responder cannot reach decision-makers.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Analyst Acts with Limited Authority",
+      "description": "Analyst isolates affected segment using documented emergency procedures and contacts the CTO via personal number.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "IR Team Recalled",
+      "description": "Senior IR staff recalled from holiday leave. Incident command established remotely.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Containment and Recovery Initiated",
+      "description": "Affected systems isolated. Backup restoration initiated. Business impact assessed for Christmas Day operations.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Post-Holiday Review",
+      "description": "Incident review identifies holiday coverage gaps. On-call rotation and escalation paths updated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ransomware on Christmas Eve \u2014 You Are the Only Responder",
+      "situation": "It is 11 p.m. on Christmas Eve. You are the on-call analyst \u2014 the only IT staff member monitoring systems tonight. The SIEM has generated a critical ransomware alert on four servers in the HR and finance network segment. You have attempted to reach your on-call manager and the CISO through the documented escalation list, but both numbers are incorrect or unanswered. You have pre-authorised isolation runbooks but no authority to engage vendors or pay for external IR support.",
+      "question": "What do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Execute the documented emergency isolation procedure for the affected network segment immediately \u2014 this is within your pre-authorised authority. Simultaneously attempt to reach leadership through every available channel (personal mobile numbers in the emergency contact list, company emergency line). Document every action you take with timestamps. Do not wait for authorisation before isolating.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait until you reach an authorised decision-maker before taking any action, to avoid exceeding your authority.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Power off all servers in the affected segment immediately, then try to reach your manager.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Decision-Maker Reached \u2014 Limited Resources Available",
+      "situation": "You reached the CTO via their personal number. They have authorised you to continue isolation and have begun recalling the senior IR team from holiday. However, it will take 2\u20133 hours before senior staff are online. The ransomware is confirmed contained to the isolated segment, but recovery cannot begin without senior decision-making on whether to restore from backup or engage an external IR firm. The CTO asks you to assess the damage and have a recovery options brief ready.",
+      "question": "How do you prepare for the recovery decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prepare a structured options brief covering: (1) recovery from last known clean backup (RTO estimate, data loss window, integrity of backups); (2) engagement of external IR firm (cost, availability over Christmas, timeline); (3) scope of encrypted systems and business impact on Christmas Day operations. Present all three options with pros and cons when the IR team comes online.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin restoring from the most recent backup immediately without waiting for the IR team, to minimise downtime.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Christmas Day Operations at Risk",
+      "situation": "It is now 2 a.m. on Christmas Day. The IR team is online remotely. Recovery from backup has begun but will take until approximately 8 a.m. Some Christmas Day payroll and HR processes depend on the encrypted systems. The HR director needs to be informed. You must manage the business continuity impact while recovery continues.",
+      "question": "How do you manage Christmas Day business continuity?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the HR director (through the emergency escalation list) to notify them of the expected outage window and provide a manual fallback option for any time-sensitive Christmas Day processes. Issue an internal communications update to relevant stakeholders. Ensure the IR team is adequately supported with rest rotations given the extended overnight operation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Defer notifying the HR director until systems are restored \u2014 no need to alarm them over the holiday.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Incident: Fixing the Holiday Coverage Gaps",
+      "situation": "Systems are restored by 9 a.m. Christmas Day. The post-incident review identifies that the escalation contact list was six months out of date, no holiday-specific incident response coverage had been planned, and the on-call analyst lacked clarity on what actions they were pre-authorised to take. Leadership asks for corrective actions.",
+      "question": "What corrective actions do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement: (1) mandatory quarterly review of all escalation contact lists; (2) a formal holiday on-call rota with named deputies for all key roles; (3) a documented and trained 'analyst emergency authority' policy clearly defining what actions an on-call analyst can take without approval; (4) annual holiday period tabletop exercises simulating skeleton-crew incidents.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Update the escalation contact list and remind staff to keep their contact details current.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A Christmas Eve ransomware attack was handled effectively despite skeleton staffing and initial escalation failures. Pre-authorised isolation procedures were executed, leadership was reached through emergency contacts, and recovery was completed before Christmas Day operations were critically impacted. Corrective actions including holiday on-call rotas, updated escalation lists, and analyst emergency authority policies have been implemented.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "ransomware",
+    "holiday",
+    "skeleton crew",
+    "escalation",
+    "on-call",
+    "business continuity"
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "title": "red_team_vs_blue_team",
+  "description": "The blue team must detect, investigate, and respond to a sanctioned red team exercise simulating an advanced persistent threat \u2014 without being told the exercise start date, testing their detection capabilities and incident response processes under realistic conditions.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Red Team Exercise Begins (Unannounced)",
+      "description": "The red team begins reconnaissance and initial access attempts. The blue team has no advance warning.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Anomalous Activity Detected by Blue Team",
+      "description": "SIEM alerts on unusual authentication patterns. Blue team begins investigation.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Red Team TTPs Identified",
+      "description": "Blue team correlates multiple SIEM alerts and identifies the red team's lateral movement pattern.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Red Team Objective Reached",
+      "description": "Red team reaches the target crown jewels system before the blue team can block access.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Exercise Concludes",
+      "description": "Red team declares success. Findings debriefed with both teams.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Purple Team Review",
+      "description": "Red and blue teams review findings together. Detection gaps and response improvements identified.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unusual Authentication \u2014 Exercise or Real Attack?",
+      "situation": "Your SIEM has generated alerts for unusual authentication activity: a service account is authenticating from a workstation it has never touched before, and a user account is running PowerShell commands outside business hours. These could be a real attack or a sanctioned red team exercise. You are the blue team lead. You have not been told whether a red team exercise is currently active.",
+      "question": "How do you treat this alert?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat all suspicious activity as a real incident until explicitly informed otherwise through the proper exercise notification channel. Begin a full investigation: isolate the service account, investigate the PowerShell commands, and escalate to the CISO. Contact the exercise director only through the pre-agreed channel to verify if this is part of a sanctioned exercise \u2014 do not assume it is.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume it is the red team exercise and stand down the investigation to avoid interfering with the exercise.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for more alerts before escalating \u2014 a single anomaly does not justify an incident response.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Lateral Movement Pattern Identified",
+      "situation": "Investigation reveals a clear lateral movement chain: initial access via a phishing email to a low-privileged user, credential dumping, then pass-the-hash to the service account, then movement to three high-value servers. The pattern matches known adversary TTPs. You have confirmed through the exercise director's channel that this IS a sanctioned red team exercise. The red team has not yet reached the crown jewels system. You still have time to block their path.",
+      "question": "How do you respond to contain the red team?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block the lateral movement path by isolating the compromised service account, resetting credentials for all accounts in the compromise chain, and monitoring the high-value servers for further access attempts. Document every detection and response action with timestamps for the post-exercise review.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the red team to continue to their objective to avoid disrupting the exercise and gather more observational data.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Red Team Adapts \u2014 They Pivot to a New Entry Point",
+      "situation": "The red team's primary lateral movement path has been blocked. However, they have pivoted to a different attack path using a forgotten admin account that was not in your credential reset scope. They have now reached the crown jewels system. The exercise continues. You must document how the blue team missed this pivot and what detection would have caught it.",
+      "question": "What is the key lesson from the missed pivot?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a detailed analysis of the forgotten admin account: Why was it not in scope for the credential reset? Does your identity inventory include all privileged accounts? What monitoring coverage does the crown jewels system have? Document these gaps with specific recommended controls for the post-exercise purple team review.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept that the red team reached their objective and conclude the exercise without further analysis.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Exercise Debrief \u2014 Making the Most of It",
+      "situation": "The red team exercise has concluded. Both teams are ready for a debrief. This is the most valuable part of the exercise \u2014 the blue team can learn from every step of the red team's campaign. The exercise identified three detection gaps and two response weaknesses. The CISO asks for a concrete improvement plan.",
+      "question": "How do you structure the post-exercise improvement plan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run a structured purple team debrief: the red team walks through each TTP used, and the blue team identifies what was detected, what was missed, and why. Produce a prioritised remediation list covering: (1) detection gaps (new SIEM rules, EDR coverage); (2) response weaknesses (playbook updates, authority clarifications); (3) identity hygiene (orphaned accounts, privilege sprawl). Assign owners and deadlines.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "File the exercise report and schedule a follow-up exercise in six months to see whether things have improved.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The blue team treated all suspicious activity as a real incident, detected the red team's lateral movement campaign, partially contained it, and identified the gaps that allowed the red team to reach their objective via a pivot. A structured purple team debrief produced a prioritised remediation plan covering detection gaps, response weaknesses, and identity hygiene issues. Detection coverage and incident response processes are measurably improved.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "red team",
+    "blue team",
+    "adversary simulation",
+    "tabletop",
+    "lateral movement",
+    "detection",
+    "purple team"
+  ]
+}

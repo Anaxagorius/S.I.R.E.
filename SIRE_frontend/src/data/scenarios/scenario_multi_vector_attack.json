@@ -1,0 +1,163 @@
+{
+  "title": "multi_vector_attack",
+  "description": "Attackers simultaneously launch a ransomware deployment, a DDoS flood, and a targeted phishing campaign, overwhelming the incident response team and masking lateral movement across the environment.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "DDoS Wave Begins",
+      "description": "External-facing services experience heavy traffic saturation. NOC raises a P1 ticket.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Phishing Emails Detected",
+      "description": "Mass phishing campaign targeting employee credentials observed in email gateway logs simultaneously with the DDoS.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Ransomware Triggers on File Servers",
+      "description": "EDR alerts on rapid file encryption on three file servers while the network team is still managing the DDoS.",
+      "timeOffsetSec": 40
+    },
+    {
+      "index": 3,
+      "title": "Network Segmentation Enacted",
+      "description": "Core network segments isolated; DDoS scrubbing service activated. Ransomware contained to initial segment.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Incident Command Established",
+      "description": "Unified incident command activated. Sub-teams assigned to DDoS, ransomware, and phishing workstreams.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Review",
+      "description": "Root cause analysis confirms coordinated attack. Playbook updated for multi-vector scenarios.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Three Simultaneous Alerts \u2014 Where Do You Start?",
+      "situation": "Within a five-minute window your team receives: (1) a DDoS alert saturating internet-facing services, (2) an email gateway alert on a mass phishing campaign targeting employee credentials, and (3) an EDR alert for ransomware-like file encryption on two file servers. You have one on-call incident responder and no pre-established multi-vector playbook.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the incident response plan and escalate to senior leadership immediately. Assign separate responders to each workstream (DDoS, phishing, ransomware). Prioritise network segmentation to stop ransomware spread while the DDoS team engages the upstream scrubbing service.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus entirely on the DDoS as it is the most visible and customer-impacting event; defer the phishing and ransomware alerts until the DDoS is resolved.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Notify all staff not to open emails and wait for more information before acting on any of the alerts.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Ransomware Spreading \u2014 Segment or Shut Down?",
+      "situation": "The ransomware is confirmed on five file servers and spreading. The DDoS team has engaged the scrubbing provider and traffic is partially mitigated. Phishing clicks have been detected \u2014 at least 12 employees submitted credentials to a spoofed portal. You must decide how to contain the ransomware without destroying forensic evidence.",
+      "question": "How do you contain the ransomware?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately isolate the affected network segments at the switch level using pre-defined VLAN quarantine procedures. Do NOT power off affected servers \u2014 preserve volatile memory for forensics. Revoke credentials for all phishing victims and force password resets.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Power off all affected file servers immediately to stop encryption, then deal with credential resets later.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Keep systems running to preserve business continuity and deploy antivirus scans to stop the ransomware without network isolation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Compromised Credentials \u2014 Lateral Movement Risk",
+      "situation": "Twelve sets of credentials from the phishing campaign have been captured by the attacker. SIEM shows authentication events from external IPs using these credentials to access VPN and cloud services. Ransomware is contained to the isolated segment. DDoS is fully mitigated by the scrubbing provider. You now face potential lateral movement through legitimate credential use.",
+      "question": "How do you respond to the credential compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately revoke all 12 compromised accounts, terminate all active sessions, force MFA re-enrollment, and review all recent activity from those accounts in cloud and SaaS systems for signs of data exfiltration or persistence mechanisms.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reset passwords for the 12 accounts and rely on MFA to prevent further misuse without reviewing historical activity.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recovery and Communication",
+      "situation": "Ransomware is contained, DDoS is mitigated, and compromised credentials are revoked. Leadership asks for a customer and regulatory communication plan. Some encrypted file servers may hold customer data, triggering potential breach notification obligations.",
+      "question": "How do you handle communication and breach notification?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage legal counsel and the DPO immediately to assess breach notification obligations. Prepare a factual internal communication for staff. Draft customer notifications subject to legal review. Notify relevant regulators within the required timeframe if personal data was exposed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delay all communications until the full forensic investigation is complete, even if this means exceeding regulatory notification deadlines.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Your team successfully managed three simultaneous attack vectors: the DDoS was mitigated via the scrubbing provider, ransomware was contained through network segmentation without destroying forensic evidence, and phishing-sourced credentials were revoked before significant lateral movement occurred. Communications and regulatory notifications were handled within required timeframes. A dedicated multi-vector incident playbook has been commissioned.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "multi-vector",
+    "ransomware",
+    "DDoS",
+    "phishing",
+    "incident response",
+    "coordinated attack"
+  ]
+}

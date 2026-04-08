@@ -1,0 +1,157 @@
+{
+  "title": "multi_team_coordination",
+  "description": "A large-scale data breach triggers simultaneous response workstreams across IT, Legal, Communications, HR, and the executive team \u2014 testing inter-team coordination, escalation, and unified decision-making under pressure.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Data Breach Confirmed",
+      "description": "Security team confirms unauthorised access to the customer database containing 2 million records.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Crisis Management Team Convened",
+      "description": "CISO, CEO, General Counsel, Head of Communications, and HR Director join an emergency call.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Workstreams Established",
+      "description": "Four parallel workstreams activated: Technical IR, Legal/Regulatory, Communications, and HR/People.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 3,
+      "title": "Regulatory Notifications Filed",
+      "description": "GDPR notification filed within 72 hours. Legal assessing obligations in additional jurisdictions.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Customer Notification Issued",
+      "description": "Approved customer breach notification sent. Call centre briefed and staffed for increased volume.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Review",
+      "description": "Cross-functional post-incident review conducted. Coordination gaps identified and addressed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Confirmed Breach \u2014 Who Leads What?",
+      "situation": "Your security team has confirmed a breach of the customer database containing 2 million records, including names, email addresses, and hashed passwords. The breach has been ongoing for 72 hours. Multiple teams need to act simultaneously: Technical IR (containment and forensics), Legal (regulatory notification), Communications (customer and media), and HR (if employee data is involved). No unified incident command has been established yet.",
+      "question": "How do you structure the multi-team response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately appoint an Incident Commander (typically the CISO or a senior executive) with authority to make decisions across all workstreams. Establish four parallel teams with named leads: Technical IR, Legal/Regulatory, Communications, and HR/People. Schedule a bridge call every two hours with all leads reporting to the Incident Commander. Use a shared incident log accessible to all teams.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow each team to manage its own workstream independently and share updates by email at the end of each day.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Let the CISO manage all workstreams directly to ensure consistency, acting as both technical lead and coordination hub.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Legal vs. Technical \u2014 A Conflict of Priorities",
+      "situation": "The Legal team wants to delay notifying affected customers until the full scope of the breach is legally certified, which they estimate will take five days. The Communications team warns that if a journalist breaks the story first, the reputational damage will be far worse. The Technical team believes containment is complete but needs 48 hours more to confirm the scope. The Incident Commander must resolve this tension.",
+      "question": "How does the Incident Commander resolve the conflict?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Balance the competing priorities: file the regulatory notification immediately (72-hour GDPR clock is already running regardless of scope certainty). Prepare factual customer notification language now but hold for Legal sign-off within 24 hours \u2014 not five days. Brief Communications on approved messaging so they can respond to media enquiries factually without confirming full scope.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Defer entirely to Legal's timeline and make no public statements until the full investigation is complete.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "HR Discovers Employee Data Was Also Exposed",
+      "situation": "The HR team has identified that the breached database also included a table of employee HR records \u2014 500 employee records including salary information. This was not in the initial breach scope. This opens additional GDPR obligations for employee personal data and HR communication obligations to affected staff. The Incident Commander must integrate this into the existing workstreams.",
+      "question": "How do you handle the expanded scope?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Update the regulatory notification to include the employee data. Assign HR to prepare employee communications in coordination with Legal. Inform the employee Works Council or equivalent body if required by local law. Update the breach scope in the shared incident log so all workstream leads have accurate information.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Handle the employee data breach separately and quietly through HR without updating the regulatory notification or other workstream leads.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Coordinating Under Media Scrutiny",
+      "situation": "A technology journalist has published an article with partial details of the breach \u2014 they appear to have a source. The article is inaccurate in several places. The CEO wants to issue a public correction. The Communications team has prepared approved messaging. The Legal team is advising caution about admissions.",
+      "question": "How do you manage the media situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a factual public statement correcting the inaccurate elements while confirming only what has been publicly acknowledged. Do not speculate or provide additional details beyond what is in the approved statement. Direct all media enquiries through the Communications lead. Brief the CEO with approved talking points so any spontaneous media interaction is consistent with official messaging.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue no statement, which will be interpreted as confirmation of the journalist's story.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A data breach affecting 2 million customer records and 500 employee records was managed across four coordinated workstreams under unified incident command. GDPR notifications were filed on time. Customer and employee communications were approved by Legal before issue. Media pressure was managed with accurate, factual statements. A cross-functional post-incident review has identified coordination process improvements for future incidents.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "data breach",
+    "multi-team",
+    "tabletop",
+    "coordination",
+    "GDPR",
+    "crisis management",
+    "incident command"
+  ]
+}

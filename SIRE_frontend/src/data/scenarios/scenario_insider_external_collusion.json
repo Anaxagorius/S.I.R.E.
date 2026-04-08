@@ -1,0 +1,163 @@
+{
+  "title": "insider_external_collusion",
+  "description": "A disgruntled employee secretly provides valid VPN credentials and network documentation to an external threat actor, who uses them to access sensitive systems and exfiltrate data undetected for weeks.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous VPN Access Detected",
+      "description": "SIEM flags VPN logins from a known employee account originating from an unexpected country at 3 a.m.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Data Exfiltration Indicators",
+      "description": "DLP alerts on large volumes of intellectual property transferred to an external cloud storage service over three consecutive nights.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Employee Account Suspended",
+      "description": "HR and security jointly suspend the employee's account pending investigation. External access is severed.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Forensic Scope Determined",
+      "description": "Forensic review confirms credential sharing and identifies what data was accessed and exfiltrated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Law Enforcement Notified",
+      "description": "Legal counsel and HR involved. Law enforcement notified. Regulatory obligations assessed.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Access Controls Hardened",
+      "description": "Zero-trust network access implemented. User behaviour analytics deployed. Employee offboarding checklist strengthened.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious VPN Logins from a Foreign IP",
+      "situation": "SIEM alerts on VPN authentications using an active employee's account from an IP address geollocated to Eastern Europe \u2014 the employee is based in the United States and has not filed any travel notifications. The logins occur between 2 and 4 a.m. local time over three consecutive nights. The employee has elevated access to R&D file shares.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately suspend the account without tipping off the employee, escalate to the CISO and Legal, preserve all authentication logs as evidence, and begin correlating the access times with data movements in DLP and SIEM.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact the employee directly to ask whether they are travelling and gave their credentials to anyone.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Block the foreign IP address at the firewall and continue monitoring without suspending the account.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "DLP Alerts Confirm Exfiltration",
+      "situation": "DLP logs show 47 GB of R&D documents, source code, and project plans transferred to a personal cloud storage account over the past 18 days \u2014 all occurring during the same overnight windows as the suspicious VPN sessions. HR confirms the employee received a poor performance review last month and had a disciplinary meeting two weeks ago. You have strong circumstantial evidence of deliberate insider collusion.",
+      "question": "How do you escalate and preserve evidence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage HR, Legal, and the CISO together. Formally place the employee on administrative leave without revealing the investigation details. Issue a legal hold on all electronic communications and data. Engage an external forensic firm to maintain chain of custody. Do not confront the employee until Legal advises.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Confront the employee immediately with the evidence and demand an explanation before involving Legal.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Delete the exfiltrated data from the external cloud storage to prevent further exposure before launching an investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Identifying the External Threat Actor",
+      "situation": "Forensics confirms the employee's personal cloud account was used as a relay \u2014 files were immediately downloaded to a second endpoint in another jurisdiction. Threat intelligence associates the destination IP with a known industrial espionage group. You now have a nation-state-adjacent threat actor in possession of your R&D data. Law enforcement contact is under discussion.",
+      "question": "How do you engage law enforcement and manage the investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify the FBI (or appropriate national law enforcement) through your Legal team, sharing indicators of compromise and threat intelligence under a law enforcement referral. Cooperate fully while protecting ongoing investigation integrity. Assess regulatory breach notification obligations for any personal data involved.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Handle the matter entirely internally to avoid public disclosure and reputational damage.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future Insider Collusion",
+      "situation": "The immediate incident is contained. Leadership asks for a set of controls to prevent insider-external collusion in the future, given the failure of existing access controls to detect or stop the prolonged exfiltration.",
+      "question": "Which controls do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy user and entity behaviour analytics (UEBA) with anomaly detection on access patterns, implement zero-trust network access requiring continuous re-verification, enforce DLP policies with content inspection on all egress channels, and introduce a mandatory offboarding checklist that revokes all access on the same day as departure notice.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Require employees to sign an updated acceptable use policy and increase HR monitoring during performance review periods.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The insider-external collusion was uncovered through SIEM correlation and DLP alerting. Evidence was preserved correctly, the employee was placed on leave without tipping off the investigation, law enforcement was engaged, and breach notification obligations were assessed. UEBA, zero-trust access, and strengthened offboarding processes have been implemented to reduce future risk.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "insider threat",
+    "collusion",
+    "data exfiltration",
+    "UEBA",
+    "DLP",
+    "espionage"
+  ]
+}
