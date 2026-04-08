@@ -1,0 +1,154 @@
+{
+  "title": "shadow_it",
+  "description": "Security discovers that multiple teams have been using unsanctioned SaaS applications to store sensitive corporate data, with no encryption, DLP controls, or visibility.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Shadow IT Discovered",
+      "description": "A CASB alert flags that corporate email addresses have created accounts on five unsanctioned SaaS platforms. Sensitive financial reports are found stored on a personal Dropbox account.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scope of Shadow IT Identified",
+      "description": "CASB analysis reveals 23 unsanctioned SaaS tools in use across the organisation, storing a mix of PII, financial data, and intellectual property.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Immediate Risk Assessment",
+      "description": "Three of the platforms have suffered known data breaches in the past 18 months. Data stored on these platforms is at high risk of exposure.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "High-Risk Platforms Blocked",
+      "description": "The three previously-breached SaaS platforms are blocked at the corporate web proxy. Staff notified and required to migrate data to approved platforms.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "DLP Policies Applied",
+      "description": "DLP controls applied to all corporate email and approved SaaS platforms to prevent future unauthorised data uploads.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Shadow IT Policy Implemented",
+      "description": "Acceptable use policy updated. SaaS application approval process launched. CASB monitoring extended to all outbound web traffic.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Sensitive Data on Unsanctioned SaaS Platforms",
+      "situation": "Your CASB identifies that 23 unsanctioned SaaS tools are in use, storing corporate data including PII, financial reports, and source code. Three of these platforms have suffered data breaches in the last 18 months. Employees have been uploading data without security review.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block the three highest-risk previously-breached platforms at the web proxy, notify staff of the security risk, and require immediate migration of data from those platforms to approved alternatives.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send an all-staff email reminding them of the acceptable use policy without blocking any platforms.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Block all 23 unsanctioned platforms simultaneously without providing approved alternatives for staff workflows.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assess Data Stored on Breached Platforms",
+      "situation": "The three blocked platforms previously suffered breaches. Data your staff uploaded may already be compromised. You need to identify what was stored on these platforms and assess breach notification obligations.",
+      "question": "How do you assess exposure on the breached platforms?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with each platform's security team to obtain account activity logs, identify what corporate data was stored, and assess whether previous breaches may have exposed it.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume the data is safe because your staff only recently started using these platforms and the breaches pre-date their accounts.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Implement DLP and Approved SaaS Programme",
+      "situation": "Data exposure risk is assessed. Now you need to prevent future shadow IT adoption by providing a clear process for SaaS tool approval and implementing DLP controls to detect unauthorised uploads.",
+      "question": "How do you establish SaaS governance?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Launch a formal SaaS approval process with security review criteria, deploy DLP policies to detect and block uploads of classified data to unapproved platforms, and expand CASB coverage to all egress traffic.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Publish a list of approved SaaS tools on the intranet and rely on employee self-enforcement without DLP or CASB controls.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Acceptable Use Policy and Staff Awareness",
+      "situation": "Technical controls are in place. However, shadow IT adoption is often driven by staff finding corporate-approved tools insufficient. Addressing root causes through policy and training is essential.",
+      "question": "How do you address the human and process factors?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Update the acceptable use policy with clear sanctions, run awareness training on shadow IT risks, and establish a fast-track review process so staff can request new SaaS tools within 5 business days.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue disciplinary warnings to staff found using unsanctioned tools without improving the SaaS approval process or tool offerings.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Shadow IT usage was discovered and triaged. High-risk platforms were blocked, DLP controls deployed, and a formal SaaS approval process established. Staff awareness training and an updated acceptable use policy address the root causes of shadow IT adoption.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cloud",
+  "difficulty": "Intermediate",
+  "tags": [
+    "shadow IT",
+    "SaaS",
+    "cloud",
+    "data governance"
+  ]
+}

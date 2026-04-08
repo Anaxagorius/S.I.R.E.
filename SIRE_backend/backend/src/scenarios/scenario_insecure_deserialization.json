@@ -1,0 +1,154 @@
+{
+  "title": "insecure_deserialization",
+  "description": "An attacker crafts a malicious serialised Java object submitted to an API endpoint, triggering remote code execution on the application server.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "API Anomaly Detected",
+      "description": "Application monitoring shows unusual serialised object payloads being submitted to the /api/session/restore endpoint with unexpected class references.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "RCE Payload Triggered",
+      "description": "Application logs show the deserialization of a Commons Collections gadget chain. The server executes a command to download a remote payload.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Server Backdoored",
+      "description": "The attacker has installed a web shell at /uploads/system.jsp. Network egress shows data exfiltration to an external server.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Server Isolated",
+      "description": "Application server isolated from the network. Web shell removed. Forensic imaging initiated to determine scope of exfiltration.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Deserialization Endpoint Disabled",
+      "description": "Vulnerable deserialization endpoint removed. Java deserialization filter (JEP 290) implemented. Allowlist of permitted classes enforced.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Application Rebuilt and Hardened",
+      "description": "Application rebuilt from clean source. Third-party library versions audited. Deserialization attack detection deployed in WAF.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Malicious Serialised Object Submitted",
+      "situation": "Application monitoring alerts on unusual serialised Java objects being submitted to /api/session/restore. The payload references Commons Collections classes known to be used in deserialization gadget chains. RCE is suspected.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take the vulnerable endpoint offline immediately, block the source IP at the WAF, and alert the IR team to investigate for signs of successful exploitation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add the malicious IP to a WAF blocklist and continue monitoring the endpoint to capture more attack samples.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restart the application server JVM to clear any active exploits from memory.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Web Shell Discovered",
+      "situation": "Forensic review of the application server reveals a web shell at /uploads/system.jsp was installed before the endpoint was taken offline. Network logs show data exfiltration to 198.51.100.77 over the past hour.",
+      "question": "How do you respond to the active compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the application server from the network, preserve a forensic image, remove the web shell, and analyse what data was exfiltrated.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delete the web shell and restart the application without preserving forensic evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assess Exfiltration Scope",
+      "situation": "Forensics shows the attacker exfiltrated application config files containing database credentials and an S3 access key. These must be rotated before reconnecting the server.",
+      "question": "How do you handle the exposed credentials?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately rotate all exposed credentials (database passwords, S3 keys), audit database and S3 access logs for unauthorised activity, and assess data breach notification requirements.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only rotate the database password since that is the most sensitive credential.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Remediate Insecure Deserialization",
+      "situation": "The application must be rebuilt with deserialization protections. Java deserialization of untrusted data is inherently dangerous and the endpoint should be redesigned.",
+      "question": "How do you remediate the deserialization vulnerability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Eliminate untrusted Java deserialization entirely \u2014 replace with JSON/XML-based session restore, implement JEP 290 deserialization filters, and update all third-party libraries to patched versions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a class allowlist to the existing deserialization code and restore the endpoint without further architectural changes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The insecure deserialization exploit was contained. The compromised server was forensically analysed, all credentials rotated, and the application rebuilt without unsafe Java deserialization. JEP 290 filters and updated libraries now prevent future gadget chain attacks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Advanced",
+  "tags": [
+    "deserialization",
+    "RCE",
+    "web",
+    "Java"
+  ]
+}

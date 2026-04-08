@@ -1,0 +1,154 @@
+{
+  "title": "dependency_poisoning",
+  "description": "A threat actor publishes a typosquatted npm package mimicking a popular internal library; developers inadvertently install it, introducing a credential-stealing payload.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Malicious Package Installed",
+      "description": "A developer installs 'internall-utils' (typosquatting the internal 'internal-utils' package) from the public npm registry. SIEM detects unexpected outbound connections from a developer workstation.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Credential Theft Payload Active",
+      "description": "The malicious package's postinstall script reads environment variables and SSH keys, exfiltrating them to an external server.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Scope Identified",
+      "description": "Four developer workstations installed the malicious package over the past week. CI/CD pipelines may also have executed the payload.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Package Removed, Credentials Rotated",
+      "description": "Malicious package removed from all systems. All potentially exposed credentials, SSH keys, and API tokens rotated.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "npm Scope Configured",
+      "description": "Internal packages migrated to a scoped namespace (@company/internal-utils). Private npm registry configured to shadow public registry for internal scopes.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Supply Chain Security Hardened",
+      "description": "Package integrity verification enabled (npm audit signatures). Developer security training on dependency hygiene completed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Typosquatted npm Package Installed",
+      "situation": "SIEM alerts on unexpected outbound HTTPS connections from a developer workstation to 198.51.100.200 immediately after an npm install. Investigation shows the installed package 'internall-utils' is a typosquatted version of your internal 'internal-utils' library, containing a credential-stealing postinstall script.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Block the external IP at the firewall, remove the malicious package from all developer systems, and initiate a search for all systems that installed it.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Report the package to npm security and wait for it to be removed from the registry before taking internal action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Only remove the package from the affected workstation and assume other developers would not have made the same typo.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assess Credential Theft Scope",
+      "situation": "Four developer workstations installed the malicious package. The postinstall script exfiltrated environment variables, SSH private keys, and npm auth tokens. CI/CD pipelines may have also executed the payload.",
+      "question": "How do you scope and contain the credential theft?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rotate all credentials, SSH keys, API tokens, and npm auth tokens from affected systems, revoke and regenerate CI/CD pipeline secrets, and audit pipeline logs for evidence of execution.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only rotate the credentials from the initially identified workstation and ask developers to change their npm passwords.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Prevent Future Dependency Confusion",
+      "situation": "The attack succeeded because your internal package name was not registered in the public npm registry, allowing a typosquatted version to be installed. You need to close this attack vector.",
+      "question": "How do you prevent dependency confusion attacks?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Migrate all internal packages to a scoped npm namespace (e.g., @company/), register the scoped packages in a private registry configured to proxy public packages, and pin all dependency versions with integrity hashes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Register the unscoped internal package names in the public npm registry as placeholders without implementing a private registry.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implement Dependency Security Scanning",
+      "situation": "Controls are in place to prevent confusion attacks. Now you need to detect malicious or vulnerable packages before they reach developer systems or production.",
+      "question": "What automated security controls do you deploy?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Integrate npm audit and a software composition analysis (SCA) tool into CI/CD to block packages with known vulnerabilities or unexpected postinstall scripts, and enable npm package signing verification.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rely on developers manually reviewing packages before installation \u2014 no automated scanning is required.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The dependency poisoning attack was contained. All compromised credentials were rotated, internal packages migrated to scoped namespaces, and a private registry with SCA scanning now prevents future typosquatting and dependency confusion attacks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Advanced",
+  "tags": [
+    "dependency confusion",
+    "npm",
+    "supply chain",
+    "typosquatting"
+  ]
+}

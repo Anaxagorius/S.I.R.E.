@@ -1,0 +1,154 @@
+{
+  "title": "command_injection",
+  "description": "An attacker exploits an unsanitised diagnostic endpoint to inject OS commands, gaining remote code execution on the web server.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspicious Diagnostic Requests",
+      "description": "WAF logs show unusual requests to /api/diagnostic/ping with shell metacharacters in the host parameter. Responses contain OS command output.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Remote Code Execution Confirmed",
+      "description": "Analysis confirms the attacker is executing arbitrary OS commands as the web server service account. A reverse shell payload is attempted.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Reverse Shell Established",
+      "description": "The attacker successfully establishes an outbound reverse shell from the web server to an external C2 server at 198.51.100.10.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Server Isolated",
+      "description": "The web server is isolated from the network. Reverse shell connection terminated. Forensic imaging initiated.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Endpoint Patched",
+      "description": "Vulnerable diagnostic endpoint removed. Input validation and allowlist-based parameter checking deployed on all API endpoints.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Application Hardened",
+      "description": "Web server process privilege reduced. Egress firewall rules block outbound reverse shells. Full code review completed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Command Injection via Diagnostic API",
+      "situation": "WAF logs show requests to /api/diagnostic/ping?host=127.0.0.1;id containing shell metacharacters. The response includes the output of the id command, confirming OS command injection. The attacker has RCE as the web server service account.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take the vulnerable endpoint offline immediately by disabling the /api/diagnostic/ route, block outbound connections from the web server at the firewall, and alert the IR team.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a WAF rule to block the specific payload pattern used and continue monitoring while the endpoint remains active.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the web server to terminate any active sessions and assess damage afterwards.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Reverse Shell Activity Detected",
+      "situation": "Network logs show an outbound connection from the web server to 198.51.100.10:4444 (known C2 server). A reverse shell was established before your firewall block took effect. The attacker may have accessed sensitive files or installed persistence.",
+      "question": "How do you respond to the active compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the web server from the network entirely, preserve a forensic image before any remediation, and analyse running processes and filesystem for backdoors or exfiltrated data.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Kill the reverse shell process and restore normal web server operations without forensic imaging.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Forensic Analysis and Scope Assessment",
+      "situation": "Forensic analysis reveals the attacker accessed the web server's /etc/passwd, application config files (including database credentials), and attempted to install a cron-based persistence mechanism.",
+      "question": "How do you address the exposed credentials and persistence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rotate all credentials found in the application config files, audit the database for unauthorised access, remove persistence mechanisms, and rebuild the web server from a clean image.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Change only the database password and restore the web server from the last backup without further investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Harden Against Command Injection",
+      "situation": "The vulnerability existed because the diagnostic endpoint passed user input directly to a shell function without sanitisation. You must prevent command injection across the entire application.",
+      "question": "What security controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove all shell execution functions from application code, run the web server as a least-privilege account, implement egress firewall controls, and integrate SAST to detect injection patterns in CI/CD.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add input length limits to API parameters as the sole remediation to prevent command injection.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The command injection exploit was contained. The compromised web server was forensically analysed, credentials rotated, and the server rebuilt. Least-privilege process accounts, egress firewall controls, and SAST tooling now prevent future command injection attacks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Advanced",
+  "tags": [
+    "command injection",
+    "RCE",
+    "web",
+    "OS command"
+  ]
+}

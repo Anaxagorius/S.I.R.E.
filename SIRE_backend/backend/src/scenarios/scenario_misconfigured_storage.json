@@ -1,0 +1,154 @@
+{
+  "title": "misconfigured_storage",
+  "description": "An S3 bucket containing sensitive customer PII is discovered to be publicly accessible, with evidence it has been indexed by external search engines.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Public Bucket Discovered",
+      "description": "A security researcher reports via your bug bounty programme that an S3 bucket containing customer PII is publicly accessible and indexed by Google.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Exposure Confirmed",
+      "description": "Security team confirms the S3 bucket has 'Public' ACL. It contains 180,000 customer records including names, addresses, and payment card details.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "External Indexing Evident",
+      "description": "Google cache and web archive services have indexed directory listings and sample files. The data has been publicly accessible for an estimated 6 weeks.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Bucket Made Private",
+      "description": "S3 bucket ACL set to private. Public access blocked at account level. Bucket removed from external indices via removal requests.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Scope Assessment Complete",
+      "description": "All exposed files catalogued. Regulatory notification obligations assessed. Affected customers identified for notification.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Controls Implemented",
+      "description": "S3 Block Public Access enabled account-wide. AWS Config rule monitoring for public buckets deployed. Data classification applied to all storage.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Publicly Accessible S3 Bucket with PII",
+      "situation": "A security researcher has reported that your S3 bucket 'prod-customer-data' is publicly accessible. It contains 180,000 customer records including names, addresses, and payment card details. Google has indexed it.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately set the bucket ACL to private and enable S3 Block Public Access at the account level to prevent any re-exposure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "First, verify the researcher's report by accessing the bucket yourself before making any changes.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Delete the bucket to remove the exposure, then restore data from backup once a private bucket is created.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assess Duration and Scope of Exposure",
+      "situation": "The bucket is now private. S3 access logs show the bucket has been publicly accessible for 6 weeks. You need to determine who accessed it and what data was exposed to inform breach notifications.",
+      "question": "How do you assess the exposure scope?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review S3 server access logs and CloudTrail for anonymous (unauthenticated) access events over the 6-week window, and catalogue all exposed files to identify the full scope of PII involved.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume the data was not accessed because the researcher was the first to report it and proceed without reviewing access logs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Regulatory Notification and Customer Communication",
+      "situation": "Access logs show numerous anonymous downloads over the 6-week period. Payment card data was exposed \u2014 PCI DSS breach notification obligations apply in addition to GDPR requirements.",
+      "question": "How do you handle regulatory and customer notifications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify your Payment Card Industry QSA, submit a breach report to your supervisory authority within GDPR timelines, notify affected customers, and reward the security researcher via your bug bounty programme.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only notify the data protection authority and skip PCI DSS notification since payment card data was only one part of the exposure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Prevent Misconfigured Storage Recurrence",
+      "situation": "Notifications are underway. Now you must ensure no other S3 buckets across your AWS estate are misconfigured, and implement ongoing detection.",
+      "question": "What controls do you implement to prevent recurrence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enable S3 Block Public Access at the AWS Organisation level, deploy AWS Config rules to auto-remediate public buckets, classify all data in S3 using Macie, and conduct a full cloud storage inventory audit.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enable S3 Block Public Access on only the exposed bucket and rely on manual audits for all others.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The publicly accessible S3 bucket was secured immediately. The full exposure scope was determined from access logs, regulatory and PCI DSS notifications were made, and organisation-wide S3 Block Public Access with AWS Config auto-remediation now prevents future storage misconfigurations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cloud",
+  "difficulty": "Beginner",
+  "tags": [
+    "cloud",
+    "S3",
+    "misconfiguration",
+    "data exposure"
+  ]
+}

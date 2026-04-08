@@ -1,0 +1,154 @@
+{
+  "title": "api_abuse",
+  "description": "An attacker discovers an undocumented API endpoint with no authentication, using it to enumerate user accounts and extract sensitive profile data at scale.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unusual API Traffic",
+      "description": "API gateway metrics show a spike in requests to /api/v1/users/lookup \u2014 an undocumented endpoint \u2014 from a single IP address making 10,000 requests per hour.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Unauthenticated Access Confirmed",
+      "description": "The endpoint returns full user profile data including names, emails, and phone numbers with no authentication required. User enumeration is trivially possible.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Mass Data Extraction",
+      "description": "Estimated 200,000 user records have been extracted over the past 4 hours. The data includes PII that may be used for targeted phishing or sold on criminal marketplaces.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Endpoint Disabled",
+      "description": "The undocumented API endpoint is disabled. Rate limiting applied to all API endpoints. Attacker IP blocked at the gateway.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "API Security Audit Initiated",
+      "description": "Full audit of all API endpoints for authentication, authorisation, and data exposure issues begun. Shadow APIs being catalogued.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Breach Notification Issued",
+      "description": "Affected users notified. Regulatory authority informed. API gateway enhanced with authentication enforcement and rate limiting for all routes.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unauthenticated API Endpoint Being Abused",
+      "situation": "API gateway logs show an IP making 10,000 requests per hour to /api/v1/users/lookup. This undocumented endpoint returns full user PII with no authentication. An estimated 200,000 records are at risk.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Disable the endpoint immediately, block the abusing IP at the API gateway, and engage the IR team to assess the scope of data extracted.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rate-limit the endpoint to 100 requests per minute while investigating \u2014 this will slow the extraction without taking it offline.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Add authentication to the endpoint without disabling it first, so legitimate internal users are not disrupted.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scope the Data Extraction",
+      "situation": "API gateway logs show the extraction started 4 hours before detection. Approximately 200,000 user records including names, emails, and phone numbers were extracted. Breach notification obligations must be assessed.",
+      "question": "How do you manage the breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage the DPO to assess breach notification requirements, prepare user notifications, and notify the supervisory authority within the regulatory deadline.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Quietly patch the endpoint and monitor for misuse of the extracted data without issuing breach notifications.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Audit All API Endpoints",
+      "situation": "This incident reveals that undocumented shadow APIs may exist elsewhere. A full API inventory and security audit is needed to identify other unauthenticated or over-permissive endpoints.",
+      "question": "How do you audit your API security posture?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a full API discovery exercise using traffic analysis and code review to build an inventory, then assess each endpoint for authentication, authorisation, and data minimisation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only review the endpoints listed in the official API documentation and assume undocumented endpoints are not accessible externally.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implement API Security Controls",
+      "situation": "The audit identifies three more endpoints with missing authentication. All must be secured. You also need gateway-level controls to enforce authentication and rate limiting consistently.",
+      "question": "What API security controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce authentication on all API endpoints via the API gateway, implement rate limiting and quota controls, deploy API security scanning in CI/CD, and require API versioning with documentation for all routes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only add authentication to the three newly identified endpoints and close the audit.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The unauthenticated API endpoint was disabled and the breach was scoped at 200,000 records. Regulatory notifications were timely, a full API audit discovered additional vulnerabilities, and gateway-level authentication enforcement now protects all endpoints.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Intermediate",
+  "tags": [
+    "API abuse",
+    "web",
+    "authentication",
+    "data exposure"
+  ]
+}

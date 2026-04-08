@@ -1,0 +1,154 @@
+{
+  "title": "ddos",
+  "description": "A volumetric DDoS attack floods the corporate web application with 40 Gbps of traffic, taking it offline.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Sudden Traffic Spike",
+      "description": "Network monitoring shows inbound traffic surging to 40 Gbps. The corporate web application becomes unreachable.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Application Offline",
+      "description": "The web application is confirmed down. Customer-facing services are unavailable. Support tickets are flooding in.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "ISP Contact Initiated",
+      "description": "ISP confirms attack traffic is volumetric UDP flood originating from multiple global source IPs.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Scrubbing Centre Activated",
+      "description": "Traffic scrubbing is routing legitimate traffic while filtering attack packets. Partial service recovery observed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Attack Traffic Subsiding",
+      "description": "Attack volume drops to 2 Gbps. Application is recovering. Monitoring confirms clean traffic reaching servers.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Full Service Restored",
+      "description": "All services restored. Post-incident review initiated to implement permanent DDoS mitigation measures.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Web Application Under DDoS Attack",
+      "situation": "Network monitoring alerts show 40 Gbps of inbound traffic targeting your corporate web application. The application is unresponsive. Your team suspects a volumetric DDoS attack.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate your DDoS mitigation plan: contact your ISP for upstream rate-limiting and enable your cloud-based traffic scrubbing service.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reboot all web servers to clear the connection backlog and restore service.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait 30 minutes to see if the attack subsides on its own before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "ISP Engaged, Attack Ongoing",
+      "situation": "Your ISP confirms the volumetric UDP flood. They can apply upstream blackholing but this will drop all traffic including legitimate users. Your scrubbing provider can filter attack traffic but needs 15 minutes to propagate.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Redirect traffic through the scrubbing centre via BGP announcement to filter malicious traffic while preserving legitimate access.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Request full IP blackholing from the ISP immediately to stop all inbound traffic.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Partial Recovery, Residual Attack",
+      "situation": "Scrubbing is active and service is partially restored, but some attack traffic is still reaching your servers. Internal teams need to communicate status to customers and stakeholders.",
+      "question": "What do you do next?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a customer status-page update, fine-tune scrubbing rules with your provider, and maintain war-room comms with management.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stay silent publicly to avoid alerting the attacker and continue investigating alone.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Attack Subsides \u2014 Hardening Required",
+      "situation": "The attack traffic has dropped. Services are restored. You now need to implement permanent mitigations to prevent recurrence and reduce future exposure.",
+      "question": "What do you implement post-attack?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement rate limiting, geo-blocking for anomalous source regions, and sign a permanent DDoS protection SLA with your scrubbing provider.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "No changes needed \u2014 the attack ended on its own, so the existing infrastructure is sufficient.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The DDoS attack was successfully mitigated using upstream scrubbing. Customer communications were timely, and permanent protections are now in place. A full post-incident review has been scheduled.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Network",
+  "difficulty": "Intermediate",
+  "tags": [
+    "DDoS",
+    "availability",
+    "network",
+    "traffic flood"
+  ]
+}

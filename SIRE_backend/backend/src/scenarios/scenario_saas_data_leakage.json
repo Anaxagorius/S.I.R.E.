@@ -1,0 +1,154 @@
+{
+  "title": "saas_data_leakage",
+  "description": "Sensitive corporate files shared via a SaaS collaboration platform are found to be publicly accessible after an overly permissive sharing setting was applied by an employee.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Public Link Discovered",
+      "description": "A staff member reports finding confidential strategy documents via a public Google search. The documents are hosted on your corporate collaboration platform with 'Anyone with the link' sharing.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scope of Public Sharing Identified",
+      "description": "Platform audit reveals 47 documents and 12 folders were shared publicly over the past 3 months, containing strategic plans, HR data, and financial forecasts.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "External Indexing Confirmed",
+      "description": "Multiple documents are indexed in search engines and accessible via web archive. The full extent of external access cannot be determined from platform logs alone.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Public Links Revoked",
+      "description": "All public sharing links revoked. Platform sharing settings restricted to internal-only by default. External sharing now requires manager approval.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Breach Assessment Underway",
+      "description": "Documents reviewed for PII and commercially sensitive content. DPO engaged to assess GDPR notification obligations. Staff involved contacted for explanation.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "DLP and Governance Controls Deployed",
+      "description": "DLP labels applied to all sensitive documents. Automated scanning for public sharing links scheduled weekly. Staff awareness training on sharing settings completed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Confidential Documents Publicly Accessible",
+      "situation": "A staff member finds confidential corporate strategy documents via a Google search, hosted on your collaboration platform with 'Anyone with the link' access. Platform audit reveals 47 documents and 12 folders with public sharing enabled, including HR data, financial forecasts, and strategic plans.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately revoke all public sharing links across the platform and restrict default sharing to internal-only while the investigation proceeds.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact each document owner individually to request they update their sharing settings, which may take days.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Delete all publicly shared documents to remove the exposure without preserving them for investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assess the Content and External Indexing",
+      "situation": "Public links are revoked. However, several documents are cached in search engines and web archives, remaining accessible externally. You need to assess the sensitivity of exposed content and pursue removal from external caches.",
+      "question": "How do you address the external indexing?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Submit removal requests to major search engines and web archive services, categorise all exposed documents by sensitivity level, and engage the DPO to assess GDPR obligations for any PII exposed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since the sharing links are revoked, assume the external caches will expire naturally without submitting removal requests.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Determine Regulatory Notification Requirements",
+      "situation": "Document review confirms HR data including employee salaries and performance reviews were publicly accessible, constituting personal data under GDPR. Regulatory notification obligations must be assessed.",
+      "question": "How do you manage the regulatory obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage legal counsel and the DPO to assess whether the GDPR 72-hour notification threshold is met, notify affected employees, and document all remediation steps taken.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since no customer data was involved, assume internal HR data does not trigger GDPR notification obligations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implement SaaS Sharing Governance",
+      "situation": "Notifications are being managed. Now you need to implement technical controls to prevent employees from inadvertently sharing sensitive content publicly in the future.",
+      "question": "What governance controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy DLP sensitivity labels on all documents containing PII or confidential data, configure the platform to block external sharing for high-sensitivity content, and implement weekly automated scans for public sharing links.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rely on the default internal-only setting and staff self-compliance without automated enforcement or monitoring.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Public sharing links were revoked immediately. External indexing was addressed with removal requests, regulatory notifications were assessed and issued, and DLP labels with automated scanning now prevent future inadvertent public sharing of sensitive corporate documents.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cloud",
+  "difficulty": "Intermediate",
+  "tags": [
+    "SaaS",
+    "data leakage",
+    "cloud",
+    "sharing settings"
+  ]
+}

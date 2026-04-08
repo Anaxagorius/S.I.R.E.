@@ -1,0 +1,154 @@
+{
+  "title": "broken_authentication",
+  "description": "Weak session management and predictable session tokens allow an attacker to enumerate valid session IDs and take over active user accounts.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Account Takeover Reports",
+      "description": "Multiple users report being unexpectedly logged out, with session activity from unfamiliar IPs appearing in their account history.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Session Enumeration Detected",
+      "description": "WAF logs reveal sequential session token enumeration attempts. Tokens appear to be numerically sequential, making brute force feasible.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Accounts Compromised",
+      "description": "At least 23 active user sessions have been hijacked. The attacker is accessing account data and making purchases using victim payment methods.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "All Sessions Invalidated",
+      "description": "All active sessions invalidated globally. Session token algorithm replaced with cryptographically random 128-bit tokens.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "MFA Enforcement Initiated",
+      "description": "MFA enforced for all accounts. Anomalous session detection implemented to flag logins from new IPs or devices.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Security Audit Complete",
+      "description": "Full authentication flow audit completed. Penetration test validates session token randomness. Incident closed with lessons learned.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Session Hijacking via Predictable Tokens",
+      "situation": "Users are reporting account takeover. WAF logs show an IP address making thousands of requests with incrementing session IDs (e.g., sess_10001, sess_10002...). Your session tokens are sequentially generated and easily enumerable. Active hijacking of 23 accounts is confirmed.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Invalidate all active sessions globally, block the attacking IP, and immediately replace the session token generation algorithm with cryptographically random tokens.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rate-limit session validation requests to slow the enumeration without invalidating existing sessions.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Add a CAPTCHA to the login page to prevent the automated enumeration.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assess Account Takeover Damage",
+      "situation": "23 accounts were compromised. The attacker accessed personal data and made unauthorised purchases using saved payment methods. Affected users need to be notified and damages assessed.",
+      "question": "How do you manage affected users?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify all 23 affected users, reverse fraudulent transactions, force password resets, and report the breach to the payment processor and relevant regulators.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only reverse the fraudulent transactions and notify users to change passwords without regulatory notification.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fix the Session Management Vulnerability",
+      "situation": "The root cause is sequential session ID generation. The fix of cryptographically random tokens is deployed. However, the authentication system also lacks account lockout, MFA, and session binding controls.",
+      "question": "What additional authentication controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce MFA for all accounts, implement session binding to user-agent and IP, add account lockout after repeated failed session validation attempts.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only the random session token fix is sufficient \u2014 no further authentication changes are needed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Validate the Authentication Hardening",
+      "situation": "Authentication controls have been updated. Before closing the incident, you need to validate that the new controls are effective and no other authentication weaknesses exist.",
+      "question": "How do you validate the fixes?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commission a penetration test focused on authentication and session management, run automated DAST scans against all auth endpoints, and monitor for further enumeration attempts.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Internal testing by the development team is sufficient \u2014 no external validation is needed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Session enumeration and account takeover were contained. All sessions were invalidated, random tokens deployed, MFA enforced, and a penetration test validated the hardened authentication system. Affected users were notified and regulatory obligations met.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Intermediate",
+  "tags": [
+    "broken authentication",
+    "session management",
+    "web",
+    "account takeover"
+  ]
+}
