@@ -1,0 +1,155 @@
+{
+  "title": "fire_power_lines",
+  "description": "A downed power line ignites a wildfire during high winds, complicating suppression with energized line hazards.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Power Line Down — Fire Ignites",
+      "description": "Downed transmission line ignites dry grass. Utility company notified immediately.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Energized Line Hazard Confirmed",
+      "description": "Utility reports line is still energized. No crew within 30 feet until confirmed de-energized.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "De-energization Delayed",
+      "description": "Utility de-energization will take 45 minutes. Fire spreading. Indirect tactics required.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Evacuation of Adjacent Properties",
+      "description": "Homes within the line hazard zone being evacuated. No entry until utility confirms safe.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Line Confirmed De-energized",
+      "description": "Utility confirms line is de-energized and grounded. Ground crew access now permitted.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Direct Suppression Begins",
+      "description": "Ground crews engage directly now that hazard is cleared. Air support continues.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Power Line Ignition",
+      "situation": "High winds have toppled a transmission line which is sparking and has ignited dry grass nearby. The fire is spreading. Crews are on scene but have been warned the line is still energized.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a 100-foot exclusion zone around the line, contact the utility company for emergency de-energization, and begin indirect suppression tactics.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have crews attack the fire at its base near the downed line since it is the quickest suppression option.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for utility company confirmation before taking any action at the scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "De-energization Delay",
+      "situation": "The utility company reports it will take 45 minutes to de-energize the line. During this time, the fire continues to spread. Air tankers are available but cannot safely drop near the line.",
+      "question": "How do you use air resources while the line remains energized?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct air tankers to drop retardant ahead of the fire's direction of spread, away from the line hazard zone.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have air tankers attempt drops near the line since retardant is non-conductive.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Structure Threatened in Hazard Zone",
+      "situation": "A residential structure is now at risk within the line hazard zone. The homeowner is reportedly still inside. Sending crews in is not authorized until the line is de-energized.",
+      "question": "How do you handle the occupant in the hazard zone?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Attempt to communicate with the occupant via phone or loudspeaker and guide them to safely exit the hazard zone on foot away from the line.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a fire crew into the hazard zone to rescue the occupant immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Line De-energized — Crew Deployment",
+      "situation": "The utility company confirms the line is de-energized and grounded. Crews can now enter the former hazard zone for direct attack. The fire has grown during the delay.",
+      "question": "How do you prioritize direct attack deployment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy ground crews to structure defense and direct fire attack simultaneously, coordinating with air operations.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus all ground crews on structure defense and leave fire attack to air resources only.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The power line hazard was managed safely. The structure was protected and the occupant evacuated without injury. The fire is now contained with ground and air resources working in coordination.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "power lines",
+    "wildland fire",
+    "electrical hazard",
+    "utility coordination",
+    "structure defense"
+  ]
+}

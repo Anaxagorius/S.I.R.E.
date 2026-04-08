@@ -1,0 +1,155 @@
+{
+  "title": "fire_threatening_residential",
+  "description": "A rapidly advancing wildfire moves into a densely populated residential neighborhood with limited egress routes.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Wildfire Reaches Residential Zone",
+      "description": "Fire crosses into the first residential street. Initiate immediate evacuation.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Multiple Homes Ignited",
+      "description": "Three homes now burning. Focus on containment and ensuring evacuation routes are clear.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Traffic Gridlock on Exit Roads",
+      "description": "Residents fleeing clog the only two exit roads. Coordinate traffic control.",
+      "timeOffsetSec": 75
+    },
+    {
+      "index": 3,
+      "title": "Stranded Residents Reported",
+      "description": "Multiple households unable to evacuate due to gridlock. Arrange rescue transport.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Fire Line Established",
+      "description": "Crews establish a defensive line at the community park to slow further spread.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Neighborhood Cleared",
+      "description": "All residents accounted for. Fire contained to initial impact zone.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire Enters Neighborhood",
+      "situation": "A fast-moving wildfire has jumped a firebreak and entered the edge of a residential neighborhood of 1,200 homes. Winds are driving flames down multiple streets. There are two exit roads.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a mandatory evacuation order immediately and dispatch law enforcement to manage traffic on exit roads.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Prioritize fire suppression on the entry point to prevent further spread into the neighborhood.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for additional fire crews before issuing evacuation to avoid premature panic.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation Traffic Crisis",
+      "situation": "Both exit roads are gridlocked with evacuating vehicles. Residents are abandoning cars and blocking the roadway. The fire is 3 streets away and advancing.",
+      "question": "How do you relieve the traffic gridlock?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign officers to direct traffic, open a fire lane as a one-way exit, and clear abandoned vehicles.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reverse the gridlock by closing one exit road and funneling all traffic to the other.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Stranded Residents",
+      "situation": "Dispatch receives reports of elderly and mobility-impaired residents unable to evacuate on foot or by vehicle. Their addresses span multiple streets now surrounded by smoke.",
+      "question": "What rescue strategy do you deploy?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Dispatch buses and rescue vehicles with police escorts to extract stranded residents by address priority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct stranded residents to shelter in place and wait for fire to pass.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Defensive Line Decision",
+      "situation": "Fire crews recommend establishing a defensive line at the community park, which has open grass and a parking lot that could serve as a buffer. This would sacrifice several blocks of homes already burning.",
+      "question": "Do you approve the defensive line at the park?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approve the park defensive line to protect the majority of the neighborhood and focus resources there.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reject the line and continue direct attack on all burning homes to save as many as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All residents have been evacuated or rescued. The defensive line held and protected 80% of the neighborhood. Accountability checks confirm no civilian casualties.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "residential fire",
+    "wildland fire",
+    "evacuation",
+    "traffic management",
+    "rescue"
+  ]
+}
