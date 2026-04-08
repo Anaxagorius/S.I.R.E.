@@ -1,0 +1,112 @@
+{
+  "title": "fireground_structural_collapse",
+  "description": "During an interior attack on a commercial structure fire, warning signs of structural compromise emerge. The incident commander must manage crew safety, a PAR, and a defensive transition before a partial collapse occurs.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["structural collapse", "interior attack", "ICS", "defensive transition", "PAR", "firefighter safety", "fireground complication", "collapse zone"],
+  "timeline": [
+    { "index": 0, "title": "Interior Attack Underway", "description": "Two attack crews operating inside a large commercial warehouse. Fire has been burning for approximately 35 minutes. Building is steel frame with a lightweight steel roof.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Structural Warning Signs", "description": "Crew members report cracking sounds from the roof structure. IC observes exterior wall separation on the Delta side.", "timeOffsetSec": 40 },
+    { "index": 2, "title": "Collapse Indicators Escalate", "description": "Thermal imaging shows the main roof trusses are glowing. A section of the roof sags visibly from the exterior.", "timeOffsetSec": 80 },
+    { "index": 3, "title": "Emergency Withdrawal", "description": "IC orders immediate evacuation. All crew exit. Emergency tones activated.", "timeOffsetSec": 100 },
+    { "index": 4, "title": "Partial Roof Collapse", "description": "A section of the roof collapses into the warehouse 47 seconds after the last crew member exits. No injuries.", "timeOffsetSec": 150 },
+    { "index": 5, "title": "Defensive Operations", "description": "Fire attack transitions to defensive mode. Master streams deployed from collapse zone perimeter. All crew accounted for.", "timeOffsetSec": 190 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Structural Warning Signs During Interior Attack",
+      "situation": "You are the incident commander at a working commercial warehouse fire. Two attack crews have been operating inside for 35 minutes. The structure is steel frame with lightweight steel bar-joist roof construction — known to fail rapidly under fire load. You observe that the Delta-side exterior wall has a visible crack running from the roofline to mid-height. From the radio, one interior crew reports they can hear creaking from above. A Division supervisor confirms the sound is 'popping and cracking' from the roof structure.",
+      "question": "What is your immediate response to these structural warning signs?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately transmit an emergency evacuation order to all interior crews. Sound the evacuation signal (three blasts on the air horn). Begin a PAR. Establish a collapse zone of one and a half times the height of the building on all exposed sides. No crew re-enters until structural assessment is complete.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Radio the crew to monitor the sounds and advise if conditions change. The fire attack is progressing and early withdrawal is premature.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withdraw only the crew near the Delta side — the other crew can continue the attack on the Alpha side where conditions are better.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Crew Accountability During Evacuation",
+      "situation": "The evacuation order has been transmitted. Attack Crew 1 reports they are exiting via the Alpha-side entry. Crew 2 has not responded to the radio. The air horn is sounding. Bystanders report that Crew 2 was last seen advancing toward the rear of the warehouse. You have a RIT team standing by. The roof cracking sounds are audible from the exterior. You have no confirmation that all crew members are out.",
+      "question": "How do you account for Crew 2?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transmit repeated radio calls to Crew 2 on the primary channel and the emergency channel simultaneously. Activate the RIT and position them at the nearest entry point — do not yet commit them inside without confirmation of location. Request a visual sweep by any exterior crew near the rear of the structure.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy RIT immediately inside the warehouse to find Crew 2 — speed is the priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Assume Crew 2 is exiting and complete the PAR when they emerge — do not commit additional resources until confirmed missing.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crew 2 Responds",
+      "situation": "Crew 2 transmits: 'We copy evacuation — we're at the rear of the building near the loading dock. We are advancing toward the rear exit now.' Simultaneously, a collapse groan is audible from the roof structure and the Delta-side wall moves visibly outward. You estimate the roof could fail within 60 seconds. The rear exit (loading dock) is on the Delta-Charlie corner — potentially within the collapse zone.",
+      "question": "How do you direct Crew 2's exit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Radio Crew 2 immediately: 'Do not exit via the loading dock — Delta side is collapsing. Exit via the Alpha-side hose line — follow your hose out the front. Move now.' Confirm they acknowledge. Position a crew member with a light at the Alpha entry to guide them.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Crew 2 to exit via the nearest door — the loading dock is closer and speed is the priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Crew 2 to shelter in place at the rear — the collapse will be limited to the Delta side and sheltering is safer than moving through the fire.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Partial Collapse and PAR",
+      "situation": "Crew 2 exits via the Alpha-side entry 45 seconds after your radio instruction. At that moment, a section of the roof — approximately 20 metres of bar-joist construction — collapses into the building near the loading dock. The collapse is audible across the fireground. All interior crews are now accounted for — Crew 1 and Crew 2 are both exterior. No injuries reported. The fire is now venting through the collapse hole. Your attack lines are abandoned inside. You must now transition to defensive operations.",
+      "question": "How do you manage the transition to defensive attack?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm full PAR with all crews and report to dispatch. Establish and enforce the collapse zone perimeter — remove all personnel to beyond one and a half times the building height. Deploy ground monitors and tower ladders from outside the collapse zone. Do not re-enter. Begin a defensive master stream attack.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Re-enter the building with a crew to retrieve the abandoned hose lines — equipment loss is significant.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Position apparatus at the Alpha side for a close-in defensive attack — the collapse was on the Delta side and other sides may be structurally sound.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All crew members were evacuated safely before the structural collapse. Your rapid recognition of multi-indicator collapse signs — wall separation, audible cracking, sagging roof — triggered a timely evacuation order. You correctly redirected Crew 2 away from the collapse zone exit, maintained accountability throughout, and executed a clean transition to defensive operations with a properly established collapse zone. No injuries occurred.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

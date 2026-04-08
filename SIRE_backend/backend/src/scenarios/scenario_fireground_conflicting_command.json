@@ -1,0 +1,112 @@
+{
+  "title": "fireground_conflicting_command",
+  "description": "A fireground officer receives conflicting orders from two different command personnel during a rapidly evolving interior attack. Resolving the command conflict while maintaining crew safety is the central challenge.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["command conflict", "ICS", "unity of command", "incident command", "fireground complication", "decision making", "span of control"],
+  "timeline": [
+    { "index": 0, "title": "Multi-Company Operation", "description": "A two-alarm residential structure fire with four companies on scene. IC established. Division Alpha supervisor assigned.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Conflicting Order Received", "description": "Attack crew leader receives an advance order from the Division supervisor and simultaneously a withdrawal order from a company officer not in their chain of command.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Command Confusion", "description": "Crew leader pauses. Two different officers are directing conflicting actions. Crew safety may be compromised by the delay.", "timeOffsetSec": 50 },
+    { "index": 3, "title": "Chain of Command Consulted", "description": "Crew leader clarifies authority by contacting the IC directly. IC adjudicates and provides a single clear order.", "timeOffsetSec": 75 },
+    { "index": 4, "title": "Unified Command Restored', 'Crew acts on the IC's authorised direction. Command conflict is resolved. Operations normalise.", "timeOffsetSec": 110 },
+    { "index": 5, "title": "Incident Stabilised", "description": "Fire knocked down. Post-incident review addresses the command and communications failure.", "timeOffsetSec": 160 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Two Officers, Two Conflicting Orders",
+      "situation": "You are the crew leader of Engine 2's attack crew, operating inside a two-storey residential structure fire on the first floor. Your assigned supervisor is the Division Alpha supervisor, Lieutenant Chen, who has directed you to advance toward the rear of the building to cut off fire extension to the kitchen. Simultaneously, a company officer from Engine 4 — not your supervisor — comes to your position and tells you: 'Pull back now — I've just seen structural movement in the ceiling above you. This area is unsafe.' You have received two conflicting orders from two different officers with different information.",
+      "question": "How do you handle the conflicting orders?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Halt your crew in place — do not advance and do not withdraw yet. Immediately radio the IC: 'IC — Engine 2 crew leader. I have received conflicting orders. Division Alpha ordered advance to the rear. A company officer on scene is ordering withdrawal for structural concerns. Requesting clarification on my directive.' Wait for IC response before moving.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Follow Division Alpha's advance order — they are your assigned supervisor and outrank the company officer from Engine 4.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Follow the Engine 4 company officer's withdrawal order — any officer reporting structural concerns must be followed for safety regardless of chain of command.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "IC Responds — Assessing the Conflict",
+      "situation": "You are the incident commander. Engine 2's crew leader has radioed reporting a direct conflict between Division Alpha's advance order and a company officer from Engine 4 ordering withdrawal. You contact Division Alpha: Lieutenant Chen confirms they directed the advance and are unaware of any structural concerns. You contact the Engine 4 company officer who reports they saw a 'crack in the ceiling near the stairway' but have not reported this through the command channel — they went directly to the Engine 2 crew. You must adjudicate quickly.",
+      "question": "What is your command decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order Engine 2 crew to hold in place — do not advance. Immediately direct a structural assessment of the ceiling area in question before any crew advances. Rebuke the Engine 4 officer on the radio for bypassing the command chain and direct them to route all concerns through their supervisor. Only when the structural concern is assessed do you issue a revised order to Engine 2.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Side with Division Alpha — they are the assigned supervisor and have operational authority over Engine 2. Direct Engine 2 to advance as ordered.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Order a full evacuation of the first floor — any unverified structural concern must be treated as real.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Structural Assessment",
+      "situation": "You have directed a rapid structural assessment by Division Alpha's supervisor, who moves to the stairway ceiling area. They report back: 'IC — I can see the crack referenced. It is a pre-existing plaster crack — not a structural indicator. The ceiling is intact. No visible movement. I assess this is not a collapse risk.' The structural concern from the Engine 4 officer has been assessed and found not to be a current threat. You have this information and must now re-issue a directive to Engine 2.",
+      "question": "How do you re-establish command authority and issue the directive?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transmit clearly on the command channel: 'Engine 2 — IC. Structural assessment complete — ceiling is intact, not a collapse indicator. You are authorised to advance as originally directed by Division Alpha. Division Alpha is your chain of command. All concerns at this incident must be routed through the command structure — not directly to crews.' Resume operations.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Engine 2 to advance but do not address the Engine 4 officer's bypass of the command chain — the issue resolved itself.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remove Division Alpha as the supervisor for Engine 2 and reassign Engine 2 to report directly to the IC for clarity.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Recurrence — Command Briefing",
+      "situation": "Engine 2 has resumed their advance and the fire attack is back on track. The Engine 4 company officer has apologised via radio. The incident is not yet stabilised. You need to ensure that the command and communications failure does not repeat itself during the remainder of the incident, which may take another 20 minutes of active operations.",
+      "question": "What command and communications measure do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "At the next safe opportunity, conduct a brief fireground briefing with all supervisors: reinforce that all directives to operational crews must flow through the designated supervisor chain. Any officer with a safety concern raises it immediately through their supervisor to the IC — not directly to another crew. Confirm each supervisor's span of control and radio assignment.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Issue a written order after the incident — interrupting operations for a briefing now creates more delay.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reassign the Engine 4 company officer to a non-operational role for the remainder of the incident as a disciplinary measure.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Excellent command leadership under a complicated fireground situation. Engine 2's crew leader correctly halted and escalated rather than acting on either conflicting order. As IC, you correctly held the crew in place pending a structural assessment, addressed the chain-of-command violation clearly, issued a single authorised directive, and reinforced the ICS chain-of-command structure with all supervisors. Fire was knocked down and a post-incident review addressed the communications failure systematically.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "title": "fireground_water_loss",
+  "description": "An attack crew loses water supply mid-attack on an occupied residential structure fire. The nozzle operator, crew leader, and IC must manage the sudden loss of water while protecting crew safety and occupant rescue.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["water supply failure", "interior attack", "nozzle", "engine operations", "fireground complication", "crew safety", "water supply"],
+  "timeline": [
+    { "index": 0, "title": "Interior Attack Active", "description": "Attack crew is knocking down a residential fire from the hallway. Line is flowing well at 500 L/min.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Water Pressure Drops", "description": "Nozzle operator reports a significant drop in discharge pressure. The line goes from flowing to a trickle.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "Nozzle Dry", "description": "Water flow stops completely. Interior crew is in a hallway with active fire 4 metres ahead. No water.", "timeOffsetSec": 40 },
+    { "index": 3, "title": "IC Investigates Supply", "description": "Engineer reports the hydrant supply line has separated at a coupling. Alternate supply is being established.", "timeOffsetSec": 70 },
+    { "index": 4, "title": "Crew Withdrawn", "description": "Interior crew withdraws to the entry point. Alternate water supply being established.", "timeOffsetSec": 100 },
+    { "index": 5, "title": "Water Restored", "description": "Alternate hydrant supply established. Interior crew re-enters with a charged line and completes knockdown.", "timeOffsetSec": 180 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Water Flow Stops Mid-Attack",
+      "situation": "You are the nozzle operator advancing through the ground-floor hallway of an occupied residential structure. Fire is burning actively in the living room 4 metres ahead. You have been flowing 500 L/min and fire conditions were improving. Suddenly, discharge pressure drops sharply — the nozzle goes from a solid stream to a weak trickle and then stops completely. Your crew is directly behind you. You are 15 metres from the front entry door.",
+      "question": "What is your immediate action when the water stops?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Call out 'No water!' loudly to your crew. Do not advance. Maintain your current position and do not retreat yet — assess the situation for 5 seconds. Radio the IC and engineer immediately: 'Engine 1 attack crew — we have no water, line is dry. What is our supply status?' Be ready to withdraw on the IC's direction.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Continue advancing to the fire room — you are almost there and conditions may be survivable long enough to reach the seat.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Open the nozzle to a wide fog pattern — the reduced pressure might produce at least some flow.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "IC Response to Water Loss",
+      "situation": "You are the incident commander. The attack crew has radioed: 'No water — line is dry.' Your engineer reports that the supply line connection at the hydrant has separated — the lay is broken. You have approximately 1,000 litres remaining in the tank on Engine 1. A second engine is one minute away and can establish an alternate hydrant supply. The attack crew is 15 metres inside the structure with no water. Fire conditions in the hallway are deteriorating.",
+      "question": "What is your order to the attack crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Radio the attack crew: 'Engine 1 attack — withdraw to the entry point immediately. Water supply is being re-established. Do not advance without water. Withdraw now.' Direct the engineer to use the tank water to flow through a backup line at the entry point to provide cover for the crew's withdrawal.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Radio the attack crew: 'Hold position — alternate supply is 60 seconds away. Conserve air and wait.'",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the crew to withdraw only if conditions become immediately untenable — let them make the judgment call.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Withdrawal Without Water",
+      "situation": "The attack crew has acknowledged the withdrawal order. Without water, conditions in the hallway are worsening as the fire advances toward the crew's position. You are the crew leader managing the withdrawal. The team is crawling back along the hose line. Fire is advancing from the living room. You are 10 metres from the entry door. The engineer has set up a tank-water backup line at the threshold.",
+      "question": "How do you manage the withdrawal?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the crew to follow the hose line back to the entry at maximum safe speed while staying low. The engineer at the entry opens the backup tank line to flow water into the hallway over the withdrawing crew's heads to suppress the advancing fire and buy egress time. Call out crew positions as you move.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Drop the dry hose and navigate by memory — the hose is heavy and slows the crew.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stand up and run to the entry — low crawl is too slow and every second counts.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Re-Establishing Water Supply",
+      "situation": "The attack crew has exited safely to the entry threshold. The backup tank water provided fire suppression cover during withdrawal. Engine 2 has arrived and the engineer is establishing an alternate supply from a hydrant 120 metres away. Engine 2's engineer reports the alternate hydrant is charged and the line can be pressurised in 90 seconds. The fire has extended from the living room into the hallway during the water outage. Two occupants are confirmed rescued prior to the attack. No one is known to be trapped.",
+      "question": "How do you manage the 90-second wait for water restoration?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hold the attack crew at the entry threshold on the charged dry line. Confirm PAR for all crew. Confirm all occupants are accounted for. Brief the attack crew on deteriorated conditions — fire has extended into the hallway. Re-brief entry tactics before water is restored. Do not re-enter until the line is fully pressurised and flowing.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Re-enter immediately with the tank water remaining in Engine 2 — don't wait for the full hydrant supply.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send one crew member inside to monitor fire progression while the rest wait for water.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Excellent crisis management under a sudden loss of water supply. The attack crew correctly halted their advance and communicated immediately. As IC, you ordered a prompt and safe withdrawal and used tank water to provide cover during egress. The crew waited for a fully pressurised line before re-entry, and the final interior attack completed knockdown successfully. The structure sustained additional damage during the water loss, but all crew members and occupants were safe.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

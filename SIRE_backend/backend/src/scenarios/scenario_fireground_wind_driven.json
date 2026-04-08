@@ -1,0 +1,112 @@
+{
+  "title": "fireground_wind_driven",
+  "description": "Wind-driven fire conditions dramatically alter fire behaviour inside a residential structure, pushing fire toward interior crews and compromising planned ventilation. The IC must adapt tactics in real time.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["wind-driven fire", "fire behavior", "ventilation", "interior attack", "tactical adaptation", "fireground complication", "wind control device"],
+  "timeline": [
+    { "index": 0, "title": "Structure Fire Dispatched", "description": "Single-family residential structure fire. 40 km/h sustained winds with gusts to 65 km/h. Fire showing from a second-storey window on the windward side.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Due Arrives", "description": "Fire is blowing horizontally from the second-storey window. Interior crews report the hallway fire is moving toward them rather than away.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Ventilation Creates Blowtorch Effect", "description": "A crew opens a first-floor window on the Bravo side — wind pushes fire directly down the hallway toward the attack crew. Crew forced to withdraw.", "timeOffsetSec": 75 },
+    { "index": 3, "title": "Wind Control Established", "description": "Positive pressure fan positioned at the windward opening. Wind-driven flow path interrupted. Interior attack resumes.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Coordinated Exterior Attack", "description": "Exterior stream applied to the windward fire room from outside. Interior crew simultaneously advances. Fire knocked down.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Wind Abates — Scene Secured", "description": "Fire knocked down and overhaul complete. Crews account for all members. Structure sustained significant damage on the windward side.", "timeOffsetSec": 240 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Wind-Driven Conditions on Arrival",
+      "situation": "You are the incident commander arriving at a two-storey residential structure fire. Sustained winds are 40 km/h from the west (Alpha side). Fire is blowing horizontally from a second-storey window on the Alpha side. Your attack crew has entered via the Alpha-side front door and is advancing up the interior stairway. The crew reports that fire is moving toward them from the second storey rather than away — a clear sign of a wind-driven flow path.",
+      "question": "How do you respond to the wind-driven flow path?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order the attack crew to halt their advance and retreat to the stair base. Identify the wind-driven flow path: the wind is pushing fire from the Alpha window through the interior toward the attack crew. Changing ventilation or opening doors without wind control will worsen conditions. Begin planning an exterior attack on the windward (Alpha) fire room.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the attack crew to advance aggressively — the fire is moving toward them and they need to overwhelm it with water before it intensifies.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Order horizontal ventilation on the Bravo (leeward) side to push the fire toward the exit and relieve the attack crew.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Ventilation Control — Windward Opening",
+      "situation": "The attack crew has retreated to the base of the stairs and is holding. The second-storey window on the Alpha side is the source of the wind-driven fire feed. A crew member is at a first-floor window on the Bravo side and asks if they should open it for ventilation. You have a positive pressure fan on the apparatus and a ground ladder on the Alpha side. An exterior stream from a master stream or ground ladder could reach the Alpha-side second-storey window.",
+      "question": "What ventilation and fire attack approach do you select?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not open the Bravo-side window — this would create a flow path that pushes fire through the structure. Instead, position the PPV fan at the front (Alpha) door to counteract the wind and disrupt the flow path. Simultaneously, position an exterior stream via ground ladder to apply water directly to the windward fire room through the Alpha-side window from outside.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Open the Bravo-side window and doors to create a cross-ventilation effect to push heat out.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Cut the roof above the fire room — vertical ventilation will relieve wind pressure on the interior.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Exterior Attack on Windward Fire Room",
+      "situation": "A ground ladder crew has positioned on the Alpha side and is applying an exterior stream through the second-storey window into the fire room. The PPV fan is running at the front entry, directing airflow into the structure to counteract the wind. The attack crew is on standby at the base of the stairs. Interior conditions have improved slightly — the hallway fire movement has slowed. The exterior crew reports the fire room fire is being knocked down.",
+      "question": "How do you manage the transition from exterior to interior attack?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Radio the exterior crew: cease the exterior stream to prevent steam injury to any interior crew before the interior attack advances. Once the exterior stream is off, direct the attack crew to advance up the stairs and complete suppression of the fire room from inside. Confirm the PPV fan remains running.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Advance the interior crew simultaneously with the exterior stream running — maximum water on the fire is the priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stop the PPV fan before advancing the interior crew — the fan may push fire back onto the interior crew.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Interior Advance and Knockdown",
+      "situation": "The exterior stream has ceased. The interior attack crew is advancing up the stairs. The PPV fan is pushing clean air up the stairway, keeping conditions survivable. The fire room on the second floor is partially knocked down by the exterior stream but still has active fire along the ceiling and in the closet area. Wind is still strong outside.",
+      "question": "How do you direct the interior attack crew on the second floor?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the crew to stay low, advance into the fire room with a short straight stream to the ceiling and then sweep to the closet. Keep the Alpha-side window as an escape route. Maintain the PPV fan for positive pressure support. Radio continuously for condition updates.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Direct the crew to open the closet door first and search for the fire seat before flowing water.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have the crew open the Alpha-side window wider to improve ventilation before advancing into the fire room.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Exceptional wind-driven fire management. You correctly identified the wind-driven flow path and halted the interior crew advance before they were overrun by fire. You resisted the temptation to ventilate on the leeward side, which would have created a lethal blow-torch corridor. Your PPV wind interruption strategy and coordinated exterior attack on the windward fire room broke the flow path. The interior crew completed knockdown safely. No firefighter injuries occurred.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

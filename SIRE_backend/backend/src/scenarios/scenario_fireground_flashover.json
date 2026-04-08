@@ -1,0 +1,112 @@
+{
+  "title": "fireground_flashover",
+  "description": "An interior attack crew encounters rapidly deteriorating thermal conditions inside a residential structure, forcing immediate recognition of flashover indicators and life-safety decisions.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["flashover", "interior attack", "fire behavior", "thermal conditions", "SCBA", "firefighter safety", "fireground complication"],
+  "timeline": [
+    { "index": 0, "title": "Interior Attack Underway", "description": "Attack crew is advancing a charged line down the main hallway of a single-story residence. Heavy smoke at ceiling level. Victim reportedly cleared.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Conditions Change", "description": "Smoke layer descends rapidly. Ceiling temperature spikes. Rollover flame appears above the crew.", "timeOffsetSec": 40 },
+    { "index": 2, "title": "IC Issues Warning", "description": "Incident commander radios: 'All interior crews — thermal imaging shows extreme ceiling temperatures. Flashover risk is imminent.'", "timeOffsetSec": 70 },
+    { "index": 3, "title": "Ceiling Ignition", "description": "Ceiling layer ignites across the hallway behind the attack crew. Structure is seconds from full flashover.", "timeOffsetSec": 100 },
+    { "index": 4, "title": "Crew Egress", "description": "Attack crew exits via the entry door under extreme heat. SCBA low-air alarms activate. All crew accounted for.", "timeOffsetSec": 130 },
+    { "index": 5, "title": "Defensive Transition", "description": "IC transitions to defensive operations. Structure is lost to flashover. No injuries.", "timeOffsetSec": 160 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Recognising Pre-Flashover Conditions",
+      "situation": "You are the attack crew leader advancing a 38mm line down the main hallway of a single-story residence. The structure fire is reportedly under control but conditions are worsening. The smoke layer is black and turbulent, 90 cm from the floor and descending. You can see rollover — flame rolling across the ceiling — ahead of your position. The IC has not yet issued a warning.",
+      "question": "What do you do with the information you are observing?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately radio the IC to report pre-flashover indicators — rollover visible, descending thermal layer, and rapid smoke darkening. Halt crew advance, apply a short fog burst to the ceiling to cool the thermal layer, and prepare to withdraw on IC's order.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Continue advancing — rollover is common and the line is charged. Push forward to reach the seat of the fire faster.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Open the nozzle to a wide fog pattern and hold position — this will cool everything down without retreating.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "IC Orders Withdrawal",
+      "situation": "The IC acknowledges your report and orders all interior crews to withdraw immediately. Thermal imaging shows the ceiling temperature is above 600°C in the hallway ahead. You are approximately 12 metres from the front entry door — your planned exit. The thermal layer has dropped to 60 cm from the floor. Your crew is on their knees.",
+      "question": "How do you lead your crew out?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Lead the crew in a rapid low crawl back along the charged hose line toward the entry door. Maintain hose contact at all times for navigation. Do not stand up. Apply short water bursts behind you to suppress ceiling ignition and slow the advancing fire.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Stand up to move faster — crawling is too slow and you need to cover 12 metres quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Drop the hose and navigate by memory — you remember the layout from size-up.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ceiling Ignites Mid-Egress",
+      "situation": "As your crew crawls toward the exit, the ceiling layer ignites 4 metres behind your position. A wave of superheated gas rolls forward. Radiant heat is intense on your back and the backs of your crew. You are 5 metres from the front door. One crew member reports their ear is hot — possibly a heat breach in their hood.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Call out 'Go go go!' — maximum speed crawl to the door. Apply a burst of water toward the ceiling above and behind to reduce radiant heat. Do not stop to assess the hood breach. Exit first, treat outside.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Stop and check the crew member's hood — thermal protection failure is a life safety priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Shelter at the floor threshold — the fire is above you and you may be safer staying low in place.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Exit Under Flashover",
+      "situation": "Your crew reaches the front door threshold. Full flashover engulfs the hallway behind you. The front door is open. Your last crew member is at your heels. The heat is extreme. You can see the exterior.",
+      "question": "How do you complete the exit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Exit without stopping. Get all crew members out through the door and move a minimum of 15 metres from the structure. Immediately call a PAR (Personnel Accountability Report) to the IC. Report all crew are out and accounted for.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Exit but hold the door open for the attack line — leaving the hose inside reduces future firefighting capability.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stop at the door threshold and apply water back into the structure to suppress the flashover from the exterior.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All crew members exited safely before the structure was fully consumed by flashover. Your rapid recognition of rollover and descending thermal layer, prompt IC notification, disciplined hose-line egress, and decision to exit and treat outside saved your crew. The structure was lost but no firefighters were injured. Post-incident, the crew member with the suspected hood breach was assessed by EMS — no burn injury was found. The IC transitioned to defensive operations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

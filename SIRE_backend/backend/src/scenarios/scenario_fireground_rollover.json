@@ -1,0 +1,112 @@
+{
+  "title": "fireground_rollover",
+  "description": "An interior attack crew encounters rollover conditions — flame rolling across the ceiling layer — during initial entry into a residential structure fire.",
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["rollover", "fire behavior", "interior attack", "ceiling layer", "thermal imaging", "nozzle technique", "fireground complication"],
+  "timeline": [
+    { "index": 0, "title": "Initial Entry", "description": "Attack crew forces entry into a two-storey residence. Light smoke visible. Rollover flame observed rolling across the living room ceiling.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Rollover Identified", "description": "Crew leader calls out rollover. Attack crew halts advance. Ceiling flame is intermittent and moving toward them.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "Suppression Attempt", "description": "Short bursts of water applied to ceiling layer from the threshold. Rollover slows but does not stop.", "timeOffsetSec": 50 },
+    { "index": 3, "title": "Aggressive Advance", "description": "Coordinated water application and rapid advance toward the seat of fire. Rollover extinguished as fuel source is removed.", "timeOffsetSec": 90 },
+    { "index": 4, "title": "Fire Knockdown", "description": "Attack crew reaches and knocks down the main body of fire. Conditions inside the structure improve rapidly.", "timeOffsetSec": 140 },
+    { "index": 5, "title": "Scene Stabilised", "description": "Fire knocked down. Smoke clearing. Rollover eliminated. Crew accounts for all members.", "timeOffsetSec": 180 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Rollover at the Threshold",
+      "situation": "You are the nozzle operator advancing a charged 38mm attack line through the front door of a two-storey residential structure fire. The room is filled with a grey-black smoke layer sitting approximately 1.2 metres from the floor. You observe rollover — unburned pyrolysis gases are igniting and rolling in flames across the ceiling toward your position. The flame front is 5 metres ahead. Your crew is directly behind you.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stay low below the thermal layer. Apply short bursts of water toward the ceiling in a clockwise rotation (the T-T-F technique) to cool the gas layer and suppress the rollover without advancing. Communicate the rollover to your crew leader and the IC immediately.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Open the nozzle to a wide fog pattern and hold — this will cool everything and suppress the rollover.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Retreat to the exterior — rollover means flashover is seconds away and entry must be aborted.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Ceiling Suppression — To Advance or Hold",
+      "situation": "Your ceiling bursts have reduced the rollover intensity but have not eliminated it. The fire is still burning in the next room. The IC is on the radio: 'Attack crew — what is your status? Can you advance to the seat?' Your crew is crouched in the entry hallway. Thermal imaging shows the fire is 6 metres ahead in the living room. Conditions are survivable but not comfortable.",
+      "question": "What do you recommend to the IC?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Report to IC: 'Rollover is suppressed at ceiling level, crew is low and advancing to the seat. Advancing now.' Begin a coordinated advance — nozzle operator applies water bursts to the ceiling ahead every 2 metres while the crew moves low behind the line.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Report to IC that conditions are too dangerous and request withdrawal pending vertical ventilation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advance without reporting to IC — radio traffic takes time and the fire is close.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Advance Under Active Rollover",
+      "situation": "You are advancing low, applying ceiling bursts every 2 metres. Rollover re-ignites briefly as you pass into the living room — the fire ahead is large enough to re-energise the ceiling layer. You can see the main body of fire against the far wall. You are 3 metres from the seat. Conditions are hostile but survivable. Your SCBA gauge reads 180 bar.",
+      "question": "How do you finish the advance?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply a sustained straight-stream burst directly at the base of the main fire body from your current position to knock the seat. Once the seat is knocked, close the nozzle and advance the final 3 metres. This removes the fuel energising the ceiling layer.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Switch to a wide fog pattern at the seat of the fire — more water coverage will suppress it faster.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Continue advancing without applying water — get directly on top of the seat before opening the nozzle.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Knockdown and Overhaul Assessment",
+      "situation": "The main fire body has been knocked down. The rollover has ceased — with the fuel source suppressed, the ceiling layer is no longer igniting. Conditions are improving rapidly. Smoke is lifting. However, IC advises that thermal imaging shows a hot spot in the ceiling above the living room — potential extension into the void space above.",
+      "question": "How do you respond to the ceiling hot spot?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Report the hot spot to IC and request an overhaul crew with a pike pole or rotary tool. Do not open the ceiling void without a charged line in position. Hold the attack line in place while the overhaul assessment is made — do not assume the fire is out.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Open the ceiling void immediately with your pike pole — the sooner it is exposed the sooner overhaul can be completed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The main fire is knocked down — declare the fire out and begin SCBA removal for the overhaul phase.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Excellent tactical execution. You correctly identified rollover at the threshold, applied effective ceiling suppression without retreating unnecessarily, communicated with the IC before advancing, knocked the seat from a safe distance to remove the fuel energising the ceiling layer, and properly identified the need for a charged line and assessment before opening void spaces during overhaul. The fire was controlled with no injuries.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
