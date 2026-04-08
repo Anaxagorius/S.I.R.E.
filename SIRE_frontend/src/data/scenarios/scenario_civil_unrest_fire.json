@@ -1,0 +1,164 @@
+{
+  "title": "civil_unrest_fire",
+  "description": "Widespread civil unrest results in multiple arson fires across a city district. Fire crews must operate in a hostile environment, coordinate with law enforcement, and balance firefighter safety with life-safety and property protection missions.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["civil unrest", "arson", "hostile environment", "law enforcement coordination", "firefighter safety"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Civil Unrest Declared",
+      "description": "Mass protest has turned violent. Arson fires reported at three commercial buildings in the affected district. Police requesting fire support.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Units Staged Awaiting Escort",
+      "description": "Department policy requires police escort before entering the hostile zone. Three fires burning uncontrolled.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Occupied Building Confirmed",
+      "description": "Dispatch receives call — residents trapped in upper-floor apartment above a burning commercial space.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Firefighter Struck by Projectile",
+      "description": "During operations, a firefighter is struck by a thrown object. Minor injury. Operations suspended pending assessment.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 4,
+      "title": "Fire Spreading to Occupied Housing",
+      "description": "Fire jumping from commercial block to adjacent apartment complex. 80 residents at risk.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Law Enforcement Clears Sector",
+      "description": "Police announce the north sector is cleared and controlled. Fire crews can operate with reduced escort.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Civil Unrest — Multiple Arson Fires",
+      "situation": "A large protest has turned violent. Three arson fires are burning in a commercial district. Crowds and projectiles make direct fire suppression unsafe without police escort. Three fire companies are staged at the perimeter. Police have not yet confirmed an escort is available. Two of the fires appear to be in unoccupied commercial properties; the third is in a mixed-use building with flats above.",
+      "question": "What is the correct initial action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stage all fire units at a safe perimeter, maintain radio contact with police command, request an immediate police escort to the mixed-use building given the life-safety risk, and prepare apparatus for immediate entry once the escort is confirmed.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter the zone — the fires will destroy buildings if suppression is delayed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not enter the zone under any circumstances — firefighter safety takes absolute priority.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Residents Trapped — Escorted Entry",
+      "situation": "Police have provided a two-vehicle escort. Dispatch has confirmed residents are trapped on the third floor of the mixed-use building — an elderly couple unable to use the smoke-filled staircase. The fire is in the ground-floor retail space. Interior access via the rear staircase appears viable but smoke conditions are heavy. The crowd is still active 50 metres away.",
+      "question": "How do you conduct the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commit an interior rescue team via the rear staircase with a charged line; raise a ground ladder to the third-floor window as an alternate egress; position the escort vehicles to shield the apparatus and crew from the crowd.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Conduct exterior rescue only — enter via ground ladder to the third floor window without interior entry.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the residents to shelter in place and await additional police support before entering.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Firefighter Struck by Projectile",
+      "situation": "During suppression operations on the commercial block, a firefighter on an exterior line is struck in the shoulder by a thrown concrete block. They report pain but are ambulatory. Operations have been suspended by the company officer pending your assessment. The commercial fire is growing. Police say they can re-establish a closer perimeter but need 10 minutes.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Withdraw all crews to the safe perimeter immediately; have EMS assess the injured firefighter; wait for police to re-establish a secure perimeter before resuming operations.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Allow operations to continue — the firefighter is walking and the fire is spreading.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Continue operations in the sector away from where the projectile came from.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fire Jumping to Apartment Complex",
+      "situation": "While staged at the perimeter, you receive reports that the commercial block fire has jumped to an adjacent four-storey apartment complex housing approximately 80 residents. Police have re-established a secure perimeter in that sector and can guarantee escort. Residents are beginning to self-evacuate. The fire is on the second floor of the apartment block.",
+      "question": "What is your tactical response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Respond immediately with the police escort to the apartment complex; commit interior crews to the second floor with charged lines to confine and extinguish; use the aerial to assist evacuation from upper floors; establish a triage area for any smoke-inhalation casualties.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Conduct only exterior suppression — interior entry in an unrest scenario is too dangerous.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait until all 80 residents have self-evacuated before committing crews.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Coordinating Evidence Preservation",
+      "situation": "The commercial fires are now under control. Law enforcement requests that fire investigators preserve the origin-and-cause evidence for arson prosecution. The fire investigator on scene notes that crews have already overhauled the first commercial building, which may have disturbed the fire pattern. The second building has not yet been overhauled.",
+      "question": "How do you manage evidence preservation for the second building?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Halt overhaul in the second building until the fire investigator and law enforcement document the scene; conduct only targeted overhaul of areas posing an immediate rekindling risk with the investigator present; document all actions taken.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Complete full overhaul immediately — fire safety takes priority over evidence.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the building completely untouched until law enforcement clears the scene — even rekindling risks.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The elderly residents were successfully rescued without firefighter injury during the initial operation. The injured firefighter was assessed and treated for a non-displaced shoulder fracture — no crew were allowed to continue operations until the secure perimeter was restored. The apartment complex fire was confined to the second floor with no resident fatalities. All 80 residents were evacuated. Arson evidence was preserved in the second commercial building, supporting subsequent prosecution.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "title": "earthquake_building_collapse",
+  "description": "A mid-rise office building collapses following a major earthquake. USAR teams must navigate secondary collapse risk, survivor location, and aftershock hazards to rescue trapped occupants.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["earthquake", "building collapse", "USAR", "structural collapse", "void space"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Building Collapse Reported",
+      "description": "Six-storey office building pancakes following M6.8 earthquake. Estimated 80 occupants. USAR dispatched.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Collapse Zone Established",
+      "description": "Structural specialist identifies survivable void spaces and marks unstable zones. Entry protocol initiated.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Search Dogs Deployed",
+      "description": "Canine search teams alert at two locations. Acoustic devices confirm survivor in Void B.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 3,
+      "title": "Tunnel Breach Underway",
+      "description": "Rescue team breaching debris to Void B. Shoring in progress. Survivor communication maintained.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 4,
+      "title": "Aftershock — Secondary Collapse",
+      "description": "M5.0 aftershock causes partial secondary collapse at the eastern face. Evacuation signal sounded.",
+      "timeOffsetSec": 720
+    },
+    {
+      "index": 5,
+      "title": "Re-entry Authorised",
+      "description": "Structural clearance granted. Rescue teams re-enter. Survivor extrication completed.",
+      "timeOffsetSec": 1080
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Pancake Collapse — Initial Size-Up",
+      "situation": "A six-storey office building has collapsed in a pancake pattern following the earthquake. An estimated 80 occupants were inside at the time. Bystanders and co-workers are attempting to pull people from the rubble at the perimeter. You are the USAR incident commander arriving on scene.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a collapse zone perimeter, stop all uncoordinated rescue attempts, request a structural specialist, and assign sector search teams to conduct a systematic size-up before committing rescuers.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow bystanders to continue — they may already be close to survivors and stopping them wastes time.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send USAR teams immediately to the most heavily damaged area for a rapid rescue attempt.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Structural Assessment",
+      "situation": "The structural specialist has assessed the collapse. She identifies three potential void spaces: Void A (stairwell pocket — low confidence), Void B (central mechanical room — high confidence), and Void C (parking structure below grade — partially intact). The eastern face of the collapse has severe lean and is rated high risk for secondary collapse. The western approach is safer but will take longer to breach.",
+      "question": "How do you allocate search resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy acoustic listening and canine teams to Void B and Void C via the western approach; place Void A on secondary priority; mark the eastern face as a no-entry zone and post spotters.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Prioritise Void A because the stairwell is most familiar and likely to have survivors.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Begin work on the eastern face — it is the shortest route to Void B.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Survivor Confirmed in Void B",
+      "situation": "The acoustic listening device and canine team both alert at Void B. A rescuer using a bore camera confirms a survivor — a woman, conscious and mobile, with a suspected leg fracture. She reports at least two other people near her, one unconscious. Breaching to Void B requires removing a 4-metre debris column while installing shores every 60 cm.",
+      "question": "How do you manage the breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance the breach tunnel with concurrent shoring at each stage; maintain continuous voice contact with the survivor; pre-position a medical team at the tunnel entrance.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Remove debris as fast as possible without shoring — the survivor needs to be reached quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use heavy machinery to lift the slab above Void B for quicker access.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Medical Triage Inside the Void",
+      "situation": "The breach team has reached Void B. The conscious survivor has a closed femur fracture and is in moderate pain. The second victim is unconscious but breathing with a weak radial pulse and head laceration. A third victim is found unresponsive with no pulse and no signs of life.",
+      "question": "What is the correct triage and extraction order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Classify the third victim as Black (deceased). Treat the unconscious victim (Red) in place with airway management and haemorrhage control, package for priority extraction. Package the conscious victim (Yellow) for second extraction.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Extract the conscious victim first because she is ambulatory and can be moved fastest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt full resuscitation of the third victim before extracting the other two.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Aftershock — Secondary Collapse",
+      "situation": "During the extraction of the unconscious (Red) victim, the M5.0 aftershock strikes. A spotter reports that the eastern face of the collapse has partially secondary-collapsed, sending a dust cloud and debris toward the Void B breach tunnel. The rescue team inside reports debris falling but no injuries yet. The Red victim is on a backboard 2 metres from the tunnel exit.",
+      "question": "What is the correct action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sound the evacuation signal immediately. All rescuers withdraw from the breach tunnel. Conduct a headcount at the perimeter and reassess structural stability before authorising re-entry.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Complete the extraction — the victim is 2 metres away and stopping now likely costs their life.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send a second team into the tunnel to speed up the extraction.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All rescuers evacuated safely. The structural specialist re-assessed the collapse — the eastern face suffered a further lean but the Void B tunnel shoring held. Re-entry was authorised 20 minutes after the aftershock. The Red victim was extracted and reached the trauma centre in time. The conscious Yellow victim was subsequently rescued. The scene was transferred to recovery mode for the confirmed deceased.",
+      "question": "",
+      "options": []
+    }
+  }
+}

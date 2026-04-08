@@ -1,0 +1,164 @@
+{
+  "title": "terrorist_attack_response",
+  "description": "A coordinated terrorist attack involving an explosion at a transit hub triggers a complex multi-agency response. Responders must manage a mass casualty event, secondary device threats, and a hostile environment while coordinating with law enforcement and intelligence agencies.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["terrorism", "explosion", "mass casualty", "secondary device", "multi-agency coordination"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Explosion at Transit Hub",
+      "description": "Large explosion at the central transit station. Estimated 80+ casualties. Fire and structural damage reported.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "MCI Declared — Secondary Device Warning",
+      "description": "Law enforcement warns of possible secondary device. Incident command adjusting approach.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "HAZMAT — Unknown Substance",
+      "description": "Casualties presenting with unusual neurological symptoms. Chemical or biological component suspected.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "EOD Clears Secondary Device",
+      "description": "Explosive Ordnance Disposal confirms and neutralises secondary IED. Inner perimeter expanded.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 4,
+      "title": "Hospital Surge — Regional Coordination",
+      "description": "Regional hospitals coordinating. Intelligence indicates a second attack site may exist.",
+      "timeOffsetSec": 720
+    },
+    {
+      "index": 5,
+      "title": "Second Site Confirmed",
+      "description": "Police confirm a second explosion at a hotel 3 km away. Resources must be shared.",
+      "timeOffsetSec": 1080
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Explosion at Transit Hub — Initial Response",
+      "situation": "A large explosion has occurred at the central transit station during morning peak hour. An estimated 80+ casualties are visible. The blast has caused significant structural damage to the station entrance and started fires in several concession areas. Law enforcement has already declared this a terrorist incident and is warning of a possible secondary device. First-arriving EMS and fire units are staging at the outer perimeter.",
+      "question": "What is the correct initial approach for emergency services?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain a safe outer perimeter until EOD confirms the scene is clear of secondary devices; activate the MCI plan; stage EMS and fire at the perimeter; establish unified command with law enforcement; begin treating casualties who can be safely reached at the perimeter.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter the scene — the number of casualties requires immediate intervention.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for law enforcement to fully secure the entire scene before beginning any medical operations.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Unusual Casualties — Chemical Threat Suspected",
+      "situation": "Several casualties who self-evacuated to the outer perimeter are presenting with: pinpoint pupils, excessive salivation, seizures, and respiratory distress — symptoms consistent with nerve agent exposure. Two casualties are in respiratory arrest. You have HAZMAT units available but decontamination has not yet been established. EMS personnel are not wearing chemical protective equipment.",
+      "question": "How do you respond to the suspected chemical component?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately establish a decontamination corridor before any further casualty contact; direct EMS personnel to don appropriate PPE; treat the respiratory arrest casualties with antidote (atropine and pralidoxime if available) in the cold zone only; notify hospitals of the chemical agent and isolate casualty reception areas.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Begin treating all casualties immediately — antidote must be given as fast as possible regardless of decontamination.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Quarantine all casualties at the scene until HAZMAT confirms the agent — do not transport until fully identified.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "EOD — Secondary Device Confirmed",
+      "situation": "EOD has located a secondary IED near the main treatment area you had established 60 metres from the blast site. The device has not detonated. EOD estimates 25 minutes to render it safe. Forty casualties are currently in your treatment area — 12 Red, 18 Yellow, 10 Green. Moving them increases risk to unstable patients.",
+      "question": "How do you manage the treatment area with a secondary device nearby?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately relocate the treatment area to outside the EOD exclusion zone; prioritise moving Red patients first with all available ambulances; have Yellow and Green patients self-ambulate or be assisted to the new location.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Keep patients in place — moving critical patients is dangerous and EOD has 25 minutes.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Move only Green patients — they are least at risk from transport and the Red patients should wait.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Hospital Surge Coordination",
+      "situation": "Regional hospitals are being notified of incoming casualties. The trauma centre has capacity for 10 critical patients and is already receiving three. A general hospital has capacity for 20. Intelligence from law enforcement indicates a second attack site may exist at a hotel nearby. Hospitals are questioning whether they should reserve capacity for a second wave.",
+      "question": "How do you coordinate hospital resources given the second-site intelligence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify all regional hospitals of the possible second site; direct hospitals to activate their surge protocols and hold 30% capacity in reserve; continue sending critical patients to the trauma centre without delay while distributing Yellow patients to hospitals with available capacity.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Halt all transports until the second site is confirmed — overwhelming hospitals now could prevent treatment of future casualties.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send all casualties to the trauma centre — better care there outweighs distribution concerns.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Second Attack Site Confirmed",
+      "situation": "Police have confirmed a second explosion at a hotel 3 km away. Initial reports indicate 30 casualties. Your resources are heavily committed at the transit hub — 4 ALS units and 2 fire companies remain in staging. Law enforcement is requesting fire and EMS support at the hotel site. The transit hub MCI is partially stabilised but not complete.",
+      "question": "How do you allocate resources between the two sites?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a second incident command at the hotel site; send 2 ALS units and 1 fire company to the hotel under a separate incident commander; request additional mutual aid immediately; maintain sufficient resources at the transit hub to complete the remaining MCI; brief both incident commanders on the shared resource constraint.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Redirect all staged resources to the hotel — it is a fresh incident and transit hub operations are winding down.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Keep all resources at the transit hub until it is fully resolved, then respond to the hotel.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "EOD neutralised the secondary IED without incident. All transit hub casualties were successfully relocated and treated. The chemical agent was confirmed as a nerve agent — atropine was administered to the two respiratory arrest patients, both of whom survived. Hospital surge protocols prevented capacity collapse across the region. The hotel site was effectively managed with split resources and mutual aid. Thirty-eight critical patients across both sites received definitive care. Multi-agency debrief is underway.",
+      "question": "",
+      "options": []
+    }
+  }
+}

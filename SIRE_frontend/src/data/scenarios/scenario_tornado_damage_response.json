@@ -1,0 +1,164 @@
+{
+  "title": "tornado_damage_response",
+  "description": "An EF3 tornado tears through a suburban community, destroying dozens of homes and a school. Emergency responders must coordinate rapid USAR, mass casualty triage, and multi-agency operations in the immediate aftermath.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["tornado", "USAR", "mass casualty", "natural disaster", "structural damage"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Tornado Warning — Shelter-in-Place",
+      "description": "EF3 tornado warning issued. All units shelter. Tornado path confirmed over residential subdivision and elementary school.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Tornado Passes — Damage Confirmed",
+      "description": "Tornado touchdown confirmed. School partially destroyed. Dozens of homes collapsed or heavily damaged.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Mass Casualty Declared",
+      "description": "First units on scene report 40+ casualties visible. MCI declared. Additional resources requested.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "School Collapse — Children Trapped",
+      "description": "School gymnasium roof has collapsed with approximately 60 students inside. USAR teams committed.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Gas Leaks and Downed Lines",
+      "description": "Multiple gas leaks and live power lines reported across the debris field. Safety perimeter established.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Second Tornado Warning",
+      "description": "NWS issues second tornado warning for the same path. Immediate decisions required.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Post-Tornado — Initial Response",
+      "situation": "An EF3 tornado has struck a suburban community, destroying a residential subdivision and partially collapsing an elementary school. The tornado has passed. First arriving units report: school gymnasium roof collapsed with ~60 students inside; 30+ homes destroyed; casualties visible throughout the debris field; gas leaks and downed power lines in multiple locations.",
+      "question": "What is your first action as Incident Commander?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare an MCI, activate the EOC, establish sectors for the school and residential areas, request USAR teams and mutual aid, and notify utilities about gas and power hazards before committing rescue teams to the debris field.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately send all units to the school — children in a collapsed building are the highest priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Conduct a full damage assessment before dispatching any units into the debris field.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "School Gymnasium Collapse — USAR",
+      "situation": "The school gymnasium roof has collapsed onto approximately 60 students in the middle of a physical education class. The main structure is partially standing. You have two USAR teams available. A structural assessment indicates the remaining walls are unstable but the debris field has identifiable void spaces under the roof trusses. Canine and acoustic teams are available.",
+      "question": "How do you approach the school rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commit acoustic listening and canine teams to locate survivors; stabilise accessible entry points with shores before committing rescuers; establish a triage area at the school perimeter to receive survivors as they are extracted.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Send rescuers in immediately — every second counts for children under the debris.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the structural specialist before any entry — the unstable walls are too dangerous.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Mass Casualty Triage — Residential Sector",
+      "situation": "In the residential sector, 48 casualties have been assembled at the triage point. Triage reveals: 6 Red (Immediate), 15 Yellow (Delayed), 22 Green (Minor), 5 Black. You have four ALS ambulances and six BLS units. The nearest trauma centre is 12 km away and can accept 8 critical patients. A second hospital 18 km away can take 4 more.",
+      "question": "How do you manage casualty transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transport all 6 Red patients by ALS units to the trauma centre; simultaneously transport Yellow patients to the second hospital using BLS units; direct Green walking wounded to the evacuation bus for transport to the community reception centre.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Transport all critical and serious patients to the trauma centre — it has better care capabilities.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Treat all patients on scene before any transport begins.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Gas Leak and Downed Power Lines",
+      "situation": "A rescue team in the residential debris field reports a strong odour of gas and can see a downed power line sparking 15 metres away. Two survivors have been located under debris in this zone. Utilities have been notified but are 30 minutes away. The gas concentration has not been measured yet.",
+      "question": "What is the correct action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Withdraw the rescue team from the gas and power line hazard zone; use a gas monitor to establish a safe working perimeter; maintain voice contact with the survivors while awaiting utilities isolation before re-entry.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Continue the rescue — the survivors cannot wait 30 minutes for utilities.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Only withdraw the team member closest to the power line and continue the rescue with the others.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Second Tornado Warning",
+      "situation": "The National Weather Service has issued a second tornado warning — the storm system has re-cycled and a second tornado is on the ground tracking toward the same area. ETA is estimated at 15 minutes. Rescue teams are actively working the school and residential sectors. The school USAR team is 3 minutes from extracting a child from Void B.",
+      "question": "What is the correct response to the second tornado warning?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sound an immediate evacuation signal for all rescue teams; direct teams to withdraw to the nearest hard shelter or low-lying cover; allow the school USAR team a 2-minute extraction window only if they confirm the child can be moved safely within that time.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Allow all rescue teams to continue — 15 minutes is enough time to complete rescues.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Only evacuate civilian triage personnel and keep rescue teams working.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All rescue teams were safely withdrawn before the second tornado. The school USAR team successfully extracted the child with seconds to spare. The second tornado tracked slightly north and caused only minor additional damage to the area. After the all-clear, rescue operations resumed. The gas and power hazard zone was cleared by utilities, and the two trapped survivors were recovered alive. The MCI was managed effectively with no preventable deaths.",
+      "question": "",
+      "options": []
+    }
+  }
+}

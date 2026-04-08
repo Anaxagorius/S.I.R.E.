@@ -1,0 +1,164 @@
+{
+  "title": "active_shooter_fire",
+  "description": "An active shooter incident at a warehouse complex ignites a fire during the attack. Fire and EMS must coordinate with law enforcement to extract casualties from a warm zone while suppressing the fire and managing a mass casualty event.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["active shooter", "warm zone operations", "fire", "law enforcement coordination", "mass casualty"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Active Shooter — Fire Reported",
+      "description": "Active shooter reported at warehouse complex. Fire has broken out in the east wing. Multiple casualties reported.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Incident Command — Unified",
+      "description": "Law enforcement establishes unified command. Cold, warm, and hot zones designated. Fire and EMS staged.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "TECC Teams Deployed to Warm Zone",
+      "description": "Tactical Emergency Casualty Care teams enter warm zone with law enforcement escort to reach casualties.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Shooter Neutralised — Hot Zone Transitioning",
+      "description": "Law enforcement neutralises shooter. Structure being cleared. Fire spreading in east wing.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 4,
+      "title": "Fire Threatening Trapped Survivors",
+      "description": "Survivors sheltering in west offices. Fire blocking evacuation route through east corridor.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Scene Cleared — Full Fire Suppression",
+      "description": "Law enforcement clears the scene. Full fire crews enter. MCI triage underway.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Active Shooter and Fire — Initial Response",
+      "situation": "An active shooter has opened fire in a warehouse complex. During the attack, incendiary devices have started a fire in the east wing. Multiple casualties are reported, some still under fire. Law enforcement is on scene and engaging the shooter. Fire and EMS have arrived and are staging at the outer perimeter. Smoke is visible from the east wing. The shooter's location is not yet confirmed.",
+      "question": "What is the correct initial posture for fire and EMS?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stage fire and EMS in the cold zone; join unified command with law enforcement; prepare Tactical Emergency Casualty Care (TECC) teams for warm zone deployment once law enforcement escorts are confirmed; do not commit fire crews until the threat zone is established.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter to extinguish the fire — any delay allows the fire to grow and threatens trapped survivors.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Commit EMS only — firefighting can wait until the scene is fully secured.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Warm Zone — TECC Operations",
+      "situation": "Law enforcement has designated the west side of the complex as a warm zone — the shooter is believed to be in the east wing. TECC-trained medics with law enforcement escort are being deployed to reach casualties in the warm zone. Three casualties are reported: one with a gunshot wound to the thigh, one with a gunshot wound to the chest, and one with blast injuries to both legs.",
+      "question": "How should the TECC team prioritise and treat these casualties in the warm zone?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply haemorrhage control first (tourniquets to thigh wound and bilateral leg wounds); address the chest wound with needle decompression if tension pneumothorax is suspected; rapidly extract all three to the casualty collection point in the cold zone for further treatment — do not attempt full ALS in the warm zone.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Begin full ALS treatment in the warm zone — these are critical patients who need immediate care.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Extract all casualties to the cold zone without any treatment — speed is more important than care in the warm zone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Suppression — Warm Zone Entry Decision",
+      "situation": "Law enforcement reports the shooter is confirmed in the east wing and is no longer mobile — they are contained but not neutralised. The fire in the east wing is spreading and will breach into the west wing (which includes the casualty collection point) within an estimated 15 minutes. Fire crews request permission to enter for fire suppression.",
+      "question": "How do you respond to the fire suppression request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with law enforcement command — if a law enforcement escort can be provided, authorise a fire crew to enter with a charged line from the safest approach to slow fire spread; simultaneously begin relocating the casualty collection point to ensure it stays in the cold zone.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Deny entry — the threat is not fully neutralised and firefighter safety is paramount.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send in the full fire crew immediately — the fire risk outweighs the residual threat.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Shooter Neutralised — Transition to Full Operations",
+      "situation": "Law enforcement has neutralised the shooter. The scene is being cleared room by room. Fire is now through the east wing and threatening the central corridor. Survivors — estimated 12 individuals — are sheltering in locked offices in the west wing. The primary evacuation route through the central corridor is smoke-filled and the fire is advancing. A secondary exit via the loading dock at the rear of the west wing is accessible but requires breaking through a roll-up door.",
+      "question": "How do you evacuate the sheltering survivors?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a fire crew with a charged line to slow fire advance in the central corridor; simultaneously force the loading dock roll-up door as the primary evacuation route; guide survivors out through the loading dock with a fire crew escort; provide a hoseline to protect the egress corridor.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Tell survivors to use the central corridor immediately — it is still navigable for now.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait until the fire is extinguished before evacuating — moving people through smoke is dangerous.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "MCI Triage — Mass Casualty Management",
+      "situation": "The scene is now clear. Full fire suppression is underway. At the casualty collection point, 22 casualties have been assembled. Triage reveals: 5 Red (gunshot wounds, blast injuries), 8 Yellow, 7 Green, 2 Black. Available transport: 4 ALS units, 5 BLS units. The trauma centre is 10 km away (capacity: 6 critical). A second hospital 14 km away can take 8 patients.",
+      "question": "How do you coordinate the MCI transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transport all 5 Red patients via ALS to the trauma centre; distribute Yellow patients between the two hospitals using BLS with ALS oversight; direct ambulatory Green patients to BLS transport to the second hospital; maintain 1 ALS unit on scene for any deteriorating Yellow patients.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Transport all 22 patients to the trauma centre — they have the best facilities for penetrating trauma.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transport Red and Yellow patients to the trauma centre and hold Green patients on scene.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All five Red-tagged patients received definitive care — four survived. The twelve sheltering survivors were evacuated via the loading dock without casualties. TECC warm zone operations resulted in two of the three gunshot casualties reaching surgery with life-saving haemorrhage control already in place. The fire was contained to the east wing. Law enforcement, fire, and EMS unified command was cited as a model response in the after-action review.",
+      "question": "",
+      "options": []
+    }
+  }
+}
