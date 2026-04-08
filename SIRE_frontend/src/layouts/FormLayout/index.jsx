@@ -29,7 +29,6 @@ export default function FormLayout({ children }) {
             <Grid size={{ xs: 12, sm: 8 }}>
                 <div className="form-right">
                     <div className="form-content">
-                        <br/><br/><br/><br/><br/>
                         {children}
                     </div>
                 </div>

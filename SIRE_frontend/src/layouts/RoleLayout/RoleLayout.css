@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-04-08
  * Description: Styles for the Role screen layout.
  */
 
@@ -12,41 +12,54 @@
 
 /** Left section (Administrator role). */
 .role-left {
-    background: rgb(0, 0, 0);
-    border: 1px solid rgb(24, 24, 24);
+    background: linear-gradient(160deg, rgb(8, 8, 8) 0%, rgb(18, 10, 10) 100%);
+    border-right: 1px solid var(--color-border);
     color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     height: 100vh;
-    justify-content: space-between;
-    padding: 2rem;
+    justify-content: center;
+    padding: 3rem 2.5rem;
     box-sizing: border-box;
     overflow: hidden;
+    gap: 1.25rem;
 }
 
 /** Shared content wrapper for role sections. */
 .left-content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
+}
+
+/** Role section label. */
+.role-label {
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
 }
 
 /** Right section (Trainee role). */
 .role-right {
-    background: rgb(0, 0, 0);
-    border: 1px solid rgb(24, 24, 24);
+    background: linear-gradient(160deg, rgb(10, 10, 10) 0%, rgb(16, 8, 8) 100%);
     color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     height: 100vh;
-    justify-content: space-between;
-    padding: 2rem;
+    justify-content: center;
+    padding: 3rem 2.5rem;
     box-sizing: border-box;
     overflow: hidden;
+    gap: 1.25rem;
 }
 
 /** Text content styling. */
 .about-section {
-    line-height: 1.5;
-    word-spacing: 0.1em;
+    line-height: 1.65;
+    word-spacing: 0.05em;
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
 }

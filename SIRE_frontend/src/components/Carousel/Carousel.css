@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-04-08
  * Description: Styles for the HomeCarousel component, including layout, slide positioning,
  * overlay content, and navigation controls.
  */
@@ -15,7 +15,7 @@
 
 /** Outer padding container for spacing. */ 
 .carousel-padding-wrapper {
-    padding: 2rem;
+    padding: 1.5rem;
     box-sizing: border-box;
     height: 100vh;
     width: 100%;
@@ -26,18 +26,20 @@
     align-items: center;
     background: rgb(0, 0, 0);
     display: flex;
-    height: calc(100vh - 4rem);
+    height: calc(100vh - 3rem);
     justify-content: center;
     overflow: hidden;
     position: relative;
+    border-radius: var(--radius-lg);
 }
 
 /** Slide background image. */ 
 .carousel .slide img {
     height: 100%;
-    filter: brightness(70%);
+    filter: brightness(60%);
     object-fit: cover;
     width: 100%;
+    border-radius: var(--radius-lg);
 }
 
 /** First slide image (no darkening effect). */ 
@@ -47,29 +49,33 @@
 
 /** Overlay container for the text content. */ 
 .slide-overlay {
-    background: rgb(0, 0, 0);
-    border-radius: 10px;
-    border: 1px solid rgb(200, 40, 40);
-    bottom: 15%;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(6px);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(200, 40, 40, 0.45);
+    bottom: 12%;
     color: rgb(255, 255, 255);
-    left: 10%;
-    max-width: 60%;
+    left: 8%;
+    max-width: 58%;
+    padding: 1.25rem 1.5rem;
     position: absolute;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
 /** Slide title. */ 
 .slide-overlay h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.4rem;
 }
 
 /** Slide description text. */ 
 .slide-overlay p {
-    font-size: 1.2rem;
-    line-height: 1.5;
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
+    line-height: 1.55;
+    margin: 0;
 }
 
 /** Navigation arrows. */ 
@@ -81,7 +87,7 @@
 /** Arrow icon styling. */ 
 .carousel .control-arrow:before {
     border-bottom: 8px solid transparent;
-    border-left: 12px solid rgb(255, 255, 255);
+    border-left: 12px solid rgba(255, 255, 255, 0.75);
     border-top: 8px solid transparent;
 }
 
@@ -93,11 +99,12 @@
 
 /** Default dot styling. */ 
 .carousel .control-dots .dot {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3);
     box-shadow: none;
+    transition: background var(--transition);
 }
 
 /** Active dot styling. */ 
 .carousel .control-dots .dot.selected {
-    background: rgb(255, 255, 255);
+    background: var(--color-accent);
 }
