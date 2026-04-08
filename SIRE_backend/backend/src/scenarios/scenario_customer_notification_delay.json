@@ -1,0 +1,64 @@
+{
+  "title": "scenario_customer_notification_delay",
+  "description": "Legal counsel advises delaying customer notification of a data breach pending forensic investigation completion. Regulatory deadlines and operational pressures are mounting, and communications and legal teams must align on a lawful notification strategy.",
+  "timeline": [
+    { "index": 0, "title": "Breach Confirmed", "description": "A data breach affecting customer personal data is confirmed. Legal counsel advises against customer notification until the forensic investigation is complete.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "72-Hour GDPR Clock Running", "description": "The 72-hour GDPR supervisory authority notification deadline is approaching. The forensic investigation will not complete within this window.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Regulatory Obligation Confirmed", "description": "The DPO confirms the breach meets the threshold for mandatory supervisory authority notification under GDPR Article 33.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Supervisory Authority Notified", "description": "A best-available-facts notification is submitted to the supervisory authority within the 72-hour window, with a commitment to supplement as the investigation progresses.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Customer Notification Strategy Agreed", "description": "A phased customer notification plan is approved, balancing investigation completeness with legal obligations and customer interests.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "The organisation met its GDPR regulatory obligations, notified the supervisory authority within 72 hours, and implemented a phased customer notification strategy that balanced investigation needs with legal requirements.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Legal Advises Against Notification — But GDPR Clock is Running",
+      "situation": "A breach of approximately 80,000 customer records (names, email addresses, and hashed passwords) was confirmed 18 hours ago. External legal counsel has advised against customer notification until the forensic investigation is complete, citing risks of inaccurate disclosure and potential litigation exposure. However, your DPO has raised that GDPR Article 33 requires notification to the supervisory authority within 72 hours of becoming aware of a breach likely to result in risk to individuals' rights and freedoms. The forensic investigation is estimated to take a further 96 hours. You have 54 hours remaining on the GDPR clock.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Convene an urgent meeting between external legal counsel, the DPO, and the CISO to resolve the tension between legal's delay recommendation and the mandatory GDPR Article 33 obligation. Make clear that missing the 72-hour supervisory authority notification deadline is not a discretionary decision — it is a legal violation.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Follow legal counsel's advice and delay all notifications, including to the supervisory authority, until the forensic investigation is complete.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Notify all affected customers immediately via email without legal review, to comply with what you believe are GDPR requirements.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Resolving the Regulatory Obligation",
+      "situation": "The DPO has confirmed the breach clearly meets the Article 33 threshold: it is likely to result in risk to individuals' rights and freedoms given that hashed passwords could be cracked and email addresses could be used for phishing. External legal counsel has acknowledged the supervisory authority notification is mandatory but maintains that customer notification (Article 34) is discretionary pending risk assessment. The 72-hour window closes in 46 hours. The forensic investigation will not complete in time.",
+      "question": "How do you handle the supervisory authority notification under time pressure?",
+      "options": [
+        { "label": "A", "text": "Prepare a best-available-facts Article 33 notification for the supervisory authority, clearly indicating that the investigation is ongoing and that supplementary information will follow. Submit within the 72-hour window. Use the notification as an opportunity to confirm the Article 34 customer notification obligation assessment with the DPO.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Request an extension from the supervisory authority before submitting the notification, reasoning that the investigation is not yet complete.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Submit the supervisory authority notification only after the forensic investigation is complete, accepting the late notification as unavoidable.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Assessing the Article 34 Customer Notification Obligation",
+      "situation": "The supervisory authority notification has been submitted. The DPO must now determine whether Article 34 requires direct customer notification — this applies where the breach is likely to result in a high risk to individuals' rights and freedoms. Given that hashed passwords could be cracked and customers could face phishing attacks and account takeover, the DPO believes direct notification is likely required. Legal counsel wants to wait for the forensic report before deciding.",
+      "question": "How do you resolve the Article 34 assessment?",
+      "options": [
+        { "label": "A", "text": "The DPO makes the Article 34 determination based on available facts rather than awaiting investigation completion — the data types and foreseeable harms are sufficient to conclude that high risk to individuals is likely. Legal counsel's litigation concerns are acknowledged but cannot override the mandatory notification obligation. Begin preparing customer notification content.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Delay the Article 34 assessment until the forensic report is available, accepting that customers remain unaware and at risk in the interim.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Conclude that Article 34 does not apply because passwords are hashed rather than plaintext, avoiding the need for customer notification.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Agreeing a Phased Customer Notification Strategy",
+      "situation": "The Article 34 customer notification obligation is confirmed. The forensic investigation will not be complete for a further 72 hours. Legal counsel and the DPO must agree a notification strategy that is legally compliant, contains accurate information, and does not expose the organisation to greater litigation risk. The DPO recommends a phased approach: send an initial notification now with confirmed facts and clear customer guidance, followed by a supplementary notification when investigation findings are complete.",
+      "question": "What notification strategy do you approve?",
+      "options": [
+        { "label": "A", "text": "Approve the phased notification strategy: send an initial customer notification immediately with confirmed facts, the categories of data affected, recommended actions for customers (e.g., change passwords, be alert to phishing), and a commitment to provide further details. Follow up with a supplementary notification once the investigation is complete. All content approved by DPO and legal.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Send a single customer notification only after the full investigation is complete, even though this means further delay.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Send an initial customer notification that omits the categories of data affected and does not recommend any specific customer actions, to minimise litigation risk.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The organisation navigated the tension between legal caution and regulatory obligation successfully. The supervisory authority was notified within 72 hours using best-available facts. The Article 34 customer notification obligation was confirmed by the DPO and a phased notification strategy was implemented, providing customers with timely and actionable information while the investigation continued.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Crisis Communications",
+  "difficulty": "Intermediate",
+  "tags": ["GDPR", "customer notification", "data breach", "regulatory compliance", "DPO", "crisis communications"]
+}

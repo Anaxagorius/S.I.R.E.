@@ -1,0 +1,64 @@
+{
+  "title": "scenario_media_leak",
+  "description": "Confidential details of an ongoing security incident — including technical specifics, scope, and potential victims — are leaked to a technology news outlet before the organisation has completed its investigation or notified affected customers.",
+  "timeline": [
+    { "index": 0, "title": "Leak Discovered", "description": "A journalist contacts the organisation for comment on an article containing confidential details of an active security incident, publishing in two hours.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Leak Source Investigation Launched", "description": "Legal counsel and the IR team assess what information was disclosed and begin an internal inquiry into the source of the leak.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Accelerated Notification Strategy Agreed", "description": "The customer notification and regulatory disclosure timelines are brought forward in light of the imminent publication.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Media Response Issued", "description": "A carefully drafted response to the media request is approved by legal and the communications team and submitted before publication.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Customer Notification Begins", "description": "Affected customers are notified directly ahead of or concurrent with the news article going live.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "The media leak was managed effectively: investigation integrity was preserved where possible, customer notification was accelerated, and the media response was controlled and legally reviewed.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Journalist Contacts Organisation with Confidential Incident Details",
+      "situation": "Your security team is mid-investigation into a significant breach affecting up to 300,000 customer records. You have not yet notified affected customers or regulators. A journalist from a major technology publication has emailed your press office with a detailed list of technical specifics — attack vector, compromised systems, and an estimate of affected individuals that closely matches your internal figures. They are publishing in two hours and are offering a right of reply. The source of the leak is unknown. Forensic investigation is incomplete.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately convene an emergency meeting with the CISO, general counsel, and communications lead. Assess exactly what the journalist knows against your internal incident log. Engage legal on implications of responding versus not responding. Do not confirm or deny specific technical details pending legal review, and begin accelerating the customer notification plan in parallel.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Contact the journalist immediately and ask them to delay publication until the investigation is complete, providing them with additional confidential details to demonstrate cooperation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Ignore the journalist's request for comment and take no action before publication, continuing the investigation at the original pace.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing the Leak and Investigation Integrity",
+      "situation": "The emergency meeting confirms the journalist's information closely matches internal incident details that were shared only in a restricted IR team channel and one external forensics contractor briefing. The leak may have come from inside the organisation or from the contractor. Publishing the article may prompt the attacker to destroy evidence or accelerate data exfiltration. Legal privilege considerations may also be engaged. The investigation has approximately 48 hours of work remaining.",
+      "question": "How do you handle the investigation integrity risk?",
+      "options": [
+        { "label": "A", "text": "Brief the forensics contractor and key IR team members that the leak has occurred, instruct them to accelerate evidence preservation immediately, restrict further briefings to a named-individual list, and initiate a confidential internal inquiry into the leak source without disrupting active incident response.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Shut down the entire investigation temporarily until the leak source is identified, prioritising the internal inquiry over evidence preservation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Continue the investigation unchanged and take no steps to accelerate evidence preservation, reasoning that the attacker may not read the article.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Accelerating Customer Notification and Regulatory Disclosure",
+      "situation": "The investigation timeline cannot be completed before the article publishes. Customers will learn of the breach from public news coverage before receiving direct notification from your organisation. The GDPR 72-hour supervisory authority notification window is also approaching. Legal counsel advises that being 'scooped' on notification by a news article is a material aggravating factor for regulators.",
+      "question": "How do you accelerate notification in the time available?",
+      "options": [
+        { "label": "A", "text": "Approve a best-available-facts notification to the supervisory authority and prepare direct customer notification emails using confirmed facts, clearly stating the investigation is ongoing and that further updates will follow. Target sending notifications concurrently with or ahead of publication. Accept that the notification will be based on partial findings.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Delay all notifications until the investigation is complete, accepting that customers will first learn of the breach from news coverage.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Issue a broad public statement without direct customer notification, reasoning that the public statement reaches customers faster.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Drafting and Issuing the Media Response",
+      "situation": "The journalist's deadline is 30 minutes away. You have a right of reply. Legal counsel has reviewed the situation. The response must: protect the ongoing investigation, not confirm unverified technical details, demonstrate good faith to regulators, and avoid making the organisation look evasive or dishonest. The communications lead has drafted a response for review.",
+      "question": "What approach does the media response take?",
+      "options": [
+        { "label": "A", "text": "Issue a response that: confirms the organisation is aware of and actively responding to a security incident; states that affected customers are being notified directly and the relevant authority has been informed; declines to confirm specific technical details as doing so may compromise the investigation; and commits to providing further updates as the investigation progresses.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Issue a response that disputes the accuracy of the article's technical details without providing corrections, in an attempt to undermine the story's credibility.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Decline to comment entirely, issuing only a 'no comment' reply to all questions.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The media leak was managed effectively under time pressure. Evidence preservation was accelerated, the leak source inquiry was initiated without disrupting incident response, customer and regulatory notification was brought forward, and the media response was carefully worded to protect the investigation without appearing evasive. Post-incident, the organisation reviewed its information-sharing protocols and tightened access to sensitive incident data.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Crisis Communications",
+  "difficulty": "Advanced",
+  "tags": ["media leak", "data breach", "crisis communications", "media relations", "GDPR", "customer notification"]
+}

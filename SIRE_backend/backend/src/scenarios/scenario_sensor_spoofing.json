@@ -1,0 +1,178 @@
+{
+  "title": "scenario_sensor_spoofing",
+  "description": "Temperature sensors in a chemical processing plant are reporting false readings, causing the control system to incorrectly adjust cooling. The actual temperature is approaching critical levels and investigation reveals the sensor data feed has been manipulated.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anomalous Temperature Readings Reported",
+      "description": "Operators notice temperature sensors in reactor vessel R-12 are reporting values inconsistent with physical process conditions and adjacent sensor readings.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Cooling System Responds Incorrectly",
+      "description": "The DCS, acting on false sensor data, reduces cooling flow to R-12. A field technician reports the vessel feels significantly hotter than readings indicate.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Sensor Data Feed Manipulation Confirmed",
+      "description": "Network traffic analysis reveals tampered data packets in the sensor feed. Actual reactor temperature is estimated 38\u00b0C above what the DCS is displaying.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Emergency Cooling Engaged",
+      "description": "Operators override the DCS and manually engage full cooling to R-12, using independent physical gauges to monitor actual temperature.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Attack Vector Identified and Contained",
+      "description": "A compromised data acquisition node is identified as the point of manipulation. It is isolated and the sensor feed is restored to verified physical readings.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Reactor temperature was brought under control, the spoofed sensor feed was isolated, the compromised DAQ node was replaced, and integrity verification was added to all sensor data paths.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Inconsistent Temperature Sensor Readings",
+      "situation": "You are the OT Security Incident Lead at a chemical processing plant. At 14:30, a process engineer flags that the four temperature sensors on reactor vessel R-12 are reading 147\u00b0C \u2014 consistent with normal operations \u2014 but three other indicators suggest something is wrong: (1) the adjacent heat exchanger outlet temperature is reading 12\u00b0C higher than expected given R-12's reported temperature; (2) the cooling water flow to R-12 has been reduced by the DCS in response to the 'low' temperature; and (3) a field technician conducting routine rounds reports the vessel surface feels considerably hotter than it should be for 147\u00b0C. The reactor contains a batch of exothermic compounds with a thermal runaway threshold of 195\u00b0C.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify the plant manager and safety officer, manually override DCS cooling control to increase cooling flow to R-12 based on field observations, instruct the technician to read the independent physical thermocouple gauge directly on the vessel, and treat this as a potential sensor integrity failure until proven otherwise.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Trust the SCADA sensor readings as they are the authoritative source and continue normal operations, asking the technician to verify their calibration equipment.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Initiate an emergency shutdown of R-12 immediately by dumping the batch, which would create a significant chemical waste and production loss before the problem is confirmed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Investigating the Sensor Data Discrepancy",
+      "situation": "The field technician has read the independent thermocouple: R-12 is actually at 171\u00b0C \u2014 24\u00b0C above what the SCADA is showing and only 24\u00b0C below the thermal runaway threshold. Cooling has been manually increased. The process is temporarily stabilised but the false readings are continuing. A network engineer has begun analysing the data path between the physical sensors and the DCS. Initial findings show the sensor readings are being correctly transmitted by the field instruments but are modified somewhere in transit before reaching the DCS display. A data acquisition (DAQ) node between the field sensors and the DCS historian is under suspicion.",
+      "question": "How do you investigate the sensor data manipulation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Capture network traffic at the DAQ node and compare raw sensor packets from the field instruments against the values received by the DCS; examine the DAQ node for unauthorised software, firmware modifications, and recent configuration changes; and place the process under full manual control until the data path is verified.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Recalibrate all four temperature sensors in the field, assuming the field instruments themselves are at fault.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restart the DCS data acquisition service to clear any software-level data corruption, which would briefly disconnect all sensor feeds from the control system.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Containing the Compromised Data Acquisition Node",
+      "situation": "Network analysis confirms the DAQ node (DAQ-04) is intercepting sensor packets and replacing the temperature values with artificially low readings before forwarding them to the DCS. Firmware analysis of DAQ-04 reveals a rootkit that was not present in the last verified firmware image taken 6 weeks ago. The rootkit includes a configurable 'offset' value, currently set to subtract 24\u00b0C from all temperature readings on R-12. R-12 is currently stable at 162\u00b0C under manual cooling control. DAQ-04 must be removed from the data path but the sensor readings must continue to be available to operators.",
+      "question": "How do you safely remove DAQ-04 from the data path?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Route R-12 sensor data directly from field instruments to the DCS via a parallel, verified data path (bypassing DAQ-04), confirm operators are receiving accurate readings via the new path, then isolate DAQ-04 from the network for forensic examination while preserving its state.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Simply unplug DAQ-04 immediately, accepting a temporary loss of all R-12 sensor data in the DCS until the bypass can be arranged.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Flash DAQ-04 with clean firmware and return it to service, which would destroy forensic evidence of the attack.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Restoring Integrity and Determining Attack Vector",
+      "situation": "DAQ-04 has been isolated and R-12 is now receiving accurate sensor data via the bypass path. Temperature is decreasing under full manual cooling and is now at 158\u00b0C. Forensic analysis of DAQ-04 shows the rootkit was deployed 18 days ago via a remote management interface that was left enabled on the device. The management interface was accessible from the OT network and used default credentials. A full audit of all DAQ nodes in the plant is needed.",
+      "question": "What systemic remediation do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Audit all DAQ nodes plant-wide for the same rootkit and verify firmware integrity against approved baselines, disable remote management interfaces or restrict them to a dedicated secure management network with strong authentication, implement cryptographic signing for all sensor data transmitted from field devices to the DCS, and report the incident to the chemical safety regulator.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Replace only DAQ-04 and resume normal operations, as the rootkit appears specific to this device.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Disable remote management on DAQ-04 only and return to automated DCS control immediately without completing the full plant audit.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Reactor R-12 was safely brought back within normal temperature range. The spoofed sensor feed was isolated and replaced with a verified data path. All DAQ nodes were audited for the rootkit, remote management interfaces were secured, cryptographic integrity verification was added to sensor data paths, and the chemical safety regulator was notified of the incident and remediation steps taken.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "OT/ICS",
+  "difficulty": "Advanced",
+  "tags": [
+    "sensor spoofing",
+    "chemical plant",
+    "DCS",
+    "data integrity",
+    "thermal runaway",
+    "ICS security",
+    "DAQ"
+  ]
+}

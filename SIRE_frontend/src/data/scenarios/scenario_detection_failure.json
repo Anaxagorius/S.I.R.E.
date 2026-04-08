@@ -1,0 +1,177 @@
+{
+  "title": "scenario_detection_failure",
+  "description": "Post-incident analysis reveals an attacker maintained persistent access for 47 days before detection, despite SIEM alerts being generated and EDR telemetry being collected. The threat was only discovered through an external notification from a third-party threat intelligence vendor.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "External Notification Received",
+      "description": "A threat intelligence vendor notifies the organisation that credentials and internal data are being sold on a dark web forum, indicating a long-running compromise.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Detection Gap Analysis Begins",
+      "description": "The IR team begins investigating why the 47-day intrusion was not detected internally, reviewing SIEM alert queues and EDR telemetry archives.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Unreviewed Alerts Confirmed",
+      "description": "Hundreds of SIEM alerts related to the intrusion are found in an untriaged queue. EDR telemetry confirms attacker activity that was collected but never actioned.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Attacker Evicted and Systems Hardened",
+      "description": "The attacker is fully evicted from the environment and immediate detection process improvements are implemented.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Detection Programme Overhauled",
+      "description": "A detection engineering review is completed and a monitoring programme with coverage metrics and SLAs is established.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The detection failure was thoroughly investigated, the attacker was evicted, detection coverage gaps were closed, alert triage processes were improved, and ongoing monitoring effectiveness is now measured.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "47-Day Undetected Intrusion Discovered",
+      "situation": "A threat intelligence vendor has alerted you that internal credentials and sensitive data from your organisation appear on a dark web marketplace. Preliminary investigation confirms an active attacker presence. SIEM logs show hundreds of unreviewed alerts dating back 47 days, and EDR telemetry contains clear evidence of attacker tooling and lateral movement that was never actioned. The attacker is likely still present in the environment.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the IR plan, convene the IR team, begin mapping the attacker's current foothold using EDR and SIEM data, and initiate a parallel detection gap analysis to understand why internal systems failed to surface the threat.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately reimage all systems to evict the attacker before conducting any investigation, destroying forensic evidence needed to understand the full scope.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the vendor to provide a full report before taking any internal action, to avoid disrupting operations unnecessarily.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scoping the Detection Failure",
+      "situation": "The IR team has confirmed the attacker's current foothold across six systems and has begun reviewing the detection gap. Analysis shows 312 unreviewed SIEM alerts related to the intrusion, EDR alerts were auto-dismissed due to a misconfigured suppression rule, and the security operations team had no SLA for alert triage. The root cause of the detection failure must be documented before remediation so improvements can be properly targeted.",
+      "question": "How do you document and address the detection failure while managing the active incident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run parallel workstreams: one team focuses on attacker eviction and containment while another documents the detection failure root causes, including misconfigured suppression rules, absent triage SLAs, and lack of detection coverage metrics.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus entirely on evicting the attacker and defer the detection gap analysis to a later date that may never be formally scheduled.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Assign blame to individual analysts for not reviewing alerts and close the gap analysis without examining systemic causes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evicting the Attacker and Closing Immediate Gaps",
+      "situation": "Root cause analysis has identified three detection failures: a suppression rule added 8 months ago that incorrectly muted a high-fidelity alert category, an alert queue that exceeded analyst capacity with no escalation process, and EDR telemetry reviewed only reactively rather than proactively hunted. The attacker must now be fully evicted and the most critical detection gaps closed before rebuilding the programme.",
+      "question": "How do you evict the attacker and close the critical detection gaps?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Execute a coordinated eviction across all identified footholds simultaneously, remove the misconfigured suppression rule, establish an immediate alert triage SLA, and commission a detection rule audit to identify other suppression or coverage issues.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Evict the attacker from confirmed systems only and re-enable the suppression rule after the incident to maintain current SIEM noise levels.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Disable all SIEM suppression rules indiscriminately to ensure no alerts are missed, overwhelming analysts with noise.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Rebuilding Detection Effectiveness",
+      "situation": "The attacker has been evicted and immediate gaps closed. The detection programme now needs structural improvement to prevent a recurrence. The organisation currently has no visibility metrics, no regular detection rule review cycle, and no process for ingesting threat intelligence to drive proactive detection content.",
+      "question": "What structural improvements do you implement to the detection programme?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a detection engineering framework with coverage metrics mapped to MITRE ATT&CK, establish a monthly detection rule review cycle, integrate threat intelligence feeds to drive new detection content, and set measurable alert triage SLAs with management reporting.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Purchase a new SIEM platform, assuming that a technology change alone will resolve the process and capacity failures identified.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Add more analysts to the alert triage queue without addressing the underlying alert quality or suppression rule issues.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The 47-day detection failure was thoroughly investigated. Root causes including misconfigured suppression rules, absent triage SLAs, and lack of detection coverage metrics were identified and addressed. The attacker was fully evicted, a detection engineering framework with MITRE ATT&CK coverage mapping was implemented, and ongoing detection effectiveness is now measured and reported.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IR Process",
+  "difficulty": "Intermediate",
+  "tags": [
+    "detection failure",
+    "SIEM",
+    "EDR",
+    "alert triage",
+    "detection engineering",
+    "IR process"
+  ]
+}

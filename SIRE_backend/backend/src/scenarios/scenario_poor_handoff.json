@@ -1,0 +1,178 @@
+{
+  "title": "scenario_poor_handoff",
+  "description": "During a 24-hour ransomware incident, the day-shift IR team handed off to the night-shift team without a documented handoff, causing the night-shift team to unknowingly reverse a containment measure and allow the attacker to re-enter the environment.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Attacker Re-Entry Detected",
+      "description": "At 03:00, EDR alerts indicate the attacker has re-established a C2 connection from a system that was supposedly contained during the day shift.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Containment Reversal Identified",
+      "description": "Review of overnight change logs reveals that the night-shift team re-enabled a network connection that the day-shift team had disabled as a containment measure.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Handoff Failure Confirmed",
+      "description": "Investigation confirms no written handoff was conducted. Critical containment context was passed verbally and incompletely, leading to the accidental containment reversal.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Re-Containment Achieved",
+      "description": "The attacker is re-contained. All containment actions are re-applied and documented in a shared incident log.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Handoff Process Standardised",
+      "description": "A mandatory structured handoff template is implemented and all IR team members are trained on its use.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The attacker was re-contained, the handoff failure was root-caused, and a mandatory structured handoff process with documented containment state, open actions, and incoming team briefings was implemented across the IR team.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Attacker Re-Entry Due to Containment Reversal",
+      "situation": "It is 03:00. EDR alerts show a known attacker C2 domain has re-established a callback from a workstation in a supposedly contained network segment. You are the night-shift IR team lead. Reviewing the overnight change log, you find that a night-shift analyst re-enabled a firewall rule at 01:30 that was blocking outbound traffic on port 443 from this segment, believing it to be a routine connectivity issue reported by a user. The day-shift IR team had deliberately disabled this rule as a containment measure but did not document this in any shared system.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately re-apply all containment measures, disable the re-enabled firewall rule, isolate the re-compromised host at EDR level, and contact the day-shift IR lead to obtain a full verbal account of all containment actions taken so they can be documented and validated.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore the firewall rule and take no further action, assuming the EDR alert is a false positive from residual malware artefacts.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Escalate to management before taking any containment action, introducing delay while the attacker maintains active access.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Reconstructing the Day-Shift Containment State",
+      "situation": "Re-containment has been applied. Calling the day-shift IR lead reveals that six containment actions were taken during their shift: two firewall rule changes, two disabled user accounts, one DNS sinkhole entry, and one isolated host. None of these were documented in the shared incident management system. Three of the six measures are currently still in place but three, including the re-enabled firewall rule, were not. You must verify and re-apply all containment actions and understand what the attacker did during the re-entry window.",
+      "question": "How do you reconstruct and validate the complete containment state?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with the day-shift lead to document all six containment actions in the incident log, verify each is currently in place, re-apply any reversed or missing measures, and review EDR and network logs from the attacker re-entry window to determine if any additional damage occurred.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Trust the day-shift lead's verbal account without independently verifying each containment measure is currently in place.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wipe and reimage all systems involved in the incident without first completing the containment verification, potentially re-infecting systems from an uncontained source.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assessing Impact of the Re-Entry Window",
+      "situation": "All six containment measures have been verified and re-applied. EDR telemetry from the 90-minute re-entry window shows the attacker re-established persistence on two additional hosts and attempted to access a backup server before containment was restored. The backup server access was blocked by existing controls. The handoff failure has been confirmed as the direct cause of the containment reversal. The incident is now stable and a handoff process failure review must be conducted.",
+      "question": "How do you address the impact of the re-entry and document the handoff failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remediate the two additional hosts where the attacker re-established persistence, document the full sequence of events including the handoff failure as a process incident, and conduct a structured post-event review of the handoff practices with IR team leadership.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Remediate the additional hosts but do not formally document the handoff failure, to avoid the embarrassment of reporting a self-inflicted process failure.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attribute the re-entry entirely to the attacker's sophistication and make no process changes, missing the opportunity to fix the controllable failure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implementing a Structured Handoff Process",
+      "situation": "The incident is fully contained. The post-event review confirms that the absence of a mandatory structured handoff was the sole cause of the containment reversal. The IR team currently has no defined handoff template, and handoffs during incidents are entirely informal. A structured handoff process must now be designed and embedded before the next multi-shift incident.",
+      "question": "What handoff process do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a mandatory IR handoff template covering: current incident status, all containment measures in place with rationale, open action items with owners, known attacker TTPs and footholds, systems under investigation, and an incoming team verbal briefing with questions. Require the template to be completed and reviewed before any shift change during an active incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Require outgoing teams to send a brief email summary to the incoming team, without a structured template or mandatory verbal briefing.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Schedule IR incidents to avoid shift boundaries wherever possible, which is operationally impractical for multi-day incidents.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The ransomware incident was fully contained after the handoff failure was corrected. The attacker was re-evicted, all containment measures were verified and documented, and the damage from the re-entry window was remediated. A mandatory structured handoff template covering incident status, containment state, open actions, and incoming team briefings was implemented and trained across the IR team.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IR Process",
+  "difficulty": "Intermediate",
+  "tags": [
+    "handoff",
+    "shift change",
+    "containment",
+    "ransomware",
+    "IR process",
+    "documentation",
+    "communication"
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "title": "scenario_delayed_escalation",
+  "description": "A tier-1 SOC analyst detected suspicious lateral movement at 14:00 but did not escalate to the IR team until 19:00 due to uncertainty about escalation thresholds. By the time the IR team responded, ransomware had been deployed to 40 servers. The team must respond to the incident and fix the escalation process.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Delayed Escalation Identified",
+      "description": "The IR team is activated at 19:00 and immediately learns that the tier-1 analyst had detected indicators of lateral movement five hours earlier but had not escalated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Ransomware Discovered on 40 Servers",
+      "description": "The IR team's initial survey confirms ransomware has been deployed to 40 servers during the five-hour delay window.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Incident Containment Begins",
+      "description": "Network segmentation and host isolation are applied to stop further ransomware spread. The attacker's active sessions are terminated.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Escalation Process Failure Root-Caused",
+      "description": "Review of the escalation failure identifies absent escalation criteria, lack of a defined decision tree for tier-1 analysts, and no escalation timer or supervisor check-in process.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Escalation Framework Implemented",
+      "description": "A clear escalation policy with defined criteria, timers, and supervisor oversight is documented and trained across the SOC.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The ransomware incident was contained and remediated. The five-hour escalation delay was root-caused, a structured escalation framework with defined criteria and timers was implemented, and the impact of the delay was used to drive organisational acceptance of the new process.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "IR Team Activated Five Hours After Initial Detection",
+      "situation": "You are the IR team lead. It is 19:00 and you have just been paged. A tier-1 SOC analyst informs you that at 14:00 they observed multiple failed authentication attempts followed by successful lateral movement between three workstations and a domain controller. The analyst was uncertain whether this met the threshold for escalation and spent five hours attempting further analysis. During that window, the attacker has deployed ransomware to 40 servers. The attacker may still be active.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately activate the full IR response, isolate affected network segments to stop further ransomware spread, identify whether the attacker is still active, and simultaneously document the five-hour escalation gap as a process failure requiring root cause analysis alongside the incident response.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus on recovering the 40 affected servers immediately without first containing the active attacker, risking re-infection of recovered systems.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reprimand the tier-1 analyst immediately and remove them from the incident response, disrupting continuity of the investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Containing the Ransomware Outbreak",
+      "situation": "Network isolation has been applied to the affected segments. The attacker's active sessions have been terminated. Forensic review of the tier-1 analyst's notes from 14:00 to 19:00 shows they identified the lateral movement correctly but were unsure whether it met the SOC's undefined escalation criteria. The analyst attempted to gather more evidence before escalating. During this period, the attacker moved to additional network segments that were not yet isolated. You must complete containment and scope the full impact.",
+      "question": "How do you complete containment and scope the full incident impact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct an environment-wide EDR and network sweep to identify all systems with ransomware or attacker tooling, extend network isolation to all affected segments identified in the sweep, and establish a command-and-control server to coordinate the response across IR team members.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume the initial 40 servers are the full scope and begin recovery without verifying that containment is complete across all network segments.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restore affected servers from backup immediately without completing containment, risking re-encryption by any still-active ransomware components.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Root-Causing the Escalation Failure",
+      "situation": "The incident is contained. Full scope has been confirmed at 47 servers. Post-containment review of the escalation failure reveals: the SOC has no documented escalation criteria, tier-1 analysts have no decision tree or timer to guide escalation decisions, there is no supervisor check-in process for alerts held under investigation, and the analyst received no training on escalation expectations during onboarding. The five-hour delay directly caused 7 additional servers being encrypted beyond the initial 40.",
+      "question": "How do you address the root causes of the escalation failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document all root causes in the incident record, design a tiered escalation framework with clear behavioural criteria (e.g., lateral movement to a domain controller = immediate escalation), mandatory escalation timers (maximum 30 minutes investigation before escalating under uncertainty), and a supervisor check-in for any alert held longer than 15 minutes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue a policy memo reminding analysts to escalate promptly without providing specific criteria or process support, leaving the ambiguity that caused the original failure.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Implement an automated escalation system that escalates all alerts to the IR team without analyst judgement, generating excessive noise and degrading IR team effectiveness.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implementing and Embedding the Escalation Framework",
+      "situation": "The escalation framework has been designed. It includes a decision tree with explicit escalation triggers, a 30-minute investigation limit before mandatory supervisor consultation, and a supervisor check-in queue for alerts under active investigation. The framework must now be implemented across the SOC, trained to all analysts, and embedded in the SOC's quality assurance process to prevent regression.",
+      "question": "How do you implement and embed the escalation framework?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct an all-hands SOC training session on the escalation framework, add escalation criteria to the analyst onboarding programme, configure the SIEM ticketing system to track alert investigation age and flag tickets exceeding 15 minutes, and include escalation compliance in the SOC's monthly quality assurance review.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Publish the escalation framework as a document on the intranet without conducting training or embedding it in tooling, making adoption dependent on individual analysts finding and reading it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply the escalation framework only to tier-1 analysts and not to tier-2 analysts, creating an incomplete escalation chain.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The ransomware incident was contained and remediated. The five-hour escalation delay was systematically root-caused, revealing absent criteria, no investigation timers, and no supervisor oversight. A structured escalation framework with explicit triggers, 30-minute investigation limits, and supervisor check-ins was implemented, trained, embedded in tooling, and included in ongoing SOC quality assurance.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IR Process",
+  "difficulty": "Intermediate",
+  "tags": [
+    "escalation",
+    "SOC",
+    "tier-1",
+    "ransomware",
+    "IR process",
+    "decision-making",
+    "process failure"
+  ]
+}

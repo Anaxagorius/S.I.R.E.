@@ -1,0 +1,179 @@
+{
+  "title": "scenario_environmental_contamination",
+  "description": "Sensors at a water treatment facility detect chemical levels outside safe parameters following a suspected manipulation of chemical dosing systems. There is a risk of contaminated water entering the distribution network, requiring emergency response and regulatory authority coordination.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Chemical Level Anomaly Detected",
+      "description": "Online water quality sensors downstream of the chlorination system detect chlorine levels significantly above the safe maximum threshold of 4 mg/L, currently reading 9.8 mg/L.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Dosing System Manipulation Suspected",
+      "description": "Operators discover the chlorine dosing pump setpoint was changed to 340% of its normal rate. No operator made this change. Audit logs show a remote command from an unrecognised source.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Distribution Network Isolation Enacted",
+      "description": "The valve to the distribution network is closed. Affected water is isolated within the treatment facility holding tanks. The public remains protected.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Regulatory Authorities Notified",
+      "description": "The water quality regulator, health authority, and national cybersecurity authority are notified. The attack vector \u2014 an internet-exposed SCADA interface \u2014 is identified and closed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Water Quality Verified Safe",
+      "description": "Holding tanks are flushed and refilled. Independent laboratory testing confirms water quality is within safe parameters before distribution resumes.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Contaminated water was prevented from entering the distribution network. The attack vector was closed, regulatory authorities were properly engaged, and the water treatment SCADA system was hardened against future attacks.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Dangerous Chemical Levels Detected at Water Treatment Facility",
+      "situation": "You are the Security and Operations Manager at a municipal water treatment facility serving 85,000 residents. At 05:34, your online water quality monitoring system raises a critical alarm: chlorine concentration downstream of the chlorination stage is reading 9.8 mg/L \u2014 the WHO and national safe limit for drinking water is 4 mg/L. At this concentration, the water would cause chemical burns to the mouth, throat, and gastrointestinal system of anyone who consumed it. The distribution pump to the town's water network is currently running. Approximately 120 cubic metres of potentially contaminated water is in the holding tank ready for distribution. The treatment facility's SCADA system controls all dosing pumps remotely.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately close the distribution valve to the town's water network to prevent any potentially contaminated water from reaching consumers, stop all chlorination dosing pumps, alert the facility manager and your emergency response chain, and collect physical water samples from the holding tank for immediate laboratory analysis to confirm the sensor readings.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Check whether the sensors might be faulty before taking any action, as a sensor calibration error would be a more likely explanation than a dosing system fault.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Flush the holding tank into the distribution network quickly to dilute the high chlorine concentration with the existing water in the pipes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Investigating the Dosing System Anomaly",
+      "situation": "The distribution valve has been closed. Dosing pumps are stopped. The facility manager is on-site. Physical water samples have been sent for emergency laboratory analysis. SCADA logs show the chlorine dosing pump setpoint was changed from its normal value of 12% to 340% at 05:11 \u2014 23 minutes before the alarm. The change was made via a remote SCADA command, not from any operator workstation in the facility. Cross-referencing the SCADA access log, the command was authenticated using the 'maintenance' account from an external IP address. Your SCADA system has a web-based interface accessible directly from the internet that was configured for remote access 2 years ago.",
+      "question": "How do you respond to the identified attack vector?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately disable the internet-facing SCADA web interface to prevent further unauthorised access, disable the maintenance account, preserve all SCADA logs and network traffic as forensic evidence, and report the suspected cyberattack to the national cybersecurity authority and law enforcement while beginning full forensic analysis of how the account was compromised.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Change the SCADA maintenance account password to lock out the attacker and resume normal water treatment operations once the dosing rate is corrected.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the SCADA system to clear any potential malware, which would also clear live logs that contain forensic evidence of the attack.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Coordinating Emergency Response and Regulatory Notification",
+      "situation": "The SCADA web interface has been disabled. The maintenance account is suspended. Forensic evidence is being preserved. The laboratory has provided a preliminary result: the holding tank water chlorine concentration is 10.1 mg/L, confirming the sensors were accurate. The water isolation is effective \u2014 no contaminated water has entered the distribution network. You must now notify the appropriate regulatory and health authorities, as this is both a public health incident and a notifiable cyberattack. The local media has begun asking questions after residents noticed low water pressure.",
+      "question": "How do you manage regulatory notification and public communications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify the water quality regulator, public health authority, and national cybersecurity authority with full factual details of the incident, the actions taken, and the current status; coordinate a joint public statement with the health authority reassuring residents that no contaminated water entered the distribution network; establish a resident information hotline; and cooperate fully with regulatory investigation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Notify only the water regulator and ask them to handle all other communications, delaying health authority and cybersecurity authority notification.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Issue a public statement saying there was a 'minor operational issue' without disclosing the nature of the incident to avoid public alarm, withholding information from health authorities.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Restoring Safe Water Distribution",
+      "situation": "All regulatory and health authorities have been notified. A joint public statement has been issued. Residents have been reassured. Laboratory analysis confirms the contaminated water in the holding tank has a chlorine level of 10.1 mg/L. The holding tank must be drained, cleaned, and refilled with correctly treated water before distribution can resume. This will take approximately 4\u20136 hours. The forensic investigation has identified that the SCADA maintenance account had a default password that had never been changed from the installation default.",
+      "question": "How do you safely restore water distribution?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Drain and flush the contaminated holding tank, restart water treatment with correct dosing rates under close manual supervision, obtain independent laboratory certification that chlorine levels are within safe parameters (0.2\u20134 mg/L) on multiple samples before reopening the distribution valve, and keep regulatory authorities informed of progress and expected restoration time.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Resume distribution once SCADA readings show chlorine levels are back within range, without waiting for independent laboratory certification.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Dilute the holding tank by adding fresh untreated water until sensor readings come within range, avoiding the need to drain and refill.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "No contaminated water reached the distribution network. The holding tank was drained and refilled with correctly treated water certified safe by independent laboratory analysis. The internet-facing SCADA interface was permanently removed, all accounts were audited with default passwords changed, MFA was implemented for remote access, and the facility implemented a continuous water quality monitoring and automatic shutoff system. The incident was fully disclosed to all relevant authorities.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "OT/ICS",
+  "difficulty": "Advanced",
+  "tags": [
+    "water treatment",
+    "chemical dosing",
+    "SCADA",
+    "public safety",
+    "environmental",
+    "cyberattack",
+    "regulatory notification",
+    "OT security"
+  ]
+}

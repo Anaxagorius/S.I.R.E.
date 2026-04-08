@@ -1,0 +1,64 @@
+{
+  "title": "scenario_executive_notification_failure",
+  "description": "During a major ransomware attack, the IR team fails to notify the CEO and board in time. Executives learn of the incident from external news coverage and make uninformed public statements before the IR team can recover the communications process.",
+  "timeline": [
+    { "index": 0, "title": "Ransomware Detected", "description": "The security operations centre detects ransomware spreading across corporate file servers and immediately begins containment.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Executive Gap Identified", "description": "PR team discovers the CEO has made an uninformed public statement after reading about the attack in a technology news article.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Emergency Briefing Convened", "description": "An emergency executive briefing is assembled. The CEO, board chair, and general counsel are brought into a situation room.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Unified Messaging Established", "description": "A single authorised spokesperson is designated and a corrective public statement is drafted and approved.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Communications Cadence Set", "description": "A regular executive briefing schedule is established for the duration of the incident response.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Executive communications were restored, an authorised spokesperson was designated, and a repeating briefing cadence prevented further uninformed statements.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Executives Learn of the Attack from the News",
+      "situation": "A major ransomware attack is underway across your organisation's file servers. Your IR team has been heads-down on containment for three hours. The CEO has just called the CISO furiously — he read about the attack in a technology news article and has already given a brief off-the-cuff comment to a journalist saying 'we have no evidence of data loss', which is unverified. The board chair is also calling. Your IR team has no formal executive notification process and did not escalate.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately pause to brief the CISO, who briefs the CEO and board chair with a concise factual situation report covering what is known, what is unknown, and what is being done. Establish that no further public statements are made without IR team clearance.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Continue focusing entirely on containment and defer executive engagement until the incident is resolved, as executive involvement will slow technical response.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Issue a full public statement immediately to correct the CEO's comment, without first briefing internal leadership on current incident status.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Convening the Emergency Executive Briefing",
+      "situation": "The CISO has assembled an emergency briefing with the CEO, board chair, general counsel, and head of communications. The IR team lead must now provide a structured situation report. Executives are anxious and are asking different questions simultaneously. The CEO wants to know whether customers are affected. The board chair wants to know the financial exposure. Legal wants to know about regulatory obligations.",
+      "question": "How do you structure the executive briefing?",
+      "options": [
+        { "label": "A", "text": "Deliver a concise structured situation report covering: confirmed facts, unconfirmed hypotheses clearly labelled, immediate actions underway, regulatory considerations flagged, and what decisions are needed from executives now. Capture all questions and assign owners for follow-up.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Answer each executive's question individually as asked, providing detailed technical explanations to demonstrate thoroughness.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell executives you cannot brief them properly until the incident is contained, and ask them to wait.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Correcting the Uninformed Public Statement",
+      "situation": "The CEO's earlier statement that 'we have no evidence of data loss' has been picked up by three further news outlets. Your forensics team has not yet completed their assessment — data exfiltration cannot be ruled out. The head of communications recommends issuing a corrective statement. Legal counsel is concerned about making any public statements that could later prove inaccurate.",
+      "question": "How do you manage the corrective public statement?",
+      "options": [
+        { "label": "A", "text": "Draft a carefully worded corrective statement with legal and communications, acknowledging the incident, clarifying that the investigation is ongoing, retracting the earlier characterisation of data loss as premature, and committing to further updates when facts are confirmed. The CEO approves before release.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Allow the original CEO statement to stand and monitor media coverage, only issuing further statements if explicitly asked by journalists.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Issue a detailed technical rebuttal of the news article, sharing forensic details to demonstrate the organisation's credibility.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Establishing a Repeating Executive Briefing Cadence",
+      "situation": "The immediate crisis communications gap has been addressed. However, the ransomware incident is ongoing and expected to last several more days. Executives, board members, and legal counsel will need to be kept informed to make decisions about customer notification, regulatory disclosure, and business continuity. The IR team needs a sustainable communications rhythm that does not divert resource from technical response.",
+      "question": "What executive communications cadence do you establish?",
+      "options": [
+        { "label": "A", "text": "Establish a scheduled twice-daily written situation report circulated to a defined executive distribution list, supplemented by an on-call escalation protocol for material changes. Designate a single communications liaison from the IR team to own executive updates, freeing technical staff to focus on response.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Allow executives to call the IR team lead directly whenever they need an update, relying on ad hoc communication.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Schedule a single daily all-hands executive call lasting as long as needed for all questions to be answered.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The executive communications failure was corrected. An emergency briefing restored executive situational awareness, a corrective public statement was issued under legal review, and a sustainable briefing cadence was established for the remainder of the incident. Post-incident, the organisation updated its IR plan to include mandatory executive notification thresholds and a designated communications liaison role.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Crisis Communications",
+  "difficulty": "Intermediate",
+  "tags": ["executive communications", "ransomware", "incident response", "crisis management", "media relations"]
+}

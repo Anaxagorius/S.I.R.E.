@@ -1,0 +1,178 @@
+{
+  "title": "scenario_physical_process_manipulation",
+  "description": "Valve positions in a chemical plant no longer match commanded states, with physical inspection confirming valves are being moved without operator commands. Evidence points to unauthorised remote access to the Distributed Control System.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Valve Position Discrepancy Reported",
+      "description": "SCADA alarms indicate valve positions in process area 4 do not match commanded states. Field inspection confirms physical valve movements are occurring without operator input.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Unauthorised DCS Access Suspected",
+      "description": "DCS audit logs show command sequences being issued from an IP address not associated with any authorised operator workstation.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Process Area 4 Isolated",
+      "description": "Process area 4 is safely isolated and taken to manual control. DCS network traffic is captured for forensic analysis.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Intrusion Vector Identified",
+      "description": "A compromised vendor remote access account is identified as the entry point. The attacker has been active in the DCS for at least 6 hours.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Access Revoked and Systems Secured",
+      "description": "All vendor remote access is suspended. The DCS is audited for configuration changes. Monitoring is enhanced across all process areas.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "The unauthorised DCS access was contained, physical process control was restored, all vendor accounts were audited and secured, and comprehensive DCS access controls and monitoring were implemented.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unexplained Physical Valve Movements",
+      "situation": "You are the Plant Security Manager at a chemical manufacturing facility. At 10:45, the SCADA system generates multiple alarms in process area 4: eight valves show position feedback inconsistent with their commanded state. A field operator dispatched to investigate reports the valves are physically moving \u2014 opening and closing \u2014 without any local manual operation. The plant produces specialty chemicals and process area 4 handles the mixing of precursor chemicals that must be combined in precise ratios. Incorrect valve sequencing could cause an uncontrolled chemical reaction. No maintenance or testing is scheduled for this area today.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately declare a process upset, halt chemical feed to process area 4 by closing the upstream block valves via the operator console, instruct the field operator to move to a safe distance, place process area 4 under manual control using local control panels, and alert the OT security team to begin investigating the DCS for unauthorised command sources.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume this is a DCS software bug and restart the DCS controller for process area 4 to clear the issue, which would cause all valve positions to default to their last commanded state.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Send additional field operators to manually override the valves locally to the correct positions without investigating the source of the unauthorised commands.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Identifying the Source of Unauthorised Commands",
+      "situation": "Process area 4 chemical feed has been halted. Valves are stabilised under manual local control. The field operator is safe. The OT security team is reviewing DCS audit logs. Initial findings: the DCS command log shows valve commands being issued from IP address 10.18.4.55 \u2014 this address is not in the authorised workstation register. The commands began at 04:37 and have continued intermittently over the past 6 hours. The DCS remote access gateway, used by vendors for remote support, shows an active session from an external IP. The session is authenticated under the account of a control systems integrator who last performed on-site work 4 months ago.",
+      "question": "How do you respond to the identified unauthorised access?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately terminate the active remote session at the gateway level, disable the integrator's remote access account, preserve session logs and network traffic captures as forensic evidence, verify no other remote sessions are active on the DCS gateway, and begin a full audit of all DCS command logs for the past 24 hours.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact the integrator company to ask if they are currently doing remote work, alerting the attacker that they have been detected and potentially allowing them to destroy evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Change the DCS gateway password to lock out the session without preserving forensic evidence of the active session.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assessing the Scope of DCS Compromise",
+      "situation": "The unauthorised session has been terminated and the integrator account disabled. No other active unauthorised sessions are detected. DCS audit log analysis reveals the attacker was not only issuing valve commands in process area 4 but also browsed the DCS tag database, exported the full process control configuration, and attempted (unsuccessfully) to modify safety interlock setpoints in process area 6. Six additional vendor remote access accounts are present in the DCS gateway that belong to companies who have not worked on-site in over a year.",
+      "question": "How do you manage the broader scope of DCS compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Suspend all vendor remote access accounts pending a full review, audit process area 6 safety interlock setpoints against the engineering baseline to verify they were not modified, conduct a complete DCS configuration audit across all process areas to detect any other unauthorised changes, and engage a specialist ICS forensic firm to conduct a full compromise assessment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Disable only the compromised integrator account and resume normal operations, as the other vendor accounts have not shown any malicious activity.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reset the DCS to factory defaults to eliminate any potential hidden changes, which would also wipe all authorised configuration and require days of reconfiguration.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Restoring Secure Operations and Preventing Recurrence",
+      "situation": "The DCS configuration audit confirms process area 6 interlock setpoints are unchanged. No other unauthorised DCS modifications are found. Process area 4 has been carefully restarted under close supervision and is operating normally. The investigation has revealed systemic weaknesses: vendor accounts are never deprovisioned after project completion, the DCS gateway has no session recording or anomaly detection, and there is no periodic review of active remote access accounts.",
+      "question": "What systemic improvements do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a formal vendor access lifecycle management process (provision/deprovision linked to active contracts), deploy session recording and behavioural anomaly detection on the DCS remote access gateway, require MFA for all remote DCS access, establish a quarterly audit of all active remote access accounts, and report the incident to the chemical safety regulator.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Require vendors to notify the plant before using remote access, relying on notification rather than technical controls.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Permanently disable all vendor remote access as the only way to guarantee no future unauthorised access, eliminating the ability to receive remote vendor support.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The unauthorised DCS access was identified and terminated, physical valve control was restored safely, no chemical incident occurred. A thorough DCS configuration audit confirmed no other unauthorised changes. Vendor remote access lifecycle management was formalised, session recording and MFA were implemented on the DCS gateway, and the incident was reported to the relevant authority.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "OT/ICS",
+  "difficulty": "Advanced",
+  "tags": [
+    "DCS",
+    "remote access",
+    "valve manipulation",
+    "chemical plant",
+    "vendor access",
+    "OT security",
+    "ICS intrusion"
+  ]
+}

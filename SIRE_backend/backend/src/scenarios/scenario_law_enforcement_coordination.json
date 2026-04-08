@@ -1,0 +1,64 @@
+{
+  "title": "scenario_law_enforcement_coordination",
+  "description": "Following a ransomware attack with evidence of data exfiltration, law enforcement contacts the organisation requesting evidence and system access. The organisation must balance cooperation with business continuity, legal privilege, and regulatory obligations.",
+  "timeline": [
+    { "index": 0, "title": "Law Enforcement Makes Contact", "description": "A law enforcement agency contacts the organisation following a ransomware attack, requesting access to evidence and systems as part of a wider criminal investigation.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Legal Counsel Engaged", "description": "External legal counsel is engaged to advise on the scope of the law enforcement request and the organisation's obligations and rights.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Evidence Preservation Protocol Agreed", "description": "A chain-of-custody evidence preservation protocol is agreed between the IR team, forensics provider, and law enforcement.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "System Access Parameters Established", "description": "The scope and conditions of law enforcement access to systems are defined and documented, protecting business continuity and legal privilege.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Regulatory Obligations Coordinated", "description": "The interaction between the law enforcement investigation and the organisation's parallel regulatory notification obligations is managed.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Law enforcement coordination was handled effectively: evidence was preserved in a legally defensible manner, system access was scoped to protect business continuity, and regulatory notifications were managed in parallel with the criminal investigation.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Law Enforcement Requests Evidence and System Access",
+      "situation": "Your organisation has suffered a ransomware attack and your forensics team has identified evidence of data exfiltration affecting over 400,000 customer records. Two days into your incident response, you receive a call from a law enforcement agency. They indicate they are running a wider investigation into the ransomware group responsible and request: (1) copies of all forensic evidence collected to date; (2) direct access to affected systems; and (3) access to the forensics team's working files. The officer implies that prompt cooperation will be viewed favourably. Your general counsel was not forewarned.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Acknowledge receipt of the law enforcement request, confirm your willingness to cooperate within legal parameters, and immediately engage external legal counsel to advise on the scope of the request, your obligations under applicable law, and any privilege considerations before providing any access or materials.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately provide law enforcement with all forensic evidence and system access as requested, to demonstrate maximum cooperation and avoid any appearance of obstruction.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Decline the law enforcement request entirely until your own incident investigation is complete, citing business continuity and legal privilege.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Scoping the Legal Obligations and Privilege Risks",
+      "situation": "External legal counsel has reviewed the request. Key issues identified: (1) law enforcement has not presented a formal legal instrument (warrant or production order) — the request is informal; (2) forensics team working files may attract legal advice privilege if they were commissioned in anticipation of litigation; (3) providing unrestricted system access could disrupt active business continuity measures and introduce additional liability risk; (4) law enforcement involvement does not suspend your parallel GDPR regulatory notification obligations.",
+      "question": "How do you respond to law enforcement regarding the scope of cooperation?",
+      "options": [
+        { "label": "A", "text": "Engage law enforcement proactively and professionally. Explain that you wish to cooperate fully and invite them to serve a formal production order for specific evidence categories, which will allow your legal team to identify and manage any privilege considerations. Propose a structured engagement meeting to agree the parameters of system access without disrupting business continuity.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Inform law enforcement that you will only cooperate if they present a court order, refuse informal engagement, and make no proactive effort to facilitate the investigation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Voluntarily hand over all materials including privileged legal advice documents, reasoning that transparency with law enforcement is the overriding priority.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Establishing Evidence Preservation and Chain of Custody",
+      "situation": "Law enforcement has agreed to a structured engagement. They require forensic images of affected servers and network logs. Your forensics team has already collected these materials but has not established a formal chain-of-custody process. Law enforcement advises that evidence admissibility in any subsequent prosecution will depend on a documented chain of custody. Your forensics contract does not currently specify chain-of-custody requirements.",
+      "question": "How do you establish chain-of-custody for existing and future evidence?",
+      "options": [
+        { "label": "A", "text": "Convene a joint session between your forensics provider and law enforcement to retrospectively document the evidence handling process from point of collection, establish a formal chain-of-custody protocol for all future evidence gathering, and obtain written confirmation from law enforcement of the acceptable evidence handling standard for the jurisdiction.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Hand over existing forensic materials to law enforcement without establishing a chain-of-custody protocol, trusting them to manage admissibility requirements.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Decline to share forensic materials with law enforcement until your own investigation is complete, even where a production order has been served.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Managing Parallel Regulatory Notification Obligations",
+      "situation": "Law enforcement has informally requested that the organisation delay regulatory and customer notification while the criminal investigation is active, arguing that notification may alert the threat actor and compromise the investigation. However, your GDPR 72-hour supervisory authority notification deadline expires in 12 hours. The organisation must decide whether law enforcement's informal request can lawfully override mandatory regulatory obligations.",
+      "question": "How do you manage the conflict between law enforcement requests and regulatory obligations?",
+      "options": [
+        { "label": "A", "text": "Proceed with the supervisory authority notification within the 72-hour GDPR deadline, as mandatory regulatory obligations cannot be waived by an informal law enforcement request. Notify the supervisory authority of the law enforcement investigation as context. Contact law enforcement to explain the legal constraint and discuss whether specific investigative-sensitive details can be withheld from the customer notification without compromising the legal obligation.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Delay regulatory notification at law enforcement's informal request, accepting the GDPR violation as a necessary trade-off for the criminal investigation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Submit the regulatory notification but include detailed technical details of the attack method and active law enforcement investigation, as full transparency is required.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Law enforcement coordination was handled effectively. Cooperation was structured and legally managed: a formal production order governed evidence sharing, chain-of-custody protocols protected admissibility, system access was scoped to protect business continuity, and regulatory notifications were made within mandatory deadlines. The organisation cooperated professionally with law enforcement without waiving legal privilege or breaching regulatory obligations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Crisis Communications",
+  "difficulty": "Advanced",
+  "tags": ["law enforcement", "ransomware", "forensics", "GDPR", "legal privilege", "crisis communications", "evidence handling"]
+}

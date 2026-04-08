@@ -1,0 +1,64 @@
+{
+  "title": "scenario_regulatory_disclosure_timing",
+  "description": "A major security incident triggers potential regulatory reporting obligations across multiple jurisdictions including GDPR, NIS2, and SEC disclosure rules. The legal and compliance team must coordinate disclosure timing and content across regulators with different deadlines.",
+  "timeline": [
+    { "index": 0, "title": "Multi-Jurisdictional Incident Confirmed", "description": "A significant security incident affecting systems and customers in multiple jurisdictions is confirmed. Legal and compliance begin assessing regulatory notification obligations.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Regulatory Landscape Mapped", "description": "The compliance team identifies applicable regulators and their notification requirements across GDPR, NIS2, and SEC disclosure rules.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Priority Deadlines Identified", "description": "The 72-hour GDPR and NIS2 windows are identified as the most imminent obligations, with SEC 4-day disclosure requirements to follow.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "First Notifications Submitted", "description": "GDPR and NIS2 notifications are submitted to the relevant supervisory authorities within their respective deadlines.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "SEC Disclosure Coordinated", "description": "The SEC Form 8-K material cybersecurity incident disclosure is prepared and filed within the required timeframe.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Multi-jurisdictional regulatory disclosures were coordinated successfully, meeting all mandatory deadlines while maintaining consistent messaging across regulators.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Mapping the Multi-Jurisdictional Regulatory Landscape",
+      "situation": "A significant security incident has occurred at your organisation. You operate in the EU (processing EU citizen data and qualifying as an essential entity under NIS2), and are a publicly listed company on a US exchange subject to SEC rules. The incident affected core operational systems and customer personal data. The forensic team's initial assessment suggests data exfiltration. You have no comprehensive multi-jurisdictional regulatory notification matrix. Multiple legal teams are flagging different obligations simultaneously and there is no single owner of the disclosure process.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Appoint a cross-jurisdictional disclosure coordinator, typically general counsel or a designated compliance lead, with authority to oversee all regulatory notifications. Immediately commission a regulatory notification matrix mapping each applicable regime (GDPR, NIS2, SEC, and any others), the notification threshold, the deadline trigger, the addressee, and the required content.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Assign each legal team to handle their own jurisdiction independently and allow them to submit notifications on their own timelines without central coordination.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Delay all regulatory engagement until the forensic investigation is complete and the full scope of the incident is known.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Prioritising Deadlines and Assessing Notification Thresholds",
+      "situation": "The regulatory matrix is complete. Key findings: (1) GDPR Article 33 — notification to lead supervisory authority required within 72 hours of becoming aware; threshold met given personal data breach affecting EU individuals. (2) NIS2 Directive — as an essential entity, early warning to competent authority required within 24 hours of becoming aware of a significant incident, with full notification within 72 hours. (3) SEC — publicly listed companies must disclose material cybersecurity incidents via Form 8-K within four business days of determining materiality. You became aware of the incident 20 hours ago. The NIS2 24-hour early warning window closes in 4 hours.",
+      "question": "How do you prioritise the immediate notification actions?",
+      "options": [
+        { "label": "A", "text": "Immediately file the NIS2 early warning notification to the competent authority as the most imminent deadline (4 hours remaining), using available facts. Simultaneously begin drafting the GDPR Article 33 notification. Task the US legal team with beginning the SEC materiality assessment. All notifications are reviewed by the disclosure coordinator before submission.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Prioritise the GDPR notification as the most well-known obligation and address NIS2 and SEC disclosures after the GDPR notification is filed.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Begin the SEC materiality assessment first as the SEC obligation affects the largest financial market, deferring EU regulatory notifications.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Maintaining Consistent Messaging Across Regulators",
+      "situation": "The NIS2 early warning has been filed. The GDPR Article 33 notification must be submitted within the next 52 hours and the NIS2 full notification within 52 hours. A key challenge has emerged: GDPR and NIS2 notifications are sent to different authorities (data protection authority vs. sector competent authority) and may require different emphasis and content. Meanwhile, the US legal team has determined the incident is likely material for SEC purposes and must begin preparing the Form 8-K. All three notifications must be factually consistent.",
+      "question": "How do you ensure factual consistency across the three notifications?",
+      "options": [
+        { "label": "A", "text": "Establish a single master incident fact sheet, updated in real time by the IR team and approved by the disclosure coordinator, which all notification drafters must use as the authoritative source. Require all draft notifications to be cross-checked against the master sheet before submission, and hold a pre-submission coordination call across all legal teams.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Allow each legal team to draft independently based on their own understanding of the incident, reviewing only for obvious contradictions before submission.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Submit a single combined notification to all regulators simultaneously using a uniform template, regardless of each regulator's specific requirements.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "SEC Materiality Assessment and Form 8-K Filing",
+      "situation": "GDPR and NIS2 notifications have been submitted. The US legal team must now complete the SEC materiality assessment. The SEC's cybersecurity disclosure rules require public companies to determine whether a cybersecurity incident is 'material' and, if so, file a Form 8-K within four business days of that determination. The incident has caused significant operational disruption, potential data exfiltration of customer records, and reputational risk. The CFO and audit committee must be involved. Three business days remain in the window.",
+      "question": "How do you manage the SEC materiality determination and Form 8-K filing?",
+      "options": [
+        { "label": "A", "text": "Convene an emergency audit committee call to conduct the materiality assessment with input from legal, finance, and the CISO. Document the assessment process and conclusion. If material, instruct the US legal team to prepare the Form 8-K with factually consistent content aligned to the master incident fact sheet, reviewed by the CFO and general counsel before filing within the four-day window.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Delegate the materiality determination entirely to the US legal team without audit committee involvement, to expedite the process.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Conclude that the incident is not material to avoid the Form 8-K filing obligation, without conducting a documented assessment.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Multi-jurisdictional regulatory disclosures were coordinated successfully. A disclosure coordinator managed the process centrally, a master fact sheet ensured consistency, and all notifications — NIS2 early warning, GDPR Article 33, NIS2 full notification, and SEC Form 8-K — were filed within their respective mandatory deadlines. The organisation's documented, consistent, and timely approach to regulatory disclosure demonstrated good faith compliance.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Crisis Communications",
+  "difficulty": "Advanced",
+  "tags": ["regulatory disclosure", "GDPR", "NIS2", "SEC", "multi-jurisdictional", "compliance", "crisis communications"]
+}

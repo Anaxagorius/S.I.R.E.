@@ -1,0 +1,179 @@
+{
+  "title": "scenario_production_line_halt",
+  "description": "An entire production line in a manufacturing facility unexpectedly stops after a control system update is pushed. PLCs are unresponsive and the HMI shows communication errors. Production is halted and the cause is unknown.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Production Line Stops Unexpectedly",
+      "description": "All stations on production line 3 halt simultaneously. PLCs are unresponsive to the HMI and SCADA shows widespread communication faults.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Recent Control System Update Identified",
+      "description": "A firmware update for the industrial Ethernet switches on line 3 was pushed automatically by the update management system 8 minutes before the halt.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Network Communication Root Cause Found",
+      "description": "The switch firmware update introduced an incompatibility with the EtherNet/IP protocol used by PLCs, causing all PLC communications to drop.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Rollback Plan Approved",
+      "description": "Engineering approves rolling back the switch firmware to the previous version. A controlled rollback procedure is prepared and tested on an isolated spare switch.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Production Line Restored",
+      "description": "Switch firmware rolled back successfully. PLC communications restored. Production line restarted after a full equipment status check.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Production line 3 was restored after a controlled firmware rollback. Automated update policies for OT network equipment were corrected to require testing and change approval before deployment.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Production Line Halt with PLC Communication Failure",
+      "situation": "You are the OT Engineering Lead at an electronics manufacturing facility. At 14:17, production line 3 \u2014 which assembles 40% of the facility's daily output \u2014 stops completely. All 12 PLCs on the line are showing communication faults on the HMI. SCADA cannot poll any device on line 3's industrial Ethernet subnet. The line was operating normally at 14:09. No operator action was taken before the halt. Line 3 produces time-sensitive components for a customer with a delivery commitment in 6 hours. The maintenance team is on-site. You have no immediate explanation for the halt.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a production incident, secure the production line in its current safe state (machinery stationary), review SCADA event logs and the network management system for any changes or events in the 14:00\u201314:17 window, check whether any updates, configuration changes, or maintenance activities were in progress on line 3 infrastructure, and assemble the engineering team for rapid diagnosis.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately power cycle all PLCs on line 3 to reset their communication state, as this is the fastest way to restore the line.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to restart the SCADA server, as the fault is showing in SCADA and may be a software issue on the monitoring side rather than on the production line.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Identifying the Change That Caused the Halt",
+      "situation": "SCADA event logs show all 12 PLC communication sessions on line 3 dropped simultaneously at 14:09 \u2014 matching the production halt. The network management system log shows that at 14:08, the automated OT update management system pushed a firmware update to the four industrial Ethernet switches on line 3's subnet. The update was version 4.2.1 of the switch firmware. This update was staged for deployment from the central update server but was not listed on the approved change calendar. An engineer who manages the update system confirms the update deployment was triggered automatically by a scheduled task that was incorrectly configured to include production OT switches in its scope.",
+      "question": "How do you validate the root cause and plan remediation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Test whether the firmware update caused the communication fault by rolling back firmware version 4.2.1 to the previous version (4.1.8) on a spare switch in the lab and connecting a PLC to verify EtherNet/IP communications are restored before applying the rollback to production switches.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply the rollback directly to all four production switches immediately without lab testing, to restore production as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Push the next available firmware version (4.3.0) to the switches, as it may resolve the compatibility issue without needing a rollback.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Executing the Controlled Firmware Rollback",
+      "situation": "Lab testing confirms: rolling back the switches from firmware 4.2.1 to 4.1.8 fully restores EtherNet/IP communications with PLCs. The rollback procedure has been documented and approved by the engineering lead. The four production switches on line 3 must now be rolled back one at a time in a controlled sequence to minimise further disruption. The PLCs have remained powered and in a safe state throughout the outage. After the rollback, a full equipment status check must be completed before the line restarts.",
+      "question": "How do you execute the rollback and restart?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Roll back each of the four switches sequentially using the documented procedure, verify PLC communication is restored after each switch, confirm all 12 PLCs are in a known safe state and no alarms are active, complete a physical walkdown of line 3 to verify all equipment is in a safe restart condition, then restart the production line in a controlled sequence with operators stationed at key points.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Roll back all four switches simultaneously to save time, then immediately restart the production line.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Roll back only one switch, confirm line 3 partially recovers, and restart immediately on the recovered section without waiting for the remaining three switches.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Recurrence Through Change Management",
+      "situation": "All four switches have been rolled back. PLC communications are fully restored. Line 3 has been restarted after a full equipment status check and is producing normally. The 6-hour delivery commitment is still achievable with overtime. The root cause \u2014 an automated update management system incorrectly scoped to include OT network equipment \u2014 must be addressed. OT network equipment must never receive untested firmware updates automatically.",
+      "question": "What change management improvements do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately remove all OT network equipment from the automated update management system scope, establish a separate OT change management process requiring: vendor release notes review, lab compatibility testing on representative OT hardware, change advisory board approval, and a scheduled maintenance window for deployment; and conduct a full audit of what other OT equipment may be in automated update scopes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add OT switches to an update exclusion list for 3 months and revisit the policy later, continuing to rely on the same automated system.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Mandate that OT firmware updates require one engineer's manual approval via the update system, without requiring lab testing or a formal change management process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Production line 3 was restored within the time required to meet the customer delivery commitment. The root cause \u2014 an automated update incorrectly deployed to OT network switches without testing or change approval \u2014 was addressed. A formal OT change management process was established, OT equipment was removed from automated update scopes, and a lab testing requirement for OT firmware was introduced.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "OT/ICS",
+  "difficulty": "Intermediate",
+  "tags": [
+    "production halt",
+    "firmware update",
+    "PLC",
+    "HMI",
+    "EtherNet/IP",
+    "change management",
+    "OT network",
+    "manufacturing"
+  ]
+}

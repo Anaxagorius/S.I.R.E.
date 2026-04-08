@@ -128,6 +128,36 @@ import scenarioShadowIt from "./scenarios/scenario_shadow_it.json";
 import scenarioSaasDataLeakage from "./scenarios/scenario_saas_data_leakage.json";
 import scenarioCloudServiceOutage from "./scenarios/scenario_cloud_service_outage.json";
 
+// Industrial & OT/SCADA incidents
+import scenarioPlcMalfunction from "./scenarios/scenario_plc_malfunction.json";
+import scenarioIcsMalware from "./scenarios/scenario_ics_malware.json";
+import scenarioSensorSpoofing from "./scenarios/scenario_sensor_spoofing.json";
+import scenarioSafetySystemFailure from "./scenarios/scenario_safety_system_failure.json";
+import scenarioPhysicalProcessManipulation from "./scenarios/scenario_physical_process_manipulation.json";
+import scenarioOtItCrossoverBreach from "./scenarios/scenario_ot_it_crossover_breach.json";
+import scenarioProductionLineHalt from "./scenarios/scenario_production_line_halt.json";
+import scenarioEnvironmentalContamination from "./scenarios/scenario_environmental_contamination.json";
+
+// Crisis Communications & Management scenarios
+import scenarioExecutiveNotificationFailure from "./scenarios/scenario_executive_notification_failure.json";
+import scenarioConflictingComms from "./scenarios/scenario_conflicting_comms.json";
+import scenarioMediaLeak from "./scenarios/scenario_media_leak.json";
+import scenarioSocialMediaMisinformation from "./scenarios/scenario_social_media_misinformation.json";
+import scenarioCustomerNotificationDelay from "./scenarios/scenario_customer_notification_delay.json";
+import scenarioLawEnforcementCoordination from "./scenarios/scenario_law_enforcement_coordination.json";
+import scenarioRegulatoryDisclosureTiming from "./scenarios/scenario_regulatory_disclosure_timing.json";
+import scenarioPrMissteps from "./scenarios/scenario_pr_missteps.json";
+
+// Incident Response Process Failures (Meta-Incidents)
+import scenarioDetectionFailure from "./scenarios/scenario_detection_failure.json";
+import scenarioAlertFatigue from "./scenarios/scenario_alert_fatigue.json";
+import scenarioMissedIoc from "./scenarios/scenario_missed_ioc.json";
+import scenarioDelayedEscalation from "./scenarios/scenario_delayed_escalation.json";
+import scenarioPoorHandoff from "./scenarios/scenario_poor_handoff.json";
+import scenarioIncompleteForensics from "./scenarios/scenario_incomplete_forensics.json";
+import scenarioIneffectiveContainment from "./scenarios/scenario_ineffective_containment.json";
+import scenarioFailedLessonsLearned from "./scenarios/scenario_failed_lessons_learned.json";
+
 /** All demo scenarios with display metadata and bundled scenario data. */
 const DEMO_SCENARIOS = [
     // ── Physical / Environmental ─────────────────────────────────────────────
@@ -824,6 +854,180 @@ const DEMO_SCENARIOS = [
         name: "Cloud Service Outage",
         description: "A major cloud provider region goes offline unexpectedly, taking down all production services that depend on a single-region deployment with no failover.",
         data: scenarioCloudServiceOutage,
+    },
+
+    // ── Industrial & OT/SCADA Incidents ─────────────────────────────────────
+    {
+        id: "scenario_plc_malfunction",
+        icon: "🏭",
+        name: "PLC Malfunction",
+        description: "A PLC at a water treatment facility begins issuing erratic pump commands. Operators must determine whether the cause is a hardware fault, misconfiguration, or malicious tampering.",
+        data: scenarioPlcMalfunction,
+    },
+    {
+        id: "scenario_ics_malware",
+        icon: "🦠",
+        name: "ICS Malware Infection",
+        description: "Malware designed to exfiltrate process data and manipulate setpoints is discovered in the historian server of an industrial control system at a gas distribution facility.",
+        data: scenarioIcsMalware,
+    },
+    {
+        id: "scenario_sensor_spoofing",
+        icon: "🌡️",
+        name: "Sensor Spoofing",
+        description: "Temperature sensors in a chemical processing plant are reporting false readings. Investigation reveals the sensor data feed has been manipulated while actual temperatures approach critical levels.",
+        data: scenarioSensorSpoofing,
+    },
+    {
+        id: "scenario_safety_system_failure",
+        icon: "🚨",
+        name: "Safety System Failure",
+        description: "The Safety Instrumented System at an oil refinery fails to respond during a high-pressure alarm. Operators must manually manage a dangerous high-pressure situation with the SIS offline.",
+        data: scenarioSafetySystemFailure,
+    },
+    {
+        id: "scenario_physical_process_manipulation",
+        icon: "🔧",
+        name: "Physical Process Manipulation",
+        description: "Valve positions in a chemical plant no longer match commanded states. Physical inspection confirms valves are being moved without operator commands via unauthorised remote DCS access.",
+        data: scenarioPhysicalProcessManipulation,
+    },
+    {
+        id: "scenario_ot_it_crossover_breach",
+        icon: "🔗",
+        name: "OT/IT Network Crossover Breach",
+        description: "A ransomware infection on the corporate IT network propagates through an improperly segmented boundary into the OT network, reaching engineering workstations connected to industrial control systems.",
+        data: scenarioOtItCrossoverBreach,
+    },
+    {
+        id: "scenario_production_line_halt",
+        icon: "⛔",
+        name: "Production Line Halt",
+        description: "An entire production line in a manufacturing facility stops unexpectedly after a control system update is pushed. PLCs are unresponsive and the HMI shows communication errors.",
+        data: scenarioProductionLineHalt,
+    },
+    {
+        id: "scenario_environmental_contamination",
+        icon: "☣️",
+        name: "Environmental Contamination",
+        description: "Sensors at a water treatment facility detect chemical levels outside safe parameters following a suspected manipulation of chemical dosing systems, risking contamination of the distribution network.",
+        data: scenarioEnvironmentalContamination,
+    },
+
+    // ── Crisis Communications & Management ───────────────────────────────────
+    {
+        id: "scenario_executive_notification_failure",
+        icon: "📢",
+        name: "Executive Notification Failure",
+        description: "During a major ransomware attack, executives learn of the incident from external news coverage before being notified internally, having already made uninformed public statements.",
+        data: scenarioExecutiveNotificationFailure,
+    },
+    {
+        id: "scenario_conflicting_comms",
+        icon: "🔀",
+        name: "Conflicting Internal Communications",
+        description: "During a data breach, IT, legal, PR, and customer support teams send contradictory information to stakeholders. A single coordinated communication strategy must be established urgently.",
+        data: scenarioConflictingComms,
+    },
+    {
+        id: "scenario_media_leak",
+        icon: "📰",
+        name: "Media Leak Simulation",
+        description: "Confidential details of an ongoing security incident are leaked to a technology news outlet before the organisation has completed its investigation or notified affected customers.",
+        data: scenarioMediaLeak,
+    },
+    {
+        id: "scenario_social_media_misinformation",
+        icon: "📱",
+        name: "Social Media Misinformation",
+        description: "False and exaggerated claims about the scope of a confirmed data breach spread rapidly on social media. The organisation must communicate accurately at speed while managing reputation damage.",
+        data: scenarioSocialMediaMisinformation,
+    },
+    {
+        id: "scenario_customer_notification_delay",
+        icon: "⏱️",
+        name: "Customer Notification Delays",
+        description: "Legal counsel advises delaying customer breach notification pending forensic completion, but GDPR's 72-hour deadline and operational pressures are building. Teams must align on a notification strategy.",
+        data: scenarioCustomerNotificationDelay,
+    },
+    {
+        id: "scenario_law_enforcement_coordination",
+        icon: "👮",
+        name: "Law Enforcement Coordination",
+        description: "Following a ransomware attack with data exfiltration, law enforcement requests evidence and system access. The organisation must balance cooperation with business continuity and legal privilege concerns.",
+        data: scenarioLawEnforcementCoordination,
+    },
+    {
+        id: "scenario_regulatory_disclosure_timing",
+        icon: "📋",
+        name: "Regulatory Disclosure Timing",
+        description: "A major incident triggers reporting obligations under GDPR, NIS2, and SEC disclosure rules across multiple jurisdictions. Legal and compliance teams must coordinate disclosure timing and content.",
+        data: scenarioRegulatoryDisclosureTiming,
+    },
+    {
+        id: "scenario_pr_missteps",
+        icon: "😬",
+        name: "Public Relations Missteps",
+        description: "The organisation's initial breach press statement downplays the incident, contains inaccurate scope information, and omits a meaningful apology. The PR team must correct course and rebuild trust.",
+        data: scenarioPrMissteps,
+    },
+
+    // ── Incident Response Process Failures (Meta‑Incidents) ──────────────────
+    {
+        id: "scenario_detection_failure",
+        icon: "🔍",
+        name: "Detection Failure",
+        description: "Post-incident analysis reveals an attacker maintained persistent access for 47 days. SIEM alerts were generated but never triaged, and the threat was only discovered via external notification.",
+        data: scenarioDetectionFailure,
+    },
+    {
+        id: "scenario_alert_fatigue",
+        icon: "🔔",
+        name: "Alert Fatigue",
+        description: "Analysts receiving over 2,000 SIEM alerts per day with a 97% false positive rate have developed dismissal habits, causing a genuine intrusion alert to be discarded alongside false positives.",
+        data: scenarioAlertFatigue,
+    },
+    {
+        id: "scenario_missed_ioc",
+        icon: "🕵️",
+        name: "Missed Indicators of Compromise",
+        description: "Threat intelligence reveals the attacker's IOCs were present in logs three weeks before ransomware detonation. Multiple public-feed IOCs went unactioned throughout the dwell period.",
+        data: scenarioMissedIoc,
+    },
+    {
+        id: "scenario_delayed_escalation",
+        icon: "⏰",
+        name: "Delayed Escalation",
+        description: "A tier-1 analyst detected lateral movement but delayed escalation for five hours due to uncertainty about escalation thresholds. Ransomware reached 40 servers before the IR team responded.",
+        data: scenarioDelayedEscalation,
+    },
+    {
+        id: "scenario_poor_handoff",
+        icon: "🤝",
+        name: "Poor Handoff Between Teams",
+        description: "An undocumented shift handoff during a ransomware incident causes the night-shift IR team to unknowingly reverse a containment measure, allowing the attacker to re-enter the environment.",
+        data: scenarioPoorHandoff,
+    },
+    {
+        id: "scenario_incomplete_forensics",
+        icon: "🔬",
+        name: "Incomplete Forensic Evidence",
+        description: "A major breach investigation is hampered by disabled logging, prematurely reimaged systems, and no memory captures. The team must reconstruct evidence and implement forensic readiness improvements.",
+        data: scenarioIncompleteForensics,
+    },
+    {
+        id: "scenario_ineffective_containment",
+        icon: "🚧",
+        name: "Ineffective Containment",
+        description: "The IR team isolates one infected host but fails to identify 15 other compromised systems. The malware reactivates overnight from an uncontained host, spreading further across the network.",
+        data: scenarioIneffectiveContainment,
+    },
+    {
+        id: "scenario_failed_lessons_learned",
+        icon: "📝",
+        name: "Failed Lessons Learned Process",
+        description: "A near-identical phishing-led breach occurs six months after the first. Post-incident action items from the original incident were identified but never tracked to completion.",
+        data: scenarioFailedLessonsLearned,
     },
 ];
 
