@@ -1,0 +1,155 @@
+{
+  "title": "fuel_shortage",
+  "description": "The backup generator is running during an extended outage when a fuel delivery failure leaves tanks critically low.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Extended Outage — Generator Running",
+      "description": "Generator has been running for 18 hours during an extended grid outage. Fuel tank at 40%.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fuel Delivery Delayed",
+      "description": "Contracted fuel supplier unable to deliver — regional shortage and prioritisation to hospitals.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Low Fuel Alert",
+      "description": "Fuel tank drops to 20%. Estimated runtime at current load is 6 hours.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Emergency Fuel Sourcing",
+      "description": "Alternative suppliers contacted. Load shedding initiated to extend runtime.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Fuel Arrives",
+      "description": "Emergency fuel delivery secured from alternative supplier. Generator refuelled.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Grid Power Restored",
+      "description": "Utility grid power restored. Generator safely shut down and fuel inventory reviewed.",
+      "timeOffsetSec": 330
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fuel Delivery Failure Confirmed",
+      "situation": "The backup generator has been running for 18 hours during a regional grid outage. The fuel tank is at 40%. Your contracted fuel supplier has just informed you they cannot deliver due to a regional shortage — priority is being given to hospitals and emergency services. The utility company estimates grid restoration in 12–18 hours. At current load, your remaining fuel gives approximately 12 hours of runtime.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately begin sourcing alternative fuel suppliers, assess which systems can be shed to reduce fuel consumption and extend runtime, and notify IT and facilities leadership of the developing situation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait and see if the primary supplier can resolve the issue — you still have 12 hours of fuel.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately shut down all non-essential systems regardless of business impact to maximise fuel runtime.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Load Reduction Planning",
+      "situation": "The fuel tank is now at 30%. Three alternative fuel suppliers have been contacted — two cannot deliver until tomorrow and one can deliver in 4 hours but at a significant premium. At current load, remaining fuel lasts approximately 9 hours. If non-essential workloads are shut down, runtime could be extended to approximately 14 hours.",
+      "question": "How do you manage the load and fuel cost decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm the emergency fuel delivery from the available supplier despite the premium — continuity of critical operations justifies the cost. Simultaneously shed non-essential loads to maximise the safety margin.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Decline the expensive emergency supplier and bank on the primary supplier resolving the issue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Critical Load Prioritisation",
+      "situation": "Non-essential systems have been shut down and the emergency fuel delivery is confirmed for 3 hours from now. The fuel tank is at 20%, giving an estimated 6-hour runtime. The business has asked why the development and test environments have been shut down.",
+      "question": "How do you communicate the load shedding decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain clearly that the load shedding is necessary to ensure critical production systems remain operational during a fuel shortage, and commit to restoring non-critical systems as soon as fuel levels are secured.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Restore the development environments to avoid business complaints — the remaining fuel should be sufficient.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Emergency Fuel Delivery",
+      "situation": "The emergency fuel delivery has arrived. The delivery driver advises that refuelling must be done with the generator running — a hot refuel. This requires following specific hot refuel safety procedures. One facilities team member wants to refuel quickly without following the formal procedure to speed things up.",
+      "question": "How do you manage the refuelling process?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Insist on following the hot refuel safety procedure in full — it includes fire extinguisher placement, no smoking enforcement, and a two-person supervised process. Speed must not compromise safety during a live generator refuel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the informal approach — the generator is familiar equipment and the procedure is largely precautionary.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The generator has been safely refuelled following proper hot refuel procedures. Grid power was subsequently restored 6 hours later. The generator was safely shut down and fuel inventory replenished. A review of the fuel supply contract, on-site fuel storage capacity, and emergency supplier agreements has been commissioned.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Advanced",
+  "tags": [
+    "fuel shortage",
+    "generator",
+    "power",
+    "load shedding",
+    "BCDR"
+  ]
+}

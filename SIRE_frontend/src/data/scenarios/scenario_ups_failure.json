@@ -1,0 +1,155 @@
+{
+  "title": "ups_failure",
+  "description": "Multiple UPS units fail simultaneously during a planned maintenance window, leaving critical systems unprotected.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "UPS Alarm Triggered",
+      "description": "Multiple UPS units simultaneously trigger battery fault alarms during a planned power test.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Bypass Mode Risk",
+      "description": "UPS units switch to bypass mode — systems are on raw mains power with no battery protection.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Power Quality Risk",
+      "description": "Without UPS conditioning, raw mains power exposes systems to surges and sags.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Controlled Shutdown Decision",
+      "description": "Decision made to gracefully shut down critical systems while UPS is unavailable.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "UPS Replacement Parts Ordered",
+      "description": "Battery replacement units ordered. Temporary UPS rental arranged.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Temporary UPS in Place",
+      "description": "Rental UPS units installed. Critical systems powered back on with protection restored.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "UPS Battery Failure Alarms",
+      "situation": "During a routine monthly power test, all three UPS units in the server room have simultaneously triggered battery fault alarms. Diagnostics indicate the battery cells have reached end-of-life and can no longer hold charge. The UPS units are switching to bypass mode, which means servers are now on raw, unprotected mains power with no battery backup.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the bypass mode risk, notify IT leadership immediately, and assess options: controlled shutdown of critical systems, emergency UPS rental, and expedited battery replacement ordering.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue operating on bypass mode — mains power is stable today so the risk is minimal.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reset the UPS alarms and re-run the test — the fault may be a false positive.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Bypass Mode Risk Assessment",
+      "situation": "All critical systems are now running on raw mains power with no UPS protection. The mains supply in this area has a history of brief dips and surges. A power event — even a 50ms dip — could cause unclean shutdowns, data corruption, or hardware damage to servers and storage arrays.",
+      "question": "How do you manage the exposure window?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate graceful shutdown of the most data-sensitive systems (databases and storage) immediately to prevent corruption in the event of a power event, while sourcing emergency temporary UPS units for rapid deployment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave all systems running — the generator will protect them if power is lost.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Emergency UPS Sourcing",
+      "situation": "Databases and storage systems have been gracefully shut down. Less critical servers remain on raw mains. A UPS rental company can deliver three temporary UPS units within 4 hours. Battery replacement for the permanent units will take 3 business days. Leadership wants to know how long the service outage will last.",
+      "question": "How do you advise on the recovery timeline?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Communicate honestly: temporary UPS units expected in 4 hours enabling phased restart of critical systems. Full permanent UPS restoration in 3 business days. Provide a realistic confidence-rated RTO rather than over-committing.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Commit to a 1-hour recovery to avoid escalation — you can reassess as things develop.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Temporary UPS Installation",
+      "situation": "The rental UPS units have arrived. The facilities engineer is preparing to install them. Two of the three units need to be installed in the live server room while some servers remain powered on. Proper installation requires turning off individual rack PDUs sequentially.",
+      "question": "How do you manage the installation process?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Follow a structured installation procedure: power down one rack PDU at a time, connect it to the rental UPS, verify the UPS output before restoring power, and repeat for each rack. Do not rush the process.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Connect all rental UPS units simultaneously to restore protection as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Temporary UPS units are installed and all critical systems are back online with battery protection. Databases have been restarted with no data corruption detected. Permanent battery replacements have been ordered on an expedited basis. A review of the UPS maintenance schedule and battery age monitoring has been initiated.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "UPS failure",
+    "power",
+    "battery",
+    "datacenter",
+    "BCDR"
+  ]
+}

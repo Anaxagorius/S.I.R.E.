@@ -1,0 +1,155 @@
+{
+  "title": "building_evacuation",
+  "description": "A bomb threat triggers a full building evacuation requiring systematic accountability of all personnel.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Threat Received",
+      "description": "Reception receives a phone threat. Building evacuation procedure activated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Evacuation Initiated",
+      "description": "Evacuation alarm sounds. Floor wardens direct staff to exit routes.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Assembly Point",
+      "description": "Staff arriving at designated assembly points. Roll call and accountability underway.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Missing Personnel",
+      "description": "Three staff members unaccounted for. Floor wardens dispatched to check.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "All Clear or Extended Evacuation",
+      "description": "Police and bomb disposal team arrive. Cordon established. No re-entry permitted.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Re-entry Authorised",
+      "description": "Building declared safe. Controlled re-entry begins. Business continuity measures reviewed.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Evacuation Triggered",
+      "situation": "Reception has received a threatening phone call indicating that an explosive device has been placed in the building. The caller provided no specific location. There are 350 staff in the building across 5 floors. The building has designated assembly points 200 metres from the building.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the building evacuation immediately — sound the evacuation alarm, notify floor wardens, contact the police, and do not investigate the threat yourself. Treat all threats as credible.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Search the building yourself to look for suspicious packages before deciding to evacuate.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Inform senior management only and await their decision before activating the evacuation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation in Progress",
+      "situation": "The evacuation alarm is sounding. Most staff are proceeding to exits. However, two staff members with disabilities require assistance and one visitor is in a meeting room on the 4th floor. Floor wardens are managing the exit routes but two lifts are being used.",
+      "question": "How do you manage vulnerable persons and lift usage during evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Redirect staff with disabilities to the designated refuge areas and assign Personal Emergency Evacuation Plan (PEEP) assistants. Prohibit use of lifts during evacuation — direct all staff to stairwells and alert the fire service to the refuge locations.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the lifts to continue operating to speed up evacuation — there is no confirmed fire so the risk is minimal.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Accountability at Assembly Point",
+      "situation": "Staff are gathered at the two assembly points. Floor wardens are conducting roll calls. Three members of staff are unaccounted for after the initial count. One may be in a restroom, one was working from home today, and one's whereabouts are unknown.",
+      "question": "How do you manage the missing persons?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Report all three as unaccounted to the emergency services immediately. Do not re-enter the building to search — allow the police and emergency services to conduct any internal sweep. Verify the remote worker status through a phone call.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a floor warden back into the building to check the restrooms and locate the missing staff.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Emergency Services on Scene",
+      "situation": "Police and a bomb disposal team have arrived. A cordon has been established 250 metres from the building. Staff are outside the cordon. The threat assessment is expected to take 2–3 hours. Leadership is receiving pressure from the company's key client whose site visit was scheduled during this period.",
+      "question": "How do you manage business continuity during the extended evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Communicate transparently with the client, activate remote working arrangements, and notify relevant stakeholders. Do not offer re-entry to the building for any business reason — the cordon must be respected.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Negotiate with police to allow the client and senior management access to a ground-floor meeting room during the assessment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The bomb disposal team has completed the sweep and declared the building safe. No device was found. A controlled re-entry has been completed and all 350 staff are accounted for — the missing person was the confirmed remote worker. The threat is being investigated by police and a post-evacuation review is scheduled.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "evacuation",
+    "bomb threat",
+    "facility incident",
+    "accountability",
+    "BCDR"
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "title": "structural_damage",
+  "description": "An unexpected structural crack is discovered in a load-bearing wall following a minor tremor.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Structural Crack Discovered",
+      "description": "Facilities staff discover a significant crack in a load-bearing wall following a minor earth tremor.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Affected Area Cordoned",
+      "description": "Immediate cordon established around the affected section. Structural engineer contacted.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Structural Assessment",
+      "description": "Structural engineer on-site conducting assessment. Partial evacuation of upper floors ordered.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Risk Rating Issued",
+      "description": "Engineer rates the damage as moderate but recommends emergency shoring before re-entry.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Emergency Shoring",
+      "description": "Structural shoring team installs temporary supports. Building declared safe for limited use.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Phased Return",
+      "description": "Undamaged areas cleared for use. Long-term repair plan developed.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Structural Crack Discovered",
+      "situation": "Following a minor earth tremor, a facilities technician has discovered a significant diagonal crack running through a load-bearing wall on the ground floor. The crack is approximately 8mm wide and spans 2 metres. Two hundred staff are currently working in the building above.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately cordon off the area around the crack, restrict access to the floors above the affected wall, and contact a structural engineer for an emergency assessment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Note the crack and schedule a routine facilities inspection for next week — minor cracks after tremors are common.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Have the facilities team fill the crack with sealant and monitor it visually.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Partial Evacuation Decision",
+      "situation": "The structural engineer has arrived and is conducting the assessment. Based on the crack's location and width, they recommend evacuating floors 3, 4, and 5 as a precaution while the full assessment is completed. This will displace approximately 120 staff.",
+      "question": "How do you manage the partial evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Follow the engineer's recommendation immediately — evacuate floors 3–5 via stairwells, establish a remote working arrangement for displaced staff, and await the full structural assessment before deciding on re-entry.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow staff to continue working on the upper floors while monitoring the crack for further movement.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Engineer's Assessment Report",
+      "situation": "The structural engineer has completed the assessment. The damage is rated as moderate. The wall has not fully compromised the structure but requires emergency temporary shoring before any re-entry of affected floors. Without shoring, further tremors could cause progressive failure. A shoring contractor is available but will take 4 hours to arrive.",
+      "question": "How do you manage the 4-hour wait?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain the evacuation of upper floors for the full 4-hour period, activate the BCP for displaced staff, and do not allow any exceptions for re-entry regardless of business pressure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow senior management to re-enter upper floors briefly to retrieve laptops and documents — the structural risk is moderate, not severe.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Emergency Shoring Complete",
+      "situation": "The shoring contractor has installed temporary structural supports. The engineer has re-inspected and declared floors 1 and 2 safe for re-entry. Floors 3–5 remain restricted pending permanent repairs. Leadership is asking whether the building should be permanently vacated while repairs are carried out.",
+      "question": "How do you advise on building use?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Follow the structural engineer's clearance — allow use of floors 1 and 2 only, maintain restrictions on floors 3–5, engage a contractor for permanent repairs, and commission a full building structural survey to check for additional damage.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Declare the whole building safe now that shoring is in place and allow full operations to resume on all floors.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Floors 1 and 2 are safely operational. Displaced staff on floors 3–5 are working remotely. Emergency shoring is in place and a permanent repair contract has been awarded. A full building structural survey is underway. All personnel are safe and the incident is fully documented for insurance.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Intermediate",
+  "tags": [
+    "structural damage",
+    "facility incident",
+    "evacuation",
+    "building safety",
+    "BCDR"
+  ]
+}

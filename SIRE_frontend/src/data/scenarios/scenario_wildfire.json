@@ -1,0 +1,155 @@
+{
+  "title": "wildfire",
+  "description": "A rapidly spreading wildfire threatens the facility as evacuation orders are issued for surrounding areas.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Smoke Detected",
+      "description": "Smoke is visible from the facility grounds. Local fire services report a wildfire 3 miles away.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Air Quality Warning",
+      "description": "Air quality index reaches hazardous levels. Staff advised to stay indoors and close vents.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Evacuation Order — Adjacent Zones",
+      "description": "Local authorities issue evacuation orders for areas adjacent to the facility. Wind shift reported.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Facility Evacuation Decision",
+      "description": "Fire now 1 mile away. Management must decide whether to evacuate or shelter.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Evacuation Underway",
+      "description": "Orderly evacuation using pre-planned routes. Critical data secured, systems shut down.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 5,
+      "title": "Safe Assembly",
+      "description": "All personnel accounted for at the secondary assembly point. Facility handed to fire services.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Wildfire Threat Identified",
+      "situation": "Smoke is visible 3 miles from the facility. Local fire services report a fast-moving wildfire driven by strong winds. The air quality index is rising rapidly. There is no evacuation order yet for your zone.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Monitor official emergency broadcasts, close all HVAC air intakes to prevent smoke infiltration, brief staff, and prepare the facility evacuation plan for rapid activation if needed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue normal operations — the fire is 3 miles away and there is no evacuation order.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately evacuate all staff without waiting for an official order.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Air Quality Deteriorating",
+      "situation": "The air quality index has reached hazardous levels. Several staff are experiencing respiratory irritation. The fire is now 2 miles away. Adjacent evacuation orders have been issued. Staff with pre-existing respiratory conditions are asking to leave.",
+      "question": "How do you manage staff health and safety?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Allow vulnerable staff to leave immediately, keep remaining staff indoors with all HVAC intakes closed, distribute any available N95 masks, and prepare for a potential full evacuation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep all staff on-site — the air quality alert is precautionary and operations must continue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evacuation Decision Point",
+      "situation": "The fire is now 1 mile away and the wind has shifted toward the facility. Local emergency services are advising all businesses in your zone to voluntarily evacuate. An official mandatory order has not yet been issued, but conditions are deteriorating rapidly.",
+      "question": "Do you wait for a mandatory order or begin voluntary evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate voluntary evacuation now using pre-planned routes. Waiting for a mandatory order risks becoming trapped as conditions worsen — life safety takes priority over business continuity.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the official mandatory evacuation order before disrupting operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Controlled Evacuation",
+      "situation": "Evacuation is underway. Staff are using two designated exit routes. One route is now blocked by approaching smoke. Critical servers are still running and no backup shutdown has been initiated.",
+      "question": "How do you manage the evacuation and shutdown?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Redirect all staff to the unblocked evacuation route. Assign one designated IT staff member to initiate an emergency graceful shutdown of critical systems before leaving — prioritise personnel safety throughout.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Halt the evacuation and wait until all systems are safely shut down before allowing anyone to leave.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All personnel have safely evacuated and are accounted for at the secondary assembly point. Critical systems were gracefully shut down. The facility has been handed over to fire services. A damage assessment will follow once the area is declared safe.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Advanced",
+  "tags": [
+    "wildfire",
+    "natural disaster",
+    "evacuation",
+    "air quality",
+    "BCDR"
+  ]
+}

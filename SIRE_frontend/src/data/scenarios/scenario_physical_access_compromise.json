@@ -1,0 +1,155 @@
+{
+  "title": "physical_access_compromise",
+  "description": "An unknown individual is discovered in a restricted server room after bypassing access controls.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unauthorised Person Discovered",
+      "description": "A staff member discovers an unknown individual in the restricted server room.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Security Alerted",
+      "description": "Security personnel alerted. Individual detained for questioning. Entry method under investigation.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Access Log Review",
+      "description": "CCTV and access control logs pulled. Tailgating confirmed through secure entry door.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Equipment Inspection",
+      "description": "IT team inspects server room for tampering, rogue devices, or data removal.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Containment Actions",
+      "description": "Affected network segments isolated while forensic inspection proceeds.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Investigation and Remediation",
+      "description": "Law enforcement notified. Access control policies reviewed and updated.",
+      "timeOffsetSec": 270
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unauthorised Individual Found in Server Room",
+      "situation": "A member of staff has discovered an unknown individual inside the restricted server room. The person has no visitor badge and no staff member has authorised their access. The server room contains production servers and network equipment. The individual is still present.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Alert security immediately, do not confront the individual alone, and secure the server room entrance to prevent anyone entering or leaving until security arrives.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Directly confront the individual and demand they identify themselves and leave.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Assume they are a legitimate contractor and ask them to check in at reception when they are done.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Security Response and Access Log Review",
+      "situation": "Security has detained the individual. They claim to be a maintenance contractor but have no valid work order. CCTV review is underway. Preliminary footage shows the individual tailgated a staff member through the secure entrance 40 minutes ago. IT leadership needs to decide whether to take the server room offline.",
+      "question": "How do you respond to the potential breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat this as a confirmed physical security breach: preserve all access logs and CCTV evidence, initiate a full inspection of the server room for tampering, and consider isolating affected network segments while the investigation proceeds.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Release the individual with a warning — tailgating is a minor infraction and there is no evidence of tampering yet.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Equipment Inspection",
+      "situation": "An IT engineer conducting the server room inspection has discovered an unfamiliar USB device plugged into the back of a core network switch. The engineer is unsure whether it was there before the incident. Some rogue hardware — such as network taps or keyloggers — can be installed in seconds.",
+      "question": "How do you handle the unknown USB device?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not remove the device immediately — photograph it in place for forensic evidence, isolate the affected switch from the network, and contact your incident response team and potentially law enforcement before handling it.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Remove the USB device immediately and plug it into a laptop to identify what it is.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Network Containment and Investigation",
+      "situation": "The incident response team has confirmed the USB device is a commercial network tap — a device used to passively copy all network traffic. It has been in place for an unknown duration. Law enforcement has been notified. Leadership wants to know whether to continue operations or shut down the network.",
+      "question": "How do you advise on containment vs continuity?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the affected network segment and the specific switch where the tap was installed while maintaining operations on unaffected segments. Engage forensics to determine what traffic may have been captured and for how long.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue full operations across all network segments while forensics investigate — isolating the network would cause too much disruption.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The physical intruder has been detained and handed to law enforcement. The network tap has been preserved as evidence. The affected switch is isolated and forensic investigation is underway. An urgent review of access control procedures has been commissioned to prevent tailgating and implement two-factor physical authentication for the server room.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "BCDR",
+  "difficulty": "Advanced",
+  "tags": [
+    "physical access",
+    "tailgating",
+    "insider threat",
+    "facility security",
+    "BCDR"
+  ]
+}
