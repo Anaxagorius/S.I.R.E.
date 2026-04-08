@@ -1,0 +1,161 @@
+{
+  "title": "disabled_security_controls",
+  "description": "A server administrator disables Windows Defender and endpoint logging on a production server temporarily for performance testing and forgets to re-enable them, leading to an undetected malware infection weeks later.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Performance Test Disables Security Controls",
+      "description": "A server administrator disables Windows Defender and endpoint logging on a production web server to measure baseline performance during a load test.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Security Controls Not Re-enabled",
+      "description": "The performance test concludes, but the administrator forgets to re-enable the disabled controls. No automated policy enforcement detects the gap.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Malware Infection Occurs",
+      "description": "Three weeks later, the unprotected server is compromised via an unpatched vulnerability. Malware is silently installed and begins beaconing to a command-and-control server.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Infection Discovered by Network Monitoring",
+      "description": "Network traffic analysis flags unusual outbound connections from the server to an external IP. Endpoint investigation reveals the disabled controls and active malware.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Server Isolated and Incident Response Activated",
+      "description": "The server is isolated from the network. The incident response team is activated to contain and eradicate the malware and assess the impact.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Endpoint Security Policies Enforced",
+      "description": "Automated endpoint compliance scanning is deployed. All security controls are re-enabled and administrator change management requirements updated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unusual Outbound Traffic Detected",
+      "situation": "Network monitoring alerts on regular outbound connections from a production web server to an external IP address on a non-standard port. The connections are periodic — consistent with command-and-control beaconing. When you investigate the server, you find that Windows Defender and endpoint event logging have been disabled. A check of the change log shows no approved change request for this. The server has been in this state for approximately three weeks.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately isolate the server from the network to prevent further C2 communication, escalate to the incident response team, and preserve all available logs and memory before beginning forensic analysis.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Re-enable Windows Defender immediately and run a full scan to remove any malware, then return the server to normal operation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Block the suspicious external IP at the firewall and monitor the server to see if other connections are attempted.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Malware Identified — Scope Unknown",
+      "situation": "The server is isolated. Forensic analysis of memory and available network logs confirms active malware — a remote access trojan — has been present for approximately 18 days. With endpoint logging disabled for that entire period, you have no visibility into what commands were executed, what data may have been accessed, or whether the malware spread laterally to other systems.",
+      "question": "How do you assess the impact without endpoint logs?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct network-layer forensics using firewall and NetFlow logs to reconstruct lateral movement. Review authentication logs on adjacent systems for anomalous access. Engage a specialist malware analyst to reverse-engineer the threat and identify its capabilities.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume the malware was isolated to the one server since there are no obvious signs of lateral movement, and proceed with eradication.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Eradication and Recovery",
+      "situation": "Forensics reveals the malware collected credentials from memory and attempted connections to three internal hosts, but network segmentation prevented successful lateral movement. The affected server's data is classified and may be subject to breach reporting requirements. You must now eradicate the malware and restore service safely.",
+      "question": "How do you eradicate and recover?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rebuild the server from a known-good baseline image rather than cleaning in place, restore data from a pre-infection backup, re-enable all security controls before returning to production, and conduct a data breach assessment with the DPO.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delete the identified malware files and re-enable Windows Defender, then return the server to production.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restore from the most recent backup without rebuilding, re-enable security controls, and skip the breach assessment as lateral movement was blocked.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Disabled Controls in Future",
+      "situation": "The server is rebuilt and restored to production. The root cause was a single administrator disabling security controls without a change request, with no automated mechanism to detect or remediate the gap. Leadership asks for controls to prevent recurrence.",
+      "question": "Which controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy automated endpoint compliance scanning that alerts and auto-remediates when security controls are disabled, enforce change management for any modifications to endpoint security settings, and introduce a peer-review requirement for all production server changes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a reminder to the IT acceptable use policy that security controls must not be disabled without approval.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The malware was contained through prompt network isolation. A thorough forensic investigation using network-layer logs determined the scope of the infection. The server was rebuilt from a clean baseline with all security controls re-enabled. Automated endpoint compliance scanning, change management for security control modifications, and a peer-review requirement for production changes are now in place.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "human error",
+    "security controls",
+    "endpoint protection",
+    "incident response"
+  ]
+}

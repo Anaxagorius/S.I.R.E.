@@ -1,0 +1,161 @@
+{
+  "title": "system_tampering",
+  "description": "A departing network engineer covertly modifies firewall rules and routing configurations to weaken perimeter defences and create hidden remote-access pathways before leaving.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unusual Firewall Changes Detected",
+      "description": "A network monitoring alert flags a series of firewall rule modifications made outside of the change management process by a network engineer who has given notice.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Unauthorised Routing Changes Found",
+      "description": "Further review reveals BGP and static routing table changes that create an undocumented path to internal network segments through a secondary ISP link.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Hidden Remote Access Entry Point Identified",
+      "description": "Security discovers a newly created VPN user account and a modified ACL permitting inbound traffic on port 4444 from external IP ranges.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Engineer's Access Revoked",
+      "description": "The engineer's access to all network infrastructure and management platforms is immediately revoked. The engineer is escorted from the building.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Firewall and Routing Configurations Audited",
+      "description": "Network team conducts a full audit of all firewall rules and routing tables, reverting all unauthorised changes to last known good baselines.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Change Management Controls Strengthened",
+      "description": "All infrastructure changes now require peer review and formal change management approval. Configuration baselines are enforced via automated compliance scanning.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Firewall Changes Outside Change Management",
+      "situation": "Your network monitoring platform alerts on a cluster of firewall rule modifications made in the last 24 hours with no associated change request. The changes were made using the credentials of a senior network engineer who gave four weeks' notice last week. The modifications include new inbound allow rules and several existing deny rules being converted to allow. The engineer is still employed and has full access to all network infrastructure.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Escalate immediately to the CISO and network management, preserve configuration audit logs, and begin a comprehensive review of all changes made by the engineer's account — without alerting the individual.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the engineer's manager to discuss the firewall changes with them informally and see if there is a legitimate explanation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Revert the firewall changes immediately and send an all-staff reminder about the change management process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Hidden Remote Access Pathway Discovered",
+      "situation": "The broader audit reveals additional tampering: routing tables have been modified to create an undocumented path to internal segments via a secondary ISP link, a new VPN account has been created with a non-standard username, and an ACL now permits inbound traffic on port 4444 from a range of external IPs. This appears to be a deliberate attempt to establish a backdoor for post-employment access. You must decide on containment.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately revoke the engineer's access to all network infrastructure, disable the rogue VPN account, temporarily block inbound traffic on port 4444, and escort the individual from the building while evidence is preserved.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the rogue VPN account active to monitor whether the engineer attempts to use it before taking action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Full Infrastructure Audit and Remediation",
+      "situation": "The engineer's access is revoked. Security and network teams must now conduct a complete audit of all firewall rules, routing tables, ACLs, and VPN configurations to identify any further tampering. Leadership needs assurance that no other hidden pathways exist before normal operations resume.",
+      "question": "How do you proceed with the audit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Compare all current firewall, routing, and VPN configurations against documented baselines and last known good snapshots. Revert every unauthorised change with peer review, and conduct a network traffic analysis to identify any active unauthorised connections.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Revert only the specific changes identified so far and resume normal operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the engineer to provide a list of all changes they made as part of the disciplinary process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Strengthening Change Management Controls",
+      "situation": "The full audit is complete and all unauthorised changes have been reverted. Leadership asks you to recommend controls to prevent a departing or disgruntled engineer from making covert infrastructure changes in the future.",
+      "question": "Which controls do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce mandatory peer review and formal change management approval for all infrastructure changes, implement automated configuration compliance scanning against baselines, and revoke privileged network access immediately upon notice being given.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Require network engineers to document all changes in a shared wiki and review the wiki quarterly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The engineer's access was revoked promptly and all hidden remote-access pathways were identified and closed. A comprehensive infrastructure audit confirmed no further tampering. Mandatory peer-reviewed change management, automated baseline compliance scanning, and immediate access revocation on notice are now enforced — significantly hardening the network perimeter against insider tampering.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "insider threat",
+    "system tampering",
+    "firewall",
+    "change management"
+  ]
+}
