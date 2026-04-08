@@ -1,0 +1,64 @@
+{
+  "title": "scenario_pr_missteps",
+  "description": "Following a publicly disclosed data breach, the organisation's initial press statement downplays the incident, contains inaccurate information about the scope, and fails to include an apology or remedy for affected customers. The PR team must correct course and rebuild trust.",
+  "timeline": [
+    { "index": 0, "title": "Inadequate Statement Published", "description": "The organisation's initial press statement downplays the breach scope, contains inaccurate claims, and offers no apology or remedy to affected customers.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Negative Reaction Mounts", "description": "Customers, media, and consumer advocates criticise the statement as evasive and dismissive. Social media sentiment turns sharply negative.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Internal Review Completed", "description": "A rapid internal review confirms the original statement contained factual inaccuracies about the scope and omitted mandatory elements of responsible breach disclosure.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Corrective Statement Issued", "description": "A revised statement is issued that corrects factual errors, includes a genuine apology, and commits to concrete remedies for affected customers.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Customer Remediation Initiated", "description": "A customer remediation programme including identity protection services and a dedicated support line is launched.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "The PR misstep was corrected through a frank corrective statement, genuine accountability, and a concrete customer remediation programme that rebuilt credibility with customers and regulators.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "The Initial Press Statement Causes a Secondary Crisis",
+      "situation": "A data breach affecting 250,000 customer records was disclosed publicly yesterday. The press statement issued by your PR team described the incident as 'a limited and contained security event affecting a small number of customers' and stated 'no sensitive data was accessed'. The true figure is 250,000 customers and the data included names, email addresses, and dates of birth. The statement contained no apology and offered no remedy. Since publication, the story has been picked up by national media framing your organisation as evasive. Consumer advocacy groups are threatening to file regulatory complaints. Your head of communications has escalated to you.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately commission a rapid internal review to catalogue exactly what the original statement got wrong, what it omitted, and what the correct facts are. Suspend further media engagement pending the review outcome. Brief the CEO and legal counsel that a corrective statement will be required.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Defend the original statement publicly, arguing it was accurate based on information available at the time, and wait for media attention to subside.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Issue a brief social media post acknowledging 'some inaccuracies' in the original statement without specifying what was wrong or correcting the record.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Reviewing and Cataloguing What Went Wrong",
+      "situation": "The internal review is complete. Findings: (1) the characterisation of 'a small number of customers' was factually wrong — 250,000 records were affected; (2) the claim 'no sensitive data was accessed' was not supported by the forensic evidence available at the time of publication and has since been contradicted by the confirmed data types; (3) the statement contained no apology; (4) no remediation was offered to affected customers; (5) legal was not given adequate review time before the statement was published. The PR team accepted wording from a junior team member without senior approval.",
+      "question": "How do you prepare for the corrective statement?",
+      "options": [
+        { "label": "A", "text": "Use the review findings to draft a corrective statement that: explicitly acknowledges the specific inaccuracies in the original statement; provides accurate figures; offers a genuine unqualified apology from the CEO; commits to concrete customer remediation; and is reviewed and approved by legal, the CEO, and the DPO before publication.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Draft a corrective statement that acknowledges 'the situation has developed since our initial communication' without explicitly identifying or correcting the specific errors.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Rely on the forensics report, when complete, to speak for itself rather than issuing an active corrective statement.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Issuing the Corrective Statement",
+      "situation": "The corrective statement draft is ready. Legal has reviewed it. The CEO is prepared to deliver it personally. There is internal debate about tone: the head of communications wants to acknowledge 'communication fell short of the standard our customers deserve'; legal wants more guarded language referencing the statement as a 'preliminary communication'. Consumer advocates have publicly demanded a full and frank apology. Media will scrutinise the statement closely for hedging.",
+      "question": "What tone and content does the corrective statement take?",
+      "options": [
+        { "label": "A", "text": "The statement is delivered by the CEO personally, explicitly acknowledges that the original statement was inaccurate in scope and omitted important facts, offers a clear and direct apology for the breach and the inadequate initial communication, provides accurate figures, and announces concrete next steps for affected customers. Legal hedging is minimised — accountability is prioritised.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Issue the corrective statement through the communications team rather than the CEO, using carefully hedged language that avoids explicit acknowledgment of the original statement's errors.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Issue the corrective statement only to media who specifically request it, rather than publishing proactively on all official channels.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Launching a Customer Remediation Programme",
+      "situation": "The corrective statement has been issued and received better than the original. However, affected customers are asking what concrete steps the organisation will take for them. Consumer advocates are calling for compensation. Legal counsel advises that offering remediation proactively may reduce litigation risk and demonstrate good faith to regulators. The data breach exposed names, emails, and dates of birth — a combination that can facilitate identity fraud and phishing.",
+      "question": "What customer remediation does the organisation offer?",
+      "options": [
+        { "label": "A", "text": "Launch a customer remediation programme that includes: 12 months of free identity monitoring and fraud alert services through a reputable provider; a dedicated breach support helpline with trained agents; clear guidance on how customers can protect themselves; and a straightforward claim process for customers who can demonstrate financial harm caused by the breach.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Offer a one-time discount voucher on future purchases as the sole remediation, without identity protection services or a dedicated support resource.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Advise customers to take their own steps to protect themselves using publicly available guidance, and offer no organisation-funded remediation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The PR misstep was corrected effectively. A frank corrective statement acknowledged the original errors explicitly, the CEO delivered a genuine apology, and a meaningful customer remediation programme was launched. The organisation's transparent and accountable response to its own communications failure helped rebuild credibility with customers, media, and regulators — demonstrating that how an organisation handles mistakes can matter as much as the original incident.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Crisis Communications",
+  "difficulty": "Intermediate",
+  "tags": ["PR", "crisis communications", "data breach", "customer trust", "media relations", "remediation", "apology"]
+}

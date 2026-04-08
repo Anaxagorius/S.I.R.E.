@@ -1,0 +1,64 @@
+{
+  "title": "scenario_social_media_misinformation",
+  "description": "Following a confirmed data breach, false and exaggerated claims about the incident spread rapidly on social media. The organisation must distinguish fact from fiction and communicate accurately at speed before misinformation causes disproportionate harm.",
+  "timeline": [
+    { "index": 0, "title": "Breach Disclosed Publicly", "description": "The organisation publicly discloses a confirmed data breach affecting customer records. Within minutes, social media begins amplifying and distorting the disclosure.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Misinformation Spreads", "description": "Claims circulate that passwords, payment cards, and government IDs were stolen — none of which has been confirmed. Customers begin reporting fraud they attribute to the breach.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Social Media Monitoring Activated", "description": "A social media monitoring team is assembled to track claims, categorise them, and flag material inaccuracies for response.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Factual Correction Published", "description": "The organisation publishes a clear factual correction on its official channels addressing the most damaging misinformation.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Customer Support Scaled", "description": "Additional customer support capacity is deployed to handle inbound customer concerns and redirect fraudulent loss reports to the appropriate resolution channels.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Misinformation was contained through active monitoring, targeted correction, and scaled customer support. The organisation maintained factual accuracy throughout.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Social Media Misinformation Erupts After Disclosure",
+      "situation": "Your organisation has disclosed a confirmed breach of name, email address, and phone number data for approximately 200,000 customers. No passwords, payment card data, or government identity documents were compromised. Within 30 minutes of disclosure, social media posts are claiming that 'millions of accounts were hacked', that 'banking details and passport scans were stolen', and that 'the company knew for months'. Several posts have tens of thousands of shares. Your customer support lines are overwhelmed. Some customers are genuinely reporting fraud, but it is unclear whether this is breach-related.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Activate social media monitoring immediately to systematically track, categorise, and document the claims circulating. Assemble a small rapid-response team from communications, security, and legal to assess which claims are materially false, which are exaggerated, and which fraud reports may be legitimately related to the breach.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Post a single all-encompassing denial on social media refuting all claims as false, without first reviewing individual reports to assess which may be legitimate.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Avoid engaging with social media entirely and focus only on direct customer communications channels, reasoning that engaging with misinformation amplifies it.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Categorising Claims and Assessing Fraud Reports",
+      "situation": "Monitoring has identified three categories of claims: demonstrably false claims (e.g., passport scans stolen — contradicted by your confirmed data inventory); exaggerated claims (e.g., millions affected — your confirmed figure is 200,000); and claims you cannot yet confirm or deny (e.g., that the organisation knew for months). Customer support is receiving calls from customers reporting unauthorised account access and fraudulent transactions. You need to assess whether any of these fraud reports are plausibly linked to the breach.",
+      "question": "How do you approach the fraud report assessment?",
+      "options": [
+        { "label": "A", "text": "Brief the security team to assess whether the data types exposed (name, email, phone) could plausibly enable the reported fraud, and establish a triage process: route payment fraud reports to card issuers and banks, retain reports of account takeover for security team assessment, and document all reports as potential evidence.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Publicly state that all reported fraud is unrelated to the breach and direct customers to report to the police, without conducting any internal assessment.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Advise customer support to tell callers that fraud reports will be investigated but take no further triage action until the incident investigation is complete.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Issuing Targeted Factual Corrections",
+      "situation": "The monitoring team has confirmed that the most damaging and widely shared misinformation claims — that passport scans and payment card details were stolen — are factually false based on the confirmed data inventory. The claim that the organisation 'knew for months' cannot yet be addressed as the discovery timeline is still under legal review. You need to issue corrections that are accurate, credible, and do not inadvertently confirm other unverified details.",
+      "question": "How do you issue corrections on social media?",
+      "options": [
+        { "label": "A", "text": "Publish a factual correction on official social media channels that specifically and clearly addresses the most widely shared false claims with reference to the confirmed data inventory, avoids addressing claims that cannot yet be verified, uses plain language accessible to non-technical customers, and links to a dedicated incident FAQ page.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Engage directly in comment threads on third-party posts to argue with users spreading misinformation, on a post-by-post basis.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Issue a legal statement threatening defamation action against individuals spreading false claims, to deter further misinformation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scaling Customer Support to Handle Inbound Volume",
+      "situation": "Customer support volumes are running at eight times normal capacity. Wait times are over 45 minutes. Customers who cannot reach support are returning to social media to vent frustration, which is generating further negative sentiment and amplifying misinformation. Customer support agents do not have consistent, accurate information about the breach to share with callers.",
+      "question": "How do you address the customer support crisis?",
+      "options": [
+        { "label": "A", "text": "Deploy additional support capacity from available internal resource and partner channels, equip all agents with a single approved Q&A script based on confirmed facts, publish a self-service FAQ on the website to deflect common queries, and set up a dedicated breach inquiry email address with committed response times.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Advise customers via social media to check the website for information and suspend telephone support temporarily to reduce wait time complaints.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Allow individual agents to respond to customer queries based on their own understanding of the breach, without issuing a consistent approved script.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The social media misinformation crisis was contained. Active monitoring enabled targeted, evidence-based corrections. Fraud reports were triaged appropriately. Customer support was scaled with consistent approved messaging. The organisation maintained factual accuracy throughout, which protected its credibility with regulators and provided a defensible record of its public communications.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Crisis Communications",
+  "difficulty": "Intermediate",
+  "tags": ["social media", "misinformation", "data breach", "crisis communications", "customer support", "media relations"]
+}

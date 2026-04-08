@@ -1,0 +1,64 @@
+{
+  "title": "scenario_conflicting_comms",
+  "description": "During a data breach incident, IT, legal, PR, and customer support are sending contradictory information to stakeholders and employees. A single coordinated communication strategy must be established before the inconsistencies cause further reputational and regulatory harm.",
+  "timeline": [
+    { "index": 0, "title": "Breach Confirmed", "description": "A data breach affecting customer records is confirmed by the security team. Multiple departments begin communicating independently without coordination.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Conflicting Messages Detected", "description": "Employees are receiving different guidance from IT and HR. Customer support is providing scope estimates that contradict those given by the PR team.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Unified Command Established", "description": "A crisis communications lead is appointed and a single source of truth document is created for all communications teams.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Corrective Messaging Issued", "description": "A single corrective internal message and an updated external statement are issued from the authorised spokesperson.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Communications Governance Enforced", "description": "All future communications during the incident are routed through a single approval process before release.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Scenario Complete", "description": "Contradictory messaging was stopped, a unified communications command was established, and corrective statements were issued internally and externally.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Multiple Teams Sending Contradictory Messages",
+      "situation": "A data breach affecting approximately 150,000 customer records was confirmed two hours ago. In the absence of a communications plan, different teams have acted independently: IT has emailed staff telling them not to discuss the incident with anyone; HR has separately told managers to reassure staff that 'only a small number of records' were affected; the PR team issued a holding statement referring to 'limited impact'; and customer support agents are telling callers that 'no financial data was compromised' — a claim that has not been verified. A journalist has already noticed the inconsistencies.",
+      "question": "What is your immediate action?",
+      "options": [
+        { "label": "A", "text": "Immediately instruct all teams to cease independent communications on the incident pending coordination. Convene an emergency cross-functional communications meeting with leads from IT, legal, PR, HR, and customer support to establish a single agreed set of facts and a single authorised spokesperson.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Allow each team to continue communicating independently but ask them to be more careful about accuracy, trusting teams to self-coordinate.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Issue a new public statement retracting all previous statements and declare that no further information will be provided until the investigation is complete.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Establishing a Single Source of Truth",
+      "situation": "The emergency cross-functional meeting is underway. Each team has a different understanding of the incident scope. IT believes 150,000 records were accessed. Legal is not yet willing to confirm any figure publicly. PR has already published a figure of 'tens of thousands'. Customer support has no script at all. You need to produce a single source of truth document before any further communications go out.",
+      "question": "How do you produce and enforce the single source of truth?",
+      "options": [
+        { "label": "A", "text": "Facilitate agreement on a factual baseline document that distinguishes confirmed facts from unconfirmed estimates, approved by legal and security leads. Distribute it to all communications teams with the instruction that only approved content from this document may be used. Designate a single spokesperson for all external communications.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Ask the PR team to produce the single source of truth document as they are most experienced in communications, without requiring sign-off from legal or security.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Agree to let each department communicate only about matters within their own domain, avoiding cross-team coordination overhead.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Issuing Corrective Internal and External Messaging",
+      "situation": "The single source of truth document has been approved. You now need to issue corrective messaging to both employees and external audiences to walk back the conflicting statements. Employees are anxious and looking for authoritative guidance. Customers who were told 'no financial data was compromised' may have already acted on that information. Legal counsel is cautious about the language used in any correction.",
+      "question": "How do you approach corrective messaging?",
+      "options": [
+        { "label": "A", "text": "Issue a single internal all-staff message from the CEO or CISO clearly stating what is known, what was communicated in error, and what to do now. Simultaneously issue an updated external statement through the designated spokesperson, withdrawing inaccurate prior claims and reframing around facts. Legal approves all content before release.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Quietly update the PR holding statement without explicitly acknowledging the earlier contradictions, hoping stakeholders do not notice the changes.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Issue separate corrective messages to each audience segment tailored independently by each team, maintaining parallel tracks.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Enforcing Communications Governance for the Remainder of the Incident",
+      "situation": "Corrective messages have been issued. The incident is ongoing and further updates will be needed over the coming days. You must now establish a governance process to ensure that no further conflicting messages are released by any team for the remainder of the incident.",
+      "question": "What communications governance process do you establish?",
+      "options": [
+        { "label": "A", "text": "Implement a mandatory clearance process: all incident-related communications from any team must be reviewed by the communications lead and approved by legal before release. Create a shared drafts channel, establish regular update meetings, and log all approved communications centrally.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Rely on the goodwill of team leads to check with each other informally before sending any incident-related communications.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Suspend all external communications for the duration of the incident to prevent further contradictions, providing no further updates to customers or media.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The conflicting communications crisis was resolved. Independent team messaging was halted, a single source of truth was established with legal and security sign-off, corrective internal and external statements were issued, and a clearance process was put in place to govern all further incident communications. Post-incident, the organisation adopted a formal crisis communications plan with pre-agreed roles and spokesperson designations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Crisis Communications",
+  "difficulty": "Intermediate",
+  "tags": ["crisis communications", "data breach", "stakeholder management", "media relations", "cross-team coordination"]
+}
