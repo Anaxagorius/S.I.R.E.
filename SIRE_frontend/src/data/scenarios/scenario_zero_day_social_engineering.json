@@ -1,0 +1,163 @@
+{
+  "title": "zero_day_social_engineering",
+  "description": "Attackers combine a zero-day browser vulnerability with a targeted spear-phishing campaign, weaponising a document that silently exploits the browser on open to install a persistent remote access tool before any patch is available.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Spear-Phishing Emails Sent to Executives",
+      "description": "Highly personalised phishing emails referencing a real upcoming board meeting are sent to ten executives, with a linked 'pre-read document'.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Browser Zero-Day Triggered",
+      "description": "EDR alerts on a memory corruption exploit in the browser process on the CFO's laptop after opening the document link.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "RAT Implanted on Executive Laptop",
+      "description": "A remote access tool is silently installed and begins beaconing. The CFO reports no unusual behaviour.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Malicious Link Blocked Organisation-Wide",
+      "description": "URL is blocklisted and email gateway retraction performed. Browser temporary mitigation deployed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Vendor Emergency Patch Released",
+      "description": "Browser vendor releases emergency patch within 48 hours. Patch deployed across all endpoints.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Executive Devices Forensically Reviewed",
+      "description": "All executive devices audited. RAT removed. Incident review reveals need for executive device hardening.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Spear-Phishing Targeting Executives",
+      "situation": "Your security team is alerted by the email gateway to a spear-phishing campaign targeting ten executives. The emails reference a real upcoming board meeting and are authored with insider knowledge of your company calendar and executive names. Each email contains a link to a hosted document. Two executives have already clicked. No known malware has been detected yet \u2014 but the browser URL has not been analysed.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately quarantine the phishing emails and retract them from all inboxes. Block the malicious domain at the email gateway and web proxy. Contact all targeted executives directly (phone, not email) to instruct them not to click. Escalate to CISO and begin EDR investigation on the two executive devices that already clicked.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a warning email to all executives telling them not to click the link and wait for EDR to alert on any malicious activity.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Forward the phishing email to your sandboxing solution and wait for the verdict before taking any other action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Zero-Day Exploit Confirmed on CFO's Device",
+      "situation": "EDR on the CFO's laptop shows a memory corruption event in the browser process immediately after clicking the link. A second process was spawned, which then connected outbound to an unknown IP. The browser vendor confirms a zero-day exploit is being used in the wild \u2014 no patch is yet available. The CFO's laptop may be fully compromised. Sandbox analysis of the URL confirms it hosts a zero-day exploit kit.",
+      "question": "How do you manage the compromised device and the zero-day?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately isolate the CFO's laptop from the network (preserve it for forensics \u2014 do not wipe). Deploy a temporary browser-level mitigation (disable JavaScript on untrusted sites, enforce strict content security policies in the proxy). Alert the browser vendor with the exploit sample. Begin forensic analysis of the device to determine what the attacker accessed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wipe and reimage the CFO's laptop immediately to remove the threat before the attacker can do further damage.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the CFO to continue using their laptop with antivirus running, and wait for the vendor patch before taking further action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "RAT Active \u2014 Determine Blast Radius",
+      "situation": "Forensic analysis of the CFO's laptop confirms a RAT is installed and has been active for 36 hours. The RAT has keylogging and screenshot capabilities. The CFO recently reviewed M&A documents and had video calls with board members. Other executive devices must be audited \u2014 some may have been compromised by the same zero-day before the domain was blocked.",
+      "question": "How do you scope the full impact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a forensic review of all executive devices that may have interacted with the malicious domain. Assume all accessed sensitive documents and communications during the 36-hour window may be compromised. Notify Legal, the board chair, and appropriate regulators. Review and rotate credentials accessible from the compromised device.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Limit the investigation to the CFO's device since it is the only confirmed compromise, and wait for other executive devices to alert before investigating them.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Vendor Patch Available \u2014 Deploy Safely",
+      "situation": "The browser vendor has released an emergency patch for the zero-day. All executive and employee devices must be patched immediately. You must also harden executive devices against future targeted exploitation.",
+      "question": "How do you manage emergency patching and hardening?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy the emergency browser patch to all devices through the endpoint management platform within hours, prioritising executive and privileged-user devices. Additionally harden executive devices: disable unused browser features, deploy browser isolation for high-risk users, and enforce hardware security keys for all executive authentication.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Push the patch through the standard monthly patch cycle to avoid disrupting business operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A combined zero-day and spear-phishing attack targeting executives was detected and contained. The malicious domain was blocked, the CFO's compromised device was isolated for forensics, and all executive devices were audited. The vendor patch was deployed on an emergency basis. Executive devices are now hardened with browser isolation and hardware security keys. A full lessons-learned report has been shared with the board.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "zero-day",
+    "spear phishing",
+    "RAT",
+    "browser exploit",
+    "executive targeting",
+    "social engineering"
+  ]
+}

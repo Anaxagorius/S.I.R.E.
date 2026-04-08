@@ -1,0 +1,150 @@
+{
+  "title": "purple_team",
+  "description": "Red and blue team members collaborate in a structured purple team exercise to test, measure, and immediately improve detection and response capabilities against a specific attack technique \u2014 ATT&CK technique T1003 (credential dumping) \u2014 with real-time feedback loops.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Purple Team Exercise Kicks Off",
+      "description": "Red and blue team members co-locate (virtually or in person) with a shared objective: test detection of credential dumping techniques.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Technique Executed \u2014 No Alert Fires",
+      "description": "Red team runs Mimikatz lsadump on a test system. No SIEM or EDR alert triggers.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Detection Gap Analysed Together",
+      "description": "Both teams analyse why the alert did not fire: EDR exclusion rule is too broad and suppresses the alert.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Detection Rule Tuned",
+      "description": "Blue team narrows the exclusion rule. Red team re-runs the technique. EDR now alerts.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Response Playbook Tested",
+      "description": "With detection working, the response playbook is triggered and tested end-to-end.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Next Technique Selected",
+      "description": "Exercise continues to the next ATT&CK technique. Coverage matrix updated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Purple Team Objective \u2014 Measure, Not Just Simulate",
+      "situation": "Your organisation is running a purple team exercise focused on credential access techniques (MITRE ATT&CK TA0006). Red team members will execute specific techniques against test systems. Blue team members will monitor detection tools in real time. The goal is not for red to 'win' \u2014 it is to measure detection coverage and close gaps immediately. The first technique is credential dumping via LSASS memory access (T1003.001). You are the blue team lead.",
+      "question": "How do you set up for maximum learning value?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Before the technique is executed, document your current detection hypothesis: what rules should fire, in which tools, on what data sources. After execution, compare actual results to hypothesis. This structured approach ensures you learn whether your detection is working as designed \u2014 or whether the design itself is flawed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Simply watch your SIEM and EDR consoles during execution and note whether alerts fire, without pre-documenting expectations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "No Alert Fired \u2014 Find Out Why",
+      "situation": "The red team executed Mimikatz lsadump on the test system. No EDR alert fired. No SIEM alert fired. Based on your pre-exercise hypothesis, an EDR alert on lsass.exe memory access should have triggered. You and the red team must jointly investigate why it did not.",
+      "question": "How do you diagnose the detection gap?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Jointly review the EDR telemetry to confirm the technique was executed and the relevant process events were captured. Then review the EDR detection rules and exception lists to find what suppressed the alert. Compare the telemetry to the rule logic to identify the exact gap.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conclude that the technique is not detectable with your current tooling and move to the next technique on the list.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Gap Found \u2014 Tune and Retest",
+      "situation": "Investigation reveals that an overly broad EDR exclusion rule, added six months ago to reduce false positives from a legitimate admin tool, is also suppressing Mimikatz detection. The fix is to narrow the exclusion to the specific tool path rather than the entire process category. You can tune and retest within the exercise \u2014 this is the core value of purple teaming.",
+      "question": "How do you manage the rule change safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the narrowed exclusion rule in a test/staging environment first. Verify that the legitimate admin tool still works without generating false positives. Then re-run the Mimikatz technique to confirm the detection now fires. Only then promote the rule change to production, following your change management process.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply the rule change directly to production and retest immediately \u2014 it is a minor rule adjustment and the exercise environment is production.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Detection Works \u2014 Now Test the Response",
+      "situation": "The refined exclusion rule is in production and the EDR now correctly alerts on the credential dumping technique. The purple team now wants to test the full response playbook \u2014 from alert triage through containment \u2014 to ensure detection alone is not the only gap.",
+      "question": "How do you test the response playbook?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Execute the full credential dumping response playbook against the live alert generated by the red team technique. Have the blue team triage the alert, escalate per the playbook, isolate the test system, and document the time from alert to containment. Measure against your defined SLA. Note any playbook steps that were unclear, missing, or caused delays.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The detection is now working \u2014 the playbook can be tested in a separate tabletop exercise at a later date.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The purple team exercise identified and immediately remediated a credential dumping detection gap caused by an overly broad EDR exclusion rule. The fix was tested safely in staging before production deployment. The full response playbook was tested end-to-end against a real alert, with time-to-containment measured against SLA. Detection coverage for T1003.001 is now verified. The exercise continues to the next ATT&CK technique.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "purple team",
+    "ATT&CK",
+    "credential dumping",
+    "detection engineering",
+    "EDR",
+    "tabletop",
+    "MITRE"
+  ]
+}

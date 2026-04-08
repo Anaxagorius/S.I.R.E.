@@ -1,0 +1,156 @@
+{
+  "title": "peak_hours_incident",
+  "description": "Ransomware begins encrypting core order-processing and payment systems during the busiest trading period of the year, with thousands of concurrent customer transactions in flight and tens of millions of dollars of revenue at risk every hour the systems are down.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Ransomware Note Appears on Register Systems",
+      "description": "Point-of-sale terminals begin displaying ransom notes. Online order processing also halts as backend services fail.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Critical Business Systems Encrypted",
+      "description": "Inventory, order management, and payment processing systems are confirmed encrypted. Call volume to the helpdesk spikes.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Crisis Management Team Convened",
+      "description": "CISO, CTO, CEO, CFO, and COO convene an emergency call. Business continuity options are evaluated.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 3,
+      "title": "Manual Fallback Procedures Activated",
+      "description": "Stores switch to manual payment handling. Online orders suspended with customer communications issued.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Recovery Progress",
+      "description": "Backup restoration begins on payment systems. Estimated four-hour recovery window assessed.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Systems Restored and Post-Incident Review",
+      "description": "Payment and order systems restored. Revenue impact assessed. Incident review commissioned.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ransomware During Peak Trading \u2014 Business Continuity First",
+      "situation": "It is 10:30 a.m. on the busiest shopping day of the year. Ransomware has encrypted your order management and payment processing systems. Point-of-sale terminals in all stores are displaying ransom notes. Thousands of online orders are in flight but failing. Estimated hourly revenue impact is \u00a34 million. Your business continuity plan includes manual fallback procedures, but these have not been tested at this scale.",
+      "question": "What is your immediate crisis action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately convene the crisis management team and invoke the business continuity plan. Activate manual payment and order fallback procedures in stores. Suspend online order acceptance with a customer-facing status message. Simultaneously engage the incident response team to isolate affected systems and assess recovery timelines.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus all resources on recovering the encrypted systems as fast as possible before activating any fallback procedures, to minimise the time systems are down.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Pay the ransom immediately to restore systems as fast as possible given the financial impact of downtime.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "To Pay or Not to Pay \u2014 Under Extreme Pressure",
+      "situation": "Business leaders are under extreme financial pressure. The CFO calculates that every hour of downtime costs \u00a34 million. Backup restoration is estimated to take 4\u20136 hours. The attacker's ransom demand is \u00a3800,000 in cryptocurrency with a 4-hour deadline. Legal and the CISO are on the call. Paying ransoms may fund criminal organisations and does not guarantee decryption.",
+      "question": "How do you handle the ransom decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not pay without exhausting all alternatives first. Engage a specialist ransomware recovery firm to assess whether decryption keys can be obtained through other means or whether the backups are viable. Continue backup restoration in parallel. Legal must assess OFAC/sanctions implications of any payment. Final decision requires CEO and board approval.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Authorise payment immediately given the financial impact \u2014 the ransom is less than one hour of lost revenue.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Customer Communication Under Pressure",
+      "situation": "One hour into the incident, social media is filled with customer complaints about failed payments and missing orders. Journalists are contacting the PR team. The CEO asks for a communications plan. Systems are still down but recovery is in progress.",
+      "question": "How do you manage external communications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a factual public statement acknowledging a technical incident is affecting services, without specifying the nature of the attack. Provide a status page with regular updates. Instruct customer service teams with approved messaging. Avoid confirming it is ransomware publicly until Legal approves disclosure. Prepare investor and regulator communications.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue no public statement until systems are fully restored to avoid causing further alarm and damaging the brand.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Systems Restored \u2014 What Failed in the BCP?",
+      "situation": "Payment and order systems are restored from clean backups after 5 hours. Total revenue impact is estimated at \u00a320 million. The manual fallback procedures were only partially effective \u2014 several stores ran out of manual receipt books and staff were not trained on the procedure. The board asks for a post-incident resilience review.",
+      "question": "What resilience improvements do you prioritise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritise: (1) regularly tested and exercised BCP including manual fallback drills at scale; (2) immutable backups tested for recovery time; (3) network segmentation to limit ransomware blast radius; (4) ransomware-resilient payment systems with offline capability. Commission a full resilience review including tabletop exercises.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Purchase a cyber insurance policy to offset future ransomware losses and continue with existing business continuity plans.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Ransomware during peak trading was managed by immediately activating the BCP, not paying the ransom, conducting backup recovery in parallel, issuing factual customer communications, and managing media pressure. The incident exposed BCP gaps \u2014 particularly untested manual fallback procedures and insufficiently tested backup recovery timelines. A resilience programme has been commissioned.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "ransomware",
+    "business continuity",
+    "peak hours",
+    "payment systems",
+    "crisis management",
+    "BCP"
+  ]
+}
