@@ -1,0 +1,176 @@
+{
+  "title": "scenario_intimate_partner_violence_children_present",
+  "description": "Officers respond to an intimate partner violence call with children present in the home. Child welfare and safety require coordination with child protective services.",
+  "category": "Violent Crime",
+  "difficulty": "Advanced",
+  "tags": [
+    "intimate partner violence",
+    "child welfare",
+    "CPS coordination",
+    "mandatory reporting",
+    "victim safety"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Call Dispatched",
+      "description": "IPV call with children reported present at the residence.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Safety",
+      "description": "Officers arrive and establish scene safety.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Parties Separated",
+      "description": "Victim and suspect separated; children located.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Child Welfare Assessment",
+      "description": "Children assessed and mandatory CPS report initiated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Arrest and Safety Plan",
+      "description": "Suspect arrested; victim safety plan developed.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Suspect charged; CPS notified; victim and children safe; safety plan in place.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Safety and Initial Assessment",
+      "situation": "You and your partner respond at 2230 hrs to an intimate partner violence call at a suburban residence. Dispatch advises a female caller hung up after whispering 'he's hitting me again, the kids are here.' Upon arrival, the residence lights are on, curtains drawn. A male's voice can be heard shouting inside. Two bicycles are visible on the front step. As you approach the front door, it swings open and a male (Ryan, 35) steps out, adjusting his shirt, and says calmly, 'Nothing's happening, we just had a disagreement.'",
+      "question": "How do you handle Ryan's attempt to control the interaction at the door?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not block Ryan's exit if he is not under arrest, but clearly advise him you need to enter the residence to check on the welfare of all occupants. Direct your partner to remain with Ryan outside and prevent him from re-entering while you make contact with the female and confirm the children's safety. Relay the scene update to dispatch.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Handcuff Ryan at the door immediately based on the 911 call, as there are reasonable grounds to believe he assaulted the caller.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Accept Ryan's explanation and conduct a brief door-step check to confirm everyone is okay visually before clearing the call.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Victim Contact and Children Located",
+      "situation": "Inside the residence you find Maria (32) sitting on the couch with a visible swollen lip and red marks on her neck. Two children are present: a boy (approximately 8) and a girl (approximately 5). The boy is standing in the hallway looking frightened; the girl is hiding under the kitchen table. Maria sees you and immediately says, 'Please don't take Ryan \u2014 he didn't mean it, the kids need their father.' The children appear uninjured but visibly distressed.",
+      "question": "How do you manage victim contact and the children's immediate welfare?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calmly introduce yourself and sit at Maria's level. Ask a support-oriented question ('Are you hurt? Can I get you anything?') before moving to the investigation. Request an additional unit and a child/youth officer if available. Ask the children their names and speak reassuringly to them. Do not begin questioning the children about the incident at this stage \u2014 they are witnesses and their interview requires specialized protocols.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately interview the eight-year-old boy, as he was present and can provide a reliable witness account of what happened.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask Maria to take the children to another room so you can speak privately, then begin the formal victim statement process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Child Welfare Assessment and Mandatory Reporting",
+      "situation": "Maria has disclosed that Ryan grabbed her by the throat and punched her in the mouth during an argument. She confirms the children were in the home and that the eight-year-old witnessed part of the altercation. Maria states this is not the first incident. You have a duty under your province's child welfare legislation (e.g., Ontario's Child, Youth and Family Services Act or BC's Child, Family and Community Service Act) to report to child protective services (CPS) when there are reasonable grounds to suspect a child has been or is at risk of harm.",
+      "question": "What is your obligation and action regarding the children's welfare?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Make an immediate mandatory report to your provincial CPS/child protection authority, providing the children's names, ages, address, nature of the domestic violence witnessed, and the history of incidents as disclosed. Document your observations of the children's distress and the physical evidence of violence in the home. Advise Maria you are required by law to make this report regardless of her wishes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise Maria to contact CPS herself when she is ready, as mandatory reporting is only required when children are directly abused, not when they witness domestic violence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Note the children's presence in your report but defer the CPS notification until charges are confirmed and the investigation is complete.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Arrest Decision and Safety Planning",
+      "situation": "CPS has been notified and a child protection worker is responding. Ryan is still outside with your partner. Based on Maria's disclosure, your visible observations (swollen lip, neck redness), and the children's distress, you have grounds to arrest Ryan for assault (s.266) and choking (s.267(c) \u2014 assault with a weapon/choking) under the Criminal Code. Maria is scared about what will happen to her and the children if Ryan is arrested. She has no family nearby and limited finances.",
+      "question": "How do you effect Ryan's arrest and address Maria's immediate safety needs?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrest Ryan for assault and choking, advise him of his Charter rights, handcuff and search him, and place him in the police vehicle. Return to Maria and conduct a safety planning conversation: identify whether Ryan has access to weapons, whether there are friends or family she can stay with, explain the bail condition process and the likelihood of a no-contact order. Provide her with the local shelter number and victim services card, and ensure she knows how to call 911.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue Ryan a promise to appear for a future court date rather than arresting him, as he is cooperating outside and an arrest may inflame the situation for Maria and the children.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest Ryan but tell Maria she can call the station tomorrow to request the charges be withdrawn if she changes her mind.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Ryan was arrested for assault and choking. A mandatory CPS report was filed; a child protection worker is en route. Maria received victim services information and a safety plan. You documented all observations, injuries, children's distress, and Maria's disclosure thoroughly for an evidence-based prosecution package. Key lessons: Witnessing domestic violence constitutes risk of harm to children under most provincial child welfare legislation \u2014 mandatory reporting is non-negotiable. Choking in domestic violence is a critical lethality indicator and should be charged under s.267 separately from the assault. Safety planning is a professional obligation, not optional.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

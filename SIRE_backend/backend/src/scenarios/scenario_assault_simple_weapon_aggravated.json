@@ -1,0 +1,176 @@
+{
+  "title": "scenario_assault_simple_weapon_aggravated",
+  "description": "Patrol officer responding to a fight call that escalates from simple assault to assault with a weapon to aggravated assault",
+  "category": "Violent Crime",
+  "difficulty": "Intermediate",
+  "tags": [
+    "assault",
+    "use of force",
+    "arrest",
+    "evidence collection",
+    "victim care"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fight Call Dispatched",
+      "description": "Dispatch reports a fight in progress at a strip mall parking lot.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Units Arrive On Scene",
+      "description": "Officers arrive to find an altercation with a weapon involved.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Subject Controlled",
+      "description": "Suspect is taken into custody following use-of-force intervention.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Victim Assessment",
+      "description": "Victim is assessed for injuries; paramedics are requested.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Scene Documentation",
+      "description": "Evidence collected, witnesses identified, notes documented.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Suspect charged with aggravated assault. Victim transported; scene properly documented.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Scene Approach",
+      "situation": "You are a patrol officer responding to a Priority 1 call \u2014 'fight in progress' \u2014 at a strip mall parking lot at 2230 hrs. Dispatch advises at least two males fighting and bystanders are calling it in. As you approach, you observe one male (Subject A) striking another male (Subject B) repeatedly with a closed fist. Subject B is on the ground. Subject A is yelling aggressively and shows no signs of stopping. You are the first unit on scene; backup is two minutes out.",
+      "question": "What is your immediate action upon arriving on scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop your vehicle at a safe tactical distance, announce your presence loudly with both lights and siren, issue a clear verbal command to both parties to stop and show hands, and radio dispatch with your arrival and a scene update including subject descriptions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately exit your vehicle at high speed and physically intervene between the two combatants without first assessing the scene or calling in an update.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait in your vehicle for backup to arrive before taking any action, as you are a single officer and it is unsafe to approach two combatants alone.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Use of Force Decision \u2014 Weapon Introduced",
+      "situation": "You have announced your presence and issued verbal commands. Subject A has ignored commands and has now produced a glass bottle and struck Subject B across the face with it, causing visible lacerations and significant bleeding. Subject A turns toward you, still holding the broken bottle, and takes a step in your direction. Subject B is on the ground and appears semi-conscious. Backup is still approximately 90 seconds away.",
+      "question": "Subject A is advancing toward you with a broken bottle. What is your use-of-force response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Draw your conducted energy weapon (CEW/Taser) and issue a loud, clear warning: 'Police \u2014 stop or I will deploy my Taser!' Maintain a reactionary gap and continue verbal commands while tracking Subject A's movements. If Subject A continues advancing within strike range, deploy the CEW to stop the threat, then transition to handcuffing.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Draw your firearm and immediately fire at Subject A, as the broken bottle constitutes a lethal weapon and lethal force is justified.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Retreat to your vehicle and wait for backup before engaging, as departmental policy discourages single-officer engagement with armed subjects.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Arrest and Control",
+      "situation": "Your CEW deployment was effective. Subject A is on the ground, incapacitated. Backup unit has just arrived on scene. Subject A is swearing loudly and attempting to get up. The broken bottle is approximately one metre from Subject A's right hand. Subject B is conscious but disoriented; blood is pooling beneath his face from lacerations.",
+      "question": "How do you safely arrest Subject A and secure the scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the arriving officer to cover Subject A while you approach from behind, roll Subject A prone, secure both wrists in handcuffs, conduct a thorough pat-down search, and remove the broken bottle by placing it in an evidence bag without disturbing it. Call for EMS immediately for Subject B and check Subject A for injuries from the CEW.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave Subject A on the ground to attend to Subject B's injuries first, as Subject B appears more seriously injured and the CEW has temporarily incapacitated Subject A.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Kick the broken bottle away from Subject A to reduce risk, then handcuff Subject A without conducting a pat-down, as backup is now present to cover.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Victim Assessment and EMS Coordination",
+      "situation": "Subject A is handcuffed in the rear of a police vehicle. EMS has arrived and is treating Subject B. The paramedic advises Subject B has a laceration to the left cheek requiring stitches, a possible orbital fracture, and a suspected concussion. Subject B is alert and wants to speak with you. Three bystanders are present and witnessed the entire incident; one is recording on a cell phone. The broken bottle has been bagged as evidence.",
+      "question": "What is your priority regarding the victim and witnesses at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Obtain a brief verbal statement from Subject B before EMS transports, document his consent to gather medical records, and ensure all three bystanders are identified by name and contact information. Approach the witness who was recording and politely request the video, explaining its importance as evidence. Do not demand the phone or seize it without grounds.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow EMS to transport Subject B without speaking to him, as his injuries are your first concern and his statement can be taken at the hospital later.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Demand the bystander's cell phone under your authority as a police officer to preserve the video evidence, as it is critical to the investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You responded safely to an escalating assault, applied appropriate use-of-force at the weapon stage, effected a lawful arrest, coordinated EMS for the victim, and gathered witness information and digital evidence through proper channels. Subject A will be charged with assault (s.266), assault with a weapon (s.267(a)), and aggravated assault (s.268) depending on the extent of Subject B's injuries as confirmed by medical records. Key lessons: scene assessment before engagement, proportionate force escalation, evidence preservation, and victim/witness management are all critical components of a violent crime response.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

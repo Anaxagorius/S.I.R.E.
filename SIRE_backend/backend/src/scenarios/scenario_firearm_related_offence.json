@@ -1,0 +1,176 @@
+{
+  "title": "scenario_firearm_related_offence",
+  "description": "Officers respond to a report of a person brandishing a firearm during a dispute. The suspect is now gone. Officers must investigate the criminal code firearms offence.",
+  "category": "Violent Crime",
+  "difficulty": "Intermediate",
+  "tags": [
+    "firearm",
+    "brandishing",
+    "criminal code",
+    "threat investigation",
+    "suspect identification"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Complaint Received",
+      "description": "Call of a person who brandished a firearm during a dispute.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive",
+      "description": "Scene secured; complainant interviewed.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Witness Accounts",
+      "description": "Multiple witnesses provide consistent accounts.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Suspect Identified",
+      "description": "Suspect identified via CPIC and intelligence.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Arrest Warrant Considered",
+      "description": "Grounds assessed for arrest warrant application.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Investigation documented; warrant applied; suspect identified for arrest.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Arrival and Witness Interview",
+      "situation": "At 1630 hrs you are dispatched to a plaza parking lot. The complainant (Grace, 45) reports that during a dispute over a parking space, a male pulled out a handgun from his waistband, pointed it at her, and said 'back off or I'll shoot you.' The male then got into a blue pickup truck and drove away. Grace is visibly shaken. Two other witnesses are present \u2014 a store clerk (Jay) who saw the incident from the window, and another driver (Mei) who was parked adjacent. The suspect is gone. No shots were fired.",
+      "question": "How do you begin the investigation and manage the witnesses?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Secure the parking lot area as a potential crime scene \u2014 the dispute location may have evidentiary value (CCTV, physical evidence). Separate Grace, Jay, and Mei immediately so they cannot discuss the incident before formal statements. Begin with Grace \u2014 obtain a detailed account of the suspect's description, the firearm description, and the vehicle description including any plate information. Broadcast the suspect vehicle and description to patrol units immediately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conduct a group interview with all three witnesses together to establish a consistent account before taking individual statements.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advise the witnesses there is nothing more to be done as the suspect has fled, and suggest Grace file a report online for documentation purposes.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evidence Collection \u2014 CCTV and Description",
+      "situation": "Grace gives you: male suspect, 30s, short dark hair, approximately 5'10\", blue pickup truck, partial plate 'BRT.' Jay the store clerk confirms the account and says the man 'definitely had a gun \u2014 it was metal and he pointed it at the lady.' Mei got part of the plate as the truck left: 'BRT 4.' The plaza has a parking lot camera system. The plaza manager is available and willing to assist.",
+      "question": "How do you approach evidence collection at the scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately request the plaza manager preserve and provide all CCTV footage from the parking lot cameras covering the past two hours \u2014 do not allow it to overwrite. Have him burn the footage to a USB or request your forensic unit attend to copy it properly. Query CPIC and motor vehicle records using the partial plate 'BRT 4' for blue pickup trucks registered in the province. Document the descriptions from all three witnesses verbatim with times.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Take a photograph of the CCTV monitor screen using your phone as a quick preservation method, then take full statements before requesting the original footage.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Complete the witness statements first, then submit a records request for CCTV footage the following business day through your supervisor.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Suspect Identification via CPIC and Intelligence",
+      "situation": "The CPIC query on 'BRT 4' with a blue pickup in your province returns three vehicles. One matches the description: a 2019 Ford F-150, blue, plate BRT 479, registered to Kevin Holt (38). CPIC shows Kevin Holt has a prior criminal record for uttering threats (2019) and assault (2021). He does not have a valid Possession and Acquisition Licence (PAL). You review the CCTV footage \u2014 it clearly shows the altercation, a male matching the description, and what appears to be a dark handgun being produced.",
+      "question": "Based on the CPIC return and CCTV evidence, how do you proceed with suspect identification?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prepare a photo line-up using Kevin Holt's most recent photo from CPIC or a provincial licence photo \u2014 present it to each of the three witnesses individually and independently, following your department's photo identification procedures (sequential presentation, blind administrator if possible). Do not tell them you have a suspect \u2014 ask if they recognize anyone. Document each witness's response and confidence level. Confirm Holt's current address from motor vehicle records and do a drive-by to check whether the blue F-150 is at the residence.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Show Grace a photo of Kevin Holt directly from his CPIC record and ask 'Is this the man who threatened you?' as you need confirmation before proceeding.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Proceed directly to Kevin Holt's registered address to speak with him and confirm his identity before doing a formal photo identification process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Arrest Warrant Considerations",
+      "situation": "All three witnesses independently identified Kevin Holt's photo as the suspect. The blue F-150 is parked at his registered address. You have: three consistent witness identifications, CCTV footage showing the incident, CPIC confirming no PAL, and a prior record for threats. The offences that appear to apply include: uttering threats (s.264.1 CC), use of a firearm in the commission of an offence (s.85 CC), pointing a firearm (s.87 CC), and possession of a firearm without a licence (s.91 CC). You consult with your supervisor about arrest strategy.",
+      "question": "What is your recommendation for effecting the arrest of Kevin Holt?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Given that the suspect has a prior record, was in possession of an (apparently unlicensed) firearm, and is at a known residential address, recommend a planned arrest with sufficient officer resources \u2014 minimum four officers. The firearm is still unrecovered and may be at the residence; grounds may exist for a search warrant for the residence and vehicle under s.487 CC. Draft an information to obtain a search warrant and an arrest warrant. The arrest should not be conducted solo or without awareness that the suspect may be armed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attend the address alone and knock on the door \u2014 the suspect does not know he has been identified and may be cooperative if approached calmly.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Issue a summons to appear rather than arresting, as no one was physically hurt and the charges are relatively minor.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The investigation was properly initiated: witnesses were separated and independently interviewed, CCTV was preserved through proper channels, CPIC queried, a proper photo identification procedure was conducted, and a planned arrest with search warrant considerations was recommended. Charges applicable: uttering threats (s.264.1), pointing a firearm (s.87), possession of a firearm without a valid licence (s.91), and potentially use of a firearm (s.85). Key lessons: CCTV must be preserved immediately \u2014 footage overwrites quickly. Photo identification procedures must follow standard protocol to be admissible. Suspects with prior records who are armed require planned arrests with appropriate resources \u2014 never lone attendances.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

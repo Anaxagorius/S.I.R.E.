@@ -1,0 +1,176 @@
+{
+  "title": "scenario_domestic_violence_mandatory_charge",
+  "description": "Officers respond to a domestic violence call. The victim recants and insists police not press charges. Officers must navigate mandatory charging policy and victim support.",
+  "category": "Violent Crime",
+  "difficulty": "Intermediate",
+  "tags": [
+    "domestic violence",
+    "mandatory charge",
+    "victim support",
+    "evidence collection",
+    "VAWA"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Call Dispatched",
+      "description": "Dispatch sends officers to a domestic disturbance; neighbour called it in.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Arrival",
+      "description": "Officers arrive and assess safety before entry.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Victim Interview",
+      "description": "Victim is interviewed; recantation is made.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Mandatory Charge Decision",
+      "description": "Officers apply mandatory charging policy.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Victim Services Referral",
+      "description": "Victim is connected with support services.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Suspect charged under mandatory policy; victim referred to services; evidence documented.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Arrival and Safety Assessment",
+      "situation": "You are a patrol officer dispatched to a residential address at 2115 hrs after a neighbour called 911 reporting loud arguing and the sound of objects being thrown. As you and your partner arrive at the bungalow, the front door is open. Through the screen door you can see a woman (late 30s) standing in the hallway holding her left arm. A man (early 40s) is visible in the living room, pacing. You can hear the man saying 'Just tell them everything is fine.' The neighbour who called is standing on the adjacent lawn.",
+      "question": "What is your initial action upon arriving at this domestic disturbance call?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Announce your presence as police and request permission to enter. Direct your partner to cover the rear of the residence in case the male attempts to flee. Before making contact, observe the woman's demeanour, visible injuries, and the male's position through the screen door, and relay a scene update to dispatch including descriptions of both parties.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter the residence without announcement and separate the male from the female to prevent further violence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Speak to the neighbour first on the lawn to gather all information before approaching the residence, as this will give you the most complete picture.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Victim Interview and Recantation",
+      "situation": "You have separated the parties. Your partner is with the male in the living room. You are speaking with the female (Sandra) in the kitchen. Sandra has a visible red mark on her left forearm consistent with a gripping injury. She is tearful but composed. She states: 'He didn't mean it. We just had a fight. I don't want him arrested \u2014 we have kids. Please just go.' She denies being struck and attributes the arm injury to bumping into the counter. The male has told your partner 'nothing happened, she's clumsy.'",
+      "question": "How do you approach Sandra's recantation during your interview?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue the interview using a trauma-informed approach. Explain to Sandra that you understand this is difficult, and that charges in domestic violence cases are the Crown's decision, not hers, under mandatory charging policy. Document her exact words, photograph the injury with her consent, ask open-ended questions about what happened, and note behavioural indicators (tearfulness, hesitation, glances toward the living room).",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept Sandra's recantation at face value \u2014 she is an adult and has the right to refuse to make a complaint. Document that no offence occurred and clear the call.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Pressure Sandra by telling her that if she doesn't cooperate, child protective services will be called and her children may be removed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Mandatory Charge Decision",
+      "situation": "Based on your interview, you have documented: a visible gripping injury to Sandra's left forearm, a neighbour's 911 call reporting objects being thrown and arguing, inconsistent accounts between the parties, and Sandra's own statement that they 'had a fight.' The male (Derek) is a large individual with no visible injuries. Your training and provincial policy require you to lay charges where there are reasonable grounds to believe a domestic assault has occurred, regardless of victim wishes.",
+      "question": "What charge decision do you make and how do you effect the arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Based on the totality of circumstances \u2014 the injury, the 911 call, the inconsistent accounts, and the visible evidence \u2014 you have reasonable grounds to believe Derek committed an assault. You arrest Derek for assault (s.266 Criminal Code), advise him of his right to counsel and caution under the Charter, handcuff him, conduct a search incident to arrest, and transport him for processing. Document all grounds clearly in your notes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Warn Derek to leave the residence and not return tonight, as Sandra does not wish to press charges and there is insufficient evidence to arrest without her cooperation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Issue Derek an appearance notice and tell him to attend the police station tomorrow, as he is cooperative and there is no immediate threat.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Evidence-Based Prosecution and Documentation",
+      "situation": "Derek is under arrest in your vehicle. You need to complete a thorough evidence package that allows Crown to proceed without relying solely on Sandra's testimony \u2014 an evidence-based prosecution approach. This includes scene photographs, 911 call details, witness statements, injury documentation, and medical referral. Sandra is upset about the arrest and asks if Derek will be home tonight.",
+      "question": "How do you build the evidence-based prosecution package and respond to Sandra's concerns?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Photograph the scene (broken objects if present, Sandra's injury), request the 911 audio recording, obtain a written statement from the neighbour, document Sandra's exact statements verbatim (including the recantation), prepare a photo line-up or note evidence for Crown, and arrange for victim services to attend. Explain to Sandra that Derek will be held for a bail hearing and that a 'no contact' or 'no communication' condition may be imposed by the court.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Take a brief summary note and submit the arrest with minimal documentation, as Sandra's recantation weakens the case anyway and a full package will not change the outcome.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask Sandra to provide a written recantation statement, as this will be useful for Crown to understand her position and may help Derek at bail.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You applied mandatory charging policy correctly, conducted a trauma-informed victim interview, built an evidence-based prosecution package, and made appropriate referrals. Key lessons: In Canadian domestic violence cases, the decision to charge rests with police and the Crown \u2014 not the victim. Evidence-based prosecution, which relies on physical evidence, 911 audio, witness accounts, and documented observations, is essential when victims recant. Victim safety planning and immediate referral to victim services are obligations that run parallel to the investigation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

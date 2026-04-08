@@ -1,0 +1,176 @@
+{
+  "title": "scenario_homicide_scene_rural",
+  "description": "Officers respond to a suspected homicide at a remote rural property. Limited resources, extended response times, and scene preservation challenges in a rural/remote environment.",
+  "category": "Violent Crime",
+  "difficulty": "Advanced",
+  "tags": [
+    "homicide",
+    "rural",
+    "remote",
+    "scene preservation",
+    "resource coordination"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Call Received",
+      "description": "A farmhand calls 911 reporting a body found at a remote property.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Extended Response",
+      "description": "Single officer responds with 45-minute drive to remote location.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Scene Assessment",
+      "description": "Officer arrives and confirms suspected homicide.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Resource Coordination",
+      "description": "Officer coordinates remote resources via radio/satellite.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Scene Integrity Maintained",
+      "description": "Officer protects scene from environmental and wildlife factors.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Scene preserved under challenging conditions; major crimes en route.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Long Response and Preliminary Scene Assessment",
+      "situation": "You are the sole on-duty officer for a rural RCMP detachment covering 3,200 km\u00b2. At 0830 hrs a farmhand (Dale) calls 911 reporting he found the property owner (Vera, 68) lying in the field behind her farmhouse, unresponsive, with what he describes as 'a lot of blood around her head.' You are 47 minutes away. Dale is alone at the property. The nearest backup is 90 minutes away. There is no cell service at the property \u2014 Dale called from a landline in the farmhouse. You will be a single officer responding to a suspected homicide.",
+      "question": "What do you do in the 47 minutes before you arrive, and what instructions do you give Dale?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Instruct Dale via landline to not approach, touch, or move the body or anything near it. Tell him to go inside the farmhouse, lock the door, and not allow anyone else onto the property. Ask whether anyone else is present on the property. Notify your detachment commander immediately and request that major crimes and the coroner be notified. Request that the nearest available RCMP member respond as backup regardless of distance. Document the call time and Dale's details.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct Dale to place a tarp over the body to protect it from weather and wildlife until you arrive.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask Dale to photograph the scene with his phone and send photos to you so you can assess it before arrival.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scene Arrival and Confirmation",
+      "situation": "You have arrived. Dale meets you at the farm lane entrance. He is visibly shaken. He points to the field approximately 150 metres from the farmhouse. You can see a figure on the ground. The field is accessed by a dirt track. Dale confirms no one else is on the property. You check the surrounding farmyard \u2014 the farmhouse is secure, no vehicles other than Vera's pickup and Dale's truck. The weather is clear but there are recent animal tracks (coyote) near the path to the body.",
+      "question": "How do you approach and assess the scene as a single officer?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Park at the farm lane gate and walk to the body on the grass verge beside the dirt track, not on the track itself, to preserve tyre track evidence. Approach to within 2 metres of the body and conduct a life check without touching \u2014 no pulse, no respiration, lividity visible, clear trauma to the head. Do not approach within the blood perimeter. Note the coyote tracks and their proximity to the body. Take initial photographs with your police camera immediately. Identify this as a crime scene and begin establishing a boundary with whatever materials you have.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Drive your police vehicle to the body on the dirt track for better access and to use your vehicle as a windbreak protecting the scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Conduct a thorough pat-down of the body and turn Vera over to look for the wound and assess cause of death before photographing the scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Remote Resource Coordination",
+      "situation": "You have confirmed suspected homicide and taken initial photographs. You have flagged a boundary around the body using police tape tied to fence posts. Your radio has intermittent coverage at this location \u2014 you need to coordinate: coroner response (4 hours away), major crimes unit (flying in, approximately 3 hours), backup officer (90 minutes away), and forensic identification unit. You have a satellite communicator (SPOT/InReach) in your vehicle as a backup comm device.",
+      "question": "How do you manage communications and resource coordination from this remote location?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use your radio from the highest point on the property to transmit a full scene report \u2014 victim description, location coordinates (GPS), time of discovery, nature of injuries, scene condition, and the 911 caller's information. Switch to satellite communicator if radio fails. Request that dispatch coordinate: coroner, major crimes flight/drive, backup officer, and forensic ident. Confirm estimated times of arrival for each resource and plan the scene accordingly. Log all transmission times.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Drive back to the road to get better radio signal, leaving the scene unattended, and transmit a full report before returning.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Have Dale drive to the nearest cell tower area to call dispatch on your behalf, as your radio coverage is unreliable and this will get resources responding faster.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scene Integrity \u2014 Environmental and Wildlife Concerns",
+      "situation": "Resources are en route \u2014 major crimes ETA 3 hours. The weather forecast is calling for afternoon rain within 4 hours. The coyote tracks near the scene indicate wildlife access. You have crime scene tape around the body, but you are alone and the scene perimeter is large (a field). The dirt access track has tyre impressions that may be from a vehicle other than Vera's or Dale's \u2014 potentially the suspect's. Dale has told you Vera lived alone and was last seen by him yesterday evening at 1830 hrs.",
+      "question": "How do you protect the scene from environmental degradation and wildlife access during your 3-hour wait?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position your police vehicle at the scene entrance to block unintended access. Photograph the tyre impressions on the dirt track immediately and mark their boundaries with crime scene stakes. Use your emergency shelter tarp to create a canopy directly over the body (supported on stakes, not touching) to protect from rain \u2014 document this intervention with photos. Remain at the scene perimeter continuously. Request dispatch inquire whether a police drone or air asset is available for overhead photography before rain arrives.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the scene and take Dale to your vehicle for a full statement, returning to the scene when major crimes arrives, as the perimeter tape will deter animals.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Fire a warning shot into the field periodically to deter coyotes from approaching the scene while you maintain a perimeter.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You preserved the rural homicide scene under difficult conditions \u2014 remote location, single officer, extended resource response time, and environmental threats. Tyre impressions were documented before rain. The body was protected from weather. Communications were managed via radio and satellite. Resources were coordinated and en route. Key lessons: Rural homicide scene management requires adaptive improvisation within forensic preservation principles. GPS coordinates, satellite communications, and documenting perishable evidence early are critical. Environmental degradation is a primary threat \u2014 it must be mitigated before major crimes arrives.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

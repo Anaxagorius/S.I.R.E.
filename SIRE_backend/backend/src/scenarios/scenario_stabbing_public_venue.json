@@ -1,0 +1,176 @@
+{
+  "title": "scenario_stabbing_public_venue",
+  "description": "Officers respond to a stabbing at a crowded public venue (shopping mall). The suspect is still on premises among the public. Scene management, suspect containment, and public safety are critical.",
+  "category": "Violent Crime",
+  "difficulty": "Intermediate",
+  "tags": [
+    "stabbing",
+    "public venue",
+    "suspect at large",
+    "scene lockdown",
+    "mass panic"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Stabbing Reported",
+      "description": "Call of a stabbing at a crowded shopping mall.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive",
+      "description": "Officers find victim and request lockdown.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Lockdown Initiated",
+      "description": "Mall management coordinates a venue lockdown.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Suspect Located",
+      "description": "Suspect identified within the venue.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Crowd Managed",
+      "description": "Mass panic controlled; witnesses secured.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Victim treated; suspect arrested; venue managed safely.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Response \u2014 Victim Located",
+      "situation": "At 1420 hrs on a Saturday afternoon you are dispatched to a stabbing at Westfield Mall \u2014 the largest shopping centre in the city. The mall has over 180 stores and approximately 2,000 shoppers present. You arrive to find a 22-year-old male (Tyler) on the ground near the food court entrance, with a stab wound to his right side. Several bystanders are crowded around him, some screaming. Mall security (one officer, no weapons) is attempting to disperse the crowd. Tyler is conscious and says 'the guy in the red hoodie did it \u2014 he's still in there.'",
+      "question": "What is your immediate priority upon arriving at the victim?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Render first aid to Tyler \u2014 apply direct pressure to the stab wound. Direct mall security to immediately contact mall management and initiate a venue lockdown \u2014 all exits sealed and no one allowed to leave. Request multiple police units, EMS, and advise dispatch of a possible armed suspect at large in the mall. Broadcast the suspect description immediately: male, red hoodie. Note Tyler's statement verbatim and document the time.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave Tyler with the bystanders and immediately enter the mall to search for the suspect in the red hoodie before he escapes.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate the mall immediately by activating the fire alarm system to clear all occupants, then search the empty venue for the suspect.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Lockdown and Coordination",
+      "situation": "EMS is en route. Mall security has contacted management and is working on locking down exits. However, the mall has 12 exits \u2014 only six are staffed. The duty mall manager advises she can lock the six staffed exits but the other six are manual and unstaffed. Three additional police units are two minutes out. CCTV footage from the food court area is accessible via mall security's control room.",
+      "question": "How do you coordinate the lockdown with limited resources and unsecured exits?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritize sealing the six staffed exits immediately with security staff instructed not to allow anyone out who matches the suspect description. Assign the arriving three units to cover the remaining six unstaffed exits \u2014 two exits per unit, one officer per exit. Request dispatch for additional units. Direct a unit to the security control room to review CCTV footage of the food court for the stabbing and to track the suspect's movements through the camera network. Radio a clear suspect description to all units.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Abandon the lockdown approach \u2014 it is impractical with 12 exits \u2014 and instead conduct a systematic floor-by-floor sweep of the mall with available officers.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the mall to evacuate normally, positioning all officers at exits to check every person leaving against the suspect description.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Suspect Located via CCTV",
+      "situation": "The officer in the CCTV control room has tracked the suspect on camera \u2014 male in a red hoodie \u2014 who went into the Sporting Goods store on Level 2, approximately 90 seconds ago. The store has approximately 15\u201320 customers and two staff members inside. The suspect appears to still have a knife based on CCTV imagery \u2014 he has his hand in his pocket. The store has a front entrance and a fire exit at the rear.",
+      "question": "How do you approach and contain the suspect in the Sporting Goods store?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position two officers at the front entrance and one at the rear fire exit before making contact. Quietly advise store staff via radio or a discreet approach to get customers toward the rear of the store. A senior officer gives a loud verbal challenge at the entrance: 'Police! Show me your hands!' Do not rush the suspect in a store full of customers \u2014 maintain verbal engagement and a perimeter until ERT or additional resources arrive if the suspect does not comply immediately. Do not allow the suspect to access additional weapons from the store merchandise.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rush into the store immediately as a group to overwhelm and subdue the suspect before he can harm store customers.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Seal the store exits and announce over the mall PA system that the suspect should surrender, giving him five minutes to comply before officers enter.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Crowd Management and Witness Preservation",
+      "situation": "The suspect complied with verbal commands and was arrested at the store entrance. A folding knife was recovered from his right jacket pocket. The arrest caused a surge of panic and running among nearby mall shoppers \u2014 approximately 30 people ran and several fell. Two people have reported minor injuries from the crowd surge. Dozens of witnesses are now scattered across the mall, some live-streaming on phones. The food court area where the stabbing occurred is still an active crime scene.",
+      "question": "How do you manage crowd panic and preserve witness accounts?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the mall PA system (with management authorization) to announce in a calm voice that the situation is under control, the suspect is in custody, and all shoppers should remain calm and proceed to the nearest exit in an orderly manner. Treat the two injured persons from the crowd surge and request EMS check them. Identify and hold any witnesses to the stabbing \u2014 ask them to remain in a designated waiting area. Do not allow the food court area to be re-entered by the public. Request additional units to manage the crowd exit process and document witness details.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ignore the crowd panic and focus all officer attention on the suspect in custody and the food court crime scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Activate the full fire alarm evacuation to move everyone out of the mall quickly, then secure the food court as a crime scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The suspect was arrested with the knife in his possession. Tyler received immediate first aid and was transported by EMS. The mall lockdown contained the suspect. CCTV was used effectively to locate the suspect and track his movements. Crowd panic was managed and witnesses preserved. Key lessons: In a crowded public venue, the priority triangle is victim care, suspect containment, and public safety \u2014 all three must be managed simultaneously with available resources. CCTV is an immediate investigative resource that must be accessed early. Verbal challenge and positional advantage before entering a confined space with bystanders is always the preferred approach for a suspect who has not made an immediate threat.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

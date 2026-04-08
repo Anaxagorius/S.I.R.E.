@@ -1,0 +1,176 @@
+{
+  "title": "scenario_home_invasion",
+  "description": "Officers respond to a home invasion in progress. Occupants are sheltering in a bedroom. Suspects may still be on scene.",
+  "category": "Violent Crime",
+  "difficulty": "Advanced",
+  "tags": [
+    "home invasion",
+    "dynamic entry",
+    "victim rescue",
+    "scene search",
+    "evidence preservation"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "911 Call Received",
+      "description": "Victim calls 911 whispering; suspects may still be inside.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Staged",
+      "description": "Officers stage outside and coordinate entry.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Building Search",
+      "description": "Officers conduct systematic building search.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Occupants Located",
+      "description": "Occupants are safely extricated from sheltering location.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Scene Secured",
+      "description": "Building cleared; scene preserved for forensics.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Occupants safe; scene preserved; suspect description broadcast.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Staging and Entry Decision",
+      "situation": "At 0215 hrs you and your partner are dispatched to a reported home invasion in progress. The caller (female, 40s) whispered to dispatch that two males broke in through the back door, she and her husband are locked in the master bedroom, and she can hear the suspects moving through the house. The line went silent. The address is a two-storey residential home. A third officer is two minutes behind you. You have arrived and see the rear gate is open and the back door light is on. No suspects are visible from the street.",
+      "question": "What is your staging and entry decision prior to the third officer arriving?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stage your vehicle with lights off one house down. Do not immediately enter \u2014 wait the two minutes for the third officer to establish a minimum three-person entry team. Position yourself and your partner to cover the front and side exit routes to prevent suspect egress. Relay the scene update to dispatch and confirm whether suspects are still believed to be inside. Prepare for a building search once a minimum crew is assembled.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enter the residence immediately with just you and your partner, as the occupants are in danger and delay increases the risk to their safety.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Announce your presence loudly outside to alert any suspects that police have arrived and give them an opportunity to flee, protecting the occupants from a confrontation inside.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Building Search \u2014 Lower Floor",
+      "situation": "The third officer has arrived. You have a three-officer team. Your tactical plan: two officers (you and Officer Chen) will make entry through the rear door to conduct a systematic lower-floor search. Officer Park covers the front exit. Firearms are drawn. The rear door is hanging open \u2014 forced entry is evident at the door frame. The interior is dark. You can hear movement from the upper floor.",
+      "question": "How do you conduct the lower-floor search safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enter with weapons drawn. Use a systematic pie-slice technique to clear each room \u2014 corners first, then closets, then under furniture. Use your flashlight in offset position. Move methodically from room to room with Officer Chen covering your rear sectors. Communicate in low tones. Do not bypass any room or closet. Clear the kitchen, living room, dining room, and bathroom before moving to the staircase. Call out 'Clear' for each room confirmed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Move quickly through the lower floor checking only doorways and then proceed immediately to the upper floor to reach the trapped occupants.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Turn on the main floor lights to improve visibility and reduce risk before committing to a systematic search.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Suspect Encounter on Staircase",
+      "situation": "Lower floor is clear. As you approach the base of the staircase, a male (Suspect 1) appears at the top of the stairs. He is holding a large flat-screen television and stops when he sees you. He looks back into the hallway behind him. You issue the command 'Police! Don't move!' He drops the TV, which crashes on the stairs, and bolts into an upper-floor room.",
+      "question": "How do you respond to the fleeing suspect on the upper floor?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance up the stairs in a tactical stack \u2014 you lead, Officer Chen covers from behind. Broadcast via radio to Officer Park outside that a suspect may attempt to exit from an upper-floor window or balcony. Track the room the suspect entered. Position at the room's doorway and use verbal commands: 'Police! Come out with your hands up!' Do not pursue blindly into the room. Maintain a position of advantage at the doorway.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pursue the suspect immediately into the room at speed to prevent him from arming himself or escaping through a window.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Hold your position at the base of the stairs and request ERT (Emergency Response Team), as a suspect has barricaded in an upper room and this is a barricaded-person situation requiring specialized resources.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Occupant Extrication and Scene Preservation",
+      "situation": "Suspect 1 surrendered from the room in response to verbal commands and is now in handcuffs. A secondary search revealed Suspect 2 fled through a back bedroom window \u2014 Officer Park saw one suspect running north and broadcast a BOLO with description. The master bedroom door is visible at the end of the hallway. The occupants \u2014 a husband and wife \u2014 are still inside. The husband has a laceration on his forearm from the initial forced entry where he attempted to stop the intruders.",
+      "question": "How do you safely extricate the occupants and preserve the crime scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Knock on the master bedroom door, identify yourself by name and badge number, and provide a brief calm account of what has happened so the occupants know it is safe to open the door. Once they exit, immediately move them away from the hallway and down to the lower floor \u2014 treat the upper hallway and rooms as an active crime scene. Do not allow the occupants to move through bedrooms or pick up items. Call EMS for the husband's arm laceration. Secure the building as a crime scene pending forensic examination.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the occupants to walk through the house to identify what was taken and disturbed, which will assist in the investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the occupants to access their bedroom and belongings to recover from the trauma before documenting the scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "One suspect apprehended at scene; one suspect subject to area broadcast. Occupants safely extricated and EMS called for the husband's injury. Scene preserved for forensic examination. Key lessons: For home invasion in progress with occupants at risk, minimum three-officer entry is tactically sound before committing. Systematic room-by-room clearance prevents ambush. Verbal commands and positional advantage over a fleeing suspect reduce risk. Scene preservation \u2014 preventing occupant movement through rooms \u2014 protects forensic evidence of forced entry, fingerprints, and trace evidence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "title": "scenario_prohibited_firearm_possession",
+  "description": "Officers execute a traffic stop that leads to the discovery of a prohibited firearm. Proper search, seizure, and firearms charge documentation under the Criminal Code is tested.",
+  "category": "Weapons",
+  "difficulty": "Intermediate",
+  "tags": [
+    "prohibited firearm",
+    "traffic stop",
+    "search and seizure",
+    "criminal code",
+    "PAL"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Traffic Stop Initiated",
+      "description": "Officers initiate a traffic stop for a Highway Traffic Act violation.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Grounds Develop",
+      "description": "Officer's observations develop grounds for further investigation.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Firearm Discovered",
+      "description": "A prohibited firearm is located during a lawful search.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Safe Seizure",
+      "description": "Firearm is safely seized and secured.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "PAL and CFRO Check",
+      "description": "Possession and Acquisition Licence and CFRO queried.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Suspect arrested; firearm seized; charges documented.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Traffic Stop \u2014 Initial Approach",
+      "situation": "At 2145 hrs you initiate a traffic stop on a black sedan for failing to stop at a red light on Richmond Street. As you approach the vehicle on foot, you observe the driver (Marcus, 32) reaching toward the centre console area and then sitting rigidly upright with his hands on the steering wheel. He is visibly nervous, avoiding eye contact, and his hands are shaking when he produces his licence. A strong odour of cannabis is detectable from inside the vehicle. There is one occupant only.",
+      "question": "How do you conduct the initial traffic stop contact and assess the situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain a position of advantage at the B-pillar rather than the door frame. Request Marcus's licence, registration, and insurance. Note and document his nervous demeanour and the reaching movement in your notebook. Advise him you are stopping him for the red light violation. The combination of furtive movements toward the console and the cannabis odour provides reasonable grounds to believe a controlled substance may be present \u2014 advise Marcus you are going to have him step out of the vehicle.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue a ticket for the red light violation and allow Marcus to leave \u2014 the nervous behaviour is not sufficient grounds to detain him further.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately open the centre console yourself to investigate the furtive movement before doing anything else, as officer safety requires knowing what Marcus was reaching for.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Grounds for Search and Vehicle Search",
+      "situation": "Marcus has been removed from the vehicle and is cooperative. He is not under arrest at this stage \u2014 he has been detained for investigative purposes. You have: reasonable grounds to believe cannabis may be in the vehicle (odour), and the furtive reaching movement. You intend to conduct a search of the vehicle under the plain smell doctrine and CDSA grounds. Your partner has arrived as backup. Marcus says 'you can't search my car without a warrant.'",
+      "question": "How do you respond to Marcus's objection and conduct the vehicle search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calmly advise Marcus that you have reasonable grounds to believe a controlled substance is present based on the odour of cannabis, which provides lawful authority to search the vehicle without a warrant under s.11 of the Controlled Drugs and Substances Act. You do not need his consent. Have your partner maintain observation of Marcus while you conduct a systematic search \u2014 front seats, centre console, door pockets, glove box, then rear seat and trunk. Document your search methodology.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Agree that you need a warrant and release Marcus with a promise to contact him once a warrant is obtained.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest Marcus immediately for cannabis possession before conducting the search, so that the search is authorized as a search incident to arrest.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Firearm Discovery and Safe Seizure",
+      "situation": "During your search of the centre console you find a small amount of cannabis (personal use quantity). As you search the rear seat area beneath the driver's seat, your hand contacts a solid, heavy object. You carefully withdraw it \u2014 it is a handgun wrapped in a cloth. The firearm appears to be a semi-automatic pistol, compact size. The magazine is inserted. You need to make it safe and seize it as evidence.",
+      "question": "How do you safely handle and seize the firearm?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not rack the slide or manipulate the firearm unnecessarily until it is secured. Withdraw it carefully maintaining trigger discipline. Point it in a safe direction, remove the magazine, lock back the slide to check the chamber and confirm it is clear. Announce 'Gun \u2014 firearm secured' to your partner. Place the firearm in a firearms evidence bag, magazine separate, and do not put them back together. Note the position it was found, take photographs before seizure, and mark the location with an evidence marker. Arrest Marcus now for possession of a firearm.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the firearm exactly where it is and call for forensic ident before touching it, as fingerprint evidence on the weapon takes priority over safe handling.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately arrest Marcus at gunpoint as soon as you see the firearm, before making it safe, as he is an armed suspect.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "PAL Query and CFRO Check",
+      "situation": "Marcus is under arrest for possession of a firearm. He has been Chartered and cautioned. He is not speaking to you. You need to determine whether the firearm is prohibited, restricted, or non-restricted under the Firearms Act, and whether Marcus has a valid Possession and Acquisition Licence (PAL). The CFRO (Canadian Firearms Registration Online) can be queried through dispatch. The firearm appears to be a compact 9mm pistol \u2014 handguns are restricted or prohibited in Canada.",
+      "question": "How do you conduct the PAL and firearms status check, and what does the result mean for charges?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request dispatch to query CPIC and CFRO using Marcus's name and date of birth: check for a valid PAL, restricted/prohibited designation for the firearm by serial number if visible, and any firearms prohibitions on Marcus. Document the serial number from the firearm carefully. If Marcus has no PAL, he is in unauthorized possession of a restricted or prohibited firearm \u2014 charges under s.91 (possession without licence) and s.92 (possession of prohibited firearm) of the Criminal Code apply. If there is a prohibition order against him, s.117.01 applies.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume the firearm is prohibited and proceed with the most serious charge without querying \u2014 CPIC queries can be completed at the station.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Release Marcus on an appearance notice pending lab analysis to confirm the firearm is functional before laying charges.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The traffic stop led to a lawful vehicle search based on CDSA grounds (cannabis odour). A prohibited compact handgun was safely seized with proper handling protocols. Marcus had no PAL and was subject to a prior firearms prohibition order. Charges: possession of a prohibited firearm (s.92 CC), possession of a firearm contrary to a prohibition order (s.117.01 CC), and possession of cannabis. Key lessons: Furtive movements and cannabis odour together provide grounds for a CDSA vehicle search \u2014 document both clearly. Firearm safety comes before evidence preservation \u2014 make the weapon safe first, then photograph. The PAL and CFRO check is an essential step to determine the appropriate charge tier.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

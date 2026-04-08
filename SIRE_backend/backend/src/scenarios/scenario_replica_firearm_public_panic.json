@@ -1,0 +1,176 @@
+{
+  "title": "scenario_replica_firearm_public_panic",
+  "description": "Officers respond to reports of a person with a firearm in a public park causing panic. The weapon turns out to be a realistic replica. Use of force decisions and de-escalation under uncertainty are tested.",
+  "category": "Weapons",
+  "difficulty": "Advanced",
+  "tags": [
+    "replica firearm",
+    "use of force",
+    "de-escalation",
+    "public safety",
+    "threat assessment"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Firearm Reported",
+      "description": "Multiple 911 calls about a person with a gun in a park.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Deployed",
+      "description": "Officers approach using tactical positioning.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Contact and Challenge",
+      "description": "Officer challenges the subject.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "De-escalation Applied",
+      "description": "Verbal de-escalation resolves the situation.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Replica Identified",
+      "description": "Weapon confirmed as a replica; appropriate charges assessed.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Subject safely taken into custody; replica seized; charges assessed.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Dispatch and Initial Approach",
+      "situation": "At 1445 hrs on a weekday afternoon, multiple 911 calls are received about a person in Riverside Park displaying what callers describe as 'a black gun.' The person is described as a male in his 20s wearing a grey hoodie, walking along the main path near the playground. Several families with children have fled the park. You and your partner are the first units. A third unit is 90 seconds behind you. The park has multiple entry points.",
+      "question": "How do you approach the scene given the reported armed subject in a public park?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not enter the park immediately. Approach the park perimeter and use cover to visually locate the subject before committing to contact. Relay your position and observations to dispatch. Direct the third arriving unit to take the opposite park entry point. Identify whether children are still present in the park \u2014 if so, attempt to warn bystanders via PA system or direct verbal contact to move them back. When the subject is visually located, take a covered position and assess before issuing challenge.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enter the park immediately at speed to locate and confront the armed subject as quickly as possible, as children may be at risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Establish a perimeter around the entire park and wait for ERT, as a person armed with a firearm in a public space requires a tactical response team.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Visual Contact and Force Option Assessment",
+      "situation": "You have visually located the subject (Nathan, appears mid-20s, grey hoodie) approximately 40 metres away on the main pathway. He is holding a black object that appears to be a handgun in his right hand, pointing it toward the ground. He is not threatening anyone directly. The park path is otherwise clear \u2014 all bystanders have moved away. He appears to be walking slowly and is not aware of your position. Your partner has a CEW. You have your firearm holstered. The third unit is now at the opposite entrance.",
+      "question": "Before issuing a verbal challenge, how do you assess your force options?",
+      "options": [
+        {
+          "label": "A",
+          "text": "From your covered position, conduct a threat assessment: Nathan is not pointing the weapon at anyone, he appears unaware of police presence, and there are no immediate victims at this moment. This is not an imminent lethal threat requiring immediate lethal force. Communicate to your partner via low-voice or hand signal that you will issue verbal challenge from cover while your partner has the CEW ready as a lower-force option. The third unit should approach from the far side to create containment. Plan the challenge from a covered, elevated position at maximum effective distance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Draw your firearm and fire a warning shot to alert Nathan that police are present and he should drop the weapon.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Since the subject is not actively threatening anyone, holster all weapons and approach Nathan calmly to begin a conversation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Verbal Challenge and De-escalation",
+      "situation": "You issue a verbal challenge from behind cover: 'Police! Don't move! Show me your hands!' Nathan freezes. He looks in your direction. He has the object in his right hand and raises both hands partially. He calls out 'It's not real! It's a toy \u2014 don't shoot! Please!' He appears frightened. He does not drop the object. The object in his hand, from 40 metres, remains indistinguishable from a real firearm.",
+      "question": "How do you respond to Nathan's claim and maintain a safe approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain your covered position. Respond clearly: 'If it is a toy, put it on the ground in front of you and step back!' Do not assume it is a replica based solely on his claim \u2014 officers cannot distinguish a replica from a real firearm from distance. Nathan must demonstrate compliance by placing the object down before any approach. Continue verbal directions in a calm, firm tone. Do not allow Nathan to put the object back in a pocket, jacket, or backpack \u2014 keep it visible on the ground. Approach only after the object is on the ground and Nathan has moved several steps away.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept Nathan's verbal claim that it is a toy and approach him immediately to confirm, as the situation is likely a misunderstanding.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deploy the CEW immediately as Nathan has failed to drop the weapon on your first command and his continued possession is an ongoing threat.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Replica Identified \u2014 Charge Assessment",
+      "situation": "Nathan has placed the object on the path and stepped back. You approach with your partner covering. The object on the ground is confirmed as a realistic replica handgun \u2014 a high-quality airsoft pistol that is visually identical to a real firearm from any distance. Nathan is cooperative, has no prior record, and is distressed. He states he was 'just showing it to a friend' and did not realize it would cause concern. Several families had left the park in genuine fear. You need to assess Criminal Code charges.",
+      "question": "What charges, if any, are applicable to Nathan's conduct with the replica firearm?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assess charges under s.87.1 of the Criminal Code \u2014 pointing a replica firearm \u2014 and s.351(2) \u2014 disguise with intent. Also consider public mischief or causing disturbance under s.175 if Nathan's display caused public alarm without direct threat. Review the Firearms Act definition of 'replica firearm' to confirm the airsoft pistol qualifies. Arrest Nathan for the applicable offence(s), administer Charter rights, and seize the replica as evidence. Even without a real firearm, the realistic replica in a public space causing public fear is a criminal matter. Consult Crown before charging if circumstances warrant.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Release Nathan with a warning \u2014 no criminal offence occurred as the item was not a real firearm and no one was directly threatened.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Charge Nathan with uttering threats (s.264.1) as his display of the replica created fear in bystanders equivalent to a direct threat.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "A potentially lethal situation was resolved through tactical positioning, covered approach, and verbal de-escalation without use of lethal force. The subject's claim that the weapon was a replica did not alter the tactical approach \u2014 the object was treated as real until proven otherwise. Applicable charges under the Criminal Code for replica firearm display in public causing alarm were assessed. Key lessons: Replica firearms must be treated as real until physically confirmed otherwise \u2014 officers cannot assume from a verbal claim. De-escalation through verbal commands, cover, and controlled approach is always the preferred resolution path when an immediate lethal threat is not present. Replica firearm offences exist in the Criminal Code specifically because realistic replicas cause real public harm.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

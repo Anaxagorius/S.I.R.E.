@@ -1,0 +1,176 @@
+{
+  "title": "scenario_attempted_murder",
+  "description": "Officers respond to a shooting victim found alive with serious injuries. A suspect is believed to still be in the area. Scene management, victim care, and active suspect search must run simultaneously.",
+  "category": "Violent Crime",
+  "difficulty": "Advanced",
+  "tags": [
+    "attempted murder",
+    "shooting",
+    "active suspect",
+    "scene management",
+    "victim priority"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Shooting Reported",
+      "description": "Officers dispatched to a shooting victim; suspect fled on foot.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Victim Located",
+      "description": "Officers find victim with gunshot wounds; EMS requested.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Scene as Crime Scene",
+      "description": "Officers balance victim care with scene preservation awareness.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Suspect Containment",
+      "description": "Area search and containment for the fleeing suspect.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Witness Management",
+      "description": "Witnesses secured and statements captured.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Victim treated; scene preserved; suspect contained or BOLO active.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Arrival \u2014 Victim with Gunshot Wounds",
+      "situation": "At 2115 hrs you and your partner are dispatched to a reported shooting. Dispatch advises a male is down on the sidewalk on Oak Street with apparent gunshot wounds. A caller says the shooter fled north on foot about two minutes ago. Description: male, dark jacket, medium build. Upon arrival you find James (late 20s) on the sidewalk. He is conscious and breathing rapidly. There are two visible gunshot wounds \u2014 right upper thigh and lower abdomen. He is losing significant blood. Two bystanders are nearby.",
+      "question": "What is your immediate action upon finding James?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rapidly check James for responsiveness and bleeding severity. Apply direct pressure to the most active bleed (abdomen) and direct the second officer to apply pressure to the thigh wound using whatever is available (trauma kit, clothing). Immediately request EMS \u2014 Priority 1 \u2014 and give an exact location. Direct bystanders to step back and stay to the side. Ask James in a calm, urgent tone: 'Who shot you? Which way did he go? What does he look like?' Document any spontaneous utterances. Keep James talking.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Secure the perimeter of the scene first before rendering aid to James, as the scene must be preserved for forensics before anyone touches the victim.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Begin searching north for the shooter immediately while your partner stays with James, prioritizing suspect containment as he may be an ongoing public threat.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scene as Crime Scene \u2014 Balancing Victim Care",
+      "situation": "James has been given first aid and EMS is approximately four minutes away. James told you: 'It was Marco \u2014 black jacket, he ran up Oak toward the park.' He lapses into reduced consciousness. You and your partner are applying pressure to his wounds. The immediate scene around James contains: a brass shell casing visible under a parked car, a blood trail extending 10 metres back up the sidewalk, and what appears to be a dropped cell phone near the blood trail. EMS is approaching.",
+      "question": "How do you manage the handoff to EMS while protecting the crime scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief EMS on victim's condition and injuries as they arrive. Document the spontaneous utterance from James verbatim in your notes immediately. Photograph the shell casing, blood trail, and cell phone with your phone camera before anything is disturbed \u2014 take multiple angles. When EMS begins treatment they will need to move around James; guide them to avoid stepping on the shell casing and alert them to the blood trail. Do not pick up the cell phone \u2014 mark it with a cone or note its position. Request forensic ident immediately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow EMS to work unguided and focus your attention entirely on establishing the scene perimeter, as EMS professionals will not disturb evidence unnecessarily.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Pick up the cell phone and the shell casing and place them in evidence bags immediately so they are not lost or disturbed during EMS treatment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Suspect Containment \u2014 Area Search",
+      "situation": "EMS is transporting James to trauma. You have broadcast the suspect description: 'Marco, male, dark jacket, medium build, last seen heading north on Oak toward Riverside Park \u2014 armed with a firearm, suspect in a shooting.' Three other units are responding. Riverside Park is 300 metres north \u2014 a large green space with multiple exits. A police dog unit (K9) is 10 minutes away. The park has two vehicle exits and four pedestrian paths.",
+      "question": "How do you direct the containment of Riverside Park for the armed suspect?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate arriving units to establish a perimeter around the park: one unit at each vehicle exit (2 units) and one unit each at the two primary pedestrian paths on the south face (2 units). You take the north side. Advise all units the suspect is armed \u2014 no solo approaches. Request K9 attend as soon as available for a track from Oak Street north. Broadcast to transit authority to halt bus service at park stops and advise any park staff or security to shelter in place. Do not compress the perimeter until K9 is ready to track.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enter the park immediately with your partner to search, as every minute of delay allows the suspect to escape the area.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Establish a perimeter only at the vehicle exits, as the suspect is on foot and foot patrol officers inside the park can cover pedestrian exits.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Witness Management at Scene",
+      "situation": "The park perimeter is established. K9 is searching. Back at the Oak Street scene, two bystanders who were present when you arrived are still on scene. You also learn that a resident in the apartment building across the street may have seen the shooting from a second-floor window. The forensic ident unit has arrived at the scene. A community member has posted a short video to social media that appears to show the aftermath of the shooting.",
+      "question": "How do you manage the witnesses and the social media video?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Collect identification from both bystander witnesses and separate them. Attend the apartment building and request the resident's name, contact info, and whether they recorded anything or have a doorbell/security camera. Request the social media video be preserved immediately \u2014 contact your department's digital evidence unit or submit a legal preservation request to the platform. Do not approach witnesses with leading questions. Document spontaneous statements. Ensure all witnesses are aware they should not post further about what they saw.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Download and screenshot the social media video yourself to preserve it, then continue with witness interviews.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advise the two bystanders they can leave since their initial accounts were noted and you have enough information from James to identify the suspect.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "James received life-saving treatment and was transported to trauma. The scene was preserved with key evidence \u2014 shell casing, blood trail, and cell phone \u2014 documented before being disturbed. James's spontaneous utterance naming 'Marco' was immediately noted. A proper perimeter and K9 track were coordinated for the armed suspect. Witnesses were identified, separated, and the social media video preserved through proper channels. Key lessons: Victim care and scene preservation must run in parallel \u2014 they are not mutually exclusive. Spontaneous utterances from a victim are admissible and must be documented verbatim. Social media evidence must be legally preserved, not simply screenshot by an officer.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

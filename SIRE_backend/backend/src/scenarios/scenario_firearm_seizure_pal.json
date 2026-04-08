@@ -1,0 +1,176 @@
+{
+  "title": "scenario_firearm_seizure_pal",
+  "description": "Officers attend a well-being check on a firearms licence (PAL) holder who is in mental health crisis. Safe seizure of legally owned firearms is required under the Firearms Act.",
+  "category": "Weapons",
+  "difficulty": "Advanced",
+  "tags": [
+    "PAL",
+    "firearms act",
+    "mental health",
+    "safe seizure",
+    "well-being check"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Well-Being Call",
+      "description": "Family member requests well-being check on a PAL holder in crisis.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officer Arrival",
+      "description": "Officers arrive and assess the mental health situation.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Mental Health Assessment",
+      "description": "Officers assess lethality risk and escalate mental health response.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Firearms Act Authority",
+      "description": "Officers invoke Firearms Act authority to seize firearms.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Safe Physical Seizure",
+      "description": "Legal firearms are safely seized and documented.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scenario Complete",
+      "description": "Subject connected to mental health care; firearms safely seized under Firearms Act.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Well-Being Check \u2014 Initial Contact",
+      "situation": "At 2000 hrs you respond to a well-being check requested by a sister (Anne) who is concerned about her brother (Frank, 52). Anne tells dispatch Frank called her crying, saying 'there's no point anymore' and 'I've got what I need here' before hanging up. Anne states Frank is a licensed firearms owner with several rifles and a handgun kept in his home. Frank recently went through a divorce and lost his job three months ago. You and your partner arrive at Frank's single-family home. Lights are on inside. His vehicle is in the driveway.",
+      "question": "How do you approach and make initial contact in this high-risk well-being check?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat this as a high-risk call given the explicit firearms in the home and suicidal language. Stage one house back, ensure dispatch is aware this is a PAL holder's residence. Do not approach the front door without tactical awareness \u2014 approach from an angle, not centred on the door. Knock and announce clearly: 'Frank, it's the police \u2014 your sister called because she's worried about you. Can you come to the door?' Your tone must be calm and non-threatening. Do not draw your firearm unless a direct threat emerges.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Knock loudly on the door and announce 'Police! Open up!' to get Frank to the door quickly, as every second counts in a potential suicide situation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately enter the residence under exigent circumstances, as Frank may be harming himself right now and seconds matter.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Mental Health Assessment and Lethality Risk",
+      "situation": "Frank comes to the door after two minutes. He appears dishevelled and has been crying. He opens the door partially and says 'I'm fine, just tired. Anne worries too much.' He smells of alcohol. Behind him in the front room you can see a hunting rifle leaning against the wall. There are two empty beer bottles on the coffee table. Frank is not making eye contact and his speech is slow. He has not invited you in but has not closed the door.",
+      "question": "How do you conduct a lethality and mental health assessment at the door?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain calm conversation. Express genuine concern: 'Frank, we heard you were having a rough night. Can I come in and talk for a few minutes? You're not in any trouble.' If he consents, enter. If not, continue the conversation at the door and request a mental health crisis team or Mobile Crisis Response Unit attend. Ask him directly but gently: 'Are you thinking about hurting yourself?' Document the rifle visible in the room. Do not ignore the firearm \u2014 its presence next to an intoxicated, suicidal individual is a lethality indicator.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Frank you need to come in and inspect the rifle immediately as it poses a danger, and push past him to secure the weapon.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Accept Frank's statement that he is 'fine' and note the attendance in your report \u2014 he is an adult and did not invite you in, so no further action is warranted.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Firearms Act Authority \u2014 Seizure Decision",
+      "situation": "Frank has allowed you inside. The crisis team is en route. Frank has disclosed that he has 'thought about it' but won't confirm a plan. You observe: one rifle in the front room, a gun safe in the hallway (locked), and ammunition on a bookshelf. Frank has a valid PAL on file. Under s.117.04 of the Criminal Code and s.70 of the Firearms Act, police have authority to seize firearms from a licensed holder where there are reasonable grounds to believe the person poses a danger to themselves or others. The crisis team advises ETA 15 minutes.",
+      "question": "How do you invoke your authority to seize Frank's firearms and what grounds do you cite?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise Frank calmly that you have authority under the Firearms Act to temporarily take his firearms for safekeeping because you are concerned for his safety tonight. Explain this is not an arrest and does not affect his PAL permanently \u2014 it is a safety measure. Document your grounds in your notebook: suicidal language on the phone ('there's no point anymore'), alcohol intoxication, emotional distress, visible unsecured firearm, and his admission that he has 'thought about it.' Request his cooperation to unlock the gun safe. If he refuses, you retain the unsecured rifle and the grounds for a warrant for the remainder.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait until Frank is assessed by the mental health crisis team before seizing the firearms \u2014 the crisis team should make the safety recommendation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest Frank under the Mental Health Act and then seize all firearms incident to arrest, as this provides the cleanest legal authority.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Safe Physical Seizure Procedures",
+      "situation": "Frank has cooperated and opened the gun safe. Inside are: two additional rifles, a legally owned restricted handgun, and approximately 200 rounds of mixed ammunition. Including the rifle from the front room, you have four firearms to seize. You need to safely unload and transport all four weapons. The handgun is restricted and requires a transport authorization under the Firearms Act even for police seizure purposes. Frank is sitting on the couch, subdued and cooperative.",
+      "question": "How do you safely conduct the physical seizure of all four firearms?",
+      "options": [
+        {
+          "label": "A",
+          "text": "With your partner covering the room, seize one firearm at a time: clear the chamber and remove the magazine of each. Treat each firearm as loaded until physically confirmed clear. Place each firearm in a separate evidence bag or firearms case with the actions open. Document each firearm: description, serial number, condition. Ammunition is seized separately. For the restricted handgun, note the transport of a restricted firearm under s.17 authority (police seizure) and ensure this is documented. Leave Frank with a copy of the seizure receipt and advise him of the process to have his PAL reviewed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Place all four firearms and the ammunition in the same large evidence bag for transport to the station, as individual packaging is not required for legally owned firearms.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Seize only the unsecured rifle from the front room, as the guns in the safe were safely stored and do not pose an immediate risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Frank's firearms were safely seized under the Firearms Act, removing access to lethal means during a mental health crisis. All four firearms were individually documented and safely cleared. Frank was connected to the mental health crisis team and is receiving support. A firearms seizure receipt was provided. Key lessons: PAL holders in mental health crisis require officers to activate both the mental health response AND the Firearms Act seizure authority simultaneously \u2014 these are parallel obligations. Means restriction (removing access to firearms) is a proven suicide prevention intervention. Seizure under the Firearms Act is not an arrest and must be communicated as a safety measure to gain cooperation. Each firearm must be individually cleared, documented, and packaged separately.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
