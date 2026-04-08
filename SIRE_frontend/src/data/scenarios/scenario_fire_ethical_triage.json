@@ -10,7 +10,7 @@
     { "index": 2, "title": "Triage Conflict — Critical Victim", "description": "A paramedic triages a victim as black (expectant). A firefighter on scene disagrees and wants to begin CPR immediately.", "timeOffsetSec": 90 },
     { "index": 3, "title": "Resource Bottleneck", "description": "Three RED-tagged victims are waiting for treatment but only one paramedic is available — two others are managing prior patients.", "timeOffsetSec": 150 },
     { "index": 4, "title": "Additional EMS and Hospital Notification", "description": "Three additional ambulances arrive. Two trauma centres are notified and begin clearing capacity.", "timeOffsetSec": 240 },
-    { "index": 5, "title": "All Viable Victims Treated', 'All viable victims transported. Two victims did not survive. Documentation and critical incident stress management initiated.", "timeOffsetSec": 480 }
+    { "index": 5, "title": "All Viable Victims Treated", "description": "All viable victims transported. Two victims did not survive. Documentation and critical incident stress management initiated.", "timeOffsetSec": 480 }
   ],
   "root": "node-1",
   "nodes": {
