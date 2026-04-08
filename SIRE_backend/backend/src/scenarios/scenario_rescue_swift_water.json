@@ -1,0 +1,148 @@
+{
+  "title": "swift_water_rescue",
+  "description": "A kayaker is pinned against a submerged strainer in a fast-moving river after capsizing.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["swift water", "water rescue", "strainer", "throw bag", "flood current"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Distress Reported",
+      "description": "Kayaker pinned against fallen tree strainer in Class III rapid. Current 4 m/s. Victim conscious but tiring.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rescue Team Staged",
+      "description": "Swift water rescue team deploys on river bank. Downstream safety position established with throw bags.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Throw Bag Deployed",
+      "description": "First throw bag attempt misses. Second attempt successful. Victim grabs rope.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Contact Rescue Initiated",
+      "description": "Tethered rescuer enters water to assist victim off strainer. Victim too exhausted to assist self-rescue.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Victim Recovered",
+      "description": "Victim brought to river bank. Hypothermia protocol initiated. EMS transporting.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Kayaker Pinned on Strainer",
+      "situation": "A kayaker has capsized and is pinned face-down against a submerged fallen-tree strainer in a Class III rapid. Current is approximately 4 m/s. The victim is conscious but rapidly tiring. A bystander is preparing to swim out to help.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop the untrained bystander from entering the water, establish command, assign downstream safety position with throw bags, and begin the reach-throw-row-go rescue sequence.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the bystander to swim — they appear to be a strong swimmer and time is critical.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Deploy a boat immediately into the rapid before completing a scene assessment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Reach and Throw Techniques",
+      "situation": "The victim is 12 metres from the bank — beyond reach with a pole. A throw bag is available. The victim is conscious and appears to understand commands. A second team is positioning downstream as a safety net.",
+      "question": "How do you deploy the throw bag?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Throw the bag upstream of the victim so the rope swings into them; instruct the victim to hold the rope to their chest and roll onto their back.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Throw the bag directly at the victim's head to ensure maximum accuracy.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attach the rope to a tree and throw only the bag end — have the victim tie it around themselves.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Victim Unable to Hold Rope",
+      "situation": "Two throw bag attempts have been made. The victim briefly grabbed the rope on the second attempt but lost grip. They are now exhausted and their head is going under intermittently. A contact rescue is necessary.",
+      "question": "How do you initiate a contact rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a trained swift-water rescuer on a belay line — tethered to shore — to approach the victim and assist them off the strainer.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Send the rescuer in without a tether to maximise their swimming agility.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to use a boat in the rapid directly above the strainer.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Contact with Victim",
+      "situation": "The tethered rescuer has reached the victim. The victim is pinned by the force of current against the log. They cannot push themselves off. The rescuer must reposition the victim to reduce the pinning force.",
+      "question": "What is the correct technique to remove the victim from the strainer?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rotate the victim perpendicular to the current to reduce the hydrodynamic force pinning them, then float them feet-first downstream to the bank team.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Pull the victim directly upstream, against the current, to free them from the log.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Victim at Shore: Hypothermia Risk",
+      "situation": "The victim has been brought to shore. They are conscious but shivering severely, confused, and have been in cold water for approximately 20 minutes. Core temperature is estimated to be low.",
+      "question": "What is the appropriate treatment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove wet clothing, insulate with blankets, provide warm humidified oxygen if available, handle gently to avoid cardiac fibrillation, and transport to hospital for active rewarming.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Have the victim do jumping jacks to generate heat and restore circulation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The victim was successfully rescued using the reach-throw-go progression and a tethered contact rescue. Proper strainer unpinning technique prevented additional injury. Appropriate hypothermia management was initiated and the victim was transported to hospital.",
+      "question": "",
+      "options": []
+    }
+  }
+}

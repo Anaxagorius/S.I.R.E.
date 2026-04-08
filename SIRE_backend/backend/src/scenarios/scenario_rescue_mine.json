@@ -1,0 +1,148 @@
+{
+  "title": "mine_rescue",
+  "description": "A methane explosion and partial collapse have trapped miners in an underground coal mine.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["mine rescue", "underground", "methane", "SCSR", "atmospheric monitoring", "collapse"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Explosion Reported",
+      "description": "Methane ignition causes explosion and partial roof fall in Section C. 8 miners unaccounted for. Mine rescue team mobilised.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rescue Team Briefed",
+      "description": "Atmospheric data shows CO and CH₄ levels above safe limits. Self-contained self-rescuers (SCSRs) required for all entrants.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Atmospheric Testing En Route",
+      "description": "Team advancing with multi-gas monitor. Route partially blocked by roof fall. Alternate heading identified.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Survivors Located",
+      "description": "Six survivors found in barricaded refuge. Two miners still unaccounted for in collapsed section.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "All Miners Rescued",
+      "description": "Eight miners accounted for. Six extricated via refuge; two found near fall zone with injuries. Scene in recovery.",
+      "timeOffsetSec": 720
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Underground Explosion: Miners Trapped",
+      "situation": "A methane explosion has caused a partial roof collapse in Section C of an underground coal mine. Eight miners are unaccounted for. Mine ventilation data shows CO levels at 1,200 ppm and residual methane in the affected section. The mine manager wants to send in unprotected personnel immediately.",
+      "question": "What is your first action as mine rescue commander?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop all unprotected entry, brief the mine rescue brigade, review ventilation and atmospheric data, and deploy only SCSR-equipped rescue teams.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the manager to send workers in immediately — speed saves the miners.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Start the ventilation fans at maximum speed to clear the gas before rescue.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Atmospheric Assessment",
+      "situation": "The rescue brigade has donned self-contained breathing apparatus (SCBA). Multi-gas monitors are calibrated. The route to Section C passes through two areas: heading A (intact, 45 minutes travel) and heading B (partially collapsed but 20 minutes shorter).",
+      "question": "Which route should the rescue team take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take heading A — the longer but structurally intact route reduces secondary collapse risk and keeps the rescue team safe.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Take heading B — 20 minutes could save lives and the collapse looks minor.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Refuge Barricade Located",
+      "situation": "The rescue team has located a self-constructed barricade in Section C. Tapping signals confirm survivors inside — three sets of three taps followed by silence. CO levels outside the barricade are 800 ppm.",
+      "question": "How do you communicate with and reach the survivors?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the mine communication system or drill a small hole through the barricade to establish verbal contact before opening — do not dismantle the barricade until atmospheric readings inside are confirmed.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately breach the barricade to reach the survivors — every second counts.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for CO levels to drop below 50 ppm before making contact.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Survivors Assessed",
+      "situation": "Six survivors are inside the refuge. All are conscious with varying degrees of CO poisoning symptoms. Two miners are still unaccounted for and are believed to be near the collapsed section. Rescue team air supply is at 60%.",
+      "question": "How do you manage the two priorities: treat survivors and search for missing miners?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin evacuating the six survivors with one team while a second team advances with fresh SCBA to search the collapse zone for the remaining two miners.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the six survivors in place and focus the entire team on finding the two missing miners.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Continue with the same rescue team for both tasks — replacing SCBA is too time-consuming.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Missing Miners Located",
+      "situation": "The search team has found both missing miners near the collapse zone. One is unconscious with severe CO poisoning and a suspected crush injury to the legs. The other is conscious but disoriented. The roof above is cracked and unstable.",
+      "question": "How do you manage the extrication?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rapidly assess for spinal injury, package the unconscious miner on a rescue stretcher, and withdraw both miners under escort while maintaining roof awareness — speed is essential due to structural risk.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for a shoring team before moving either miner — the roof must be stabilised first.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All eight miners were accounted for and rescued. The six survivors were evacuated via the intact heading while the two isolated miners were recovered before secondary collapse. High-flow oxygen and hospital transport were arranged for all CO-exposed miners. No rescue team members were injured.",
+      "question": "",
+      "options": []
+    }
+  }
+}

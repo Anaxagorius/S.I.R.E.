@@ -1,0 +1,153 @@
+{
+  "title": "industrial_press_entrapment",
+  "description": "A factory worker's hand is trapped in a hydraulic stamping press following a safety bypass.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["industrial press", "entrapment", "hydraulic", "lockout tagout", "crush injury", "amputation"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Entrapment Reported",
+      "description": "Worker's hand and wrist crushed between the ram and die of a hydraulic stamping press. Press stopped. Machine bypassed its two-hand safety.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Machine Isolated",
+      "description": "Production supervisor performs LOTO. Hydraulic pressure bled from the system. Ram remains in down position.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Entrapment Assessment",
+      "description": "Hand is pinned between ram and die plate. Crush injury to hand and wrist. No vascular pulse detected distal to crush.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Hydraulic Ram Lifted",
+      "description": "Hydraulic rescue tool used to slowly raise ram 8 cm. Hand partially freed but still caught on die edge.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Patient Released",
+      "description": "Hand freed. Crush and partial amputation injuries managed. Patient transported to trauma centre.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Hand Trapped in Hydraulic Press",
+      "situation": "A factory worker's dominant hand is pinned under the descending ram of a hydraulic stamping press after the two-hand safety interlock was bypassed. The press has stopped mid-stroke with the ram at the bottom. The worker is conscious but screaming. A supervisor wants to cycle the press to raise the ram.",
+      "question": "What is the immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop all machine operation attempts, call emergency services, and begin LOTO immediately — cycling the press risks completing the crush or activating stored hydraulic energy unpredictably.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the supervisor to cycle the press upward — it stopped mid-stroke so it should reverse safely.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Pull the hand out immediately while a second person holds the ram in position.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Lockout-Tagout and Pressure Bleed",
+      "situation": "The site electrician has initiated LOTO. The hydraulic system must also have its stored pressure bled before any mechanical intervention. The EMS crew reports the worker is in severe pain with no radial pulse and a pale, mottled hand.",
+      "question": "How do you manage the energy isolation and patient care simultaneously?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete both electrical LOTO and hydraulic pressure bleed via the system's dump valve; simultaneously provide IV pain relief and keep the patient calm while the rescue plan is developed.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Skip pressure bleed — the system is shut down and no pressure should remain.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Delay pain relief until the patient can be moved to a medical facility.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Rescue Tool Selection",
+      "situation": "LOTO is complete and pressure is bled. The ram is mechanically locked down on the hand. The rescue team has: (1) a hydraulic rescue jack; (2) a high-lift mechanical jack; (3) a reciprocating saw. The die is a precision-machined component worth $40,000.",
+      "question": "Which tool do you use to raise the ram?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the hydraulic rescue jack with controlled, slow pressure to raise the ram — it allows precise, incremental lifting without shock loading the entrapment.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Cut the die with the reciprocating saw to create space — the machine is less important than the patient.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use the high-lift jack as fast as possible — the patient has no pulse in the hand.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Partial Release: Hand Still Caught",
+      "situation": "The ram has been raised 8 cm. The hand is partially visible — there is a crush injury to the wrist and two fingers appear partially amputated. The hand is still caught on the lip of the die. Additional lifting may free it but risks disrupting the clotting that has occurred.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Raise the ram a further 2 cm while EMS prepares wound dressings and tourniquet; carefully guide the hand free of the die lip; apply haemostatic dressings immediately on release.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Apply a tourniquet above the wrist now, before the hand is freed, to stop anticipated bleeding.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Pull the hand free of the die lip manually before raising the ram further.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Amputation and Haemorrhage Management",
+      "situation": "The hand is free. Two fingers are fully amputated at the PIP joint. Haemorrhage is significant. Haemostatic dressings have been applied but bleeding continues from the palm.",
+      "question": "What is the appropriate haemorrhage control and transport plan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply a wrist tourniquet, preserve the amputated fingers in saline-moistened gauze in a bag on ice, and transport urgently to a trauma centre with hand surgery capability.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Place the amputated fingers directly on ice without wrapping to keep them cold.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The worker was successfully extricated after full LOTO including hydraulic pressure bleed, and a controlled hydraulic jack lifting sequence. Correct amputated part preservation and tourniquet application were completed. The patient was transported to a trauma centre with replantation capability. The investigation into the safety bypass was initiated.",
+      "question": "",
+      "options": []
+    }
+  }
+}

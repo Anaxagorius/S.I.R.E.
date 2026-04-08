@@ -1,0 +1,148 @@
+{
+  "title": "elevator_shaft_rescue",
+  "description": "A maintenance technician has fallen into an elevator shaft and is hanging from a safety lanyard with injuries.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["elevator shaft", "fall arrest", "rope rescue", "vertical rescue", "suspension trauma", "maintenance"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fall Reported",
+      "description": "Elevator technician fell into shaft at floor 3. Self-retracting lifeline arrested the fall. Victim hanging at floor 2 level.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Shaft Access",
+      "description": "Fire crew gains access to floor 2 landing doors. Victim is 1.5 m below floor 2 landing — out of reach.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Rope Rescue System Rigged",
+      "description": "Rescue rope lowered from floor 3 shaft roof anchor. Rescuer descends to reach victim.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Victim Packaged",
+      "description": "Rescuer attaches rescue harness to victim. SRL re-rigged to rescue system. Victim raised to floor 2 landing.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Victim Treated and Transported",
+      "description": "Victim assessed for suspension trauma and fall injuries. EMS transports to trauma centre.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Technician Hanging in Elevator Shaft",
+      "situation": "An elevator maintenance technician has fallen into a shaft at the floor 3 landing. Their self-retracting lifeline (SRL) activated and arrested the fall. The victim is now hanging approximately 1.5 metres below the floor 2 landing door. They are conscious but reporting shoulder and back pain. The elevator car is positioned at floor 8.",
+      "question": "What is your first priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Lock out the elevator system to prevent car movement, establish communication with the victim, and begin setting up a rope rescue system to reach them.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Open the floor 2 landing door and have a rescuer lean in and grab the victim's hand.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call the elevator car down from floor 8 to provide a platform for the victim to stand on.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Elevator System Isolation",
+      "situation": "The elevator company's emergency technician has been contacted. The building engineer can lock out the elevator power at the machine room. A rope rescue team has arrived and is assessing access via the floor 3 shaft access point.",
+      "question": "How do you set up the rescue system?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Lock out elevator power at the machine room, rig a two-rope system (main and belay) from the shaft top anchor, and lower a trained rescuer to the victim's position.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Lower a rope from floor 3 and instruct the victim to tie it around themselves.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Lower a rescuer on a single rope without a belay system — shaft access is clean and the drop is only two floors.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Rescuer Reaches Victim",
+      "situation": "The rescuer has descended to the victim. They are hanging fully in their work harness — their self-retracting lifeline is the only connection. The victim has been suspended for approximately 12 minutes. The rescuer must transition the victim to the rescue rope system.",
+      "question": "What is the priority concern beyond the physical injuries?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Suspension trauma — prolonged hanging in a harness can cause blood pooling and sudden cardiac arrest when released. Attach the rescue system and raise the victim horizontally if possible, not upright.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Release the victim from the SRL immediately so they hang freely on the rescue rope — the SRL was not designed for extended suspension.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have the victim swing to the floor 2 landing door and climb through the gap.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Raising the Victim",
+      "situation": "The rescuer has attached a rescue harness to the victim and transitioned their weight to the main rescue rope. The victim is to be raised vertically to the floor 2 landing. The haul team on floor 3 is ready. The floor 2 landing door is open.",
+      "question": "How do you manage the raise and the victim's transition out of the shaft?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Communicate clearly between rescuer, victim, and haul team; raise slowly; at floor 2 level, have two rescuers guide the victim through the open landing door horizontally onto a stretcher.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Raise quickly and allow the victim to step through the door under their own power.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Victim at Floor 2: Medical Assessment",
+      "situation": "The victim is on a stretcher at floor 2. They complain of severe left shoulder pain, lower back pain, and light-headedness. They were suspended for approximately 25 minutes total. SpO₂ is 92%. The EMS crew is assessing.",
+      "question": "What are the priority medical considerations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain the horizontal position, apply high-flow oxygen for possible suspension syndrome, assess for spinal injury, and transport urgently to hospital — monitor for arrhythmia en route.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Sit the victim up to improve breathing — horizontal positioning is not necessary since they are now out of the harness.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The technician was successfully rescued from the elevator shaft. The elevator was correctly locked out before rescue commenced. Suspension trauma was recognised and managed with horizontal positioning and oxygen. The victim was transported to hospital for cardiac monitoring and orthopaedic assessment.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "title": "farm_equipment_entrapment",
+  "description": "A farmhand's clothing has been caught in the power take-off (PTO) shaft of a tractor, entrapping an arm and shoulder.",
+  "category": "Technical Rescue",
+  "difficulty": "Advanced",
+  "tags": ["farm rescue", "PTO entrapment", "agricultural rescue", "isolation", "degloving"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Entrapment Reported",
+      "description": "Worker's sleeve caught in rotating PTO shaft. Clothing wrapped around shaft, drawing arm in. Tractor still idling.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Tractor Isolated",
+      "description": "Second worker disengages PTO and stops tractor engine. Worker's arm and shoulder entrapped under wrapped clothing.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Rescue Assessment",
+      "description": "Paramedic reaches victim. Significant degloving of arm to mid-humerus. PTO shaft must be disassembled to free victim.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "PTO Disassembly",
+      "description": "Rescue team and farm mechanic disassemble PTO coupling to release the wrapped clothing and shaft.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Victim Released",
+      "description": "Arm freed. Tourniquet applied. Victim transported by helicopter to major trauma centre.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "PTO Entrapment: Tractor Still Running",
+      "situation": "A farmhand's sleeve became caught in an unguarded power take-off (PTO) shaft attached to a silage attachment. The shaft has wrapped the clothing around the arm and drawn it in. The tractor is still idling and the PTO clutch is still engaged.",
+      "question": "What is the priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Instruct a bystander to immediately disengage the PTO and shut down the tractor engine — do not attempt to cut clothing while the shaft is rotating.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Cut the clothing with a knife to try to free the victim while the shaft rotates.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to reverse the PTO direction using the tractor controls.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Tractor Stopped: Victim Still Entrapped",
+      "situation": "The tractor has been stopped and the PTO disengaged. The victim's arm and shoulder are wrapped in clothing and wound tightly around the stationary PTO shaft. The victim is conscious with severe pain. Blood is visible soaking through the clothing wrap.",
+      "question": "How do you approach stabilisation of the victim and the tractor?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Chock the tractor wheels and remove the ignition key; assign a medical rescuer to monitor the victim's airway and manage pain; begin planning disassembly of the PTO coupling.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Cut the shaft with an angle grinder immediately — the victim is bleeding.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to unwind the clothing from the shaft by hand.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Medical Assessment",
+      "situation": "A paramedic has assessed the victim. The arm shows a circumferential degloving injury to mid-humerus. Sensation below the elbow is absent. The brachial pulse is weak. The victim is conscious with a GCS of 15 but in extreme distress.",
+      "question": "How do you manage the victim's condition during the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide IV pain relief, monitor circulation distal to the injury, request helicopter transport to a major trauma centre, and continue coordinating the mechanical disassembly.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Apply a tourniquet high on the arm before the shaft is removed to prepare for amputation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not provide pain relief — it may mask deterioration.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "PTO Shaft Disassembly",
+      "situation": "The farm mechanic has identified the PTO coupling connection points. Removing two U-bolts and a splined coupling will allow the section of shaft holding the victim to be separated from the tractor. However, the victim's arm will still be wrapped in the clothing on the separated shaft section.",
+      "question": "What is the plan for completing the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Separate the shaft from the tractor; carefully cut away the clothing wrapping on the separated shaft piece to free the arm; transport the victim with the shaft still attached if clothing cannot be safely removed.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Cut the shaft on both sides of the entrapment with an angle grinder to remove the smallest possible piece.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Pull the arm off the shaft — degloving is already occurring and removal will complete it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Arm Freed and Tourniquet Applied",
+      "situation": "The clothing has been carefully cut away. The arm is free. The degloving injury extends from mid-forearm to mid-humerus with significant vascular compromise — no distal pulse. A tourniquet is applied. The victim is pale and shocked.",
+      "question": "What is the priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Manage haemorrhagic shock with IV fluids and tourniquet confirmation; note tourniquet time; collect and preserve any separated tissue; transport by helicopter to a trauma centre with limb replantation capability.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Transport by ground ambulance to the nearest hospital — helicopter dispatch takes too long.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The farmhand was successfully extricated after controlled PTO shaft disassembly. The degloving injury was managed with tourniquet and IV access. Helicopter transport to a trauma centre with plastic and vascular surgery was correctly prioritised. Documentation of tourniquet time and tissue preservation were completed correctly.",
+      "question": "",
+      "options": []
+    }
+  }
+}
