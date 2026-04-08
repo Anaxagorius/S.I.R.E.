@@ -1,0 +1,164 @@
+{
+  "title": "refugee_shelter_fire",
+  "description": "A fire breaks out in a large emergency refugee shelter housing 1,200 displaced persons. Language barriers, high occupant density, unfamiliarity with the building, and limited mobility among some residents create a complex mass evacuation and casualty management challenge.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["refugee shelter", "mass shelter fire", "language barrier", "evacuation", "vulnerable population"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Detected in Shelter",
+      "description": "Fire alarm activated in the east dormitory block of the emergency shelter. Staff report rapid fire development.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Mass Evacuation Initiated",
+      "description": "Shelter staff initiating evacuation. Significant language barriers impeding communications with residents.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Occupants Not Evacuating",
+      "description": "First units on scene — large number of occupants not evacuating due to fear of authorities and language barriers.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Children Separated from Parents",
+      "description": "Chaos in evacuation. Multiple children separated from parents outside. Parents attempting to re-enter.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Fire Spreading — Dormitory Block",
+      "description": "Fire spreading through combustible partitions in east dormitory. Search and rescue commenced.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Casualties at Triage",
+      "description": "Twenty-three casualties at triage including smoke inhalation, burns, and trauma from falls during evacuation.",
+      "timeOffsetSec": 540
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire in Emergency Shelter — Initial Response",
+      "situation": "A fire has started in the east dormitory block of a large emergency shelter housing 1,200 displaced persons from multiple countries. The shelter occupies a converted warehouse. The fire is spreading rapidly through combustible temporary partition walls. The shelter has 12 emergency exits but the layout is complex and many occupants are unfamiliar with the building. You are the Incident Commander on first arrival.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate immediate evacuation via all 12 exits; request shelter management to deploy bilingual staff and community liaisons to all exits to guide occupants; establish a triage area and family reunification point outside; commit a search team to the east dormitory for occupants unable to self-evacuate.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Prioritise fire suppression — preventing fire spread will protect the greatest number of occupants.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate only the east dormitory block — the rest of the shelter is not immediately threatened.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Language Barriers — Non-Evacuating Occupants",
+      "situation": "First units report that a large number of occupants — estimated 200+ — are not evacuating from the central and west blocks. Some are barricading themselves in rooms, fearing that emergency responders are law enforcement. Others are gathering possessions rather than leaving. Shelter staff have been overwhelmed. Fire is advancing toward the central block.",
+      "question": "How do you address the non-evacuating occupants?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request community liaison officers and multilingual interpreters immediately; deploy shelter's own refugee community leaders to communicate directly with occupants in their languages; send firefighters in pairs to physically guide people out from all rooms in a systematic sweep; avoid any action that resembles enforcement.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Forcibly remove all occupants — the fire risk overrides their concerns.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Announce the evacuation in English only and allow occupants to self-evacuate — forced removal is not appropriate.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Children Separated — Parents Re-entering",
+      "situation": "Outside the shelter, 14 children have been separated from their parents during the evacuation. Several parents are attempting to re-enter the burning building to find their children. The children include several toddlers who cannot communicate clearly. One parent has already breached the perimeter and is attempting to re-enter through a side exit.",
+      "question": "How do you manage the family separation and perimeter breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately establish a family reunification point with a bilingual shelter worker managing it; use community liaisons to reassure parents their children are safe; intercept the breaching parent and redirect them to the reunification point using a compassionate approach — do not use force unless life safety is at immediate risk.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Allow parents to enter — they know their children and will be motivated to get out quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have police arrest the parent who breached the perimeter to deter others from attempting the same.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Search and Rescue — East Dormitory",
+      "situation": "The east dormitory block has heavy smoke throughout. A search team has made entry. They locate: one elderly man who is unconscious on the floor (smoke inhalation), three children (aged 3, 5, 8) in a locked bathroom — the 8-year-old has sheltered the younger ones and they are conscious but frightened, and one woman with a mobility impairment who cannot descend the stairs independently.",
+      "question": "What is the correct extraction order and method?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Extract the unconscious man first (fire carry, life-threatening emergency); then the three children together with two rescuers (the 8-year-old can be guided, the younger two carried); then the woman with mobility impairment using an evacuation carry and calling for additional crew support — all extractions to occur along the charged hoseline route.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Extract the three children first — children are always the highest priority in any rescue.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Extract the woman with the mobility impairment first because she is closest to the exit.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "MCI Triage — Shelter Casualties",
+      "situation": "Twenty-three casualties are at the triage area. Triage reveals: 2 Red (unconscious smoke inhalation, one with burns to 30% BSA), 8 Yellow (moderate smoke inhalation, minor burns, fall injuries), 13 Green (mild smoke inhalation, anxiety). The trauma centre is 9 km away. A community health centre 3 km away can treat minor cases. Many casualties cannot communicate their symptoms due to language barriers.",
+      "question": "How do you manage language barriers during medical triage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy bilingual shelter staff to each triage team as interpreters; use physical assessment findings (SpO2, respiratory rate, burns assessment, GCS) as primary triage criteria independent of verbal history; transport the 2 Red patients by ALS immediately; transport Yellow patients to the trauma centre and community health centre; keep interpreters with Yellow and Green patients during treatment.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Transport all 23 patients to the trauma centre — language barriers make triage too unreliable to manage on scene.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Rely only on physical signs — verbal communication with patients is not necessary for triage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All 1,200 shelter occupants were evacuated. The search team rescued four individuals from the east dormitory who could not self-evacuate. Community liaisons were instrumental in convincing the 200+ non-evacuating occupants to leave safely — no forced removals were required. All 14 separated children were reunited with their families at the reunification point within 45 minutes. The two Red casualties survived with aggressive airway management and transport. Bilingual triage support ensured appropriate care pathways for all 23 casualties. The shelter has been transferred to a secondary site.",
+      "question": "",
+      "options": []
+    }
+  }
+}

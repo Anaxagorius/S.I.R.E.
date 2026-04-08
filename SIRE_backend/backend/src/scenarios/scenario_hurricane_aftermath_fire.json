@@ -1,0 +1,164 @@
+{
+  "title": "hurricane_aftermath_fire",
+  "description": "In the aftermath of a Category 3 hurricane, multiple structural fires break out simultaneously due to gas leaks and downed power lines. Firefighting operations are severely hampered by debris, flooding, and infrastructure damage.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["hurricane", "post-disaster fire", "debris", "infrastructure damage", "multi-incident"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Hurricane Passes — Damage Assessment Begins",
+      "description": "Category 3 storm has passed. Multiple fires reported across the city. Road debris and flooding limit access.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Three Simultaneous Fires Confirmed",
+      "description": "Fire at a residential neighbourhood (gas main ruptured), a chemical storage facility, and a flooded commercial block.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Water Supply Compromised",
+      "description": "Hurricane damage has ruptured water mains. Hydrant pressure is critically low across the city.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Chemical Storage Fire Escalates",
+      "description": "Flammable solvents ignite at the chemical facility. HAZMAT and mutual aid engines requested.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 4,
+      "title": "Rescue Request — Trapped Resident",
+      "description": "Caller reports resident trapped in burning structure, second floor, unable to self-evacuate.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Mutual Aid Arrives",
+      "description": "Three mutual aid companies and a tanker task force arrive. Water shuttle operations established.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Post-Hurricane — Multiple Fires Reported",
+      "situation": "The Category 3 hurricane has passed. Three fires have been simultaneously reported: a residential neighbourhood block fire fuelled by a ruptured gas main, a chemical storage facility fire, and a flooded commercial block with fire in the upper floors. Your department has eight engines and two ladders available. Debris and flooded streets limit access to many areas. Water main damage has reduced hydrant pressure citywide.",
+      "question": "How do you prioritise the three fires?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Priority 1: chemical storage facility (potential BLEVE and HAZMAT release threatening a large area); Priority 2: residential gas main fire (life safety risk in occupied neighbourhood); Priority 3: commercial block (upper-floor fire, less immediate life risk); request mutual aid immediately for all three.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Send equal resources to all three fires simultaneously to prevent any from growing.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Prioritise the residential fire first because it has the most homes at risk.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Water Supply Crisis",
+      "situation": "Your engine companies report that hydrant pressure across the affected district is critically low — most hydrants are delivering under 20 psi due to water main damage. The residential gas main fire is spreading to adjacent homes. Your tanker is en route but is 20 minutes away. The closest usable water source is a flooded underpass 400 metres from the fire.",
+      "question": "How do you manage water supply for the residential fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a water shuttle operation using tankers from the flooded underpass as a dump tank; prioritise defensive suppression on exposures to slow fire spread until tanker support arrives; notify mutual aid of tanker priority.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt interior attack immediately — low pressure may still be sufficient for initial suppression.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Abandon the residential fire and redirect all resources to the chemical facility where water is less critical.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Gas Main Fire — Isolation Decision",
+      "situation": "The ruptured gas main is fuelling the residential fire. The gas company emergency team is 45 minutes away. A captain on scene identifies the gas shutoff valve on the street 30 metres from the fire. Shutting it off manually would stop the fuel supply but requires a firefighter to approach through radiant heat and falling debris.",
+      "question": "What is the correct decision regarding the gas shutoff?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the gas utility to confirm the correct valve and authorise the shutdown; protect the firefighter approaching the valve with a charged hoseline and full PPE; do not attempt isolation until the hoseline is in place.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Send a firefighter immediately to shut the valve — every minute of delay allows the fire to grow.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not attempt gas isolation — wait for the gas company and manage the fire defensively.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Trapped Resident — Structural Fire",
+      "situation": "Dispatch receives a call from a resident trapped on the second floor of a burning townhouse in the residential block. The only ladder company is currently at the chemical facility. The townhouse has a staircase accessible from the front, but interior smoke conditions are reported as heavy. The fire is in the rear of the ground floor.",
+      "question": "How do you conduct the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commit a two-person team with charged line to make entry from the front staircase for the rescue while a second line protects the egress route; simultaneously request the ladder reposition if the staircase becomes untenable.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the ladder company to reposition — interior entry without ladder support is too risky.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Order the resident to jump from the second floor — it is safer than interior rescue.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Chemical Facility Escalation",
+      "situation": "The chemical storage facility fire has spread to a solvent warehouse. HAZMAT identifies the contents as Class IB flammable liquid — foam suppression required. You have one foam unit. Mutual aid has arrived with three additional engines. A defensive perimeter has been set at 300 metres. Wind is shifting toward a populated area 500 metres downwind.",
+      "question": "How do you respond to the escalating chemical fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply foam suppression to the involved storage units; notify the downwind population for shelter-in-place or evacuation via emergency alert; position mutual aid engines on the perimeter to contain fire spread and protect exposures.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to enter the warehouse with water streams — foam is not immediately available.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Concentrate all resources on the residential fires and manage the chemical fire defensively with no foam.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The trapped resident was rescued without firefighter injury. Gas isolation halted the residential fire's fuel supply and suppression was completed with the tanker water shuttle. Foam suppression confined the chemical fire to the storage complex. The downwind population shelter-in-place order prevented civilian exposure injuries. Mutual aid tanker operations restored adequate water supply for sustained operations. All three fires are now under control.",
+      "question": "",
+      "options": []
+    }
+  }
+}

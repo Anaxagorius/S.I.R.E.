@@ -1,0 +1,164 @@
+{
+  "title": "earthquake_response",
+  "description": "A magnitude 6.8 earthquake strikes an urban area, triggering a multi-agency disaster response requiring ICS coordination, search and rescue, and mass casualty management.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["earthquake", "ICS", "USAR", "mass casualty", "natural disaster"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Earthquake Strikes",
+      "description": "M6.8 earthquake reported. Multiple calls from across the city. Activate EOC and establish Incident Command.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Damage Reports Flooding In",
+      "description": "Partial building collapses, gas leaks, and road damage reported across three districts. Prioritise response zones.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Aftershock Warning",
+      "description": "Seismologists warn of a probable aftershock within 30 minutes. All field teams notified.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Survivor Located",
+      "description": "USAR team confirms voice contact with survivors in collapsed apartment block.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Hospital Surge",
+      "description": "Regional hospital reports capacity reached. Alternate care sites being activated.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Aftershock Occurs",
+      "description": "M5.1 aftershock strikes. Field teams execute evacuation protocol. Re-assess structural stability before re-entry.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Earthquake Strikes — Initial Response",
+      "situation": "A magnitude 6.8 earthquake has struck the city. Dispatch is receiving hundreds of simultaneous calls. Structural damage is reported across multiple districts, including a partially collapsed apartment building with an estimated 30 residents. Gas leaks and downed power lines are also reported.",
+      "question": "As the responding Incident Commander, what is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the Emergency Operations Centre, declare a disaster, establish an Incident Command Post at a safe location, and request mutual aid from neighbouring jurisdictions.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Dispatch all available units to the collapsed apartment building and address other reports as resources allow.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for a full damage report before committing resources to avoid sending units to the wrong location.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Incident Command Established",
+      "situation": "The EOC is active and mutual aid has been requested. You have three USAR teams, two HAZMAT units, ten fire engines, and fifteen EMS units available. Three sectors have been identified: a collapsed apartment complex (Sector A), a gas main rupture near a school (Sector B), and a bridge failure with vehicles in the water (Sector C).",
+      "question": "How do you prioritise resource allocation across the three sectors?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign USAR teams to Sector A (life safety priority), HAZMAT and one fire engine to Sector B (gas isolation), and swift-water rescue with fire to Sector C; establish sector commanders for each.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Send all resources to Sector A as it has the most reported casualties.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hold resources at staging until all sectors are fully assessed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Aftershock Warning Issued",
+      "situation": "Seismologists have issued a warning that a significant aftershock is probable within 30 minutes. USAR Team 1 is actively working a void space in the collapsed apartment block and has just made voice contact with a survivor. Removing the team now would delay rescue.",
+      "question": "How do you manage the aftershock risk while maximising survivor chances?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify all teams of the aftershock warning; allow USAR Team 1 to continue with heightened monitoring of structural indicators while positioning a rapid-withdrawal team at the collapse perimeter.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately withdraw all teams from all structures to ensure rescuer safety.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Keep all teams working and ignore the warning — aftershocks may not materialise.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Mass Casualty Triage",
+      "situation": "Forty-two casualties have been collected at the forward treatment area. You have eight paramedics and four EMTs available. The nearest trauma centre reports it can accept 10 critical patients. Two field hospitals are being erected — ETA 90 minutes. Triage reveals: 9 Red (Immediate), 14 Yellow (Delayed), 16 Green (Minor), 3 Black (Deceased).",
+      "question": "How do you manage casualty transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transport all 9 Red patients to the trauma centre by priority, activate the alternate care sites for Yellow patients, and use Green patients as walking wounded to reduce transport demand.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Transport patients in the order they arrive at the treatment area to be fair.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hold all Yellow and Green patients at the scene until the field hospitals are operational.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Aftershock Strikes",
+      "situation": "The M5.1 aftershock has occurred. USAR Team 1 reports cracking and debris movement in the collapse zone. One rescuer is partially trapped by falling rubble — no serious injury reported. The survivor they were approaching is still communicating.",
+      "question": "What is the correct immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sound the evacuation signal, withdraw all rescuers immediately, conduct a headcount, assess the trapped rescuer for injuries, and perform a new structural assessment before authorising re-entry.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Continue the rescue — the survivor is close and stopping now risks their life.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send a second team in to assist rather than withdrawing the first team.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All rescuers have been safely withdrawn, the partially trapped rescuer was freed without serious injury, and the structural specialist has cleared re-entry. The survivor was successfully extricated 40 minutes later. All 9 Red-tagged casualties reached definitive care. The EOC has coordinated mutual aid, field hospitals are operational, and the incident is transitioning to sustained operations.",
+      "question": "",
+      "options": []
+    }
+  }
+}

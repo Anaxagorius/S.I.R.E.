@@ -1,0 +1,164 @@
+{
+  "title": "extreme_heat_emergency_response",
+  "description": "A prolonged extreme heat event triggers a mass casualty emergency across a major city. Emergency services must coordinate cooling centres, field triage, hospital surge, and outreach to vulnerable populations simultaneously.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Intermediate",
+  "tags": ["extreme heat", "heat stroke", "mass casualty", "vulnerable population", "public health emergency"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Extreme Heat Warning Issued",
+      "description": "Day 4 of heat event. Forecast high of 44°C. Cooling centres activated. EMS surge protocol initiated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "EMS Call Volume Surges",
+      "description": "EMS call volume at 300% of baseline. Heat stroke and heat exhaustion reports from across the city.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Hospital Surge — ED at Capacity",
+      "description": "All three regional EDs at capacity. Alternate care sites being activated in community centres.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Mass Casualty at Outdoor Event",
+      "description": "Outdoor music festival reports 60 attendees with heat illness. MCI declared at venue.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Power Grid Stress — Rolling Outages",
+      "description": "Electricity provider warns of potential rolling blackouts. Cooling centres and hospitals on emergency power.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Welfare Check — Vulnerable Residents",
+      "description": "Outreach teams conducting welfare checks on isolated elderly residents. Multiple non-responsive individuals found.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Extreme Heat Emergency — Day 4",
+      "situation": "A heat wave with temperatures reaching 44°C has entered its fourth consecutive day. EMS call volume is at 300% of baseline with heat stroke and heat exhaustion reports across the city. Cooling centres have been open since Day 1 but are not reaching the most vulnerable. Hospitals are approaching capacity. You are the Emergency Management Director.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the city-wide heat emergency plan: expand cooling centre capacity, deploy mobile outreach teams to isolated elderly and low-income residents, coordinate hospital surge protocols, and issue a public emergency alert with cooling centre locations.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Focus exclusively on EMS response — field triage and transport is the most acute need.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait to see if temperatures drop in the afternoon before escalating the response.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Field Triage — Heat Illness Differentiation",
+      "situation": "A paramedic crew responds to a park where six adults have collapsed. They must differentiate heat exhaustion from heat stroke to determine appropriate treatment. Patient 1: altered consciousness, hot dry skin, core temp 41.5°C. Patient 2: heavy sweating, pale, nauseous, temp 38.8°C, alert. Patient 3: confused, sweating, temp 40.1°C.",
+      "question": "How should these patients be triaged and treated?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Patient 1 — heat stroke (Red): begin immediate aggressive cooling (ice bath/cold packs to neck, groin, axillae) and urgent ALS transport. Patient 3 — heat stroke (Red): same cooling protocol and ALS transport. Patient 2 — heat exhaustion (Yellow): move to shade, oral fluids if alert, IV access, monitor for deterioration.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Treat all three the same — shade and oral hydration — and transport together.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Patient 1 has hot dry skin which indicates dehydration — give IV fluids and transport. Patients 2 and 3 are less serious.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Mass Casualty at Outdoor Festival",
+      "situation": "An outdoor music festival has reported 60 attendees with heat illness. MCI has been declared. On-site medical staff have set up a treatment tent but are overwhelmed. Triage: 8 suspected heat stroke (Red), 22 heat exhaustion (Yellow), 30 mild (Green). All hospitals are at or near capacity. The venue has a large air-conditioned indoor arena area adjacent to the festival.",
+      "question": "How do you manage this MCI?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Convert the indoor arena into a mass treatment area with on-site cooling; apply aggressive cooling to all Red patients immediately; coordinate with hospitals for the 8 Red patients only (the most critical); treat Yellow patients on-site with IV fluids and active cooling; send Green patients to the cooling area with monitoring.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Transport all 60 patients to hospitals — on-site treatment is insufficient for this scale.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have all patients move to the shade at the festival grounds and wait for additional ambulances.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Power Grid — Rolling Blackout Warning",
+      "situation": "The power utility has issued a rolling blackout warning — outages of up to 90 minutes may affect areas of the city, including two cooling centres that are not on hospital-grade backup power. A cooling centre currently sheltering 340 people (including 80 high-risk elderly and medically vulnerable individuals) is in the predicted outage zone.",
+      "question": "How do you respond to the blackout warning?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pre-emptively evacuate the 80 high-risk individuals from the at-risk cooling centre to a facility with guaranteed backup power; request a portable generator for the cooling centre; coordinate with the utility to designate cooling centres as critical load sites exempt from blackouts.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the blackout to occur and respond at that time — it may not happen.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate the entire cooling centre population as a precaution.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Welfare Check — Isolated Elderly",
+      "situation": "Outreach teams conducting welfare checks have found three isolated elderly residents in their homes: one is unresponsive with a core temp of 41.8°C; one is confused, flushed, and reports not having eaten or drunk in two days; one is mildly confused but can converse and has been using a fan (no air conditioning). All three live alone.",
+      "question": "What is the appropriate response for each resident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Resident 1 — heat stroke emergency: immediate aggressive cooling and ALS transport. Resident 2 — heat exhaustion with dehydration: IV fluids, cooling, and ALS transport to ED. Resident 3 — at-risk but currently stable: transport to cooling centre, schedule follow-up welfare check, connect with social services for air conditioning support.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Transport all three to the ED — the hospital can assess each one appropriately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave residents 2 and 3 with water and instructions to call if they worsen — transport only Resident 1.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All eight heat stroke patients from the festival were aggressively cooled and transported — seven survived. Resident 1 was resuscitated and recovered with early aggressive cooling. The 80 high-risk individuals were evacuated before the blackout, which lasted 75 minutes. Mobile outreach teams conducted 214 welfare checks during the event. A post-event review identified gaps in reaching non-English-speaking and disabled residents, driving updates to the heat emergency plan.",
+      "question": "",
+      "options": []
+    }
+  }
+}

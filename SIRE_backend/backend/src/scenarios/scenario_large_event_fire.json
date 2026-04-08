@@ -1,0 +1,164 @@
+{
+  "title": "large_event_fire",
+  "description": "A fire breaks out in the concourse level of a sold-out stadium during a major sporting event, threatening 55,000 spectators. Responders must manage mass evacuation, crowd crush prevention, fire suppression, and multiple casualties simultaneously.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Advanced",
+  "tags": ["stadium fire", "large event", "mass evacuation", "crowd management", "mass casualty"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Detected in Concourse",
+      "description": "Concession stand fire detected in the main concourse. Stadium fire suppression system partially activating.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Public Address Announcement",
+      "description": "Stadium operations initiating evacuation announcement. Crowd beginning to move toward exits.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Crowd Crush Risk at Gate 12",
+      "description": "Bottleneck forming at Gate 12. Crush injuries reported. 8,000 spectators converging on three exit gates.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Fire Spreading to Upper Concourse",
+      "description": "Fire has spread beyond the concession area. Structural elements threatened. Smoke filling upper sections.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Mass Casualty — Crush Injuries",
+      "description": "Seventeen crush injury casualties at Gate 12. EMS establishing triage point outside the stadium.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "All Exits Operational",
+      "description": "Gate 12 reopened. Evacuation progressing. Suppression teams entering concourse with structural risk.",
+      "timeOffsetSec": 720
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Stadium Fire — Mass Evacuation",
+      "situation": "A fire has started in a concession stand in the main concourse of a sold-out stadium with 55,000 spectators. The stadium's automatic suppression system has activated but has not contained the fire. Smoke is visible in the upper concourse sections. The stadium has eight exit gates. You are the Incident Commander, with fire units, EMS, and stadium security available. The fire is currently confined to the concourse level.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate a full stadium evacuation immediately via the public address system with calm, clear directional instructions; ensure all eight exit gates are opened and staffed; commit fire crews to the concourse to contain and suppress; establish an EMS triage area outside the stadium.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to contain and extinguish the fire before announcing evacuation — a premature announcement may cause panic.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate only the sections nearest the fire — evacuating the full stadium risks crowd crush.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Crowd Crush Risk at Gate 12",
+      "situation": "Eight thousand spectators from sections 40–55 are converging on three exit gates (10, 11, 12). A crowd crush is developing at Gate 12 — spectators are falling and being compressed. Security reports people are down. Gate 12 staff have been overwhelmed. EMS is en route but not yet on scene at Gate 12.",
+      "question": "How do you manage the crowd crush at Gate 12?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately redirect spectators from Gate 12 to Gates 10 and 11 via PA announcement; deploy additional security and firefighters to physically open the crowd at Gate 12; halt inflow to the Gate 12 area; send EMS directly to Gate 12 for crush injury treatment.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Open Gate 12 wider to increase flow — the bottleneck is a capacity issue.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Continue the evacuation as announced — changing directions will confuse the crowd.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Spreading to Upper Concourse",
+      "situation": "The fire has spread beyond the concession stand and is now burning the combustible lining of the upper concourse ceiling. Structural elements may be compromised. Most spectators have exited the upper sections but an estimated 300 mobility-impaired patrons and companions remain in accessible seating areas that do not have direct ground-level egress. Elevators are out of service as per fire protocol.",
+      "question": "How do you evacuate mobility-impaired patrons from the upper sections?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct mobility-impaired patrons to designated areas of refuge with fire-resistant construction; deploy fire crew teams and stadium staff trained in evacuation assist chairs to facilitate stairway evacuation; use the firefighter elevator (if available) for those who cannot use stairs; confirm all areas of refuge are accounted for.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Instruct mobility-impaired patrons to shelter in place — rescuing them will endanger crews.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Restore elevator service — fire protocol can be overridden for a life-safety situation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Crush Injury MCI — Gate 12",
+      "situation": "EMS has arrived at Gate 12. Seventeen crush injury casualties are identified. Triage reveals: 3 Red (suspected traumatic asphyxia, pulseless — one with signs of life post-decompression), 6 Yellow (rib fractures, breathing difficulties), 8 Green. The trauma centre is 6 km away. A field hospital tent is being erected outside the stadium.",
+      "question": "How do you manage the crush injury MCI?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply trauma resuscitation to the Red with signs of life — traumatic asphyxia patients can survive with rapid decompression and oxygenation; transport all three Red patients immediately by ALS; initiate treatment of Yellow patients in the field hospital tent; direct Green patients to the walking wounded collection point.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Declare all pulseless crush casualties as deceased — traumatic asphyxia is not survivable.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transport all 17 patients to the trauma centre simultaneously.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Structural Risk — Suppression Decision",
+      "situation": "The fire is burning into the roof truss system of the upper concourse. A structural engineer on call advises that the roof trusses may fail within 30–45 minutes if the fire is not contained. Fire crews are suppressing from interior positions. The stadium is now mostly evacuated, but 15 fire crew members are operating inside the upper concourse. The structural risk is escalating.",
+      "question": "How do you manage the structural risk to fire crews?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Withdraw interior crews from the upper concourse immediately and transition to a defensive exterior attack; reassign those crews to ensuring complete accountability of patrons and supporting the MCI; accept that the upper concourse structural elements may be lost.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Allow crews to continue interior suppression — the structural engineer's estimate may be conservative.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reduce the crew to two firefighters for an interior attack to limit the risk exposure.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All 55,000 spectators were evacuated with no fire-related fatalities. The crowd crush at Gate 12 resulted in one critical but survivable traumatic asphyxia case and 16 other casualties — all survived with appropriate treatment. All 300 mobility-impaired patrons were evacuated via areas of refuge and evacuation chair teams. All 15 interior fire crews were withdrawn before the upper concourse roof section collapsed. The fire was controlled from an exterior defensive posture. The event emergency plan is credited with enabling the rapid and coordinated response.",
+      "question": "",
+      "options": []
+    }
+  }
+}

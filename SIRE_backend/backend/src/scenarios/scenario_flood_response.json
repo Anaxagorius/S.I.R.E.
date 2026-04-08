@@ -1,0 +1,159 @@
+{
+  "title": "flood_response",
+  "description": "Rapidly rising floodwaters from a levee breach inundate a residential neighbourhood, requiring mass evacuation, swift-water rescue, and multi-agency coordination.",
+  "category": "Disaster & Mass Casualty",
+  "difficulty": "Intermediate",
+  "tags": ["flood", "swift-water rescue", "evacuation", "natural disaster", "mass casualty"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Levee Breach Reported",
+      "description": "Levee failure confirmed. Floodwaters entering residential neighbourhood at an estimated 0.3 m/hr. Evacuation order issued.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Swift-Water Teams Deployed",
+      "description": "Rescue boats and swift-water teams staging at high ground. Multiple calls from trapped residents.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Rescue Priority Established",
+      "description": "Aerial survey confirms over 200 residents unable to self-evacuate. Triage of rescue requests underway.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Water Rising — Electrical Hazard",
+      "description": "Floodwater approaching substation. Utilities team en route to de-energise grid sector.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Medical Emergencies Reported",
+      "description": "Three residents rescued with cold-water immersion injuries. EMS activated at evacuation centre.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Waters Receding",
+      "description": "Levee breach partially sealed. Water levels stabilising. Accountability sweep underway.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Levee Breach — Initial Response",
+      "situation": "A levee protecting a residential neighbourhood of approximately 1,200 homes has failed. Floodwaters are entering at an estimated 30 cm per hour. Residents are calling 911 from their homes. You are the Incident Commander. Swift-water teams are staging 800 metres away on high ground. The neighbourhood has one main evacuation route, which is beginning to flood.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a mandatory evacuation order, identify residents who cannot self-evacuate via dispatch records and aerial survey, and deploy swift-water teams to highest-risk addresses while keeping the evacuation route open.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait until water levels are confirmed before deploying boats — conditions may improve.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send all available boats to the deepest water areas where the most visible flooding is occurring.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rescue Prioritisation",
+      "situation": "Aerial surveillance confirms over 200 residents are unable to self-evacuate. Rescue requests include: a nursing home with 34 residents on the first floor (water at 60 cm and rising), a family of five including two children with special needs on a second floor, and multiple individual adults on rooftops. You have six rescue boats and two helicopters.",
+      "question": "How do you prioritise rescue resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Priority 1: nursing home (large number of immobile patients, water rising rapidly); Priority 2: family with special-needs children (floor not yet flooded); Priority 3: rooftop individuals (safe from immediate immersion); deploy helicopters for most isolated or inaccessible cases.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Rescue rooftop survivors first — they are most visible and quickest to access.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Respond to calls in the order received regardless of medical need.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Electrical Hazard — Substation Flooding",
+      "situation": "Floodwater is approaching the neighbourhood electrical substation. If energised, the water could carry lethal current across a large area, endangering both rescuers and residents in the water. The utilities emergency team is 15 minutes away. Swift-water rescue teams are operating in the zone that would be affected.",
+      "question": "What action do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Temporarily halt swift-water rescue operations in the affected zone and request urgent utilities response to de-energise the substation before resuming rescue in that area.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Continue rescues — the substation may not be reached for some time, and stopping will cost lives.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow rescuers to assess the electrical risk themselves and decide whether to continue.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Cold-Water Immersion Casualties",
+      "situation": "Three residents have been recovered from floodwater after extended immersion. All are hypothermic: one is unresponsive with a weak pulse and respiratory rate of 8/min; one is shivering, confused, and unable to walk; one is mildly hypothermic but ambulatory. EMS units are staged at the evacuation centre 2 km away.",
+      "question": "How do you manage these casualties?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the unresponsive victim as a cardiac arrest risk — handle gently, apply passive rewarming, and arrange urgent ALS transport to the trauma centre. Transport the confused victim with active warming. Walk-assist the mild case to the EMS staging area.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Warm all three patients aggressively with warm water immersion at the scene.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transport all three to the evacuation centre in the same boat without differentiated care.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Accountability Sweep",
+      "situation": "The levee breach has been partially sealed and water levels are stabilising. Rescue operations have evacuated over 180 of the 200+ stranded residents. An accountability sweep must be conducted before the scene can be stood down. Some residents may have sheltered in attics and be unreachable by boat.",
+      "question": "How do you conduct the accountability sweep?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cross-reference evacuation lists with the resident registry, conduct a systematic boat sweep of all known addresses, and use thermal imaging from the helicopter to locate individuals still sheltering in place before releasing resources.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Declare the scene clear once the main rescue effort is complete — any remaining residents would have self-evacuated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The accountability sweep located seven additional residents sheltering in attics who were safely rescued. All 34 nursing home residents were evacuated without fatalities. The three cold-water immersion casualties received appropriate care — the unresponsive patient survived with ALS intervention. The substation was de-energised before flooding reached it, preventing electrical injuries. Incident command is transitioning to recovery operations.",
+      "question": "",
+      "options": []
+    }
+  }
+}
