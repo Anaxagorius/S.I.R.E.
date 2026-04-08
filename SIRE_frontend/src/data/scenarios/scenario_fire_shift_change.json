@@ -1,0 +1,112 @@
+{
+  "title": "fire_shift_change",
+  "description": "A major structure fire ignites during the transition between day and night shifts, creating critical gaps in personnel accountability, briefing continuity, and command handoff.",
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["shift change", "command handoff", "accountability", "crew briefing", "ICS", "continuity", "training"],
+  "timeline": [
+    { "index": 0, "title": "Alarm During Shift Change", "description": "A structure fire alarm is received at 19:52 — 8 minutes before the 20:00 shift change. Day shift crews are conducting apparatus checks and briefing night shift crews.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "First Alarm Dispatch", "description": "Engine 1 (day shift crew) dispatches immediately. Engine 2 (night shift crew just arrived, still being briefed) is placed on standby.", "timeOffsetSec": 15 },
+    { "index": 2, "title": "Working Fire Confirmed", "description": "Engine 1 arrives to a working fire — two-storey commercial building with smoke from all windows. Requests immediate second alarm.", "timeOffsetSec": 45 },
+    { "index": 3, "title": "Shift Change at 20:00 During Active Operations", "description": "The shift change time arrives. Day shift crews are committed inside the structure. Night shift must be integrated without disrupting operations.", "timeOffsetSec": 90 },
+    { "index": 4, "title": "Command Transfer", "description": "Night shift battalion chief arrives and must receive a command handoff from the day shift IC.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Fire Controlled", "description": "Fire knocked down after a 40-minute operation. Full PAR completed across both shifts.", "timeOffsetSec": 600 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Alarm Received During Shift Briefing — Who Responds?",
+      "situation": "It is 19:52. Engine 1 (day shift crew) is mid-briefing with the incoming night shift crew. Engine 2's night shift crew has just taken over apparatus but has not been fully briefed on any day-shift outstanding items. The alarm is for a reported structure fire. Both crews are physically present at the station.",
+      "question": "How do you manage the dispatch during the shift overlap?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engine 1 (day shift, already checked in and ready) responds immediately. Engine 2 (night shift, apparatus checked but briefing not complete) is placed on immediate standby at the station — they are available for dispatch but should not go until the crew leader is certain of their crew's readiness. Night shift IC assumes station command. Day shift IC proceeds on Engine 1.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Hold Engine 1 until the night shift crew is fully briefed — you want a fully-transitioned crew to respond rather than a day shift crew who have already worked 10 hours.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send both engines immediately with whoever is on each — accountability can be sorted out on the radio en route.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Working Fire — Day Shift Crew Commits Interior",
+      "situation": "Engine 1 has arrived and the day shift crew leader confirms a working fire. Interior attack is committed. At 20:00 — shift change time — two day shift firefighters are inside the structure with a charged hose line. The night shift battalion chief has just arrived at scene. Day shift crews are now 30 minutes past their scheduled end of shift.",
+      "question": "How do you handle the crew accountability at shift change during an active interior operation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The interior crews stay in place — do not swap out mid-interior-operation. Perform an immediate roll call and personnel accountability confirmation for all crew on scene across both shifts. Night shift BC takes over as IC. Day shift IC provides a full verbal handoff brief — current conditions, crew assignments, air time, operational objectives — before relinquishing command. Day shift crew rotation begins only after the hose line is withdrawn or a safe exchange point is reached.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Recall all day shift crews from the interior immediately — they cannot be held past their shift end while actively risking their safety.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have night shift crews enter the structure alongside day shift to shadow their positions — the handoff can happen inside as the night crew 'takes over' each position.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Command Handoff — Night Shift BC Assumes IC",
+      "situation": "You are the incoming night shift Battalion Chief. The day shift IC is handing command to you. The fire is on the second floor, mostly contained to the rear of the building. Two day shift crews are inside. One night shift engine is staged and ready. You are receiving the verbal brief.",
+      "question": "What information do you need before accepting command?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request a full command brief covering: (1) current fire location and size; (2) all crew positions and assignments including PAR; (3) air time remaining for interior crews; (4) known hazards — structural, utilities, materials; (5) current water supply; (6) mutual aid status. Do not accept command until you have a clear picture of all active operations. Confirm with the day shift IC that you have all relevant information before they step down.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Accept command immediately — the day shift IC needs to stand down and the handoff should be as fast as possible during an active operation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask only about the fire location and current suppression status — operational details can be gathered from individual crew leaders directly.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Day Shift Crew Rotation — Fatigue Management",
+      "situation": "Command handoff is complete. Interior crews have withdrawn for a hose advancement break. Day shift crew members have now been on duty for 10.5 hours and just completed 30 minutes of interior fire attack. The fire is 70% knocked down but overhaul will take another 60–90 minutes. Night shift crews are fresh.",
+      "question": "How do you manage crew rotation for overhaul?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rotate day shift crews off — they have completed their shift and their portion of the attack. Night shift crews assume overhaul operations, fully briefed on conditions. Day shift crew leaders complete a final accountability check and document their actions. Do not extend day shift into overhaul without their supervisory consent and a welfare assessment — fatigue during overhaul causes injuries.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Keep day shift on for overhaul — they know where they've been inside and can guide night shift more efficiently.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave overhaul to night shift but do not brief them on the interior — they can assess conditions themselves on entry.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The incident was handled effectively across the shift change. Day shift responded immediately, a proper command handoff occurred at shift change, crew accountability was maintained across both shifts, and day shift was appropriately rotated off during overhaul. PAR was confirmed for all personnel. The post-incident review should examine shift-change contingency plans, personnel accountability procedures at handoff, and overhaul crew rotation protocols.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "title": "fire_dispatch_cyber_outage",
+  "description": "A major structure fire coincides with a cyber attack that has crashed the regional Computer-Aided Dispatch (CAD) system. Dispatchers are reverting to manual log books. Radio channels are disrupted by unexplained interference possibly related to the cyber event.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["cyber attack", "CAD failure", "dispatch outage", "manual dispatch", "radio interference", "ICS", "multi-agency", "training"],
+  "timeline": [
+    { "index": 0, "title": "CAD System Down — Cyber Incident", "description": "Regional dispatch reports their CAD system has crashed due to a suspected cyber attack. Dispatchers are reverting to manual radio and paper logs.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Structure Fire Reported via Telephone", "description": "A structure fire is reported by a caller to dispatch. Without CAD, dispatchers must manually identify the nearest available unit and transmit by radio.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Dispatch Delay — Manual Process", "description": "Dispatch delay of 4 minutes occurs as dispatchers manually query unit availability. Engine 1 is eventually dispatched.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Radio Interference", "description": "Unexplained interference is affecting the primary tactical channel. This may be linked to the cyber event — or may be an unrelated radio fault.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Working Fire — Additional Resources Needed", "description": "IC requests additional units but cannot confirm dispatch status without CAD confirmation. Dispatch acknowledges via radio but cannot provide ETA.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "CAD Partially Restored", "description": "CAD system partially restores. Manual logs preserved for incident documentation.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Dispatched to Working Fire — No CAD, Unknown Unit Status",
+      "situation": "You are the crew leader of Engine 1. You have been manually dispatched to a structure fire. You do not know the status of other units — CAD is down and dispatch cannot confirm what else is en route. You arrive to find a working fire in a two-storey commercial building. Smoke is showing from the first floor. You need additional resources.",
+      "question": "How do you request and track additional resources without CAD?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish command and immediately radio dispatch on the command channel requesting a second alarm. Confirm verbally with dispatch that your request has been received and recorded in their manual log — do not assume dispatch has all units accounted for in a manual system. Begin operations with your current crew. Keep a manual log of all resource requests and arrival times at your command post.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Delay resource requests until you have confirmed the CAD system is partially restored — requesting resources through a broken system may create duplicate dispatches.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact other units directly on the radio to request them to respond — bypass dispatch entirely during the CAD outage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Radio Interference — Tactical Channel Compromised",
+      "situation": "Your primary tactical channel is experiencing intermittent interference. Interior crews cannot consistently reach command. You are not sure if this is related to the cyber attack or a hardware issue. Key transmissions from interior crews are being partially blocked. You have alternative channels available on your radio.",
+      "question": "How do you manage communications during the interference?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Switch to a pre-designated alternate tactical channel immediately — do not continue to operate with unreliable communications. Notify dispatch of the channel change so they can monitor. Brief all crew on the channel change. Implement mandatory timed radio check-ins for interior crews every 2 minutes. Report the interference to dispatch as a possible cyber-related event for their awareness.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Continue on the primary channel — the interference is intermittent and switching channels during an active fire will cause more confusion.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withdraw all interior crews until the radio issue is resolved — you cannot manage interior crews without reliable communications.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Resource Arrival Unknown — Manual Accountability",
+      "situation": "Two additional engines have arrived. Without CAD, you have no automated resource tracking. You must manually track all arriving units, crew members, and assignments at the command post. One unit has arrived but not yet checked in with command — they went directly to the building.",
+      "question": "How do you establish and maintain accountability without CAD?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately radio the crew that bypassed command check-in: direct them to withdraw to the staging area and check in before re-entering. Implement a paper-based personnel accountability system at the command post — name tags, crew assignment cards, or a manual roster. All arriving units must check in with command before operating. Assign one person solely to manual accountability tracking.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the unit to continue operating — interrupting them during an active fire to enforce a check-in procedure puts suppression behind.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Rely on each crew leader to know where their own crew is — in a CAD outage, decentralised accountability is the most practical approach.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Cyber Incident Escalation — Potential Dispatch Compromise",
+      "situation": "Dispatch has now radioed all units: the cyber attack has been confirmed as ransomware that has encrypted CAD and potentially the secondary dispatch backup system. There is a risk that the interference you are experiencing on the primary channel is not a coincidence. The cyber incident team is asking all agencies to minimise transmission of sensitive operational information over possibly-compromised channels.",
+      "question": "How do you adjust your communications given the possible channel compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue tactical operations on the alternate channel — you have already switched off the primary. Limit radio transmissions to operational necessity — do not transmit sensitive location or resource inventory information that could assist an adversary. Brief all crew: treat all radio transmissions as potentially monitored. Use face-to-face communication for any sensitive resource or crew briefings where possible. Continue to prioritise life safety and fire suppression — the cyber incident does not stop the fire.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Suspend all radio transmissions until the cyber incident team confirms the channels are clean — operational security must be preserved.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Return to the primary tactical channel — if it is compromised, so is everything else and there is nothing you can do operationally about it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The structure fire was suppressed despite the CAD outage and radio interference. Manual resource tracking and accountability were maintained at the command post. The channel switch preserved interior crew communications. Sensitive information transmission was appropriately minimised once the cyber compromise was confirmed. The incident highlights the intersection of cyber attacks on emergency infrastructure and their real-world operational impact. A post-incident review should address pre-planned CAD-down protocols, manual accountability procedures, and joint fire-cyber incident response coordination.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "title": "fire_holiday",
+  "description": "A working structure fire occurs on New Year's Eve when staffing is at skeleton levels, key officers are on leave, and the neighbourhood's narrow streets are congested with parked cars from holiday gatherings.",
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["holiday", "skeleton crew", "access", "staffing", "crowd management", "ICS", "residential fire", "training"],
+  "timeline": [
+    { "index": 0, "title": "Alarm — New Year's Eve 23:40", "description": "Structure fire reported in a residential neighbourhood at 23:40 on New Year's Eve. Streets are congested with parked vehicles. On duty: 60% of normal staffing.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Access Blocked — Parked Vehicles", "description": "Engine 1 is delayed 2 minutes due to parked cars blocking the street. Apparatus cannot reach within 30 metres of the structure.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene — Working Fire, Bystanders Present", "description": "Fire visible from second floor. A large number of bystanders from nearby gatherings are watching — some are intoxicated. Police are not yet on scene.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Midnight — Fireworks and Distraction", "description": "At midnight, fireworks begin in the neighbourhood. Crowd noise makes radio communication difficult. Spectators are moving closer.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Additional Crew Recalled", "description": "Off-duty crew recalled. ETA 20 minutes. Current on-duty staffing is stretched.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Fire Controlled", "description": "Fire knocked down. Bystanders maintained at safe distance. All crew accounted for.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Access Blocked — Engine Cannot Reach the Structure",
+      "situation": "Engine 1 is blocked 30 metres from the fire building by illegally parked vehicles on a narrow residential street. The fire is working on the second floor. You need apparatus access for hose length and water supply. Neighbours from holiday parties are gathering on the street.",
+      "question": "How do you manage apparatus access?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately radio dispatch to send police to clear the street. Begin hand-laying hose from the current apparatus position to the structure — 30 metres is manageable with the hose length available. Do not delay suppression while waiting for vehicle removal. Designate one crew member to manage the growing bystander crowd and keep them clear of the hose stretch.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for police to move the parked vehicles before advancing — the apparatus must be repositioned to the correct position before any operations begin.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use the apparatus bumper to move the blocking vehicles yourself — faster than waiting for police.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Intoxicated Bystanders Near Operations",
+      "situation": "A group of intoxicated bystanders from a nearby New Year's gathering is approaching the scene. Some are attempting to film from within the operating area. Police have not yet arrived. Your crew is stretched — you need all hands on fire attack and you have no spare crew for crowd control.",
+      "question": "How do you manage the bystander crowd with limited crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a loud and clear perimeter using engine warning lights and verbal commands. Assign the least committed crew member to stand at the perimeter and direct bystanders back — a single visible presence is often enough to redirect a crowd. Repeatedly radio dispatch to prioritise police attendance. Document bystander interference in your incident report.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Ignore the bystanders and focus all crew on the fire — you cannot spare anyone for crowd control.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stop fire operations until police arrive to establish the perimeter — operating with an unsecured perimeter is a crew safety risk.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Midnight — Fireworks, Noise, and Communication Breakdown",
+      "situation": "It is midnight. Fireworks are going off throughout the neighbourhood. Radio communication is severely degraded by background noise. A crew member inside the structure radios that they are making progress but you can only make out every third word. The crowd noise from midnight celebrations is affecting command post function.",
+      "question": "How do you manage communications during the noise interference?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Switch to a pre-designated alternate radio channel away from the noise frequency interference. Brief all crew on the channel change. Establish hand signal protocols and a scheduled radio check-in every 2 minutes for interior crews. Move the command post to the opposite side of the apparatus where engine noise provides some noise shielding. Relay all communications through the most experienced crew leader.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Continue on the primary channel and have all crew speak louder — the noise will subside once the fireworks stop.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withdraw all interior crews immediately — if you cannot hear them on the radio, you cannot manage their safety.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recalled Off-Duty Crew Arrive — Integration",
+      "situation": "Off-duty crew have arrived — 4 firefighters who were at holiday gatherings. Some appear fatigued. They are technically fit for duty but have been celebrating and some have not slept. The fire is 80% knocked down. Overhaul will take 45–60 minutes in smoke-filled conditions.",
+      "question": "How do you use the recalled crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a rapid welfare assessment of each recalled crew member before assigning them — ask directly whether they are fit for interior duty. Assign those who are clearly fit to overhaul support. Assign any crew with impaired alertness to exterior, non-IDLH tasks such as equipment management or scene lighting. Document welfare assessments. Do not send any crew member whose fitness you doubt into an IDLH environment.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Assign all recalled crew to overhaul immediately — you need the manpower and they are trained firefighters.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send all recalled crew home — you have enough crew to complete overhaul and adding holiday-recalled crew increases risk.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire was extinguished. Access was managed through hose extension without waiting for vehicle removal. Bystanders were maintained at a safe perimeter. Communication degradation during the fireworks was managed through alternate channels and check-in protocols. Recalled crew were welfare-assessed before assignment. All personnel accounted for. A post-incident review should examine holiday staffing contingencies, pre-planned crowd control procedures for high-occupancy date events, and communication protocols during noise-intensive environments.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

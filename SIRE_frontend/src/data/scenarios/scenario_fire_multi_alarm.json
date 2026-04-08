@@ -1,0 +1,112 @@
+{
+  "title": "fire_multi_alarm",
+  "description": "Simultaneous multi-alarm fires break out across two separate structures, stretching available resources to their limits and forcing Incident Command to triage priorities and request mutual aid.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["multi-alarm", "resource management", "mutual aid", "ICS", "simultaneous incidents", "triage", "span of control", "training"],
+  "timeline": [
+    { "index": 0, "title": "First Alarm — Commercial Structure", "description": "Dispatch receives reports of a working fire at a two-storey commercial building. Engine 1, Engine 2, and Ladder 1 are dispatched.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Second Alarm — Residential Structure 1.2 km Away", "description": "While units are en route to the commercial fire, a second alarm comes in: a residential structure fire with reported entrapment 1.2 km away. Available units are severely limited.", "timeOffsetSec": 45 },
+    { "index": 2, "title": "Mutual Aid Requested", "description": "IC activates mutual aid. Neighbouring departments are notified. ETA for mutual aid units is 12 minutes.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Commercial Fire Escalates", "description": "Commercial structure fire escalates to a second alarm. Roof is compromised. IC must decide whether to commit additional resources.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Mutual Aid Arrives", "description": "Two mutual aid engines arrive. IC must assign and brief them rapidly.", "timeOffsetSec": 360 },
+    { "index": 5, "title": "Both Incidents Stabilised", "description": "Both fires are brought under control. PAR confirmed at both scenes. Fatigue and resource tracking becomes the next priority.", "timeOffsetSec": 600 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Two Active Fires — Critically Limited Resources",
+      "situation": "You are the Incident Commander. Engine 1 and Ladder 1 are committed to the commercial structure fire. A second structure fire with reported entrapment has just been dispatched 1.2 km away. You have Engine 2 still available. Your full on-duty complement is three engines and one ladder — all now accounted for. Mutual aid has been requested but has a 12-minute ETA.",
+      "question": "How do you allocate Engine 2?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Send Engine 2 to the residential fire with entrapment immediately — entrapment is a life-safety priority that must be addressed even with minimal resources. Simultaneously, request an immediate upgrade to second alarm mutual aid and establish a Unified Command framework for both incidents.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Keep Engine 2 at the commercial fire to ensure you have enough resources there, and rely on mutual aid to handle the residential fire.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Split Engine 2's crew — send half to each incident to provide minimal coverage everywhere.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Separate Incident Commanders or Unified Command?",
+      "situation": "Engine 2 is en route to the residential fire. You are managing both incidents from your command vehicle. The commercial fire is escalating — Ladder 1 is reporting roof involvement. The residential fire crew is reporting confirmed entrapment on arrival. You are being stretched across two radio channels and two operational priorities simultaneously.",
+      "question": "How do you manage command at two simultaneous incidents?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Designate the senior officer at each scene as the On-Scene Commander for their respective incident and give them authority to make tactical decisions. You retain strategic IC authority and mutual aid coordination. Establish two separate radio channels — one per incident — and monitor both from command.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Personally drive to the residential fire with entrapment — that is the higher life-safety priority and requires the IC to be present.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Manage both incidents on the same radio channel — separating channels will cause you to miss critical transmissions.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Commercial Fire Escalates — Roof Compromise",
+      "situation": "The On-Scene Commander at the commercial fire radios that the roof is showing signs of imminent collapse. Two interior crews are currently operating inside. The building is of ordinary construction. The residential entrapment has been resolved — a victim was removed and is being treated by EMS. Mutual aid is 5 minutes out.",
+      "question": "How do you respond to the escalating commercial fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order the On-Scene Commander at the commercial fire to immediately withdraw all interior crews and transition to a defensive operation. Do not wait for mutual aid to arrive before making the withdrawal decision — roof collapse risk in ordinary construction is a life-safety priority. Communicate the tactical change on all channels.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the On-Scene Commander to continue interior operations until mutual aid arrives — five minutes is manageable if crews are careful.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the On-Scene Commander to assess further before withdrawing — you need more information before calling a defensive transition.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Mutual Aid Arrival and Integration",
+      "situation": "Mutual aid has arrived — two engines from neighbouring departments. Interior crews have been withdrawn from the commercial structure and exterior master streams are being set up. The residential fire is under control. You must quickly integrate the mutual aid crews into the incident organisation.",
+      "question": "How do you integrate incoming mutual aid into the command structure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign the mutual aid engines to the Exterior Division at the commercial fire under the On-Scene Commander. Brief them on radio channels, hazards, and objectives before they operate. Confirm personnel accountability with each mutual aid crew leader. Do not deploy them before they are briefed.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Direct mutual aid crews to self-deploy to wherever they see fit — experienced fire crews know what to do without detailed briefing.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hold mutual aid in staging until the defensive operation at the commercial fire is fully established — avoid adding complexity during an active transition.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Both fires have been brought under control. The residential entrapment victim received timely care. Defensive operations at the commercial structure contained fire spread without crew casualties. Mutual aid was integrated effectively. PAR was confirmed at both scenes. A post-incident review should examine resource allocation protocols for simultaneous multi-alarm incidents.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

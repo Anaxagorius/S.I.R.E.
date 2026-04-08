@@ -173,6 +173,18 @@ import scenarioFireHoarderHouse from "./scenarios/scenario_fire_hoarder_house.js
 import scenarioFireDisabledOccupants from "./scenarios/scenario_fire_disabled_occupants.json";
 import scenarioFireOccupantsRefusingEvacuation from "./scenarios/scenario_fire_occupants_refusing_evacuation.json";
 import scenarioFireChildrenTrapped from "./scenarios/scenario_fire_children_trapped.json";
+
+// Firefighter — Notional / Training-Focused Scenarios
+import scenarioFireMultiAlarm from "./scenarios/scenario_fire_multi_alarm.json";
+import scenarioFireFirefighterShortage from "./scenarios/scenario_fire_firefighter_shortage.json";
+import scenarioFireSevereWeather from "./scenarios/scenario_fire_severe_weather.json";
+import scenarioFire911Center from "./scenarios/scenario_fire_911_center.json";
+import scenarioFireShiftChange from "./scenarios/scenario_fire_shift_change.json";
+import scenarioFireHoliday from "./scenarios/scenario_fire_holiday.json";
+import scenarioFireBlackout from "./scenarios/scenario_fire_blackout.json";
+import scenarioFireDispatchCyberOutage from "./scenarios/scenario_fire_dispatch_cyber_outage.json";
+import scenarioFireFalseReports from "./scenarios/scenario_fire_false_reports.json";
+import scenarioFireEthicalTriage from "./scenarios/scenario_fire_ethical_triage.json";
 import scenarioFireHomeOxygenTanks from "./scenarios/scenario_fire_home_oxygen_tanks.json";
 import scenarioFireLithiumIonBattery from "./scenarios/scenario_fire_lithium_ion_battery.json";
 import scenarioFireHighRiseResidential from "./scenarios/scenario_fire_high_rise_residential.json";
@@ -1360,6 +1372,78 @@ const DEMO_SCENARIOS = [
         name: "Wildfire with Wildlife Rescue",
         description: "A wildfire threatens a wildlife refuge, forcing coordinated rescue operations for injured animals alongside fire suppression and habitat protection.",
         data: scenarioFireWildlifeRescue,
+    },
+
+    // ── Firefighter: Notional / Training-Focused Scenarios ────────────────────
+    {
+        id: "scenario_fire_multi_alarm",
+        icon: "🔔",
+        name: "Simultaneous Multi-Alarm Fires",
+        description: "Two simultaneous structure fires stretch resources to their limits — IC must triage priorities, split command, and integrate mutual aid across both scenes.",
+        data: scenarioFireMultiAlarm,
+    },
+    {
+        id: "scenario_fire_firefighter_shortage",
+        icon: "👨‍🚒",
+        name: "Fire During Firefighter Shortage",
+        description: "A working structure fire with reported entrapment occurs during a severe staffing shortage — crews must operate within strict minimum-staffing safety limits.",
+        data: scenarioFireFirefighterShortage,
+    },
+    {
+        id: "scenario_fire_severe_weather",
+        icon: "⛈️",
+        name: "Fire During Severe Weather",
+        description: "A structure fire during active severe weather with high winds, lightning, and a wind shift — crews must apply wind-driven fire tactics and lightning safety protocols.",
+        data: scenarioFireSevereWeather,
+    },
+    {
+        id: "scenario_fire_911_center",
+        icon: "📞",
+        name: "Fire Affecting 911 Centre and Urgent Care Clinic",
+        description: "A fire in the regional 911 Communications Centre threatens dispatch continuity — IC must balance suppression against maintaining emergency call-taking operations.",
+        data: scenarioFire911Center,
+    },
+    {
+        id: "scenario_fire_shift_change",
+        icon: "🔄",
+        name: "Incident During Shift Change",
+        description: "A structure fire erupts during the day-to-night shift handoff — crews must manage command transfer, accountability across both shifts, and crew rotation during overhaul.",
+        data: scenarioFireShiftChange,
+    },
+    {
+        id: "scenario_fire_holiday",
+        icon: "🎆",
+        name: "Fire Incident During Holidays",
+        description: "A residential fire on New Year's Eve with skeleton staffing, congested streets, intoxicated bystanders, and midnight fireworks degrading communication.",
+        data: scenarioFireHoliday,
+    },
+    {
+        id: "scenario_fire_blackout",
+        icon: "🔦",
+        name: "Fire During Power Blackout",
+        description: "A fire in a mid-rise residential building during a total power blackout — no lighting, no elevators, and panicked residents in darkened stairwells.",
+        data: scenarioFireBlackout,
+    },
+    {
+        id: "scenario_fire_dispatch_cyber_outage",
+        icon: "💻",
+        name: "Fire with Cyber Outage of Dispatch Systems",
+        description: "A structure fire coincides with a ransomware attack on the regional CAD system — manual dispatch, radio interference, and compromised channels complicate operations.",
+        data: scenarioFireDispatchCyberOutage,
+    },
+    {
+        id: "scenario_fire_false_reports",
+        icon: "📻",
+        name: "Fire Command Overwhelmed by False Reports",
+        description: "A multi-alarm fire generates a flood of unverified bystander reports and a false MAYDAY transmission — IC must manage information overload while maintaining command clarity.",
+        data: scenarioFireFalseReports,
+    },
+    {
+        id: "scenario_fire_ethical_triage",
+        icon: "⚖️",
+        name: "Ethical Decision-Making Under Triage Pressure",
+        description: "A mass casualty event at a structure fire forces life-or-death triage decisions under extreme pressure, including the hardest designation — expectant victims unlikely to survive.",
+        data: scenarioFireEthicalTriage,
     },
 ];
 

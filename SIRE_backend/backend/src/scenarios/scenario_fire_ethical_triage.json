@@ -1,0 +1,112 @@
+{
+  "title": "fire_ethical_triage",
+  "description": "Firefighters and EMS face a mass casualty event at a structure fire where the number of critically injured victims exceeds immediate treatment capacity. Triage decisions must be made under extreme pressure, including the hardest designation: those unlikely to survive even with immediate care.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["ethical triage", "mass casualty", "START triage", "black tag", "life safety", "EMS", "ICS", "decision making", "training"],
+  "timeline": [
+    { "index": 0, "title": "Explosion and Fire — Multiple Casualties", "description": "An explosion at an industrial facility is followed by fire. First units arrive to find approximately 20 victims — some walking, some immobile, some with critical injuries visible from the perimeter.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Mass Casualty Declaration", "description": "IC declares a mass casualty incident. START triage initiated. EMS units establishing treatment areas.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Triage Conflict — Critical Victim", "description": "A paramedic triages a victim as black (expectant). A firefighter on scene disagrees and wants to begin CPR immediately.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Resource Bottleneck", "description": "Three RED-tagged victims are waiting for treatment but only one paramedic is available — two others are managing prior patients.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Additional EMS and Hospital Notification", "description": "Three additional ambulances arrive. Two trauma centres are notified and begin clearing capacity.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "All Viable Victims Treated", "description": "All viable victims transported. Two victims did not survive. Documentation and critical incident stress management initiated.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "START Triage at Mass Casualty — Who Goes First?",
+      "situation": "You are the EMS Supervisor at a mass casualty incident involving an industrial explosion and fire. You have 5 paramedics and 3 ambulances. There are approximately 20 victims. START triage has begun. You see: 6 walking wounded (GREEN), 7 victims with serious but survivable injuries (YELLOW), 4 victims with critical life-threatening injuries requiring immediate intervention (RED), and 3 victims with unsurvivable injuries or no pulse/no breathing (BLACK). Your RED victims include: a victim with an arterial bleed, a victim with an open chest wound, a victim with severe head trauma and fixed pupils.",
+      "question": "How do you allocate your 5 paramedics under START triage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign 3 paramedics immediately to the 3 RED victims with survivable critical injuries — arterial bleed (direct pressure/tourniquet), open chest wound (chest seal), and the third RED victim. The fixed-pupil head trauma victim is tagged BLACK alongside the other 3 non-viable victims — fixed pupils in an MCI context indicate non-survivable neurological injury. Assign 1 paramedic to YELLOW triage oversight. Assign 1 to GREEN (walking wounded) assessment and first aid guidance. Begin immediate transport of RED victims as ambulances are available.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to treat all victims simultaneously — even a small chance of survival justifies equal treatment effort for all.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Begin with the most severely injured first — the BLACK-tagged victims with the worst visible injuries should receive care before victims who appear more stable.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Triage Disagreement — Firefighter Wants to Resuscitate a BLACK-Tagged Victim",
+      "situation": "A firefighter approaches you distressed. They have been performing CPR on a BLACK-tagged victim — a young adult with blast injuries and no pulse. The triaging paramedic designated this victim as expectant. The firefighter says: 'I cannot stop CPR — they look like they could make it.' You have RED-tagged victims who are not yet fully treated and your paramedic resource is stretched.",
+      "question": "How do you handle the triage disagreement under operational pressure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the firefighter's distress with empathy — this is an emotionally difficult situation. Clearly but compassionately explain: 'This victim has been assessed as expectant under MCI triage criteria. Continuing CPR uses resources that will save survivable victims. I need you at [other task].' If the firefighter is unable to disengage, reassign them to a non-triage task — do not let emotional conflict reduce performance elsewhere. Support them with critical incident stress debriefing after the incident.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the firefighter to continue CPR — stopping resuscitation on a victim who may have a chance violates the duty of care.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Order the firefighter to stop immediately and return to their assigned task — there is no time for discussion during an active MCI.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Resource Bottleneck — Three RED Victims, One Available Paramedic",
+      "situation": "Two additional RED victims have been identified on the far side of the building — both with arterial trauma. Your other paramedics are engaged with prior patients. You have one available paramedic. Fire crews who have received basic first aid training are standing by. Additional EMS units are 6 minutes away.",
+      "question": "How do you address the RED victim bottleneck?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the available paramedic to the most immediately life-threatening RED victim — highest bleed severity or airway compromise. Instruct trained fire crew to apply direct pressure and improvised tourniquets to the second RED victim under paramedic radio guidance — this extends your paramedic's reach without fully replacing clinical judgment. Brief the fire crew clearly: 'Apply firm direct pressure here — do not release — wait for the paramedic.' This is a temporary bridge, not a replacement for paramedic care.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Hold the paramedic until additional EMS arrives in 6 minutes — untrained interventions by fire crew could cause harm.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have the paramedic rapidly switch between both RED victims every 2 minutes to provide at least some care to each simultaneously.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Hospital Capacity and Transport Sequencing",
+      "situation": "Three ambulances are available. Regional trauma centres have been notified. Trauma Centre A can take 3 critical patients now. Trauma Centre B is further away but can take 4 critical patients. Trauma Centre C is the closest but only has emergency department capacity — not a full trauma team. You have 4 RED-tagged victims ready for transport.",
+      "question": "How do you sequence the transport to maximise outcomes?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transport the 3 most critical RED victims to Trauma Centre A — immediate trauma team capacity is the priority for life-threatening injuries. Transport the 4th RED victim to Trauma Centre B. Do not route any critical trauma victim to Trauma Centre C (emergency department only) — they lack the surgical capacity for critical trauma. Coordinate transport sequencing with the Medical Branch Director to ensure no centre is overwhelmed.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Transport all victims to the nearest hospital — minimising transport time is the most important factor for critical patients.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Distribute victims equally across all three trauma centres — spreading the load prevents any one centre from being overwhelmed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All viable victims received appropriate care under MCI triage principles. START triage was applied correctly, including the most difficult decision — black-tagging expectant victims to preserve resources for survivable casualties. The triage disagreement with the firefighter was handled with empathy and operational clarity. Fire crew were used to extend paramedic reach during the bottleneck. Transport was sequenced based on hospital capability, not proximity alone. Two victims did not survive their injuries. A post-incident critical incident stress management session has been arranged for all crew. A post-incident review should address MCI triage protocols, bystander and crew emotional support procedures, and multi-agency coordination for mass casualty events.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
