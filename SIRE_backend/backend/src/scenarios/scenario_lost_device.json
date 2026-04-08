@@ -1,0 +1,161 @@
+{
+  "title": "lost_device",
+  "description": "An employee reports their work laptop missing after a business trip, and the device contains unencrypted client files and cached VPN credentials without MDM enrolment or remote wipe capability.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Laptop Reported Missing",
+      "description": "An employee contacts the IT helpdesk to report their work laptop missing after returning from a business trip. The laptop was last seen at the airport hotel.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Device Status Assessed",
+      "description": "IT confirms the device is not enrolled in MDM, has no remote wipe capability, and full-disk encryption was never enabled. The device stores client project files and cached VPN credentials.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "VPN Credentials Revoked",
+      "description": "The employee's VPN credentials are revoked immediately to prevent the device being used to access internal networks.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Data Breach Assessment Initiated",
+      "description": "The DPO is notified and begins assessing whether the lost data constitutes a reportable breach under UK GDPR, given that client personal data is stored unencrypted.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Clients Notified Where Required",
+      "description": "Affected clients are informed of the incident in line with contractual and regulatory obligations. Police report filed for the missing device.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "MDM and Encryption Policy Enforced",
+      "description": "All company devices are enrolled in MDM with remote wipe enabled. Full-disk encryption mandated across the fleet. A travel device policy is introduced.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Missing Laptop Reported to Helpdesk",
+      "situation": "An employee has just reported to your IT helpdesk that their work laptop has gone missing, likely left at an airport hotel following a business trip. The device is a standard-issue laptop. A check of your asset management system reveals it is not enrolled in MDM, has no remote wipe configured, and full-disk encryption was never enabled. The employee confirms the device had locally stored client project files and their VPN credentials were saved in the browser.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately revoke the employee's VPN credentials and any other saved credentials that could be used from the device, then escalate to the CISO and DPO to assess the data exposure risk.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait 24 hours to see if the device is found at the hotel before taking any security action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the employee to change their VPN password themselves and report back if the device is not found within a week.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Data Exposure Assessment",
+      "situation": "VPN credentials are revoked. The DPO is now assessing the breach. The lost device held unencrypted client project files containing personal data for approximately 45 individuals, including contact details and contractual information. Because the data is unencrypted, it must be treated as potentially accessible to any person who found the device. The DPO asks you to help determine the notification obligations.",
+      "question": "What are your notification obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Report the breach to the ICO within 72 hours if the risk to affected individuals is deemed likely, and notify the affected clients directly in accordance with contractual obligations and UK GDPR Article 34 where the risk is high.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait to see if the device is recovered before deciding whether to notify anyone — notification may be unnecessary if the device is found quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Police Report and Hotel Contact",
+      "situation": "The DPO has confirmed ICO notification is required given the unencrypted nature of the data. Client notifications are being prepared. You must also take practical steps to recover the device or confirm it is in safe hands.",
+      "question": "What practical steps do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "File a police report for the missing device, contact the hotel's lost property team with the device serial number, and document all steps taken as part of the incident record.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the employee to contact the hotel personally and advise them to update the helpdesk if the device is found.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Write off the device as lost and focus solely on regulatory notifications without attempting recovery.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Improving Device Security Across the Fleet",
+      "situation": "Regulatory notifications are underway and the incident is documented. The root cause was a failure to enforce basic endpoint security — no MDM enrolment, no full-disk encryption, and no remote wipe capability. Leadership asks you to remediate the entire device fleet and prevent a recurrence.",
+      "question": "Which controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enrol all company devices in MDM with remote wipe enabled, mandate full-disk encryption (BitLocker or FileVault) across the fleet, enforce a travel device policy prohibiting sensitive data on unmanaged devices, and prohibit saving credentials in browsers on corporate devices.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue guidance to staff on keeping devices secure when travelling and remind them to use screen locks.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The employee's VPN credentials were revoked immediately and the DPO conducted a thorough breach assessment. ICO notification was made within the 72-hour window and affected clients were notified appropriately. A police report was filed and the hotel was contacted. The entire device fleet is now enrolled in MDM with remote wipe and full-disk encryption enforced, and a travel device policy is in place.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Beginner",
+  "tags": [
+    "human error",
+    "lost device",
+    "data breach",
+    "endpoint security"
+  ]
+}

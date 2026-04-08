@@ -1,0 +1,161 @@
+{
+  "title": "data_sent_wrong_recipient",
+  "description": "An HR manager accidentally emails a spreadsheet containing salary and personal data for 300 employees to an external distribution list instead of the internal HR team.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Misdirected Email Sent",
+      "description": "An HR manager sends a spreadsheet containing names, salaries, National Insurance numbers, and home addresses for 300 employees to an external industry distribution list.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Error Discovered",
+      "description": "A recipient on the external distribution list replies to inform the HR manager they have received confidential HR data. The HR manager immediately alerts their line manager and IT.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Recall Attempted",
+      "description": "IT attempts to recall the email from external recipients. Recall is unsuccessful for most external addresses.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Data Protection Officer Notified",
+      "description": "The Data Protection Officer (DPO) is notified and begins a GDPR breach assessment to determine regulatory notification obligations.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Recipients Contacted",
+      "description": "HR contacts all known external recipients directly, requests deletion of the email and attachment, and documents each response.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "ICO Notified and Controls Reviewed",
+      "description": "The ICO is notified within 72 hours as required. Email DLP controls and distribution list hygiene processes are reviewed and updated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Misdirected HR Data Email Reported",
+      "situation": "An external recipient has just replied to an email from your HR manager, attaching the original email and noting they appear to have received a confidential HR spreadsheet by mistake. The spreadsheet contains full names, salary information, home addresses, and National Insurance numbers for 300 employees. The email was sent to an external industry distribution list with approximately 80 recipients. The HR manager is reporting the incident to you now.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify the Data Protection Officer, preserve the email metadata and sent-box record, and instruct the HR manager not to send any further communications to that distribution list pending guidance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the HR manager to send a follow-up email to the distribution list requesting deletion — without involving the DPO yet.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to recall the email from all recipients immediately and consider the matter resolved if the recall succeeds.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "GDPR Breach Assessment",
+      "situation": "The DPO has been notified and is conducting a breach assessment. Personal data — including special category-adjacent data such as salary and National Insurance numbers — has been disclosed to unauthorised external parties. Under UK GDPR, a personal data breach that is likely to result in a risk to individuals' rights and freedoms must be reported to the ICO within 72 hours. The clock started when the error was discovered. The DPO asks you to help determine the scope and risk level.",
+      "question": "What information does the DPO need to complete the assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide the DPO with the full recipient list, the data categories and number of individuals affected, the time of the breach, and any mitigating actions already taken, so they can determine whether ICO notification is required.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise the DPO to wait until all recipients have confirmed deletion before deciding whether to notify the ICO.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Contacting Recipients and Requesting Deletion",
+      "situation": "The DPO has determined that ICO notification is required given the volume and sensitivity of data affected. In parallel, you must contact all known external recipients to request immediate deletion of the email and attachment, and document their responses. Email recall was unsuccessful for most external addresses.",
+      "question": "How do you manage recipient contact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Send a clear, individually addressed email to each external recipient requesting immediate deletion, provide evidence of your data protection obligations, document every response received, and follow up with non-respondents within 24 hours.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a single group reply-all email to the distribution list requesting deletion and consider your obligations met.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not contact recipients — doing so may draw further attention to the breach.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Future Misdirected Email Incidents",
+      "situation": "The ICO has been notified within 72 hours. Affected employees are being informed in line with GDPR obligations. Leadership asks you to recommend controls to prevent similar incidents in the future, particularly given the volume of sensitive HR data handled by email.",
+      "question": "Which controls do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement email DLP rules to flag or block external emails containing HR data patterns (NI numbers, salary keywords), enforce a mandatory 60-second send delay for external emails, audit and clean up external distribution lists, and deliver targeted data handling training for HR staff.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a footer reminder on all outgoing emails to double-check recipients before sending.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The breach was identified and escalated promptly. The DPO conducted a thorough breach assessment and the ICO was notified within the 72-hour requirement. All known external recipients were contacted with documented deletion requests, and affected employees were informed. Email DLP controls, a send delay, distribution list hygiene, and targeted HR staff training are now in place to reduce the risk of future misdirected disclosures.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cyber",
+  "difficulty": "Beginner",
+  "tags": [
+    "human error",
+    "data breach",
+    "email",
+    "GDPR"
+  ]
+}
