@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-04-08
  * Description: Global styles and base resets for the application.
  * Defines the default typography, color, layout behavior,
  * and element styling applied across all components.
@@ -8,30 +8,55 @@
 
 /** Root variables and global typography settings. */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #0e0e0e;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ── Design tokens ─────────────────────────────────────────────── */
+  --color-bg:          #0e0e0e;
+  --color-surface:     #1a1a1a;
+  --color-surface-2:   #242424;
+  --color-surface-3:   #2c2c2c;
+  --color-border:      rgba(255, 255, 255, 0.08);
+  --color-border-mid:  rgba(255, 255, 255, 0.14);
+  --color-accent:      rgb(200, 40, 40);
+  --color-accent-glow: rgba(200, 40, 40, 0.25);
+  --color-text:        rgba(255, 255, 255, 0.87);
+  --color-text-muted:  rgba(255, 255, 255, 0.50);
+  --color-text-dim:    rgba(255, 255, 255, 0.35);
+
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  18px;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.55);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.65);
+
+  --transition: 0.22s ease;
 }
 
 /** Default link styling. */
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: opacity var(--transition);
 }
 
 /** Link hover effect. */
 a:hover {
-  color: #535bf2;
+  opacity: 0.75;
 }
 
 /** Global body reset and layout. */
@@ -40,6 +65,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow: hidden;
+  background-color: var(--color-bg);
 }
 
 /** Root container sizing. */
@@ -52,42 +78,44 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-/** Base button styling. */
+h2 {
+  letter-spacing: -0.01em;
+}
+
+/** Base button styling — shared reset only; components own their look. */
 button {
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-surface);
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-/** Button hover effect. */
-button:hover {
-  border-color: #646cff;
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
 /** Button focus style for accessibility. */
-button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-/** Light mode overrides. */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/** Thin, styled scrollbar for panels that scroll. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.12) transparent;
+}
+*::-webkit-scrollbar {
+  width: 5px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 99px;
 }

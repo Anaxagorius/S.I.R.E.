@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-21
+ * Last Update: 2026-04-08
  * Description: Styles for authentication forms including layout, input fields,
  * and responsive structure for Login and Signup screens.
  */
@@ -15,80 +15,95 @@
 
 /** Left section (branding & information panel). */
 .form-left {
-    background: rgb(0, 0, 0);
+    background: linear-gradient(180deg, rgb(8, 8, 8) 0%, rgb(14, 14, 14) 100%);
+    border-right: 1px solid var(--color-border);
     color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     height: 75vh;
-    justify-content: space-between;
-    padding: 4rem 2rem;
+    justify-content: center;
+    padding: 4rem 2.5rem;
+    box-sizing: border-box;
+}
+
+/** Wrapper for left-side content. */
+.left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 /** Subtitle text styling. */
 .subtitle {
-    opacity: 0.8;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0;
 }
 
 /** Right section (input panel). */
 .form-right {
     align-items: flex-start;
-    background: rgb(36, 36, 36);
+    background: var(--color-surface-2);
     display: flex;
     height: 75vh;
     justify-content: center;
     overflow-y: auto;
-    padding: 4rem;
+    padding: 4rem 3rem;
+    box-sizing: border-box;
 }
 
 /** Wrapper for form content. */
 .form-content {
     width: 100%;
     max-width: 400px;
-    margin-top: 5rem;
+    padding-top: 2.5rem;
 }
 
 /** Signup form layout. */
 .signup-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
 }
 
 /** Login form layout. */
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
 }
 
 /** Individual form group (label & input). */
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.45rem;
 }
 
 /** Form labels. */
 .form-group label {
-    color: rgb(221, 221, 221);
-    font-size: 1rem;
-    font-weight: 500;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
 }
 
 /** Input fields. */
 .form-group input {
-    background: rgb(31, 31, 31);
-    border: 1px solid rgb(136, 136, 136);
-    border-radius: 6px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-mid);
+    border-radius: var(--radius-sm);
     color: rgb(255, 255, 255);
-    font-size: 1rem;
-    padding: 0.75rem;
+    font-size: 0.95rem;
+    padding: 0.7rem 0.85rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 /** Input focus state. */
 .form-group input:focus {
     outline: none;
-    border-color: rgb(200, 40, 40);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-glow);
 }
 
 /** Autofill styling override (browser consistency). */
@@ -96,15 +111,35 @@
 .form-group input:-webkit-autofill:hover,
 .form-group input:-webkit-autofill:focus {
     -webkit-text-fill-color: rgb(255, 255, 255);
-    background-color: rgb(31, 31, 31) !important;
-    border: 1px solid rgb(136, 136, 136) !important;
-    box-shadow: 0 0 0px 1000px rgb(31, 31, 31) inset !important;
+    background-color: var(--color-surface) !important;
+    border: 1px solid var(--color-border-mid) !important;
+    box-shadow: 0 0 0px 1000px var(--color-surface) inset !important;
     transition: background-color 9999s ease-in-out 0s;
+}
+
+/** "No account?" helper text. */
+.no-account-text {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/** Inline error message. */
+.error {
+    background: rgba(200, 40, 40, 0.12);
+    border: 1px solid rgba(200, 40, 40, 0.4);
+    border-radius: var(--radius-sm);
+    color: rgb(255, 100, 100);
+    font-size: 0.85rem;
+    padding: 0.6rem 0.85rem;
 }
 
 /** Footer container below the form. */
 .footer-container {
-    background: rgb(26, 26, 26);
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border);
     height: 25vh;
-    padding: 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
