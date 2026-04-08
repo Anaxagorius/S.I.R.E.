@@ -1,0 +1,64 @@
+{
+  "title": "scenario_suspicious_person_vehicle",
+  "description": "A call for service reports a suspicious person loitering near parked vehicles. The situation may range from a misunderstanding to an ongoing criminal act.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "Communications relays a call: male, late 20s, dark jacket, pacing near vehicles in a parking lot. No weapons confirmed. Caller is watching from a nearby window.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Unit Arrives on Scene", "description": "You arrive and observe the individual matching the description. He notices your approach and begins walking away at a quickened pace.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Initial Contact Made", "description": "You identify yourself and ask the individual to stop. He complies but appears agitated and provides a vague explanation for his presence.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Record Check Returns", "description": "Communications returns: the individual has a prior for auto theft, no outstanding warrants, not on any current watch list.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Situation Resolved", "description": "The individual is released with a field contact card completed. No grounds for arrest. Vehicle owner is notified.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Report Submitted", "description": "A general occurrence report is completed documenting the contact, grounds, and disposition.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Person — Initial Approach",
+      "situation": "You arrive at a strip-mall parking lot. A male matching the complainant's description is walking briskly away from a row of parked vehicles. One vehicle nearby has a partially open driver's window. The complainant called 15 minutes ago. You have no further information.",
+      "question": "How do you approach?",
+      "options": [
+        { "label": "A", "text": "Position your cruiser to slow the individual's movement, exit calmly, identify yourself as police, and advise him you are following up on a call. Keep your hands visible and maintain a safe distance as you make verbal contact.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately draw your firearm and order the individual to the ground, treating the unknown situation as a high-risk stop.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Drive past slowly to observe, then leave without making contact because the individual appears to be leaving.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Articulable Grounds to Detain?",
+      "situation": "The individual stops when addressed. He says he was 'just walking through.' You note he is breathing quickly, avoids eye contact, and has grease or dirt on his hands. The vehicle with the open window does not appear to have been broken into. He declines to give his name voluntarily.",
+      "question": "What is your next action?",
+      "options": [
+        { "label": "A", "text": "Advise the individual that you are detaining him for investigative purposes based on articulable cause — his behaviour, the prior call, and his presence near the vehicles — and that he is not free to go at this time. Advise him of his right to counsel.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Arrest him for possession of break-in instruments based solely on the dirty hands and vague answers, without any further grounds.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell him he is free to go since he hasn't done anything obvious, and clear the call.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Record Check and Owner Contact",
+      "situation": "Communications confirms the individual has a prior conviction for auto theft — no outstanding warrants. You run the nearby vehicle with the open window: it is registered to a resident of a nearby apartment. The individual states the open window is not his problem. You have not located any tools or stolen property on his person during a pat-down for officer safety (which you articulated).",
+      "question": "How do you proceed?",
+      "options": [
+        { "label": "A", "text": "Attempt to contact the vehicle owner to confirm whether the window was left open or tampered with. Complete a field contact card documenting the individual's particulars, grounds for detention, and result. Release him unless the owner provides evidence of an offence.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Arrest the individual for mischief based on the open window alone, without confirming with the owner.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Release him immediately without completing documentation, since no offence is confirmed.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Documenting the Contact",
+      "situation": "The vehicle owner confirms by phone that she left the window cracked intentionally. No offence is confirmed. The individual is released. You must now complete your documentation.",
+      "question": "What documentation is required?",
+      "options": [
+        { "label": "A", "text": "Complete a general occurrence report documenting the call for service, the basis for the investigative detention, the check results, the owner's confirmation, and the disposition. A field contact card is also completed and will be submitted to intelligence.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Complete nothing — since no charges were laid there is no requirement to document the contact.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Only log the call as 'unfounded' in CAD without any narrative report.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the suspicious person call appropriately: you made calm, professional contact; articulated grounds for a brief investigative detention; conducted a lawful pat-down; ran records; contacted the vehicle owner; and completed full documentation. The individual was released with no grounds for arrest.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["patrol", "suspicious person", "investigative detention", "articulable cause", "field contact", "documentation"]
+}

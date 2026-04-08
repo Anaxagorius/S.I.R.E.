@@ -1,0 +1,64 @@
+{
+  "title": "scenario_found_stolen_property",
+  "description": "An officer locates property suspected to be stolen during a traffic stop. Proper handling, CPIC queries, and victim notification procedures are tested.",
+  "timeline": [
+    { "index": 0, "title": "Traffic Stop Initiated", "description": "You stop a vehicle for a defective tail light at 11:30 p.m. The driver is cooperative. During the stop, you observe several items in the back seat that appear out of place.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Suspicious Property Identified", "description": "A power tool kit with a store price tag still attached and a high-end bicycle frame without any accessories are in the rear seat — inconsistent with a vehicle otherwise containing only fast-food wrappers.", "timeOffsetSec": 40 },
+    { "index": 2, "title": "CPIC Query Returns", "description": "The bicycle frame serial number is queried and returns as stolen from an address six days ago.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Driver Questioned", "description": "The driver provides a vague account of how he came to have the items. He declines to say where he got the bike.", "timeOffsetSec": 150 },
+    { "index": 4, "title": "Property Seized", "description": "The bicycle is seized as found property — evidence of an offence. The tool kit is also seized pending investigation.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Victim Notified", "description": "The owner of the bicycle is located and notified. Occurrence documented.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspicious Items Observed During Traffic Stop",
+      "situation": "You have stopped a vehicle for a defective tail light. The driver — male, late 20s — is cooperative and produces a valid licence. Through the rear window you can plainly see a new-looking power tool kit (with a store price tag and packaging) and an expensive-looking bicycle frame sitting loose in the back seat. The vehicle is a compact car in poor condition.",
+      "question": "How do you proceed regarding the suspicious items?",
+      "options": [
+        { "label": "A", "text": "Complete the traffic stop purpose first. You may observe items in plain view as a matter of course. If, after completing the stop, you have formed articulable cause to investigate the property further — based on its apparent incongruity with the vehicle and its occupant — ask the driver about the items and request serial numbers or receipts, without yet treating it as a search.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately order the driver out, handcuff him, and search the entire vehicle for stolen property.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Ignore the items entirely since the stop is for a traffic matter only.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "CPIC Query — Stolen Property Return",
+      "situation": "The driver cannot produce receipts or explain where the bicycle came from. He gives conflicting answers — first that he bought it from a friend, then that he 'found it.' The serial number on the bicycle frame is intact. You query it through CPIC.",
+      "question": "The CPIC query returns the bicycle as stolen from a residential B&E six days ago. What are your grounds now?",
+      "options": [
+        { "label": "A", "text": "The positive CPIC return provides reasonable grounds to believe the bicycle is stolen property in the driver's possession. You now have grounds to arrest him for possession of property obtained by crime (s. 354 Criminal Code) and to seize the bicycle as evidence. Read him his Charter rights and caution him. The tool kit should also be seized pending investigation of its origin.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Release the driver since the stolen property return may be an error, and advise him to bring the bike to the station if he chooses.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Seize only the bicycle and allow the driver to go, since possession of property obtained by crime requires proof of knowledge.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Seizure and Continuity of Evidence",
+      "situation": "The driver is under arrest. You must seize the bicycle and tool kit as evidence. You have no evidence kit in your cruiser for fingerprinting. The items must be transported to the station. Continuity of evidence is critical for any subsequent prosecution.",
+      "question": "How do you handle the seizure and continuity?",
+      "options": [
+        { "label": "A", "text": "Photograph the items in situ in the vehicle before moving them. Package them appropriately (using evidence bags or packaging available in your cruiser or requested from dispatch). Assign each item an exhibit number. Document who touched the items, when, and in what condition. Transport to the property room and complete a property report. Advise the Ident unit of the bicycle if fingerprinting may be useful.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Simply place the items in the trunk of your cruiser loose, without photography or packaging, and sort out the paperwork at the station.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave the items in the suspect's vehicle and have it towed, allowing the property room to deal with it upon impound.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Notifying the Victim",
+      "situation": "The bicycle has been booked into the property room. The CPIC entry has the name and contact number of the person who reported it stolen in the original B&E occurrence. The owner has not been notified yet. You must determine how and when to contact the victim.",
+      "question": "What is the appropriate process for notifying the owner and returning the property?",
+      "options": [
+        { "label": "A", "text": "Contact the owner promptly by phone to advise them the bicycle has been recovered. Explain that the bicycle is currently seized as evidence in an active investigation and cannot be immediately returned, but that you will keep them informed of the case progression. Provide them with the occurrence number and advise when they may expect to receive it back. Document the notification in your report.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Return the bicycle to the owner immediately so they can have it back right away, since it is clearly theirs.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait until the case is fully adjudicated before contacting the victim, to avoid complications with the evidence.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the found/stolen property situation correctly: you observed items lawfully in plain view and articulated grounds for further inquiry; queried the serial number and acted on the CPIC return; arrested and chartered the driver; maintained proper continuity of evidence through photography and packaging; and promptly notified the victim with a clear explanation of the evidence hold.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["patrol", "found property", "stolen property", "CPIC", "possession of property obtained by crime", "s.354 Criminal Code", "continuity of evidence", "victim notification"]
+}

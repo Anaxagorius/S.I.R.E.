@@ -1,0 +1,64 @@
+{
+  "title": "scenario_noise_complaint",
+  "description": "A noise complaint call about a loud party escalates when an intoxicated resident confronts responding officers aggressively.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "Multiple calls for a loud party at a residential address. Loud music and shouting reported. Saturday 1:15 a.m.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Unit Arrives", "description": "Loud music and laughter audible from the street. Multiple people visible through windows. You knock and a young male answers.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "Initial Compliance", "description": "The male agrees to turn down the music and thanks you. You clear the call. Fifteen minutes later dispatch re-assigns you — second call to same address.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Confrontation Develops", "description": "On re-arrival, a larger, intoxicated male meets you outside and challenges your authority to return.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Escalation", "description": "The male steps toward you, agitated. Guests behind him become engaged. The situation is beginning to draw a crowd.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Resolution", "description": "The matter is resolved through de-escalation. A bylaw ticket is issued. Peace is maintained.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "First Response — Noise Complaint",
+      "situation": "You arrive at a residential address at 1:15 a.m. Music is loud enough to hear clearly from the sidewalk. A young male answers the door. He is polite, slightly intoxicated, and cooperative. He says it's his birthday. Music and voices are audible inside.",
+      "question": "What is your approach on first contact?",
+      "options": [
+        { "label": "A", "text": "Introduce yourself, explain the nature of the complaint courteously, and advise him that the noise level must be reduced. Confirm that he owns or is responsible for the residence. Note the address, time, and his name for documentation. Ask him to bring the noise to a reasonable level immediately and advise that re-attendance may result in a bylaw ticket.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately demand the party end, all guests leave, and advise you will return to arrest everyone if the noise continues.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Since he's cooperative, simply wave off the complaint and leave without documenting your attendance or advising of potential consequences.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Re-Attendance — Second Complaint",
+      "situation": "You are re-dispatched to the same address 15 minutes later. As you approach, a larger male (approximately 35, visibly intoxicated) opens the door before you reach it and says loudly: 'You got no right to come back here — I pay my taxes!' He is standing in the doorway, blocking entry.",
+      "question": "How do you manage the initial confrontation?",
+      "options": [
+        { "label": "A", "text": "Remain calm and professional. Maintain your position at the threshold. Acknowledge his statement and explain you are there to address another complaint from the neighbours. Lower your voice, use his name if you have it, and avoid matching his aggressive tone. Do not enter the residence without lawful authority.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Push past him into the residence to assess the noise level yourself.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Back away and clear the call to avoid a confrontation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Escalating Confrontation — Crowd Forming",
+      "situation": "The male steps off the porch toward you, raising his voice. Several guests have come outside and are watching. One bystander is recording on a phone. The male says: 'Get off my property or I'm calling a lawyer.' He has not physically threatened you, but his body language is aggressive. You are alone on scene; backup is five minutes away.",
+      "question": "How do you respond?",
+      "options": [
+        { "label": "A", "text": "Advise dispatch of the developing confrontation and your location. Keep your tone measured and your hands visible. Tell him calmly: 'I understand you're frustrated. I'm not here to cause trouble — I just need to let you know that continued noise could result in a bylaw fine or summons. I'm not going anywhere, but I don't want this to escalate.' Give him space and allow him to vent briefly.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Immediately arrest him for causing a disturbance since he is loud and aggressive in public.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Match his energy, raise your voice, and order him back inside or face immediate arrest for obstruction.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "De-escalation and Resolution",
+      "situation": "Backup arrives. The male's tone softens after a few minutes. He acknowledges the noise is probably too loud and agrees to end the outdoor portion of the party. He is still agitated but is no longer advancing toward you. The bylaw officer has been notified.",
+      "question": "What is the appropriate enforcement action?",
+      "options": [
+        { "label": "A", "text": "Issue a bylaw ticket or written warning consistent with the municipal noise bylaw. Document both attendances, the grounds, the individuals involved, and the outcome. Advise him that further noise complaints will result in additional enforcement action. Clear the call once satisfied the situation is resolved.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Arrest the male for causing a disturbance even though the confrontation has ended and he is now cooperating.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave without issuing any enforcement action or documentation since he's calmed down.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the noise complaint and resulting confrontation professionally: you made calm initial contact with appropriate warnings; responded to the escalation without matching aggression; coordinated backup; de-escalated effectively; and applied proportionate enforcement through a bylaw ticket with full documentation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["patrol", "noise complaint", "de-escalation", "bylaw enforcement", "confrontation management", "documentation"]
+}

@@ -1,0 +1,64 @@
+{
+  "title": "scenario_missing_child",
+  "description": "Officers respond to a report of a lost child at a public event. Child safety protocols, parent contact, and the distinction from an abduction are tested.",
+  "timeline": [
+    { "index": 0, "title": "Report Received", "description": "Event staff at a local fair report a young girl, approximately 5 years old, found alone and crying near a food stand. No adult with her. She says her name is 'Emma.'", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Officers Arrive", "description": "You locate the child with an event volunteer. She is distressed but physically unharmed. She cannot provide her last name or parents' phone number.", "timeOffsetSec": 20 },
+    { "index": 2, "title": "Initial Assessment", "description": "The child does not appear to be abducted. She describes becoming separated from her parents near a ride. No signs of injury or distress beyond being frightened.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Parents Located", "description": "Event PA system is used and frantic parents respond within four minutes. They match the child's description of them.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Safety Check", "description": "Parents are emotional and cooperative. A brief safety assessment of the family is conducted.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Occurrence Documented", "description": "The incident is documented as a found child — non-abduction. Parents are advised on safety strategies.", "timeOffsetSec": 240 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Found Child — First Response",
+      "situation": "You arrive at a crowded fairground. An event volunteer has a young girl, approximately 5 years old, who is crying and distressed. She says her name is 'Emma' but cannot provide her last name or a parent's phone number. She is physically unharmed. She says she 'lost Mommy and Daddy near the big ride.' No adult has come forward to claim her.",
+      "question": "What is your immediate priority?",
+      "options": [
+        { "label": "A", "text": "Ensure the child is in a safe, calm environment away from the crowd. Speak to her gently at her level, introduce yourself, and reassure her that she is safe and you will help find her parents. Begin gathering what information she can provide — her name, any siblings, what her parents look like, where they were — without pressuring her. Request that the event PA system broadcast an announcement for her parents simultaneously.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately declare an Amber Alert and treat the situation as a child abduction.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave the child with the volunteer and return to patrol until a parent comes forward on their own.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Abduction or Accidental Separation?",
+      "situation": "From speaking with Emma, you have established that she was with both parents, that she followed a balloon vendor and became separated, and that there is no suggestion of anyone taking or pulling her away. She is not fearful of her parents. She identifies a description of her mother that matches event volunteers' recollection of an adult seen searching nearby. The circumstances are consistent with accidental separation.",
+      "question": "What is your assessment and how do you escalate (or not)?",
+      "options": [
+        { "label": "A", "text": "Based on all available information, the situation is consistent with accidental separation — not abduction. Continue efforts to locate the parents through the PA system and by canvassing the immediate area. Keep the child calm and in a safe location. Do not activate an Amber Alert at this stage as the criteria are not met — Amber Alerts require a reasonable belief that the child has been abducted and is in danger.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Treat it as a confirmed abduction since the parents have not yet appeared, and activate the Amber Alert system immediately.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Return the child to the event's lost and found desk and clear the scene since there are no signs of a crime.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Parents Respond",
+      "situation": "Following the PA announcement, a frantic couple approaches the volunteer area four minutes later. Emma immediately calls out 'Mommy!' and reaches for the woman. Both parents are visibly distressed, tearful, and cooperative. The mother produces ID and a family photo on her phone showing Emma. They explain they have been searching for 15 minutes.",
+      "question": "What do you do before reuniting the child with the parents?",
+      "options": [
+        { "label": "A", "text": "Confirm the adults' identity against the information Emma provided and the photo. Observe the child's reaction to them — Emma's immediate recognition and positive response supports reunification. Conduct a brief, respectful interaction to confirm there are no child welfare concerns. Once satisfied, reunite Emma with her parents and complete the necessary documentation.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Reunite the child immediately without any verification, since Emma recognized the adults as her parents.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Refuse to reunite the child until a full child welfare investigation is completed, including a home inspection.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Safety Conversation and Documentation",
+      "situation": "The family has been reunited. Both parents are grateful but shaken. Emma is calm now that she is with her parents. You must complete documentation and consider whether any advisory conversation is appropriate.",
+      "question": "What are your documentation and advisory obligations?",
+      "options": [
+        { "label": "A", "text": "Complete a general occurrence report documenting the found child, the circumstances of separation, the parents' identification and verification, and the successful reunification. Briefly and non-judgmentally advise the parents on child safety strategies — agreeing on a meeting point if separated, teaching children to seek a uniformed official, and providing a card with your non-emergency number. No child welfare referral is warranted based on the circumstances.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Make a mandatory child welfare report since the child was found alone, indicating a failure of parental supervision.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Complete no documentation since no offence occurred and the child is now safe.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the lost child call appropriately: you immediately prioritized the child's safety and comfort; correctly assessed the circumstances as accidental separation rather than abduction; did not trigger an unwarranted Amber Alert; verified parental identity before reunification; and completed thorough documentation with a brief, proportionate safety advisory to the family.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["patrol", "missing child", "lost child", "non-abduction", "Amber Alert", "child safety", "family reunification", "documentation"]
+}

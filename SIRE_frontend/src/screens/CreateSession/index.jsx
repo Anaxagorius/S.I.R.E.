@@ -12,7 +12,7 @@ import BackButton from "../../components/BackButton";
 import { createSession } from "../../services/api/api";
 import DEMO_SCENARIOS from "../../data/demoScenarios";
 
-const CATEGORIES = ["All", "Physical", "Medical", "HAZMAT", "Threat", "Cyber", "Network", "Web", "Cloud"];
+const CATEGORIES = ["All", "Physical", "Medical", "HAZMAT", "Threat", "Police", "Cyber", "Network", "Web", "Cloud"];
 const DIFFICULTIES = ["All", "Beginner", "Intermediate", "Advanced"];
 
 /** Returns the CSS class name for a difficulty badge. */

@@ -1,0 +1,64 @@
+{
+  "title": "scenario_trespassing",
+  "description": "A property owner reports a repeat trespasser at their business. The trespasser is present when officers arrive and complicates the situation by claiming a right to be on the property.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "Business owner calls regarding a male refusing to leave the rear of the property. Prior trespass notice on file from two months ago.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Unit Arrives", "description": "You locate the male in the rear parking lot. He is seated on a crate near a loading dock and does not acknowledge your presence initially.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Initial Contact", "description": "The male identifies himself. Communications confirms the prior trespass notice. He claims he works here and disputes the notice.", "timeOffsetSec": 75 },
+    { "index": 3, "title": "Owner Contacted", "description": "The owner confirms by phone that the male was terminated three weeks ago and does not have permission to be on the property.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Notice and Compliance Decision", "description": "The male is given a clear direction to leave and warned of arrest if he refuses.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Resolution", "description": "The male complies and leaves. A trespass prohibition is formally documented.", "timeOffsetSec": 240 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Contact with Alleged Trespasser",
+      "situation": "You locate a male matching the description seated in the rear parking lot of a commercial property. He has a bag with him and appears to be using a mobile phone. He does not leave when he sees you. Communications confirms a trespass notice for this individual at this address, issued two months ago by the owner.",
+      "question": "What is your initial approach?",
+      "options": [
+        { "label": "A", "text": "Approach calmly, identify yourself, and advise the male that you are responding to a complaint and that there is a trespass notice on file for him at this address. Ask for his identification and allow him to explain his presence before determining your next steps.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately arrest him for trespass based solely on the prior notice, without giving him an opportunity to explain.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell him that since the notice is two months old it may no longer be valid and clear the call without further action.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Disputed Claim of Permission",
+      "situation": "The male says he used to work here as a delivery driver and believes he is still employed. He says no one told him he was fired. He becomes mildly agitated when you reference the trespass notice. He has not threatened you or refused to comply yet.",
+      "question": "How do you verify the situation?",
+      "options": [
+        { "label": "A", "text": "Advise the male that you understand his position and that you are going to contact the property owner or manager to confirm his current employment status and whether permission exists for him to be on the property. Ask him to remain where he is while you do so.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Accept his explanation and clear the call since his claim creates reasonable doubt.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell him his employment dispute is not your concern and immediately place him under arrest for trespass.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Owner Confirms No Permission",
+      "situation": "You reach the business owner by phone. She confirms the male was terminated three weeks ago for cause and has been told by management not to return. He has attended twice since termination. The owner explicitly requests police remove him and issue a formal trespass prohibition.",
+      "question": "What is the appropriate enforcement action?",
+      "options": [
+        { "label": "A", "text": "Return to the male and advise him that the owner has confirmed he has no permission to be on the property and that his employment ended three weeks ago. Clearly direct him to leave. Advise him that if he refuses or returns to the property, he may be arrested under the Trespass to Property Act. Give him a reasonable opportunity to comply before escalating.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Arrest him immediately without advising him of the owner's confirmation or giving him a chance to leave voluntarily.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell the owner this is a civil employment matter and decline to take enforcement action.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Compliance and Documentation",
+      "situation": "The male grumbles but complies. He picks up his bag and begins walking toward the street. He asks if he will be arrested if he comes back. You must now formally document the prohibition and the outcome.",
+      "question": "What documentation is required?",
+      "options": [
+        { "label": "A", "text": "Issue or document a formal trespass prohibition for the property, clearly specifying the address and warning of consequences for return. Complete a general occurrence report documenting both the call for service and the prior notice, the owner's instructions, the male's response, and the disposition. Provide the owner with a copy of the occurrence number.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Since he left voluntarily, no further documentation is needed — clear the call as resolved.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Arrest him before he reaches the street to ensure he does not return.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the trespass complaint effectively: you made contact, gave the subject an opportunity to explain, confirmed with the property owner, delivered a clear direction to leave, allowed voluntary compliance, and completed thorough documentation including a formal trespass prohibition.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["patrol", "trespassing", "trespass to property act", "property owner", "documentation", "compliance"]
+}

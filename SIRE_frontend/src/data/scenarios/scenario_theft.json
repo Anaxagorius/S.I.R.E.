@@ -1,0 +1,64 @@
+{
+  "title": "scenario_theft",
+  "description": "Officers investigate a theft complaint where the value of the property determines the charge level. Proper valuation, evidence handling, and charge selection are tested.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "A tool rental company reports that a customer failed to return equipment valued at several thousand dollars and is now unreachable.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Scene Assessment", "description": "You attend the business and speak with the owner, who provides the rental agreement, the customer's information, and an invoice.", "timeOffsetSec": 40 },
+    { "index": 2, "title": "Suspect Located", "description": "The suspect is located at his residence. The equipment is visible in his driveway.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Valuation Confirmed", "description": "The replacement value of the unreturned equipment is confirmed at $6,800 based on manufacturer pricing.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Charge Decision", "description": "You must determine the appropriate charge and whether to arrest or proceed by summons.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Report Submitted", "description": "Occurrence report filed. Equipment is recovered and returned to the owner.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Theft Complaint — Initial Report",
+      "situation": "A tool rental company owner advises that a customer rented a commercial pressure washer and concrete saw on Tuesday for a two-day rental. It is now Friday. All calls go to voicemail. The owner has a signed rental agreement with the customer's name, address, driver's licence number, and a credit card on file. The invoice shows a replacement value of $6,800.",
+      "question": "What is your initial assessment and action?",
+      "options": [
+        { "label": "A", "text": "Take a full statement from the owner, obtain the rental agreement and invoice as exhibits, and confirm the customer's identity and address from the agreement. Advise the owner you will attempt to locate the subject and the property. Determine whether an intent to steal can be inferred from the failure to return and the evasion of contact.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Advise the owner this is a civil rental dispute and decline to take a report.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Immediately obtain a warrant for the customer's arrest for theft over $5,000 without attempting to locate the property or confirm the circumstances.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Locating the Suspect and Property",
+      "situation": "You attend the address on the rental agreement. The suspect's vehicle is in the driveway. Both pieces of equipment are visible, uncovered, in the driveway. The suspect answers the door and says he 'forgot' to return them and has been meaning to call. He does not deny having the property.",
+      "question": "How do you proceed?",
+      "options": [
+        { "label": "A", "text": "Speak with the suspect and listen to his explanation. Advise him of the complaint and the circumstances. Confirm the equipment is the rental company's property. Assess his explanation against the known facts — three days overdue, calls unreturned — in determining whether there is a reasonable inference of dishonest intent sufficient to support a theft charge.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Accept his explanation at face value and help him return the equipment without any charge or documentation.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Arrest him immediately without allowing him to provide any explanation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Charge Classification — Under or Over Threshold",
+      "situation": "The replacement value of the equipment is confirmed at $6,800 (above the $5,000 threshold in Criminal Code s. 334). The suspect's explanation — that he 'forgot' and simply didn't call — does not adequately explain three days of non-contact. You have reasonable grounds to believe a theft has occurred.",
+      "question": "What charge applies and what is the significance of the threshold?",
+      "options": [
+        { "label": "A", "text": "Proceed with theft over $5,000 under Criminal Code s. 334(a), as the value of the property exceeds the threshold. This is an indictable offence carrying a maximum of 10 years. Document the valuation evidence (manufacturer pricing and the rental invoice) as the basis for the value determination. Arrest is available, but consider whether a promise to appear or undertaking is appropriate given the property is recovered and the suspect has no record.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Charge theft under $5,000 because the property has been recovered and its actual 'loss' to the owner was temporary.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Charge fraud over $5,000 rather than theft since the rental agreement was signed with intent to obtain property.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Arrest vs. Appearance Notice",
+      "situation": "The suspect has no prior criminal record, the property has been fully recovered, and he is cooperative. He lives locally and has stable employment. The owner wants charges laid but also wants his equipment back now. You must decide between arresting and holding for a bail hearing versus releasing on a promise to appear.",
+      "question": "What is the most appropriate disposition?",
+      "options": [
+        { "label": "A", "text": "Given the recovery of the property, absence of a record, stable ties to the community, and cooperation, exercise discretion to release on a promise to appear or an appearance notice (where authorized by your service), rather than holding for bail. Document the grounds for the charge clearly, return the equipment to the owner with a receipt, and ensure the occurrence is fully documented.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Hold the subject in custody overnight for a bail hearing as a matter of course for an indictable theft.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Release him with no charge because the property was returned and the owner is mostly satisfied.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the theft investigation correctly: you obtained a thorough complaint from the owner with supporting exhibits; located the suspect and property; assessed the facts for dishonest intent; correctly applied the Criminal Code s. 334 threshold; exercised proportionate discretion on arrest vs. release; and fully documented the investigation and property return.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["patrol", "theft", "Criminal Code s.334", "theft over $5000", "theft under $5000", "charge classification", "property recovery", "arrest discretion"]
+}

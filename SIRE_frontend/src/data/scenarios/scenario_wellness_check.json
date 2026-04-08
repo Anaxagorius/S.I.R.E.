@@ -1,0 +1,64 @@
+{
+  "title": "scenario_wellness_check",
+  "description": "A caller reports a neighbour has not been seen in several days and lights are on at unusual hours. The check reveals a person in mental health crisis.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "Caller reports concern for a neighbour — 40s female, lives alone, not seen in three days, lights flickering. No history provided.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Arrival on Scene", "description": "You arrive and confirm the address. A light is visible through the curtains. Knocking produces no response for 90 seconds.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Contact Made", "description": "The individual opens the door. She appears dishevelled, is tearful, and makes statements suggesting she has not eaten or slept. She refuses to let you in at first.", "timeOffsetSec": 75 },
+    { "index": 3, "title": "Mental Health Crisis Identified", "description": "The individual discloses she has been experiencing suicidal thoughts but denies a plan. She agrees to speak with you in the doorway.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Mobile Crisis Team En Route", "description": "You have requested a Mobile Crisis Response Team. They will arrive in approximately 20 minutes.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Transport Arranged", "description": "In consultation with the crisis team, the individual is transported to hospital for assessment under provincial mental health legislation.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "No Response at the Door",
+      "situation": "You knock several times and identify yourself as police. After 90 seconds there is no response, but you can hear movement inside. The caller says the person lives alone and has a history of depression. No sounds of distress are audible.",
+      "question": "What is your next action?",
+      "options": [
+        { "label": "A", "text": "Continue to knock and verbally identify yourself calmly. Ask communications to attempt a phone call to the residence. Check if a building manager or next of kin can confirm access is reasonable, while remaining patient and non-threatening at the door.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately force entry using your shoulder since you hear movement and suspect the person is in danger.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave a business card on the door and clear the call as 'no answer — no apparent emergency.'", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Person Opens the Door",
+      "situation": "The individual opens the door approximately two minutes later. She is visibly dishevelled, eyes are red from crying, and she smells of alcohol. She says: 'I'm fine, just tired.' You observe pill bottles on a table behind her. She begins to close the door.",
+      "question": "How do you respond?",
+      "options": [
+        { "label": "A", "text": "Gently introduce yourself by first name, express genuine concern without alarm, and ask if you can have a brief conversation. Use a calm tone and open body language. Acknowledge what she said while also noting that the neighbours were worried about her.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Immediately force the door open citing the pill bottles as evidence of an overdose attempt, and call EMS.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Accept her statement at face value and leave, logging the call as 'person located — no concern.'", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Disclosure of Suicidal Ideation",
+      "situation": "After a few minutes of calm conversation, the individual discloses she has been thinking about ending her life but says she doesn't have a plan. She is crying and says she just wants to be left alone. She has not taken any pills. She has not consented to voluntary transport.",
+      "question": "What is your assessment and action?",
+      "options": [
+        { "label": "A", "text": "Acknowledge her disclosure without judgment. Advise her that what she's sharing is important and you want to get her some support. Contact dispatch to request the Mobile Crisis Response Team or a mental health clinician to attend. Remain on scene and keep her engaged in conversation, assessing her safety continuously.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Tell her that since she has no plan, she does not qualify for apprehension and you are required to leave.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Immediately apprehend her under mental health legislation without attempting voluntary transport or waiting for crisis support.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Crisis Team Arrives — Disposition Decision",
+      "situation": "The Mobile Crisis Response Team (MCRT) has arrived and conducted a brief clinical assessment. The clinician advises that the individual meets the threshold for an involuntary examination under provincial mental health legislation — she is at risk and lacks the capacity to adequately care for herself. She continues to refuse transport.",
+      "question": "How do you proceed?",
+      "options": [
+        { "label": "A", "text": "In consultation with the clinician, complete the required documentation authorizing apprehension for examination under the applicable Mental Health Act provisions. Transport her to hospital for assessment in the least restrictive and most dignified manner possible. Document the grounds and the MCRT clinician's involvement.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Decline to act since she is not a criminal matter and advise the family to handle it.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Arrest her for public intoxication (due to the smell of alcohol) rather than invoking mental health legislation.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You managed the wellness check effectively: you made patient, non-coercive contact; identified a person in mental health crisis; engaged the Mobile Crisis Response Team; and arranged appropriate transport under mental health legislation with full documentation. The individual is now receiving professional care.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["patrol", "wellness check", "mental health", "crisis intervention", "Mobile Crisis Response Team", "Mental Health Act", "de-escalation"]
+}

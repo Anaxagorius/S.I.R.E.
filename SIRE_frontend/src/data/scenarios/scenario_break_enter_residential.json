@@ -1,0 +1,64 @@
+{
+  "title": "scenario_break_enter_residential",
+  "description": "Officers respond to a residential break and enter in progress. Scene management, suspect apprehension, and victim support are tested.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "A neighbour reports seeing a male break a basement window and enter a house at 3:40 p.m. The homeowners are believed to be away. The caller is watching from across the street.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Units Responding", "description": "Two units dispatched. You are the first to arrive. No suspect is visible. A basement window is visibly broken.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "Perimeter Set", "description": "You and the second unit set a perimeter. A male exits through the rear door carrying a bag.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Suspect Apprehended", "description": "The suspect is detained at the rear of the property with the bag. He declines to identify himself.", "timeOffsetSec": 90 },
+    { "index": 4, "title": "Scene Cleared and Owner Notified", "description": "The residence is cleared. The homeowners are contacted and return to assess the loss.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Charges Laid", "description": "Suspect is charged with break, enter and commit theft. Exhibits seized. Scene documented.", "timeOffsetSec": 360 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrival — Break and Enter in Progress",
+      "situation": "You arrive at a residential address. A basement window is shattered. No suspect is visible from the front. The complainant across the street confirms the male entered approximately four minutes ago. A second unit is 90 seconds out. The front door is intact and closed.",
+      "question": "What is your immediate action upon arrival?",
+      "options": [
+        { "label": "A", "text": "Do not enter the residence alone. Advise dispatch of your arrival and the scene status. Position yourself to observe the front of the residence and communicate with the second unit to coordinate a perimeter — covering all exit points including front, rear, and sides — before entry or contact. Contain the scene until backup is in position.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Enter the residence immediately through the broken window to locate and apprehend the suspect before he can escape.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Wait outside for the homeowner to arrive before taking any action, since entering is trespassing.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Suspect Exits — Rear of Property",
+      "situation": "With the perimeter set, your partner advises by radio that a male has exited through the rear door carrying a duffel bag and is moving toward the back fence. You are positioned at the front. Your partner is moving to intercept.",
+      "question": "How do you respond?",
+      "options": [
+        { "label": "A", "text": "Move to the side of the house to cover the suspect's possible exit from the fence and cut off a lateral escape route. Communicate clearly with your partner over radio. Approach only when your partner has made contact or requires assistance, maintaining good spacing and cover.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Rush into the rear yard alone before your partner has made contact, arriving simultaneously from two angles without communication.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Remain at the front of the house and do not move to cover the rear since that is your partner's assigned area.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Suspect Detained — Rights and Caution",
+      "situation": "The suspect is detained at the rear of the property. He is cooperative but will not give his name. The bag contains what appears to be electronics and jewellery — items inconsistent with anything he would be carrying lawfully. He is in handcuffs for officer safety. He has not been arrested yet.",
+      "question": "What are your obligations before the arrest?",
+      "options": [
+        { "label": "A", "text": "You have reasonable grounds to arrest based on: the witness account of him entering, the broken window, and the bag contents. Advise him he is under arrest for break, enter and commit. Provide the Charter caution — right to counsel and the reason for arrest — clearly and without delay. Do not question him further until cautions are complete.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Begin questioning him immediately about the contents of the bag before providing Charter cautions, since he is only 'detained' not yet 'arrested.'", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Release him since you do not yet have a confirmed victim statement and cannot prove what was in the house.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scene Processing and Owner Contact",
+      "situation": "The suspect is in custody. The residence must be cleared and secured before the owners arrive. The bag of property is an exhibit. The broken window has created a security concern. The owners are en route and expected in 20 minutes.",
+      "question": "How do you manage the scene before the owners arrive?",
+      "options": [
+        { "label": "A", "text": "Conduct a systematic clearance of the residence to ensure no additional suspects are present. Do not disturb any items that may be evidence of the break-in or theft. Photograph the point of entry and any disturbed areas before the owners touch anything. When the owners arrive, take them through the home to identify what has been taken and document it, asking them not to touch potential evidence until it is assessed.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Allow the owners to enter and begin cleaning up as soon as they arrive so they can return to normalcy quickly.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Leave the residence unsecured until the Ident unit arrives, even though it may be hours before they can attend.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the residential break and enter effectively: you waited for backup and set a perimeter rather than entering alone; communicated clearly during the takedown; arrested the suspect with proper Charter cautions; conducted a lawful search; managed the scene carefully before the victim's arrival; and documented all evidence and actions thoroughly.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["patrol", "break and enter", "residential", "perimeter", "arrest", "Charter rights", "scene management", "victim support"]
+}

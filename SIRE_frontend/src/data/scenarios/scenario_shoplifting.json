@@ -1,0 +1,64 @@
+{
+  "title": "scenario_shoplifting",
+  "description": "A loss prevention officer detains a shoplifter and requests police. Officers must assess the lawfulness of the citizen's arrest, advise on Charter obligations, and make a charge and detention decision.",
+  "timeline": [
+    { "index": 0, "title": "Dispatch Received", "description": "Loss prevention at a large retail store reports they have detained a female for shoplifting. Merchandise valued at approximately $180 is alleged to have been concealed.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Officers Arrive", "description": "You arrive at the store's LP office. A female is seated, under watch by the LP officer. Recovered items are on the desk.", "timeOffsetSec": 25 },
+    { "index": 2, "title": "LP Account Reviewed", "description": "The LP officer describes a sequence of selection, concealment, and full pass of the point of sale without payment.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Subject Interviewed", "description": "The detained female provides her identification and a limited explanation. She does not deny taking the items.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Charge Decision", "description": "Officers assess the facts against the threshold for theft under s. 334(b) and the detention decision.", "timeOffsetSec": 180 },
+    { "index": 5, "title": "Resolution", "description": "The subject is released on a promise to appear. Merchandise returned to the store.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Citizen's Arrest — Lawfulness Assessment",
+      "situation": "The LP officer (a civilian employee of the store) has detained a female he says he personally watched select items, conceal them in her coat, and walk past the checkouts without paying. He intercepted her just outside the entrance. The female is calm and has not attempted to leave the LP office. The LP officer asks you to 'take over.'",
+      "question": "What is your first assessment?",
+      "options": [
+        { "label": "A", "text": "Before taking any further action, assess the lawfulness of the citizen's arrest under s. 494 of the Criminal Code. Confirm that the LP officer personally observed the offence being committed — selection, concealment, and full pass of the point of sale — which is required for a valid s. 494(1) citizen's arrest. If the arrest is lawful, you may now treat the subject as having been lawfully arrested and take over custody. If it is not lawful, the situation changes materially.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately place the female under arrest using your own police authority without reviewing the LP officer's account, since she is already detained.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Release the female immediately because the LP officer is a civilian and has no authority to detain anyone.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Charter Obligations Upon Taking Custody",
+      "situation": "The LP officer's account satisfies s. 494 — he personally observed the complete act of theft. You are now taking over the arrest. The female is cooperative. She has not yet been advised of her rights. She is asking what is going to happen and says she can explain.",
+      "question": "What are your Charter obligations at this point?",
+      "options": [
+        { "label": "A", "text": "Without delay, advise her of the reason for her arrest and her right to retain and instruct counsel without delay (s. 10(a) and 10(b) of the Charter). She must be given a reasonable opportunity to contact a lawyer if she wishes before any police questioning occurs. Do not question her further about the circumstances until cautions are complete and she has had that opportunity.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow her to provide an explanation immediately since she is offering it voluntarily and it may simplify matters.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Advise her of her rights only after you have taken her statement, since the LP officer already completed the arrest.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Charge and Detention Decision",
+      "situation": "The merchandise recovered has a retail value of $178. The female waived her right to counsel after being properly advised. She provides her identification. She has one prior conviction for theft under $5,000 from four years ago — no outstanding warrants. She lives locally, is employed, and has no history of failing to appear.",
+      "question": "What is the appropriate charge and disposition?",
+      "options": [
+        { "label": "A", "text": "Charge theft under $5,000 under s. 334(b) of the Criminal Code. Given her community ties, prior history (one prior, no outstanding warrants), cooperation, and the low value of the property, release on a promise to appear or appearance notice is appropriate. Provide the store with a trespass prohibition for the individual if requested. Document all facts thoroughly.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Hold her in custody for a bail hearing because she has a prior record for the same type of offence.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Decline to lay charges and have the store handle it civilly since the value is under $200.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Evidence and Documentation",
+      "situation": "You must now complete the documentation for this occurrence. The merchandise has been recovered. The LP officer has a video recording of the theft and is willing to provide a statement. The female has signed the promise to appear.",
+      "question": "What documentation and evidence steps must be completed?",
+      "options": [
+        { "label": "A", "text": "Complete a general occurrence report including the LP officer's account, the items recovered (with photos and a list as an exhibit), the female's particulars and prior record, the Charter cautions given and waiver, the charge details, and the release conditions. Obtain the LP officer's written statement. Request a copy of or preservation hold on the surveillance footage as an exhibit for Crown disclosure.", "outcome": { "type": "node", "target": "node-5" } },
+        { "label": "B", "text": "Complete only a brief note since she was released — a full report is only needed for custody cases.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Return the merchandise to the store without documenting it as an exhibit since it has been recovered.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You handled the shoplifting detention correctly: you assessed the lawfulness of the citizen's arrest before taking over; provided full Charter cautions without delay; made a proportionate charge and release decision; documented a thorough occurrence; and secured key evidence including the LP officer's statement and surveillance footage.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["patrol", "shoplifting", "theft under $5000", "citizen's arrest", "s.494 Criminal Code", "Charter rights", "loss prevention", "detention decision"]
+}

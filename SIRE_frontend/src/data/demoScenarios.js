@@ -237,6 +237,20 @@ import scenarioFireBlockingEvacuation from "./scenarios/scenario_fire_blocking_e
 import scenarioFireCriticalInfrastructure from "./scenarios/scenario_fire_critical_infrastructure.json";
 import scenarioFireWildlifeRescue from "./scenarios/scenario_fire_wildlife_rescue.json";
 
+// Police: Patrol & First-Response
+import scenarioSuspiciousPersonVehicle from "./scenarios/scenario_suspicious_person_vehicle.json";
+import scenarioWellnessCheck from "./scenarios/scenario_wellness_check.json";
+import scenarioNoiseComplaint from "./scenarios/scenario_noise_complaint.json";
+import scenarioTrespassing from "./scenarios/scenario_trespassing.json";
+import scenarioMischiefVandalism from "./scenarios/scenario_mischief_vandalism.json";
+import scenarioTheft from "./scenarios/scenario_theft.json";
+import scenarioBreakEnterResidential from "./scenarios/scenario_break_enter_residential.json";
+import scenarioBreakEnterCommercial from "./scenarios/scenario_break_enter_commercial.json";
+import scenarioShoplifting from "./scenarios/scenario_shoplifting.json";
+import scenarioFoundStolenProperty from "./scenarios/scenario_found_stolen_property.json";
+import scenarioMissingChild from "./scenarios/scenario_missing_child.json";
+import scenarioFoundIntoxicated from "./scenarios/scenario_found_intoxicated.json";
+
 /** All demo scenarios with display metadata and bundled scenario data. */
 const DEMO_SCENARIOS = [
     // ── Physical / Environmental ─────────────────────────────────────────────
@@ -1588,6 +1602,92 @@ const DEMO_SCENARIOS = [
         name: "Ethical Decision-Making Under Triage Pressure",
         description: "A mass casualty event at a structure fire forces life-or-death triage decisions under extreme pressure, including the hardest designation — expectant victims unlikely to survive.",
         data: scenarioFireEthicalTriage,
+    },
+
+    // ── Police: Patrol & First-Response ──────────────────────────────────────
+    {
+        id: "scenario_suspicious_person_vehicle",
+        icon: "🚔",
+        name: "Suspicious Person / Suspicious Vehicle",
+        description: "A complainant reports a suspicious male loitering near parked vehicles — officers must make contact, assess grounds for an investigative detention, and document the outcome.",
+        data: scenarioSuspiciousPersonVehicle,
+    },
+    {
+        id: "scenario_wellness_check",
+        icon: "🧠",
+        name: "Wellness Check (Mental Health)",
+        description: "A neighbour reports concern for a woman not seen in days — officers arrive to find a person in mental health crisis who needs crisis intervention and possible apprehension under mental health legislation.",
+        data: scenarioWellnessCheck,
+    },
+    {
+        id: "scenario_noise_complaint",
+        icon: "🔊",
+        name: "Noise Complaint Escalating to Confrontation",
+        description: "A routine noise complaint re-escalates on second attendance when an intoxicated resident becomes aggressive — officers must de-escalate and apply proportionate enforcement.",
+        data: scenarioNoiseComplaint,
+    },
+    {
+        id: "scenario_trespassing",
+        icon: "🚫",
+        name: "Trespassing",
+        description: "A business owner reports a repeat trespasser who disputes the prohibition — officers must verify grounds, coordinate with the owner, and manage compliance or enforcement.",
+        data: scenarioTrespassing,
+    },
+    {
+        id: "scenario_mischief_vandalism",
+        icon: "🎨",
+        name: "Mischief / Vandalism",
+        description: "Graffiti and broken windows discovered at a community centre — officers must preserve the crime scene, manage a witness, seize physical evidence, and classify the offence correctly.",
+        data: scenarioMischiefVandalism,
+    },
+    {
+        id: "scenario_theft",
+        icon: "🔧",
+        name: "Theft (Under / Over Section Threshold)",
+        description: "An unreturned rental equipment complaint leads to a suspect located with the property — officers must assess dishonest intent, apply the correct Criminal Code threshold, and exercise arrest discretion.",
+        data: scenarioTheft,
+    },
+    {
+        id: "scenario_break_enter_residential",
+        icon: "🏠",
+        name: "Break and Enter (Residential)",
+        description: "A break and enter is reported in progress at a residence — officers must set a perimeter, coordinate the takedown, Charter the suspect, and manage the scene before victim arrival.",
+        data: scenarioBreakEnterResidential,
+    },
+    {
+        id: "scenario_break_enter_commercial",
+        icon: "🏪",
+        name: "Break and Enter (Commercial)",
+        description: "A pharmacy alarm reveals a break-in with controlled substance theft — officers must clear and preserve the scene, address regulatory reporting obligations, and coordinate with the Ident unit.",
+        data: scenarioBreakEnterCommercial,
+    },
+    {
+        id: "scenario_shoplifting",
+        icon: "🛒",
+        name: "Shoplifting with Detention Decision",
+        description: "A loss prevention officer detains a shoplifter and requests police — officers assess the citizen's arrest, provide Charter cautions, and make a proportionate charge and release decision.",
+        data: scenarioShoplifting,
+    },
+    {
+        id: "scenario_found_stolen_property",
+        icon: "📦",
+        name: "Found Property / Stolen Property Recovery",
+        description: "A traffic stop reveals stolen property in a vehicle — officers must query CPIC, establish grounds for arrest, maintain evidence continuity, and notify the victim appropriately.",
+        data: scenarioFoundStolenProperty,
+    },
+    {
+        id: "scenario_missing_child",
+        icon: "👧",
+        name: "Lost or Missing Child (Non-Abduction)",
+        description: "A young child is found alone at a public event — officers must distinguish accidental separation from abduction, reunify the child safely, and document the incident appropriately.",
+        data: scenarioMissingChild,
+    },
+    {
+        id: "scenario_found_intoxicated",
+        icon: "🍺",
+        name: "Found Intoxicated Person (Public Safety)",
+        description: "An incapacitated intoxicated person is found outside in cold weather — officers must assess medical risk, invoke protective custody authority, and select the least restrictive disposition.",
+        data: scenarioFoundIntoxicated,
     },
 ];
 
