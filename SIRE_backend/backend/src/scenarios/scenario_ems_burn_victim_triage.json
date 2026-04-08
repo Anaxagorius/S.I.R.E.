@@ -1,0 +1,158 @@
+{
+  "title": "burn_victim_triage",
+  "description": "Multiple burn victims are removed from a structure fire. Firefighters and EMS must assess burn severity, manage airways, and prioritise transport.",
+  "category": "Medical",
+  "difficulty": "Advanced",
+  "tags": ["burns", "triage", "airway", "burn assessment", "fire scene", "EMS", "trauma"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Victims Removed",
+      "description": "Four civilians removed from a burning warehouse. All have varying degrees of burns. EMS staging area established.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Primary Assessment",
+      "description": "Paramedics begin rapid primary assessment of all four patients. Two are conscious, two are not.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Airway Compromise Identified",
+      "description": "Patient B shows singed nasal hairs, hoarse voice, and carbonaceous sputum — signs of inhalation injury.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Burn Area Estimated",
+      "description": "Rule of Nines applied. Patient C has full-thickness burns to both legs and chest — approximately 45% TBSA.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Transport Coordination",
+      "description": "Regional burn centre alerted. Ground ambulances and one helicopter coordinated for priority transport.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Four Burn Victims in Staging Area",
+      "situation": "Four civilians have been removed from a warehouse fire. You are the EMS supervisor. Patient A: conscious, partial-thickness burns to forearms, mild pain. Patient B: conscious, hoarse voice, singed eyebrows and nasal hairs, carbonaceous sputum. Patient C: unconscious, massive full-thickness burns visible on both legs and chest. Patient D: unconscious, no visible burns but was found near the seat of the fire.",
+      "question": "Which patient requires the most urgent intervention?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Patient B — signs of inhalation injury (hoarse voice, singed nasal hairs, carbonaceous sputum) indicate a rapidly deteriorating airway that must be secured immediately.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Patient C — the extent of burns is greatest and indicates the most severe injury.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Patient A — the only conscious and communicating patient and easiest to assess first.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Securing Patient B's Airway",
+      "situation": "Patient B's voice is becoming progressively hoarser. The paramedic suspects supraglottic oedema from thermal inhalation injury. There is equipment available for bag-valve-mask ventilation, supraglottic airway insertion, and endotracheal intubation.",
+      "question": "What is the preferred airway intervention for this patient?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Perform rapid sequence intubation (RSI) with early endotracheal intubation — the airway will swell and close rapidly; secure it before intubation becomes impossible.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Apply a non-rebreather mask and observe — the airway may remain patent.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Insert a supraglottic airway device — simpler and equally effective for inhalation injury.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assessing Burn Area — Patient C",
+      "situation": "Patient B's airway is secured. You now turn to Patient C — unconscious, full-thickness burns to both legs and the anterior chest. Using the Rule of Nines, you estimate burn coverage. Each full leg is 18% (9% front, 9% back), and the anterior chest is 18%.",
+      "question": "What is the total body surface area (TBSA) percentage for Patient C?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approximately 54% TBSA — both legs (36%) plus anterior chest (18%) — this is a critical burn requiring immediate transport to a burn centre.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Approximately 27% TBSA — using only front surfaces of both legs (9% each) plus anterior chest (9%).",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Approximately 18% TBSA — only the anterior trunk is counted because the legs are extremities.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fluid Resuscitation",
+      "situation": "Patient C has >40% TBSA full-thickness burns, is unconscious, and has no IV access yet. The Parkland Formula requires 4 mL × weight (kg) × %TBSA in Lactated Ringer's over 24 hours, with half given in the first 8 hours. The patient weighs approximately 80 kg.",
+      "question": "What is the correct immediate fluid resuscitation priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish two large-bore IVs and begin Lactated Ringer's immediately — do not delay resuscitation; calculate exact volumes en route and notify the receiving burn centre.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Withhold fluids until the patient reaches the burn centre to avoid fluid overload.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use normal saline in large boluses — it is more readily available than Lactated Ringer's.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Patient D — No Burns but Near Seat of Fire",
+      "situation": "Patient D is unconscious with no visible burns but was found closest to the fire's origin. Respirations are 6 per minute and shallow. Skin appears bright cherry-red.",
+      "question": "What is the most likely diagnosis and immediate treatment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Carbon monoxide poisoning — cherry-red skin and respiratory depression are classic signs. Apply 100% high-flow oxygen via non-rebreather mask and prepare for assisted ventilation; arrange rapid transport.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Anaphylaxis — administer epinephrine immediately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Heat stroke — apply cooling measures and monitor.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Excellent work. You correctly prioritised Patient B's inhalation airway emergency, applied the Rule of Nines accurately, initiated burn fluid resuscitation, and recognised Patient D's carbon monoxide poisoning. All four patients received appropriate interventions and were transported to the correct facilities. Your systematic approach to burn triage prevented preventable deaths.",
+      "question": "",
+      "options": []
+    }
+  }
+}

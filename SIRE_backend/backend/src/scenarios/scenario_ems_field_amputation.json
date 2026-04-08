@@ -1,0 +1,158 @@
+{
+  "title": "civilian_rescue_field_amputation",
+  "description": "A civilian is entrapped under heavy structural debris following a building collapse with an active fire. Extended extrication is impossible and crush syndrome threatens the patient's life. Medical and rescue teams must consider field amputation as a last resort.",
+  "category": "Medical",
+  "difficulty": "Advanced",
+  "tags": ["field amputation", "crush syndrome", "entrapment", "structural collapse", "EMS", "rescue", "medical ethics"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Collapse with Entrapment",
+      "description": "A multi-storey building has partially collapsed following an explosion. One victim is entrapped under a concrete slab with an advancing fire. Structural engineers on scene report slab cannot be safely lifted.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Medical Assessment",
+      "description": "Paramedic crawls to the victim. Patient is conscious, in severe pain, right lower leg crushed under concrete.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Options Narrowing",
+      "description": "Technical rescue team confirms slab cannot be shifted. Fire advancing toward victim location. Medical officer and team confer.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Decision Made",
+      "description": "Medical officer authorises field amputation. Patient consents. Surgical kit prepared. Anaesthesia agent drawn.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Procedure Completed",
+      "description": "Field amputation performed. Tourniquet applied. Patient extracted rapidly. Transported to trauma centre.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Victim Trapped Under Collapsed Slab",
+      "situation": "A 45-year-old man is found conscious and in severe pain with his right lower leg pinned under a large concrete slab following a structural collapse. A fire is advancing 20 metres away and structural engineers have confirmed the slab cannot be lifted or shifted with available equipment. Estimated time for heavy lifting equipment to arrive is 90 minutes. Fire progression is estimated to reach the victim in 30 minutes.",
+      "question": "What is your immediate assessment priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Crawl to the victim with a paramedic under appropriate PPE, perform a rapid medical assessment, establish communication, manage pain, and begin a multi-disciplinary conference with the technical rescue team and medical officer about extrication options given the time constraint.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Begin moving debris manually with the rescue team — every second counts.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for heavy lifting equipment to arrive — do not risk personnel in an unstable structure.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Crush Syndrome Assessment",
+      "situation": "The paramedic reaches the patient. Assessment: conscious, GCS 14, HR 124 bpm, BP 94/60, right lower leg crushed under the slab for approximately 2 hours. Urine is dark brown (myoglobinuria). The patient says 'I can't feel my leg at all.'",
+      "question": "What do these findings indicate?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Crush syndrome — prolonged muscle compression causes rhabdomyolysis, releasing myoglobin that causes dark urine, and potassium that can cause fatal arrhythmias on release. Aggressive IV fluid resuscitation must begin immediately to protect the kidneys before any release of the limb.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "The patient is in haemorrhagic shock — blood loss from the crushed limb is the primary concern.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The leg is likely unsalvageable but there is no systemic concern — focus only on extraction.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Field Amputation Decision",
+      "situation": "The fire is now 15 minutes from the victim's position. Standard extrication is impossible. The medical officer, incident commander, and technical rescue supervisor confer. The only option that can save the patient's life in the available time is field amputation of the right lower leg at the level of the slab. The patient is conscious and capable of giving consent.",
+      "question": "What ethical and procedural steps are required before proceeding?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain the situation clearly to the patient — including the fire timeline, the impossibility of standard rescue, and the life-saving nature of the procedure. Obtain verbal informed consent. Document the decision, medical officer authorisation, and patient consent. Only then proceed.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Proceed immediately without informing the patient — time is critical and the decision has already been made.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not perform the amputation — field surgery is outside EMS scope of practice and should never be performed outside a hospital.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Pre-Procedure Preparation",
+      "situation": "The patient has given informed consent. A physician or authorised medic will perform the procedure. The medical team must prepare: analgesia and sedation, tourniquet, surgical kit, haemostatic dressings.",
+      "question": "What must be applied before the slab is released after amputation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A high and tight tourniquet must be applied proximal to the amputation site before the slab releases pressure — releasing crush injury without haemorrhage control will cause rapid exsanguination. Tourniquet first, then complete the procedure and release.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Apply haemostatic dressing at the wound site after extraction — tourniquets are last resort devices.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The slab will provide natural pressure — remove it quickly and then apply bandages.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Post-Amputation Extraction and Transport",
+      "situation": "The field amputation is complete. The tourniquet is in place and effective. The patient has been extracted and is 30 metres from the structure. Fire has reached the former entrapment location. The patient is in severe pain, hypotensive (BP 80/50), and distressed. A trauma centre is 18 minutes away.",
+      "question": "What are your immediate post-extraction priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Rapidly reassess ABCDE, maintain haemorrhage control, continue aggressive IV fluid resuscitation, administer ketamine for pain and sedation, check and tighten tourniquet if needed, record tourniquet time, and load for immediate transport to the trauma centre with pre-notification.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the tourniquet — prolonged tourniquet use causes permanent damage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stabilise the patient fully on scene before transport — the blood pressure must improve before moving.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Exceptional performance in an extraordinarily difficult scenario. You correctly identified crush syndrome and initiated fluid resuscitation before release, followed the required ethical and consent process before an invasive field procedure, ensured tourniquet application before slab release to prevent exsanguination, and executed rapid post-extraction care with appropriate transport. The patient survived a situation where few other options existed.",
+      "question": "",
+      "options": []
+    }
+  }
+}

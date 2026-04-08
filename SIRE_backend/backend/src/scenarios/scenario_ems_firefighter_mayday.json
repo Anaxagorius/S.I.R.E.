@@ -1,0 +1,158 @@
+{
+  "title": "firefighter_mayday",
+  "description": "A firefighter becomes disoriented, runs low on air, and transmits a MAYDAY inside a burning commercial structure. The incident commander and rapid intervention team must execute a firefighter rescue while managing ongoing fire operations.",
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["mayday", "firefighter rescue", "RIT", "PASS alarm", "SCBA", "air management", "ICS", "firefighter down"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "MAYDAY Transmitted",
+      "description": "Firefighter Alpha transmits MAYDAY: 'MAYDAY MAYDAY MAYDAY — Alpha, interior first floor, low on air, disoriented near Charlie side.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "RIT Activated",
+      "description": "Incident commander activates Rapid Intervention Team. All non-essential radio traffic suspended. MAYDAY channel dedicated.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "PASS Alarm Audible",
+      "description": "Alpha's PASS alarm begins sounding — firefighter has been motionless for 30 seconds. Interior crews guided toward the signal.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Firefighter Located",
+      "description": "RIT team locates Alpha — unconscious, SCBA partially off, entangled in debris. Emergency air supply connected.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Extraction Under Fire",
+      "description": "RIT extracts firefighter via ground drag to a window opening. Engine company holds the fire. Alpha removed from structure.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "MAYDAY Received",
+      "situation": "You are the incident commander at a working commercial structure fire. Over the radio you hear: 'MAYDAY MAYDAY MAYDAY — this is Firefighter Alpha, I'm on the first floor near the Charlie side, I'm running low on air and I'm disoriented. I can't find my way out.' Two interior attack crews are operating. The Rapid Intervention Team (RIT) is standing by.",
+      "question": "What are your immediate actions upon receiving the MAYDAY?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the MAYDAY on command channel, activate the RIT immediately, switch all non-essential radio traffic to a secondary channel to keep the MAYDAY channel clear, get a last-known location and PAR (Personnel Accountability Report) for all interior crews, and declare a MAYDAY to dispatch for additional resources.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Order the nearest interior crew to stop fire attack and locate the missing firefighter.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for Alpha to give a more specific location before activating RIT.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Guiding the Distressed Firefighter",
+      "situation": "Alpha is transmitting again: 'I can hear running water — I think I'm near the kitchen. SCBA gauge at 500 psi. My light is out.' The RIT is entering the structure. You are maintaining communication with Alpha.",
+      "question": "What guidance do you provide to Alpha?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Instruct Alpha to stay low, stay calm, conserve air by reducing movement, activate their PASS alarm manually, feel the walls with their hand and follow the hose line toward the entrance, and call out or bang on something hard to assist the RIT in locating them.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Alpha to stand up and move toward the sound of other firefighters.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Instruct Alpha to remove the SCBA to reduce weight and move faster.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "PASS Alarm Sounding",
+      "situation": "Alpha's PASS alarm begins sounding — they have been motionless for 30 seconds and are not responding to radio calls. The RIT leader reports they can hear the PASS alarm from the interior but cannot locate the source due to smoke and structural noise. The fire is intensifying on the B side.",
+      "question": "How do you manage fire operations during an active firefighter rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hold fire attack in place to maintain conditions and prevent fire advance toward Alpha's last known location — do not pull crews back and do not advance them. Keep the structure survivable. RIT continues toward the PASS alarm.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Withdraw all interior crews immediately for safety — firefighter rescue takes priority over all fire operations.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Accelerate the fire attack to knock the fire quickly and improve conditions for Alpha.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "RIT Locates Alpha",
+      "situation": "The RIT team finds Alpha — unconscious on the floor, entangled in a collapsed wire shelving unit. Alpha's SCBA gauge reads near empty. The RIT leader has an emergency rescue air supply (buddy breathing apparatus). Alpha has no visible injuries but is unresponsive.",
+      "question": "What is the RIT's immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Connect the emergency air supply to Alpha's SCBA regulator immediately to restore breathing air — airway and breathing are life safety priorities. Then disentangle from the shelving and prepare for a ground drag extrication.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Remove Alpha's SCBA completely and share the RIT member's SCBA via buddy breathing.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Carry Alpha to the exit immediately without addressing the air supply — speed is the priority.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Extrication and Medical Handoff",
+      "situation": "Alpha has been extricated from the structure via a ground drag through a first-floor window. Alpha is unconscious, breathing shallowly, and has a weak pulse. EMS is standing by at the perimeter. The RIT leader calls for immediate medical assistance.",
+      "question": "What is the medical response on removal from the structure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "EMS immediately takes control — remove the SCBA, apply 100% oxygen, assess airway and breathing, perform a rapid trauma survey, establish IV access, and transport urgently to the nearest appropriate emergency department with a pre-alert. Consider CO poisoning, cardiac event, and anoxic injury.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Place Alpha in the recovery position and monitor — they are breathing and have a pulse.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for additional EMS units to arrive before committing to treatment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding incident management. You acknowledged the MAYDAY immediately, activated RIT without hesitation, kept the MAYDAY channel clear, provided correct survival guidance to Alpha, maintained fire operations to preserve survivable conditions, ensured the RIT restored air supply before extrication, and coordinated an effective medical handoff. Firefighter Alpha survived due to disciplined incident command and a trained, well-executed rescue.",
+      "question": "",
+      "options": []
+    }
+  }
+}

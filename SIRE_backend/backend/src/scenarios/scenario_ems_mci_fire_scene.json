@@ -1,0 +1,164 @@
+{
+  "title": "mci_fire_scene",
+  "description": "An explosion at an industrial facility creates a mass casualty incident with 18 victims presenting at the scene simultaneously. Fire suppression and medical triage must be conducted in parallel.",
+  "category": "Medical",
+  "difficulty": "Advanced",
+  "tags": ["MCI", "mass casualty", "triage", "START", "explosion", "fire scene", "ICS", "EMS"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Explosion Reported",
+      "description": "Explosion at an industrial chemical facility. Dispatch reports multiple casualties and an active fire. Multiple units responding.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "First Units Arrive",
+      "description": "Engine and EMS units arrive. Approximately 18 victims visible. Some walking wounded, several on the ground, two not moving.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "ICS Established",
+      "description": "Incident command posts established. Triage, treatment, and transport sectors activated. Fire attack begins on the secondary fire.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Triage Complete",
+      "description": "START triage completed: 3 Red, 7 Yellow, 6 Green, 2 Black. Regional hospitals pre-alerted.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Hazmat Risk",
+      "description": "Hazmat team identifies potential chemical contamination on victims near the blast zone. Decontamination corridor activated.",
+      "timeOffsetSec": 250
+    },
+    {
+      "index": 5,
+      "title": "Transport Underway",
+      "description": "Red patients loaded first. Air ambulance requested for one patient with critical head injury.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Explosion at Industrial Facility",
+      "situation": "You are the first senior officer on scene at an industrial explosion. You can see approximately 18 victims across a 100-metre area. Some are walking and calling for help. Several are on the ground, some motionless. An active fire is burning in a secondary structure. Smoke is heavy. You have one engine, one ladder, two EMS units, and additional resources en route.",
+      "question": "What are your immediate priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare an MCI, establish incident command with medical and fire branches, begin START triage immediately with available EMS personnel, assign engine to contain the secondary fire, and call for additional ambulances and medical supervisor.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Treat the most visibly injured victim first while waiting for additional resources to arrive.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Extinguish the secondary fire before beginning medical triage — prevent further injuries first.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Triage Tag Application",
+      "situation": "Your triage team is applying START triage. A 35-year-old male is found: breathing at 24 breaths per minute after repositioning. Radial pulse weak but present. Obeys commands — squeezes the triage officer's hand. He has a large laceration on his thigh with active arterial bleeding.",
+      "question": "What is the correct START category and immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Red (Immediate) — breathing present, pulse present, follows commands, but life-threatening haemorrhage requires immediate tourniquet or pressure dressing. Apply haemorrhage control and mark Red.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Yellow (Delayed) — the patient is conscious and breathing, so can wait for treatment.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Green (Minor) — conscious and ambulatory patients are always Green.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hazmat Contamination Alert",
+      "situation": "The hazmat team reports that victims near the blast epicentre may have been exposed to a chemical irritant released in the explosion. Eight victims in the Red and Yellow categories were near this area. The hazmat officer recommends decontamination before EMS treatment.",
+      "question": "How do you manage decontamination vs. immediate medical need?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a decontamination corridor immediately. Life-threatening interventions (airway, severe haemorrhage control) may be performed with appropriate PPE before or during decon. Decontaminate all potentially exposed patients before transport to hospital.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Transport all critical patients immediately to the hospital without decontamination — time is more critical than contamination risk.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Delay all treatment until every patient has been fully decontaminated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Hospital Capacity Exceeded",
+      "situation": "Three Red patients need transport immediately. The nearest trauma centre confirms it can accept only two critical patients before reaching capacity. A second trauma centre is 22 minutes away. One Red patient has a suspected critical traumatic brain injury (TBI) requiring neurosurgical capability.",
+      "question": "How do you allocate the three Red patients?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transport the TBI patient by air ambulance to the trauma centre with neurosurgery capability; transport the other two Red patients by ground to the nearest trauma centre while alerting the second facility to prepare.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Send all three Red patients to the nearest trauma centre — capacity issues are the hospital's problem.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transport all Red patients to the second facility to avoid overloading the nearest centre.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Resource Coordination",
+      "situation": "With Red patients transported, you have 7 Yellow and 6 Green patients remaining. Ambulances are returning but you have only two units available now. Yellow patients are being held in the treatment area. A Green patient with a painful wrist fracture is demanding to be transported first.",
+      "question": "How do you manage this situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain to the Green patient that triage categories are based on medical priority, not arrival order. Continue transporting Yellow patients first with available ambulances. Arrange Green transport as units become available or via non-emergency vehicles if appropriate.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Transport the Green patient first to reduce scene conflict — public relations matter at an MCI.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the Green patient to walk to the nearest hospital to free up all ambulances for Yellow patients.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Excellent command performance. You declared an MCI early, established dual fire and medical branches, applied START triage correctly including recognition of life-threatening haemorrhage as an Immediate priority, managed hazmat decontamination protocols, allocated hospital destinations based on surgical capability, and maintained triage discipline under patient pressure. All 18 casualties received appropriate care.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "title": "carbon_monoxide_poisoning",
+  "description": "Multiple residents of an apartment building present with headache, nausea, and confusion. A faulty gas appliance has produced dangerous CO levels. Firefighters and EMS must identify the source, evacuate safely, and treat victims.",
+  "category": "Medical",
+  "difficulty": "Intermediate",
+  "tags": ["carbon monoxide", "CO poisoning", "hazmat", "EMS", "evacuation", "gas appliance", "pulse oximetry"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Multiple 911 Calls",
+      "description": "Dispatch receives three calls from the same apartment building. Callers complain of headache, nausea, and one family unable to wake their child.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Units On Scene",
+      "description": "Engine and EMS arrive. Residents in the lobby appear ill. CO detector in lobby reads 200 ppm.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Source Identified",
+      "description": "SCBA team locates a faulty gas furnace in the basement venting into the building. Gas company notified.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Full Evacuation",
+      "description": "All 24 residents evacuated to a triage area upwind of the building. EMS performs rapid assessment.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 4,
+      "title": "Critical Patient",
+      "description": "A 7-year-old child is unresponsive. Parents report the child was sleeping in a bedroom adjacent to the basement furnace.",
+      "timeOffsetSec": 280
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arriving at Apartment Building",
+      "situation": "Dispatch reports multiple residents with headache and nausea in a six-storey apartment building. The lobby CO detector reads 200 ppm (immediately dangerous levels above 70 ppm). Three residents in the lobby appear pale and confused. A family on the second floor has not responded to building management's knock.",
+      "question": "What is your immediate action on arrival?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Don SCBA before entry, order full building evacuation, establish triage upwind of the building, and send a two-person SCBA team to investigate the CO source — do not allow EMS inside without respiratory protection.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Enter the building immediately with EMS to locate and treat all victims.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait outside and order all residents to evacuate via the intercom before entering.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Residents at Triage Area",
+      "situation": "Sixteen residents have self-evacuated to the triage area. A firefighter reports that the second-floor family has not come down. The CO level in the stairwell is reading 350 ppm on the gas meter. Residents are complaining of varying symptoms.",
+      "question": "How do you prioritise the ongoing evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Send the SCBA team to the second floor to evacuate the unresponsive family while EMS assesses evacuated residents — do not send any personnel above the lobby without SCBA.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the gas company to shut off the source before sending crews upstairs.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send an unprotected firefighter to do a quick check on the second floor.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Pulse Oximetry Readings",
+      "situation": "EMS is assessing 16 residents. Most have SpO2 readings between 95–99% on the pulse oximeter, but several are clearly symptomatic (headache, nausea, mild confusion). An EMT suggests the patients with SpO2 above 95% do not need oxygen therapy.",
+      "question": "How do you respond?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Correct the EMT — pulse oximetry cannot distinguish carboxyhaemoglobin from oxyhaemoglobin, so CO patients always show falsely high readings. Apply 100% high-flow oxygen via non-rebreather mask to every symptomatic patient regardless of SpO2.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Agree — only treat patients with SpO2 below 95% or those who are unconscious.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Administer supplemental oxygen only if the patient requests it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Unresponsive Child",
+      "situation": "The SCBA team has recovered a 7-year-old child from the second floor. The child is unresponsive but breathing, with a rapid shallow respiratory rate. Parents state the child went to sleep early and couldn't be woken. No visible injuries. Cherry-red skin tone noted.",
+      "question": "What are your immediate interventions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply 100% high-flow oxygen via paediatric non-rebreather mask, establish IV/IO access, perform a rapid blood glucose check, and arrange immediate transport to the nearest hyperbaric-capable facility with paediatric capability. Pre-alert the receiving hospital.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Begin CPR — the child is in cardiac arrest from CO poisoning.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Administer oral activated charcoal — CO is a toxin that must be bound in the gut.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Source Confirmed and Isolation",
+      "situation": "The gas company has arrived and confirmed a cracked heat exchanger in the basement furnace is venting combustion gases directly into the building's air supply. They require 20 minutes to shut off and isolate the unit. The building cannot be reoccupied until industrial hygiene has cleared it.",
+      "question": "What is your responsibility as incident commander at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Coordinate with the gas company, ensure ventilation of the building begins with PPE-equipped personnel, maintain the resident exclusion zone, provide guidance on reoccupancy criteria, and confirm all patients have been transported or cleared at the scene.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Allow residents to re-enter the building as soon as the gas is shut off.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Your responsibilities end once EMS has transported the critical patients — reoccupancy is not your concern.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Well done. You correctly identified a CO emergency, used SCBA for all interior personnel, recognised the limitation of pulse oximetry in CO poisoning, ensured 100% oxygen therapy for all symptomatic patients, and made appropriate transport decisions for the critically ill child. The building was cleared safely and residents were protected from further exposure.",
+      "question": "",
+      "options": []
+    }
+  }
+}

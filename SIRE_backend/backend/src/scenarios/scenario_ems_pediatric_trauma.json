@@ -1,0 +1,158 @@
+{
+  "title": "pediatric_trauma",
+  "description": "A child is rescued from a collapsed burning structure with multiple traumatic injuries. Firefighters and EMS must apply paediatric trauma protocols while managing ongoing structural instability.",
+  "category": "Medical",
+  "difficulty": "Advanced",
+  "tags": ["pediatric", "trauma", "rescue", "structural collapse", "fire", "EMS", "PALS", "airway"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Child Located in Collapse",
+      "description": "Search team locates a 6-year-old child in a partially collapsed section of a fire-damaged building. Child is conscious but injured.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Rescue In Progress",
+      "description": "Technical rescue team stabilises debris. Child extricated in 8 minutes. EMS receives the patient.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Primary Survey",
+      "description": "Primary trauma survey underway. Airway patent. Respiratory rate elevated. Pale skin. Deformed right femur.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Haemodynamic Concern",
+      "description": "Heart rate 155 bpm, capillary refill 4 seconds, weak radial pulse. Signs of compensated haemorrhagic shock.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Transport Initiated",
+      "description": "Patient packaged with spinal precautions and transported to paediatric trauma centre with pre-notification.",
+      "timeOffsetSec": 280
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Child Extricated from Collapse",
+      "situation": "A 6-year-old child has been extricated from a fire-damaged, partially collapsed structure. The child is conscious and crying — a good sign. There is visible deformity of the right thigh, suggesting femur fracture. The child has lacerations on the head. You are the lead paramedic receiving the patient from the rescue team.",
+      "question": "What is your immediate primary survey priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "ABCDE primary survey: assess and secure airway with C-spine control, assess breathing, assess circulation (bleeding and perfusion), assess disability (AVPU, pupils), and expose for additional injuries — all while maintaining manual spinal stabilisation.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Splint the femur fracture first — it is the most obvious injury and the most painful.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Start an IV and administer pain relief before doing a full assessment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Paediatric Shock Recognition",
+      "situation": "Primary survey findings: airway patent, self-ventilating at 38 breaths/min (normal for age up to ~20/min), heart rate 158 bpm, capillary refill 4 seconds, skin pale and cool, radial pulse weak but palpable, GCS 13. Blood pressure reads 88/60 mmHg.",
+      "question": "How do you interpret these vital signs in a 6-year-old?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The child is in compensated haemorrhagic shock — children maintain blood pressure until 30–40% blood volume is lost, but tachycardia, prolonged cap refill, and poor perfusion indicate significant shock. Treat aggressively now — do not wait for hypotension.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Blood pressure of 88/60 is acceptable for a 6-year-old — monitor and reassess.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tachycardia in children is always from pain or distress — administer analgesia first.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Vascular Access in a Child",
+      "situation": "The child is in compensated shock. You need to establish vascular access for fluid resuscitation. Two attempts at peripheral IV access have failed. The child's veins are collapsed from hypovolaemia.",
+      "question": "What is the next vascular access approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish intraosseous (IO) access — IO is the recommended route in paediatric emergencies when IV access cannot be obtained within 90 seconds or two attempts. Use the proximal tibia as the primary site.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt a third peripheral IV before considering IO — IO is a last resort.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Delay fluid resuscitation until the hospital establishes central access.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fluid Resuscitation Volume",
+      "situation": "IO access is established in the proximal tibia. The child weighs approximately 22 kg. You need to administer a fluid bolus for haemorrhagic shock. The paramedic asks how much isotonic crystalloid to give.",
+      "question": "What is the correct paediatric fluid bolus volume?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Administer 10 mL/kg isotonic crystalloid (220 mL) as an initial bolus rapidly via IO; reassess perfusion after each bolus. In trauma, limit total crystalloid and reassess for need for blood products.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Give 1 litre of normal saline as a standard trauma bolus — the same as for an adult.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withhold fluids in paediatric trauma — fluid overload is more dangerous than under-resuscitation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Transport Decision",
+      "situation": "After the fluid bolus, heart rate improves to 132 bpm and cap refill is 3 seconds. The child remains conscious. Two hospital options: a local hospital 8 minutes away with a general emergency department, or a paediatric trauma centre 20 minutes away.",
+      "question": "Which facility is most appropriate for this patient?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transport to the paediatric trauma centre 20 minutes away — a child with femur fracture, haemorrhagic shock, and possible internal injuries requires paediatric surgical capability, trauma team activation, and paediatric ICU. Pre-notify and continue interventions en route.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Transport to the closest hospital — 8 minutes shorter is worth the trade-off in resources.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transport to the closest hospital and request transfer to the paediatric centre once there.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Excellent care under pressure. You conducted a systematic ABCDE primary survey, correctly identified compensated haemorrhagic shock in a paediatric patient before hypotension developed, established IO access after failed peripheral access, used the correct weight-based fluid bolus, and made an appropriate transport destination decision. The child was delivered to the paediatric trauma centre in a resuscitated state.",
+      "question": "",
+      "options": []
+    }
+  }
+}
