@@ -1,0 +1,90 @@
+{
+  "title": "scenario_fire_shopping_mall",
+  "description": "A fire breaks out in a retail anchor store inside a large shopping mall during peak shopping hours with thousands of occupants.",
+  "timeline": [
+    { "index": 0, "title": "Automatic Alarm", "description": "Multiple smoke detectors activate in the anchor store's stockroom. Mall security confirms visible smoke.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Mass Evacuation Begins", "description": "Mall PA system activates. Thousands of shoppers begin evacuating via multiple exits.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Units on Scene", "description": "Multiple companies arriving. Fire is showing from stockroom; exposure to mall corridor is threatened.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Search Teams Deployed", "description": "Interior search underway for stragglers. Smoke banking down in common corridors.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Smoke Management Challenged", "description": "HVAC smoke control system malfunctioning. Smoke spreading through mall HVAC network.", "timeOffsetSec": 270 },
+    { "index": 5, "title": "Fire Controlled", "description": "Fire knocked down in stockroom. All occupants accounted for. Ventilation underway.", "timeOffsetSec": 480 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrival and ICS Establishment",
+      "situation": "You are the Incident Commander arriving to find a working fire in the anchor store stockroom of a large regional mall. Peak shopping hours—estimated 3,000 occupants. Multiple automatic doors are open and shoppers are streaming out. Several companies are arriving. The fire has not yet breached into the mall corridor.",
+      "question": "What is your first priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish command, request additional alarms for the occupant load, assign a line to confine fire to the stockroom, and dispatch search teams to clear the mall corridor and remaining retail spaces.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Commit all arriving companies to direct fire attack in the stockroom to extinguish quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hold all units outside until the occupant evacuation is fully confirmed complete.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Corridor Exposure Threatened",
+      "situation": "Fire attack is underway. Smoke is now pushing under the anchor store's roll-up fire door into the mall corridor. Two search teams report finding confused shoppers in an interior food court who did not hear the PA. The HVAC smoke control system shows a fault light at the fire panel.",
+      "question": "How do you address the corridor smoke and stuck shoppers?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct teams to guide food court occupants to the nearest marked exit; manually activate smoke control dampers at the fire panel or shut down HVAC entirely to prevent smoke spread.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Open all mall skylights and doors to let the smoke clear naturally before moving the occupants.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the HVAC system in automatic mode and focus all resources on fire attack.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Accountability and All Clear",
+      "situation": "Food court occupants are evacuated. Fire is knocked down. Mall security provides occupancy data but cannot confirm all stores are empty—several small kiosks were unattended when staff fled. Smoke remains moderate in the east wing.",
+      "question": "How do you achieve an all-clear?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a systematic secondary search of all unconfirmed retail spaces with tagged search teams, using PASSed-door marking technique, before releasing the scene.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Accept mall security's headcount from the parking lot as sufficient and release units.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow mall management to re-open undamaged sections while fire investigation continues.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Secondary search is complete with all areas confirmed clear. Fire investigation is underway in the stockroom. All occupants accounted for with no serious injuries. The HVAC fault has been documented for the building engineer. Well done managing a complex, high-occupancy incident!",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "commercial", "shopping mall", "mass evacuation", "ICS", "search and rescue", "smoke control"]
+}

@@ -1,0 +1,155 @@
+{
+  "title": "fire_critical_infrastructure",
+  "description": "A wildfire advances toward a water treatment facility and a natural gas distribution hub, threatening regional services.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Encroaching on Infrastructure Corridor",
+      "description": "Fire spotted 2 miles from water treatment plant and gas distribution hub. Escalate immediately.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Infrastructure Operators Notified",
+      "description": "Water and gas utility operators alerted. Emergency shutoff procedures being reviewed.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Defensive Zone Preparation",
+      "description": "Crews begin clearing vegetation and placing foam lines around facility perimeters.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Gas Distribution Shutoff Considered",
+      "description": "Operators evaluate preemptive gas distribution shutoff to reduce explosion risk.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Fire Reaches Facility Perimeter",
+      "description": "Fire reaches outer cleared zone. Defensive lines being tested.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Infrastructure Protected",
+      "description": "Defensive lines hold. Both facilities remain operational. Fire flanks contained.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire Near Water and Gas Facilities",
+      "situation": "A wildfire is advancing toward a water treatment plant serving 200,000 residents and a gas distribution hub supplying the region. Both facilities are 2 miles from the fire front.",
+      "question": "How do you prioritize infrastructure protection?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify both facility operators, request additional engines for structure defense, and begin defensible space preparation immediately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus on stopping the fire before it reaches facilities — structure defense can wait.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate all personnel from the facilities and do not risk crews on structure defense.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Preemptive Utility Shutoff Decision",
+      "situation": "The gas utility operator recommends a preemptive shutoff of the regional distribution hub to prevent explosion risk. This would affect 50,000 customers. The water treatment plant does not recommend shutting down as it would affect fire suppression water supply.",
+      "question": "What do you recommend to the utility operator?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the gas operator to prepare for a shutoff but hold until the fire is within one mile, while the water plant remains operational.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Order immediate shutoff of both utilities to remove all explosion and contamination risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Foam and Suppression Line Deployment",
+      "situation": "Crews are preparing foam barrier lines around both facilities. The gas hub requires specialized Class B foam. Engine crews at the site report they only have Class A foam available.",
+      "question": "How do you address the foam supply gap?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request emergency delivery of Class B foam from the mutual aid pool and apply Class A foam as a temporary measure around the gas hub perimeter.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use Class A foam on both facilities — it is better than nothing for both fuel types.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fire at Facility Perimeter",
+      "situation": "The fire has reached the cleared zone around the water treatment plant. Defensive lines are holding but crews report heat stress from proximity to the fire. The facility operator wants staff to remain inside.",
+      "question": "How do you manage crew and facility personnel safety?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Evacuate non-essential facility personnel, rotate fire crews, and maintain defensive lines with the remaining staff as critical operators only.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Evacuate all facility personnel including critical operators and defend the structure with fire crews alone.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Defensive lines held successfully. Both the water treatment plant and gas distribution hub are operational. Class B foam arrived in time. Critical infrastructure was protected without casualties.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "critical infrastructure",
+    "wildland fire",
+    "water treatment",
+    "gas utility",
+    "structure defense"
+  ]
+}

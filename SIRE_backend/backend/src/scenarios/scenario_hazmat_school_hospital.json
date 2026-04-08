@@ -1,0 +1,151 @@
+{
+  "title": "scenario_hazmat_school_hospital",
+  "description": "A chemical plant adjacent to an elementary school releases a toxic vapor cloud, requiring coordinated shelter-in-place and evacuation decisions that protect hundreds of children while managing an active hazmat incident.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Chemical Release",
+      "description": "Explosion at a chemical plant releases a plume of hydrogen cyanide gas. Wind carrying plume toward Westview Elementary School 400 yards downwind.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Plume Tracking",
+      "description": "Plume moving at 6 mph. School has 320 students. School principal has called 911 asking what to do. HCN detected at 15 ppm at plant fence line (IDLH 50 ppm).",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "School Protection Action",
+      "description": "Shelter-in-place orders issued. School sealed windows and HVAC. Law enforcement blocking road access.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Plume Assessment",
+      "description": "Hazmat team confirms plume narrowing and concentrating toward school. Wind shift possible in 10 minutes.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Protective Action Modified",
+      "description": "Wind shift detected. Evacuation of school initiated by bus convoy away from plume path.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Scene Controlled",
+      "description": "School evacuated. Chemical plant release stopped by emergency shutoff. No student exposures. 3 plant workers transported with HCN exposure.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "HCN Release Threatening Elementary School",
+      "situation": "A chemical plant explosion has released hydrogen cyanide (HCN) gas. The wind is carrying the plume directly toward Westview Elementary School, 400 yards downwind, which has 320 students and 40 staff. HCN is detected at 15 ppm at the plant fence line—the IDLH is 50 ppm. At 6 mph, the plume will reach the school in approximately 4 minutes. The school principal is on the phone asking whether to evacuate or shelter-in-place.",
+      "question": "What protective action do you order for the school?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order immediate shelter-in-place for the school: close all windows and exterior doors, shut down HVAC and all air intake systems, move students to interior rooms away from windows, and seal door gaps with wet towels or tape. Evacuation on foot or by bus through the plume path in 4 minutes is not survivable. Confirm via the school principal that HVAC is off before ending the call.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Order immediate evacuation of all students and staff by bus in the opposite direction of the plume.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advise the principal to wait for official guidance from the hazmat team before taking any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Parent Convergence and Media Pressure",
+      "situation": "Shelter-in-place is in effect at the school. Within 5 minutes, 40 parents are arriving at the school perimeter demanding access to their children. Local news helicopters are hovering. The school principal calls to report that two teachers have ignored the shelter-in-place and walked students outside 'to get fresh air.' The plume has arrived at the school perimeter—HCN now detectable at 22 ppm at the school fence line.",
+      "question": "How do you manage the parent convergence and the shelter violation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct law enforcement to establish a hard perimeter preventing any parent or media access to the school. Immediately contact the principal and direct that the students and teachers outdoors must return inside and reseal the building NOW—HCN exposure at 22 ppm is a life-safety emergency. Establish a parent information point at a safe location away from the plume with a designated PIO providing regular updates.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow parents to enter the school to collect their children individually to reduce anxiety.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "The teachers outdoors are already outside—instruct them to walk students upwind as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Wind Shift and Protective Action Reassessment",
+      "situation": "All students and staff are sheltered inside. The shelter has reduced HCN interior exposure. However, the hazmat team advises that a wind shift in approximately 8 minutes will redirect the plume more directly onto the school building, increasing exterior concentration and potentially compromising shelter effectiveness if the release continues. The plant's emergency team reports the release will be stopped within 12 minutes. You must decide: maintain shelter-in-place or transition to evacuation.",
+      "question": "How do you adjust the protective action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order a staged bus evacuation away from the current and predicted plume path, using a route confirmed clear by hazmat monitoring. The wind shift and ongoing release make continued shelter-in-place higher risk than a rapid organized evacuation. Pre-position buses at the rear of the school building, evacuate class by class to minimize door-open time, and maintain shelter until buses are in position.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Maintain shelter-in-place since the release will stop in 12 minutes and shelter has worked so far.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Order an immediate foot evacuation of all students now before the wind shifts.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Bus convoy evacuated all 320 students and 40 staff via a confirmed clear route before the wind shift concentrated the plume on the school. No student or staff exposures were confirmed. Three plant workers were treated for HCN exposure and recovered. The two teachers who initially walked students outside were briefly exposed to 22 ppm HCN but were medically cleared after evaluation. Your decisive shelter-in-place order, enforcement of the perimeter, real-time reassessment, and organized evacuation when conditions changed protected over 360 people.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "school",
+    "shelter-in-place",
+    "evacuation",
+    "hydrogen cyanide",
+    "HCN",
+    "toxic plume",
+    "chemical plant",
+    "civilian protection"
+  ]
+}

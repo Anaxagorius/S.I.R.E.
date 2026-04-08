@@ -1,0 +1,155 @@
+{
+  "title": "fire_drought_conditions",
+  "description": "A wildfire ignites during a severe multi-year drought, creating extreme fire behavior and depleted water resources.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Ignition in Drought Zone",
+      "description": "Fire starts in an area under exceptional drought. All vegetation is critically dry.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Extreme Fire Behavior",
+      "description": "Fire behavior analyst reports crown fire potential and extreme rate of spread. Escalate resources.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Water Supply Deficit",
+      "description": "Local water tanks and hydrants have reduced pressure due to drought. Identify alternate sources.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Multi-Agency Response",
+      "description": "Mutual aid activated. Additional engines and water tenders from neighboring jurisdictions en route.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Precautionary Evacuations Expanded",
+      "description": "Drought conditions mean fire could reignite easily. Expand evacuation zones proactively.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Temporary Containment",
+      "description": "Fire temporarily contained. Drought conditions require extended mop-up and monitoring.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Drought-Condition Fire Ignition",
+      "situation": "A wildfire has ignited during the region's third year of severe drought. Fuel moisture content is at record lows. Fire behavior is already extreme within the first 15 minutes of ignition.",
+      "question": "How do you calibrate your response given drought conditions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately request the highest level of mutual aid and escalate resource orders, anticipating extreme behavior.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Respond with standard initial attack resources and reassess once the fire size is confirmed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stage resources at a distance and wait for a break in fire behavior before committing.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Water Supply Crisis",
+      "situation": "Fire engines are reporting critically low water pressure at local hydrants due to drought-related low reservoir levels. Two tenders have run dry and the nearest refill point is 20 miles away.",
+      "question": "How do you manage water supply logistics?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a water shuttle with multiple tenders, identify all nearby water sources including ponds and swimming pools.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reduce suppression activities to conserve water and wait for mutual aid tenders to arrive.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crown Fire Potential",
+      "situation": "The fire behavior analyst confirms crown fire potential in a stand of drought-stressed trees ahead. Sending crews into this area would be extremely dangerous.",
+      "question": "What do you do with crews positioned near the crown fire zone?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pull crews back to a safe distance and use air tankers to suppress the crown fire potential before ground reengagement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep crews in place as the crown fire potential is not yet confirmed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Extended Mop-Up Challenge",
+      "situation": "The fire is temporarily contained but drought conditions mean deep-seated burning in root systems could cause reignition. Standard mop-up will not be sufficient.",
+      "question": "What mop-up strategy do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order extensive mop-up to a cold-out standard, increase patrol frequency, and keep evacuation zones active.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Declare the fire contained and begin releasing resources to reduce costs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Extended mop-up operations have confirmed the fire is cold. Patrol continues due to ongoing drought conditions. No reignition events have occurred.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "drought",
+    "wildland fire",
+    "extreme fire behavior",
+    "water supply",
+    "mop-up"
+  ]
+}

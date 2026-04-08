@@ -1,0 +1,150 @@
+{
+  "title": "scenario_hazmat_civilians_exposed",
+  "description": "A ruptured industrial chlorine cylinder at a water treatment facility exposes multiple civilian visitors and employees, requiring simultaneous hazmat operations and mass casualty management.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Cylinder Rupture",
+      "description": "A 150-lb chlorine cylinder valve fails during a routine changeover at a water treatment plant. A school group of 18 students and 2 teachers are on a facility tour in an adjacent room.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Exposures Confirmed",
+      "description": "20 students/teachers and 4 plant employees reported symptomatic. Greenish-yellow gas visible in lower areas. Strong chlorine odor detectable outside the building.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Evacuation and Triage",
+      "description": "24 exposed individuals at triage point 300 yards upwind. 3 children with severe respiratory symptoms. Adults mostly mild to moderate symptoms.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Hazmat Entry",
+      "description": "Hazmat team in Level A sealing the ruptured cylinder with a chlorine kit. Mass decon corridor operational.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Mass Decon Complete",
+      "description": "All 24 patients decontaminated. 3 critical children transported with medical escort. Remaining patients medically monitored.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilized",
+      "description": "Cylinder secured. Building ventilated. All patients transported or cleared. Parents notified through school district.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Chlorine Release with Civilian Exposures",
+      "situation": "You arrive at a water treatment plant where a 150-lb chlorine cylinder has ruptured during a valve changeover. Visible greenish-yellow gas is collecting in low areas of the chlorination room. A school group—18 students aged 10–12, 2 teachers—was on a facility tour in an adjacent corridor and was exposed to the gas before evacuation. Four plant employees working in the area were also exposed. All 24 individuals have self-evacuated but are gathered near the building entrance, some coughing heavily. Three children are showing severe respiratory distress.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Move all 24 exposed individuals immediately upwind at least 300 yards to a triage point. The three children with severe respiratory distress are your immediate life-safety priority for medical intervention. Request multiple ALS units, hazmat response with chlorine containment kit, and a Level A entry team. Establish mass decontamination. Notify the school district immediately so parents can be contacted.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enter the building immediately with SCBA to locate and close the cylinder valve before addressing victims.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Treat the symptomatic individuals at the building entrance since they have already self-evacuated.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Triage of Pediatric and Adult Victims",
+      "situation": "All 24 individuals are at the upwind triage point. The three children with severe respiratory distress are being assessed—one is cyanotic and has labored breathing. Two ALS units are on scene. The remaining 21 patients have mild to moderate symptoms: coughing, burning eyes, and mild respiratory irritation. Panicked teachers are demanding to know the status of the children. A parent who heard about the incident on social media has arrived and is demanding access.",
+      "question": "How do you manage triage priorities and family communications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritize the three children with severe respiratory distress for immediate ALS intervention and transport to a pediatric hospital. Apply oxygen to all other patients and conduct systematic triage of the remaining 21 using a START or jumpSTART system. Designate a family information point staffed by a public information officer away from the triage area. Do not allow uncontrolled family access to the triage zone.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the parent on scene access to the triage area to be with their child.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus all medical resources on the critical children and do not formally triage the mild-to-moderate patients.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hazmat Source Control and Decontamination",
+      "situation": "Hazmat team has arrived in Level A PPE with a chlorine cylinder emergency kit (chlorine B kit). They can seal the ruptured cylinder. Meanwhile, the mass decontamination corridor is being set up for the 24 patients. The hospital treating the critical children has called to ask about the exposure concentration and duration to guide treatment—specifically whether 2-PAM or corticosteroids are indicated.",
+      "question": "How do you support hazmat operations and medical coordination?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief the hazmat team on the cylinder location and plant layout from the facility manager without re-entering. Authorize Level A entry for cylinder sealing. Provide the hospital with the agent identity (chlorine), estimated concentration (initially high—building fill), and estimated exposure duration (2–5 minutes) to guide treatment decisions. Initiate mass decontamination for all 24 patients before any go to hospital.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Transport all patients to hospital immediately and allow the hospital to manage decontamination on arrival.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not provide the hospital with exposure details until hazmat confirms the exact concentration.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Hazmat team sealed the chlorine cylinder with the B-kit. All 24 patients were decontaminated before hospital transport. The three critical children recovered with supplemental oxygen and nebulized sodium bicarbonate treatment guided by your early exposure data. All 21 remaining patients were treated and released from the emergency department. The school district conducted family notifications through the incident command's public information officer. Your rapid upwind evacuation, immediate triage, systematic decontamination, and proactive hospital communication optimized outcomes for the pediatric victims.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "chlorine",
+    "civilians exposed",
+    "mass casualty",
+    "pediatric",
+    "decontamination",
+    "triage",
+    "water treatment"
+  ]
+}

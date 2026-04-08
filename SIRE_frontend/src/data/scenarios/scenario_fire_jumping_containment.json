@@ -1,0 +1,155 @@
+{
+  "title": "fire_jumping_containment",
+  "description": "An established wildfire breaks through containment lines and requires emergency repositioning of crews and resources.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Breach Detected",
+      "description": "Lookout reports fire has crossed the dozer line on the eastern flank. Crews in jeopardy.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Emergency Evacuation of Crews",
+      "description": "Crews on compromised line ordered to safety zones immediately. Accountability check.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "New Perimeter Scouted",
+      "description": "IC evaluates a secondary containment line. Dozers repositioned.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Community Re-notification",
+      "description": "Breach changes fire projection. Update evacuation zones and notify additional communities.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "New Line Construction",
+      "description": "Dozers and hand crews working the new perimeter. Air tankers supporting.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Re-contained",
+      "description": "Secondary containment lines established. Fire contained at 65%. Monitor overnight.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Containment Line Breached",
+      "situation": "The wind has increased unexpectedly and fire has jumped the dozer line on the eastern flank. Three hand crews are working within 400 meters of the breach. Embers are spotting ahead of crews.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order all crews near the breach to evacuate to pre-identified safety zones and conduct accountability.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct crews to hold their position and reinforce the breached line.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Continue operations on unaffected sections while breach is evaluated.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Crew Accountability",
+      "situation": "All crews have evacuated the breach area. A radio check reveals one crew of five has not reported in. Their last known position was near the eastern line.",
+      "question": "How do you handle the missing crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate a rescue operation via helicopter while maintaining communication attempts and keeping other crews in safety zones.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a ground crew back into the breach area to search for the missing firefighters.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "New Containment Strategy",
+      "situation": "The missing crew has been located and extracted safely. Now the fire has grown 300 additional acres through the breach. A secondary natural feature — a rocky ridge — could serve as the new containment line.",
+      "question": "What is your containment strategy?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the rocky ridge as the new anchor and begin constructing a hand line to connect it to existing dozer lines.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to re-establish the original containment line that was breached.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Updated Evacuation Zones",
+      "situation": "The breach has changed fire projections significantly. Two additional communities are now within the projected fire path. Emergency management officials need a recommendation on evacuation zones.",
+      "question": "What evacuation recommendation do you make?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recommend mandatory evacuation for both communities given the changed projections and uncertain fire behavior.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue evacuation warnings only and wait for the new containment line to be established before ordering evacuations.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All crews are safe, the breach has been addressed, and a new containment line is holding. Both communities have been evacuated. Incident command is conducting a post-breach review.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "containment breach",
+    "wildland fire",
+    "crew safety",
+    "incident command",
+    "evacuation"
+  ]
+}

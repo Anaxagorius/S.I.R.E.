@@ -1,0 +1,150 @@
+{
+  "title": "scenario_hazmat_reactive_metal_fire",
+  "description": "A fire involving a stockpile of magnesium metal shavings ignites in a metal fabrication shop, presenting unique suppression challenges due to the violently reactive nature of burning magnesium.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Reported",
+      "description": "Metal fabrication shop worker calls 911 reporting a small fire in the scrap metal area. States it is a 'very bright white flame that won't go out.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "On Scene",
+      "description": "Bright white magnesium fire visible in the scrap bin area. Approximately 80 lbs of magnesium shavings burning. Intense heat and blinding white light. Workers evacuating.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Water Attempted by Worker",
+      "description": "A worker used a nearby garden hose on the fire before your arrival—small steam explosion has already occurred. Fire has grown.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Class D Agent Deployed",
+      "description": "Hazmat and firefighters deploying dry sand and dry Met-L-X powder to smother the burning magnesium.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Fire Controlled",
+      "description": "Magnesium fire extinguished. No direct water contact. No secondary explosions. Adjacent materials protected.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Scene Cleared",
+      "description": "Cooled magnesium slag in containment. Shop evacuated for air quality check. Two workers treated for eye irritation from intense light exposure.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Magnesium Metal Fire",
+      "situation": "You arrive to a metal fabrication shop where approximately 80 pounds of magnesium metal shavings are burning in a scrap bin with an intense, blinding white flame. The temperature of burning magnesium exceeds 3,000°C. A worker used a garden hose on the fire before you arrived, causing a small steam explosion and enlarging the fire. A conventional dry chemical extinguisher is mounted on the wall 10 feet from the fire. A water supply is immediately accessible from a hydrant. Workers have self-evacuated.",
+      "question": "What is the correct suppression approach for a magnesium metal fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not apply any water, CO2, or standard dry chemical agents to a burning magnesium fire. Apply dry sand or Class D dry powder agent (Met-L-X or G-1 powder) to smother the fire by covering it completely. Protect adjacent combustibles with dry sand berms. Wear appropriate eye protection against intense UV radiation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply a large volume of water from a safe distance to overwhelm the fire's heat and extinguish it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Use the dry chemical extinguisher on the wall—it is rated for metal fires and is immediately available.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Adjacent Hazard Assessment",
+      "situation": "Dry sand application has been initiated. The fire is partially covered but burning magnesium can re-ignite from oxygen exposure if the sand layer is disturbed. Adjacent to the burning scrap bin is a shelf containing acetylene cylinders for welding operations—the closest cylinder is 12 feet from the fire. A second scrap bin 6 feet away contains aluminum and steel shavings. The intense radiant heat from the magnesium fire is measurable at 20 feet.",
+      "question": "How do you manage the adjacent hazards?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Protect the acetylene cylinders by moving them away using appropriate cylinder handling equipment only if they can be safely accessed from outside the heat zone. If not safely moveable, apply dry protective covering to reduce radiant heat exposure. Do not apply water to the cylinders unless they are at direct risk of flame impingement. Continue smothering the magnesium with dry sand from a distance using shovels.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Spray water on the acetylene cylinders continuously to keep them cool from the radiant heat.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Quickly grab the acetylene cylinders by hand and carry them out of the building immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Worker Eye Exposure",
+      "situation": "Two workers who observed the initial magnesium fire before evacuation are reporting severe eye pain, reduced vision, and tearing—consistent with UV photokeratitis from magnesium's intense ultraviolet radiation. The fire is now mostly covered with dry sand and is diminishing. A third worker is complaining of skin burns on their forearms from approaching the fire earlier.",
+      "question": "How do you manage the injured workers?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request EMS for all three workers. For the two with eye symptoms: cover eyes with a moist, clean dressing and protect from further light exposure—do not rub. Transport immediately for ophthalmological evaluation as UV exposure damage may progress. Treat the worker with skin burns with cool running water irrigation for at least 20 minutes and cover with a clean dressing.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have the workers rinse their eyes with water from a faucet and wait to see if vision improves before calling EMS.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Workers with eye pain should wear sunglasses and rest—photokeratitis is temporary and does not require hospital treatment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Magnesium fire fully extinguished with dry sand and Met-L-X powder without any water application. No secondary explosions. Acetylene cylinders safely relocated by trained personnel from outside the heat zone. Both workers with eye symptoms were evaluated by an ophthalmologist—UV photokeratitis confirmed and successfully treated. The burn victim received wound care and was discharged. Your disciplined refusal to apply water, correct Class D suppression technique, and prompt worker injury recognition prevented serious escalation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Advanced",
+  "tags": [
+    "HAZMAT",
+    "reactive metal",
+    "magnesium fire",
+    "Class D",
+    "Met-L-X",
+    "industrial",
+    "UV radiation",
+    "suppression"
+  ]
+}

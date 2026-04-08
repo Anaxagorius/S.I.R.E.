@@ -1,0 +1,155 @@
+{
+  "title": "fire_multiple_ignitions",
+  "description": "Multiple simultaneous wildfire ignitions are discovered across a wide area, raising suspicion of deliberate arson.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "First Ignition Reported",
+      "description": "Initial fire call received. Crews dispatched to grassland ignition near the highway.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Second Ignition Confirmed",
+      "description": "A second simultaneous fire is reported 4 miles away. Arson suspicion arises.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Third Ignition Identified",
+      "description": "Third fire reported. Pattern suggests deliberate ignition. Law enforcement notified.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 3,
+      "title": "Resource Split Decision",
+      "description": "Available resources must be split across multiple fires. Triage priorities required.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Investigation Ongoing",
+      "description": "Investigators on scene of earliest ignition. Preserve evidence while conducting suppression.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "All Fires Contained",
+      "description": "All three fires contained with mutual aid. Arson investigation ongoing.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Multiple Fires Reported",
+      "situation": "Within 30 minutes, three separate wildfire ignitions have been reported across a 15-mile area. The ignitions appear simultaneous and their pattern does not match any known natural cause. Arson is suspected.",
+      "question": "How do you respond to multiple simultaneous ignitions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a complex incident, notify law enforcement of suspected arson, request mutual aid, and assign crews to each ignition based on threat level.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus all resources on the largest fire and monitor the others until reinforcements arrive.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Treat each fire independently without coordinating a unified command.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Resource Triage Across Fires",
+      "situation": "Available resources can only adequately cover two of the three fires. Fire 1 threatens a farm, Fire 2 is in open land, and Fire 3 is closest to a residential area.",
+      "question": "How do you triage fire assignments?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritize Fire 3 (residential threat) and Fire 1 (structure risk), and use air tankers to slow Fire 2 until ground resources arrive.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Split all resources equally across all three fires regardless of threat level.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evidence Preservation",
+      "situation": "Fire investigators arrive at the earliest ignition point. Fire suppression activities may destroy arson evidence at the point of origin. Investigators request a buffer zone.",
+      "question": "How do you handle evidence preservation during active suppression?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a small preservation zone around the suspected ignition point and route suppression activity around it while keeping safety as the top priority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow full suppression operations at the origin point — fire safety overrides evidence collection.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Suspect Reported Near Fire Area",
+      "situation": "Law enforcement reports a suspicious vehicle observed near two of the three ignition points. The suspect may still be in the area and could ignite additional fires.",
+      "question": "How do you coordinate with law enforcement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Share vehicle and location details with all field crews, coordinate with law enforcement for containment, and increase aerial observation to detect new ignitions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave suspect identification entirely to law enforcement and focus only on fire suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All three fires have been contained with mutual aid. The suspect was apprehended by law enforcement. Evidence was preserved at the origin point for the arson investigation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Advanced",
+  "tags": [
+    "arson",
+    "multiple ignitions",
+    "wildland fire",
+    "law enforcement",
+    "evidence preservation"
+  ]
+}

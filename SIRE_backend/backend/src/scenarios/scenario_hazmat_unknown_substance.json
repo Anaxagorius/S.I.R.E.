@@ -1,0 +1,149 @@
+{
+  "title": "scenario_hazmat_unknown_substance",
+  "description": "A suspicious white powder is discovered in a public mailroom, triggering an unknown substance release response with no confirmed identity and potential exposure of several employees.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Discovery",
+      "description": "Mailroom supervisor reports a package opened by an employee has released a white powder. The employee's hands and face are dusted with the substance.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Isolation",
+      "description": "Mailroom sealed. 4 potentially exposed employees are in the hallway. Unknown if substance is toxic, biological, or inert.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Hazmat Responds",
+      "description": "Hazmat team on-scene with detection equipment. Initial M8A1 alarm negative. Awaiting field test results for biological and chemical agents.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Field Test Results",
+      "description": "Chemical field tests negative. Biological field test inconclusive—sample sent to state laboratory for confirmation.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Decontamination Complete",
+      "description": "All four exposed individuals decontaminated. Mailroom sealed. Sample in transit to state lab. No symptoms in any exposed person.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Controlled",
+      "description": "Law enforcement on-scene treating as potential criminal matter. Public health and FBI notified per protocol. Building cleared except mailroom.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unknown Powder Released in Mailroom",
+      "situation": "You arrive at a government office building where a mailroom employee opened a suspicious package and was exposed to a white powder that covered their hands, forearms, and face. Three colleagues who were present are also potentially exposed. The substance is completely unidentified. The employee is anxious but currently asymptomatic. The mailroom door is still open and the package is on the sorting table.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Isolate the mailroom immediately—close and seal the door without re-entering. Do not allow the exposed individuals to leave or touch others. Establish a contamination reduction zone in the hallway. Request hazmat response. Instruct exposed persons not to touch their face or clothing and to stay together for decontamination.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have exposed employees immediately wash their hands in the nearest restroom to remove the powder before hazmat arrives.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Enter the mailroom to retrieve the package and read the return address to determine who sent it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation Scope Decision",
+      "situation": "The mailroom is sealed. The four exposed individuals are in the hallway corridor outside. Other building occupants are unaware of the incident but office areas share the same HVAC system as the mailroom. Hazmat is 8 minutes out. You must decide how much of the building to evacuate and whether to shut down HVAC.",
+      "question": "What evacuation and HVAC actions do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shut down the building HVAC system immediately to prevent potential airborne contamination from spreading to other floors. Evacuate all occupants from the building except for the four exposed individuals, who must remain isolated in the contamination zone for hazmat assessment and decontamination.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Evacuate only the mailroom floor. Leave HVAC running as the substance has not been confirmed hazardous.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow exposed employees to evacuate the building with all other occupants to get them out quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Decontamination of Exposed Persons",
+      "situation": "Hazmat team has arrived in Level B PPE. Field detection shows no positive chemical agent results. Biological field tests are inconclusive and a sample is being sent to the state lab. The four exposed individuals have been waiting 15 minutes in the corridor. One person is becoming agitated and insisting they feel fine and want to leave.",
+      "question": "How do you manage decontamination of the exposed individuals?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Proceed with emergency decontamination for all four individuals: remove outer clothing into sealed bags, conduct thorough water rinse decontamination, provide medical monitoring, and require all four to remain available for public health follow-up until the lab result confirms substance identity. Explain calmly that this is required protocol regardless of how they feel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Release the asymptomatic individuals since field tests are negative for chemical agents.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Defer decontamination until lab results confirm the substance is dangerous to avoid unnecessary distress.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All four exposed individuals were decontaminated and medically monitored. The mailroom remained sealed. A confirmed sample was sent to the state laboratory under proper chain of custody. Law enforcement and FBI were notified per the suspicious package protocol. HVAC shutdown prevented spread to other building areas. State laboratory results ultimately identified the powder as calcium carbonate—an inert substance—but proper protocol was followed throughout. Your disciplined isolation, HVAC shutdown, systematic decontamination, and notification procedures protected public safety under conditions of uncertainty.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Intermediate",
+  "tags": [
+    "HAZMAT",
+    "unknown substance",
+    "suspicious package",
+    "decontamination",
+    "biological",
+    "chemical",
+    "public health"
+  ]
+}

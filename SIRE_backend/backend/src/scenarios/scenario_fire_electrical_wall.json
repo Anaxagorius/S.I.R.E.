@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_electrical_wall",
+  "description": "Electrical fire burning inside wall cavities",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Report of burning smell and discoloration on wall in a residential home. Occupants report outlet sparked before smell started.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Caller now reports thin smoke coming from the wall around an electrical outlet.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Single-story home. Smoke coming from around an outlet on an interior wall. Warm to touch. Utility power is still on.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Utility Shutoff", "description": "Power company notified. Crew locates breaker panel and shuts off power to the affected circuit.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Wall Opened", "description": "Wall cavity opened around the outlet. Smoldering wiring and insulation found inside the wall.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Extinguishment", "description": "Smoldering material extinguished. Cavity opened further to confirm full extent of smoldering. No extension found.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Utility Shutoff Priority",
+      "situation": "You arrive to thin smoke coming from an electrical outlet. The wall is warm to the touch. The home power is still on. The fire is likely a smoldering electrical fire inside the wall cavity. You need to manage this carefully to avoid shock hazard and to prevent the smoldering fire from growing.",
+      "question": "What is your first action?",
+      "options": [
+        { "label": "A", "text": "Do not apply water yet — first shut off power to the circuit at the breaker panel. If the main breaker is needed, coordinate with the power company to cut service at the meter.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Apply a small amount of water around the outlet to cool the wall and slow the smoldering while power is still on.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Open the outlet cover and use a CO2 extinguisher to suppress any burning material directly at the outlet.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Opening the Wall",
+      "situation": "Power has been shut off to the affected circuit. The wall is still warm and thin smoke continues from the outlet. The fire is smoldering inside the wall cavity. You need to open the wall to access and extinguish the fire. The wall may have insulation — potentially fiberglass or older cellulose.",
+      "question": "How do you open and extinguish the wall cavity fire?",
+      "options": [
+        { "label": "A", "text": "Open the drywall around the outlet using a knife or saw, pull the insulation carefully to expose smoldering material, then apply a small amount of water directly to the hot spots.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Pull only the outlet cover and spray water into the cavity through the outlet opening to extinguish without cutting drywall.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Open a large section of the wall from floor to ceiling to make sure all the wiring in the cavity can be inspected.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Confirming Full Extinguishment",
+      "situation": "The smoldering material around the outlet has been extinguished. However, wiring runs vertically in the wall cavity and could have traveled to other areas. You need to confirm the extent of the smoldering before clearing the scene.",
+      "question": "How do you confirm the fire is fully out?",
+      "options": [
+        { "label": "A", "text": "Use a thermal imaging camera to scan the entire wall section, ceiling above, and any connected walls to detect heat signatures indicating remaining smoldering beyond the opened section.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Wet down the entire opened area thoroughly and visually confirm no smoke before clearing the scene.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Clear the scene once the visible hot spot is extinguished and advise the homeowner to call if smoke returns.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The thermal imaging camera detected elevated heat in the wall above the outlet, extending approximately 18 inches up. That section was opened and additional smoldering insulation was found and extinguished. The homeowner was advised not to restore power until a licensed electrician inspected the wiring. Well done — your utility shutoff priority, methodical wall opening, and thorough TIC-based confirmation prevented a rekind and a potential structure fire.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "residential", "electrical", "wall cavity", "smoldering", "utility shutoff"]
+}

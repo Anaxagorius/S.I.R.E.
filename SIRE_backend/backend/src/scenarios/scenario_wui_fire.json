@@ -1,0 +1,155 @@
+{
+  "title": "wui_fire",
+  "description": "A wildland–urban interface fire erupts at the edge of a suburb, threatening homes and displacing residents.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Ignition at Edge",
+      "description": "Smoke reported at the wildland–urban interface boundary. First units respond.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Structures Threatened",
+      "description": "Fire has reached the first row of homes. Triage structure defense priorities.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Evacuation Orders",
+      "description": "Mandatory evacuation ordered for 500 residences in affected zone.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Spotting Ahead of Fire",
+      "description": "Embers landing on rooftops blocks ahead of main fire. Deploy spot suppression crews.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Utility Shutoff",
+      "description": "Gas and power companies requested to shut off service to the threatened area.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Lines Holding",
+      "description": "Firefighters hold the line at the second row of homes. Fire begins to diminish.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fire at WUI Boundary",
+      "situation": "A fire has ignited in open space adjacent to a residential neighborhood. The WUI boundary is not clearly marked and the first homes are only 200 meters from the flames. Wind is gusting.",
+      "question": "What is your first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate evacuation of the adjacent neighborhood, request mutual aid, and begin structure triage.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus all resources on fire suppression and defer evacuation decisions to law enforcement.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the fire to approach structures before committing to a response plan.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Structure Triage",
+      "situation": "Dozens of homes are now threatened. Resources are insufficient to defend every structure. Some homes have defensible space while others are surrounded by heavy vegetation.",
+      "question": "How do you allocate your limited crews?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritize homes with good defensible space where crews can safely engage, and note others for later.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Defend all homes equally, spreading resources as thin as necessary.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ember Cast Threat",
+      "situation": "Firebrands are landing on rooftops and in yards several blocks ahead of the main fire front, igniting new spot fires in the neighborhood.",
+      "question": "How do you address the ember threat?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a roving spot crew to extinguish ember ignitions ahead of the fire and request additional engines.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rely on residents who have not evacuated to handle ember ignitions on their own property.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Utility Coordination",
+      "situation": "A gas line ruptures near a burning structure, creating an additional hazard. The utility company needs incident command authorization to shut off service to the neighborhood grid.",
+      "question": "What do you authorize?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorize immediate shutoff of gas and power to the affected grid and establish a safety perimeter.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Delay utility shutoff to avoid disrupting nearby households not directly threatened.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The fire has been held at the established line. All residents evacuated safely, utilities are shut off, and the neighborhood has been protected. Recovery operations begin.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "WUI fire",
+    "wildland-urban interface",
+    "structure defense",
+    "evacuation",
+    "ember cast"
+  ]
+}

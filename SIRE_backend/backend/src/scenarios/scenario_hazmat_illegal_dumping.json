@@ -1,0 +1,151 @@
+{
+  "title": "scenario_hazmat_illegal_dumping",
+  "description": "Illegal chemical waste dumping is discovered at a vacant lot adjacent to a residential area after a citizen reports a strong chemical odor. Investigation reveals volatile and flammable substances with active ignition risk.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Citizen Report",
+      "description": "Citizen calls 911 reporting a strong chemical smell from a vacant lot. Describes 'a bunch of barrels that weren't there yesterday.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "On Scene",
+      "description": "Approximately 20 unlabeled 55-gallon drums at a vacant lot. Strong solvent odor. Several drums are leaking. Adjacent properties are residential homes.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Ignition Risk Identified",
+      "description": "Air monitoring shows LEL at 40% near the drums. A homeless encampment with an active fire is located 80 feet from the drums.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Ignition Source Eliminated",
+      "description": "Encampment fire extinguished. Occupants moved to safety. Ignition sources within 200 feet eliminated. Ventilation improving.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Hazmat Assessment",
+      "description": "Drums identified as mixed chlorinated solvents and petroleum naphtha. Environmental agency on-scene for waste characterization.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilized",
+      "description": "LEL reduced below 10%. Drums contained. Area cordoned for EPA Superfund emergency response. Law enforcement investigating the dumping.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Illegal Chemical Waste Dump with Ignition Risk",
+      "situation": "You arrive at a vacant lot where approximately 20 unlabeled 55-gallon drums have been illegally dumped. Several drums are leaking, and a strong solvent odor is detectable from 150 feet away. Residential homes border the property on two sides. Air monitoring at 30 feet from the drums shows a lower explosive limit reading of 40%—a significant explosion risk. An active fire from a homeless encampment is 80 feet from the leaking drums. Three individuals are sitting near the campfire, unaware of the hazard.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Eliminate the ignition source immediately—move the encampment occupants to safety and extinguish the campfire without using water on the chemical drums. Establish a 300-foot perimeter. Evacuate adjacent residential homes. Do not allow any vehicles or equipment with internal combustion engines within the hazard zone. Request hazmat, environmental agency, and law enforcement response.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin sampling the drums to identify the contents before taking any other action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply water to the leaking drums to dilute the spilled chemical and reduce the odor.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Residential Evacuation Decision",
+      "situation": "The campfire is extinguished and the three occupants are moved to safety. Air monitoring at the lot perimeter still reads 35% LEL. Residential homes on two sides of the property have windows open. Twelve homes are within 200 feet of the drums. It is a warm evening and several residents are on their porches. A breeze is carrying vapors toward the nearest homes. The ignition risk from household appliances, water heaters, and cigarettes in the homes is real.",
+      "question": "Do you order residential evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Yes—evacuate all residents within 200 feet immediately given the 35% LEL environment. Household ignition sources (appliances, water heaters, light switches) in affected homes present a realistic explosion risk. Instruct residents not to operate any electrical switches as they exit. Direct them to a safe assembly point upwind.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Order shelter-in-place for the residential homes—closing windows will reduce interior vapour intrusion.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Monitor air readings for another 10 minutes before deciding on evacuation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Environmental and Law Enforcement Coordination",
+      "situation": "Twelve homes have been evacuated. Air monitoring at the perimeter shows LEL improving to 15% as natural ventilation disperses vapors. The hazmat team has identified the drum contents as a mixture of chlorinated solvents (trichloroethylene) and petroleum naphtha—both listed hazardous wastes. Law enforcement has found tire tracks and partial surveillance footage pointing to a commercial trucking company. The environmental agency is requesting you preserve the scene.",
+      "question": "How do you coordinate environmental and law enforcement actions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief the environmental agency and law enforcement together. Photograph and document the scene before any drum movement. Preserve tire tracks and any physical evidence (labels, paperwork near drums) for law enforcement. Do not move drums until both agencies agree on a joint approach—environmental response must not destroy forensic evidence. Notify EPA for potential CERCLA emergency response funding.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Move all drums to a consolidated area immediately to reduce the hazard footprint.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow law enforcement to fully process the scene before allowing the environmental agency to approach the drums.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "LEL reduced to below 10% with natural ventilation and controlled vapor suppression. Tire tracks and a partial packing list found near the drums provided law enforcement with sufficient evidence to identify the responsible commercial hauler. EPA was notified and mobilized a Superfund emergency response team for drum characterization and removal. All 12 evacuated residences were cleared for return after air monitoring confirmed safe levels. No explosion, fire, or civilian injuries occurred. Your rapid ignition elimination, decisive evacuation, and coordinated evidence preservation allowed both an environmental and criminal response to succeed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "HAZMAT",
+  "difficulty": "Intermediate",
+  "tags": [
+    "HAZMAT",
+    "illegal dumping",
+    "flammable vapors",
+    "LEL",
+    "environmental",
+    "law enforcement",
+    "evacuation",
+    "EPA",
+    "evidence preservation"
+  ]
+}

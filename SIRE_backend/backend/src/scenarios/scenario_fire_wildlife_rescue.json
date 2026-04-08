@@ -1,0 +1,155 @@
+{
+  "title": "fire_wildlife_rescue",
+  "description": "A wildfire threatens a wildlife refuge, forcing coordinated rescue operations for injured animals alongside fire suppression.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fire Threatens Wildlife Refuge",
+      "description": "Fire approaches perimeter of a state wildlife refuge. Animal care staff request assistance.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Animal Evacuation Begins",
+      "description": "Refuge staff begin moving captive animals. Injured wildlife in pens cannot self-evacuate.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Wild Animal Panic Reported",
+      "description": "Wild animals fleeing fire cross roads and populated areas. Public safety concern active.",
+      "timeOffsetSec": 75
+    },
+    {
+      "index": 3,
+      "title": "Rescue Resources Strained",
+      "description": "Insufficient transport vehicles for all injured wildlife. Prioritization required.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Defensive Perimeter Around Enclosures",
+      "description": "Fire crews establish foam line around remaining animal enclosures to buy time.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "All Animals Accounted For",
+      "description": "Last transport vehicle departs. Fire crews protecting empty refuge structures.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Wildlife Refuge Under Threat",
+      "situation": "A wildfire is approaching a state wildlife refuge that houses both wild animals in rehabilitation (injured birds, deer, bobcats) and captive-bred endangered species. The refuge director has requested immediate assistance with animal evacuation.",
+      "question": "How do you coordinate fire suppression with animal rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign a liaison officer to work with the refuge director, prioritize suppression to protect the animal enclosures, and coordinate transport resources for animal evacuation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus entirely on fire suppression — animal rescue is not part of the fire department's scope.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate all refuge staff and release the animals into the wild to fend for themselves.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Wild Animal Displacement",
+      "situation": "Fleeing wildlife including deer, coyotes, and a black bear are crossing nearby roads and entering adjacent residential areas. Residents are alarmed and roads are becoming hazardous.",
+      "question": "How do you manage displaced wildlife in populated areas?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Alert motorists via emergency broadcast, deploy animal control and wildlife officers to monitor and redirect displaced animals, and close the most affected roads.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ignore displaced wildlife — the fire emergency takes full priority and animals will find their own way.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Animal Evacuation Triage",
+      "situation": "Transport vehicles are insufficient to evacuate all injured animals in one trip. The refuge has 12 animals in critical condition and 30 in stable condition. There are 2 large transport vehicles available.",
+      "question": "How do you prioritize animal evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Evacuate the 12 critical animals first while fire crews establish a foam perimeter to protect the stable animals' enclosures.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Load all 42 animals simultaneously in whatever space is available, accepting crowding.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Enclosure Defense",
+      "situation": "Fire has reached within 100 meters of the enclosures housing the stable animals. Transport vehicles are returning for a second run. Crews have foam available.",
+      "question": "How do you defend the enclosures during the gap before the second transport run?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply foam to the enclosure structures and surrounding vegetation to create a defensible zone until transport returns.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open the enclosures and release all remaining animals to improve their survival chances.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All critical and stable animals have been evacuated. The foam perimeter held long enough for the second transport run. All refuge staff are safe. Displaced wildlife in residential areas were managed without public injury.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Wildland Fire",
+  "difficulty": "Intermediate",
+  "tags": [
+    "wildlife rescue",
+    "wildland fire",
+    "animal evacuation",
+    "wildlife refuge",
+    "multi-agency response"
+  ]
+}

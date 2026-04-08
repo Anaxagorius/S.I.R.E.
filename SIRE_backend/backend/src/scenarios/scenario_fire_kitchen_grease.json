@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_kitchen_grease",
+  "description": "Kitchen grease fire in a residential home",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Report of fire on a kitchen stove. Caller says grease in a pan ignited. No injuries reported.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Caller reports they tried to move the pan and the fire grew. Now evacuating the home.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Smoke from kitchen window. Occupants outside. Active grease fire visible on stove through window. Flames reaching the range hood.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Fire Assessment", "description": "Crew enters kitchen. Grease fire is contained to the frying pan and the range hood is scorched but fire has not extended further.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Suppression", "description": "Correct suppression method applied. Fire extinguished. Range hood inspected for extension.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Overhaul", "description": "Grease cleaned from stove. No extension found in range hood. Occupants cleared to re-enter after ventilation.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Grease Fire Assessment",
+      "situation": "You arrive to a grease fire in a frying pan on the stove. Flames are about 2 feet high from the pan and scorching the range hood. The fire has not extended beyond the stove area. Occupants are safely outside. You have a standard fire extinguisher and a Class K extinguisher on your rig.",
+      "question": "What is your first priority action for this grease fire?",
+      "options": [
+        { "label": "A", "text": "Use a Class K wet chemical extinguisher — designed for cooking oil and grease fires — to apply saponification and smother the fire without risk of splashing.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Apply water from the hose line since it is the fastest method to cool the burning oil.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Use the dry chemical ABC extinguisher since it is available and rated for all fire types.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Ventilation After Suppression",
+      "situation": "The Class K extinguisher has extinguished the grease fire. The kitchen is heavily smoke-damaged and there is a strong chemical smell from the suppression agent. The occupants want to return inside. You need to assess if it is safe to re-enter.",
+      "question": "What do you do before allowing re-entry?",
+      "options": [
+        { "label": "A", "text": "Ventilate the kitchen thoroughly by opening windows and doors, use a fan if available, and check CO levels with your detector before allowing re-entry.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Allow re-entry immediately since the fire is out and the suppression agent is non-toxic.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Tell the occupants to open windows when they go back in and monitor themselves.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Checking Range Hood Extension",
+      "situation": "The kitchen has been ventilated and CO readings are normal. Before clearing the scene, you need to check the range hood and any duct work above the stove for fire extension, since grease can accumulate in ductwork and the fire reached the range hood level.",
+      "question": "How do you check for extension in the range hood and ductwork?",
+      "options": [
+        { "label": "A", "text": "Use a thermal imaging camera to scan the range hood, ductwork, and ceiling above the stove for residual heat. Open the range hood filter access panel to inspect for burning grease inside.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Visually inspect the range hood exterior only — if no smoke or flame is visible, the ductwork is clear.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Skip the ductwork check since the fire was small and limited to the pan only.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The thermal imager confirmed no heat extension in the ductwork. The range hood filter had grease accumulation but no active combustion. Occupants were cleared to re-enter after full ventilation. The crew provided fire prevention education to the homeowner about grease fire safety and never using water on a grease fire. Well done — proper suppression agent selection, ventilation protocol, and thorough extension check were all executed correctly.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Beginner",
+  "tags": ["fire", "residential", "kitchen", "grease fire", "Class K", "saponification"]
+}

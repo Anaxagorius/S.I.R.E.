@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_hoarder_house",
+  "description": "Fire in a hoarder residence with extreme fuel load and blocked egress",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Neighbor reports smoke from a home known to contain large amounts of stored material. Occupant status unknown.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Heavy smoke from eaves and around the doors. Pre-incident knowledge confirms extreme hoarding conditions inside.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Heavy smoke from all sides of the structure. The front door is blocked — visible stacks of material through the window reach the ceiling. A neighbor says an elderly man lives alone here.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Access Challenges", "description": "Entry crew cannot advance past 3 feet inside the front door due to floor-to-ceiling material stacked throughout. Fire location unknown.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Rapid Fire Spread", "description": "Extreme fuel load causing rapid fire progression. Crew encounters thermal conditions at the 3-foot mark. Floor integrity unknown under weight of materials.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Defensive Shift", "description": "IC transitions to defensive operations. Exterior master stream applied. Collapse zone established.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Hoarder House Arrival",
+      "situation": "You arrive to a known hoarder home with heavy smoke from all sides. The occupant is reported as an elderly man living alone — unknown status. You can see through the window that material is stacked floor to ceiling. The front door can barely be opened — stacked material has reduced entry to a narrow gap. Fire location is unknown inside.",
+      "question": "How do you approach this fire?",
+      "options": [
+        { "label": "A", "text": "Recognize extreme search and entry hazards. Attempt a rapid primary search at the door with a charged line while an additional crew checks for alternate entry points and the IC requests additional resources immediately.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Force the front door fully open and advance a crew through the material stacks to search aggressively for the occupant.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Do not attempt entry — declare defensive immediately and apply water from the exterior.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Search Under Extreme Conditions",
+      "situation": "A crew has entered at the front door but can only advance 3 feet. The material stacks are creating a maze — no clear pathways. The thermal imager is detecting high heat further in but the crew cannot safely advance. A shout-out search receives no response from inside. Fire is growing rapidly in the extreme fuel load.",
+      "question": "What do you decide about the interior search?",
+      "options": [
+        { "label": "A", "text": "Withdraw the interior crew — conditions are untenable and the crew cannot safely advance or retreat quickly in an emergency. Transition to defensive, continue shout-outs from exterior, and check windows for any sign of the occupant.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Send a second crew in to force through the material stacks and reach the detected heat area.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Keep the first crew at the 3-foot mark and apply water from that position to knock the unseen fire.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Defensive Operations and Collapse Risk",
+      "situation": "The fire is now fully involved. Heavy smoke and flames from multiple windows. The structure is showing signs of overload — floor sagging sounds heard before crews withdrew. The floor was already under extreme load from stacked materials. Master streams are being set up. The IC must establish a collapse zone.",
+      "question": "What collapse zone distance do you establish?",
+      "options": [
+        { "label": "A", "text": "Establish a collapse zone equal to 1.5 times the building height on all sides, move all personnel and equipment outside this zone, and operate master streams from beyond the collapse zone perimeter.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Set up master streams at the edge of the structure since we need to get water close to be effective.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Keep crews near the building to prevent water runoff from going into neighboring yards.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The structure partially collapsed during the defensive operation, well within the established collapse zone — no firefighters were inside or within the zone. The fire was extinguished through master stream application. Tragically, the occupant was found post-fire during careful debris search conducted with structural monitoring. The coordinated response — recognizing hazards, conducting a limited but safe search, and transitioning to defensive at the right time — was textbook for a high-hazard structure. Well done.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "structural", "hoarder", "extreme fuel load", "collapse risk", "search and rescue", "defensive operations"]
+}

@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_basement",
+  "description": "Basement fire with heavy smoke pushing up the stairwell",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Report of smoke in a residential home. Caller says smoke is coming from the basement.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Heavy smoke visible from the street as units approach. All windows on first floor showing smoke.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Two-story single-family home. Heavy black smoke pushing from all first-floor windows and from under the front door. Basement fire suspected.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Floor Concerns", "description": "Crew at door reports extreme heat at floor level and smoke under significant pressure. Floor integrity is unknown.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Attack Begins", "description": "Basement window identified on side of structure. Crew deploys a 2.5-inch line to basement window opening.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Fire Knocked", "description": "Fire knocked down through basement window. Steam and smoke venting from openings. Structure stable.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Basement Fire Recognition",
+      "situation": "You arrive to heavy smoke from all first-floor windows and under the front door of a two-story home. Conditions suggest a basement fire. The stairwell to the basement is inside via the main floor. The floor above the fire is unknown in terms of integrity. A neighbor says no one was home.",
+      "question": "How do you approach this basement fire?",
+      "options": [
+        { "label": "A", "text": "Do not enter via the interior stair. Locate the basement windows or exterior access on the perimeter and use them for an indirect or transitional attack to darken down the fire before any interior entry.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Make entry through the front door and down the interior staircase with a charged line since that is the most direct route to the fire.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Ventilate the roof to draw the heat and smoke up and away from the floor above before any attack.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Exterior Access Attack",
+      "situation": "You find two basement windows on the side of the structure. The fire is visible through one of them. Flames are lapping out. You have a 2.5-inch line charged. The basement appears to be one large open space used as a workshop.",
+      "question": "What attack method do you use through the basement window?",
+      "options": [
+        { "label": "A", "text": "Apply an indirect attack — insert the nozzle into the window opening and use a wide fog or straight stream to steam the basement and knock the main body of fire before any interior entry.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Apply a solid stream directly into the window at high volume to flood the basement.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Break all basement windows first to ventilate before applying water.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Interior Entry Decision",
+      "situation": "The fire has been darkened down through the basement window. Steam is venting. Conditions on the first floor are still smoky but heat has reduced. The interior staircase is still the only confirmed access point to the basement. A crew wants to go interior to complete extinguishment and overhaul.",
+      "question": "How do you manage interior entry to the basement?",
+      "options": [
+        { "label": "A", "text": "Test the floor integrity at each step before committing weight, advance low, and have a crew on the first floor with a charged line backing up the basement crew — ready to assist immediately.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Send the crew directly down once conditions look reasonable since the fire is mostly out.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Declare the fire out from the exterior and skip interior entry since conditions look improved.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The basement crew completed overhaul safely. Floor integrity was sound. The fire originated from a faulty electrical panel. No occupants were inside. The coordinated exterior attack followed by a disciplined interior entry with backup crew prevented a floor collapse scenario. Well done — your recognition of basement fire dangers, exterior attack decision, and safe interior entry protocol were all exemplary.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": ["fire", "structural", "basement", "floor integrity", "ventilation", "indirect attack"]
+}

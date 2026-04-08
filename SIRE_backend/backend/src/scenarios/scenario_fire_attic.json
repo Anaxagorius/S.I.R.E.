@@ -1,0 +1,54 @@
+{
+  "title": "scenario_fire_attic",
+  "description": "Attic fire spreading through concealed spaces with truss roof construction",
+  "timeline": [
+    { "index": 0, "title": "Dispatch", "description": "Report of smoke from roof area of a single-family home. Homeowner reports no visible interior fire.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "En Route", "description": "Light smoke visible from roof soffit area. Appears to be early-stage attic involvement.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "On Scene", "description": "Ranch-style home with lightweight truss roof. Smoke venting from soffits on two sides. Visible glow in attic through vent openings.", "timeOffsetSec": 60 },
+    { "index": 3, "title": "Truss Concern", "description": "Crew identifies lightweight engineered truss roof construction. Fire in trusses can cause collapse within minutes.", "timeOffsetSec": 120 },
+    { "index": 4, "title": "Access Created", "description": "Crew opens ceiling from interior to access attic space. Fire visible in truss bays.", "timeOffsetSec": 200 },
+    { "index": 5, "title": "Fire Controlled", "description": "Attic fire extinguished through ceiling openings. Truss integrity maintained in non-fire areas. Overhaul underway.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Attic Fire Recognition",
+      "situation": "You arrive to a ranch-style home with smoke venting from soffits. The homeowner confirms no interior fire is visible. You can see a glow through the attic vents. The home appears to have a lightweight engineered truss roof system based on its age and style of construction. No occupants are inside.",
+      "question": "What is your primary concern and first action?",
+      "options": [
+        { "label": "A", "text": "Recognize the truss roof as a collapse risk if fire has involved the trusses — limit interior crew exposure, begin opening the ceiling from below, and consider a defensive posture if fire extends significantly.", "outcome": { "type": "node", "target": "node-2" } },
+        { "label": "B", "text": "Immediately cut open the roof deck from the exterior to vent the attic and expose the fire.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Enter the attic via the access hatch and fight the fire directly in the attic space.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-2": {
+      "title": "Opening the Ceiling",
+      "situation": "A crew inside is ready to open the ceiling to access the attic fire. The fire glow through soffits suggests fire has spread through multiple truss bays. The crew needs to create access while managing their own safety. You have a charged 1¾-inch line.",
+      "question": "How do you direct the ceiling opening operation?",
+      "options": [
+        { "label": "A", "text": "Open the ceiling in a controlled manner from the side of the room away from the heaviest involvement, use a pike pole or hook to pull ceiling from a safe position, and immediately flow water into the attic space once visible fire is exposed.", "outcome": { "type": "node", "target": "node-3" } },
+        { "label": "B", "text": "Open a large section of ceiling in the center of the room directly under the heaviest smoke for maximum access.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have the crew work in the attic directly since it provides better access to the fire.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-3": {
+      "title": "Monitoring Structural Integrity",
+      "situation": "Fire is being knocked down through ceiling openings. One crew member reports the ceiling in the adjacent room is beginning to sag. A thermal imager shows elevated heat in multiple truss bays. You must assess whether to continue interior operations or transition to defensive.",
+      "question": "What is your decision?",
+      "options": [
+        { "label": "A", "text": "Order all interior crews out immediately due to sagging ceiling indicating compromised truss. Transition to defensive — apply water through exterior soffit vents and any accessible openings from outside.", "outcome": { "type": "node", "target": "node-4" } },
+        { "label": "B", "text": "Continue interior operations but limit crews to one person in the room with the sagging ceiling.", "outcome": { "type": "failure" } },
+        { "label": "C", "text": "Have crews quickly open the sagging ceiling area to see if trusses are still intact before deciding.", "outcome": { "type": "failure" } }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All interior crews were withdrawn before the adjacent room ceiling collapsed. Defensive water application through exterior soffit openings knocked the remaining fire. Post-incident inspection confirmed trusses in the area of sagging ceiling had failed. The early transition to defensive operations prevented firefighter injuries. Well done — your recognition of truss roof dangers, disciplined ceiling opening tactics, and timely defensive transition were all correct.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": ["fire", "structural", "attic", "truss roof", "collapse risk", "ventilation"]
+}
