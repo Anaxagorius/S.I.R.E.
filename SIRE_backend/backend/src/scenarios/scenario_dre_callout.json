@@ -1,0 +1,151 @@
+{
+  "title": "scenario_dre_callout",
+  "description": "A frontline officer arrests a driver for drug-impaired operation but is not DRE-certified. The officer must coordinate a Drug Recognition Expert callout, maintain Charter protections during the evaluation, and facilitate a blood demand under Criminal Code s.320.28.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrest Made",
+      "description": "Driver arrested for drug-impaired operation. Signs of drug impairment present but officer is not certified as a Drug Recognition Expert.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Transport to Detachment",
+      "description": "Driver transported to detachment. Charter rights read. Driver provided opportunity to contact counsel.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "DRE Requested",
+      "description": "Officer requests a Drug Recognition Expert attend the detachment. DRE estimated arrival: 40 minutes.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "DRE Evaluation Begins",
+      "description": "DRE officer begins the 12-step evaluation. Driver is cooperative. Vitals, pupil size, and muscle tone are recorded.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "DRE Opinion Formed",
+      "description": "DRE concludes the driver is impaired by a CNS depressant. DRE makes demand for a blood sample under Criminal Code s.320.28 to confirm drug presence.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Blood Sample Taken",
+      "description": "Blood drawn by qualified medical professional. Sample sent to Health Canada approved lab for toxicological analysis.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Drug Impairment Arrest — DRE Needed",
+      "situation": "You have arrested a driver for drug-impaired operation under Criminal Code s.320.14(1)(a) following a traffic stop. The driver has pinpoint pupils, muscle rigidity, slowed speech, and a slow pulse — indicators consistent with opioid impairment. You have administered the SFST and the driver failed. You are not a Drug Recognition Expert. The driver is at the detachment, having spoken with duty counsel. You must ensure the investigation proceeds lawfully and completely.",
+      "question": "What is your correct course of action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the on-call Drug Recognition Expert (DRE) and request their attendance at the detachment to conduct the 12-step DRE evaluation. While waiting, document all your observations in detail: pupil size in different lighting, vital signs you are able to note, muscle tone, speech, and behaviour. Ensure the driver remains at the detachment lawfully under the arrest authority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conduct the 12-step DRE evaluation yourself using the standardised form, since you have seen it done before and the driver is cooperative.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Release the driver pending further investigation since you cannot complete the DRE evaluation yourself and no DRE is immediately available.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "DRE Evaluation in Progress",
+      "situation": "The DRE officer has arrived and begins the 12-step evaluation. At step 6, the DRE requests that the driver perform the divided attention tests. The driver, now aware of the process, states: 'I want to speak to my lawyer again before I do any more tests.' The driver has already had a meaningful opportunity to speak with duty counsel prior to the DRE evaluation. The DRE evaluation is part of the lawful arrest process under the Criminal Code.",
+      "question": "How do you and the DRE handle this request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the driver that their right to counsel has already been satisfied. The DRE evaluation is not a separate event triggering a new right to counsel — it is part of the ongoing investigation following a lawful arrest. Document the driver's request and the response. The DRE continues with the evaluation. If the driver refuses to participate, document refusal for each step.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Halt the DRE evaluation entirely and allow the driver to make a second call to a lawyer, potentially allowing significant time to pass and affecting the blood toxicology results.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell the driver that complying with the DRE evaluation is optional and they are free to refuse without consequence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Blood Demand Under s.320.28",
+      "situation": "The DRE completes all 12 steps of the evaluation and forms the opinion that the driver is impaired by a CNS depressant, consistent with opioid use. Based on this opinion, the DRE makes a demand for a blood sample under Criminal Code s.320.28, which allows a qualified DRE to demand blood when they have reasonable grounds to believe a drug has impaired the driver. The demand must be carried out by a qualified person — a nurse or physician must draw the blood.",
+      "question": "How is the blood demand correctly executed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The DRE formally reads the blood demand to the driver under Criminal Code s.320.28, advising that refusal is a criminal offence under s.320.15. Arrange for a registered nurse or physician to attend the detachment or transport the driver to a medical facility to draw two blood samples. Maintain chain of custody: samples are sealed, labelled with the officer's badge number, and couriered to a Health Canada approved toxicology laboratory.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Draw the blood sample yourself using a first aid kit to avoid delays, since time is critical to preserving evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Skip the blood demand since the DRE opinion alone is sufficient evidence and a blood test is only optional.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Blood samples were drawn by a registered nurse and submitted to the Health Canada approved laboratory. Toxicological analysis confirmed morphine at a concentration consistent with impairment. The driver was charged under Criminal Code s.320.14(1)(a) (impaired operation — drug). The DRE officer testified as an expert witness. Your thorough documentation of arrest grounds, Charter compliance, and coordination of the DRE evaluation and blood demand provided the foundation for a successful prosecution. The 12-step DRE evaluation and confirmatory blood evidence together constitute a robust evidentiary package under Canadian drug-impaired driving law.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "DRE",
+    "drug recognition expert",
+    "drug impaired driving",
+    "Criminal Code s.320.28",
+    "blood demand",
+    "12-step evaluation",
+    "opioids",
+    "Charter",
+    "Canada"
+  ]
+}

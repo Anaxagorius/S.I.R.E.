@@ -1,0 +1,152 @@
+{
+  "title": "scenario_impaired_driving_drugs",
+  "description": "A Canadian police officer observes erratic driving post-cannabis legalisation. The driver admits to recent cannabis use and exhibits drug impairment indicators. The officer must navigate the Standard Field Sobriety Test, oral fluid sample demand, and DRE process under the Cannabis Act and Criminal Code.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Erratic Driving Observed",
+      "description": "Officer observes a vehicle travelling well below the speed limit, making wide turns, and stopping well past stop lines at two consecutive intersections.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Traffic Stop",
+      "description": "Officer stops the vehicle. Driver has red, watery eyes, a strong odour of cannabis, and appears lethargic. Driver admits to smoking cannabis 'about an hour ago.'",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "SFST Initiated",
+      "description": "Officer, certified to administer the Standard Field Sobriety Test, conducts all three components: Horizontal Gaze Nystagmus, Walk-and-Turn, and One-Leg Stand. Driver exhibits clues on all three tests.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Oral Fluid Demand",
+      "description": "Based on SFST failure, officer makes a demand for an oral fluid sample using an Approved Drug Screening Equipment (ADSE) device.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "ADSE Result: THC Detected",
+      "description": "Oral fluid device flags positive for THC above the threshold. Driver is arrested for drug-impaired operation under Criminal Code s.320.14(1)(a).",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "DRE Called Out",
+      "description": "A Drug Recognition Expert is requested to attend the detachment to conduct the 12-step evaluation and form an expert opinion on impairment.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Drug Impairment — Initial Detection",
+      "situation": "You stop a vehicle for erratic driving. The driver has red, watery eyes, a strong cannabis odour, slowed speech, and admits to smoking cannabis approximately one hour ago. Under the Cannabis Act, cannabis is legal; however, drug-impaired driving remains a criminal offence. You are certified to administer the Standard Field Sobriety Test (SFST). You observe drug impairment indicators consistent with cannabis: red conjunctiva, slow pupil reaction, psychomotor impairment.",
+      "question": "What is your correct course of action at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Make a demand for the driver to perform a Standard Field Sobriety Test (SFST) under Criminal Code s.320.27(2), based on reasonable grounds to suspect drug impairment. Advise the driver of their right to counsel under Charter s.10(b). Conduct all three SFST components (HGN, Walk-and-Turn, One-Leg Stand) in accordance with your training.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since cannabis is now legal under the Cannabis Act, advise the driver to be more careful and let them go with a warning.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the driver immediately for drug-impaired driving without conducting any evaluations, relying solely on the admission of cannabis use.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "SFST Failure — Oral Fluid Demand",
+      "situation": "The driver fails the SFST: they exhibit four clues on the Walk-and-Turn, cannot maintain balance on the One-Leg Stand, and show lack of smooth pursuit on the HGN test. You now have reasonable grounds to believe the driver has a drug in their body that is impairing their ability to operate a vehicle. You have an Approved Drug Screening Equipment (ADSE) oral fluid device in your cruiser.",
+      "question": "What is the correct next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Make a lawful demand for an oral fluid sample under Criminal Code s.320.27(2) using the ADSE device. Inform the driver that failure or refusal to comply is itself a criminal offence under s.320.15. Document the SFST clues and observations thoroughly in your notes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Skip the oral fluid test and immediately arrest the driver based solely on the SFST result, without any approved screening device confirmation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the driver to wait in their vehicle and re-administer the SFST in 30 minutes to confirm the result before making any demand.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "ADSE Positive — Arrest and DRE",
+      "situation": "The oral fluid ADSE flags positive for THC above the prescribed threshold under the Criminal Code Regulations. You arrest the driver for drug-impaired operation under Criminal Code s.320.14(1)(a) and transport them to the detachment. You are not a Drug Recognition Expert (DRE). A DRE officer is on call and can attend within 45 minutes. The driver is cooperative but drowsy.",
+      "question": "What steps do you take at the detachment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the driver of their right to retain and instruct counsel under Charter s.10(b) and provide them a genuine opportunity to do so. Contact the on-call DRE officer and request their attendance to conduct the 12-step evaluation. Preserve the evidence — document observations, maintain chain of custody for the ADSE device, and note the driver's physical condition throughout.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since you have the ADSE positive result, immediately release the driver with a summons without calling a DRE, as no further evidence is needed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Conduct the DRE evaluation yourself, even though you are not certified, since the driver is cooperative and the evidence appears clear.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The DRE officer attended and completed the 12-step evaluation, forming the opinion that the driver was impaired by cannabis — a CNS depressant/stimulant. A blood demand was made under Criminal Code s.320.28 to confirm THC blood concentration. The driver's blood THC level exceeded 5 ng/mL, the Criminal Code threshold for the higher impaired driving offence. Charges were laid under s.320.14(1)(a) (impaired operation) and s.320.14(1)(c) (over the prescribed THC limit). Your correct identification of impairment indicators, lawful SFST and ADSE demands, and proper DRE referral resulted in a complete and lawful prosecution package.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "impaired driving",
+    "cannabis",
+    "drugs",
+    "SFST",
+    "oral fluid",
+    "DRE",
+    "Criminal Code s.320.14",
+    "Cannabis Act",
+    "Charter s.10(b)",
+    "Canada"
+  ]
+}

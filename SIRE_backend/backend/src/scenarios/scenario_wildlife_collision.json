@@ -1,0 +1,151 @@
+{
+  "title": "scenario_wildlife_collision",
+  "description": "A Canadian police officer responds to a motorist who has struck a moose on a rural highway at night. The animal is alive and on the roadway, posing danger. The officer must manage scene safety, EMS, secondary collision prevention, Conservation Officer notification, and complete an MVC report.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Officer dispatched to a reported vehicle-moose collision on a rural provincial highway at 01:15. Vehicle heavily damaged. Driver states the moose is still alive and on the road.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "On Scene",
+      "description": "Officer arrives. A 400 kg moose is lying across the centre line, still alive and attempting to stand. The driver has a laceration to their forehead from the airbag and is shaken but ambulatory.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Scene Safety Assessment",
+      "description": "The injured moose is thrashing, posing a danger to anyone approaching. A second vehicle has stopped 30 metres back with onlookers exiting their car to look at the animal.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "EMS and Conservation Officer Contacted",
+      "description": "Officer calls for EMS for the injured driver and contacts the Conservation Officer on call for wildlife disposition. Officer controls bystanders and protects the scene.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Wildlife Humanely Destroyed",
+      "description": "Conservation Officer authorises officer to humanely destroy the moose on road under provincial Wildlife Act authority. Animal is moved from roadway.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "MVC Report and Road Clearance",
+      "description": "EMS treats the driver. Tow truck removes damaged vehicle. Officer completes MVC report and assists with carcass notification protocol.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrive on Scene — Moose on Roadway",
+      "situation": "You arrive at 01:20 on a rural two-lane provincial highway. A large bull moose — estimated 400 kg — is lying across the centre line, alive, thrashing its legs and attempting to rise. The striking vehicle has extensive front-end damage. The driver is out of the vehicle, holding their head, with blood on their face from the airbag deployment. The moose is blocking both lanes. Two bystanders from a stopped vehicle are walking toward the moose with a cell phone camera.",
+      "question": "What are your immediate priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your immediate priorities are life safety and scene security. Redirect the bystanders back to their vehicle immediately — a 400 kg moose in distress is an extreme danger; even a dying moose can deliver fatal kicks. Assess the injured driver's condition. Call EMS for the driver and request tow truck and highway maintenance. Do not approach the moose. Activate all emergency lighting and deploy road flares uphill and downhill of the scene to warn approaching traffic.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Approach the moose first to assess whether it can be moved off the road before addressing the injured driver.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the bystanders to continue approaching the moose since they are not your responsibility and focus solely on the injured driver.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scene Protection — Secondary Collision Risk",
+      "situation": "The moose is blocking both lanes. Your emergency lights are active. The nearest on-ramp is 18 km away with no alternate route. Vehicles are approaching from both directions on a curved section of highway with limited visibility. You must actively manage approaching traffic to prevent a secondary collision — another vehicle striking either the moose or the first vehicle. EMS is 20 minutes away.",
+      "question": "How do you manage the secondary collision risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position your vehicle to block one lane and, using your high-visibility vest and flashlight, manually direct approaching traffic to a slow stop before they round the curve. Request a second unit to manage the opposite direction. Contact the provincial Ministry of Transportation for road closure and request a second officer if not already dispatched. Keep bystanders in their vehicle as a further visual deterrent to approaching drivers.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to manually drag the moose off the road by yourself to clear the lane, eliminating the collision risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Move your police vehicle past the moose to block the far side of the scene, leaving the approach side unprotected from oncoming traffic.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Conservation Officer and MVC Report",
+      "situation": "EMS has arrived and is treating the driver — a minor scalp laceration and possible concussion. The moose has been humanely destroyed under Conservation Officer authorisation and provincial Wildlife Act authority (the animal had a fractured pelvis and was suffering). The carcass must be moved from the roadway and disposed of according to provincial wildlife regulations. You must complete a Motor Vehicle Collision (MVC) report. The driver has declined to be charged — the collision was caused by the animal entering the roadway unexpectedly.",
+      "question": "How do you complete the investigation and MVC report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete the MVC report documenting: time, location (km marker), road and weather conditions, vehicle damage, driver information and injury, wildlife species and disposition, and all responding units. There are no HTA charges to lay — the collision was caused by an animal on the roadway, not driver error. Notify the provincial wildlife management branch of the carcass location for salvage or disposal per regulation. Ensure the roadway is clear and safe before releasing the scene.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Charge the driver with careless driving under the provincial HTA for failing to avoid the animal on the road.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the moose carcass on the roadside and complete no further notifications, since the road is now clear.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The driver was assessed by EMS and transported to the hospital with a minor concussion. The moose carcass was removed from the roadway by the tow truck and the Conservation Officer coordinated disposition per provincial Wildlife Act protocols. The MVC report was completed accurately, noting the collision as an unavoidable animal-strike with no driver charges warranted. The roadway was re-opened after clearance. Your immediate bystander control, secondary collision prevention, correct wildlife authority notification, and professional MVC report completed the scenario successfully.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "wildlife collision",
+    "moose",
+    "rural highway",
+    "MVC report",
+    "Conservation Officer",
+    "Wildlife Act",
+    "scene safety",
+    "secondary collision",
+    "Canada"
+  ]
+}

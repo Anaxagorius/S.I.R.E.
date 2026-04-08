@@ -1,0 +1,152 @@
+{
+  "title": "scenario_high_risk_vehicle_stop",
+  "description": "A Canadian police officer receives a CPIC alert that a vehicle stopped at a red light is reported stolen. The officer must conduct a high-risk (felony) vehicle stop safely, request backup, give lawful commands, and conduct a lawful search of the vehicle post-arrest.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "CPIC Hit Confirmed",
+      "description": "Officer's Mobile Data Terminal returns a CPIC hit: the plate belongs to a vehicle reported stolen in an armed robbery the previous evening. Unknown number of occupants.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Backup Requested",
+      "description": "Officer requests cover units and advises communications of the stolen vehicle location. Officer maintains visual surveillance while containing the vehicle at the red light.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "High-Risk Stop Initiated",
+      "description": "Two cover units arrive. The high-risk stop is initiated with vehicles positioned to contain the suspect vehicle. Lights and siren activated.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Commands Given",
+      "description": "Officers give verbal commands via PA system directing occupants to show hands, exit one at a time, and comply with instructions. Driver and two passengers comply.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Occupants Secured",
+      "description": "All three occupants are handcuffed and detained. Vehicle is confirmed clear by officers. A loaded handgun is observed in plain view on the rear seat.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Secured",
+      "description": "All occupants are under arrest. Vehicle and firearm evidence preserved pending investigation. EPS Forensics requested.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "CPIC Stolen Vehicle Hit — Decision Point",
+      "situation": "You are on patrol at 02:30. Your Mobile Data Terminal returns a CPIC hit on a vehicle stopped at a red light ahead of you: the vehicle was reported stolen during an armed robbery 18 hours ago. The vehicle has two visible occupants in the front seats. It is unknown whether occupants are armed. You are alone. The light is about to turn green.",
+      "question": "What is your immediate course of action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not initiate the stop alone. Immediately radio communications, advise of the CPIC hit, your location, and the direction of travel. Request multiple cover units and a supervisor. Maintain visual contact and follow at a safe distance without activating lights — covert containment. Wait for cover before initiating the high-risk stop to ensure officer and public safety.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately activate lights and siren and stop the vehicle alone, to prevent the suspects from escaping while backup is in transit.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the vehicle to proceed and do not stop it, since conducting a high-risk stop without backup could endanger you and the public.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Initiating the High-Risk Stop",
+      "situation": "Two cover units have arrived. You have three officers total. The stolen vehicle is now in a parking lot — a safer environment for the stop. Your supervisor has authorised the high-risk stop. You must position your vehicles to contain the suspect vehicle and conduct the stop using the PA system to give commands. The driver appears to be looking in their mirrors nervously.",
+      "question": "How do you correctly position and initiate the high-risk stop?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position the primary police vehicle behind and to the offset of the suspect vehicle. The second unit takes a forward containment position to block exit. Officers remain behind their vehicle doors using them as cover. Use the PA system to give clear, sequential commands: 'Turn off the engine. Throw the keys out the window. Show us your hands.' Do not approach until occupants comply with initial commands.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Approach the vehicle on foot immediately with all three officers to take the suspects by surprise before they can react.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ram the suspect vehicle with a police cruiser to prevent any possible flight, disabling the vehicle.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Vehicle Cleared — Grounds for Search",
+      "situation": "All three occupants have been removed from the vehicle one at a time via PA commands, are handcuffed, and are under arrest for possession of stolen property. A loaded handgun is visible in plain view on the rear seat. The vehicle has been cleared by two officers. You must now determine the grounds and scope of a vehicle search. The vehicle is a stolen conveyance and a firearm is in plain view.",
+      "question": "What authorises a search of the vehicle and what are the boundaries?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The plain-view observation of a loaded firearm provides independent grounds for a search incident to arrest and a Criminal Code s.117.02 warrantless search for weapons. The stolen vehicle status provides further grounds. Photograph the firearm in situ before seizure. Conduct a thorough search of the vehicle for additional evidence (drugs, stolen property, other weapons). Call for forensic identification. Each item seized must be documented in your notes and in a property report.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Seize only the firearm from the rear seat and do not search the rest of the vehicle, as the search incident to arrest only justifies seizing what is in plain view.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Await a search warrant before searching the vehicle or seizing the firearm, leaving the evidence unsecured in the parking lot.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The vehicle was searched incident to arrest and pursuant to plain-view doctrine. In addition to the loaded handgun, officers located 200 grams of suspected cocaine and $8,000 in cash. All three occupants were arrested for possession of stolen property (Criminal Code s.354), possession of a firearm while prohibited (s.117.01), and possession for the purpose of trafficking (Controlled Drugs and Substances Act s.5). Your decision to contain and wait for cover units, the controlled high-risk stop procedure, and the lawful grounds-based vehicle search ensured officer safety and produced a legally sound evidence seizure.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "high-risk stop",
+    "felony stop",
+    "stolen vehicle",
+    "CPIC",
+    "Criminal Code s.354",
+    "firearms",
+    "plain view",
+    "search incident to arrest",
+    "Canada",
+    "officer safety"
+  ]
+}

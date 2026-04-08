@@ -1,0 +1,151 @@
+{
+  "title": "scenario_stolen_vehicle_pursuit",
+  "description": "A stolen vehicle flees from a traffic stop. A Canadian police officer must decide whether to pursue under agency pursuit policy, consult with a supervisor, and manage public safety risks while coordinating available resources including air support and spike strips.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Vehicle Flees",
+      "description": "Officer attempts to stop a CPIC-confirmed stolen vehicle. The driver accelerates through a red light and flees at high speed.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Pursuit Policy Consulted",
+      "description": "Officer advises communications of the pursuit and requests supervisor authorisation under agency pursuit policy. Pursuit is in a residential zone.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Supervisor Decision",
+      "description": "Supervisor authorises a limited, supervised pursuit. Air support unit dispatched. Spike strip teams positioned on likely escape routes.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Aerial Surveillance Active",
+      "description": "Air support takes over primary surveillance of the vehicle. Ground units follow at a safer distance, reducing direct risk.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Spike Strip Deployed",
+      "description": "Suspect vehicle strikes spike strips. Tyres deflate. Vehicle slows and comes to a stop in a commercial parking lot.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Scene Secured",
+      "description": "Suspect vehicle stopped. Officers initiate high-risk stop procedure. Lone occupant taken into custody without incident.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vehicle Flees — Pursue or Terminate?",
+      "situation": "You attempt to stop a CPIC-confirmed stolen vehicle. As you activate your lights, the driver accelerates and runs a red light at an estimated 90 km/h in a 50 km/h residential zone. It is 19:30 — moderate traffic and pedestrians are present. Your agency's pursuit policy requires supervisor authorisation for pursuits and requires continuous risk assessment. The offence is property theft — not a violent crime in progress.",
+      "question": "What is your immediate decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately advise communications of the pursuit, your location, direction of travel, and the reason for the stop (CPIC stolen vehicle). Request supervisor authorisation per policy. Provide continuous updates on speed, direction, traffic conditions, and risk level. Do not increase speed recklessly — match only as policy and safety permit. Prepare to terminate if directed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pursue at maximum speed immediately to prevent the stolen vehicle from escaping, since catching the suspect outweighs the traffic risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not pursue at all and simply note the direction of travel, since the stolen vehicle offence does not justify any pursuit risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Supervisor Authorises Limited Pursuit",
+      "situation": "Your supervisor authorises a limited pursuit under policy: maximum speed 30 km/h over posted limit in residential areas, and mandatory termination if the vehicle enters a school zone or highway on-ramp with heavy traffic. Air support has been dispatched and will arrive in six minutes. Spike strip teams are being positioned on two likely exit routes. The suspect vehicle is now in a commercial/industrial zone with lighter traffic.",
+      "question": "How do you manage the pursuit now that air support is incoming?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain visual contact at a safe following distance while providing clear, continuous updates to communications. Once air support confirms visual, reduce your speed and fall back to reduce risk — let the aircraft maintain surveillance while ground units position for interception. Coordinate with the spike strip teams via communications to ensure safe placement away from civilian areas.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accelerate to close the gap with the suspect vehicle before air support arrives so you can attempt a PIT manoeuvre on the industrial road.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the spike strip teams since deploying spike strips creates a public danger, and continue the high-speed pursuit until the vehicle crashes or stops on its own.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Spike Strip Deployment and Arrest",
+      "situation": "The aerial unit has the suspect vehicle in sight. The vehicle struck the spike strip at a controlled intersection in the industrial area. All four tyres are deflating. The vehicle slows and stops in a parking lot. The lone occupant remains inside the vehicle with the engine running. You and two other ground units arrive to form a perimeter.",
+      "question": "How do you safely approach and arrest the occupant?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat this as a high-risk stop — the unknown occupant may be armed and is a flight risk. Position vehicles to contain. Use the PA system to give sequential commands: engine off, keys out, hands visible, driver's door open from outside, exit slowly. Officers remain behind ballistic cover until the occupant complies. Once the driver is out and compliant, conduct a controlled takedown, handcuff, and arrest for possession of stolen property under Criminal Code s.354.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Walk directly to the driver's window and open the door to quickly apprehend the occupant since the vehicle is stopped and has flat tyres.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the occupant to voluntarily exit the vehicle without giving commands, to avoid escalating the situation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The suspect was safely arrested and charged with possession of a stolen conveyance under Criminal Code s.354. No injuries to officers, civilians, or the suspect occurred. Your decision to immediately notify communications, obtain supervisor authorisation, and coordinate air support and spike strips — rather than conducting a prolonged high-speed pursuit through residential streets — demonstrated sound judgement consistent with Canadian agency pursuit policies. The controlled termination of the high-speed component and the use of spike strips in a low-risk area was a proportionate and effective resolution.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "vehicle pursuit",
+    "pursuit policy",
+    "stolen vehicle",
+    "spike strips",
+    "air support",
+    "Criminal Code s.354",
+    "supervisor authorisation",
+    "public safety",
+    "Canada"
+  ]
+}
