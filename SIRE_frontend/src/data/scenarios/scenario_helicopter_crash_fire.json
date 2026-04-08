@@ -1,0 +1,147 @@
+{
+  "title": "scenario_helicopter_crash_fire",
+  "description": "Helicopter crash and post-crash fire in an open field with fuel-fed fire and possible survivors",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Helicopter crash reported in an open field adjacent to Route 44. Caller states the helicopter is on fire. 3 people may be aboard.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Fire visible from 1 mile. Smoke column rising 500 feet. FAA notified. Field access via gravel farm road\u2014no hydrants.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Bell helicopter inverted in field with intense fuel-fed fire. Rotor blades shattered. Fuel pool fire surrounding wreckage. One survivor visible 40 feet from the wreck, crawling.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Fuel Pool Fire",
+      "description": "Fuel pool extends 30 feet from wreck. Survivor is within 15 feet of the fuel pool edge. Two additional occupants may be in the wreckage. ARFF called for mutual aid.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Foam Attack",
+      "description": "AFFF foam applied to fuel pool perimeter. Survivor extracted by crew advancing through foam path. Wreckage fire suppressed enough to approach.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Scene Controlled",
+      "description": "Survivor transported to trauma center. Two additional occupants confirmed deceased in wreckage. FAA and NTSB on scene. Fire completely suppressed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A helicopter is inverted in a field with an intense fuel-fed fire. A fuel pool 30 feet in diameter surrounds the wreck. One survivor is visible 40 feet from the wreck, crawling toward you. Two more occupants may be inside the inverted fuselage. You have a slip-on tank and AFFF on your engine.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply AFFF foam to create a suppression path between the survivor and the fuel pool, then advance a crew member through the foam to extract the survivor while the foam protects against reignition.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attack the wreckage fire first to eliminate the heat source before attempting any rescue.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Send a crew member through the fuel pool directly to reach the survivor as quickly as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Wreckage Access",
+      "situation": "Survivor is extracted and moved upwind. She is conscious with a broken arm and head lacerations. The wreckage fire is intense. ARFF mutual aid is 8 minutes out. Two occupants may still be in the fuselage. Jet fuel fire temperature exceeds 1,500\u00b0F at the wreckage center. The fuselage is partially accessible from the tail end.",
+      "question": "How do you approach the wreckage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply AFFF foam from maximum safe distance to suppress the fuel pool fire perimeter, reducing the fire intensity around the fuselage tail access point, and wait for ARFF with higher foam capacity before attempting wreckage entry.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter the wreckage through the tail to perform a rapid search before fire consumes the fuselage.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Abandon wreckage search since the fire intensity indicates no survivable conditions inside.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "ARFF Arrival",
+      "situation": "ARFF unit has arrived with 500 gallons of AFFF. They can suppress the fuel pool fire enough to allow wreckage access within 2 minutes. The fuselage tail section is partially clear. A TIC shows no heat signatures consistent with living body temperatures in the fuselage\u2014victims are likely deceased. FAA investigator is also en route.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct ARFF to apply full foam suppression on the fuel pool, then have a crew member with TIC conduct a systematic wreckage check to confirm victim status before declaring the scene a fatality investigation, and preserve evidence for FAA/NTSB.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately extract the two occupants from the wreckage regardless of TIC findings since they may still have vital signs.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Declare both remaining occupants deceased based on TIC findings alone without approaching the wreckage.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "ARFF suppressed the fuel pool fire. Wreckage access confirmed two fatalities in the fuselage. TIC findings were accurate. The survivor was transported to a trauma center with a fractured arm and concussion\u2014later recovered fully. FAA and NTSB preserved the crash scene for investigation. Your foam-path survivor extraction, ARFF coordination, TIC-guided wreckage assessment, and evidence preservation demonstrated professional post-crash fire operations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "helicopter",
+    "crash fire",
+    "ARFF",
+    "fuel fire",
+    "rescue"
+  ]
+}

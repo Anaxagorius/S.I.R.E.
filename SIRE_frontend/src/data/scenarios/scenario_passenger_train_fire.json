@@ -1,0 +1,147 @@
+{
+  "title": "scenario_passenger_train_fire",
+  "description": "Fire aboard a passenger commuter train with hundreds of passengers evacuating",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Commuter rail control reports smoke in the rear car of a 6-car passenger train stopped at Riverside Station. Train has 340 passengers aboard.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Rail control confirms fire in the rear electrical compartment. Train has evacuated rear car. Passengers pushing toward front cars. Train is stopped on elevated platform.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Smoke visible from rear car undercarriage. Passengers streaming off front cars onto the platform. Platform is crowded. Rear car doors are locked by the crew. One crew member reports flames in the electrical compartment under the car.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Evacuation Panic",
+      "description": "Passengers crowding the platform edge dangerously close to the electrified third rail area. One passenger falls between platform and train. Fire building in rear undercarriage.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Power Cutoff",
+      "description": "Rail control cuts power to the third rail. Fallen passenger extracted by crew. 1\u00be-inch line advancing on rear undercarriage fire.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Undercarriage fire extinguished. All 340 passengers evacuated. Two treated for minor injuries. Rail line suspended for investigation.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A 6-car commuter train with 340 passengers is stopped at an elevated station. The rear car has fire in the undercarriage electrical compartment. Passengers are evacuating forward, crowding the platform dangerously close to the electrified third rail. A passenger has fallen between the platform and the train. Rail power is still on.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact rail control immediately to request emergency power cutoff to the third rail before any crew approaches the platform or track area, and establish crowd control to push passengers away from the platform edge.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy a hose line immediately to the undercarriage fire since it is the primary hazard driving the evacuation problem.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to extract the fallen passenger from between the train and platform before requesting power cutoff since they may be severely injured.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Fallen Passenger Rescue",
+      "situation": "Rail control has confirmed power cutoff to the third rail. The fallen passenger is conscious and wedged between the platform and train. Passengers continue to exit forward cars and the platform is dangerously crowded. The undercarriage fire is visible and growing.",
+      "question": "How do you organize the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign two crew to manage platform crowd and direct passengers to the stairwell exits; assign two crew to extract the fallen passenger now that the third rail is de-energized; advance the hose line to the undercarriage fire simultaneously.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct all crew to the passenger extraction since they are in immediate danger between the platform and moving train.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for law enforcement to manage the crowd before attempting any rescue or fire attack.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Undercarriage Fire Attack",
+      "situation": "The fallen passenger has been extracted and is being treated by EMS\u2014minor injuries. Platform crowd is being managed. The undercarriage fire has spread to a second electrical bay. The train cannot move. The rear car exterior is now showing heat blistering. All passengers are off the rear two cars.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance the 1\u00be-inch line under the rear car from the platform side to directly attack the undercarriage fire, keeping crew low and aware of the non-energized third rail position, while a second crew ventilates the rear car interior of smoke.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pull the rear car door open and attack the fire from inside the car compartment above the electrical bay.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply water from the platform edge without advancing under the car to keep crew safe from any residual electrical hazard.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Undercarriage fire extinguished with targeted water application. All 340 passengers evacuated safely. The fallen passenger sustained a fractured wrist and was transported. The rear car sustained significant electrical compartment damage. Rail investigators responded for origin and cause. Your immediate third-rail power cutoff request, crowd control establishment, multi-tasked rescue and fire attack, and proper undercarriage approach demonstrated excellent passenger rail incident command.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "passenger train",
+    "rail",
+    "mass evacuation",
+    "life safety",
+    "confined"
+  ]
+}

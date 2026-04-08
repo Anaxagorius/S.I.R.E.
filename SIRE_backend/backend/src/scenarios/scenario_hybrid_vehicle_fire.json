@@ -1,0 +1,146 @@
+{
+  "title": "scenario_hybrid_vehicle_fire",
+  "description": "Hybrid vehicle fire involving both gasoline and high-voltage battery systems",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Report of a smoking hybrid vehicle on the highway overpass ramp. Driver reports the car shut off and started smoking.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Updated report: vehicle now showing flames from engine compartment. High-voltage warning stickers visible to first arriving units.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Toyota hybrid sedan with engine compartment fire and secondary battery module smoke from rear trunk area. Driver self-evacuated.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Dual Threat",
+      "description": "Engine fire spreading to firewall. Rear battery module venting gas. Orange cables visible through melting trunk liner.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Attack Underway",
+      "description": "1\u00be-inch line deployed on engine compartment. Crew maintaining distance from HV orange cable routing under vehicle.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Engine fire extinguished. Battery module cooled by sustained water application. Scene made safe with insulated tools.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A Toyota hybrid sedan is on fire on an overpass ramp. The engine compartment has visible flames. The rear trunk shows white smoke. Orange high-voltage cables are visible running under the vehicle. The driver is standing upwind. Fuel is dripping from the engine area.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Don SCBA, identify orange HV cable routing using the ERG and vehicle markings, establish a safety perimeter, and deploy a 1\u00be-inch line to attack the engine compartment fire from the front while avoiding all orange cable areas.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open the hood immediately to direct water into the engine compartment for fastest knockdown.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Cut the orange high-voltage cables to eliminate the electrical hazard before attacking the fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Battery Module Assessment",
+      "situation": "Engine compartment fire is being knocked down. The rear trunk battery module is still venting white smoke. A crew member reports seeing fluid seeping from under the vehicle near the HV battery. The ramp's guardrail limits access to the passenger side.",
+      "question": "How do you address the battery module?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply water from the driver's side to cool the rear battery module, avoid contact with the electrolyte fluid seeping from below, and prepare for possible transition to extended water cooling as in a full EV fire.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pop open the trunk to physically disconnect the battery module terminals to stop the venting.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply dry chemical to the trunk battery area to smother any potential ignition source.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Electrolyte Leak Hazard",
+      "situation": "Engine fire is out. The battery module has stopped active venting but electrolyte fluid has pooled under the vehicle. A crew member accidentally steps near the pool. Hazmat is 10 minutes out. The ramp needs to be cleared for traffic.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a hazmat containment zone around the electrolyte spill, prevent all personnel from contacting the fluid, request HazMat to handle cleanup, and decline to reopen the ramp until HV systems are verified safe by a qualified responder.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Hose down the electrolyte spill with water to dilute and wash it into the drain to clear the scene quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Declare the scene clear once visible flames are out and allow traffic to resume over the affected area.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Engine fire extinguished. Battery module cooled with sustained water application. Electrolyte spill contained pending HazMat cleanup. Ramp kept closed until HV systems verified safe by utility and vehicle OEM emergency responders. Crew maintained full SCBA throughout. Your correct identification of dual hazards\u2014fuel-fed fire and high-voltage battery system\u2014and disciplined approach to both threats protected crews and the public.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "hybrid vehicle",
+    "battery fire",
+    "high voltage",
+    "roadway"
+  ]
+}

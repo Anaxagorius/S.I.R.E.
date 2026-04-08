@@ -1,0 +1,147 @@
+{
+  "title": "scenario_freight_train_fire",
+  "description": "Freight train car fire at a rail yard with unknown cargo and rail infrastructure concerns",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Rail yard reports a freight car on fire in the classification yard. Yard foreman states he does not know the car's contents. Fire is contained to one car so far.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Rail yard confirms car number. Railroad emergency line contacted\u2014car contains paper rolls. Adjacent cars include one with unknown placard.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Boxcar fully involved at center of classification yard. Adjacent car shows a Class 3 flammable liquid placard. Rail tracks limit apparatus positioning. Yard workers evacuating.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Fire Spreads",
+      "description": "Flames beginning to impinge on the Class 3 adjacent car. Railroad emergency coordinator on scene. Track spacing limits hose access. Hot embers landing on third car 50 feet away.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Car Movement",
+      "description": "Railroad locomotive repositioned to pull adjacent Class 3 car away from burning boxcar. Water applied to burning car and third car.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Burning boxcar extinguished. Class 3 car moved to safe distance. No explosion. Yard workers accounted for. Scene secured.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A boxcar carrying paper rolls is fully involved in the rail yard. An adjacent car has a Class 3 flammable liquid placard. Tracks limit your apparatus to a perpendicular access position 100 feet away. The railroad emergency coordinator is 5 minutes out. Yard workers are still in the vicinity.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the railroad emergency hotline for car content confirmation, establish a 500-foot perimeter, request the yard evacuate all workers, position apparatus upwind and uphill from the Class 3 car, and begin water application to cool the flammable liquid car before it ignites.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advance immediately to the burning boxcar for direct attack since the contents are confirmed as paper (non-hazardous).",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for hazmat to arrive before any action since a Class 3 placard is present.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Car Separation",
+      "situation": "Railroad coordinator has arrived. He confirms the Class 3 car contains ethanol (UN 1170). He can dispatch a locomotive to move the ethanol car away from the burning boxcar. This will require 3 minutes but will remove the most significant hazard. Fire is beginning to impinge on the ethanol car.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorize the locomotive movement to separate the ethanol car while maintaining continuous water cooling on the ethanol car during the movement to prevent ignition, and keep all crew at a safe distance from both cars.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stop the locomotive movement since coupling operations near an active fire are too dangerous.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply foam immediately to the ethanol car vent openings to prevent ignition rather than moving it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Boxcar Fire Attack",
+      "situation": "Ethanol car has been moved 300 feet away. The boxcar is still burning intensely with paper rolls and wood structure. A third freight car 50 feet downwind is receiving hot embers on its roof. Its placard is not visible. You have 2 hose lines available.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy one line to directly attack the burning boxcar and a second line to wet down the third car's roof and exposed surfaces to prevent ignition, while the railroad coordinator identifies the third car's contents.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Concentrate both lines on the burning boxcar for fastest suppression before addressing the third car.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the third car until the boxcar is extinguished since embers rarely cause rail car ignition.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The burning boxcar was extinguished with sustained water application. The ethanol car was successfully moved without incident. The third car (confirmed to contain empty pallets) received preventive water application and did not ignite. All yard workers were evacuated and accounted for. No injuries. Your coordination with the railroad coordinator, correct ethanol car prioritization, and split-line deployment protected the rail yard from a far more serious incident.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "freight train",
+    "rail",
+    "cargo fire",
+    "rail yard",
+    "hazmat"
+  ]
+}

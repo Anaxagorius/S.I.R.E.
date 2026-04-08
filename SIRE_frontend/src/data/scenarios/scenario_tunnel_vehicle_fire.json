@@ -1,0 +1,147 @@
+{
+  "title": "scenario_tunnel_vehicle_fire",
+  "description": "Vehicle fire inside a highway tunnel with limited ventilation and trapped motorists",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Tunnel authority reports vehicle fire inside the Route 7 tunnel at the midpoint. Ventilation fans are running. Tunnel evacuation alarm activated.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Tunnel control confirms approximately 30 vehicles stopped inside. Ventilation fans may be pushing smoke toward one portal. Tunnel is 1.2 miles long.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Thick black smoke pouring from east portal. A burning sedan is visible 600 feet inside. Motorists are self-evacuating on foot from east portal. Some remain in cars.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Smoke Fills Tunnel",
+      "description": "Zero visibility inside the tunnel past 200 feet. Ventilation fans have increased airspeed. Carbon monoxide levels rising. Motorists in cars honking.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Hose Advance",
+      "description": "Crew in SCBA advancing 1\u00be-inch line with thermal imaging. CO monitors showing 200 ppm at 400 feet inside. Motorists being escorted out by second crew.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Vehicle fire suppressed. All 30 motorists evacuated. Two treated for smoke inhalation. Tunnel ventilated and cleared.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "Smoke is pouring from the east portal. Motorists are self-evacuating. The fire is 600 feet inside at the midpoint of a 1.2-mile tunnel. Ventilation fans are running but airflow direction is unclear. The tunnel authority is on the radio. Some motorists remain in vehicles.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact tunnel authority immediately to verify ventilation fan direction and request fans push smoke toward the uninvolved portal; stage at the east portal, don SCBA, deploy CO monitors, and do not enter until ventilation mode is confirmed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enter immediately with the attack line to minimize fire growth while motorists escape past you.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Set up command outside and wait for specialized tunnel rescue units before any action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Motorist Evacuation",
+      "situation": "Tunnel authority has confirmed longitudinal ventilation pushing smoke toward the west portal. Motorists at the east portal are evacuating. A tunnel operator reports approximately 8 vehicles and 12 people remain near the fire. Visibility inside is zero at 200 feet. CO levels are rising.",
+      "question": "How do you organize the response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Divide crew: Team 1 advances with the hose line and thermal camera to the fire; Team 2 in SCBA escorts remaining motorists from their vehicles toward the east portal, using rope guide and wall contact navigation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send all crew to find and extract motorists first since life safety trumps fire suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Use the tunnel intercom to tell motorists to shelter in their vehicles until the fire is out.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Attack in Tunnel",
+      "situation": "Team 1 has reached the burning vehicle at 600 feet. Thermal camera shows the fire is contained to one sedan. CO monitor reads 350 ppm\u2014the crew has approximately 20 minutes of SCBA air remaining. Team 2 is bringing out the last motorists. The tunnel walls are showing heat staining but no structural involvement.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order Team 1 to knock the fire quickly and withdraw before SCBA air runs low, monitoring CO levels continuously and tracking air time; begin secondary tunnel ventilation to clear CO once fire is out.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Team 1 to remain at the fire location to perform overhaul even if it means running low on SCBA air.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Have Team 1 remove their SCBAs since the fire is nearly out and ventilation fans are running.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Fire was knocked down in 8 minutes. Team 1 withdrew with adequate SCBA air. All 30 motorists were evacuated. Two motorists required treatment for mild smoke inhalation and were transported by EMS. CO levels were cleared by tunnel ventilation within 30 minutes. Tunnel authority performed structural inspection. Your coordination with the tunnel authority, SCBA discipline, team division strategy, and air management demonstrated safe confined-space firefighting fundamentals.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "tunnel",
+    "vehicle fire",
+    "ventilation",
+    "confined space",
+    "evacuation"
+  ]
+}

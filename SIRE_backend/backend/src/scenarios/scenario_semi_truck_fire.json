@@ -1,0 +1,146 @@
+{
+  "title": "scenario_semi_truck_fire",
+  "description": "Semi-truck cab fire on a highway with unknown cargo and driver trapped",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Multiple 911 calls reporting a semi-truck cab on fire on I-40 westbound. Callers report the driver is visible and appears trapped.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Heavy black smoke visible from three miles. Dispatch unable to confirm cargo contents. Placard not visible to callers.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Semi-truck cab fully involved on the highway. Trailer cargo placards show UN 1263 (Paint). Driver visible in cab, window partially open.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Cab Burns",
+      "description": "Cab fire intensifying. Driver conscious and calling for help. No flames have reached the trailer yet. Doors appear jammed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Rescue Underway",
+      "description": "Attack line suppressing cab fire from driver's side. Rescue crew using Halligan to force entry at passenger door.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Driver Rescued",
+      "description": "Driver removed via passenger door, transferred to EMS. Cab fire controlled before reaching trailer. Scene secured.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A semi-truck cab is fully involved on the highway. The driver is trapped and conscious, calling for help through a cracked window. Cargo placards on the trailer read UN 1263 (flammable paint products). The trailer shows no fire yet. Fuel tanks on both sides of the cab are exposed to flame.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position apparatus uphill and upwind, reference the ERG for UN 1263, establish a 300-foot isolation perimeter, stretch a 2.5-inch line to protect the fuel tanks, and direct a rescue team to force the cab passenger door.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately cut the trailer from the cab and push it away from the fire to eliminate the cargo hazard.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to access the driver through the cracked window with a slim-jim tool before deploying any hose lines.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Cab Entry",
+      "situation": "The 2.5-inch line is protecting the fuel tanks. The driver's door is jammed by the collision damage. The passenger door is accessible but has a security lock. The driver reports his seatbelt is jammed and his legs may be pinned. Flames are now lapping against the fuel tank.",
+      "question": "How do you proceed with rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Force the passenger door with a Halligan and flathead axe while the attack line applies water to cool the fuel tank area, then cut the seat belt and assess pin situation before moving the driver.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Break the windshield to extract the driver from the front to save time.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for a heavy rescue unit before attempting any entry since the driver may have spinal injuries.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Extrication Under Fire",
+      "situation": "Passenger door is open. The seat belt is cut. Driver's left foot is pinned under the dash. Flames are reaching the cab interior. You have approximately 90 seconds before fire overtakes the cab interior. Hydraulic tools are not yet on scene.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply targeted water into the cab interior to cool the space, use manual leverage tools to free the pinned foot, and perform a rapid non-spinal drag extrication given the immediately life-threatening fire.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stop all operations and wait for hydraulic tools, as proper extrication prevents secondary injury.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Pull the driver out by the arms using maximum force, accepting the risk of worsening the foot injury.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The driver was freed using a manual pry bar under the dash and rapidly extricated via the passenger door. Water application into the cab bought the 90 seconds needed. The driver had a fractured ankle consistent with the crash impact\u2014not worsened by the extrication. The cargo trailer was protected from fire. UN 1263 materials never ignited. Your coordinated size-up, fuel tank protection, forced entry, and decisive manual extrication saved the driver's life.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "semi truck",
+    "vehicle fire",
+    "unknown cargo",
+    "roadway rescue"
+  ]
+}

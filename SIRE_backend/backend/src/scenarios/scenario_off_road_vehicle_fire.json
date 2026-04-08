@@ -1,0 +1,146 @@
+{
+  "title": "scenario_off_road_vehicle_fire",
+  "description": "Off-road vehicle fire in a remote area with difficult access and wildland interface concerns",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Report of an ATV on fire in a state forest trail system. Location given as trailhead kiosk mile marker 7. No road access beyond mile 2.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Smoke visible above tree line from highway. Dry conditions\u2014fire weather index is high. Brushy terrain adjacent to trail. Rider reportedly walking toward the trailhead.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "ATV fully engulfed at mile marker 5 on the trail. Dry grass and brush burning in a 30-foot ring around the vehicle. Rider meets crew on foot at mile 2 with minor burns.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Fire Spreads",
+      "description": "Wind picks up to 15 mph. Ground fire spreads 20 feet per minute into brush. Spot fire identified 100 feet ahead of main fire. Structural homes are 0.5 miles north.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Attack on Foot",
+      "description": "Crew advances with hand tools and a 100-gallon slip-on unit transported via UTV to mile 4. Direct attack on ATV fire successful. Flank attack on spreading brush fire initiated.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "ATV fire extinguished. Brush fire contained to 0.4 acres before reaching homes. Air tanker cancelled. Rider treated and released.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "An ATV is on fire at trail mile marker 5. Ground fire is spreading in dry brush. Wind is 15 mph and increasing. Homes are 0.5 miles north. You have road access only to mile 2. Your apparatus cannot access the fire. A UTV with a 100-gallon slip-on tank is available. The rider is walking toward you with minor burns.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the rider's burns and move him to safety; request an air tanker as a precaution given home exposure; load the UTV with the slip-on tank and hand tools; advance crew on foot; and notify the county of potential structure threat.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for a wildland engine with better off-road capability before committing crew to the trail.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus all resources on defending the homes immediately since that is the higher life-safety priority.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Spot Fire Decision",
+      "situation": "UTV reaches mile 4. The ATV is fully involved. A spot fire has jumped 100 feet ahead of the main fire toward the homes. Wind is gusting to 20 mph. You have 4 firefighters, hand tools, and 100 gallons of water. The spot fire is smaller and more manageable right now.",
+      "question": "How do you allocate your crew?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Attack the spot fire immediately with 2 crew and hand tools to prevent it from growing and advancing toward homes, while 2 crew begin suppression of the ATV fire to eliminate the primary ignition source.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Commit all 4 crew to the ATV fire to fully extinguish the source before the spot fire grows.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Abandon the ATV fire and commit all resources to a defensive home structure protection operation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Wind Shift",
+      "situation": "The spot fire is contained by 2 crew. The ATV fire is knocked down. Suddenly wind shifts from north to south\u2014now blowing the remaining ground fire back toward the crew's position and cutting off their trail exit. Both teams are on the fire's south flank.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately activate crew escape routes\u2014both teams move perpendicular to the fire on the black (already burned) area to their safety zone, using the burned ATV area as anchor. Reassemble and reassess before re-engaging.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have both teams aggressively attack the fire on the new flank to stop it before it blocks the trail exit.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deploy fire shelters where the crews are standing and shelter in place.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both teams moved to the black safety zone around the burned ATV. Wind shift stalled as the fire ran out of fuel on the south side. Crews re-engaged from a safe anchor point and mopped up the remaining fire. Total burn: 0.4 acres. No homes were threatened. Rider received medical care. Your crew triage, spot fire prioritization, proper crew split, and immediate wind-shift escape route execution demonstrated professional wildland firefighting practices.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "off-road vehicle",
+    "remote access",
+    "wildland interface",
+    "vehicle fire"
+  ]
+}

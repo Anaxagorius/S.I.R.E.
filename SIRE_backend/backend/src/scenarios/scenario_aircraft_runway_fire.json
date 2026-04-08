@@ -1,0 +1,147 @@
+{
+  "title": "scenario_aircraft_runway_fire",
+  "description": "Commercial aircraft engine fire on landing with emergency crash landing procedures",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Airport ARFF alerted: commercial airliner declaring emergency. Engine 2 fire confirmed by crew. Aircraft 8 miles on approach. 187 passengers and crew aboard.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Positioning",
+      "description": "ARFF vehicles position at runway threshold. Aircraft confirms engine 2 shutdown and fire suppression system activated. Fire not yet extinguished.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Landing",
+      "description": "Aircraft lands hard on runway 28L. Engine 2 trailing fire. Aircraft decelerates and stops 4,000 feet from threshold. Evacuation slides deploying.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Post-Crash Fire",
+      "description": "Engine 2 fire intensifying. Fuel leaking from right wing. Evacuation slides deployed on both sides. Passengers sliding down. Wing fire spreading toward fuselage.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Foam Attack",
+      "description": "ARFF vehicle 1 applying AFFF foam to engine 2 and wing fuel leak. ARFF vehicle 2 suppressing grass fire ignited by hot debris. Passengers being directed away by ARFF crew.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Engine and wing fires extinguished. All 187 passengers evacuated. 12 injuries (minor). Fire controlled before fuselage involvement.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A commercial airliner has landed with engine 2 on fire. The aircraft has stopped 4,000 feet down runway 28L. Evacuation slides are deploying. Fuel is leaking from the right wing and igniting. Passengers are sliding down evacuation slides into the vicinity of the growing wing fire. You are the ARFF IC in Vehicle 1.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance ARFF Vehicle 1 to apply AFFF foam between the evacuation slides and the wing fire to protect passengers exiting the aircraft, while directing Vehicle 2 to attack the engine 2 fire from the right side.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply foam directly to engine 2 first since it is the primary fire source, before addressing the fuel leak.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for passengers to fully evacuate before applying foam to avoid disorienting them with the agent.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Passenger Egress Protection",
+      "situation": "AFFF foam is protecting the evacuation path. Vehicle 2 is suppressing engine 2. However, the right wing fuel leak is feeding a spreading pool fire. The right-side evacuation slide is positioned directly over the expanding fuel pool. Passengers are still coming down the right slide.",
+      "question": "How do you protect the right slide evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct Vehicle 1 to create an AFFF foam path leading away from the slide exit and continuously suppress the fuel pool under the right slide, while instructing aircraft crew via radio to stop right-side evacuation and redirect to left slides only.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow right-side evacuation to continue since interrupting it will cause chaos inside the aircraft.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply dry chemical to the fuel pool fire instead of AFFF to achieve faster knockdown.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fuel Pool Suppression",
+      "situation": "Right-side evacuation has stopped. All remaining passengers are exiting left. The fuel pool fire is contained but still burning. The foam blanket is thinning in the wind. Vehicle 2 has extinguished engine 2. A secondary hotspot is developing in the wing root area near the fuselage. All passengers appear to be off the aircraft.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reapply AFFF to the thinning fuel pool blanket to prevent re-ignition, direct Vehicle 2 to attack the wing root hotspot before it reaches the fuselage, and perform a passenger headcount with airport operations to confirm all 187 are off.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send a crew member into the aircraft immediately to search for remaining passengers before completing fire suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Declare the fire controlled and hand the scene to airport operations since visible flames are out.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "AFFF maintained the fuel pool suppression. Vehicle 2 extinguished the wing root hotspot before fuselage involvement. All 187 passengers and crew were accounted for\u2014evacuated safely. 12 sustained minor injuries from evacuation slides. The aircraft was secured for NTSB investigation. Your ARFF positioning, passenger egress protection, fuel pool management, and accountability verification demonstrated professional aircraft rescue firefighting technique.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "aircraft",
+    "runway",
+    "ARFF",
+    "crash landing",
+    "fire suppression"
+  ]
+}

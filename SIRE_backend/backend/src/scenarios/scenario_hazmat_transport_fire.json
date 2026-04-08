@@ -1,0 +1,147 @@
+{
+  "title": "scenario_hazmat_transport_fire",
+  "description": "Hazardous materials transport vehicle fire with unknown placard identification",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Vehicle fire reported on State Route 9. Description: box truck on fire. Placard color not identified by callers.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Caller now reports yellow diamond placard with a symbol but cannot read the numbers. Smoke is described as yellowish-green in color.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Box truck burning with yellowish smoke. Placard reads UN 1017 (Chlorine). Driver not on scene. Wind pushing smoke toward a residential area 300 yards east.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Toxic Cloud",
+      "description": "Chlorine gas plume expanding toward residential homes. Residents visible on porches. Wind speed 12 mph east.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Evacuation",
+      "description": "Law enforcement initiating door-to-door evacuation of 4 blocks. Hazmat team suited in Level A approaching from upwind.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Scene Controlled",
+      "description": "Chlorine release stopped. Residential evacuation complete. No civilian casualties. Fire suppressed with minimal water to prevent runoff.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "You arrive to a box truck with active fire producing yellowish-green smoke. The placard reads UN 1017 which your ERG identifies as Chlorine\u2014a toxic inhalation hazard. The wind is blowing the plume east toward residential homes 300 yards away. No driver visible. Residents are visible outside their homes.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stay upwind, reference ERG guide 124 for UN 1017, establish a 1,000-foot isolation zone, request Level A hazmat response, notify law enforcement to initiate residential evacuation downwind, and do not apply water without hazmat guidance.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply water fog to the plume to knock down the chlorine cloud and protect the residential area.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Approach the truck immediately to find the shipping manifest to confirm the contents before calling hazmat.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evacuation Coordination",
+      "situation": "Hazmat is 12 minutes out. The chlorine plume is expanding. Residents in 4 blocks downwind are unaware. Law enforcement has 2 units available. You have a PA system on your engine. ERG guide 124 recommends immediate evacuation of 1,000 feet.",
+      "question": "How do you coordinate the evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use your PA system to alert residents to shelter-in-place immediately (close all windows and doors, turn off HVAC) while directing law enforcement to conduct rapid door-to-door evacuation of the closest block, working outward.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for hazmat to arrive before issuing any public instructions since shelter-in-place and evacuation guidance require expert confirmation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Order full immediate evacuation of all residents on foot in any direction to get them out of homes as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hazmat Arrival and Fire Attack",
+      "situation": "Hazmat team is suited and ready. The fire is still burning in the truck cab. Hazmat lead advises that water application on chlorine can create hydrochloric acid runoff and should be minimized. The cab fire needs to be controlled to stop additional chlorine heating. A small amount of focused water on the cab only is recommended.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorize a minimal, targeted water application to the cab fire only using a 1\u00be-inch line from maximum safe distance, avoiding any water on the chlorine containers, and ensure all runoff is contained from storm drains.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply large-volume water to completely flood the truck to extinguish all fire and cool all chlorine containers.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the fire to burn out naturally since water application creates acid runoff.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Targeted water extinguished the cab fire. Chlorine release stopped as heat source was eliminated. Residential evacuation was completed with no civilian casualties. Hazmat in Level A suits handled the leaking containers. Storm drains were protected from contaminated runoff. Shelter-in-place advisories were broadcast to residents not directly evacuated. Your proper ERG use, disciplined non-approach, effective public notification, and expert-guided fire attack prevented a mass casualty event.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "hazmat",
+    "vehicle fire",
+    "placards",
+    "chemical",
+    "evacuation"
+  ]
+}

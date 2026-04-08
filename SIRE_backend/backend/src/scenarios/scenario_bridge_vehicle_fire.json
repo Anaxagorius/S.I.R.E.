@@ -1,0 +1,147 @@
+{
+  "title": "scenario_bridge_vehicle_fire",
+  "description": "Vehicle fire on a major bridge with structural integrity concerns",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Vehicle fire reported on the center span of the Main Street Bridge. Bridge authority notified. Traffic stopped in both directions.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Updated: fully involved pickup truck. Bridge deck is asphalt over steel. Water access limited to tanker relay.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Pickup truck fully involved at center span. Asphalt deck burning immediately around vehicle. Steel girders below visible through the gap. Bridge engineer en route.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Deck Burning",
+      "description": "Asphalt around the vehicle burning 15 feet in diameter. Heat is conducting to steel below. Bridge authority reports deck expansion joints are seizing.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Attack Underway",
+      "description": "2.5-inch line applying water from bridge approach. Tanker relay established. Deck fire nearly extinguished. Structural concern remains.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Vehicle fire and deck fire extinguished. Bridge closed pending structural inspection. No injuries reported.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A fully involved pickup truck is burning at the center span of a steel bridge. The asphalt deck around the vehicle has ignited in a 15-foot diameter. Steel girders below are visible. You have no hydrant access\u2014the bridge has none. Your engine carries 500 gallons. Nearest tanker is 6 minutes out.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact bridge authority to close the bridge and notify a structural engineer, establish a tanker relay from the nearest hydrant, and deploy your 500-gallon tank supply via a 2.5-inch line to begin cooling the deck and vehicle from the bridge approach.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Drive the engine onto the center span to get close enough for effective water application before tanker arrives.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the tanker before beginning any water application since 500 gallons will be insufficient.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Structural Concern",
+      "situation": "Tanker has arrived. You have continuous water supply. The vehicle fire is being knocked down. The burning asphalt has exposed the steel deck. The bridge engineer is on-site and warns that sustained heat above 1,000\u00b0F risks steel deformation. Current TIC reading of the deck: 1,100\u00b0F at the hotspot.",
+      "question": "How do you address the structural concern?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritize water application directly onto the exposed steel deck surface to bring temperatures below 1,000\u00b0F, and work with the engineer to identify any deformation already occurring that might require bridge closure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Complete vehicle fire knockdown first and then address the deck temperature, as the vehicle fire is the primary heat source.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate all personnel from the bridge immediately and allow fire to burn out since structural failure is imminent.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Overhaul Decision",
+      "situation": "Vehicle fire is extinguished. Deck steel has been cooled below 900\u00b0F. The bridge engineer performs a visual inspection and identifies potential deformation in one girder. The bridge authority wants to reopen traffic. The asphalt around the vehicle area has burned through, exposing a 3-foot hole in the deck.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare the scene controlled but advise the bridge authority that reopening traffic requires a full structural inspection due to the girder deformation and deck penetration\u2014the fire services role ends here but life safety requires the bridge remain closed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Approve traffic reopening since the fire is out and you have no authority over bridge operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Fill the deck hole with water and foam to stabilize it before recommending reopening.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The bridge was kept closed pending structural inspection. The engineer confirmed minor but repairable girder deformation. No crew injuries occurred. Rapid water cooling prevented catastrophic structural failure. Your early contact with the bridge authority and structural engineer, disciplined water application targeting the deck steel, and correct post-fire advisory prevented a bridge reopening before it was structurally safe, protecting the public.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Intermediate",
+  "tags": [
+    "bridge",
+    "vehicle fire",
+    "structural",
+    "evacuation",
+    "water access"
+  ]
+}

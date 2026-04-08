@@ -1,0 +1,147 @@
+{
+  "title": "scenario_vehicle_pileup_fire",
+  "description": "Multi-vehicle highway pileup with fire spreading between vehicles",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Major accident on I-90 eastbound. Estimated 12 vehicles involved. Caller reports fire in at least two vehicles. Multiple injuries reported.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Dispatch upgrades to mass casualty incident. Fire spreading to adjacent vehicles. Additional engines, rescue, and EMS requested.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "12-vehicle pileup spanning 400 feet. Three vehicles actively burning. Walking wounded stumbling on roadway. Approximately 20 people unaccounted for. One vehicle crushed under semi.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Fire Spreads",
+      "description": "Fire jumps to two additional vehicles. Screaming audible from a minivan near the fire. Walking wounded at risk from approaching flame.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Triage Underway",
+      "description": "START triage initiated on walking wounded. Attack lines suppressing vehicle fires. Rescue team working crushed vehicle.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilized",
+      "description": "Fire controlled. All victims triaged. 4 critical, 8 moderate, 6 minor. Rescue team extricated one victim from crushed vehicle.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "You arrive first to a 12-vehicle pileup. Three vehicles are burning with fire spreading. There are approximately 20 victims\u2014some walking, some not moving. A minivan near the fire has occupants screaming. A sedan is crushed under a semi. You have one engine with 4 crew.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a mass casualty incident, request all available resources, assign one crew member to deploy attack lines between the fire and the occupied minivan to prevent fire spread, and immediately begin START triage on all victims.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Commit all resources to suppressing all three burning vehicles before attempting triage or rescue.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Prioritize the crushed vehicle under the semi since that victim is most seriously trapped.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Triage and Fire Control",
+      "situation": "START triage is underway. You have 4 immediate, 8 delayed, 6 minor casualties. The attack line is holding fire from the minivan. Two occupants are confirmed inside the minivan\u2014one adult, one child. A second engine has arrived. Mutual aid heavy rescue is 6 minutes out.",
+      "question": "How do you allocate the second engine?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the second engine to deploy a second attack line to suppress the spreading vehicle fires while your crew extracts the minivan occupants now that fire is being held, and establish a treatment area upwind.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send the second engine crew to assist with the crushed vehicle extrication since heavy rescue is delayed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stage the second engine until heavy rescue arrives since the situation is too chaotic for additional personnel.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Minivan Rescue",
+      "situation": "Second engine is suppressing the fire spread. Your crew reaches the minivan. The adult is unconscious with an open head wound. The child (approx. 6 years old) is conscious and crying but belted in. The minivan door is accessible. Fire is 20 feet away and being held. Heavy rescue has arrived.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Extract both occupants rapidly using manual extrication\u2014adult first using a drag, then child. Move both to the upwind treatment area immediately. Direct heavy rescue to begin work on the crushed sedan.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for EMS to reach the minivan before moving the adult due to the potential spinal injury from the head wound.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Extract the child only since the adult appears non-survivable and resources should focus on savable victims.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both minivan occupants were extracted and transferred to EMS. The adult survived with a severe traumatic brain injury. The child was uninjured. Vehicle fires were controlled preventing further spread. Heavy rescue extricated one victim from the crushed sedan. All 20 victims were triaged and transported. Your incident command, rapid triage, fire control priority, and balanced resource allocation managed a complex mass casualty incident effectively.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "multi-vehicle",
+    "pileup",
+    "mass casualty",
+    "fire spread",
+    "triage"
+  ]
+}
