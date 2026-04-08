@@ -1,0 +1,147 @@
+{
+  "title": "scenario_remote_rural_fire",
+  "description": "Structure fire in a remote rural area with limited water supply, extended response times, and no mutual aid for over an hour",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Call received for a farmhouse fire 28 kilometres from the nearest fire station on an unsealed rural road. One appliance responding. ETA 34 minutes. Three occupants reported inside.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Neighbour on scene reports fire well established in the rear of the farmhouse. They believe all occupants are outside. Nearest additional resource is 68 minutes away.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Farmhouse rear two rooms fully involved. Front rooms showing smoke. All three occupants are outside and safe. No reticulated water supply. On-board tank holds 2,000 litres.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Water Supply Issue",
+      "description": "Farm dam is 400 metres from the structure — accessible for relay pump but time-consuming to set up. On-board water will last 8 minutes at full flow.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Relay Established",
+      "description": "Portable pump deployed to farm dam. Relay delivering water to attack appliance. Rear rooms lost but front structure still saveable.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Front section of farmhouse preserved. Rear a total loss. Relay pump providing sustained water supply. Mutual aid arrives for overhaul. No injuries to occupants or crew.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "You arrive at a remote farmhouse 34 minutes after dispatch. The rear two rooms are fully involved. The front rooms have smoke showing but no visible fire. All three occupants are confirmed safe outside. You have 2,000 litres on board — approximately 8 minutes of flow from a 1¾-inch line. There is no reticulated water. A farm dam is 400 metres away. The nearest mutual aid is 68 minutes away. You are a crew of four.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Make a rapid tactical decision: life safety is confirmed — all occupants are out; assess whether the front section is saveable with limited on-board water; immediately dispatch one crew member to set up the portable pump at the farm dam to establish a relay while two crew begin a targeted interior defence of the front rooms — conserving water is essential.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use all 2,000 litres immediately attacking the rear rooms — extinguishing the source fire is the priority.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Protect the exterior only with a fog pattern since you cannot sustain interior operations without backup.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Water Conservation Tactics",
+      "situation": "The portable pump is being deployed to the dam — 15 minutes until relay water arrives. You have approximately 1,600 litres remaining. The fire is advancing from the rear rooms toward the front. A load-bearing wall separates the rear from the front section. The crew can advance a hose line to the load-bearing wall and make a stand, using on-board water judiciously to hold the fire at the wall until relay water arrives.",
+      "question": "How do you manage the water supply?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advance a 1¾-inch line to the load-bearing wall and apply targeted short bursts to hold the fire at the wall — do not open the nozzle continuously; target flames that are breaching and cool the doorway frame; track your water use and plan to transition to relay when the pump is established.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open the nozzle fully at the load-bearing wall to create a maximum water curtain to ensure the fire does not breach.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait at the front door with the hose charged but not flowing until relay water arrives to ensure you don't run out during active attack.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Relay Pump Issue",
+      "situation": "The portable pump has been deployed at the dam but is struggling to prime — the dam edge is 1.2 metres above the waterline, near the maximum self-priming capability. Relay water has not arrived yet. On-board tank has 300 litres remaining. The fire has been held at the load-bearing wall but is beginning to breach the upper wall cavity above the doorframe. Mutual aid is now 40 minutes away.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order the crew member at the dam to lower the pump suction hose as far as possible and retry priming; instruct the attack crew to hold their position but reduce flow to minimum to extend the remaining 300 litres; prepare to withdraw to an exterior defensive position if the dam pump fails and water runs out.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use the final 300 litres in a maximum flow attack to knock the fire at the wall cavity now, even if it leaves no water reserve.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Abandon the interior operation and withdraw all crew — the relay has failed and operating without water is too dangerous.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The dam pump successfully primed when the suction hose was lowered. Relay water arrived with 80 litres of on-board water remaining. The attack crew transitioned smoothly to relay supply and held the fire at the wall cavity. The front section of the farmhouse was successfully preserved. Mutual aid arrived to assist with overhaul. The rear section was a total loss but the front section — including the family's original bedrooms and documents — was saved. No injuries to crew or occupants. Your water conservation, tactical relay setup, and withdrawal planning under extreme resource constraints demonstrated excellent remote rural incident command.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "remote rural",
+    "water supply",
+    "relay pump",
+    "limited resources",
+    "water conservation"
+  ]
+}

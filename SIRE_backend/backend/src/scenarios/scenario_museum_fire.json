@@ -1,0 +1,147 @@
+{
+  "title": "scenario_museum_fire",
+  "description": "Fire in the storage wing of a national museum containing irreplaceable artefacts, requiring suppression while protecting collections and coordinating with curators",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Fire alarm activation at the National Heritage Museum. Security reports smoke in the east storage wing containing textile and manuscript collections. Museum closes to public. 180 visitors evacuating.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Museum director confirms evacuation underway. Fire is in the storage archive room. Suppression system — a gaseous FM-200 system — was activated but fire persists. Curator advises manuscripts and 14th-century textile fragments are in the archive room.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "180 visitors and all staff evacuated. Smoke issuing from the archive room. FM-200 gas suppression has reduced but not extinguished the fire. Water damage to artefacts from suppression water would be catastrophic.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Artefact Salvage",
+      "description": "Curator on scene identifies a priority salvage list. Adjacent gallery contains medieval tapestries in open storage — at risk from smoke damage. Entry team in SCBA assessing archive room.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Targeted Suppression",
+      "description": "Fire confined to a storage rack on the north wall. Targeted CO2 extinguishers used to supplement FM-200. Crew removing priority artefacts under curator direction.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Extinguished",
+      "description": "Archive fire extinguished without water application. Priority artefacts relocated. Medieval tapestries protected from smoke. Forensic investigation of archive room initiated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A fire is burning in the archive storage room of a national museum. The FM-200 gaseous suppression system has activated and reduced the fire but not extinguished it. The archive room contains irreplaceable 14th-century manuscript and textile fragments. Water application would cause catastrophic damage to the collection. All 180 visitors and staff are evacuated. The adjacent gallery has medieval tapestries in open storage. You are the IC. The museum curator is on scene.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief the curator that your primary suppression approach will avoid water where possible; send an SCBA reconnaissance team into the archive room to assess fire size and extent with thermal imaging; coordinate with the curator to identify which artefacts are highest priority for salvage if the fire cannot be suppressed without water.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply water immediately from a hose reel to ensure the fire is fully extinguished before it spreads — collection preservation must come second to fire suppression.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Seal the archive room and increase FM-200 concentration by re-activating the system multiple times until the fire is extinguished.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Artefact Salvage Protocol",
+      "situation": "The SCBA team confirms the fire is confined to a single storage rack on the north wall — burning cardboard archive boxes and some textile samples. The FM-200 has reduced it to a smouldering state. CO2 extinguishers could fully suppress it without water. The curator provides a priority salvage list: six manuscript folios in the east cabinet are most irreplaceable. Smoke is beginning to migrate toward the adjacent gallery with the medieval tapestries.",
+      "question": "How do you manage suppression and salvage simultaneously?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct one crew member to apply CO2 extinguishers to the smouldering rack to complete suppression; simultaneously assign two crew, guided by the curator, to remove the six priority manuscript folios from the east cabinet to a safe area; instruct the adjacent gallery team to close connecting doors and deploy smoke curtains to protect the tapestries.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Complete fire suppression first before allowing any crew into the room for salvage — mixing operations creates confusion.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate all artefacts from the archive room before addressing the smouldering fire — the collection is the priority.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Escalation Decision",
+      "situation": "CO2 extinguisher application has not fully suppressed the smouldering. Thermal camera shows hot spots deep within the cardboard archive boxes — the fire is smouldering inside the stack. The curator advises that wetting the boxes would destroy surviving textile samples. A water mist system (fine spray) could penetrate the boxes with minimal but some water damage. The alternative is to dismantle the stack box by box using the CO2 extinguisher on each layer.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Systematically dismantle the box stack layer by layer, applying CO2 to each exposed smouldering layer — it takes longer but avoids any water contact with archive materials; accept the additional time cost to preserve the maximum collection possible.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply water mist immediately to penetrate the entire stack — some water damage is acceptable to guarantee full extinguishment.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Remove the entire box stack from the room and place it outside to allow natural burn-out in a contained outdoor area.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The box stack was dismantled layer by layer over 22 minutes. Each smouldering layer was extinguished with CO2. The fire was fully suppressed without water. All six priority manuscript folios were safely relocated by the curator-guided salvage crew. The medieval tapestries in the adjacent gallery were protected by closed doors and smoke curtains — no smoke penetration. The total water damage to the collection was zero. A fire investigator identified a faulty electrical socket behind the rack as the cause. Your consultation with the curator, non-water suppression approach, simultaneous salvage, and patient systematic extinguishment protected an irreplaceable national collection.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "museum fire",
+    "artefact protection",
+    "heritage",
+    "gaseous suppression",
+    "salvage"
+  ]
+}

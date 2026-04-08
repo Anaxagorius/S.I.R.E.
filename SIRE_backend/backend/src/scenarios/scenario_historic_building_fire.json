@@ -1,0 +1,147 @@
+{
+  "title": "scenario_historic_building_fire",
+  "description": "Fire in a Grade I listed 17th-century timber-framed building in the historic quarter, requiring fire suppression without destroying irreplaceable fabric and structure",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Fire reported in Alderman's House, a 17th-century Grade I listed timber-framed building in the old quarter. Building is occupied as a heritage visitor centre. Staff evacuating.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Heritage officer notified and responding. Building manager confirms all 14 staff evacuated. Fire believed to be in the roof space accessed via a concealed stairwell.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Smoke issuing from eaves on the east gable. Building has a complex historic timber roof structure. Nearest access point for attack is a 16th-century staircase — no secondary access. Adjacent buildings are 18th-century terraced heritage properties within 1.5 metres.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Roof Space Access",
+      "description": "Crew located smoke issuing from the roof void via the historic staircase. Fire believed to be in the roof purlins near the east gable. Heritage officer on scene advises extreme caution with structural members.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Targeted Suppression",
+      "description": "Crew applying water via roof access hatch with thermal imaging. Small hose reel chosen over high-flow line to minimise structural soaking and water damage.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Extinguished",
+      "description": "Roof fire extinguished. Structural engineer confirms three roof purlins damaged but main frame intact. Building fabric largely preserved. Heritage documentation completed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "Smoke is issuing from the eaves of a 17th-century Grade I listed timber-framed building. All occupants are evacuated. The building has a complex original timber roof structure. The only internal access is via a narrow 16th-century staircase. Adjacent heritage terraced buildings are 1.5 metres away. You are the IC and the heritage officer has arrived. The fire appears confined to the roof void.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Consult with the heritage officer to establish which structural elements are critical before any entry or water application; send a reconnaissance team up the historic staircase with SCBA and thermal imaging to locate the fire in the roof void and assess its extent; do not apply water externally until the fire location and extent are confirmed — avoid unnecessary soaking of irreplaceable timber.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Break open the roof externally with a chainsaw at the gable end to access the fire quickly and apply water directly from above.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply high-flow water from the aerial platform to the eaves externally to knock the fire at the source before it spreads further through the roof structure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Roof Void Access",
+      "situation": "The reconnaissance team has reached the roof void via the staircase. Thermal imaging shows fire concentrated around the east gable purlins — three purlins are charring. The fire is relatively small but access is very restricted in the void. A roof access hatch exists in the void. The heritage officer advises the main principal rafters and queen posts are 17th-century originals and must be protected. The staircase can accommodate one crew member with a hose reel at a time.",
+      "question": "What is your suppression approach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a lightweight hose reel through the roof void access hatch — a lower-flow, targeted approach minimises water damage to surrounding historic timber and prevents structural soaking; direct the team to apply water only to the burning purlins and char zone, not broadly across the void.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use a standard 1¾-inch attack line through the staircase for maximum fire knockdown — the heritage concern is secondary to stopping the fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Use a piercing nozzle through the ceiling below to inject water into the roof void without crew entry above, since roof void conditions may be hazardous.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Exposure Risk to Adjacent Buildings",
+      "situation": "The roof fire is being contained but has not yet been fully extinguished. Radiated heat from the burning purlins is heating the exterior masonry wall of the adjacent 18th-century terraced heritage building 1.5 metres away. The heritage officer is concerned about heat damage to the adjacent building's timber window frames. A second crew is available for external operations.",
+      "question": "How do you manage the exposure risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the second crew to apply a fine water mist or fog spray externally to the window frames of the adjacent building to cool them and prevent ignition — use the minimum effective water application to avoid drenching the masonry; maintain the internal attack on the roof fire simultaneously.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Apply high-flow water to the full exterior wall of the adjacent building to ensure it cannot ignite.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Withdraw the internal crew to safety and deal with the adjacent building exposure first before returning to the roof fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The roof fire was extinguished with the targeted hose reel approach. Three purlins sustained charring damage and two will require replacement, but the original 17th-century principal rafters, queen posts, and king posts were all preserved. The adjacent heritage building sustained no ignition — the window frames were cooled successfully. A structural engineer confirmed the roof frame is stable. The heritage officer documented the damage for conservation records. Your measured approach, thermal imaging reconnaissance, targeted water application, and heritage-aware tactics preserved one of the most significant historic buildings in the city.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "historic building",
+    "heritage",
+    "roof void",
+    "water minimisation",
+    "listed building"
+  ]
+}

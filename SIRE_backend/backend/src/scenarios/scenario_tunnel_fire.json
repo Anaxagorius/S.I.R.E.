@@ -1,0 +1,147 @@
+{
+  "title": "scenario_tunnel_fire",
+  "description": "Heavy goods vehicle fire in a 2-kilometre road tunnel with a bus of passengers trapped by smoke and heat",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Tunnel authority reports HGV on fire at the 900-metre mark inside the 2 km Central Road Tunnel. A tour bus with 38 passengers has stopped in the tunnel 300 metres from the HGV.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Tunnel control confirms longitudinal ventilation pushing smoke toward the east portal. Bus driver reports passengers panicking and some attempting to exit the bus. Temperature rising rapidly near HGV.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Heavy black smoke with orange glow visible 200 metres inside west portal. Tunnel authority reports bus driver has kept passengers aboard. Ventilation pushing smoke east. Two fire rigs staged at west portal.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "HGV Fire Grows",
+      "description": "HGV carrying mixed cargo is fully involved. Fire spreading to tunnel lining. Bus driver reports heat building inside the bus. Crew advancing with hose and thermal camera.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Passenger Evacuation",
+      "description": "First crew teams escorting passengers from bus through the pedestrian emergency exit at the 600-metre mark. Attack crew advancing toward HGV fire.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "HGV fire attacked and controlled. All 38 bus passengers evacuated via emergency exit. Three treated for heat stress. Tunnel structure inspected for heat damage.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A heavy goods vehicle is fully involved in fire at the 900-metre mark inside a 2-kilometre tunnel. A tour bus with 38 passengers is stopped 300 metres from the HGV. Ventilation is confirmed pushing smoke toward the east portal, meaning the west portal (your entry side) is the clean air side. The bus driver has kept passengers in the bus, which provides temporary protection. An emergency pedestrian exit door is located at the 600-metre mark on the north wall.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm with tunnel control that ventilation remains in longitudinal mode pushing smoke east; immediately dispatch a crew team in SCBA from the west portal to reach the bus and escort all 38 passengers to the emergency exit at 600 metres, while a second team prepares hose advance toward the HGV — passenger evacuation before full fire attack.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attack the HGV fire immediately from the west portal with all available hose lines, trusting the bus to protect the passengers until the fire is knocked down.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Instruct the bus driver to drive the bus back toward the west portal through the smoke to evacuate passengers directly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Simultaneous Evacuation and Attack",
+      "situation": "Team 1 is advancing toward the bus under clean air conditions from the west. Team 2 is preparing a 2½-inch attack line for the HGV fire. The fire is now involving the tunnel lining concrete above the HGV, indicating significant heat input. Tunnel authority reports the ventilation fans are at maximum capacity. HGV cargo manifest lists food products and one pallet of aerosol cans.",
+      "question": "How do you adjust your tactics given the aerosol hazard?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Alert Team 2 to the aerosol hazard and direct them to attack the HGV fire with a wide-angle fog pattern from maximum effective range, keeping crew as far back as possible while still applying water; confirm Team 1's evacuation is progressing before moving Team 2 closer.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Order Team 2 to make a close approach to get water directly into the cargo area since exterior application will not penetrate to the aerosol pallet.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Withdraw both teams from the tunnel immediately since aerosol involvement makes the operation too hazardous.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Passenger Evacuation Complete",
+      "situation": "Team 1 has escorted all 38 passengers to the emergency exit at 600 metres. Passengers are being guided to safety outside the tunnel. Two aerosol canisters have BLEVE'd — small explosions audible but no crew injuries. The HGV cab and trailer are fully involved. The concrete tunnel lining above the HGV is spalling from heat. Team 2 is applying water but has not yet knocked the fire.",
+      "question": "What do you order next?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Intensify the fire attack with the 2½-inch line now that all passengers are clear; monitor the tunnel ceiling for further spalling and establish a maximum exposure time of 15 minutes for Team 2 before mandatory withdrawal for SCBA air check; request mutual aid for additional resources.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Withdraw Team 2 and allow the fire to burn since the passengers are safe and the structure risk is too high.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reverse the ventilation fans to push smoke toward the west portal to help cool the fire area with fresh air from the east.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The intensified attack with the 2½-inch line knocked the HGV fire within 12 minutes. All 38 bus passengers were evacuated safely. Three passengers were treated for heat stress and one for a minor anxiety episode. No BLEVE injuries were recorded. The tunnel was closed for structural inspection — minor concrete spalling was identified above the HGV position but no structural failures. Your ventilation confirmation, passenger-first evacuation, aerosol standoff tactics, and timed crew rotations demonstrated disciplined incident command in a high-consequence tunnel environment.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "tunnel fire",
+    "HGV",
+    "passenger evacuation",
+    "BLEVE risk",
+    "confined space"
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "title": "scenario_mine_fire",
+  "description": "Active coal seam fire in an underground coal mine with working miners below, requiring fire containment and miner evacuation before ventilation reversal",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Alarm",
+      "description": "Fire sensors and CO detectors alarm in the main intake airway of the Northgate Coal Mine. Shift supervisor reports smoke visible in the main development heading. 24 miners underground.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Evacuation Order",
+      "description": "Mine manager orders all miners to evacuate. CO levels rising in the main intake. Fire believed to be in the conveyor belt drive area at the 1,200-metre mark.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Miners Evacuating",
+      "description": "20 of 24 miners have reached the surface. 4 miners unaccounted for in the long-wall panel. CO levels at 600 ppm in the main return. Mine rescue team mobilised.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Belt Fire Confirmed",
+      "description": "CCTV confirms conveyor belt fire at 1,200-metre mark. Belt continues running, spreading fire. Belt isolator is at surface. Mine rescue team ready with SCBA.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Miners Located",
+      "description": "Radio contact established with 4 missing miners at the long-wall. They are sheltering in a refuge chamber with self-rescuers. Mine rescue team advancing.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "All Miners Evacuated",
+      "description": "All 24 miners safely at surface. Belt fire isolated and suppressed by fixed water spray system. Ventilation assessment underway for fire containment.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "Fire is burning on a coal conveyor belt at the 1,200-metre mark underground. The belt is still running, actively spreading burning material. CO levels are rising in the main intake. 24 miners are underground — 20 are accounted for and evacuating; 4 are unaccounted for in the long-wall panel. You are the mine incident commander at the surface control room. The belt emergency stop can be activated from the surface.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the belt emergency stop immediately to halt the spread of burning material; simultaneously attempt radio contact with the 4 unaccounted miners in the long-wall panel and establish ventilation direction to ensure the miners are in clean intake air, not the return carrying CO.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reverse the main ventilation fans immediately to clear CO from the mine and push fresh air toward the fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deploy the mine rescue team immediately to the fire location at 1,200 metres before locating the missing miners.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Missing Miners Contact",
+      "situation": "Belt emergency stop activated. Belt fire is no longer spreading along the conveyor. The fixed belt water spray system has been remotely activated and is applying water to the fire. Radio contact is established with the 4 missing miners — they are sheltering in the refuge chamber at the long-wall, using self-rescuers. The refuge is in the intake air return — CO levels there are 200 ppm and rising. The mine rescue team is ready with SCBA.",
+      "question": "How do you manage the rescue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the mine rescue team to advance via the intake roadway (confirmed clean air) to the long-wall refuge using SCBA; instruct the sheltering miners to remain in the refuge with self-rescuers until the rescue team arrives, and do not move independently through smoke — confirm ventilation status before entry.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct the 4 sheltering miners to abandon the refuge and self-evacuate toward the main exit since rescue teams will take too long.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reverse the ventilation fans to push smoke away from the miners before the rescue team enters.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Ventilation Decision",
+      "situation": "The rescue team is advancing toward the long-wall on the intake air road. The belt fire is partially suppressed by water sprays but still burning. CO levels in the main return continue to rise. The mine ventilation engineer advises that reversing fans would bring CO from the return into the intake — where the rescue team and sheltering miners are. A sealed refuge bypass road could isolate the fire area but takes 40 minutes to activate.",
+      "question": "What do you order for ventilation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain normal ventilation direction — keeping clean air flowing through the intake toward the rescue team and miners; do not reverse fans as this would contaminate the clean route; begin activating the fire bypass road to eventually isolate the fire zone.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reverse fans immediately to reduce CO in the fire area and help suppress the fire with fresh air from the other direction.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Shut down all ventilation fans to starve the fire of oxygen.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The rescue team reached the long-wall refuge in 22 minutes and evacuated all 4 miners while self-rescuers were still functioning. All 24 miners were brought safely to the surface. The belt fire was fully suppressed by the fixed water spray system within 30 minutes of belt shutdown. Ventilation was maintained in the correct direction throughout, protecting the rescue route. The bypass road was later activated to isolate the fire area for investigation. No fatalities or serious injuries resulted. Your immediate belt stop, ventilation discipline, and rescue-before-reversal decisions were critical to the successful outcome.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "mine fire",
+    "underground",
+    "coal",
+    "conveyor belt",
+    "ventilation",
+    "mine rescue"
+  ]
+}

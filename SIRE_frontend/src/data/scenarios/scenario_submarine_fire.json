@@ -1,0 +1,147 @@
+{
+  "title": "scenario_submarine_fire",
+  "description": "Electrical fire in the aft battery compartment of a submarine tied up at port, requiring immediate crew action in a sealed, confined environment",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Alarm Activated",
+      "description": "Smoke alarm activates in the aft battery compartment of a submarine moored portside. Crew smell acrid burning. Fire duty watch activates general alarm.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Identified",
+      "description": "Battery cell overcharge has caused a thermal runaway. Hydrogen gas is being produced. Crew mustering topside via escape hatch.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Shore fire brigade arrives at the jetty. Submarine crew reports fire in aft battery bay. Hydrogen concentration unknown. Hatch to battery compartment is sealed.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Hydrogen Hazard",
+      "description": "Gas monitor at outer hatch reads 2.5% hydrogen — within explosive range (4-75%). Crew fully evacuated topside. Submarine CO2 fixed system is available.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Suppression Underway",
+      "description": "CO2 fixed system activated for aft battery compartment through remote actuator. Shore team providing boundary cooling on hull exterior.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "CO2 suppression successful. Hydrogen levels dropping. All 42 crew accounted for topside. Two treated for smoke inhalation from initial exposure. Naval engineers called for battery inspection.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A submarine is moored at the naval jetty with fire in the aft battery compartment. The crew have begun evacuating via the escape hatch. The battery compartment is sealed. You are the shore fire brigade IC on the jetty. The submarine's Executive Officer reports the battery has been overcharging and hydrogen may be accumulating. Two crew members are still in the forward section of the sub.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately establish a no-ignition perimeter around the submarine, deploy a gas monitor to the outer hatch to test for hydrogen concentration, and coordinate with the Executive Officer to confirm that all remaining crew evacuate through the forward hatch before any firefighting action.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open the battery compartment hatch immediately to apply water suppression before the fire grows.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deploy hose lines around the submarine and apply water to the hull to cool it while the crew evacuates.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Hydrogen Hazard Assessment",
+      "situation": "Gas monitoring at the outer hatch shows hydrogen at 2.5% — approaching the lower explosive limit of 4%. The two remaining crew are confirmed evacuated forward. All 42 crew are now topside. The battery compartment hatch is sealed. The submarine's CO2 fixed suppression system can be remotely activated from the control panel on the jetty. A naval engineer advises that opening any hatch now risks igniting the hydrogen.",
+      "question": "How do you suppress the fire?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the submarine's fixed CO2 system remotely for the aft battery compartment — this suppresses the fire without introducing an ignition source and avoids breaching the sealed compartment while hydrogen is in the explosive range.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Open the hatch and deploy a CO2 extinguisher manually since it will be more effective than the fixed system.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Use a high-pressure water fog nozzle through the hatch seal to suppress the fire without fully opening the compartment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Suppression Monitoring",
+      "situation": "The CO2 fixed system has been activated. Smoke from the outer vent has reduced. Hydrogen readings are decreasing. The naval engineer advises the compartment must be monitored for at least 30 minutes before entry to confirm the fire is out and atmospheric conditions are safe. The commanding officer is requesting entry to assess damage.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deny entry to all personnel for a minimum 30-minute post-suppression monitoring period; continue gas monitoring at the outer hatch until hydrogen reads below 1% and oxygen is confirmed above 19.5% before authorising any entry with full SCBA.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow the commanding officer entry immediately since the fire appears suppressed and they outrank the IC.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ventilate the compartment by opening all hatches immediately to clear hydrogen as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Post-suppression monitoring confirmed hydrogen levels dropped below 1% and oxygen normalised after 35 minutes. A two-person SCBA entry team confirmed the battery fire was extinguished and all cells were secured. Two crew treated for initial smoke inhalation were released. Naval engineers removed the damaged battery cells under supervision. Your no-ignition perimeter, remote CO2 activation, and strict re-entry protocol prevented a catastrophic hydrogen explosion aboard the submarine.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "submarine",
+    "battery fire",
+    "hydrogen",
+    "marine",
+    "confined space"
+  ]
+}
