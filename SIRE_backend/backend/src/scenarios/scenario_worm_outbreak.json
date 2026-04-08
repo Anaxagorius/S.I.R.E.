@@ -55,17 +55,24 @@
         {
           "label": "A",
           "text": "Block SMB (port 445) at all internal firewall boundaries immediately and isolate the originating workstation to halt propagation.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Identify the patient zero workstation first before taking any broad network action.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Begin patching systems in alphabetical order by hostname.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -77,12 +84,17 @@
         {
           "label": "A",
           "text": "Emergency-isolate the server VLAN now, take domain controllers offline temporarily, and verify backup system integrity before the worm can reach them.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Keep the server VLAN connected to maintain operations — prioritize patching over isolation.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -94,12 +106,17 @@
         {
           "label": "A",
           "text": "Use the patch management console to push the MS17-010 patch to all systems simultaneously. Prioritize systems with network shares. Keep patched systems offline until verification.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Patch systems one at a time to avoid overloading the network.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -111,12 +128,17 @@
         {
           "label": "A",
           "text": "Reimage all 40 infected workstations from a known-good baseline — do not attempt to clean in place given the risk of secondary payloads.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Run antivirus on all infected systems and return them to the network if no additional threats are detected.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -126,5 +148,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "worm",
+    "network spread",
+    "patching",
+    "incident response"
+  ]
 }

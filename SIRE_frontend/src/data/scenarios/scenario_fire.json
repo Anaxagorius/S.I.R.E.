@@ -49,17 +49,25 @@
         {
           "label": "A",
           "text": "Immediately evacuate the building and call emergency services.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Investigate the source of smoke before taking action.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "C",
           "text": "Ignore the alarm and assume it is a false positive.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +79,17 @@
         {
           "label": "A",
           "text": "Conduct a headcount at the assembly point to identify anyone missing.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Re-enter the building to search for remaining employees.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +101,18 @@
         {
           "label": "A",
           "text": "Use the fire extinguisher and attempt to control the fire.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Immediately leave and activate the fire alarm for full evacuation.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         }
       ]
     },
@@ -105,7 +124,10 @@
         {
           "label": "A",
           "text": "Brief emergency responders and provide a full incident report.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         }
       ]
     },
@@ -115,5 +137,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Physical",
+  "difficulty": "Beginner",
+  "tags": [
+    "fire",
+    "evacuation",
+    "emergency services",
+    "physical"
+  ]
 }

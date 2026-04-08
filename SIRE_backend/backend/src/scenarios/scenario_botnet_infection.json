@@ -55,17 +55,24 @@
         {
           "label": "A",
           "text": "Identify the specific internal source IPs generating the traffic, segment them off the network, and begin correlating with endpoint telemetry.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Null-route all outbound traffic to stop the attack — this will halt business operations.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Dispute the ISP's claim and wait for more evidence before taking any action.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -77,12 +84,17 @@
         {
           "label": "A",
           "text": "Push firewall rules to block C2 communication, quarantine all 28 endpoints via MDM, and notify site managers at each location.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Clean machines at headquarters first and address remote sites next week.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -94,12 +106,17 @@
         {
           "label": "A",
           "text": "Use MDM to force-remove the extension from all corporate devices, restrict browser extension installation to an approved allowlist, and notify all users.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Advise users to uninstall the extension themselves and send an awareness email.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -111,12 +128,17 @@
         {
           "label": "A",
           "text": "Submit delisting requests to all blacklists with evidence of remediation, contact the targeted firm to provide incident details, and file a report with law enforcement documenting the botnet operators.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Change the organization's outbound IP addresses to bypass the blacklists without addressing the root cause.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -126,5 +148,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "botnet",
+    "C2",
+    "malware",
+    "DDoS"
+  ]
 }

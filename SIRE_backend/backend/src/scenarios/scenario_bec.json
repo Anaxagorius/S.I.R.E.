@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Follow the bank detail change procedure: call the supplier directly using a contact number from the original contract (not from the email) to verify the change.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Update the bank details and process the payment — the email came from the manager's real account.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Reply to the manager's email to confirm the request before updating the details.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Immediately report to IT security to investigate and lock the manager's email account, and do not process any payments until the account is cleared.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Process the payment using the original bank details on file and then inform IT.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Remove all malicious inbox rules, revoke all active sessions, reset credentials, enable MFA, and audit the mailbox for other suspicious activity.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Reset the password only — removing the forwarding rule is sufficient.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Require dual approval from two finance team members plus direct phone verification to the supplier using a number from original records for any bank detail change.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Add an email confirmation step where the requester must reply to confirm — email alone is sufficient.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "BEC",
+    "email compromise",
+    "fraud",
+    "wire transfer"
+  ]
 }

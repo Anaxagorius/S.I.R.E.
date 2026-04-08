@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Disable the suspected account immediately and escalate to the incident response team.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Monitor the account's behaviour before responding, to confirm malicious intent.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Contact the employee to ask if they were performing a legitimate task.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Immediately reset all five affected service account passwords to long, randomly-generated strings (30+ characters) to invalidate the extracted hashes.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Wait to see if the attacker successfully cracks any hashes before taking disruptive action.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Reset the KRBTGT account password twice to invalidate all existing Kerberos tickets, disable the compromised service account, and begin a full domain forensic investigation.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Disable only the 'svc_backup' service account and monitor for further domain activity.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Block DCSync by removing replication rights from non-DC accounts in AD, rotate all domain account credentials, and assess whether NTDS.dit was exfiltrated to determine if a full forest recovery is needed.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Reset the domain administrator password and consider the DCSync threat resolved.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "privilege escalation",
+    "Active Directory",
+    "domain admin",
+    "lateral movement"
+  ]
 }

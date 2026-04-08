@@ -55,17 +55,24 @@
         {
           "label": "A",
           "text": "Isolate the workstation, kill the suspicious process, and pull the installer for analysis in a sandboxed environment.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Uninstall the HR software and reboot the machine — the problem should clear itself.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Whitelist the process in EDR to stop the alerts while you investigate over the next few days.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -77,12 +84,17 @@
         {
           "label": "A",
           "text": "Search all endpoints via EDR for matching file hashes, registry keys, and scheduled tasks. Quarantine all matches and remove persistence mechanisms.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Remove persistence only from the known affected machine and wait to see if other alerts appear.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -94,12 +106,17 @@
         {
           "label": "A",
           "text": "Force an immediate enterprise-wide password reset for all accounts, prioritizing VPN, email, and financial systems. Enable MFA everywhere.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Reset only the passwords of the confirmed affected employees to limit disruption.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -111,12 +128,17 @@
         {
           "label": "A",
           "text": "Block the C2 domain and IP at the DNS and firewall levels, notify threat intelligence feeds, and review firewall logs for any commands sent to the Trojan.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Leave the C2 channel open temporarily to monitor what the attacker is doing.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -126,5 +148,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Intermediate",
+  "tags": [
+    "trojan",
+    "malware",
+    "endpoint",
+    "incident response"
+  ]
 }

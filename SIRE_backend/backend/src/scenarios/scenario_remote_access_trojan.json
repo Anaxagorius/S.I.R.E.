@@ -55,17 +55,24 @@
         {
           "label": "A",
           "text": "Quietly collect a memory dump and network traffic capture from the laptop for analysis before alerting the CFO — you need to avoid tipping off the attacker.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Immediately shut down the CFO's laptop and inform them of the investigation.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Block the external IP at the firewall and monitor to see if the connections resume.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -77,12 +84,17 @@
         {
           "label": "A",
           "text": "Conduct lateral movement analysis across the entire network using endpoint telemetry before removing the RAT, to identify all compromised hosts.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Remove the RAT from the CFO's laptop immediately and consider the incident contained.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -94,12 +106,17 @@
         {
           "label": "A",
           "text": "Coordinate simultaneous isolation of all confirmed compromised hosts, revoke all credentials associated with the affected accounts, and initiate full forensic imaging.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Remove the RAT from each system one at a time to minimize disruption.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -111,12 +128,17 @@
         {
           "label": "A",
           "text": "Engage outside counsel and a forensic accounting firm to document the full data exposure. Brief the board and relevant regulators as required by applicable law.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Handle the incident internally and avoid involving regulators to prevent market impact.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -126,5 +148,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "RAT",
+    "backdoor",
+    "C2",
+    "malware"
+  ]
 }

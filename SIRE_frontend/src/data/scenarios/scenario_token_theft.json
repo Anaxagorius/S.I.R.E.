@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Immediately revoke the OAuth token in Azure AD and disable the unauthorised application registration.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Contact the employee first to confirm whether they intentionally installed the app before revoking access.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Remove the app from the approved list and wait to see if further suspicious activity is detected.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Preserve all Microsoft 365 audit logs, identify every email read and file downloaded, and notify the privacy and legal teams of the potential data exposure.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Delete the application registration from Azure AD and consider the matter resolved.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Conduct a formal data breach assessment with legal counsel to determine regulatory notification obligations, and notify affected stakeholders of the exposure.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Notify only the employee whose account was affected and take no external action.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Enable Azure AD app consent policies to require admin approval for all third-party OAuth applications, conduct user awareness training specifically on OAuth phishing, and audit all existing third-party app registrations for excessive permissions.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Block only the specific malicious application and take no policy changes for other third-party apps.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "token theft",
+    "OAuth",
+    "cloud",
+    "credential theft"
+  ]
 }

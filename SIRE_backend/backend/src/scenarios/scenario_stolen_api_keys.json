@@ -49,17 +49,24 @@
         {
           "label": "A",
           "text": "Immediately revoke the exposed AWS access key in the IAM console — assume it has already been discovered.",
-          "outcome": { "type": "node", "target": "node-2" }
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
         },
         {
           "label": "B",
           "text": "Delete the commit from the repository and assume the key is safe since it was only public for 15 minutes.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         },
         {
           "label": "C",
           "text": "Rotate the key only if CloudTrail shows evidence of unauthorised use.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -71,12 +78,17 @@
         {
           "label": "A",
           "text": "Terminate all unauthorised EC2 instances, quarantine the IAM user, and audit all API activity that occurred since the key was first exposed.",
-          "outcome": { "type": "node", "target": "node-3" }
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
         },
         {
           "label": "B",
           "text": "Terminate the EC2 instances without reviewing other CloudTrail activity — the key is revoked so the threat is over.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -88,12 +100,17 @@
         {
           "label": "A",
           "text": "Document the full incident timeline, open a support case with AWS to dispute the fraudulent charges, and review all IAM policies associated with the exposed key for excessive permissions.",
-          "outcome": { "type": "node", "target": "node-4" }
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
         },
         {
           "label": "B",
           "text": "Accept the charges as a cost of the incident and take no further action on the billing.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -105,12 +122,17 @@
         {
           "label": "A",
           "text": "Implement pre-commit hooks and CI/CD secret scanning to block key commits, migrate from long-lived IAM access keys to short-lived IAM roles, and run mandatory developer security training on secrets management.",
-          "outcome": { "type": "node", "target": "node-5" }
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
         },
         {
           "label": "B",
           "text": "Only brief the developer who made the mistake and update the internal coding guidelines document.",
-          "outcome": { "type": "failure" }
+          "outcome": {
+            "type": "failure"
+          }
         }
       ]
     },
@@ -120,5 +142,13 @@
       "question": "Scenario complete. Well done!",
       "options": []
     }
-  }
+  },
+  "category": "Cyber",
+  "difficulty": "Advanced",
+  "tags": [
+    "API keys",
+    "secrets management",
+    "cloud",
+    "credential theft"
+  ]
 }

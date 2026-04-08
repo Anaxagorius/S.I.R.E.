@@ -1,6 +1,6 @@
 /**
  * Author: Leon Wasiliew
- * Last Update: 2026-03-26
+ * Last Update: 2026-04-01
  * Description: Bundled scenario data for frontend-only demo mode.
  * Each entry includes display metadata plus the full scenario definition
  * (root node and decision tree) so no backend connection is required.
@@ -24,6 +24,8 @@ import scenarioOauthPhishing from "./scenarios/scenario_oauth_phishing.json";
 import scenarioBec from "./scenarios/scenario_bec.json";
 import scenarioFakeVendorInvoice from "./scenarios/scenario_fake_vendor_invoice.json";
 import scenarioDeepfakeScam from "./scenarios/scenario_deepfake_scam.json";
+import scenarioMassCasualty from "./scenarios/scenario_mass_casualty.json";
+import scenarioInfrastructureAttack from "./scenarios/scenario_infrastructure_attack.json";
 
 /** All demo scenarios with display metadata and bundled scenario data. */
 const DEMO_SCENARIOS = [
@@ -152,6 +154,20 @@ const DEMO_SCENARIOS = [
         name: "Deepfake Scam",
         description: "AI-generated deepfake audio and video impersonates an executive to authorise a large fraudulent transfer.",
         data: scenarioDeepfakeScam,
+    },
+    {
+        id: "scenario_mass_casualty",
+        icon: "🏥",
+        name: "Mass Casualty Incident",
+        description: "A multi-vehicle collision produces 20+ casualties requiring rapid triage and resource coordination.",
+        data: scenarioMassCasualty,
+    },
+    {
+        id: "scenario_infrastructure_attack",
+        icon: "⚡",
+        name: "Infrastructure Cyber Attack",
+        description: "A nation-state actor targets a water treatment facility's SCADA system to contaminate supply.",
+        data: scenarioInfrastructureAttack,
     },
 ];
 
