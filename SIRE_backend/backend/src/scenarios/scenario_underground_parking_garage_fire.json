@@ -1,0 +1,147 @@
+{
+  "title": "scenario_underground_parking_garage_fire",
+  "description": "Multiple vehicle fire in a four-level underground parking garage with limited ventilation, heavy smoke, and trapped occupants",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Multiple calls reporting fire and smoke in the underground parking garage beneath City Centre Mall. Garage has 4 levels below grade. Fire reported on Level 3.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Mall security confirms fire on Level 3 involving at least 3 vehicles. Smoke filling upper levels. Garage ventilation fans offline. Approximately 40 vehicles still in the garage.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Heavy black smoke rising from vehicle entry ramp. Zero visibility below Level 1. Fire alarm activated. Mall evacuating. People reporting relatives in the garage.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Ventilation Override",
+      "description": "Building management has restored ventilation fans. Smoke beginning to move. Stairwell access from Level 1 to Level 3 is compromised by smoke. Entry teams in SCBA staged.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Victims Located",
+      "description": "Two occupants located on Level 2 having become disoriented in smoke. Advanced hose line reaching Level 3 fire. Thermal camera shows 4 vehicles involved.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Vehicle fire on Level 3 knocked down. Disoriented occupants rescued. Structural engineer called for ceiling assessment. Ventilation clearing residual smoke.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A fire involving multiple vehicles is burning on Level 3 of a four-level underground parking garage. Heavy black smoke is filling upper levels and has zero visibility. The garage ventilation system is offline. People may be trapped or disoriented. You are the IC at street level. The vehicle ramp provides access but is filled with smoke. Two stairwell access points are available from the street.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact building management immediately to restore ventilation fan operation to clear smoke from below; stage SCBA-equipped teams at both stairwell entries; establish accountability for who may still be in the garage using mall security and entry logs; do not allow entry until ventilation status is confirmed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Drive a pumper down the vehicle ramp immediately to deliver water to Level 3 since speed is critical with multiple vehicles involved.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Seal all entry points and let the fire burn down since entry in zero visibility underground is too dangerous.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Entry and Search Strategy",
+      "situation": "Ventilation has been partially restored. Smoke is beginning to clear on Levels 1 and 2 but Level 3 still has heavy smoke. Mall security reports approximately 6 people may still be in the garage. Stairwell A is clear to Level 2. Stairwell B is partially smoke-filled. Two SCBA teams are ready. A hose line can be advanced down Stairwell A.",
+      "question": "How do you organize the entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Send Team 1 down Stairwell A with a charged 1¾-inch hose line and thermal imaging camera to advance to Level 3 and attack the fire; send Team 2 via Stairwell A to search Levels 1 and 2 for any occupants, using rope guide for smoke navigation; maintain radio contact and air-time tracking for both teams.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send both teams directly to Level 3 fire attack since controlling the fire source will eliminate the smoke and rescue problem.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the ventilation to fully clear all levels before any crew enters the structure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Structural Concern",
+      "situation": "Team 2 has located two disoriented occupants on Level 2 and is evacuating them. Team 1 has reached Level 3 and is attacking the fire involving four vehicles. The fire has been burning for approximately 18 minutes. The building's structural engineer advises that the post-tensioned concrete ceiling above the fire area may be compromised if exposed to sustained high heat. One vehicle is an SUV with a large fuel tank that has not yet ignited.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct Team 1 to prioritise knockdown of the burning vehicles, applying water to the uninvolved SUV to prevent tank ignition; set a 10-minute operational period limit and order withdrawal if the fire is not knocked by then, given structural risk — continue tracking team air supply.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Order immediate withdrawal of all teams since the structural risk from the concrete ceiling outweighs any potential rescue benefit now that two occupants are out.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Have the team continue operating without a time limit since they are making progress and the ceiling will hold.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Team 1 knocked the vehicle fires on Level 3 within 8 minutes of entry. The SUV was cooled before its tank could ignite. Both disoriented occupants on Level 2 were successfully evacuated and treated for mild smoke inhalation. All crews withdrew with adequate SCBA air before the structural assessment was completed. The structural engineer confirmed minor heat staining but no post-tensioning failures. Your ventilation coordination, dual-team entry strategy, structural time awareness, and vehicle cooling prevented a catastrophic fuel tank explosion and kept all personnel safe.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "underground parking",
+    "vehicle fire",
+    "confined space",
+    "ventilation",
+    "structural risk"
+  ]
+}

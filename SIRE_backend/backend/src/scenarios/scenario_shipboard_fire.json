@@ -1,0 +1,147 @@
+{
+  "title": "scenario_shipboard_fire",
+  "description": "Fire breaks out in crew quarters aboard a cargo vessel underway at sea, requiring shipboard firefighting protocols with no external assistance available",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Ship's general alarm sounds. Smoke detector activated in crew quarters on Deck 3. Vessel is 80 miles offshore. No coast guard support for at least 3 hours.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fire Confirmed",
+      "description": "Crew member reports flames visible under cabin door 3-14. Smoke spreading along Deck 3 corridor. Ship's fire party mustering.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "On Scene",
+      "description": "Cabin 3-14 door hot to the touch. Two crew unaccounted for. Ship's ventilation fans potentially spreading smoke. Fire party assembled with hose reel and BA sets.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Boundary Cooling",
+      "description": "Hose reel deployed to cool cabin doors. Ventilation to Deck 3 secured. Adjacent cabins evacuated. One missing crew member located in cabin 3-16.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Fire Attack",
+      "description": "BA team makes entry into cabin 3-14. Fire contained to single cabin. Second missing crew member located unconscious in corridor.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Extinguished",
+      "description": "Cabin 3-14 fire extinguished. Both missing crew accounted for. One treated for smoke inhalation. Master alerted coast guard and activated medivac protocols.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A fire is burning in crew cabin 3-14 aboard a cargo vessel 80 miles at sea. Two crew are unaccounted for. The ship's ventilation system is running and may be spreading smoke throughout Deck 3. The ship's fire party is assembled. No external fire service support is available for at least 3 hours. You are the ship's Chief Officer acting as fire party leader.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately secure the mechanical ventilation supply to Deck 3 to prevent smoke spread, account for all crew via muster list, and direct the BA team to prepare for entry while a boundary cooling hose reel is advanced to cool adjacent cabin doors.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Force open cabin 3-14 immediately to attack the fire before it spreads since the ventilation will clear smoke.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Abandon Deck 3 entirely and activate the ship's fixed CO2 system for that deck since the fire is in a confined space.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Missing Crew Search",
+      "situation": "Ventilation to Deck 3 is secured. Muster confirms two crew unaccounted for — both had cabins on Deck 3. Smoke in the corridor is thickening. Cabin 3-14 door is hot. One BA set is available. A second crew member is visible collapsed in the corridor approximately 15 meters from the fire cabin.",
+      "question": "How do you manage the two priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy the BA team to retrieve the collapsed crew member from the corridor immediately — they are the most accessible casualty — while the boundary cooling team works the doors; account for the second missing crew member by checking adjacent cabins.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Send the BA team directly into cabin 3-14 to fight the fire first — the corridor crew member appears to be breathing.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Recall all crew to the muster station and let the fire party handle everything without additional guidance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Fire Entry Decision",
+      "situation": "The collapsed crew member has been retrieved from the corridor and is receiving first aid — smoke inhalation, breathing. The second missing crew member has been found in a nearby cabin — uninjured. Cabin 3-14 door is very hot. The BA team is ready to enter. The ship's master reports that if the fire breaches the bulkhead, it could reach the fuel storage passageway.",
+      "question": "What do you order for the fire attack?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief the BA team on a controlled entry: crouch low, open the cabin door slowly to test for flashover conditions, advance a charged hose reel, attack the fire at the base, and withdraw if fire escalates beyond cabin boundaries — maintain a safety crew at the door.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Flood the cabin through the partially opened door with maximum water flow before entry to cool conditions, even though this will spread steam scalding risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Activate the ship's fixed Halon system for the entire deck to smother the fire without crew entry.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The BA team entered cabin 3-14 using correct door-opening technique and attacked the fire successfully. The fire was contained to the single cabin. The collapsed crew member was transported to the ship's medical station and treated for mild smoke inhalation. The master activated a coast guard medivac notification. Your immediate ventilation isolation, disciplined muster, systematic crew rescue, and controlled BA entry prevented the fire from spreading to the fuel passageway and saved lives aboard a vessel with no external support.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "shipboard fire",
+    "marine",
+    "at sea",
+    "crew quarters",
+    "confined firefighting"
+  ]
+}

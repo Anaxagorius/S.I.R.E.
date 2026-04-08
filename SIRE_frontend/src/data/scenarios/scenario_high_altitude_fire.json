@@ -1,0 +1,147 @@
+{
+  "title": "scenario_high_altitude_fire",
+  "description": "Structure fire at a high-altitude mountain research station where reduced air density affects pump performance, crew endurance, and fire behaviour",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Fire reported at the Ridgeline Research Station at 3,800 metres elevation. Nearest fire resources are in a valley town 45 minutes away by mountain road. Station has 12 researchers on site.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Research station manager reports fire in the generator building. On-site extinguishers deployed with limited effect. Researchers evacuating to the main building.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Arrival at Altitude",
+      "description": "Crew arrives at 3,800 m. Two firefighters showing exertion symptoms after gearing up. Pump discharge pressure is lower than expected. Wind is gusting unpredictably.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Pump Performance Degraded",
+      "description": "Pump delivering 60% of rated capacity due to altitude effects on the petrol engine. Water supply is a 5,000-litre storage tank on site. Generator building fully involved.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Exposure Protection",
+      "description": "Crew focusing on protecting adjacent main research building. Wind shift pushes fire toward fuel storage shed. Defensive lines established.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Contained",
+      "description": "Generator building lost but main research building and fuel shed protected. All 12 researchers accounted for. Two crew treated for altitude exertion. Fire under control.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "Your crew has arrived at a research station at 3,800 metres above sea level. Two firefighters are showing signs of altitude-related exertion after carrying gear. The generator building is fully involved. The on-site water storage tank holds 5,000 litres. The pump is delivering approximately 60% of rated flow due to the petrol engine losing power at altitude. Wind is gusting and unpredictable. The main research building is 15 metres downwind. 12 researchers are evacuated.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assess crew fitness immediately — stand down the two symptomatic firefighters from active firefighting roles and assign them to support; adopt a defensive strategy focused on protecting the main research building rather than attacking the fully involved generator building; conserve the 5,000-litre water supply for exposure protection.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Push all crew into immediate aggressive attack on the generator building fire to prevent it spreading — time is critical.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Request additional pumps via radio and wait for reinforcements before committing any crew at altitude.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Water Conservation",
+      "situation": "Two symptomatic crew are on support duties. The generator building is a write-off. The main research building has combustible timber cladding on the side facing the fire. The water tank has 5,000 litres remaining — at current pump output, approximately 20 minutes of continuous flow at the degraded rate. A wind shift could push burning embers toward the fuel storage shed containing 600 litres of diesel.",
+      "question": "How do you allocate the limited water supply?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply water in short, targeted bursts to the timber cladding on the exposed face of the research building and pre-wet the ground around the fuel shed — do not continuously flow; alternate between the two exposure risks to maximise the available water and monitor wind direction continuously.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Direct continuous water flow on the generator building fire to knock it down and reduce the ember source.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Reserve all 5,000 litres for the fuel shed since a diesel fire would be the most catastrophic outcome.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Wind Shift and Crew Fatigue",
+      "situation": "A wind shift has occurred, pushing embers toward the fuel shed. One ember has ignited a small grass fire 5 metres from the shed. Crew fitness is declining — all active firefighters are working harder than normal due to the altitude. A second crew team is 20 minutes away. The grass fire is small and could be stopped with a beater or minimal water, but diverts crew from the building.",
+      "question": "What do you order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign one of the support-role crew to suppress the grass fire with a beater — it is small and within their capacity — while the active fire crew maintains the research building and fuel shed water protection; order a mandatory crew rest rotation to prevent collapse.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Redirect all active crew to the grass fire immediately since it is the most immediate threat to the fuel shed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the grass fire and trust that the wind will shift again before it reaches the fuel shed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The grass fire was suppressed by the support crew before reaching the fuel shed. The research building was successfully protected with targeted water application. The generator building was lost but contained within its footprint. The arriving mutual aid crew took over operations as your crew rotated off for rest and altitude recovery. All 12 researchers were safe. Two firefighters required monitoring for exertion at altitude but recovered without medical treatment. Your decision to prioritise crew safety, adopt a defensive strategy, and conserve water prevented a fuel shed fire that could have had catastrophic consequences.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "high altitude",
+    "remote",
+    "pump performance",
+    "crew fitness",
+    "defensive firefighting"
+  ]
+}

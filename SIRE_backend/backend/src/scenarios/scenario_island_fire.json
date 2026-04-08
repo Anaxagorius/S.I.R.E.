@@ -1,0 +1,148 @@
+{
+  "title": "scenario_island_fire",
+  "description": "Residential fire on a small island accessible only by ferry, with all fire resources and water reliant on ferry transport and limited on-island capability",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch",
+      "description": "Fire reported at a residential property on Harrow Island. Island is accessible only by ferry — a 20-minute crossing. The island has a volunteer first response unit with one light tanker and 2,000 litres.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Ferry Coordination",
+      "description": "The ferry operator is notified and is preparing to load the main fire appliance for emergency crossing. Ferry crossing ETA 25 minutes plus loading time.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Volunteer Unit On Scene",
+      "description": "Island volunteer unit arrives. Two-storey house well alight. Occupants — elderly couple — are outside but elderly man is reporting chest pain. No hydrants on the island. Creek is 300 metres away.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Volunteer Operations",
+      "description": "Volunteer unit managing exposure protection of neighbouring property with on-board water. Helicopter dispatched for elderly man with chest pain. Main appliance crossing on ferry.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Main Appliance Arrives",
+      "description": "Main appliance arrives via ferry. Relay from creek established. Volunteer water nearly exhausted. Coordinated attack begins on fire now involving roof structure.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 5,
+      "title": "Fire Controlled",
+      "description": "Fire knocked down. Structure significantly damaged but contained. Both occupants safe — elderly man airlifted. Overhaul underway with creek relay supply.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Size-Up",
+      "situation": "A residential fire is burning on Harrow Island. Your main appliance is on the mainland — a 20-minute ferry crossing plus loading time. The island volunteer unit has one light tanker with 2,000 litres and two trained volunteers. The house is well alight. An elderly couple is outside — the man has chest pain. There are no reticulated hydrants on the island. A creek is 300 metres from the property. You are coordinating from the mainland.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the island volunteer unit and instruct them to prioritise: (1) confirm both occupants are fully clear and receiving first aid — request helicopter for the man with chest pain; (2) use their 2,000 litres exclusively for exposure protection of the neighbouring property since their water cannot save the burning house alone; (3) locate and survey the creek for relay pump potential before the main appliance arrives.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Instruct the volunteer unit to attack the burning house with all 2,000 litres immediately to slow fire progress before the main appliance arrives.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the main appliance to arrive before directing any operations since the volunteer unit is not trained for the scale of fire.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Ferry and Resource Logistics",
+      "situation": "The helicopter is en route for the man with chest pain. The volunteer unit is using water for exposure protection of the neighbouring property. You have 15 minutes until the ferry is loaded and crossing. The ferry can carry one heavy appliance or two light vehicles. You have a heavy pumper with 3,000 litres and a lighter support vehicle with rescue equipment. The creek survey shows it can supply a portable pump relay.",
+      "question": "What do you load on the ferry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Load the heavy pumper with maximum crew and equipment — it provides the most water and pump capacity for the relay from the creek, and the rescue equipment can be carried by crew onboard; the heavy pumper is the highest priority resource for sustained firefighting.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Load both the heavy pumper and support vehicle since both are needed — wait for a second ferry trip.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Load the lighter support vehicle first since it loads faster and gets crew to the island sooner.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Island Arrival and Relay Setup",
+      "situation": "The heavy pumper has arrived on the island. The volunteer unit has nearly exhausted their 2,000 litres protecting the neighbouring property successfully. The burning house now has roof involvement. The creek is 300 metres away and requires the portable pump to be deployed for relay. Setting up the relay will take 8–10 minutes before water from the creek reaches the pumper.",
+      "question": "How do you manage the transition?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately deploy the portable pump crew to the creek to begin relay setup; use the heavy pumper's remaining 3,000 litres to begin fire attack on the roof and cool the structure while the relay is established — transition to relay supply when it comes online, tracking water use carefully.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the creek relay to be fully established before committing any water from the pumper tank, to ensure uninterrupted supply.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply all 3,000 litres immediately in maximum flow to knock the roof fire before it collapses.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The relay from the creek was established in 9 minutes. The pumper transitioned smoothly from tank water to creek relay supply. The roof fire was knocked without a structural collapse. The neighbouring property was successfully protected by the volunteer unit's early exposure work. The elderly man was airlifted and treated for a mild cardiac event and later discharged. His wife was treated for shock. The ferry coordination, helicopter medical response, creek relay, and volunteer/professional crew integration were all managed effectively. No fire spread beyond the original property.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Firefighter",
+  "difficulty": "Advanced",
+  "tags": [
+    "island fire",
+    "ferry access",
+    "remote",
+    "water supply",
+    "relay pump",
+    "volunteer coordination"
+  ]
+}
