@@ -1,0 +1,154 @@
+{
+  "title": "csrf",
+  "description": "A forged HTTP request tricks an authenticated admin into unknowingly changing account settings on the corporate portal while visiting a malicious page.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unexpected Account Changes",
+      "description": "Admin notices their corporate portal account email and recovery phone have been changed to unknown values without their action.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "CSRF Attack Identified",
+      "description": "Security review reveals the portal lacks CSRF tokens. An admin visited a phishing page containing a forged POST request that was automatically submitted.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Multiple Admins Affected",
+      "description": "Two additional admin accounts show similar unauthorised changes after visiting the same malicious URL shared via a spear-phishing email.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Accounts Recovered",
+      "description": "All affected accounts restored. Admin sessions invalidated. Malicious email recalled and quarantined.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "CSRF Tokens Implemented",
+      "description": "Development team deploys synchroniser CSRF tokens on all state-changing endpoints. SameSite cookie attribute set to Strict.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Security Headers Validated",
+      "description": "Full application review confirms CSRF tokens present on all forms. Penetration test validates CSRF protections. Incident closed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unauthorised Account Changes Detected",
+      "situation": "An admin reports their corporate portal account email address and 2FA recovery phone were changed without their knowledge. Server logs show a POST request to /account/settings coming from the admin's browser session, but the admin was on a different website at the time. CSRF attack is suspected.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restore the admin account to correct settings, invalidate all active admin sessions, and investigate which malicious page triggered the forged request.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the admin to change their password and assume their browser was compromised by malware.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Restore account settings and close the ticket as a user error without further investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Identify the Malicious Page and Scope",
+      "situation": "Browser history shows the admin visited a URL from a phishing email just before the changes occurred. Two other admins received the same email. You need to check if they are also affected and prevent further exploitation.",
+      "question": "How do you contain the incident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Audit all admin accounts for unauthorised changes, recall and quarantine the phishing email from all mailboxes, and block the malicious URL at the web proxy.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only fix the reported admin's account and send an advisory email without recalling the phishing message.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Remediate the CSRF Vulnerability",
+      "situation": "The portal's state-changing endpoints lack CSRF token validation, making them vulnerable to forged cross-site requests. The development team needs to implement CSRF protections immediately.",
+      "question": "How do you remediate the CSRF vulnerability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement synchroniser CSRF tokens on all state-changing forms and API endpoints, set SameSite=Strict on session cookies, and validate the Origin/Referer header server-side.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a CAPTCHA to the account settings page as the sole CSRF mitigation measure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Validate CSRF Controls Application-Wide",
+      "situation": "CSRF tokens are deployed on the account settings page. However, other state-changing endpoints across the application may also be vulnerable.",
+      "question": "How do you ensure complete coverage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a full application review to identify all state-changing endpoints, verify CSRF tokens are present on each, and commission a penetration test to validate.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only apply CSRF tokens to the account settings endpoint since that is the one that was exploited.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The CSRF attack was contained, all affected admin accounts were restored, and the malicious email was recalled. CSRF tokens and SameSite cookie attributes now protect all state-changing endpoints, verified by a successful penetration test.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Web",
+  "difficulty": "Intermediate",
+  "tags": [
+    "CSRF",
+    "cross-site request forgery",
+    "web",
+    "authentication"
+  ]
+}

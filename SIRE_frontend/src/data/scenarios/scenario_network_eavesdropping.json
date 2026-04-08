@@ -1,0 +1,154 @@
+{
+  "title": "network_eavesdropping",
+  "description": "A passive network sniffer is discovered on a core switch, silently capturing all unencrypted traffic including plaintext credentials.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unusual SPAN Port Detected",
+      "description": "A network audit reveals an undocumented SPAN (port mirror) session configured on the core switch, forwarding all traffic to an unknown device.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Sniffer Device Located",
+      "description": "The destination of the SPAN session is a small device physically attached to an unused port in the server room rack.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Credential Capture Confirmed",
+      "description": "Forensic analysis of the sniffer shows it has been active for 72 hours, capturing plaintext HTTP, FTP, and telnet credentials.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Device Removed, SPAN Deleted",
+      "description": "Sniffer device removed and SPAN session deleted. Affected protocols being remediated. Evidence preserved.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Affected Credentials Reset",
+      "description": "All credentials identified in captured traffic have been invalidated and reset. Systems using plaintext protocols are being migrated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Network Hardening Complete",
+      "description": "Encrypted alternatives deployed. Switch configuration auditing automated. Physical access to network rooms reviewed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Undocumented SPAN Port Discovered",
+      "situation": "During a routine network audit, you discover an undocumented SPAN session on the core switch mirroring all traffic to port Gi1/0/48. An unauthorised device is plugged into that port in the server room. You suspect a passive network sniffer has been installed.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Preserve evidence by photographing the device and logging the SPAN config, then disconnect the device and delete the SPAN session.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately delete the SPAN session and discard the rogue device without documenting it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the sniffer in place and continue monitoring to identify who installed it before taking action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Forensic Analysis of Sniffer",
+      "situation": "The device is imaged for forensics. Initial analysis shows it has been active for 72 hours capturing all traffic including HTTP, FTP, and telnet sessions with plaintext credentials. You need to determine the scope of captured data.",
+      "question": "How do you scope the data exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Analyse the capture files to identify all credentials and sensitive data intercepted, cross-reference with your user directory to determine affected accounts.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume only low-value test credentials were captured since the sniffer was in a secure server room.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Mass Credential Compromise",
+      "situation": "Analysis reveals hundreds of credentials captured including admin accounts for several systems. All must be reset. Additionally, the presence of plaintext protocols (Telnet, FTP, HTTP) enabled this attack.",
+      "question": "How do you remediate the credential compromise and protocol exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Force-reset all captured credentials, disable plaintext protocols (Telnet, FTP) across all systems, and migrate services to SSH/SFTP/HTTPS.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only reset the passwords visible in the captured traffic and leave existing protocol configurations in place.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Physical and Logical Access Controls",
+      "situation": "The sniffer was physically installed in your server room, indicating either a physical breach or an insider threat. You need to improve physical access controls and detect future unauthorised switch configuration changes.",
+      "question": "What controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement biometric access control for server rooms, enable switch configuration change alerting via SIEM, and conduct a physical security audit.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a padlock to the server room door and rely on existing CCTV without SIEM integration.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The passive network sniffer was discovered, removed, and forensically analysed. All captured credentials were reset, plaintext protocols were replaced with encrypted alternatives, and improved physical and logical access controls are now in place.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Network",
+  "difficulty": "Intermediate",
+  "tags": [
+    "eavesdropping",
+    "sniffer",
+    "network",
+    "packet capture"
+  ]
+}

@@ -58,6 +58,38 @@ import scenarioWiperMalware from "./scenarios/scenario_wiper_malware.json";
 import scenarioRansomwareEncrypt from "./scenarios/scenario_ransomware_encrypt.json";
 import scenarioRansomwareExtort from "./scenarios/scenario_ransomware_extort.json";
 
+// Network attacks
+import scenarioDdos from "./scenarios/scenario_ddos.json";
+import scenarioDnsPoisoning from "./scenarios/scenario_dns_poisoning.json";
+import scenarioMitmAttack from "./scenarios/scenario_mitm_attack.json";
+import scenarioArpSpoofing from "./scenarios/scenario_arp_spoofing.json";
+import scenarioNetworkEavesdropping from "./scenarios/scenario_network_eavesdropping.json";
+import scenarioRouteHijacking from "./scenarios/scenario_route_hijacking.json";
+import scenarioLateralMovement from "./scenarios/scenario_lateral_movement.json";
+import scenarioNetworkSegmentationFailure from "./scenarios/scenario_network_segmentation_failure.json";
+
+// Web & application attacks
+import scenarioSqlInjection from "./scenarios/scenario_sql_injection.json";
+import scenarioXss from "./scenarios/scenario_xss.json";
+import scenarioCsrf from "./scenarios/scenario_csrf.json";
+import scenarioCommandInjection from "./scenarios/scenario_command_injection.json";
+import scenarioBrokenAuthentication from "./scenarios/scenario_broken_authentication.json";
+import scenarioInsecureDeserialization from "./scenarios/scenario_insecure_deserialization.json";
+import scenarioZeroDayExploit from "./scenarios/scenario_zero_day_exploit.json";
+import scenarioApiAbuse from "./scenarios/scenario_api_abuse.json";
+import scenarioSupplyChainCompromise from "./scenarios/scenario_supply_chain_compromise.json";
+import scenarioDependencyPoisoning from "./scenarios/scenario_dependency_poisoning.json";
+
+// Cloud & SaaS incidents
+import scenarioCloudAccountTakeover from "./scenarios/scenario_cloud_account_takeover.json";
+import scenarioMisconfiguredStorage from "./scenarios/scenario_misconfigured_storage.json";
+import scenarioMisconfiguredIam from "./scenarios/scenario_misconfigured_iam.json";
+import scenarioCompromisedCicd from "./scenarios/scenario_compromised_cicd.json";
+import scenarioMaliciousCloudAdmin from "./scenarios/scenario_malicious_cloud_admin.json";
+import scenarioShadowIt from "./scenarios/scenario_shadow_it.json";
+import scenarioSaasDataLeakage from "./scenarios/scenario_saas_data_leakage.json";
+import scenarioCloudServiceOutage from "./scenarios/scenario_cloud_service_outage.json";
+
 /** All demo scenarios with display metadata and bundled scenario data. */
 const DEMO_SCENARIOS = [
     // ── Physical / Environmental ─────────────────────────────────────────────
@@ -353,6 +385,194 @@ const DEMO_SCENARIOS = [
         name: "Infrastructure Cyber Attack",
         description: "A nation-state actor targets a water treatment facility's SCADA system to contaminate supply.",
         data: scenarioInfrastructureAttack,
+    },
+
+    // ── Network Attacks ──────────────────────────────────────────────────────
+    {
+        id: "scenario_ddos",
+        icon: "🌐",
+        name: "Distributed Denial of Service (DDoS)",
+        description: "A volumetric DDoS attack floods the corporate web application with 40 Gbps of traffic, taking it offline.",
+        data: scenarioDdos,
+    },
+    {
+        id: "scenario_dns_poisoning",
+        icon: "☠️",
+        name: "DNS Poisoning",
+        description: "An attacker poisons the DNS cache of the corporate resolver, redirecting staff browser traffic to a credential-harvesting clone of the corporate portal.",
+        data: scenarioDnsPoisoning,
+    },
+    {
+        id: "scenario_mitm_attack",
+        icon: "🔀",
+        name: "Man-in-the-Middle (MITM)",
+        description: "An attacker intercepts unencrypted network traffic between a remote employee's laptop and a corporate file server, silently reading and altering data in transit.",
+        data: scenarioMitmAttack,
+    },
+    {
+        id: "scenario_arp_spoofing",
+        icon: "📡",
+        name: "ARP Spoofing",
+        description: "An attacker on the internal network sends forged ARP replies to associate their MAC address with the default gateway, intercepting all local traffic.",
+        data: scenarioArpSpoofing,
+    },
+    {
+        id: "scenario_network_eavesdropping",
+        icon: "👂",
+        name: "Network Eavesdropping",
+        description: "A passive network sniffer is discovered on a core switch, silently capturing all unencrypted traffic including plaintext credentials.",
+        data: scenarioNetworkEavesdropping,
+    },
+    {
+        id: "scenario_route_hijacking",
+        icon: "🗺️",
+        name: "BGP Route Hijacking",
+        description: "A rogue BGP advertisement hijacks the organisation's IP prefix, diverting internet-bound traffic through an attacker-controlled autonomous system.",
+        data: scenarioRouteHijacking,
+    },
+    {
+        id: "scenario_lateral_movement",
+        icon: "↔️",
+        name: "Lateral Movement",
+        description: "After compromising one workstation via phishing, an attacker uses pass-the-hash and SMB exploitation to spread laterally across the corporate network.",
+        data: scenarioLateralMovement,
+    },
+    {
+        id: "scenario_network_segmentation_failure",
+        icon: "🚧",
+        name: "Network Segmentation Failure",
+        description: "A misconfigured switch VLAN allows a compromised guest Wi-Fi device to reach the internal production network, bypassing all perimeter controls.",
+        data: scenarioNetworkSegmentationFailure,
+    },
+
+    // ── Web & Application Attacks ────────────────────────────────────────────
+    {
+        id: "scenario_sql_injection",
+        icon: "🗄️",
+        name: "SQL Injection",
+        description: "An attacker exploits an unsanitised login form to inject SQL commands, dumping the entire user database including hashed passwords.",
+        data: scenarioSqlInjection,
+    },
+    {
+        id: "scenario_xss",
+        icon: "📜",
+        name: "Cross-Site Scripting (XSS)",
+        description: "A stored XSS payload injected into a public comment field executes in admin browsers, stealing session cookies and hijacking administrator accounts.",
+        data: scenarioXss,
+    },
+    {
+        id: "scenario_csrf",
+        icon: "🪤",
+        name: "Cross-Site Request Forgery (CSRF)",
+        description: "A forged HTTP request tricks an authenticated admin into unknowingly changing account settings on the corporate portal while visiting a malicious page.",
+        data: scenarioCsrf,
+    },
+    {
+        id: "scenario_command_injection",
+        icon: "💉",
+        name: "Command Injection",
+        description: "An attacker exploits an unsanitised diagnostic endpoint to inject OS commands, gaining remote code execution on the web server.",
+        data: scenarioCommandInjection,
+    },
+    {
+        id: "scenario_broken_authentication",
+        icon: "🔓",
+        name: "Broken Authentication",
+        description: "Weak session management and predictable session tokens allow an attacker to enumerate valid session IDs and take over active user accounts.",
+        data: scenarioBrokenAuthentication,
+    },
+    {
+        id: "scenario_insecure_deserialization",
+        icon: "📦",
+        name: "Insecure Deserialization",
+        description: "An attacker crafts a malicious serialised Java object submitted to an API endpoint, triggering remote code execution on the application server.",
+        data: scenarioInsecureDeserialization,
+    },
+    {
+        id: "scenario_zero_day_exploit",
+        icon: "🕳️",
+        name: "Zero-Day Exploitation",
+        description: "An unknown vulnerability in a widely-used web framework is actively exploited before a patch is available, granting attackers unauthenticated access to the application.",
+        data: scenarioZeroDayExploit,
+    },
+    {
+        id: "scenario_api_abuse",
+        icon: "🔌",
+        name: "API Abuse",
+        description: "An attacker discovers an undocumented API endpoint with no authentication, using it to enumerate user accounts and extract sensitive profile data at scale.",
+        data: scenarioApiAbuse,
+    },
+    {
+        id: "scenario_supply_chain_compromise",
+        icon: "🏭",
+        name: "Supply-Chain Compromise",
+        description: "A trusted third-party software vendor is compromised, and a malicious update is pushed to thousands of organisations including yours, installing a backdoor.",
+        data: scenarioSupplyChainCompromise,
+    },
+    {
+        id: "scenario_dependency_poisoning",
+        icon: "☠️",
+        name: "Dependency Poisoning",
+        description: "A threat actor publishes a typosquatted npm package mimicking a popular internal library; developers inadvertently install it, introducing a credential-stealing payload.",
+        data: scenarioDependencyPoisoning,
+    },
+
+    // ── Cloud & SaaS Incidents ───────────────────────────────────────────────
+    {
+        id: "scenario_cloud_account_takeover",
+        icon: "☁️",
+        name: "Cloud Account Takeover",
+        description: "A phishing attack compromises a developer's AWS management console credentials, giving the attacker full control of cloud infrastructure including production databases.",
+        data: scenarioCloudAccountTakeover,
+    },
+    {
+        id: "scenario_misconfigured_storage",
+        icon: "🪣",
+        name: "Misconfigured Storage Bucket",
+        description: "An S3 bucket containing sensitive customer PII is discovered to be publicly accessible, with evidence it has been indexed by external search engines.",
+        data: scenarioMisconfiguredStorage,
+    },
+    {
+        id: "scenario_misconfigured_iam",
+        icon: "🔑",
+        name: "Misconfigured IAM Roles",
+        description: "An overly permissive IAM role attached to a Lambda function is exploited by an attacker to pivot across cloud services and exfiltrate data from production databases.",
+        data: scenarioMisconfiguredIam,
+    },
+    {
+        id: "scenario_compromised_cicd",
+        icon: "⚙️",
+        name: "Compromised CI/CD Pipeline",
+        description: "An attacker gains write access to a GitHub Actions workflow, injecting malicious steps that exfiltrate repository secrets and deploy backdoored builds to production.",
+        data: scenarioCompromisedCicd,
+    },
+    {
+        id: "scenario_malicious_cloud_admin",
+        icon: "🕵️",
+        name: "Malicious Cloud Admin",
+        description: "A rogue cloud administrator with elevated privileges creates persistent backdoor IAM users, exfiltrates data to external storage, and disables CloudTrail logging to cover their tracks.",
+        data: scenarioMaliciousCloudAdmin,
+    },
+    {
+        id: "scenario_shadow_it",
+        icon: "👤",
+        name: "Shadow IT Exposure",
+        description: "Security discovers that multiple teams have been using unsanctioned SaaS applications to store sensitive corporate data, with no encryption, DLP controls, or visibility.",
+        data: scenarioShadowIt,
+    },
+    {
+        id: "scenario_saas_data_leakage",
+        icon: "💧",
+        name: "SaaS Data Leakage",
+        description: "Sensitive corporate files shared via a SaaS collaboration platform are found to be publicly accessible after an overly permissive sharing setting was applied by an employee.",
+        data: scenarioSaasDataLeakage,
+    },
+    {
+        id: "scenario_cloud_service_outage",
+        icon: "🌩️",
+        name: "Cloud Service Outage",
+        description: "A major cloud provider region goes offline unexpectedly, taking down all production services that depend on a single-region deployment with no failover.",
+        data: scenarioCloudServiceOutage,
     },
 ];
 

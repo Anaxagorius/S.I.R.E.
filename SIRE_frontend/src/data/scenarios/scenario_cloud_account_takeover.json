@@ -1,0 +1,154 @@
+{
+  "title": "cloud_account_takeover",
+  "description": "A phishing attack compromises a developer's AWS management console credentials, giving the attacker full control of cloud infrastructure including production databases.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Unusual Console Login",
+      "description": "AWS CloudTrail logs an unfamiliar console login from an IP in a foreign country using a developer's credentials. The developer is currently on leave.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Privilege Escalation Detected",
+      "description": "The attacker creates a new IAM admin user and attaches AdministratorAccess policy. CloudTrail alerts on new IAM user creation outside normal business hours.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Data Exfiltration Underway",
+      "description": "S3 access logs show bulk download of production data from customer database backups. RDS snapshots are being copied to an attacker-controlled account.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Compromised Account Disabled",
+      "description": "Compromised developer account suspended. Rogue IAM user deleted. Active sessions terminated via STS token revocation.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Scope of Exfiltration Determined",
+      "description": "S3 access logs reviewed. Customer PII from two database backups confirmed exfiltrated. Regulatory notification obligations triggered.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "MFA and SCPs Enforced",
+      "description": "MFA mandatory for all IAM users. SCPs restricting account creation and data exfiltration deployed. Developer credentials rotated.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Compromised AWS Console Credentials",
+      "situation": "AWS CloudTrail shows a console login for a developer account from an IP in a country your developer has never accessed from. The developer is on leave and unreachable. The attacker is actively navigating the AWS console and has just created a new IAM user.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately suspend the compromised developer account, revoke all active STS sessions for that account, and delete the newly created rogue IAM user.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact the developer to verify if they are actually travelling before taking any account action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Enable MFA on the developer account and wait to see what the attacker does next before intervening.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Data Exfiltration in Progress",
+      "situation": "Despite the account suspension, S3 access logs show bulk downloads and RDS snapshot copies to an external AWS account were initiated before the suspension. Customer PII from database backups may have been exfiltrated.",
+      "question": "How do you contain the ongoing exfiltration?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply an S3 bucket policy to block all public and cross-account access, revoke any S3 presigned URLs, and initiate a full review of what was accessed before the account was suspended.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The account is suspended so exfiltration has stopped \u2014 proceed directly to credential rotation without reviewing S3 logs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assess Breach and Notify Regulators",
+      "situation": "Log analysis confirms customer PII from two database backups was exfiltrated. This constitutes a reportable data breach under GDPR. You must notify the supervisory authority within 72 hours and assess customer notification obligations.",
+      "question": "How do you manage breach notifications?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Engage the DPO and legal team, notify the supervisory authority within the 72-hour GDPR deadline, prepare customer breach notifications, and document the full incident timeline.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Investigate the full scope before notifying regulators, even if this delays notification beyond the regulatory deadline.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Harden AWS Account Security",
+      "situation": "The attack succeeded because MFA was not enforced and IAM permissions were overly permissive. You must implement controls to prevent future account takeovers.",
+      "question": "What AWS security controls do you implement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enforce MFA for all IAM users via SCPs, implement SCPs to restrict IAM user creation to approved automation only, enable GuardDuty and Security Hub, and apply least-privilege IAM policies across all accounts.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enable CloudTrail logging and rely on alerts alone without enforcing MFA or restricting IAM permissions.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The compromised AWS account was contained rapidly. Data exfiltration was scoped, regulatory notifications were timely, and mandatory MFA, SCPs, and GuardDuty now protect all AWS accounts from future takeover attacks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Cloud",
+  "difficulty": "Intermediate",
+  "tags": [
+    "cloud",
+    "account takeover",
+    "AWS",
+    "IAM"
+  ]
+}

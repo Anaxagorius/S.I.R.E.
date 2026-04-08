@@ -1,0 +1,154 @@
+{
+  "title": "arp_spoofing",
+  "description": "An attacker on the internal network sends forged ARP replies to associate their MAC address with the default gateway, intercepting all local traffic.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Duplicate MAC Alert",
+      "description": "Network management system alerts on duplicate MAC address conflict for the default gateway IP on VLAN 10.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "ARP Table Poisoned",
+      "description": "Switch ARP table shows the gateway IP mapped to an unknown rogue MAC address. Multiple hosts are routing traffic through the attacker.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "Rogue Device Located",
+      "description": "The rogue MAC traced to switch port Gi0/24. A personal laptop connected in the open-plan office is identified as the source.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Port Disabled, Device Seized",
+      "description": "Switch port disabled. Rogue device seized for forensic examination. ARP tables restored on affected hosts.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "DAI Configured",
+      "description": "Dynamic ARP Inspection enabled on all access switches. DHCP snooping binding table populated.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Review",
+      "description": "NAC solution reviewed to ensure only authorised devices connect. Physical access controls for network ports assessed.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Duplicate Gateway MAC Detected",
+      "situation": "Your network management system raises an alert: the default gateway IP (10.0.0.1) is now associated with an unknown MAC address (aa:bb:cc:dd:ee:ff) across multiple hosts on VLAN 10. Normal MAC address is 00:1a:2b:3c:4d:5e. ARP spoofing is suspected.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the switch to trace the rogue MAC to a specific port, disable that port, and clear poisoned ARP caches on affected hosts.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Reboot the default gateway router to flush its ARP table and restore correct mappings.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Send an all-staff email asking if anyone has changed their network adapter MAC address.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Rogue Device Identified",
+      "situation": "The rogue MAC is traced to switch port Gi0/24 in the open-plan office. A personal laptop not registered in your NAC system is connected there. You must contain the threat and preserve evidence.",
+      "question": "How do you handle the rogue device?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Disable the switch port, physically seize the device for forensics, and document the incident for potential law enforcement referral.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Simply unplug the device and let the employee keep it \u2014 the threat ends when it is disconnected.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Assess Data Exposure",
+      "situation": "Forensic imaging of the device shows Wireshark capture files containing plaintext credentials and internal document content. You need to scope the damage and notify affected parties.",
+      "question": "What is your response to the data exposure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify all credentials captured in the Wireshark logs, force resets for affected accounts, and assess regulatory notification obligations for any exposed PII.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Assume the attacker did not exfiltrate any data since the device was still on-site and take no further credential action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implement ARP Spoofing Defences",
+      "situation": "The attack exploited the lack of ARP protection on your switches. You must implement controls to prevent future ARP spoofing attacks across all VLANs.",
+      "question": "What network controls do you deploy?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Enable Dynamic ARP Inspection (DAI) with DHCP snooping on all access switches, and deploy 802.1X NAC to prevent unauthorised device connections.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add a firewall rule to block unknown MAC addresses without implementing DAI on switches.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The ARP spoofing attack was contained. The rogue device was seized and forensically analysed, affected credentials were reset, and Dynamic ARP Inspection with NAC now prevents unauthorised devices from poisoning ARP tables.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Network",
+  "difficulty": "Advanced",
+  "tags": [
+    "ARP spoofing",
+    "network",
+    "MITM",
+    "LAN"
+  ]
+}

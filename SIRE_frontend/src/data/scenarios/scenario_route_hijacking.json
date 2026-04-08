@@ -1,0 +1,154 @@
+{
+  "title": "route_hijacking",
+  "description": "A rogue BGP advertisement hijacks the organisation's IP prefix, diverting internet-bound traffic through an attacker-controlled autonomous system.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "BGP Hijack Detected",
+      "description": "BGP monitoring tool alerts that a third-party AS is announcing your organisation's IP prefix (/24) with a more specific route.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Traffic Diversion Confirmed",
+      "description": "Traceroutes confirm traffic destined for your prefix is being routed through AS65001, an unknown autonomous system.",
+      "timeOffsetSec": 20
+    },
+    {
+      "index": 2,
+      "title": "ISP Emergency Contact",
+      "description": "Your upstream ISP is contacted. They confirm the rogue advertisement is propagating across multiple Tier-1 carriers.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Rogue Route Withdrawn",
+      "description": "ISP and peer networks have nullrouted the hijacked prefix. Traffic is being restored to legitimate paths.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "ROA Verification",
+      "description": "RPKI Route Origin Authorisation published and validated. Peers are filtering based on RPKI-valid routes.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Traffic Fully Restored",
+      "description": "All traffic restored to legitimate paths. BGP monitoring enhanced. RPKI enforcement confirmed across peering sessions.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "BGP Prefix Hijack Alert",
+      "situation": "Your BGP monitoring system alerts that AS65001 is announcing your organisation's IP prefix 203.0.113.0/24 with a more specific /25 route, making their path preferred by the BGP best-path algorithm. Internet traffic destined for your services is being diverted.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact your upstream ISPs and peers immediately, request emergency de-preference or filtering of the rogue route, and announce a more-specific legitimate /25 to compete.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for BGP to reconverge naturally, as hijacks typically resolve themselves within a few minutes.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Shut down your border routers to prevent your traffic from being sent to the attacker.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Coordinating with Upstream Providers",
+      "situation": "Your ISP acknowledges the hijack. They can nullroute the rogue AS or work with peers to withdraw the advertisement. You need to decide the best approach to restore legitimate routing quickly.",
+      "question": "How do you coordinate the response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with your ISP to issue emergency BGP community filters to Tier-1 peers, simultaneously engaging ARIN/RIPE to report the hijack and request routing registry updates.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Only contact your direct ISP and wait for them to resolve it without engaging other peers or registries.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Traffic Restored, Root Cause Analysis",
+      "situation": "The rogue route has been withdrawn. Traffic is restored to legitimate paths. You now need to investigate how the hijack occurred and whether any intercepted traffic contained sensitive data.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Analyse NetFlow and traffic logs to identify what services were affected and whether sensitive data transited the rogue AS, and notify affected parties.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Close the incident since traffic is restored without investigating whether data was intercepted.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Implement RPKI to Prevent Future Hijacks",
+      "situation": "The hijack succeeded because your prefix lacked a Route Origin Authorisation (ROA) in RPKI. Publishing a ROA would allow peers to cryptographically validate your route announcements.",
+      "question": "What do you implement to prevent future BGP hijacks?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Publish ROAs for all your IP prefixes via your RIR, enable RPKI-based origin validation on all peering sessions, and subscribe to BGP hijack monitoring services.",
+          "outcome": {
+            "type": "node",
+            "target": "node-5"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Add an ACL on the border router to reject routes from unknown ASes without publishing ROAs.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The BGP route hijack was contained with ISP and peer coordination. Traffic was restored, the scope of interception was assessed, and RPKI Route Origin Authorisations now protect all your IP prefixes from future hijacking.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Network",
+  "difficulty": "Advanced",
+  "tags": [
+    "BGP",
+    "route hijacking",
+    "network",
+    "internet traffic"
+  ]
+}
