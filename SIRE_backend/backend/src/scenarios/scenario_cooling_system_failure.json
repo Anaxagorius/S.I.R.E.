@@ -5,19 +5,19 @@
     {
       "index": 0,
       "title": "Temperature Alert Triggered",
-      "description": "Environmental monitoring detects rack temperatures rising above 27 degrees C threshold. CRAC unit alarm is active.",
+      "description": "Environmental monitoring detects rack temperatures rising above 27 °C threshold. CRAC unit alarm is active.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
       "title": "CRAC Unit Failure Confirmed",
-      "description": "Facilities team confirms a computer room air conditioning unit has failed. Temperatures are rising 2 degrees C per minute.",
+      "description": "Facilities team confirms a computer room air conditioning unit has failed. Temperatures are rising 2 °C per minute.",
       "timeOffsetSec": 20
     },
     {
       "index": 2,
       "title": "Critical Threshold Approaching",
-      "description": "Rack temperatures reach 35 degrees C. Servers begin thermal throttling. Some hardware starts shutting down for self-protection.",
+      "description": "Rack temperatures reach 35 °C. Servers begin thermal throttling. Some hardware starts shutting down for self-protection.",
       "timeOffsetSec": 60
     },
     {
@@ -43,7 +43,7 @@
   "nodes": {
     "node-1": {
       "title": "Datacenter Temperature Rising",
-      "situation": "Environmental monitoring shows rack temperatures rising rapidly after a CRAC unit failure. Current temperature is 33 degrees C and climbing. Server self-protection shutdowns have begun. You have authority to initiate emergency procedures.",
+      "situation": "Environmental monitoring shows rack temperatures rising rapidly after a CRAC unit failure. Current temperature is 33 °C and climbing. Server self-protection shutdowns have begun. You have authority to initiate emergency procedures.",
       "question": "What is your immediate action?",
       "options": [
         {
@@ -72,7 +72,7 @@
     },
     "node-2": {
       "title": "Emergency Cooling Prioritization",
-      "situation": "Facilities confirms repair will take 90 minutes. Portable coolers will arrive in 20 minutes. Temperature is now 38 degrees C. You must decide which workloads to shut down to reduce heat load while protecting critical services.",
+      "situation": "Facilities confirms repair will take 90 minutes. Portable coolers will arrive in 20 minutes. Temperature is now 38 °C. You must decide which workloads to shut down to reduce heat load while protecting critical services.",
       "question": "How do you proceed?",
       "options": [
         {
@@ -94,7 +94,7 @@
     },
     "node-3": {
       "title": "Portable Cooling Deployment",
-      "situation": "Non-critical servers are shut down. Portable coolers have arrived. Temperature has stabilized at 41 degrees C but is no longer climbing. You need to position the portable units for maximum effectiveness.",
+      "situation": "Non-critical servers are shut down. Portable coolers have arrived. Temperature has stabilized at 41 °C but is no longer climbing. You need to position the portable units for maximum effectiveness.",
       "question": "What do you do?",
       "options": [
         {
@@ -116,7 +116,7 @@
     },
     "node-4": {
       "title": "Recovery and Restart",
-      "situation": "The primary CRAC unit is repaired. Temperatures have dropped back to 24 degrees C. You need to safely restore the shut-down systems and validate the environment.",
+      "situation": "The primary CRAC unit is repaired. Temperatures have dropped back to 24 °C. You need to safely restore the shut-down systems and validate the environment.",
       "question": "What is your next step?",
       "options": [
         {
