@@ -1,0 +1,149 @@
+{
+  "title": "scenario_officer_assaulted",
+  "description": "An officer is physically assaulted during an arrest. Tests immediate safety response, use-of-force options, officer wellness obligations, and post-incident reporting under RCMP and provincial police policy.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "officer safety",
+    "assault on officer",
+    "use of force",
+    "Criminal Code s.270",
+    "post-incident protocol",
+    "officer wellness",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch to Disturbance",
+      "description": "Dispatch directs a unit to a domestic disturbance. A male subject is reported to be intoxicated and threatening.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival and Contact",
+      "description": "Officer contacts the subject at the door. Subject is visibly intoxicated and agitated.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Assault Occurs",
+      "description": "Without warning, the subject strikes the officer in the face with a closed fist, knocking the officer back.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Subject Controlled",
+      "description": "Officer regains footing. Backup arrives within two minutes and subject is apprehended.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Scene Secured",
+      "description": "Subject is in custody. Officer has a split lip and feels disoriented. Supervisor is en route.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Protocol",
+      "description": "Supervisor arrives and initiates the post-use-of-force and officer injury reporting process.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Assault Occurs — Immediate Response",
+      "situation": "You have arrived alone at a domestic disturbance. As you stand at the doorway speaking with the subject, he suddenly strikes you in the face with a closed fist. You stagger back but remain upright. Your lip is bleeding. The subject is still in the doorway, fists raised, shouting. Backup has been requested and is approximately 90 seconds away. The subject is approximately 180 cm, 90 kg, and appears intoxicated.",
+      "question": "What is your immediate priority and use-of-force response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your immediate priority is personal safety and subject control. The assault constitutes active aggression — Criminal Code s.270 (assaulting a peace officer) and Criminal Code s.25 justify a proportionate defensive response. Create distance, issue loud clear commands ('Police — do not move!'), draw your intermediate weapon (OC spray or conducted energy weapon) if subject advances, and broadcast your situation to dispatch immediately: 'Officer assaulted, [location], backup required.' Do not attempt a solo physical takedown of an actively aggressive subject when backup is 90 seconds away — maintain positioning and containment. Your physical condition and the subject's continued threat determine your force option.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rush the subject immediately to overpower him before he can strike again — aggressive control now prevents further injury.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Retreat to your vehicle and wait for backup — engaging alone with an assaultive subject is too risky regardless of the situation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Subject Apprehended — Initial Assessment",
+      "situation": "Backup has arrived. The subject was controlled using OC spray after he advanced again, and is now handcuffed on the front steps. He is breathing and responsive. You have a split lip and feel mildly disoriented. Your supervisor is en route. The subject is invoking his right to counsel loudly. An EMS unit is two minutes out.",
+      "question": "What are your immediate obligations before transport to cells?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Several obligations apply simultaneously: (1) Advise the subject of the reason for arrest and his Charter s.10(a) and s.10(b) rights without delay now that he is secured; (2) Request EMS to assess both the subject (OC spray exposure and arrest) and yourself (head impact, disorientation) — do not self-clear a potential head injury before medical assessment; (3) Advise dispatch that you have been injured in the line of duty and request your supervisor be notified if not already done; (4) Do not discuss the incident with the subject beyond essential safety and legal requirements — evidentiary integrity must be preserved.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Transport the subject to cells immediately — EMS assessment can happen there; your own injury is minor and does not require attention.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advise the subject his rights can wait until he calms down — he is being uncooperative and has just assaulted you.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Supervisor Arrives — Injury Reporting",
+      "situation": "Your supervisor has arrived on scene. EMS has assessed you and recommends precautionary hospital evaluation for the head impact. The subject has been assessed and is fit for transport to cells. Your supervisor asks you to provide an initial account of the incident before going to the hospital.",
+      "question": "How do you handle the supervisor's request and the injury reporting process?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide your supervisor with a clear, accurate account of the sequence of events: your arrival, the subject's conduct, the assault, your response, and the force options used. Do not downplay the injury — your supervisor needs an accurate picture to initiate the required workplace injury report and use-of-force reporting. Accept the EMS recommendation for hospital evaluation — officers are expected to take duty-of-care for themselves seriously. Your supervisor will arrange for a relief officer to process the subject. After hospital clearance, complete a full occurrence report and use-of-force report as soon as operationally practical.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Decline hospital evaluation — you feel well enough to continue and the service is short-staffed tonight.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Provide a minimal account to the supervisor and say you'll write the full report tomorrow once you feel better.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You managed an officer assault correctly: you maintained distance, used proportionate intermediate force when the subject advanced, broadcast your situation immediately, ensured both subject and yourself received medical assessment, delivered Charter rights upon securing the subject, and provided an honest and accurate account to your supervisor for injury and use-of-force reporting. The subject was charged with Assault of a Peace Officer under Criminal Code s.270. You were cleared at hospital with no concussion. A complete use-of-force report and workplace injury report were submitted within the required timeframe. A CISM debrief was offered and accepted.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

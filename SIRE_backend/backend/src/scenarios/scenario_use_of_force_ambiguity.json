@@ -1,0 +1,150 @@
+{
+  "title": "scenario_use_of_force_ambiguity",
+  "description": "An officer faces a use-of-force decision under genuine ambiguity — threat indicators are present but inconclusive. Tests the officer's ability to apply the legal test under Criminal Code s.25 and s.34, the proportionality principle, and post-incident justification under uncertainty.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "use of force",
+    "ambiguity",
+    "proportionality",
+    "Criminal Code s.25",
+    "Criminal Code s.34",
+    "threat assessment",
+    "de-escalation",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch to Suspicious Person",
+      "description": "Dispatch reports a male matching the description of a robbery suspect from earlier in the shift. Subject is in an alley.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Contact",
+      "description": "Officer contacts the subject. The subject is agitated and keeps his right hand inside his jacket pocket.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Escalating Ambiguity",
+      "description": "The subject refuses to remove his hand from his pocket and steps toward the officer while making a threat.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 3,
+      "title": "Threat Resolved",
+      "description": "Subject removes his hand — it contains a cell phone, not a weapon. Subject is arrested for robbery.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Post-Incident Review",
+      "description": "Officer's use-of-force decisions are reviewed. Officer must justify them accurately.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Outcome",
+      "description": "Review concludes. Policy and legal analysis of the officer's decisions is completed.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Ambiguous Threat — Hand in Pocket",
+      "situation": "You have approached a male in an alley matching the description of an earlier robbery suspect. The suspect is agitated. His right hand has been inside his jacket pocket since you arrived. You have asked him to remove his hand three times — he has refused each time. He says 'You're not taking me in' and begins to step toward you. You cannot see his hand. You do not know if he has a weapon. Backup is 3 minutes away.",
+      "question": "How do you apply the use-of-force analysis given genuine ambiguity about the threat level?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The legal test under Criminal Code s.34 for self-defence and s.25 for use of force as a peace officer requires your belief to be 'reasonable' based on the totality of circumstances — not certainty. The circumstances here include: matching robbery suspect description, refusal to comply with three commands to show his hand, advance toward you with a verbal threat, and an unidentified hand concealment. These facts would cause a reasonable officer to believe there is an elevated threat of bodily harm. Your response should be proportionate to the perceived threat at the current moment: draw your intermediate weapon (CEW) and issue a final clear command. Do not draw your firearm unless the subject charges you or a weapon is visible — your current threat assessment supports intermediate force readiness, not lethal force deployment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do not draw any weapon — you have no confirmed weapon and escalating force options based on an empty pocket would be a use-of-force violation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Draw your firearm — the robbery history and refusal to comply justify treating him as a lethal threat until proven otherwise.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Subject Complies — Threat Resolved",
+      "situation": "After you drew your CEW and issued a final command, the subject stopped advancing and removed his hand from his pocket — revealing a cell phone. He was arrested without further incident for the earlier robbery. Back at the office, your supervisor is completing the mandatory use-of-force review and asks you to explain your decision to draw the CEW given that the subject turned out to be unarmed.",
+      "question": "How do you accurately justify your use-of-force decision in your report and to your supervisor?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your justification must be grounded in what you knew and reasonably believed at the moment of the decision — not what was revealed afterward. Explain accurately: the subject matched a robbery suspect profile, refused three direct commands to show his hand, advanced toward you while making a verbal threat, and you had no information to eliminate the possibility of a weapon. The legal standard is reasonable belief based on totality of circumstances, not certainty of threat. You did not deploy the CEW — you presented it in readiness and issued a final command, which resulted in compliance. Your force option was proportionate to the threat you reasonably perceived. The fact that the hand contained a phone does not retroactively make your decision unreasonable.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Acknowledge in your report that the threat turned out to be lower than you perceived and that your use-of-force decision was an overreaction in hindsight.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell your supervisor that you were certain the subject had a weapon — this is the safest way to justify the force option.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Civilian Complaint Filed",
+      "situation": "The subject has filed a civilian complaint alleging excessive force, claiming you had 'no reason' to draw your weapon since he turned out to be unarmed. The complaint investigator has your use-of-force report and asks whether you regret drawing the CEW given the outcome.",
+      "question": "How do you respond to the complaint investigator's question?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Respond honestly and clearly: 'Based on the circumstances as I knew them at the time — matching a robbery suspect description, three refused commands to show his concealed hand, and an advance with a verbal threat — drawing my CEW as a readiness option was a proportionate response to the threat I reasonably perceived. I do not regret the decision made on the information available. The standard for use-of-force decisions is reasonable belief at the moment of decision, not outcome-based judgment. The fact that he was unarmed does not change what was reasonable for me to believe at the time.' This is legally accurate, factually grounded, and honest.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell the investigator you regret the decision and would have done things differently — being humble about the outcome shows good character.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Refuse to answer the investigator's questions until the complaint process is concluded — any answer could be used against you.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The civilian complaint was reviewed and dismissed. The investigator found the force option used — CEW readiness in response to a credible threat profile — was proportionate and reasonable given the totality of circumstances. Your accurate and grounded justification was key to the complaint resolution. The subject was convicted of the original robbery. Ambiguous threat situations are among the most psychologically and legally complex challenges officers face. The standard is not perfection or certainty — it is what a reasonable officer with the same information would have done in the same moment. Accurate, contemporaneous reporting is what makes those decisions defensible.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

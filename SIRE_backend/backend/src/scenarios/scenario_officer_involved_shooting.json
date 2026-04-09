@@ -1,0 +1,151 @@
+{
+  "title": "scenario_officer_involved_shooting",
+  "description": "An officer discharges their firearm in a lethal-force incident. Tests post-incident protocol obligations, independent oversight notification, officer conduct during investigation, and psychological support requirements under Canadian law.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "officer-involved shooting",
+    "use of lethal force",
+    "SIU",
+    "ASIRT",
+    "post-incident protocol",
+    "Charter rights",
+    "Criminal Code s.25",
+    "officer wellness",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Armed Threat Call",
+      "description": "Officers are dispatched to reports of a person with a knife threatening pedestrians.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Confrontation",
+      "description": "Officer confronts the subject who is advancing with a large knife and ignoring verbal commands.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Firearm Discharged",
+      "description": "The officer discharges their firearm. The subject is struck and falls. Officer calls for EMS immediately.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "EMS Arrives",
+      "description": "EMS responds and treats the subject. The subject survives with serious injuries.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Scene Secured",
+      "description": "Scene is preserved. Sergeant arrives and begins post-incident protocol.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Independent Oversight Notification",
+      "description": "The Serious Incident Response Team (or equivalent) is notified and assumes jurisdiction over the investigation.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Immediately After the Discharge",
+      "situation": "You have discharged your firearm once. The subject dropped to the ground after being struck in the right shoulder. Your ears are ringing. The subject is on the ground approximately 5 metres away. The knife is beside him. You are breathing heavily. A bystander is recording with a phone from about 15 metres away. Another officer arrived 30 seconds after the discharge. EMS is responding — ETA 4 minutes.",
+      "question": "What are your immediate obligations in the seconds and minutes following the discharge?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediate obligations in this order: (1) Call out your status and the situation on radio: 'Shots fired — one subject down — officer is safe — EMS required now — [location]'; (2) Approach the subject cautiously — the knife must be confirmed clear before you or EMS can safely approach; (3) Apply emergency first aid to the subject if safe to do so — your duty of care does not end with the discharge; (4) Secure the scene — no one enters the immediate area until forensic preservation begins; (5) Do not touch, move, or holster your firearm immediately — the weapon is evidence and must be preserved in position if operationally safe; (6) Advise the arriving officer of the situation — the arriving officer assumes scene security so you can step back and begin stabilising.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Holster your firearm and move the knife away from the subject so bystanders know the threat is over.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the bystander recording the incident to delete the video since it may misrepresent the circumstances.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Sergeant Arrives — Officer Conduct During Investigation",
+      "situation": "Your sergeant has arrived. The subject has been transported to hospital in serious but stable condition. Your firearm has been secured by your sergeant. The sergeant advises you that the province's independent oversight body (SIU/ASIRT/IIOS) has been notified and will be assuming jurisdiction. The sergeant asks you to give an immediate full account of the incident.",
+      "question": "How do you respond to the sergeant's request for a full immediate account?",
+      "options": [
+        {
+          "label": "A",
+          "text": "You are the 'subject officer' in an independent oversight investigation. In most Canadian jurisdictions, subject officers have the right to decline to give a statement to the independent investigator (though the specific rights vary by province). Your sergeant should understand this: politely advise that you want to consult with your union representative or legal counsel before providing a formal account to any investigator, including supervisors who may be interviewed by the oversight body. You should provide basic scene information required for officer safety and scene preservation (where you were standing, where the subject was) but not a narrative account of your decision-making until you have legal guidance. This is not obstruction — it is your legal right.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Provide a full immediate account to the sergeant — honesty requires immediate and complete disclosure of everything that occurred.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline to say anything at all — including scene location information — until a lawyer is present.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Mandatory Psychological Support and Return to Duty",
+      "situation": "You have met with your union representative and been connected with legal counsel. The oversight investigation is underway. Your supervisor advises you that you are being placed on administrative duties pending the investigation conclusion — this is standard protocol. Your supervisor also says the department's Critical Incident Stress Management coordinator is available. You are feeling physically and emotionally shaken.",
+      "question": "How should you approach the administrative placement and psychological support?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Administrative placement during an OIS investigation is standard procedure, not discipline — accept it professionally. Contact the CISM coordinator immediately: an officer-involved shooting is among the highest psychological-impact incidents officers experience. Research consistently demonstrates that officers who engage early psychological support have significantly better outcomes than those who defer or avoid it. Engage the Employee Assistance Program and, if available, a peer support officer familiar with OIS experiences. Do not discuss the incident with colleagues pending the investigation — protect evidentiary integrity. Cooperate fully with the independent oversight process once you have legal counsel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Refuse the administrative placement — being taken off patrol duty implies guilt and is demoralising.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline CISM support — participating in psychological counselling will be used against you in the investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The independent oversight investigation concluded that the use of lethal force was proportionate and justified under Criminal Code s.25 and s.34 — the subject had been advancing with a knife and had not complied with numerous verbal commands. No charges were laid against the officer. The officer completed CISM debriefing, EAP counselling, and a fitness-for-duty evaluation before returning to active patrol after six weeks. Scene preservation was exemplary. The officer's conduct during the post-incident period — particularly their careful handling of the statement question — was consistent with policy. Officer-involved shooting incidents require rigorous post-incident protocol to protect the investigation's integrity, the officer's legal rights, and the subject's rights.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "title": "scenario_decision_vulnerable_populations",
+  "description": "An officer must make an enforcement decision that will disproportionately impact a vulnerable person — a homeless individual with a mental health condition. Tests the officer's ability to balance enforcement obligations, officer discretion, available diversion options, and ethical care for vulnerable community members.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "vulnerable populations",
+    "homelessness",
+    "mental health",
+    "officer discretion",
+    "diversion",
+    "social services",
+    "ethics",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Complaint Received",
+      "description": "A business owner calls to report a homeless man sleeping in his doorway. He wants the man removed and states this is a repeated occurrence.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officer Arrives",
+      "description": "Officer finds a male in his 50s sleeping in the doorway. He is poorly dressed for the cold weather. He has a shopping cart of belongings nearby.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Assessment",
+      "description": "The male is alert when woken. He mentions voices in his head. He has a can of beer. He is not causing a disturbance.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Business Owner Pressures",
+      "description": "The business owner returns and demands the officer charge the man with trespassing and remove him immediately.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Resolution",
+      "description": "Officer makes a decision on how to address the situation.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Follow-up",
+      "description": "Officer completes documentation. Community services are contacted.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Assessing a Vulnerable Person",
+      "situation": "You find a male in his 50s sleeping in a business doorway in early morning. The temperature is 4°C. He is wearing a thin jacket. When you wake him, he is confused but not aggressive. He tells you there are 'voices' and mentions he has not eaten today. He has a can of open beer. He has no fixed address. The business is not yet open. The man is not causing a disturbance, has not damaged property, and has nowhere identified to go.",
+      "question": "Before taking any enforcement action, what is the appropriate initial assessment and response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A thorough initial assessment informs what options are available and appropriate: (1) Conduct a brief welfare assessment — is the individual in immediate medical distress? The cold weather, confusion, and mention of voices are concerning indicators; (2) Identify whether he has been assessed or is known to mental health services; (3) Check whether your service area has a mobile crisis or co-response mental health team (e.g., COAST, PACT) that can be dispatched to provide a more appropriate assessment; (4) Establish whether he has somewhere to go and whether a shelter has availability; (5) Make note of the relevant facts before the business owner's demands shape your decision-making. The enforcement options (trespassing removal, etc.) remain available — they should follow a welfare assessment, not precede it.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Remove the man immediately from the doorway as requested — the business owner has property rights and you are obligated to act on a complaint.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the man for trespass — the business owner has made a formal complaint and the law is clear on private property access.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Business Owner Demands Action",
+      "situation": "The business owner has returned and is aggressively demanding you charge the man with trespassing and remove him. He says 'I pay taxes — this is my property — you need to do your job.' The male is sitting on the steps quietly. A mobile crisis team has a 40-minute wait time. A nearby shelter has one bed available.",
+      "question": "How do you balance the business owner's rights with the welfare of the vulnerable individual?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain to the business owner calmly that you are assessing the situation and will respond to his complaint. The business owner does have rights in relation to his property — but officer discretion in how those rights are enforced is both lawful and appropriate. Engage the male directly: explain that the shelter has a bed available and offer to arrange transportation or escort to the shelter. If the male agrees to go, the trespass issue resolves without enforcement and a vulnerable person reaches shelter. If the male refuses and the business owner insists, you may issue a verbal trespass warning under provincial trespass legislation requiring the individual to leave the property — note that criminally charging a person for sleeping in a doorway due to homelessness, absent other circumstances, has been criticised by courts and human rights bodies under Charter s.7 and s.15.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell the business owner to file a formal complaint later — you have decided this is purely a social services issue and not a policing matter.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Charge the man with trespass immediately to satisfy the business owner's complaint — your job is to enforce the law, not make social policy.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "The Man Refuses the Shelter",
+      "situation": "The male has declined the shelter option, saying the shelter is unsafe for him. He agrees to move to a nearby park bench but will not go indoors. The business owner is insisting on trespass charges. The temperature is dropping. You have used officer discretion and he has moved off the property. The business owner says he will call your supervisor if you don't charge him.",
+      "question": "How do you conclude this incident and address the business owner's threat?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The individual has left the property — the trespass issue is resolved for now. Document your full assessment and the steps taken: welfare check conducted, mental health services contacted (wait time 40 min), shelter offered and declined with reason noted, individual moved voluntarily from property. Advise the business owner that you have addressed his complaint, the individual has left the property, and you are documenting the interaction for any future review. Tell the business owner he may contact your supervisor — this is his right. You have exercised professional discretion lawfully and with care for both parties. Refer the case to outreach services for follow-up.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Charge the man with trespass to appease the business owner — he has already left the property but you can justify the charge based on the earlier presence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave without any documentation — the situation resolved itself and formal documentation will only create issues.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You documented the interaction thoroughly and submitted a referral to the city's outreach services, noting the individual's apparent mental health concerns and the location. An outreach worker visited the man the following morning and connected him with a mental health assessment referral. He was subsequently admitted for psychiatric care and later connected with supportive housing. The business owner was spoken to by your supervisor, who confirmed the officer exercised appropriate discretion. The incident was resolved without criminalising vulnerability. Officers working in communities with vulnerable populations face regular discretion decisions — enforcement is one tool among many, and professional judgment about when to use it reflects both the law and the officer's broader community responsibility.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

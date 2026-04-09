@@ -1,0 +1,150 @@
+{
+  "title": "scenario_single_officer_backup_delay",
+  "description": "A solo officer responds to an escalating threat with backup significantly delayed. Tests tactical decision-making, risk management, de-escalation under pressure, and the limits of solo officer response.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "officer safety",
+    "solo officer",
+    "backup delay",
+    "de-escalation",
+    "containment",
+    "use of force",
+    "tactical decision-making",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch to Weapons Call",
+      "description": "Solo officer is dispatched to a domestic disturbance — weapon reported. Nearest backup is 12 minutes away.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Arrival",
+      "description": "Officer arrives to find a male on the front porch holding what appears to be a bat. Neighbour reports he has been threatening the family inside.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Confrontation",
+      "description": "The subject sees the officer and begins advancing toward the patrol vehicle shouting aggressively.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Standoff",
+      "description": "Officer has created distance. Subject is 15 metres away and stationary, still armed with the bat.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Backup Arrives",
+      "description": "Two backup units arrive after 11 minutes. Subject is still on scene.",
+      "timeOffsetSec": 780
+    },
+    {
+      "index": 5,
+      "title": "Subject Controlled",
+      "description": "With two officers, the subject is contained and apprehended.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrival — Armed Subject, No Backup",
+      "situation": "You have arrived solo at a domestic disturbance. A male is on the front porch holding a wooden baseball bat. A neighbour has confirmed he has been threatening the residents inside the home. As you exit your vehicle, the subject makes eye contact and begins walking toward you aggressively, bat at his side. He is approximately 25 metres away. Backup is 12 minutes out. The time is 02:30 hours. The street is quiet.",
+      "question": "What is your tactical approach as a solo officer facing an armed subject with delayed backup?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your tactical priority is containment and time — not immediate apprehension. Actions: (1) Use your patrol vehicle as cover and create maximum distance between yourself and the subject; (2) Issue loud, clear commands: 'Police — stop — put the bat down — do not come closer'; (3) Draw your CEW or firearm depending on distance and rate of advance — a subject with an impact weapon at closing distance presents a potentially lethal threat; (4) Do not attempt a solo takedown of an armed subject when backup is 12 minutes away and you have cover and distance — containment is the correct tactic; (5) Broadcast clearly on radio: 'Solo officer — armed subject — [location] — advise backup status'; (6) If the subject stops and does not advance, maintain verbal contact and begin de-escalation while waiting for backup.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Approach the subject immediately and attempt to disarm him — early physical control prevents further escalation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Return to your vehicle, lock the doors, and wait for backup — engaging an armed subject alone is never appropriate.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Standoff — Managing the Wait",
+      "situation": "The subject has stopped advancing after your commands. He is now standing at the end of his driveway, approximately 15 metres away, holding the bat and shouting intermittently. He appears very agitated but is not currently advancing. Backup is now 8 minutes away. A resident of the home has opened the front door and is watching from the threshold.",
+      "question": "How do you manage this standoff during the wait for backup?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain your tactical position with cover while managing three simultaneous concerns: (1) The subject — maintain eye contact and continue verbal de-escalation in a calm, controlled tone: 'Sir — I can see you're upset — I'm not going anywhere — nobody needs to get hurt tonight — put the bat on the ground'; (2) The resident at the door — issue a clear command: 'Please go back inside and close the door — officers are here' — bystanders in a weapons confrontation create additional risk vectors; (3) Radio — provide periodic status updates to dispatch: 'Subject stationary at 15 metres — still armed — no change — maintaining position.' Do not advance toward the subject — every minute of successful containment increases the probability of a safe resolution.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Move slowly toward the subject while talking — closing the distance gradually while he is calm is the best time to attempt control.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus entirely on the subject — the resident at the door is not your concern right now and the radio updates can wait.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Backup Arrives — Coordinating the Takedown",
+      "situation": "Two backup officers have arrived. The subject is still in his driveway, visibly fatigued and less agitated. He has placed the bat on the ground at his feet but has not moved away from it and has not complied with commands to step away. The two backup officers ask you how you want to proceed.",
+      "question": "How do you coordinate the apprehension with backup units?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Now that you have three officers and the subject has placed the bat down (reducing his immediate threat posture), a structured takedown is feasible: (1) Assign roles — one officer continues verbal commands as the primary communicator; a second officer positions for intermediate weapons coverage; you position for physical control if the subject is compliant; (2) Continue to direct the subject to step away from the bat: 'Sir — step away from the bat — walk toward me slowly — show me your hands'; (3) If the subject complies and moves away from the bat, approach and effect a controlled arrest from the less-armed side with backup covering; (4) If the subject picks up the bat again, reassess and do not advance. The goal is the safest possible resolution — do not rush the arrest because backup has arrived.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately rush the subject from three directions now that there are three officers — overwhelming force will end this quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Let the backup officers take over — you have been managing this alone for 12 minutes and should step back entirely.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The subject stepped away from the bat on command and was apprehended without further incident. He was assessed by EMS and appeared to be in a mental health crisis. He was apprehended under a provincial mental health act for psychiatric evaluation rather than criminally charged. The resident who had been at the door was unharmed. A post-incident review noted that your tactical decisions as a solo officer — particularly maintaining distance and cover, managing bystanders, and keeping the subject engaged verbally during the delay — were consistent with best practice and directly contributed to the safe outcome. Solo officer response to weapons calls with delayed backup requires patience, containment, and disciplined restraint. The goal is time — not immediate apprehension.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

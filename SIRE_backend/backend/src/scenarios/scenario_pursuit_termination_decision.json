@@ -1,0 +1,150 @@
+{
+  "title": "scenario_pursuit_termination_decision",
+  "description": "A high-speed police pursuit is underway. An officer must weigh the risk to public safety against the need to apprehend the suspect and make a lawful, policy-compliant decision on whether to terminate the pursuit.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "vehicle pursuit",
+    "pursuit termination",
+    "public safety",
+    "police policy",
+    "risk assessment",
+    "fleeing suspect",
+    "Criminal Code s.249.1",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Traffic Stop Initiated",
+      "description": "An officer attempts to stop a vehicle for a minor traffic violation. The driver accelerates away.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Pursuit Begins",
+      "description": "Officer activates lights and siren and begins pursuit. Speeds reach 120 km/h in a 60 zone.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Urban Environment",
+      "description": "Pursuit enters a residential neighbourhood at 22:00 hours. Pedestrian activity is low but present.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Risk Escalates",
+      "description": "The suspect vehicle runs two red lights and nearly strikes a pedestrian crosswalk.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Supervisor Monitors",
+      "description": "Watch commander is monitoring the pursuit by radio and must decide whether to order termination.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Termination Decision Made",
+      "description": "A decision is made on whether to continue or terminate the pursuit.",
+      "timeOffsetSec": 240
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Pursuit Risk Assessment — Urban Residential Setting",
+      "situation": "You are the watch commander monitoring a pursuit by radio. Your officer initiated the pursuit for a minor traffic infraction (expired plates). The fleeing vehicle is now in a residential neighbourhood at 22:00 hours, travelling at approximately 100–120 km/h in a 60 km/h zone. The suspect has run two red lights. A near-miss with a pedestrian crosswalk was just reported. Your officer is 2 to 3 car lengths behind. The suspect's identity is unknown. The offence initiating the pursuit was minor.",
+      "question": "Based on your service's pursuit policy framework, what is the appropriate decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order the pursuit terminated. The risk calculus has shifted decisively against continuation: (1) The initiating offence is minor (expired plates) — the public safety benefit of immediate apprehension is low; (2) Speed in a residential zone (100+ km/h) creates high risk of fatal collision with an innocent third party; (3) The near-miss with the pedestrian crosswalk is a concrete indicator that public harm is imminent; (4) The suspect's identity is unknown — he cannot be easily traced afterward — but this alone does not justify continuation when public safety risk is this high. Under most Canadian police service pursuit policies, these factors collectively require termination. Advise your officer: 'All units — terminate pursuit — discontinue — note last known direction and circulate suspect vehicle description.'",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue the pursuit — allowing a suspect to flee sets a precedent and officers cannot be seen to back down from every high-speed runner.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Continue the pursuit but request a spike strip — if the pursuing officer is comfortable with the conditions, the supervisor should defer to the officer on scene.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Post-Termination — Alternative Apprehension Strategy",
+      "situation": "The pursuit has been terminated. The suspect vehicle was last seen heading westbound on Elm Street. A partial plate was captured. Air support is not available. The officer who initiated the pursuit expresses frustration over the radio. You have the suspect vehicle description, a partial plate, and approximate direction of travel.",
+      "question": "What is the appropriate follow-up strategy following pursuit termination?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement alternative apprehension tactics: (1) Broadcast a full suspect vehicle description and partial plate on all channels — include direction of travel and last confirmed time; (2) Position patrol units on likely exit routes from the suspect's last known direction to establish a containment perimeter without active pursuit; (3) If a witness or traffic camera captured the full plate, initiate a registered owner check immediately; (4) Submit a report for Criminal Code s.249.1 (flight from police) — the offence is serious and can support a follow-up arrest if the suspect and vehicle are identified; (5) Address your officer's frustration through a private debrief — the termination decision was correct and should be explained, not defended apologetically.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stand down entirely — with no plate and no air support, there is no realistic chance of apprehending this suspect and resources should return to patrol.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Quietly reassign units to search the area without documenting the pursuit — the termination decision may attract scrutiny and the service's interests are better protected by minimal documentation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Pursuit Report and Accountability",
+      "situation": "The suspect was not located that night. The following morning, your inspector asks for the pursuit report. Your officer's narrative says the termination decision was 'premature' and that 'the risk was manageable.' Your inspector asks whether the pursuit termination was justified and whether the report accurately captures the decision.",
+      "question": "How do you respond to the inspector's question and the officer's characterisation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Be clear and factual with your inspector: the termination decision was justified based on pursuit policy risk criteria — the initiating offence was minor, speed was 100+ km/h in a residential zone with pedestrians present, and a near-miss had already occurred. These factors collectively required termination under policy. The officer's characterisation that the risk was 'manageable' is a subjective assessment that conflicts with the documented facts — a near-miss with pedestrians is not manageable risk. Ensure your pursuit report accurately reflects the specific risk factors at the moment of termination. Pursuit reports must be factual and complete — they are subject to review by police oversight bodies and legal counsel.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Acknowledge in the report that the officer believes the termination was premature — presenting both perspectives is a balanced approach.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Revise the report to remove references to the near-miss — the incident did not result in injury and including it makes the pursuit look riskier than it was.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The suspect was identified two days later through a traffic camera that captured the full plate. He was arrested for flight from police under Criminal Code s.249.1 and multiple Highway Traffic Act violations. At the subsequent court hearing, the termination report was reviewed — the accurate documentation of the near-miss at the crosswalk was cited as a key factor in demonstrating that the original decision to terminate was both lawful and consistent with policy. The inspector endorsed the termination as correct. The officer who expressed frustration was counselled that pursuit termination is a command decision, not an abandonment of duty. Public safety in pursuit decisions must be weighed against apprehension value — not all pursuits can or should be continued to conclusion.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

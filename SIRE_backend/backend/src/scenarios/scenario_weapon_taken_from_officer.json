@@ -1,0 +1,149 @@
+{
+  "title": "scenario_weapon_taken_from_officer",
+  "description": "An officer's firearm is seized during a struggle. Tests immediate tactical response, officer safety priorities, use-of-force escalation, and post-incident obligations when a subject gains control of a duty weapon.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "officer safety",
+    "weapon retention",
+    "firearm seizure",
+    "use of force",
+    "lethal threat",
+    "post-incident protocol",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrest Attempt",
+      "description": "Officer attempts to arrest a subject on an outstanding warrant. The subject resists violently.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Struggle for Firearm",
+      "description": "During the struggle, the subject grabs the officer's holstered firearm.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Firearm Taken",
+      "description": "The subject disengages the holster retention and is now in possession of the officer's firearm.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Immediate Threat",
+      "description": "The subject is backing away with the firearm. Other officers are 60 seconds away.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Incident Resolved",
+      "description": "The situation is resolved. Subject and officer are on scene. Supervisor is notified.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Protocol Initiated",
+      "description": "Mandatory critical incident protocols are activated including SIU notification assessment.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Subject Has Your Firearm — Immediate Tactical Response",
+      "situation": "You are attempting to arrest a male subject on an outstanding warrant for violent offences. During a physical struggle, the subject has disengaged your holster retention and pulled your service firearm. He is now backing away with your firearm in his right hand, pointed loosely downward. He is approximately 4 metres away, shouting that he will shoot you. You have no secondary weapon. Backup is 60 seconds away. There are no bystanders in the immediate area.",
+      "question": "What is your immediate tactical response when a subject possesses your firearm?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A subject in possession of your firearm presents a lethal threat justifying lethal force response under Criminal Code s.25 and s.34. However, your tactical options depend on your available tools and distance: (1) Create maximum distance immediately — move laterally and use cover if available; (2) Broadcast 'Firearm taken — officer in lethal threat — [location]' immediately or signal distress if radio is not accessible; (3) If you have a secondary weapon (OC, CEW, baton), present it but recognize these are inadequate counter to a firearm threat at distance; (4) Do not rush the subject — closing distance on an armed subject is tactically unsound; (5) Issue clear verbal commands to put the weapon down. Your priority is surviving until backup arrives to contain this as a lethal-force situation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rush the subject immediately to tackle him before he can fire — closing distance reduces his ability to shoot accurately.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Comply with any demands the subject makes to de-escalate — your personal safety takes precedence and you can resolve this later.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Backup Arrives — Containment and Subject Commands",
+      "situation": "Two backup officers have arrived. The subject still has your firearm but has not fired. He is against a fence approximately 6 metres away. He is visibly panicking. Your firearm is now pointed at the ground. The backup officers have their firearms drawn and are issuing commands. The subject is looking between officers.",
+      "question": "How should the responding officers coordinate to resolve this safely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "One officer takes the role of primary communicator — only one officer issues commands to reduce confusion and cognitive overload for the subject ('Sir — put the gun on the ground now — step away from it — we want this to end safely'). The other officer and the affected officer form a containment arc to prevent escape while maintaining safe tactical positions using available cover. Do not issue competing commands — multiple simultaneous directives increase panic and resistance. Maintain tactical containment until the subject complies or the threat escalates. If the subject raises the firearm toward any officer, lethal force is legally justified.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "All three officers immediately issue simultaneous commands — overwhelming vocal pressure will cause the subject to comply.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "The affected officer should lead negotiations since it is their weapon — this establishes personal accountability.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Drops Firearm — Post-Incident Obligations",
+      "situation": "The subject has placed the firearm on the ground and been apprehended without further incident. He is handcuffed. Your firearm has been recovered and secured by a backup officer as potential evidence. Your supervisor has arrived. The duty inspector is asking whether an SIU notification is required.",
+      "question": "What are the mandatory post-incident obligations following a weapon-seizure incident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mandatory post-incident obligations include: (1) SIU notification assessment — in Ontario (and equivalents in other provinces), a weapon-seizure from an officer during an arrest constitutes a 'serious incident' requiring mandatory notification to the independent oversight body (SIU/ASIRT/IIOS depending on province); (2) Segregate involved officers — the affected officer and backup officers should not discuss the incident until independent statements are taken; (3) Your recovered firearm is evidence — it must be preserved and handled through exhibit protocols; (4) Officer medical and psychological assessment — a lethal-threat incident triggers mandatory wellness protocols; (5) Complete a use-of-force report; (6) All actions and statements are subject to independent review — cooperate fully and accurately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "SIU notification is only required if the subject was injured — since no shots were fired, no oversight notification is necessary.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Quickly review the incident with backup officers to align on the sequence of events before giving independent statements.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The subject was apprehended and charged with Robbery (Criminal Code s.344), Assault of a Peace Officer (s.270), and Possession of a Prohibited Firearm. The SIU was notified. Independent statements were taken from all involved officers. Your firearm was processed as an exhibit and returned after forensic examination. A mandatory Critical Incident Stress Management debrief was conducted. A tactical debrief reviewed the holster retention failure and recommended supplemental weapon-retention training for all officers. No officers were injured. Post-incident independent review concluded all officer actions were within policy. Weapon-seizure incidents are among the highest-threat situations officers face — tactical discipline, containment, and coordinated de-escalation are essential.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

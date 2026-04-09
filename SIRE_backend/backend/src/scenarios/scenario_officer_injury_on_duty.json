@@ -1,0 +1,150 @@
+{
+  "title": "scenario_officer_injury_on_duty",
+  "description": "An officer sustains a significant injury during a call. Tests duty-of-care obligations, injury reporting requirements, fitness-for-duty assessment, and supervisor responsibilities under occupational health and police service policy.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "officer safety",
+    "on-duty injury",
+    "workplace safety",
+    "fitness for duty",
+    "injury reporting",
+    "WSIB",
+    "officer wellness",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Foot Pursuit",
+      "description": "Officer pursues a suspect on foot through a parking lot.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Injury Sustained",
+      "description": "Officer slips on ice and falls, striking their knee on a concrete curb.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Suspect Apprehended by Backup",
+      "description": "Backup apprehends the suspect. Officer is on the ground unable to bear weight on the injured leg.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "EMS Responds",
+      "description": "EMS assesses the officer at scene. Suspected knee ligament injury. Hospital evaluation recommended.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Supervisor Arrives",
+      "description": "Sergeant arrives and begins the duty injury reporting process.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 5,
+      "title": "Hospital Clearance and Return Protocol",
+      "description": "Officer is assessed at hospital. Fitness-for-duty decision must be made.",
+      "timeOffsetSec": 14400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Injury Occurs During Foot Pursuit",
+      "situation": "During a foot pursuit of a suspect in a parking lot, you slip on a patch of black ice and fall hard, striking your right knee on a concrete curb. You feel immediate sharp pain and cannot bear weight on the leg. You are on the ground in the parking lot. The suspect is visible 20 metres ahead. Backup is 45 seconds away.",
+      "question": "What is your immediate priority given the injury and the ongoing pursuit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Broadcast your situation and location on radio immediately: 'Officer down — injured — foot pursuit at [location] — suspect is [description and direction].' Your first obligation is to stop the pursuit — continuing a foot pursuit while unable to bear weight is unsafe for you and reduces operational effectiveness. Broadcasting your position and the suspect's direction allows backup to continue the apprehension without you. Begin managing your own injury: do not attempt to stand unsupported. Stay on the radio and provide updates as backup closes on the suspect. Your obligation to your own safety is not secondary to the arrest.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to crawl forward and maintain visual contact with the suspect until backup arrives — abandoning a pursuit is unacceptable.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the injury and stand up to continue the pursuit — injuries sometimes feel worse initially than they actually are.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "EMS and Supervisor on Scene — Injury Reporting",
+      "situation": "The suspect was apprehended by backup. EMS has assessed your knee and suspects a significant ligament injury. They recommend hospital evaluation. Your sergeant has arrived and asks whether you want to decline the hospital and 'finish the shift' — the service is short-staffed. EMS notes you are unable to bear weight without significant pain.",
+      "question": "How do you respond to the sergeant's suggestion to decline hospital and finish the shift?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Decline the sergeant's suggestion firmly but professionally. EMS has made a medical recommendation — overriding it for operational convenience creates both safety and liability risk for you, your supervisor, and the service. Explain that you cannot safely perform officer duties while unable to bear weight, and that a duty-related injury requires formal reporting regardless of severity. Your sergeant has an obligation under occupational health and safety legislation (e.g., Ontario OHSA) to ensure injured workers receive appropriate treatment and to file a workplace injury report. Accept EMS transport for hospital evaluation. You will initiate a WSIB (or provincial equivalent) workplace injury report in conjunction with your supervisor.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Agree to decline hospital — the service needs you and the injury may be minor; you can see a doctor tomorrow if it still hurts.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline both hospital and injury reporting — a slip-and-fall during a foot pursuit will reflect poorly on your fitness and performance record.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hospital Assessment — Fitness for Duty Decision",
+      "situation": "Hospital imaging confirms a partial ACL tear and medial meniscus damage. The treating physician says you are not cleared for full active duties for a minimum of 6 weeks and recommends physiotherapy. Your supervisor asks how you want to handle the return-to-work plan, noting there are administrative functions you could perform.",
+      "question": "How should the return-to-work and fitness-for-duty process be managed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with your supervisor and the service's occupational health unit to establish a modified-duty plan consistent with the physician's restrictions. Modified duties are appropriate — the goal is to keep you contributing to the service within your medical limitations while recovering. Initiate the WSIB workplace injury claim formally. Attend all physiotherapy appointments and provide timely medical updates to occupational health. Do not return to active patrol duties until you receive medical clearance — performing duties beyond your medical restrictions exposes you to further injury, voids your WSIB coverage, and creates liability for the service. A fitness-for-duty evaluation will be required before return to full active duties.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Return to full active patrol after two weeks — the injury is improving and the service needs experienced officers on the street.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline modified duties — if you can't do full patrol work, you'd rather use sick leave to avoid being seen as 'desk duty.'",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Your WSIB claim was approved. You completed six weeks of modified administrative duties while attending physiotherapy twice weekly. At week seven, occupational health cleared you for a graduated return to full duties. A scene safety review was conducted for the parking lot, and improved ice treatment protocols were implemented. The hazard reporting process was credited with preventing a potential future injury. Your injury was documented accurately and professionally throughout. On-duty injuries must be reported, investigated, and managed through proper occupational health processes — officer wellness is an operational necessity, not a personal luxury.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
