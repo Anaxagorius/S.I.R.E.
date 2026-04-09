@@ -1,0 +1,129 @@
+{
+  "title": "scenario_indigenous_land_reclamation",
+  "description": "Officers are called to a First Nations land reclamation where community members have erected a camp on disputed Crown land, asserting treaty rights. The situation involves competing legal claims, federal and provincial jurisdiction, and significant political and media attention. Officers must manage the situation without escalating a complex rights dispute into a use-of-force incident.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "land reclamation",
+    "treaty rights",
+    "Indigenous rights",
+    "RCMP",
+    "Crown land",
+    "Canada",
+    "Section 35",
+    "political sensitivity"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Land Reclamation Established",
+      "description": "A First Nations community has erected a camp on disputed Crown land, asserting treaty and Aboriginal title rights.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Province Requests Police Action",
+      "description": "Provincial Crown land office requests police remove the camp as trespass on Crown land.",
+      "timeOffsetSec": 86400
+    },
+    {
+      "index": 2,
+      "title": "No Injunction in Place",
+      "description": "Officers confirm there is no court injunction. The province has not sought one.",
+      "timeOffsetSec": 86460
+    },
+    {
+      "index": 3,
+      "title": "Federal Crown Engaged",
+      "description": "Federal Crown-Indigenous Relations department is consulted. They advise ongoing treaty negotiations are underway.",
+      "timeOffsetSec": 172800
+    },
+    {
+      "index": 4,
+      "title": "Camp Grows",
+      "description": "National media covers the reclamation. The camp grows to 150 people including elders and children.",
+      "timeOffsetSec": 259200
+    },
+    {
+      "index": 5,
+      "title": "Negotiated Agreement Reached",
+      "description": "Government negotiators reach an interim accommodation. Police presence is reduced.",
+      "timeOffsetSec": 604800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Province Requests Removal — No Injunction Exists",
+      "situation": "A First Nations community has established a camp on Crown land they assert is covered by unextinguished treaty rights under s.35 of the Constitution Act, 1982. The provincial Crown land office has contacted your detachment and requested you remove the camp as a trespass. However, there is no court injunction. The community has 60 people present, including elders. The Chief has stated he will communicate only with federal negotiators, not provincial authorities. Treaty negotiations are ongoing.",
+      "question": "Can you remove the camp at the province's request without a court order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not remove the camp without a court order. The province cannot direct police to enforce a civil trespass in a situation where the underlying title is actively disputed under s.35 Aboriginal and treaty rights — this is a legal matter, not a simple trespass. Advise the Crown land office that without an injunction, police cannot and will not forcibly remove the camp. Document your advice in writing. Contact your command for legal direction and escalate to federal and provincial justice departments. Maintain a monitoring presence and establish contact with the community Chief through a respectful approach.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the camp immediately under the province's trespass to Crown lands legislation — the request is from the property owner.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the province's request entirely and take no action of any kind.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Camp Grows — Managing a Sustained Occupation",
+      "situation": "Four days have passed. The camp has grown to 150 people. National media is covering the story. The province has decided not to seek an injunction due to the political sensitivity and ongoing federal treaty negotiations. Community members have been cooperative with police. Your detachment has maintained a low-key monitoring presence. There have been no incidents. The Chief has now agreed to meet with your detachment commander to discuss police-community protocols during the occupation.",
+      "question": "How do you structure the police relationship with the camp during a sustained occupation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Meet with the Chief and establish a community liaison protocol: identify a camp contact for daily communication; agree on access protocols so officers can enter the camp for genuine emergencies only; confirm that police are not there to enforce removal and are there only for public safety; discuss fire and medical access for camp residents. Establish a clear command link between the camp and detachment for immediate safety issues. Reduce visible police presence to a minimum — an overwhelming police footprint will be perceived as intimidation and will increase tension.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Establish a 24-hour police perimeter around the camp to monitor all movements and prevent the camp from growing.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withdraw police entirely from the area to avoid appearing complicit in the occupation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Political Pressure to Act — Maintaining Operational Independence",
+      "situation": "Day seven. A provincial minister's office calls your district commander directly and demands police 'take action to clear the camp today' before a scheduled cabinet meeting. No injunction has been issued. No new court order exists. There have been no violent incidents at the camp. The call is politically motivated.",
+      "question": "How do you respond to political pressure to act without lawful authority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Police in Canada operate independent of political direction in individual operational decisions. Advise the district commander, who should in turn advise the minister's office, that police cannot and will not remove the camp without a court order or other lawful authority. The minister's office may seek an injunction through the courts — that is the appropriate channel. Document the political contact and your response in writing. This principle of operational independence is essential to both police legitimacy and public trust.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Follow the minister's direction — government ministers have authority over police operations in their jurisdiction.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Clear the camp immediately to relieve the political pressure, and deal with the legal issues afterward.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The province did not seek an injunction. Federal and provincial negotiators reached an interim accommodation with the First Nation after ten days: construction on the disputed parcel was paused pending a formal title review. The community voluntarily ended the occupation. Police maintained a respectful, low-profile presence throughout. No force was used, no arrests were made, and no officers were injured. The response was later reviewed as an example of operationally independent, rights-respecting policing during a complex constitutional dispute. The refusal to act without lawful authority — and the resistance to political pressure — preserved both the legal integrity of any future court process and the ongoing policing relationship with the community.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

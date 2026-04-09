@@ -1,0 +1,129 @@
+{
+  "title": "scenario_cultural_considerations_enforcement",
+  "description": "An RCMP officer must enforce a court-ordered apprehension of a child in a First Nations community. The family and community leaders assert the apprehension violates their cultural and traditional rights. The officer must navigate jurisdictional, cultural, and legal obligations.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "cultural considerations",
+    "First Nations",
+    "RCMP",
+    "child apprehension",
+    "Indigenous rights",
+    "reconciliation",
+    "Canada",
+    "community relations"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Court Order Received",
+      "description": "Officer receives instructions to execute a court-ordered apprehension of a 10-year-old from a First Nations family.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival at Community",
+      "description": "Officer arrives and meets the child's grandmother. The child is inside the home.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Community Assembly",
+      "description": "Word spreads quickly. A group of 15 community members gathers at the residence to protest the apprehension.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Band Chief Arrives",
+      "description": "The Band Chief arrives and asserts the apprehension is in violation of First Nations jurisdiction over child welfare.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Child Services Worker Arrives",
+      "description": "Child and Family Services worker arrives and provides documentation of the court order.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 5,
+      "title": "Resolution Reached",
+      "description": "A temporary arrangement is negotiated that satisfies the court order while engaging band-operated child welfare.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Court-Ordered Apprehension — Cultural Objection",
+      "situation": "You have been tasked with accompanying a Child and Family Services (CFS) worker to execute a court-ordered apprehension of a 10-year-old child, Danny, from a First Nations home. The order was obtained by provincial child welfare authorities citing neglect concerns. Danny's grandmother, Helen, answers the door and immediately becomes distressed: 'You cannot take him. He is safe here. We look after our own children.' A group of community members is beginning to gather on the road in front of the house.",
+      "question": "How do you approach the initial contact with the family?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Introduce yourself calmly and respectfully. Do not immediately state that you are there to take the child. Say: 'Helen, I am here to make sure Danny is safe. I have a CFS worker with me who has some paperwork to discuss with you. May we come inside?' Allow the CFS worker to take the lead on the welfare discussion. Your role is to ensure safety and support the lawful execution of the order — not to antagonise the family. Document your observations of the home and Danny's condition.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "State immediately that you have a court order and the child must come with you now, and that resisting will result in arrest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Step back and advise the CFS worker this is a civil matter and you cannot assist with child apprehensions in a First Nations community.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Band Chief Asserts First Nations Jurisdiction",
+      "situation": "The Band Chief, David, has arrived. He states firmly: 'Under our Band-operated child welfare authority, this family is under our jurisdiction — not the province's. We have a formal agreement with the province under the Child, Family and Community Service Act that gives us jurisdiction over apprehensions within this reserve. You are here illegally.' The CFS worker is uncertain. You need to verify jurisdiction before proceeding or withdrawing.",
+      "question": "How do you respond to the jurisdictional dispute?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not proceed with the apprehension until the jurisdictional question is clarified. Contact your supervisor and the CFS worker's supervisor to advise of the Band's assertion of jurisdiction. Request that both the provincial CFS authority and the Band's child welfare office speak with each other directly to clarify the applicable agreement. Ask Chief David to provide written documentation of the jurisdictional agreement. Do not leave the child in a situation where safety is confirmed at risk while the legal question is resolved, but do not forcibly remove the child during an unresolved jurisdictional dispute.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Proceed with the apprehension regardless — you have a valid court order and must execute it.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Accept the Chief's assertion without verification and withdraw immediately, abandoning the court order.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Interim Safety Assessment",
+      "situation": "Both supervisors have been contacted. The CFS supervisor has confirmed that the Band does have a Delegated Aboriginal Agency (DAA) agreement, but the original court order was obtained through the provincial system before the DAA agreement was properly applied. Legal counsel advises the order is valid but a new process should have been used. Danny has been observed by you and the CFS worker — he appears healthy, clean, and comfortable. Helen is clearly distressed but attentive to the child. There is no immediate safety risk.",
+      "question": "How do you resolve the situation given that there is no immediate safety risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "With CFS supervisor agreement, arrange for Danny to remain with his grandmother under a signed safety plan negotiated between the provincial CFS authority and the Band's DAA, with a follow-up court appearance scheduled within 48 hours to address the jurisdictional issue and the original order. Document the safety plan, the conditions of the arrangement, and the agreement of all parties. Advise Helen of the safety plan obligations. This preserves child safety, respects Indigenous jurisdiction, and respects the court process.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Leave with no plan and no documentation, allowing the family to continue without any safety agreement.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Apprehend the child immediately to avoid any further legal complications.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The safety plan was signed by Helen and the Band's DAA worker. Danny remained with his grandmother under agreed conditions. A court hearing three days later reviewed the jurisdictional issue and the order was re-issued through the proper DAA process. Danny remained in his community with strengthened supports. The incident was used by the detachment as a training case for engaging with Delegated Aboriginal Agency agreements. Your approach — pausing, verifying jurisdiction, and facilitating a culturally appropriate resolution — protected the child, respected Indigenous authority, and preserved community trust.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

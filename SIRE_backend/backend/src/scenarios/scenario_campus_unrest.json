@@ -1,0 +1,129 @@
+{
+  "title": "scenario_campus_unrest",
+  "description": "A university campus protest over tuition increases escalates when protesters occupy an administration building. Campus security and police must navigate the intersection of university disciplinary authority, criminal law, and student Charter rights while managing media and public attention.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "campus unrest",
+    "university protest",
+    "building occupation",
+    "Charter rights",
+    "Canada",
+    "civil disobedience",
+    "student protest",
+    "injunction"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Protest Begins",
+      "description": "400 students rally outside the administration building over a proposed tuition increase.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Building Occupied",
+      "description": "Approximately 80 students enter and occupy the main administration building, blocking staff entry.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 2,
+      "title": "University Requests Police",
+      "description": "University administration contacts police to remove occupying students.",
+      "timeOffsetSec": 2400
+    },
+    {
+      "index": 3,
+      "title": "No Injunction — Police Assessment",
+      "description": "Officers assess the situation. No injunction. Students are non-violent. Staff cannot access offices.",
+      "timeOffsetSec": 2460
+    },
+    {
+      "index": 4,
+      "title": "Negotiation Attempted",
+      "description": "University administration and student union leaders negotiate. Partial compromise reached.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 5,
+      "title": "Occupation Ends Voluntarily",
+      "description": "Students voluntarily leave after 8 hours following a written commitment from the university president.",
+      "timeOffsetSec": 30600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Building Occupation — Police Called Without Injunction",
+      "situation": "Eighty students have entered and occupied the main administration building at a large university. They are sitting in the hallways and the atrium, blocking staff from accessing offices. The protest is non-violent and the students are cooperating with fire safety instructions. The university's general counsel calls you and says: 'Get them out of the building. This is trespass.' There is no injunction. The university is asking you to act on their behalf as a property owner.",
+      "question": "Can you remove the students at the university's request without a court order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A private property owner can ask people to leave, and if they refuse, trespass may technically be established. However, the situation involves a complex intersection of the university's property rights, the students' Charter s.2 rights, and the risk of turning a disciplinary matter into a criminal one unnecessarily. Advise the university that police will attend, assess the safety situation, and maintain a presence — but that mass removal of non-violent protesters without an injunction carries legal risk and reputational risk. Recommend the university seek an injunction if they want a legally definitive removal order, and that negotiations be attempted first.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately arrest all 80 students for trespass at the university's request.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise the university that this is not a police matter and refuse to attend.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "On Scene — Engaging with Occupying Students",
+      "situation": "You and four officers are inside the administration building. The 80 students are seated, orderly, and have a student union representative, Priya, as their spokesperson. Priya is calm and articulate. She says: 'We are not leaving until the president agrees to meet with us. We know our rights.' The university's vice-president of administration is present and is insisting you arrest the students immediately. Staff cannot access their offices.",
+      "question": "How do you engage with the students and manage the university's demands?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Speak directly with Priya. Explain that you are not here to arrest them at this moment, but that the occupation creates a trespass situation that could change. Advise her clearly: 'I'm asking you to consider your options — there may be a way to achieve your goals without this escalating. Is there a route to a meeting with the president that you would accept?' Simultaneously, advise the vice-president that police will not conduct mass arrests without an injunction and that the university should attempt direct negotiation. Your role at this point is to maintain safety and de-escalate, not to function as a private enforcement arm of the university.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Side with the students against the administration, since the students have a Charter right to protest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Arrest Priya as the spokesperson to demonstrate to the other students that compliance is required.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Negotiation Breakthrough — Managing the Exit",
+      "situation": "Eight hours into the occupation, the university president has agreed to meet with the student union and has signed a written acknowledgement that tuition changes will be subject to a joint review process. Priya announces this to the 80 students. They vote unanimously to leave voluntarily. However, the vice-president of administration now wants you to arrest the students as they leave, as a consequence for the occupation.",
+      "question": "How do you handle the request to arrest voluntarily departing students?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The decision to arrest is yours — not the university's. The students are now voluntarily complying and leaving the building. Arrest is a discretionary tool that must be proportional and serve the public interest. Arresting 80 peacefully departing students who have achieved a negotiated resolution would be disproportionate, would undermine the negotiated settlement, and would almost certainly generate a rights challenge. Allow the students to depart without arrest. Document the occupation, the duration, and the voluntary departure. Advise the university they may pursue civil remedies or disciplinary processes through their own code of conduct if they wish.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Arrest all 80 students as they exit since they were all involved in the trespass and the university has requested it.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Arrest only Priya as the organiser since she was the leader of the occupation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The 80 students departed voluntarily. No arrests were made. The university pursued disciplinary proceedings through its own student code of conduct against five organisers. The policing response was praised in an independent review for avoiding criminalisation of student protest while maintaining safety. Your advice to seek an injunction before demanding arrests, your facilitation of negotiations, and your proportional exercise of arrest discretion combined to produce a lawful and proportionate outcome. Campus unrest policing requires officers to navigate institutional authority, Charter rights, and public interest discretion — not simply enforce whoever calls police first.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

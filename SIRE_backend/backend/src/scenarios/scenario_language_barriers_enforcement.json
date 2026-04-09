@@ -1,0 +1,129 @@
+{
+  "title": "scenario_language_barriers_enforcement",
+  "description": "Officers respond to a disturbance call involving a recent immigrant with limited English who is unable to understand police commands. Officers must adapt their communication approach to ensure a lawful, safe, and rights-compliant interaction without a certified interpreter immediately available.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "language barrier",
+    "communication",
+    "Charter rights",
+    "interpreter",
+    "RCMP",
+    "Canada",
+    "de-escalation",
+    "cultural sensitivity"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Disturbance Call",
+      "description": "Dispatch sends officers to a noise complaint at a rooming house. Subject is reported to be yelling and disturbing neighbours.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Contact with Subject",
+      "description": "Officers find a distressed male who does not appear to understand English commands.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Communication Breakdown",
+      "description": "Subject becomes increasingly agitated as officers continue speaking to him in English. His behaviour is escalating.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Neighbour Offers to Translate",
+      "description": "A neighbour identifies herself as speaking the subject's language and offers to assist.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Crisis De-escalated",
+      "description": "With interpretation, officers learn the subject suffered a medical episode and is disoriented.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Medical Care Arranged",
+      "description": "EMS is called. Subject is transported for assessment. No charges laid.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Subject Cannot Understand English Commands",
+      "situation": "You and your partner respond to a disturbance at a rooming house. In the hallway, you encounter a 45-year-old male, visibly distressed, pacing, and speaking rapidly in what sounds like Tigrinya (an Eritrean language). He is gesturing and does not respond to your English commands to 'calm down' and 'stop.' He has not threatened anyone physically and no weapons are visible. He appears frightened rather than aggressive. Neighbours are watching from their doorways.",
+      "question": "How do you manage the initial contact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Lower the volume and tone of your voice — loud English commands are increasing his distress. Use slow, open body language, palms visible, and non-threatening stance. Avoid sudden movements. Reduce the number of people speaking to him to one officer only. Use simple universal gestures (hand to chest: 'I'm here to help'). Contact dispatch immediately to request a telephone interpreter service (such as Language Line). Do not attempt to detain or physically control him until communication is established unless there is an immediate safety threat.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Raise your voice and repeat commands more forcefully — he needs to understand that he must comply.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately place him in handcuffs to contain him until you can figure out what is happening.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Neighbour Offers to Translate",
+      "situation": "A female neighbour, Miriam, comes out of her room and says, 'I speak his language — he is from my country. He is very scared. Can I help?' The telephone interpreter has a 15-minute wait. The subject is still agitated but has not been violent. Miriam appears calm and cooperative.",
+      "question": "How do you use the neighbour as an informal interpreter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Accept Miriam's assistance for immediate de-escalation. Ask her to first tell the subject who you are and that you are not there to harm him. Use her only for non-evidentiary communication to calm the situation. Do not ask her to interpret any formal cautions, rights, or investigative questions — those must wait for a certified interpreter. Maintain awareness that she is not a neutral party and may have a relationship with the subject. Document her name, contact information, and exactly what was communicated through her.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Use Miriam as a full interpreter including for formal arrest grounds, Charter rights, and witness statements.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Decline Miriam's offer — police policy prohibits the use of untrained interpreters in any circumstance.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Medical Issue Identified — Change in Understanding",
+      "situation": "Through Miriam, you learn that the man's name is Tesfay and he has recently arrived in Canada as a refugee. He says he woke up confused and disoriented and does not know where he is. He mentions he has diabetes and has not eaten since yesterday. Miriam believes he may be experiencing a hypoglycaemic episode. His behaviour now appears more consistent with a medical emergency than a behavioural disturbance. The call was originally a noise complaint.",
+      "question": "How do you respond to the changed understanding of the situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately shift your approach from enforcement to medical assistance. Request EMS to the location. Ask Miriam to tell Tesfay that you want to help him and that a medical team is coming. If available, offer juice or a sugary item to address the possible hypoglycaemia while waiting for EMS. No arrest or detention is warranted — there is no evidence of criminal conduct; the disturbance was the result of a medical episode. Document the situation accurately: initial disturbance complaint, circumstances discovered, actions taken, and medical response arranged.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Continue treating the situation as a criminal disturbance and arrest Tesfay for causing a disturbance under the Criminal Code.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the scene now that you understand what is happening — medical issues are not a police matter.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "EMS confirmed Tesfay was hypoglycaemic and transported him for treatment. He recovered fully. No charges were laid. Miriam provided her contact information and was noted in the file as an informal language assist — not a formal interpreter. The certified telephone interpreter was used to confirm Tesfay's consent to medical treatment before EMS transported him. The incident reinforced the importance of adaptive communication, early medical recognition, and proportional policing — particularly with vulnerable newcomer populations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "title": "scenario_historical_trauma_distrust",
+  "description": "Officers respond to a call in a First Nations community where a resident refuses to engage with police due to deeply held distrust rooted in intergenerational trauma. Officers must navigate this distrust professionally, compassionately, and effectively while still fulfilling their duty.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "historical trauma",
+    "Indigenous distrust",
+    "RCMP",
+    "First Nations",
+    "reconciliation",
+    "Canada",
+    "community relations",
+    "trauma-informed policing"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Wellness Check Call",
+      "description": "A family member calls police requesting a wellness check on an elderly woman who has not been seen for two days.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival at Residence",
+      "description": "Officers knock. A voice from inside says she is fine and orders them to leave.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Refusal to Open Door",
+      "description": "The woman states she will not open her door for police under any circumstances due to her history with RCMP.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Community Health Representative Contacted",
+      "description": "Officers contact the community health representative to assist with outreach.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "CHR Makes Contact",
+      "description": "The community health representative is welcomed inside and confirms the woman is safe but very distressed.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Welfare Confirmed",
+      "description": "Welfare is confirmed through the CHR. Officers document the call and coordinate follow-up supports.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Elderly Resident Refuses Police Contact",
+      "situation": "You are responding to a wellness check on Agnes, a 72-year-old First Nations woman living alone. Her niece requested the check after two days without contact. Agnes responds verbally through the door: 'I'm fine. Go away. I don't want police in my home — ever.' Her voice is weak but coherent. She is not presenting as a medical emergency based on verbal response. You understand from community members that Agnes is a residential school survivor and has a long-standing fear of police.",
+      "question": "How do you respond to Agnes's refusal?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Speak calmly and gently through the door. Introduce yourself by first name, not rank. Acknowledge her feelings without dismissing them: 'Agnes, I understand you don't want police here — that makes sense given your history. I am not here to cause you any harm. Your niece is worried about you and just wants to know you're okay. You don't have to open the door for me. Is there someone else — a community worker or a health representative — you would be comfortable having check on you?' Do not force entry at this stage. There is no evidence of imminent harm.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Advise her that you have a duty to ensure her welfare and will force entry if she does not open the door within five minutes.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Mark the wellness check as completed since she has verbally confirmed she is fine, and close the call.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Community Health Representative as Bridge",
+      "situation": "Agnes has agreed that the community health representative (CHR), Dorothy, can come to her home. You contact Dorothy, who is available and agrees to attend. Dorothy arrives within 20 minutes. She knows Agnes personally. You are asked to remain outside the residence while Dorothy goes in. Agnes has confirmed she is alive and communicative but her voice remains weak.",
+      "question": "How do you coordinate with Dorothy while respecting Agnes's boundaries?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief Dorothy on the wellness check context: two days without contact, weak voice, no visible injury. Ask her to assess Agnes's physical condition, confirm she has food, water, and medications if applicable, and ask Agnes if there are any concerns she wants to share. Tell Dorothy that you need a general welfare confirmation — you do not need to enter the home. Ask Dorothy to contact you if she believes Agnes requires medical attention or if there are any safety concerns. Wait outside and document your observations.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Accompany Dorothy into the home since you are responsible for the welfare check and must personally confirm Agnes's condition.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the scene now that Dorothy is handling it — this is no longer a police matter.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "CHR Reports — Follow-Up Required",
+      "situation": "Dorothy returns and tells you Agnes is physically okay — she has been unwell with a cold, has food and water, and her medications are on the table. She has been sleeping a lot. However, Dorothy says Agnes is very distressed emotionally — she had a nightmare about residential school and has not been able to bring herself to answer the phone or door for two days. Dorothy says Agnes needs mental health support but will not accept it from police-affiliated services.",
+      "question": "How do you ensure appropriate follow-up supports are arranged?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the welfare check outcome: Agnes confirmed safe and physically well through CHR. Note the emotional distress and coordinate referral to a community-based Indigenous mental health or trauma support service — one that is not affiliated with police. Ask Dorothy if she can follow up with Agnes directly or refer her to a culturally appropriate elder support worker. Contact Agnes's niece to confirm her aunt is safe and inform her of the follow-up supports being arranged. Close the file as welfare confirmed, with follow-up support initiated.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Arrange a mental health police apprehension under provincial mental health legislation since Agnes is distressed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Inform Agnes's niece that Agnes is fine and close the file with no follow-up.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Agnes's welfare was confirmed through a trauma-informed and culturally appropriate approach. Your use of the CHR as a bridge respected Agnes's right to refuse police contact while still fulfilling your duty of care. The referral to a community-based trauma support service was accepted, and Dorothy followed up with Agnes over the next week. Agnes's niece was grateful. The interaction did not re-traumatise Agnes or further damage her relationship with police. Trauma-informed policing recognises that historical harm is real, that trust must be earned over time, and that community relationships are the most powerful tools available to officers working in Indigenous communities.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

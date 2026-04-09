@@ -1,0 +1,129 @@
+{
+  "title": "scenario_sports_celebration_disorder",
+  "description": "A major sports championship victory triggers spontaneous street celebrations that begin to deteriorate into disorder. Officers must manage a fluid, rapidly growing crowd without a pre-planned event structure, prevent violence and property damage, and make real-time enforcement decisions.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "sports celebration",
+    "spontaneous crowd",
+    "public disorder",
+    "crowd management",
+    "Canada",
+    "proportional response",
+    "street celebrations",
+    "use of force"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Championship Win Announced",
+      "description": "Local NHL team wins the championship. Thousands stream into the downtown core spontaneously.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Crowd Swells to 15,000",
+      "description": "Crowd grows to an estimated 15,000 in the downtown core. Mood is celebratory but unpredictable.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 2,
+      "title": "First Incidents Reported",
+      "description": "A car is overturned. Fireworks are set off in the crowd. Bottles are thrown at officers.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 3,
+      "title": "Command Decisions Required",
+      "description": "Incident commander must decide on enforcement posture and crowd management strategy.",
+      "timeOffsetSec": 3660
+    },
+    {
+      "index": 4,
+      "title": "Hot Spots Addressed",
+      "description": "Targeted enforcement at specific disorder locations. Most of the crowd remains celebratory.",
+      "timeOffsetSec": 5400
+    },
+    {
+      "index": 5,
+      "title": "Crowd Naturally Disperses",
+      "description": "Crowd begins dispersing around midnight. Final arrests made. Damage assessed.",
+      "timeOffsetSec": 14400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Spontaneous Crowd — No Event Plan",
+      "situation": "Your city's NHL team has just won the Stanley Cup. Within 45 minutes of the final buzzer, an estimated 15,000 people are in the downtown core. There is no permit, no event plan, and no organisers. The crowd is mostly celebratory but alcohol is flowing, a car has been overturned, and you have received reports of objects being thrown. The majority of the crowd are joyful and peaceful. You have 80 officers available. Thousands more are still arriving.",
+      "question": "What is the initial operational posture for managing a spontaneous celebration crowd?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Adopt a high-visibility, low-confrontation posture: deploy officers visibly throughout the crowd in high-visibility vests rather than tactical gear. The goal is not to suppress the celebration — a 15,000-person crowd cannot be dispersed without creating dangerous compression — but to manage it. Identify and address specific hot spots of disorder (the overturned car, projectile-throwing) with targeted teams. Keep the majority of the crowd happy and non-confrontational. Establish a command post, request mutual aid activation, and brief officers: no unilateral crowd dispersal actions without incident commander authorisation.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately declare the gathering an unlawful assembly and order all 15,000 people to disperse.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stage officers at the perimeter and do not enter the crowd — officer safety risks are too high in a crowd this size.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Hot Spot Disorder — Targeted Enforcement",
+      "situation": "While the majority of the crowd is celebrating peacefully, three distinct disorder hot spots have developed: (1) a group of 20 people throwing objects at store windows; (2) a bonfire started in the middle of an intersection; (3) the overturned car, which a group is now trying to set alight. You have targeted teams available. You cannot address all three simultaneously with current resources — mutual aid is 20 minutes away.",
+      "question": "How do you prioritise and deploy against the hot spots?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritise based on life-safety risk: (1) the car being set alight is the highest priority — a vehicle fire in a dense crowd is a life-safety emergency; deploy to prevent ignition immediately. (2) The bonfire in the intersection is a secondary risk — direct fire services to respond with police escort. (3) The window-smashing group: assign observation and identification officers to document individuals for later arrest rather than forcing an immediate arrest in a dense crowd that could trigger a rush. Accept that you cannot achieve simultaneous resolution of all three — contain and document what you cannot immediately suppress.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy all available officers to arrest the window-smashing group immediately as the most visible act of disorder.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for mutual aid before taking any action on the hot spots.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Crowd Begins to Thin — Transition to Recovery Phase",
+      "situation": "It is 1:00 a.m. The crowd has naturally dropped from 15,000 to approximately 3,000. Most people have gone home. The remaining crowd is younger, more intoxicated, and more resistant to direction. Mutual aid has arrived. Twelve individuals have been arrested from hot spot incidents. The city core has significant property damage — broken windows, the overturned car, street debris. Officers have been on duty for seven hours.",
+      "question": "How do you transition to a recovery and dispersal phase?",
+      "options": [
+        {
+          "label": "A",
+          "text": "With a smaller, more manageable crowd, transition to an active dispersal posture. Begin moving officers through the remaining crowd in lines, directing people toward transit stations and exits with clear verbal commands. Deploy amplified announcements advising the celebration is over and requesting all people clear the area. Close licensed premises to prevent reloading of the crowd with alcohol. Document all remaining incident locations for damage assessment. Begin rotating fatigued officers. Brief the remaining force on the shift change and ensure command continuity. Continue targeted arrests where evidence from earlier documentation supports it.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Maintain the same non-confrontational facilitation posture indefinitely until the crowd disperses on its own.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Deploy POU in full tactical gear to force the remaining crowd out of the area immediately.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "By 2:30 a.m. the downtown core was cleared. Twenty-eight individuals were arrested for mischief, breach of peace, and assault. The targeted documentation approach from the hot spots produced arrest warrants for seven additional individuals identified on video. No officers were seriously injured. The pre-planned mutual aid activation and phase-based approach — from facilitation to targeted enforcement to dispersal — was credited with preventing the disorder from escalating to a full riot. Post-event review resulted in a permanent spontaneous celebration response plan being developed for the city.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

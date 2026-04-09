@@ -1,0 +1,129 @@
+{
+  "title": "scenario_civil_disobedience_arrests",
+  "description": "Officers conduct arrests of civil disobedience participants who have blockaded a city intersection to protest climate policy. The participants are non-violent and have pre-announced their arrest. Officers must conduct lawful, documented, proportional arrests while managing media presence and maintaining public safety.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "civil disobedience",
+    "planned arrest",
+    "obstruction",
+    "public order",
+    "Canada",
+    "Charter rights",
+    "proportional enforcement",
+    "media presence"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Blockade Established",
+      "description": "Twenty-five protesters have blocked a major downtown intersection. They have notified media and police in advance.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Traffic Disruption Begins",
+      "description": "Major intersection blocked. Emergency vehicle routes are affected. Protesters are seated and locked to each other.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Dispersal Order Issued",
+      "description": "Officers advise protesters they are obstructing a public roadway and must leave. Protesters decline.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Arrests Begin",
+      "description": "Officers begin arresting the 25 participants individually.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Lock-Devices Encountered",
+      "description": "Some protesters have locked themselves to pipes. Specialist tools are required.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "All Arrests Completed",
+      "description": "All 25 individuals arrested. Intersection re-opened. 4.5 hours elapsed.",
+      "timeOffsetSec": 16200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Pre-Announced Civil Disobedience Blockade",
+      "situation": "Twenty-five activists have blocked a major downtown intersection as part of a climate protest. They pre-notified your command and media. They are seated and calm. Some have locked themselves to steel pipes buried in concrete buckets. They are obstructing vehicular traffic and emergency vehicle access routes are affected. Six media crews are filming. The activists' lawyer is present and has confirmed they intend to be arrested. You must conduct lawful arrests.",
+      "question": "How do you approach a pre-announced civil disobedience arrest operation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approach the situation as a planned arrest operation, not a reactive use-of-force incident. Advise all participants formally and loudly that they are obstructing a public roadway (Criminal Code s.423.1 and provincial highway traffic offences), that they are required to clear the intersection, and that failure to comply will result in arrest. Give them a clear and reasonable time to voluntarily comply — 5 minutes minimum. If they do not comply, begin individual arrests with two officers per person: identify yourself, state grounds for arrest, invite voluntary compliance, and if they refuse to walk, carry them safely to the processing area. No force beyond safe physical transport for passive resisters.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy chemical agents to clear the intersection quickly since emergency vehicle access is affected.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow the blockade to continue since the activists have pre-announced their intent and are non-violent.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Lock-Devices — Extended Arrest Process",
+      "situation": "Six of the 25 protesters have locked themselves to steel pipes buried in concrete buckets. You have specialists with bolt cutters and angle grinders on standby. The six locked individuals are calm and cooperative except that they cannot move. They are asking that their health and safety be protected during the extraction process. The lawyer requests that a health and safety representative observe the extractions. The intersection has been partially cleared by the 19 who were carried.",
+      "question": "How do you safely extract the locked individuals?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Accept the health and safety observer request — it is reasonable and protects both the protesters and the police from allegations of harm. Brief your extraction specialist team: minimise noise and heat exposure to the individuals during cutting; warn the individual before each cut; have EMS standing by immediately at the site; remove all metal jewellery and protect the individuals' skin near cutting areas. Document all extraction steps on video. Once freed, complete the arrest process. These extractions will take time — communicate accurate ETA for reopening the intersection to traffic management.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Use the fastest possible cutting method regardless of the risk to the individuals locked in — the emergency vehicle access route must be reopened immediately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the locked individuals in the intersection and reopen traffic around them while awaiting specialist tools.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Charge Processing — Rights and Documentation",
+      "situation": "All 25 individuals have been arrested and transported to a processing facility. Their lawyer has asked you to confirm what charges are being laid, whether they will be held or released, and to ensure their right to counsel is facilitated promptly. Several of the arrested individuals are asking for their medication which was left at the intersection. Two are elderly and one has a pre-existing heart condition. Media is asking for a statement outside the facility.",
+      "question": "How do you manage processing, rights, and media?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Process all 25 individually: charges to be laid under Criminal Code obstruction and any applicable provincial traffic offences. Facilitate right to counsel immediately for each individual — this is a Charter s.10(b) right and cannot be delayed. Retrieve and provide prescribed medications left at the scene — have an officer return to the intersection to collect and deliver them. Triage the individual with a heart condition for a medical check before processing. For media: provide a factual statement confirming 25 arrests, the charges being considered, and that all individuals are being processed with their rights respected. No commentary on the protest's goals or legitimacy.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Delay right to counsel until all 25 are processed to streamline the operation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Decline to speak with media at all until all charges have been reviewed by Crown.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "All 25 individuals were processed, given access to counsel, and released on conditions pending a Crown charge assessment. All received their medication. The individual with a heart condition was medically assessed and cleared. The extraction of six locked individuals was completed without injury. The post-event Crown review resulted in charges of obstruction against all 25. All individuals entered pleas; the matter was resolved in provincial court. Your documentation, the health and safety extraction protocols, and the timely facilitation of counsel rights meant the police operation withstood full legal scrutiny. Civil disobedience arrests demand the same rigorous rights compliance as any other arrest — the protest context does not reduce Charter obligations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

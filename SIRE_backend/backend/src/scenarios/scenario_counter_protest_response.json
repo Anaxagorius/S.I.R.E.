@@ -1,0 +1,129 @@
+{
+  "title": "scenario_counter_protest_response",
+  "description": "Officers manage a situation where a permitted march and a counter-protest converge. Violence breaks out between groups. Officers must protect both groups' Charter rights, prevent further violence, and conduct targeted enforcement without creating the impression of taking sides.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "counter-protest",
+    "Charter rights",
+    "public order",
+    "crowd management",
+    "Canada",
+    "impartiality",
+    "freedom of expression",
+    "use of force"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Two Groups Converge",
+      "description": "A permitted march and an opposing counter-protest converge near a city square.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Physical Altercation Begins",
+      "description": "Members of both groups engage in pushing and striking at the convergence point.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Officers Establish Buffer",
+      "description": "Officers push in to separate the groups physically.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Targeted Arrests Made",
+      "description": "Officers arrest specific individuals observed committing assaults from both groups.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Groups Separated",
+      "description": "The two groups are directed to separate rally points. Tension remains but violence stops.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Events Conclude Without Further Violence",
+      "description": "Both groups complete their events separately. Media documents the arrests impartially.",
+      "timeOffsetSec": 7200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Violence Between Protesters and Counter-Protesters",
+      "situation": "A permitted march (300 participants) and a counter-protest (100 participants) have converged at an intersection. Physical fighting has broken out — pushing, punching, and objects being thrown. Your police detail is in position but the crowd mix makes identifying specific aggressors difficult. Both groups believe the other started it. Media is filming. You must intervene and separate the groups without appearing to take sides with either.",
+      "question": "What is the immediate tactical intervention?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Commit officers to physically separate the groups using a line formation between them — push officers laterally into the gap between the groups, not into the middle of either group. Issue a clear PA announcement: 'Police — stop fighting — both groups move back now.' Do not target one side disproportionately in either physical intervention or arrest at this stage — you must be seen to act impartially. Identify and arrest specific individuals who are observed committing assaults from either group. Assign an officer to video document the intervention for accountability.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Focus enforcement on the counter-protest group since the march had the permit and therefore greater legal standing.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withdraw officers from between the groups to avoid officers being injured in the melee.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Targeted Arrests from Both Groups",
+      "situation": "Officers have established a buffer. You have video evidence of three specific assault incidents: two perpetrated by marchers and one by a counter-protester. Three individuals are to be arrested from different sides of the confrontation. The crowd on both sides is still agitated. Arrest team officers are ready. One of the marchers to be arrested is being shielded by fellow marchers who are yelling that 'you're only arresting our side.'",
+      "question": "How do you conduct the targeted arrests and manage the crowd reaction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Proceed with all three arrests simultaneously or in immediate succession so arrests from both groups happen visibly at the same time — this demonstrates impartiality concretely. Brief arrest team officers to approach each target directly, identify the arresting officer, state grounds, and use minimum force. Have your PLT or public address officer announce: 'Arrests are being made on both sides for assault.' If marchers attempt to physically prevent the arrest of their member, advise them clearly that interference is obstruction of justice and proceed with the arrest using proportional force.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Defer the arrests of the marchers' members until the event is fully over to avoid inflaming the larger march group.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Arrest only the counter-protester since they are the smaller group and easier to manage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Groups Separated — Events Resume",
+      "situation": "Three arrests have been made, two from the march group and one from the counter-protest. Groups have been separated to different areas of the square. Both groups are angry at police — the march group believes police targeted them disproportionately; the counter-protest group believes police protected the march. Neither claim is accurate but the perception of bias is a real operational risk. Both events are scheduled to continue for another 90 minutes.",
+      "question": "How do you manage the remainder of the events and address the perception of bias?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Have your PLT engage both event organisers separately: acknowledge that today's violence was unacceptable from all parties; confirm that police acted and will continue to act impartially; make clear that further violence from either side will result in dispersal orders for both events. Maintain equal officer deployment on both sides of the separation. Publish a post-event statement confirming arrests from both groups were made, to establish a factual public record. Police impartiality must be both practised and seen to be practised.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Respond to both groups' complaints by agreeing that the other side was primarily at fault to reduce tension.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately end both events and order dispersal of all participants.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both events concluded without further violence. Three individuals were charged with assault; charges were laid equally from both groups. Post-event media coverage highlighted the arrests from both sides, and the police impartiality record withstood scrutiny. The PLT engagement with both organisers was credited with preventing escalation after the initial violence. Police management of counter-protest situations requires rigid impartiality: both groups have Charter rights regardless of the content of their speech, and enforcement must be based solely on conduct, not ideology.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

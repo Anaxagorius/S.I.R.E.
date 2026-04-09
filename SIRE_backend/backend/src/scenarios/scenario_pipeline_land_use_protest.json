@@ -1,0 +1,129 @@
+{
+  "title": "scenario_pipeline_land_use_protest",
+  "description": "Officers are deployed to a pipeline construction protest where demonstrators are blockading construction equipment and access roads. The situation involves environmental protesters, injunction enforcement obligations, and significant media attention. Officers must enforce a court injunction while managing safety and avoiding disproportionate force.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "pipeline protest",
+    "injunction enforcement",
+    "blockade",
+    "land use",
+    "environmental protest",
+    "Canada",
+    "media relations",
+    "crowd management"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Injunction Briefing",
+      "description": "Officers briefed on a court injunction requiring protesters to clear a 50-metre exclusion zone around pipeline equipment.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival at Protest Site",
+      "description": "Officers arrive to find 200 protesters blocking equipment access. Media is on scene.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 2,
+      "title": "Injunction Served",
+      "description": "Officers serve the injunction to protest organisers and read its terms.",
+      "timeOffsetSec": 2400
+    },
+    {
+      "index": 3,
+      "title": "Protesters Refuse to Comply",
+      "description": "Protesters link arms and refuse to move. No violence has occurred.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 4,
+      "title": "Arrests Begin",
+      "description": "Officers begin arresting non-compliant individuals individually and peacefully.",
+      "timeOffsetSec": 5400
+    },
+    {
+      "index": 5,
+      "title": "Site Cleared",
+      "description": "After several hours and 45 arrests, the exclusion zone is enforced. No injuries.",
+      "timeOffsetSec": 18000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Injunction Enforcement at Pipeline Blockade",
+      "situation": "You command a 30-officer detail assigned to enforce a court injunction requiring protesters to vacate a 50-metre exclusion zone around pipeline construction equipment. Approximately 200 protesters are present; they are blocking a resource road and physically surrounding equipment. Media from four organisations are present. The protesters are non-violent but determined. Protest organisers have publicly stated they will not comply voluntarily. The injunction has been properly served.",
+      "question": "What is your operational approach to enforcing the injunction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a command post and confirm the injunction is properly constituted and served. Speak directly with protest organisers before enforcement begins — give them a final opportunity to voluntarily comply, explain that arrests will proceed for those who do not, and advise that cooperation will allow for a dignified, non-confrontational process. Ensure media access to a designated viewing area — do not attempt to exclude media from observing lawful enforcement. Brief all officers: arrests will be conducted individually, respectfully, and with minimum force. No use of chemical agents, pain compliance, or crowd control munitions for passive non-compliance.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately clear the site using crowd control equipment to enforce the injunction as quickly as possible.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stand down and return when the protesters voluntarily leave, since forcing arrests risks escalation and media backlash.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Protesters Linked Arms — Passive Resistance",
+      "situation": "Organisers have declined voluntary compliance. The 200 protesters are seated and have linked arms. They are singing and appear committed to staying. Cameras are rolling. The first arrest will be highly visible. Officers must now begin enforcing the injunction. The first protest organisers to be arrested have said they will comply passively — they will not walk voluntarily but will not physically resist.",
+      "question": "How do you conduct the first arrests?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin arrests at the front of the blockade, closest to the exclusion zone boundary. Two officers approach each individual, identify themselves, advise the individual they are under arrest for contempt of court (breaching the injunction), and offer them an opportunity to stand and walk willingly to the arrest processing area. If the individual declines to walk, they are lifted — under their arms — by two officers and carried to the processing area. No pain compliance, no flex-cuffs unless necessary for safety, no dragging. Treat each arrest as an individual, documented interaction. This is slow and methodical — accept that.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Use pain compliance techniques to force protesters to stand and walk quickly, to process arrests faster.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Deploy OC spray to break up the linked chain of protesters before attempting arrests.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Media Requests Access — Spokesperson Management",
+      "situation": "Three hours into the enforcement operation, 30 individuals have been arrested without incident. Media reporters are requesting an interview with the incident commander on camera. A protest organiser who has not yet been arrested is giving media interviews claiming police used excessive force — which is false, but the claim is on camera.",
+      "question": "How do you handle media relations during active enforcement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Appoint a media liaison officer to engage with reporters at the designated media access point. Provide a brief factual statement: confirm a court injunction is being enforced, that arrests are proceeding lawfully and without use of force beyond passive control, and that the process will continue until the exclusion zone is clear. Do not respond to specific claims of misconduct in real-time — state that all actions are being documented and that any conduct complaints will be reviewed through the formal process. Do not deny media access or interfere with their filming of lawful public enforcement.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Refuse all media contact during active enforcement — speak only after the site is cleared.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Respond to the false misconduct allegation on camera by publicly contradicting the protester's claim.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "After six hours and 45 arrests, the exclusion zone was cleared without injuries to protesters or officers. All arrests were conducted using minimum force and were individually documented. Post-event review found no misconduct. The protest organiser's misconduct allegation was investigated and not sustained. The operation was cited in a national policing training bulletin as a model for injunction enforcement: methodical, documented, minimum-force, with transparent media engagement. Proportionate enforcement of a lawful court order — however slow and painstaking — protects both the rule of law and the legitimacy of police operations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

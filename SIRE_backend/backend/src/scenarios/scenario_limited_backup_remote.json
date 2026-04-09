@@ -1,0 +1,129 @@
+{
+  "title": "scenario_limited_backup_remote",
+  "description": "An RCMP officer in a remote detachment responds to an armed subject call. The nearest backup is over an hour away and air support is unavailable. The officer must apply containment and negotiation principles to resolve the call safely without waiting for resources that may arrive too late.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "limited backup",
+    "remote policing",
+    "RCMP",
+    "armed subject",
+    "containment",
+    "Canada",
+    "solo officer",
+    "negotiation"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Armed Subject Call",
+      "description": "Call received of a male with a rifle threatening neighbours. No backup available for 75 minutes.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Assessment",
+      "description": "Officer arrives and observes the subject pacing outside a rural property holding a rifle. Neighbours are sheltering indoors.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Initial Contact Attempt",
+      "description": "Officer establishes cover behind vehicle and attempts verbal contact via PA system.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Subject Responds",
+      "description": "Subject yells that he wants to be left alone. States he has not hurt anyone.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Backup ETA Updated",
+      "description": "Dispatch advises backup is now 45 minutes out. Crisis negotiator is available by phone.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Subject Puts Down Rifle",
+      "description": "After sustained communication, subject sets rifle on the ground and sits. Backup arrives and assists with arrest.",
+      "timeOffsetSec": 4500
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Armed Subject — No Backup Available",
+      "situation": "You are a solo RCMP officer responding to a Priority 1 call: a 55-year-old male, Robert L., is outside his rural property waving a rifle and yelling at neighbours. Callers describe him as intoxicated and upset about a land dispute. You arrive to see him pacing with a scoped hunting rifle. He has not pointed it at anyone. Nearest backup: 75 minutes. Air support: unavailable. You must establish a safe initial posture and begin communication.",
+      "question": "What is your immediate tactical action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Park your vehicle at a safe distance, using it as cover. Do not advance on foot. Activate emergency lighting to mark your position. Use the vehicle PA system to announce your presence clearly and calmly: 'Robert, this is the RCMP. I am here to talk with you. I am not going to hurt you. Please put the rifle down and speak with me.' Radio dispatch with a full scene update, request crisis negotiator support by phone, and establish a containment perimeter. Do not advance until you have a clear tactical advantage or the subject complies.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately exit your vehicle with firearm drawn and order the subject to the ground at gunpoint.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stage well back and wait 75 minutes for backup before taking any action, even if the subject advances on neighbours.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Subject Engages — Hostile But Not Threatening",
+      "situation": "Robert shouts at you: 'I'm not doing anything wrong! This is my land! Leave me alone!' He is agitated but has not pointed the rifle. He appears to be listening. Dispatch has connected a crisis negotiator by phone who is coaching you remotely. The negotiator advises using active listening and avoiding commands that will increase his defensiveness.",
+      "question": "How do you communicate with the subject to de-escalate?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the negotiator's guidance: lower your tone, use Robert's first name, validate his feelings without endorsing his actions. Say: 'Robert, I hear you — it sounds like you're really frustrated about what's happening with your land. You haven't hurt anyone and I want to keep it that way. Can you tell me what's going on?' Avoid ultimatums. Keep the conversation open. Maintain your covered position. Do not advance. Continue to update the negotiator on verbal and behavioural cues.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Issue a loud, firm ultimatum: 'Put the gun down now or you will be arrested by force.'",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stop communicating and wait silently until backup arrives.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Considers Compliance — Opportunity to Progress",
+      "situation": "Robert has lowered the rifle slightly and has been speaking more calmly. He explains he received a notice that a logging company has a permit to clear part of his property and he feels the police are there to enforce the company's interests. He is not drunk — he is frightened. Backup is now 20 minutes out. The negotiator advises this is a 'yield moment' — the subject is seeking to be heard, not to harm.",
+      "question": "How do you advance toward resolution?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge his concern genuinely: 'Robert, if someone told me they could take my land without my consent, I'd be upset too. That's a serious issue and you deserve to have it heard properly — but not like this. Help me help you. If you put the rifle down and come talk to me, I will personally make sure your concerns about the logging permit are documented and passed to the right people. You're not in trouble for being upset.' Continue to hold position and allow him time to process.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Now that he is calmer, advance on foot to arrest him while his guard is down.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell him that the logging permit is none of your concern and he simply needs to put the rifle down or be arrested.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Robert placed the rifle on the ground and sat down. He was taken into custody without further incident when backup arrived. He was charged with careless use of a firearm. No shots were fired and no injuries occurred. Your patience, use of active listening, and refusal to escalate prevented a potential use-of-lethal-force incident. The incident was later used as a remote policing case study in containment, telephone crisis negotiation, and de-escalation under resource-limited conditions.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

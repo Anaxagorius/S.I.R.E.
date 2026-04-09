@@ -1,0 +1,129 @@
+{
+  "title": "scenario_officer_isolation_deployment",
+  "description": "An RCMP officer on extended solo deployment in a remote community begins experiencing operational stress and decision fatigue. A critical incident occurs that requires the officer to manage their own mental state, make sound operational decisions, and initiate appropriate self-reporting and support processes.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "officer wellness",
+    "operational stress",
+    "remote policing",
+    "RCMP",
+    "extended deployment",
+    "mental health",
+    "Canada",
+    "isolated deployment"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Week 6 of Extended Deployment",
+      "description": "Officer is on week six of a solo posting to a remote community. Rotation relief is delayed by two weeks.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Critical Incident Occurs",
+      "description": "Officer responds to a vehicle accident with one fatality — a known community member.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Post-Incident Emotional Response",
+      "description": "After the scene is cleared, officer experiences intrusive thoughts and sleep disruption.",
+      "timeOffsetSec": 86400
+    },
+    {
+      "index": 3,
+      "title": "Operational Performance Affected",
+      "description": "Officer notes difficulty concentrating during calls and feels emotionally detached from work.",
+      "timeOffsetSec": 172800
+    },
+    {
+      "index": 4,
+      "title": "Supervisor Contact",
+      "description": "Officer's supervisor calls for a routine check-in.",
+      "timeOffsetSec": 259200
+    },
+    {
+      "index": 5,
+      "title": "Support Engaged",
+      "description": "Officer discloses their state. Critical Incident Stress support is arranged.",
+      "timeOffsetSec": 345600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Extended Deployment — Rotation Delayed",
+      "situation": "You are an RCMP officer on week six of a solo deployment to a remote community. Your rotation was originally scheduled for six weeks; it has been extended by two more weeks due to a staffing shortage. You have had limited social contact and no face-to-face time with colleagues since your deployment began. Yesterday, you attended a fatal vehicle accident involving a 19-year-old community member you knew by name. You have been unable to sleep and have been replaying the scene. You are due to respond to calls tomorrow.",
+      "question": "What is the appropriate action regarding your mental state before resuming operational duties?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact your supervisor proactively and honestly: advise them that you attended a critical incident involving a known person, that you are experiencing sleep disruption and intrusive thoughts, and that you want to flag your status before resuming full duties. This is not a sign of weakness — it is professional self-awareness. Ask whether a Critical Incident Stress Management (CISM) debrief is available by phone, and whether your operational tempo can be adjusted while you stabilise. Document your contact and the supervisor's response.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Say nothing and continue working — officers are expected to manage their own stress, and disclosing difficulties could affect your career.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Request immediate evacuation from the community and refuse all further calls until you return to your home detachment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Routine Check-in — Supervisor Contact",
+      "situation": "Your supervisor calls for a scheduled check-in three days after the fatal accident. She asks a general 'how are things going?' Your sleep has not improved. During your last two calls, you noticed difficulty concentrating and felt emotionally numb responding to a minor dispute — something that would normally require active engagement. You have not yet disclosed your condition to your supervisor.",
+      "question": "How do you respond during the supervisor check-in?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Be honest with your supervisor. Tell her directly that since the fatal accident three days ago, you have been having sleep difficulties, intrusive thoughts about the scene, and some concentration issues on calls. Explain that you are still operationally functional but want her to be aware. Ask whether RCMP Employee Assistance Services (EAS) or an RCMP Peer-to-Peer Support contact can be arranged. This disclosure is a sign of professional integrity and allows the organisation to support you before the situation becomes a critical risk.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the supervisor everything is fine — there is no point worrying her since you will be done your rotation in two weeks.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the supervisor the deployment extension is unacceptable and you refuse to continue without immediate rotation relief.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Support Arranged — Operational Continuity",
+      "situation": "Your supervisor has responded with concern and support. She is arranging a telephone CISM debrief for today and an EAS counselling referral within 48 hours. She asks whether you feel safe to continue operational duties in the interim. You have one more week of deployment. The community has active ongoing needs.",
+      "question": "How do you assess your operational fitness and plan for the remainder of your deployment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Be honest about your current capacity: you believe you are operationally functional for routine calls but would benefit from reduced solo critical incident exposure where possible. Agree to a daily check-in with your supervisor during the remaining week. Confirm you will complete the CISM debrief and counselling referral. Accept the EAS contact information and use it. Do not self-certify as 'fine' and dismiss the supports — accepting help is part of professional resilience, not a departure from it.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the supervisor you are fully operational and do not need any further supports — you've handled worse.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Agree to supports but then cancel the CISM debrief and counselling appointment because they feel unnecessary.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You completed the CISM debrief, which helped you process the fatal accident. The EAS counsellor identified symptoms consistent with acute stress response and recommended four sessions of trauma-focused CBT upon return to your home detachment. You completed the final week of your deployment and were rotated out at the scheduled end of the extension. The RCMP's Peer-to-Peer Support program was credited with providing critical support during the isolation period. Your supervisory chain documented your self-reporting as exemplary professional conduct. Extended remote deployments require proactive wellness self-monitoring and honest supervisory disclosure — operational effectiveness depends on officer wellbeing.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
