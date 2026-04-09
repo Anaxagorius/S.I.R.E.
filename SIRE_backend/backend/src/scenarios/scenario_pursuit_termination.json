@@ -1,0 +1,142 @@
+{
+  "title": "pursuit_termination",
+  "description": "A police officer is engaged in a vehicle pursuit that is escalating in risk. The officer and supervisor must make a pursuit termination decision based on evolving circumstances, agency policy, and public safety — balancing the need to apprehend with the risk of continued pursuit.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": ["vehicle pursuit", "pursuit termination", "pursuit policy", "public safety", "supervisor decision", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Pursuit Initiated",
+      "description": "Officer initiates pursuit of a vehicle failing to stop. Policy requires supervisor authorisation.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Risk Assessment — Residential Zone",
+      "description": "Pursuit enters residential area. Children present. Risk is increasing. Supervisor monitoring.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "School Zone Ahead",
+      "description": "Pursuit approaching active school zone. Policy requires automatic termination in school zones during active hours.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Termination Decision",
+      "description": "Supervisor orders termination. Officer must disengage and manage post-termination protocol.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Post-Termination Follow-up",
+      "description": "Vehicle is tracked by air support. Officer manages containment without resumed pursuit.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Suspect Apprehended",
+      "description": "Suspect is apprehended by other units without resumed pursuit. Documentation required.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initiating the Pursuit — Policy and Notification",
+      "situation": "You have attempted to stop a vehicle with a cracked windshield. The driver accelerates and fails to stop. The vehicle has been confirmed by licence plate as registered to a person with an outstanding warrant for assault. The time is 08:45. It is a clear morning. You are in a mixed commercial/residential zone — moderate traffic. Your agency's policy requires supervisor authorisation for all pursuits and continuous risk assessment.",
+      "question": "What are your immediate obligations on initiating a pursuit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately broadcast on the radio: 'In pursuit — [vehicle description and licence plate] — [direction of travel and street] — [reason for stop] — [speed] — [traffic conditions].' Activate lights and siren. Request supervisor authorisation. Begin continuous updates: every 30 seconds provide direction, speed, and risk assessment observations. You should not exceed your agency's speed limits for pursuit zones. Begin your risk assessment: the offence (MVA and outstanding assault warrant) versus the risk of pursuit in this area, traffic density, pedestrian presence, and vehicle performance.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Begin pursuit at maximum speed immediately — the outstanding warrant justifies aggressive pursuit and supervisor notification can wait.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not pursue — a cracked windshield offence does not justify a pursuit regardless of the warrant.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Pursuit Enters Residential Zone — Supervisor Assessment",
+      "situation": "You are the supervising sergeant. The pursuing officer has entered a residential zone at 70 km/h in a 40 km/h zone. A playground is visible on a side street ahead. The vehicle is not slowing and appears to be attempting to evade through side streets. The driver has committed an outstanding assault warrant offence and a fail-to-stop offence. Air support has been requested but has a 12-minute ETA. You must make a continuing authorisation decision.",
+      "question": "As the supervisor, do you continue to authorise the pursuit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the ongoing risk assessment: the suspect has an assault warrant — not a violent in-progress offence. The pursuit is now in a residential zone with a playground present, at 70 km/h in a 40 zone. The risk to the public — pedestrians, children, cyclists — is increasing with each residential block. The severity of the offence being pursued must be proportionate to the risk created by the pursuit. Instruct the officer to maintain visual contact but reduce speed to reduce risk. Begin boxing in from other directions using units ahead of the pursuit. Note the air support ETA — if the vehicle can be tracked from the air, termination becomes the right choice. Advise the officer you are monitoring closely and will order termination if risk increases.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Continue full pursuit authorisation — the officer has the vehicle in sight and speed needs to be maintained to prevent escape.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately terminate the pursuit — any residential pursuit at this speed is against policy.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "School Zone Ahead — Automatic Termination Trigger",
+      "situation": "The pursuing officer advises that the vehicle is approaching the school zone around Lakeview Elementary. It is 09:02. School is in session — children are in the school but the zone is active with crossing guards and parents. Your agency's pursuit policy states that pursuit must be terminated if a vehicle enters an active school zone during school hours. The vehicle is 200 metres from the zone. You have a decision to make now.",
+      "question": "What is the correct supervisor decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Order pursuit termination immediately. Your policy is clear — active school zones during school hours are a mandatory termination trigger. Broadcast: 'Termination ordered — [officer unit] — all units stand down pursuit.' The pursuing officer must disengage lights and siren and discontinue pursuit. Continue to track the suspect's last known direction without pursuit. Alert school zone crossing guards by radio of a potential speeding vehicle approaching. Task available units to establish a containment perimeter ahead of the suspect without direct pursuit. Continue to await air support.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Allow pursuit to continue through the school zone — the suspect is almost stopped and losing him now would be a failure.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the pursuing officer to decide — they are closest to the situation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Termination — Suspect Tracked by Air",
+      "situation": "The pursuit has been terminated. The pursuing officer has disengaged. Air support has arrived and has the suspect vehicle in sight — it has stopped in a parking lot 3 km from the pursuit termination point. The pilot advises the vehicle has stopped and the driver is inside. Three ground units are 2 minutes away. The pursuing officer asks whether they can resume the pursuit since the suspect has stopped.",
+      "question": "Can the pursuing officer resume the pursuit, and how should the apprehension be handled?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The pursuit termination stands — the pursuing officer should not resume pursuit. The vehicle is now stationary and contained with air support — there is no pursuit to resume. Direct the three ground units to the vehicle's confirmed location for a static containment and high-risk stop procedure. The air unit maintains position and provides real-time updates. Approaching units should establish a perimeter before any approach to the vehicle. This is now a containment and arrest situation — not a pursuit. Conduct a high-risk stop: units position, PA commands, controlled exit of the driver. The outstanding warrant provides grounds for arrest.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the pursuing officer to resume pursuit and race to the location — they have been on the file from the start and should make the arrest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow the suspect to leave the parking lot and pursue again once they leave the populated area.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The driver was arrested without incident at the parking lot location. He was found to be wanted on the outstanding assault warrant and was also subsequently charged with fail to stop for police. The pursuit termination decision at the school zone was reviewed and upheld as correct. The air support asset was credited with making the arrest possible after termination. Post-incident documentation showed your radio logs, continuous risk assessments, and termination timing were consistent with policy. The agency's use-of-force and pursuit review board noted that the response demonstrated sound supervisor decision-making and that containment post-termination was as effective as continued pursuit — without the risk.",
+      "question": "",
+      "options": []
+    }
+  }
+}

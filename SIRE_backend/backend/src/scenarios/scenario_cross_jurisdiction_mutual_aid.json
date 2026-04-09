@@ -1,0 +1,142 @@
+{
+  "title": "cross_jurisdiction_mutual_aid",
+  "description": "A major incident at a provincial border requires police agencies from two provinces to coordinate a mutual aid response. Officers must navigate jurisdictional authority, command structures, information sharing protocols, and legal authority differences between provincial police services.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["mutual aid", "cross-jurisdiction", "inter-agency coordination", "provincial policing", "RCMP", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Major Incident at Provincial Border",
+      "description": "A wildfire and associated highway incident occurs at a provincial border. Both provincial police services and RCMP are responding.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Jurisdictional Ambiguity",
+      "description": "Command officers from both provinces arrive simultaneously. Jurisdictional primacy is unclear.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 2,
+      "title": "Mutual Aid Agreement Invoked",
+      "description": "The Mutual Aid Agreement between the two provinces is invoked. Command structure must be established quickly.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 3,
+      "title": "Information Sharing Conflict",
+      "description": "A criminal intelligence concern arises — one province has information relevant to the incident that may not be shareable under their provincial privacy legislation.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 4,
+      "title": "Use-of-Force Authority Question",
+      "description": "Officers from Province A are unsure whether they have legal authority to arrest someone in Province B's jurisdiction.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 5,
+      "title": "Transition to Home Jurisdiction",
+      "description": "Incident stabilises. Mutual aid forces begin returning to home jurisdictions. Continuity of investigation must be managed.",
+      "timeOffsetSec": 14400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Jurisdictional Primacy — Who Is in Command?",
+      "situation": "A wildfire has caused a multi-vehicle collision on a major highway that straddles the border between Province A and Province B. The collision site is in Province B. The highway closure and evacuation of a nearby community extend into Province A. Officers from both Province A's police service and the RCMP (policing Province B under contract) have arrived. The two senior officers — a Staff Sergeant from Province A and an RCMP Inspector from Province B — are both at the scene. Each believes their agency has primacy. The incident needs a unified commander now.",
+      "question": "How should jurisdictional primacy be determined and command established?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Jurisdictional primacy generally follows where the primary incident occurred — the collision is in Province B, so RCMP (Province B) has primacy for the collision scene. Province A's officers have authority on their side of the border. Rather than debating primacy, immediately establish a unified command with a designated lead agency per ICS principles. The RCMP Inspector assumes command of the Province B collision site; the Province A Staff Sergeant commands Province A operations and evacuation coordination. A joint command post is established. Both commanders must agree on a single communications channel, a joint situation log, and a resource request process. Contact both agencies' EOCs immediately to formalise the arrangement.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Province A's officers are present in greater numbers so Province A should assume overall command regardless of where the incident occurred.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Both agencies operate independently on their side of the border and coordinate by phone only — unified command is not necessary.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Mutual Aid Agreement — Invoking and Understanding Scope",
+      "situation": "The two provinces have a formal Mutual Aid Agreement (MAA) covering emergency policing assistance. The RCMP Inspector proposes invoking the MAA to allow Province A officers to operate on the Province B side of the border. Province A's Staff Sergeant agrees but is unsure what the MAA actually permits. He needs to understand the scope before committing officers to operations in Province B's jurisdiction.",
+      "question": "What does a mutual aid agreement typically permit, and what are its limits?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A MAA typically grants designated officers from the assisting province temporary peace officer status (or equivalent authority) in the receiving jurisdiction, subject to the receiving province's laws and direction of the host commander. This means Province A officers operating in Province B must follow Province B's laws and agency policies for that jurisdiction — not just their home province rules. The MAA does not grant unlimited authority. Contact each agency's legal/policy advisor to confirm the specific terms of the Agreement, which officers are designated, and any endorsement or notification requirements. Brief all Province A officers operating in Province B on their authority and limitations before deployment.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "A MAA means both agencies can operate anywhere across both provinces with full home agency authority — it is a bilateral agreement.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Officers should operate based on their training and common sense — the legal details can be resolved after the incident.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Information Sharing — Criminal Intelligence Concern",
+      "situation": "The RCMP has intelligence suggesting that one of the individuals at the collision site is a person of interest in a serious organised crime investigation. Sharing this information with Province A officers could compromise the ongoing RCMP investigation. However, Province A officers are managing this individual at the perimeter on the Province A side. There is no immediate safety threat, but there may be a flight risk.",
+      "question": "How should the information sharing issue be managed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The RCMP should not share ongoing investigation details with Province A officers in an ad hoc manner — this could compromise the investigation and violate source protection obligations. However, if the individual poses a public safety risk or is a flight risk at the scene, the RCMP should assume direct responsibility for managing that individual at the boundary of their jurisdiction. The RCMP Inspector should personally contact the Province A Staff Sergeant and request that the individual be detained for RCMP contact — without disclosing the intelligence basis. Formal information sharing, if appropriate, should follow established inter-agency intelligence sharing protocols (e.g., through the Provincial Joint Intelligence Group) rather than scene-level disclosure.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Share all intelligence immediately with Province A officers — they need full situational awareness to manage the individual safely.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not share anything and do not take any action regarding the individual — intelligence confidentiality is absolute.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Arrest Authority Across Jurisdictions",
+      "situation": "A Province A officer witnesses a man committing a serious assault (assault causing bodily harm) on a bystander at the joint perimeter. The assault is happening technically on the Province B side of the highway. The RCMP Inspector is at the joint command post, 300 metres away. The Province A officer requests confirmation on whether he can arrest the individual in Province B's jurisdiction before the MAA briefing is complete.",
+      "question": "Can the Province A officer arrest the individual in Province B?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under Canada's Criminal Code, peace officers have authority to arrest without warrant under s.495 when they witness an indictable offence being committed — and assault causing bodily harm is an indictable offence. The officer should arrest immediately to prevent the ongoing offence — waiting for confirmation while a serious assault continues is not appropriate. The legal authority question (whether the MAA has been formally invoked) is secondary to the immediate safety imperative. The arresting officer must document that they witnessed the offence, the time and location, and all subsequent steps. Brief the RCMP Inspector immediately after the arrest so jurisdiction over the investigation and detainee is properly determined.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the RCMP Inspector to authorise the arrest — Province A officers do not have arrest authority in Province B without formal authorisation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Observe and document the assault but do not intervene — the Province A officer has no authority in Province B.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The incident was resolved without loss of life. The unified command structure functioned effectively with clearly delineated responsibilities across the provincial border. The MAA was formally invoked and all Province A officers operating in Province B were properly briefed and designated. The organised crime person of interest was detained by RCMP at the scene, supporting the ongoing investigation without compromising intelligence. The assault in Province B was lawfully arrested by the Province A officer under the Criminal Code — the RCMP took jurisdiction over the investigation. Post-incident review noted that pre-established MAA protocols and trained cross-jurisdiction awareness significantly reduced the coordination friction typically seen in border incidents.",
+      "question": "",
+      "options": []
+    }
+  }
+}

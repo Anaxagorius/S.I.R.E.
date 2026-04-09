@@ -1,0 +1,142 @@
+{
+  "title": "flood_evacuation_enforcement",
+  "description": "Rapidly rising floodwaters require police to enforce mandatory evacuation orders in a residential community. Officers must balance public safety with individual rights, manage non-compliant residents, and coordinate with emergency management and social services.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": ["flood", "evacuation enforcement", "Emergency Management Act", "non-compliant residents", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Mandatory Evacuation Order Issued",
+      "description": "The Province issues a mandatory evacuation order for a riverside community of 400 homes. Water levels are rising rapidly due to upstream dam release.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Police Begin Door-to-Door",
+      "description": "Police begin door-to-door notification. Most residents comply. Thirty households are not responding or refusing to leave.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Water Rising — Time Critical",
+      "description": "Water level at the river gauge reaches critical level. The bridge providing the only exit route will be closed in 90 minutes.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 3,
+      "title": "Refused Evacuation — Legal Powers",
+      "description": "Eight households have explicitly refused evacuation. Officers must decide whether and how to enforce the order.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 4,
+      "title": "Bridge Closure Imminent",
+      "description": "30 minutes remain before bridge closure. Final sweep required.",
+      "timeOffsetSec": 5400
+    },
+    {
+      "index": 5,
+      "title": "Community Evacuated",
+      "description": "Bridge closed. Community under water within 3 hours. All residents accounted for.",
+      "timeOffsetSec": 7200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Mandatory Evacuation — Notification",
+      "situation": "A mandatory evacuation order has been issued under provincial emergency management legislation for a riverside community of 400 homes. You are the patrol supervisor assigned to coordinate the door-to-door evacuation. Water is rising rapidly — the downstream bridge, the only vehicle exit, will be closed in 90 minutes. Approximately 70% of residents are already self-evacuating. Your team of 12 officers has 30 households that have not yet been contacted or confirmed as evacuated.",
+      "question": "How do you prioritise and organise your door-to-door evacuation effort?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Divide the community into sectors and assign officer pairs to each sector. Prioritise households with registered mobility-impaired residents, elderly persons, and families with young children using the municipality's vulnerable persons registry. Have officers leave a door notice on properties with no response and record the time. Request social services and fire department to assist with any residents requiring physical assistance to evacuate. Maintain a running log of confirmed evacuations and outstanding properties.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Move door-to-door in sequential order from one end of the community to the other — systematic coverage is more reliable than prioritisation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Focus only on the main roads since residents on side streets will have heard the sirens and can self-evacuate.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Non-Compliant Resident — Refusal to Leave",
+      "situation": "An 82-year-old male resident refuses to evacuate. He has lived in his home for 55 years, says he has survived past floods, and says the government has no right to remove him. He is not cognitively impaired — he is alert and oriented and understands the risk. Water is approximately 80 cm below his door sill and rising. You have legal authority under the provincial emergency management act to require evacuation and, as a last resort, to forcibly remove persons. He is alone.",
+      "question": "How do you handle this refusal?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take time to speak with him respectfully. Explain calmly that the dam release means this flood will be faster and higher than past events. Show him the water level. Ask whether he has family to call. Offer to take any valuables or pets in your vehicle. Document his refusal on body camera and in notes. If he continues to refuse and there are still 60+ minutes before bridge closure, inform him you will return before the bridge closes. Coordinate with the emergency management director on whether to attempt a forced removal — the legal authority exists but must be proportionate to the risk and his autonomy. Do not forcibly remove an alert, competent adult unless water is immediately life-threatening.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately arrest him for refusing to comply with a mandatory evacuation order and remove him forcibly — the order is the law.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Accept his refusal, document it, and move on — adults have the right to make their own decisions.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Resident with Livestock — Refusing Without Animals",
+      "situation": "A farm property on the edge of the community has a family with five horses and twelve cattle. The family is willing to evacuate but refuses to leave the animals behind. The livestock cannot be transported in standard vehicles. Water is already on the property. An agricultural trailer has been identified but is 45 minutes away. Bridge closure is in 60 minutes.",
+      "question": "How do you manage the livestock-evacuation conflict?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritise human life — inform the family that people must leave now and that emergency management and agriculture emergency services have been notified to dispatch a livestock trailer. Document the livestock location and count. Offer to stay with or return for the animals if the bridge remains open. If they refuse to leave without the animals and time permits, attempt to expedite the trailer. If the bridge closure time becomes critical, make clear to the family that the choice is theirs but rescue may not be possible after closure. Document everything.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the livestock trailer to arrive before insisting the family leave — abandoning animals is not necessary if a solution is possible.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use the patrol vehicle to load as many small animals as possible and leave the rest — partial evacuation is better than none.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Final Sweep — 30 Minutes to Bridge Closure",
+      "situation": "You have 30 minutes before the bridge closes. Three households remain unaccounted for — no response to repeated knocking and no vehicle in the driveway. Water is now over the road surface in some areas. You have four officers left available. The 82-year-old from earlier is still refusing to leave — water is now at his door sill.",
+      "question": "How do you handle the final sweep and the non-compliant elderly resident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "For the three unaccounted households: attempt one final contact, check for any sign of occupancy (lights, sounds, vehicles returned), then note as 'believed evacuated or absent' with time and officer initials. Return immediately to the 82-year-old — water at the door sill is now an immediate life-threatening situation. Invoke your emergency management authority and make a last direct appeal: 'I have authority to remove you and I am asking you to come with me now — the water will reach your floor in minutes.' If he still refuses, determine if time permits a forced removal with two officers and transport. Document every step including time, warnings given, and his responses.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the 82-year-old — he was warned and refused, and you must complete the full sweep of the other three properties.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stay with the 82-year-old and wait for him to change his mind, even if this means missing the bridge closure.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 400 households were accounted for before bridge closure. The three unaccounted households were later confirmed to have self-evacuated early. The 82-year-old resident agreed to leave when water entered his entryway — he was the last person across the bridge. The livestock family evacuated their people with 20 minutes to spare; their horses were recovered by agricultural emergency services two days later. The property in the flood zone was inundated to approximately 1.8 metres within 4 hours of bridge closure. Your structured prioritisation, respectful but persistent engagement with non-compliant residents, and coordinated documentation ensured no loss of life and a defensible record of all police actions.",
+      "question": "",
+      "options": []
+    }
+  }
+}

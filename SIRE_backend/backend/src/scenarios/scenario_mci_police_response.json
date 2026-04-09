@@ -1,0 +1,164 @@
+{
+  "title": "mci_police_response",
+  "description": "A mass casualty incident — a building collapse during a community event — requires police to establish perimeter control, manage crowd behaviour, coordinate with fire and EMS, and maintain scene integrity under intense public pressure.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["MCI", "mass casualty", "perimeter control", "multi-agency", "ICS", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Building Partial Collapse",
+      "description": "A partial collapse of a community centre roof during a public event. Estimated 40–60 persons inside. Multiple casualties confirmed.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Police, Fire, EMS Responding",
+      "description": "Multiple agencies en route. First police unit on scene. Chaotic crowd outside the building.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 2,
+      "title": "ICS Activated",
+      "description": "Incident Command System activated. Police assigned perimeter control, crowd management, and scene integrity.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Media and Family Members Arrive",
+      "description": "News crews and anxious family members converge on the outer perimeter. Tension rising.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Evacuation Route Conflict",
+      "description": "Ambulances require unobstructed access. Crowd is blocking the primary vehicle corridor.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Scene Stabilised",
+      "description": "All survivors extracted. Scene transitioned to investigation. Fatality notification process begins.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "First Police Unit — Chaotic Scene",
+      "situation": "You are the first police officer to arrive at a community centre where a partial roof collapse has trapped an estimated 40–60 people during a public event. Approximately 200 bystanders are outside — some are rushing toward the building attempting to enter and assist injured persons. Fire and EMS are 4 minutes away. You are alone.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Broadcast your arrival, request additional units, EMS, and fire. Establish a preliminary outer perimeter and begin directing bystanders away from the collapse zone. Use your vehicle to block vehicle access to the entrance. Do not enter the collapse zone alone — structural instability is unknown. Position yourself to manage crowd behaviour and preserve access corridors for incoming emergency vehicles.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Enter the building immediately to assist casualties — every second counts for the trapped survivors.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow bystanders to assist freely — civilian helpers are needed since you are alone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "ICS Established — Police Role Assigned",
+      "situation": "Fire and EMS have arrived. The fire incident commander has established ICS and assigned police the following functions: outer perimeter control, crowd management, access corridor maintenance, and missing persons coordination with a staging area. Six additional police units have arrived. You are the senior patrol officer and have been designated Police Liaison within ICS. Two bystanders are attempting to push past your perimeter claiming their family members are inside.",
+      "question": "How do you manage the bystanders attempting to breach the perimeter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Speak directly and calmly with the bystanders. Acknowledge their distress. Explain that structural instability means entry by civilians puts them at risk and could impede rescuers. Direct them to the family reunification point being established at the community hall across the street. Collect their names and family member descriptions and pass this to the missing persons coordinator. Use an officer to staff the reunification point immediately.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Physically restrain the bystanders and threaten arrest if they attempt to pass — the perimeter must be absolute.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow the bystanders to enter — as family members they have a right to look for their loved ones.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Media and Crowd Pressure",
+      "situation": "A news helicopter is circling overhead and three news vans are at the outer perimeter. A reporter is live-streaming on social media and has pushed to the inner perimeter tape. A crowd of approximately 300 is now present. Tensions are rising as people hear rumours of fatalities. Your sergeant asks you to manage public communications in coordination with the ICS Public Information Officer (PIO), who is still en route.",
+      "question": "How do you manage media and crowd communication until the PIO arrives?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not make any public statements about casualty numbers, identities, or cause of collapse — these are unconfirmed and could cause panic or interfere with family notifications. Designate a media staging area beyond the outer perimeter. Have a single officer direct all media to that area. Advise the crowd that an official update will be provided as soon as the PIO arrives, that a family reunification point is available, and that the scene is being managed by emergency services. Document all media contacts.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Give the reporter a brief on-camera update to reduce crowd tension — confirm that there are casualties and that rescue operations are underway.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the reporter for crossing the perimeter line — press access should be denied until the scene is cleared.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Ambulance Corridor Blocked",
+      "situation": "Three ambulances with critical patients need to leave the scene simultaneously. The main exit corridor is being partially blocked by a large group of family members who have gathered near the reunification area, which has become congested. Two ambulances are being delayed. The EMS medical director is on the radio requesting immediate clearance.",
+      "question": "How do you rapidly clear the corridor for ambulance access?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy three officers in high-visibility positions along the corridor with clear hand signals and verbal direction to part the crowd. Use your vehicle's emergency lights (no siren — it will create panic) to signal that ambulances are moving. Coordinate with the reunification point officer to redirect the crowd sideways — not backward, which would compress the crowd. Communicate clearly to the crowd that 'ambulances are coming through with injured people — please step aside.' Escort the lead ambulance through the crowd at walking pace.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Use the PA system at full volume to order everyone to clear the area immediately or face arrest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Request the ambulances use an alternate exit route — clearing the crowd will take too long.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scene Transition and Fatality Notification",
+      "situation": "Rescue operations have concluded. Eight confirmed fatalities, 24 injured survivors transported to hospital. The scene is transitioning to a major crimes investigation for potential criminal negligence. Four families have not yet been notified of fatalities — next of kin cannot be located for two of the deceased. The PIO has arrived and is managing media. You need to coordinate the fatality notification process.",
+      "question": "How do you manage unnotified next of kin for fatalities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign trained victim services workers or senior officers to conduct in-person next of kin notifications. Do not release the names of the deceased to anyone — including other family members or media — until all next of kin have been formally notified. For the two unidentified deceased, begin a missing persons cross-reference using descriptions and the family reunification register collected at the scene. Contact victim services for immediate support. Document all notification attempts and times.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Post the names of confirmed fatalities at the reunification point so families can self-identify — this is faster than individual notification.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Release the names to the PIO for a media broadcast — this will reach family members faster than door-to-door notification.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All survivors were extracted and transported within 45 minutes of your arrival. Eight fatalities were handled with dignity — all next of kin were notified before any names were released publicly. The ambulance corridor was cleared without injury to crowd members. Media was managed professionally and no inflammatory statements were made. The ICS structure allowed fire, EMS, and police to operate without conflict. The family reunification point was credited by victim services with reducing civilian distress significantly. Your scene management and coordination will be cited as best practice in the after-action review.",
+      "question": "",
+      "options": []
+    }
+  }
+}

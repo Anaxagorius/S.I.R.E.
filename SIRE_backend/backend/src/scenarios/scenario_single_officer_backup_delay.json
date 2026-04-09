@@ -1,0 +1,142 @@
+{
+  "title": "single_officer_backup_delay",
+  "description": "A solo officer attends a call that rapidly escalates. Backup is significantly delayed due to resource constraints. The officer must manage the situation safely using de-escalation, tactical positioning, and sound decision-making until assistance arrives.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["officer safety", "solo officer", "backup delay", "de-escalation", "tactical positioning", "rural policing", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Solo Officer Dispatched",
+      "description": "Officer is dispatched solo to a disturbance call. Nearest backup is 18 minutes away.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Situation Escalates",
+      "description": "On arrival, officer finds the situation more serious than the initial call description.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Subject Armed — Backup Requested",
+      "description": "Officer learns subject may have a weapon. Emergency backup requested. ETA 14 minutes.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Tactical Options — Contain or Engage",
+      "description": "Officer must decide how to manage an armed or potentially armed subject alone for 14 minutes.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Backup Arrives",
+      "description": "Backup arrives. Subject arrested safely.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Review — Staffing Gap",
+      "description": "Post-incident review identifies the solo deployment as a systemic risk.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arrival — Situation More Serious Than Reported",
+      "situation": "You have been dispatched solo to a report of a neighbour dispute at a rural property. Dispatch described it as a verbal altercation. You arrive to find a male and female arguing violently in a driveway. The female runs to you immediately and tells you the male — her estranged partner — has a hunting rifle inside the house and has threatened to use it. Your nearest backup is 18 minutes away. The male is approaching you.",
+      "question": "How do you manage this situation immediately on arrival?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately broadcast: 'Weapons complaint — possible firearm on premises — Code 3 backup — solo officer — [location].' Use your vehicle as partial cover while keeping the male in sight. Create distance between yourself and the male — do not allow him into arm's reach. Use a calm but authoritative tone: 'Stop where you are. I need you to stay back.' Direct the female to move to your right and away from the male's line of movement. Do not attempt to enter the house alone to locate the firearm — you have no backup and no information on its exact location. Your priority is containment and information-gathering until backup arrives.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Enter the house immediately to locate and secure the rifle before the male can retrieve it.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the male to explain his side of the story before taking any precautions — you do not yet know if the female is telling the truth.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Male Subject Agitated — 14 Minutes to Backup",
+      "situation": "You have maintained distance from the male, who is approximately 15 metres away near the driveway. He is shouting about his rights, is visibly intoxicated, and has made one step toward the house. The female is now beside your vehicle. Backup ETA is 14 minutes. The male has not produced a weapon but you cannot see his hands clearly. He is yelling at you to leave.",
+      "question": "How do you manage the next 14 minutes as a solo officer?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your tactical objective is to contain the situation — not resolve it alone. Position yourself to maintain clear sight lines to both the male and the house entrance. Use continuous verbal engagement to keep the male focused on you and talking — a talking subject is less likely to be moving. Issue clear, calm directives: 'Show me your hands. I'm here to help. No one needs to get hurt. Stay where you are.' Do not give commands you cannot enforce without backup. If the male moves toward the house, increase your cover and broadcast an update to dispatch with the change in situation. Keep the female beside your vehicle — do not allow her to re-engage with the male. Update dispatch every 2 minutes with your status.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Arrest the male immediately — 14 minutes is too long to wait and he needs to be controlled now.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the scene and stage nearby — entering a potential firearms situation solo was a mistake and you should wait for backup before re-engaging.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Male Moves Toward House",
+      "situation": "After 8 minutes, the male has turned and is walking toward the house entrance. He is 10 metres from the front door. Backup ETA is now 6 minutes. The female tells you the rifle is in the front hallway.",
+      "question": "How do you respond to the male approaching the house?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Broadcast immediately: 'Subject moving toward house — potential firearms access — units expedite.' Issue a clear verbal command: 'Stop. Do not go inside the house. Turn around and face me.' Draw your sidearm if you believe he is moving to access the firearm and poses an imminent lethal threat — your legal authority to use and display a firearm requires a reasonable belief of imminent lethal threat. Maintain maximum safe distance. Do not follow him into the house alone. If he enters, broadcast his last known location in the house and stage at the best covered position near the entrance. When backup arrives, they will assist with a contained entry. The worst outcome is losing sight of him temporarily — not losing your life attempting a solo building entry against an armed subject.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Follow the male into the house immediately — losing sight of him when he may be accessing a firearm is too dangerous.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Let him enter the house — he has not produced a weapon yet and forcing a confrontation may escalate the situation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Backup Arrives — Controlled Entry",
+      "situation": "The male complied with your verbal command and stopped at the door — he did not enter the house. He is now sitting on the front step. Two backup units have arrived. One officer takes a position on the male. You brief the second officer on the firearm's reported location. The male is compliant but sullen.",
+      "question": "How do you proceed with the arrest and firearm recovery?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Arrest the male for uttering threats (Criminal Code s.264.1) with one officer. Conduct a search incident to arrest — if the male has any weapons on his person, they are identified at this stage. Once the male is in custody and separated from the scene, two officers conduct a controlled entry to the residence to locate and secure the rifle. The entry must be lawful — you have consent (from the female occupant) or exigent circumstances based on the weapon threat. Officers approach the front hallway as described and secure the firearm using safe handling procedures. The firearm is seized as evidence and the male is transported.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the male to retrieve the rifle himself and surrender it — voluntary surrender avoids a confrontational entry.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Release the male without arrest — he did not actually produce the weapon and the situation has de-escalated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The male was arrested and the hunting rifle — loaded — was located and secured in the front hallway exactly as described. He was charged with uttering threats (s.264.1) and safe storage offences. The post-incident review noted that your solo deployment to a disturbance call at a rural address was a resource planning gap — calls involving estranged partners at rural properties with potential weapons should be dispatched with two-officer coverage as a baseline. Your tactical decision-making as a solo officer — maintaining distance, using containment rather than solo entry, broadcasting continuous updates, and controlling the scene until backup arrived — was cited as an example of sound solo officer safety practice.",
+      "question": "",
+      "options": []
+    }
+  }
+}

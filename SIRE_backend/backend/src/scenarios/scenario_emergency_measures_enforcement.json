@@ -1,0 +1,142 @@
+{
+  "title": "emergency_measures_enforcement",
+  "description": "A provincial state of emergency is declared during a prolonged public health crisis. Police are tasked with enforcing emergency orders including gathering limits, quarantine requirements, and business closures — balancing enforcement with community rights and Charter compliance.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": ["emergency measures", "state of emergency", "Charter compliance", "public health enforcement", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "State of Emergency Declared",
+      "description": "Province declares a state of emergency. Orders include gathering limits, mandatory quarantine for exposed persons, and business closure orders.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Police Briefing",
+      "description": "Officers briefed on enforcement powers under the provincial emergency act. Questions arise about Charter limits and enforcement discretion.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Gathering Complaint",
+      "description": "Complaint received about a large indoor gathering in violation of the public health order.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Business Non-Compliance",
+      "description": "A business owner refuses to close, arguing the order is unconstitutional.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 4,
+      "title": "Quarantine Violation Reported",
+      "description": "A person under quarantine order is reported to be in public. Officers must locate and address the individual.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Protest Against Emergency Orders",
+      "description": "A public protest forms against the emergency orders. Officers must balance Charter-protected expression with the gathering limits.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Large Indoor Gathering — Complaint Received",
+      "situation": "A complaint has been called in about approximately 40 people attending a private indoor gathering at a residential address. The current public health order limits indoor gatherings to 10 persons. You and your partner arrive. The gathering is confirmed — vehicles in the driveway, music audible. The host answers the door and states the order is 'not a real law' and asks you to leave.",
+      "question": "How do you approach enforcement of the gathering limit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify yourself and the purpose of your attendance. Advise the host clearly that the gathering limit order is in force under the provincial Emergency Program Act, which has the force of law. Explain the potential penalty for non-compliance. Do not enter without consent or a warrant — the Fourth Amendment/s.8 Charter applies even during emergencies unless exigent circumstances exist. Request the gathering be reduced to the permitted limit and guests begin leaving. Give a reasonable, short compliance window. Advise that a ticket/notice may be issued and document your attendance, the host's response, and the number of persons observed.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Enter the home immediately to count persons and issue tickets to everyone present — non-compliance with a lawful order requires direct enforcement.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave without taking action — the gathering is private and enforcement of health orders is not a police responsibility.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Business Refusing to Close — Constitutional Objection",
+      "situation": "A gym owner has refused to close his facility, which has 18 patrons inside. He states the closure order violates s.2(b) and s.7 of the Charter and has printed a notice he claims exempts him. He is calm but firm, and has a lawyer on the phone. He says he will accept a ticket but will not close.",
+      "question": "How do you handle the constitutional objection and continued operation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "You are not the authority to adjudicate a Charter challenge — that is for a court. Your role is to enforce the order as issued by a lawful authority. Advise the owner clearly that his legal challenge must be pursued through the courts, not through non-compliance at the scene. Issue a Notice of Violation/infraction ticket for operating contrary to the emergency closure order. Document the number of patrons present, his statement, and the time. Advise patrons that the facility is required to close and ask them to leave. Do not use force or arrest unless the situation escalates or force is required under your specific legislative authority — ensure you know your provincial act's enforcement powers.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Accept that the Charter argument may have merit and leave without taking action, advising him to comply when the court decides.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the owner and all patrons immediately for breach of the emergency order.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Quarantine Order Violation",
+      "situation": "A member of the public reports seeing a neighbour — who she says received a provincial quarantine order three days ago — shopping in a grocery store. You locate the individual in the store. He confirms he received a quarantine order requiring him to remain at home due to a known exposure. He says he had no food and his family needed groceries. He is cooperative.",
+      "question": "How do you handle this quarantine violation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Speak privately with the individual in a low-key manner to avoid public stigma or embarrassment. Confirm his identity and that a quarantine order is in place. Do not handle the quarantine order document directly due to your own exposure risk — maintain distance and use PPE per protocol. Advise him that the quarantine order is a legal requirement, explain the health risk rationale, and that violation is an offence. Assist him with arranging transportation home — do not place him in your vehicle unless necessary. Advise public health of the breach for their follow-up. Issue a ticket or warning per your legislative authority and agency policy. Document the food access issue as a welfare concern and refer to social services.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Arrest and transport him to the police station immediately — quarantine violations are criminal and require enforcement custody.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send him home on foot and take no further action — his reason was sympathetic and the enforcement would be disproportionate.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Protest Against Emergency Orders",
+      "situation": "Approximately 200 people have gathered on the main street of the city to protest the emergency orders. They are holding signs, chanting, and blocking one lane of traffic. The gathering limit is 10 persons under the current order. No violence has occurred. The protest organiser approaches you and states the assembly is a protected expression under s.2(b) and s.2(c) of the Charter. Your agency has received a call from the emergency operations centre requesting enforcement of the gathering limit.",
+      "question": "How do you handle the Charter-protected protest under an emergency gathering limit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The Charter protects peaceful assembly and expression, and courts have recognised that emergency orders limiting gatherings must be applied proportionately to peaceful protest. Contact your supervisor and the EOC — seek legal guidance before taking mass enforcement action against a peaceful demonstration. Observe, document, and monitor the assembly. Engage with the organiser to identify any plans, address safety concerns, and communicate police expectations. If the protest remains peaceful, mass enforcement of the gathering limit may not be proportionate. If disorder or violence occurs, that changes the calculus. Document all decisions and rationale.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately disperse the crowd using the emergency gathering limit — the order applies to all gatherings including protests.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow the protest to continue indefinitely with no intervention — Charter rights are absolute and police should not be involved in protest management.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The indoor gathering was reduced to the permitted limit without arrests. The gym owner received a violation notice — his subsequent court challenge was unsuccessful and the closure order was upheld. The quarantine violator was assisted with a food delivery arrangement through social services and received a formal warning; public health followed up. The protest dispersed peacefully after 90 minutes; no mass enforcement action was taken and subsequent legal review confirmed the decision was proportionate. Your enforcement decisions balanced the force of law with Charter protections, proportionality, and community trust — consistent with Canadian policing principles under emergency conditions.",
+      "question": "",
+      "options": []
+    }
+  }
+}

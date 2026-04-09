@@ -1,0 +1,142 @@
+{
+  "title": "equipment_failure_incident",
+  "description": "A police officer's critical equipment fails at a dangerous moment during an active incident. The scenario covers in-incident adaptation, officer safety decisions when primary equipment fails, and the post-incident reporting requirements for equipment failures.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": ["officer safety", "equipment failure", "OC spray failure", "TASER failure", "use of force", "incident adaptation", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Physical Confrontation",
+      "description": "Officer is attempting to control an aggressive subject. Subject is resisting actively.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "OC Spray Fails",
+      "description": "Officer deploys OC spray — the canister fails to discharge. Subject continues to resist.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Force Continuum — Escalation",
+      "description": "Officer must adapt use of force. TASER is available. Subject becomes more aggressive.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 3,
+      "title": "Subject Controlled",
+      "description": "Officer uses available force option. Subject is subdued and in custody.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Equipment Failure Report",
+      "description": "Officer must report the equipment failure through the appropriate process.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Use-of-Force Review",
+      "description": "The use of escalated force due to equipment failure is reviewed.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "OC Spray Failure — Active Resistance",
+      "situation": "You are attempting to arrest a male subject outside a bar. He is actively resisting — pulling away, pushing, and attempting to strike you. You attempt to deploy your OC spray but the canister fails to discharge (it makes no sound when activated). Your partner has not yet arrived — they are 45 seconds away. The subject is attempting to break free and has raised his fist.",
+      "question": "How do you adapt your use of force when your primary LESW fails?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recognise the equipment failure immediately and transition to your next available use-of-force option on the continuum. Your TASER is on your non-dominant side and is available. Given that the subject is actively physically resisting and has raised a fist, the TASER is an appropriate response — it is a less-lethal option for active resistance and imminent assault. Deploy the TASER with a verbal warning: 'Taser, Taser, Taser!' and apply. Continue broadcasting your situation to ensure your partner and dispatch know the equipment failure has occurred and the situation is escalating. Once the subject is controlled, handcuff and arrest.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to redeploy the OC spray multiple times — the canister may work on a subsequent attempt.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Disengage and wait for your partner — without working equipment you should not engage the subject alone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Subject in Custody — Partner Arrives",
+      "situation": "The TASER deployment was effective. The subject is on the ground and compliant. Your partner has arrived and assists with handcuffing. EMS has been called per your agency's TASER post-deployment protocol. Your partner asks why you used the TASER instead of OC spray. You explain the failure.",
+      "question": "What are your immediate obligations regarding the OC spray failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Preserve the failed OC canister as a potential exhibit and evidence of equipment failure — do not shake it, attempt to fire it again, or discard it. Hand it to your supervisor when they arrive. Advise your partner not to handle it. Notify your supervisor of the equipment failure verbally as soon as they arrive. You will need to document it in both your use-of-force report and a separate equipment failure report. Do not re-issue the failed canister to service — it must be inspected by the equipment officer or armorer.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Try the OC canister again now that the scene is calm to confirm it is actually broken before reporting the failure.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Discard the failed canister and request a replacement — the failure is obvious and documentation is not necessary.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Equipment Failure Report",
+      "situation": "You are back at the station completing your reports. Your use-of-force report addresses the TASER deployment, and you need to also file an equipment failure report for the OC canister. Your supervisor has asked you to document the failure in detail. You are unsure what the equipment failure report should include.",
+      "question": "What should the equipment failure report include?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The equipment failure report should include: the item serial number and issue date (check your equipment assignment records); the circumstances of the failure — when it was deployed, what happened (no discharge), and how many activation attempts were made; the operational impact — what use-of-force escalation was required as a result; the current status of the item (preserved, handed to supervisor at [time]); and any prior service history you are aware of. Submit the report to your supervisor and equipment officer. This information enables the equipment officer to identify systemic failures (e.g., a batch of canisters with a defect) and ensures no other officers are carrying similarly defective equipment.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Note the failure in your use-of-force report only — a separate equipment report is duplicative.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Report the failure verbally only — the item will be inspected and the failure will be identified without a written report.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Use-of-Force Review — Equipment Failure and Escalation",
+      "situation": "Your agency's use-of-force review board has queried your TASER use, noting that OC spray is the standard option for the level of resistance you described. They want to understand why you escalated to TASER. Your equipment failure report is on file.",
+      "question": "How do you respond to the use-of-force review query?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Present your documented account clearly and calmly. The OC spray was deployed first — consistent with the force continuum — but failed. The equipment failure report documents this fact and the canister was preserved and inspected. Facing active physical resistance and an imminent assault with no working LESW, transitioning to the TASER was the next appropriate option on the force continuum. The use of force must be assessed against the circumstances the officer faced — an equipment failure at a critical moment is a documented operational reality. The equipment failure report and the preserved canister support your account. Your escalation was proportionate and justified.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Admit you chose the TASER because it is more effective than OC spray — the equipment failure is secondary.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Argue that the review board's questioning is unfair — you were in a dangerous situation and made the right call.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The use-of-force review accepted your account. The OC canister was inspected and found to have a manufacturing defect in the discharge valve — the same defect was identified in three other canisters from the same batch, which were immediately removed from service. Your equipment failure documentation protected both you and your colleagues. The suspect was convicted of assault of a peace officer. Your response — recognising the equipment failure, adapting your force option proportionately, preserving the failed equipment, and documenting the failure — was recognised as exemplary practice in equipment failure management.",
+      "question": "",
+      "options": []
+    }
+  }
+}

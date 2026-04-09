@@ -1,0 +1,136 @@
+{
+  "title": "radio_failure_police",
+  "description": "A police officer's radio fails during an active and dangerous incident. The scenario covers tactical adaptations when primary communications are lost, fallback communication methods, and post-incident reporting of the equipment failure.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": ["officer safety", "radio failure", "communications loss", "tactical adaptation", "officer isolation", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Radio Failure During Active Incident",
+      "description": "Officer's portable radio fails during an active domestic disturbance call. Officer is inside a residence.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Unable to Contact Dispatch",
+      "description": "All radio calls are going unheard. No acknowledgement. Partner outside does not know.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Alternative Communication",
+      "description": "Officer uses available alternatives to signal for assistance.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Situation Resolved — Radio Reported",
+      "description": "Partner contacts dispatch. Incident resolved. Radio failure must be reported.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "After-Action — Radio Protocol Review",
+      "description": "Review of radio check protocols and communications resilience for the unit.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Radio Failure — Active Domestic Call",
+      "situation": "You have entered a residence for a domestic disturbance call. Inside, you have located a male subject who is intoxicated and has been threatening his partner. Your partner has remained outside with the victim. The male has become increasingly agitated and confrontational. You attempt to request your partner come inside — but when you key your radio, you get silence. You key again — no response. The radio is showing full battery and signal bars, but nothing is transmitting or being received. The male is 2 metres away and escalating.",
+      "question": "How do you manage the radio failure during an active, evolving situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not show panic — the subject must not know your radio is non-functional. Maintain your composure and de-escalation posture. Immediately assess your fallback options: (1) your cell phone — can you text or call your partner without the subject seeing? (2) Can you move toward a window or door where your partner has visual on you? (3) Does the location have a landline? Without communications, your partner needs to know you are inside without backup. Create a reason to briefly step toward the door or window — 'I need to check something outside.' Signal your partner with a pre-arranged hand signal or simply appear at the door. Once your partner has called for backup, return and manage the subject with imminent reinforcement.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Loudly announce your radio failure to the subject and victim — transparency is important.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to fix the radio by removing and replacing the battery — communications must be restored before anything else.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Partner Notified — Backup Requested",
+      "situation": "You have managed to appear at the door and signal your partner. He immediately recognised the signal and has called for backup via his radio. Backup is 3 minutes away. You are back inside managing the male subject. The subject has sat down but remains agitated and verbally aggressive. You have your cell phone available.",
+      "question": "How do you maintain situational awareness and coordination during the remaining wait for backup?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use your cell phone to send a brief text to your partner: 'subject sitting — agitated — backup ETA?' Keep your phone in your hand, screen dimmed. Maintain continuous verbal engagement with the subject to occupy his attention and reduce the likelihood of escalation — de-escalation language, calm tone, no commands unless necessary. Position yourself between the subject and the exit. When backup arrives, your partner will announce their entry — this is the signal for you to move to assist the arrest if required. Document your radio failure discretely but do not attempt repairs.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to call dispatch using your cell phone — re-establishing communications with dispatch is the priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Place the subject under arrest immediately and handcuff him before backup arrives — do not wait any longer.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Incident Resolved — Reporting the Radio Failure",
+      "situation": "Backup has arrived. The subject has been arrested without further incident. You are outside the residence. Your supervisor has arrived and notes you were operating without a functioning radio. Your supervisor asks for an explanation and advises you that a radio failure during an active incident is a serious equipment and officer safety issue that requires a formal report.",
+      "question": "What does the radio failure report and post-incident review need to cover?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Submit a written equipment failure report documenting: the time the radio failure was detected; the circumstances (active incident, inside a building with an agitated subject); what actions were taken to compensate (partner signal, cell phone text); the radio's display status at the time of failure (full battery, full signal — suggesting a software or transmission fault, not a battery issue); the radio model and serial number. Hand the radio to your equipment officer for diagnostic testing. Separately, brief your supervisor on the communications gap — how long you were without radio, and how backup was requested instead. Your supervisor should flag this for a unit-level review of radio check protocols before officers enter buildings on high-risk calls.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Replace the radio battery and confirm the radio works — if it works now, the failure was temporary and a formal report is not necessary.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Verbally advise your supervisor of the failure only — written reports are for serious incidents and this resolved without injury.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Incident Review — Protocols",
+      "situation": "Your supervisor is conducting a post-incident review. She notes that your unit does not have a consistent protocol for radio checks before entering buildings on high-risk calls. She asks for your recommendation on how to prevent a similar communications blackout.",
+      "question": "What procedural improvements would reduce the risk of radio failure isolation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recommend the following: (1) Radio check protocol — officers confirm their radio is transmitting and receiving before entering buildings on domestic, high-risk, or solo calls. A quick keyed test is sufficient: 'Unit [X] radio check' and await acknowledgement from dispatch before entry. (2) Pre-arranged signals — partner officers establish a pre-arranged visible signal for 'I need assistance' before any building entry (e.g., appearing at the door twice quickly). (3) Cell phone as backup — cell numbers for partner officers should be on speed dial, and texting is a viable silent backup channel. (4) Periodic keying during incident — if no radio response in 2 minutes, partners have authority to contact dispatch and request a welfare check on the inside officer.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Recommend all officers be equipped with two radios — primary and backup — before attending any call.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "No changes are needed — this was an isolated equipment failure and the incident resolved without harm.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The radio was found to have a firmware fault that caused intermittent transmission failure — the same fault was later identified in two other radios in the fleet. Your equipment failure report triggered a diagnostic review of all portable radios of that model. Your pre-arranged signal protocol with your partner was credited as the reason the situation was resolved safely. Your supervisor adopted a radio pre-entry check protocol based on your post-incident recommendation. The subject was convicted of uttering threats. Your composed response to communications failure — maintaining officer safety, using alternatives, and thorough reporting — was used as a training example for the unit.",
+      "question": "",
+      "options": []
+    }
+  }
+}

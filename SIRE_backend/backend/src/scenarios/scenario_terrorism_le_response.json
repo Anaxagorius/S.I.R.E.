@@ -1,0 +1,142 @@
+{
+  "title": "terrorism_le_response",
+  "description": "A coordinated terrorist attack involving a vehicle ramming and follow-on knife attack in a public area. Officers must apply immediate tactical response, coordinate site containment, manage casualties under threat, and transition to a multi-agency investigation under terrorism legislation.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["terrorism", "vehicle ramming", "armed response", "multi-agency", "CBRN", "terrorism legislation", "Canada"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Vehicle Ramming — Pedestrian Area",
+      "description": "A vehicle drives into a crowded pedestrian zone. Multiple pedestrians struck. Vehicle stops; attacker exits with edged weapon.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Armed Follow-on Attack",
+      "description": "Attacker continues attacking survivors on foot. First officers on scene must make an immediate use-of-force decision.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 2,
+      "title": "Threat Neutralised",
+      "description": "Attacker is stopped by police. Casualties are being triaged. Second device warning received from intelligence.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "CBRN Concern Raised",
+      "description": "Hazmat indicators found in vehicle. CBRN assessment initiated before casualty transport.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "INSET Arrives",
+      "description": "Integrated National Security Enforcement Team takes over investigation. Police secure the scene and witness management begins.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Scene Preserved",
+      "description": "Scene frozen for CSIS/RCMP terrorism investigation. Continuity of evidence documented.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Vehicle Ramming — Attacker Now On Foot",
+      "situation": "You are a uniformed patrol officer 50 metres away when a vehicle accelerates through a pedestrian zone, striking multiple people. The vehicle has stopped. A male has exited the vehicle carrying a large knife and is actively stabbing a fallen civilian. There are approximately 80 bystanders in the area. The attacker is 20 metres from you. Your partner is beside you.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue an immediate, loud verbal challenge: 'Police — drop the weapon!' while moving to close distance and creating a tactical angle. If the attacker does not comply and continues to attack, you are authorised to use lethal force — the attacker presents an immediate lethal threat to civilians. Your partner covers, directs bystanders to move clear, and maintains communications with dispatch. Once the threat is stopped, immediately call EMS forward, begin triage of casualties, and broadcast that the primary attacker is down and request all units respond.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for additional units before engaging — engaging alone without backup is tactically unsound.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use your vehicle to block further vehicle movement and observe from a safe distance until armed support arrives.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Threat Neutralised — Second Device Warning",
+      "situation": "The attacker has been stopped and is down. You have casualties to manage — you can see at least 12 people injured, 3 of whom appear critical. EMS is 3 minutes out. Communications has just received an intelligence advisory: a second device may have been placed in the vicinity by an associate of the attacker. The exact location is unknown. Your scene is on a busy commercial street.",
+      "question": "How do you balance casualty care with the secondary device threat?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not ignore the secondary device warning. Immediately broadcast the advisory to all units. Establish a 100-metre exclusion zone around the attacker's vehicle as a priority — the vehicle itself may contain a device. Direct bystanders and walking wounded to clear the zone and move to a secondary collection point away from all vehicles parked in the area. EMS must be advised of the secondary device before approaching so they can stage safely at the outer perimeter. Do not move the critical casualties unless they are within the immediate blast zone — moving unstable patients creates its own risk.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Focus entirely on casualty care — the secondary device intelligence is unconfirmed and lives are at stake now.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Evacuate everyone from the entire street immediately, including critical casualties — safety takes precedence over medical care.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "CBRN Indicators in Vehicle",
+      "situation": "EOD has been called but has a 25-minute ETA. A responding officer reports that the attacker's vehicle contains containers with unknown liquid residue and what appear to be gas cylinders in the back seat. Casualties are currently being triaged at a collection point 40 metres from the vehicle. Your agency's CBRN protocol requires assessment before casualty transport if contamination is suspected. The EMS medical director is on scene and asking whether casualties can be transported immediately.",
+      "question": "How do you manage the CBRN risk alongside casualty transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the EMS medical director that CBRN contamination from the vehicle cannot be excluded. For casualties who were not directly inside or immediately adjacent to the vehicle, transport may proceed with notification to receiving hospitals of the possible exposure. Casualties who were in direct contact with the vehicle or the attacker should be decontaminated at the scene before transport — request the HAZMAT unit to establish a decontamination corridor. Isolate the vehicle and expand the exclusion zone pending EOD arrival. Document which casualties came from which zone.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Transport all casualties immediately — the CBRN concern is speculative and delay will cost lives.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Prohibit all casualty transport until EOD has cleared the vehicle and CBRN has been ruled out — hospital contamination is a greater risk.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "INSET Arrival — Terrorism Investigation Transfer",
+      "situation": "The RCMP Integrated National Security Enforcement Team has arrived and taken investigative primacy under the Criminal Code terrorism provisions. The lead INSET officer has asked you to preserve the scene and begin collecting witness information. You have 23 witnesses who have identified themselves, and you are aware that CSIS may also want access to some witnesses for national security purposes. Your agency has a protocol for managing dual criminal-security witness interviews.",
+      "question": "How do you manage witness collection under a terrorism investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief the INSET commander on all 23 identified witnesses. Ensure each witness is separated and their identifying information (name, DOB, contact) is recorded before they leave. Do not conduct substantive witness interviews yourself — this is INSET primacy. Arrange a secure witness holding area away from media. Advise witnesses that investigators will contact them and request they do not post information to social media that could compromise the investigation. Preserve your officers' use-of-force notes as potential exhibits — these must be completed independently before any group debrief.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Conduct full witness interviews yourself immediately — INSET is busy and witnesses need to be interviewed while memory is fresh.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow witnesses to leave once their contact information is recorded — INSET can follow up later.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The attacker was stopped and survived in custody. The secondary device was confirmed — a crude IED in the vehicle's boot — and was neutralised by EOD. The CBRN assessment confirmed the cylinders were non-toxic propane, not a chemical agent. All 12 casualties were transported without contamination risk after appropriate triage. Witness integrity was maintained, and no officers provided premature media statements. The INSET-led terrorism investigation proceeded with a clean scene and credible witness accounts. Your decision-making at the point of contact, in managing the secondary threat, and in the INSET handoff was consistent with counter-terrorism response doctrine.",
+      "question": "",
+      "options": []
+    }
+  }
+}
