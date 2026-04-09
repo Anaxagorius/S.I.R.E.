@@ -1,0 +1,142 @@
+{
+  "title": "weapon_taken_from_officer",
+  "description": "A subject gains control of an officer's firearm during a physical altercation. The scenario covers immediate response tactics, backup coordination, investigation protocols, and the mandatory reporting and review process.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["officer safety", "weapon retention", "disarming", "use of force", "critical incident", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Physical Altercation",
+      "description": "Officer is engaged in a physical struggle with a subject who has targeted the officer's firearm.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Firearm Taken",
+      "description": "Subject gains possession of the officer's firearm. Officer is without their primary weapon.",
+      "timeOffsetSec": 15
+    },
+    {
+      "index": 2,
+      "title": "Backup Called — Scene Contained",
+      "description": "Emergency broadcast made. Subject contained. Firearm recovered.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Critical Incident Protocol Activated",
+      "description": "Supervisor arrives. Critical incident review process initiated.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Mandatory Reporting",
+      "description": "Officer and supervisor must complete mandatory reporting requirements.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Tactical Debrief and Review",
+      "description": "Firearms disarming review and post-incident debrief conducted.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Firearm Grab — Immediate Tactical Response",
+      "situation": "You are attempting to handcuff a male subject who suddenly reaches for your holstered sidearm with both hands. Your retention holster is engaged. The subject is strong and pulling aggressively. You are in a close-contact struggle. You are alone.",
+      "question": "What is the correct immediate response to a weapon grab?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply weapon retention techniques immediately: drive into the subject to reduce the mechanical advantage of the pull, pin your elbow over the weapon to assist retention, and use strikes, joint locks, or ground control to break the subject's grip. Simultaneously broadcast 'Assist — officer in distress' or activate your emergency radio if possible. Your immediate priority is to retain control of the firearm — do not attempt to draw or re-holster during an active struggle for the weapon. Create pain compliance to break the grip.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Step back and draw your secondary weapon (OC spray or baton) — creating distance is safer than a close-contact weapon struggle.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Release the handcuff attempt and focus entirely on verbal de-escalation — physical escalation may cause the subject to use the weapon.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Firearm Now in Subject's Hands",
+      "situation": "Despite your retention efforts, the subject has wrenched your sidearm free from the holster. He is holding it in one hand at waist height. He has taken three steps back. He has not yet raised or pointed the weapon. You are unarmed. There are bystanders approximately 20 metres away. Backup is 90 seconds away.",
+      "question": "How do you respond when the subject has your firearm?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately create maximum distance — move laterally and use any available cover. Broadcast your exact situation: 'Officer's firearm taken — suspect armed with police firearm — [location] — Code 3 response.' Give the subject clear, repeated commands: 'Drop the weapon — drop the weapon.' Do not rush at the subject — an unarmed officer charging an armed subject is extremely dangerous. Assess: is the subject pointing the weapon? Is there an imminent threat to you or bystanders? If he raises the weapon in a threatening manner and you have no cover, you must reassess your options. If cover is available, use it. Your primary goal is to contain the subject until armed backup arrives.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Rush the subject immediately to take back the firearm before he can use it — speed is critical.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Retreat to your vehicle and wait for backup — attempting to manage an armed subject alone is tactically unsound.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Backup Arrives — Firearm Recovered",
+      "situation": "Three additional officers arrive. The subject has dropped the firearm when confronted by multiple officers. He is on the ground compliant. Your sidearm is on the ground two metres from the subject. It has not been fired. Your supervisor is on scene.",
+      "question": "How should the recovered firearm be handled?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the firearm as a piece of evidence in a serious criminal offence. Do not simply re-holster it. The firearm should be secured as an exhibit — it should be photographed in position, then taken into evidence by the officer designated to exhibit the scene, with the chain of custody documented from first contact. Your supervisor should take possession of your sidearm per critical incident protocol — you may be placed on modified duty pending the review. Request a replacement sidearm from the supervisor if required for operational deployment. The suspect faces charges including possession of a firearm contrary to s.94 of the Criminal Code and potentially robbery/disarming a peace officer under s.270.1.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Retrieve your firearm immediately and re-holster it — you need to be operational and it is your issued sidearm.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the subject what he did with the firearm before picking it up — confirming nothing was done to it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Mandatory Reporting — Critical Incident Review",
+      "situation": "Your supervisor advises you that a mandatory critical incident report must be completed, and that the incident will trigger a professional standards review of the circumstances of the weapon loss. You are concerned that the review may be punitive. Your supervisor asks for a verbal account immediately at the scene.",
+      "question": "How do you respond to the mandatory reporting requirement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cooperate fully with the reporting process. Provide an accurate verbal account at the scene — what happened, the sequence of events, the retention techniques applied, and the outcome. Be honest. The purpose of the review is to understand how a weapon was taken and whether training, equipment, or tactics need to improve — not necessarily to discipline. Complete your written notes independently and from memory before reviewing any video footage. The review will examine whether your response was consistent with training — honest, accurate documentation is your best protection. Contact your union representative or legal counsel if you have concerns about the process.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Decline to provide a statement until you have reviewed body camera footage — you want your account to be accurate.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Provide only minimal information — the review may result in discipline and you should protect yourself.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The subject was charged with s.270.1 (disarming a peace officer) and robbery. The mandatory critical incident review determined that your retention response was consistent with training. The holster was identified as due for replacement — the retention mechanism had worn beyond spec. Your sidearm was found unloaded (the subject had not known how to operate it). The tactical review resulted in updated weapon retention training for your unit. Your transparent reporting and cooperative approach to the review protected the prosecution and supported systemic improvement. A CISM debrief was arranged through your Employee Assistance Program.",
+      "question": "",
+      "options": []
+    }
+  }
+}

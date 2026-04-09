@@ -1,0 +1,142 @@
+{
+  "title": "wildfire_evacuation_enforcement",
+  "description": "An advancing wildfire requires police to enforce evacuation orders across a rural community. Officers must manage non-compliant residents, coordinate with fire services and emergency management, and maintain access routes for firefighting operations.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": ["wildfire", "evacuation enforcement", "rural policing", "emergency management", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Evacuation Order Issued",
+      "description": "Evacuation Order issued for a rural community of 1,200 residents. Wildfire is 15 km away and advancing.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Police Deploy",
+      "description": "Officers assigned to door-to-door notification and route control. Fire is advancing faster than predicted due to wind shift.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 2,
+      "title": "Wind Shift — Fire Accelerates",
+      "description": "Wind shift increases fire rate of travel. Evacuation window reduced. Primary egress route is now at risk.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 3,
+      "title": "Firefighting Aircraft Access Conflict",
+      "description": "Civilian vehicles blocking a road needed for tanker aircraft operations. Police must clear the route.",
+      "timeOffsetSec": 2400
+    },
+    {
+      "index": 4,
+      "title": "Road Closure — Re-entry Demand",
+      "description": "Evacuated residents attempting to return to save property. Officers must enforce the closure.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 5,
+      "title": "Community Evacuation Complete",
+      "description": "All residents accounted for. Fire service retains zone control.",
+      "timeOffsetSec": 10800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Evacuation Order — Prioritising Notification",
+      "situation": "An Evacuation Order (mandatory) has been issued by the regional authority for a rural community of 1,200 residents spread over a 40 km² area with several access roads. You are the sergeant commanding 10 officers. The wildfire is 15 km away and advancing. The community includes several hobby farms, two group homes, and a rural Indigenous community of 80 persons. You have approximately 2 hours before the primary access road becomes unsafe.",
+      "question": "How do you organise the evacuation notification effort?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the municipal vulnerable persons register and community maps to assign officer pairs to sectors — prioritise the group homes, mobility-impaired and elderly residents, and the Indigenous community (coordinate with the band office or Chief immediately for community-specific assistance). Use the emergency alerting system (EAS) for the general population. Assign two units to traffic control at the two main exit roads. Request additional community resources (social services, fire department personnel for door-knock assist). Maintain a real-time log of confirmed evacuations.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Conduct a general PA broadcast from police vehicles driving through the community — door-to-door is too slow given the timeframe.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Focus only on the densely populated areas — rural residents will see the smoke and self-evacuate.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Non-Compliant Resident — Refuses to Leave Property",
+      "situation": "A rancher with 40 cattle refuses to leave his property, stating he intends to defend his outbuildings with a water pump and garden hoses. He is not cognitively impaired. The fire is now 8 km away with an estimated 75-minute arrival time. His property is accessible via one road that fire services need clear. He is legally the owner of the property and says he will not be removed 'like cattle'.",
+      "question": "How do you respond to the non-compliant rancher?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Speak respectfully. Acknowledge his connection to his land. Explain clearly that the fire's rate of travel means garden hoses cannot protect the structure and that if he remains, rescue may not be possible once the road becomes unsafe. Confirm that fire services need his access road clear. Inform him of the legal authority under the provincial Emergency Program Act and that re-entry will not be possible. Give him a defined final deadline — 'we will be leaving this property at [time].' Contact agricultural emergency services about livestock assistance. If he still refuses at the deadline, document his informed refusal with body camera active, advise him of the consequences, and notify the emergency operations centre for situational awareness.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Arrest him immediately for non-compliance and physically remove him — the evacuation order is a legal order.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave him to make his own choice and move on — you cannot force a competent adult.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Road Access Conflict — Civilian Vehicles Blocking Tanker Route",
+      "situation": "A provincial air tanker base crew has notified you that a cluster of 12 civilian vehicles — some evacuation vehicles that broke down or stopped — are blocking a side road needed for ground tanker operations supporting the air attack base. The fire is 5 km away. The road needs to be clear in 30 minutes. Civilians are outside their vehicles, appearing confused and frightened.",
+      "question": "How do you clear the road for tanker operations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy four officers to the site immediately. Identify which vehicles can be moved by their drivers — ensure each driver can do so safely and direct them to the designated evacuation assembly area. For any vehicles that are broken down or abandoned, contact the emergency operations centre to request a tow under emergency management authority. Use your vehicle to lead the convoy out of the road. Communicate with the tanker base on your estimated clearance time. Treat the civilian occupants with urgency but not panic — panic causes accidents.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Push abandoned vehicles off the road using your police vehicle to clear the route quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Close the road with police tape and advise the tanker base to use an alternate route — you cannot clear the vehicles quickly.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Re-entry Attempt — Residents at Roadblock",
+      "situation": "Six hours after the evacuation, the fire has partially crested a ridge near the community. You are staffing the roadblock at the primary access point. A group of 15 residents have gathered and are demanding to be allowed back to check on their properties and animals. Several are extremely distressed. The Evacuation Order remains in force. A BC Wildfire Service operations officer has stated that no civilian re-entry is permitted due to active spotting fires across the main road.",
+      "question": "How do you manage the crowd demanding re-entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Meet with the group directly rather than remaining behind the barrier. Acknowledge their distress and connection to their properties. Explain clearly that the Evacuation Order is in force, that re-entry is prohibited for civilian safety, and that the road condition is unsafe as confirmed by the fire service. Provide information on the EOC, the registration and inquiry system, and when updates on re-entry timelines will be available. Offer to refer animal welfare concerns to the agricultural emergency services coordinator. Make clear that anyone attempting to breach the roadblock will be turned back and may be subject to enforcement action. Do not threaten arrest unless actually warranted — proportionate communication maintains cooperation.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Allow residents to sign a waiver and enter on foot — they understand the risk and may be able to help livestock.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call for backup and establish a show of force at the roadblock — large groups can become violent and must be deterred.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 1,200 residents were accounted for within the evacuation window. The rancher agreed to leave after a final deadline conversation — his livestock were later assisted by the agricultural emergency unit. The road was cleared for tanker operations in 22 minutes, enabling successful aerial suppression of a spot fire. The re-entry crowd was managed without arrests — three residents were connected to the agricultural emergency coordinator who arranged welfare checks on their animals. No civilian fatalities occurred. Your coordinated, respectful enforcement approach — combined with clear documentation, sector organisation, and inter-agency communication — was cited as a model response in the post-incident review.",
+      "question": "",
+      "options": []
+    }
+  }
+}

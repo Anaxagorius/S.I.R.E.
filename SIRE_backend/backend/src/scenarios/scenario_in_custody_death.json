@@ -1,0 +1,142 @@
+{
+  "title": "in_custody_death",
+  "description": "A person in police custody dies unexpectedly. The scenario covers the immediate response, mandatory notification protocols, independent investigation requirements, scene preservation, and the officer wellness and reporting obligations that follow an in-custody death.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["in-custody death", "mandatory reporting", "coroner", "SIU", "scene preservation", "officer wellness", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Person Found Unresponsive in Cell",
+      "description": "Correctional officer discovers a detainee unresponsive during a cell check. Officers are called.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Resuscitation Attempted",
+      "description": "Officers and EMS attempt resuscitation. Detainee is pronounced deceased.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Mandatory Notifications",
+      "description": "Multiple mandatory notifications must be made within specific timeframes.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Scene Preservation",
+      "description": "The cell and surrounding area must be preserved as a potential scene of investigation.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Independent Investigation",
+      "description": "The provincial oversight body (SIU or equivalent) takes conduct of the investigation.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Next of Kin Notification",
+      "description": "Deceased's next of kin must be notified sensitively and in a timely manner.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Detainee Unresponsive — Immediate Response",
+      "situation": "A correctional officer has discovered a detainee unresponsive in a holding cell at your police station. The detainee was arrested 3 hours ago for impaired driving — he was 55 years old, appeared intoxicated on arrival, and showed no signs of physical distress at booking. You are the officer-in-charge of the shift. The correctional officer has just called you to the cell.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately enter the cell and assess the detainee. Check for pulse and breathing. If absent, begin CPR and activate your radio for EMS. An unconscious detainee in custody is a medical emergency — resuscitation must begin without delay. Simultaneously call your shift supervisor and the duty officer. Do not leave the detainee alone. Note the time of discovery and the condition as found. Once EMS arrives and takes over, step back and begin to mentally document everything observed including the state of the cell, the detainee's position, and any visible items.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Observe from the door before entering — the cell may be a scene of investigation and you should not contaminate it.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact your supervisor first before taking any action — this is above your authority to manage alone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Pronounced Deceased — Mandatory Notifications",
+      "situation": "EMS has pronounced the detainee deceased after 20 minutes of resuscitation. It is 03:30. You are in Ontario. An in-custody death requires mandatory notifications to multiple parties. Your duty commander asks you to identify and initiate all required notifications. You are unsure of the full list.",
+      "question": "What mandatory notifications are required following an in-custody death in Ontario?",
+      "options": [
+        {
+          "label": "A",
+          "text": "In Ontario, mandatory notifications for an in-custody death include: (1) the Ontario Coroner — coroner notification is required immediately for any death in police custody; (2) the Special Investigations Unit (SIU) — an in-custody death mandatorily invokes SIU jurisdiction; (3) the Chief of Police (or designate) — the OIC must notify the chief immediately; (4) the detainee's next of kin — notification is required, with victim services support; (5) the Ministry of the Solicitor General if the death occurred in a provincial facility. Notifications should be made as soon as practicable, with times documented. Initiate all of these immediately and document the time, method, and person notified for each.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Notify only the local coroner and your chief — SIU notification can wait until the morning shift.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Notify next of kin first before any other notifications — the family has the right to know before investigators are called.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Scene Preservation — The Cell",
+      "situation": "The cell where the detainee died must be preserved for the coroner and SIU investigation. However, EMS personnel have moved several items during the resuscitation attempt. A civilian cleaner was about to enter the cell block for their regular shift. Two booking officers are standing near the cell block entrance. The detainee's personal effects are on a booking desk in the same block.",
+      "question": "How do you preserve the scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately seal the cell and the immediate area. No one enters except the coroner and SIU investigators — the scene is now under coroner jurisdiction. Redirect the cleaner away from the entire cell block. Ask the two officers to step outside the block and away from potential witness contamination. Do not move or touch any items in the cell or on the booking desk. Note what items were moved during the resuscitation and by whom — document this clearly so the investigators can account for it. Place an officer at the entry point to maintain control. Preserve CCTV footage from the cell block for the past 24 hours — advise your IT or communications staff to preserve the recording before it is overwritten.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Clean the cell and arrange the detainee respectfully before the coroner arrives — the scene is distressing to officers.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow the booking officers to retrieve the detainee's personal effects from the booking desk immediately — they belong to the next of kin.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Next of Kin Notification",
+      "situation": "The coroner has attended and the SIU investigator has arrived. It is now 05:15. You have located the next of kin — the detainee's adult daughter — through his booking information. She lives 20 minutes away. The SIU investigator wants to speak with the daughter as a potential witness about the detainee's state of health. You must balance the next of kin notification with the investigative need.",
+      "question": "How do you manage the next of kin notification and investigative contact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Next of kin notification is a police responsibility and must be done in person by a trained officer or victim services worker — not by phone. Dispatch a senior officer or victim services worker to the daughter's home immediately for an in-person notification. She must be informed of her father's death before any investigator attempts to contact her as a witness — witness interviews of a family member who has not yet been told about the death are ethically unacceptable. The SIU investigator must wait until after notification and an appropriate period of time for the daughter to process the news before requesting to speak with her. A victim services worker should be present for the notification and remain available after.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Call the daughter by phone to notify her — an in-person notification at 05:15 would disturb her and cause unnecessary distress.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow the SIU investigator to contact the daughter first as a witness — investigative contact is more time-sensitive than notification.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All mandatory notifications were completed within the required timeframes. The coroner determined the cause of death was a cardiac event unrelated to police action. The SIU investigated and found no officer conduct contributed to the death. Scene preservation of the CCTV footage was critical — it showed the detainee had reported chest pain to the booking officer two hours before death, which led to a systemic improvement in detainee medical monitoring procedures. Next of kin notification was conducted with dignity and victim services support. Involved officers received a CISM debrief. Your thorough and timely adherence to in-custody death protocols protected the investigation, supported the family, and led to institutional learning.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "title": "power_outage_civil_disorder",
+  "description": "A prolonged citywide power outage causes escalating civil disorder. Police must manage looting, crowd control, traffic chaos, and vulnerable person welfare while coordinating with emergency management under resource constraints.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["power outage", "civil disorder", "looting", "crowd control", "emergency management", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Grid Failure — City Dark",
+      "description": "A major transformer failure causes a citywide power outage. Estimated restoration: 36–72 hours. It is 22:00.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Traffic Chaos",
+      "description": "All traffic signals out. Major intersections gridlocked. Accidents occurring. First looting reports received.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 2,
+      "title": "Looting — Commercial District",
+      "description": "Groups actively looting a commercial strip. Officers are outnumbered. Tactical decision required.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 3,
+      "title": "Vulnerable Persons Welfare",
+      "description": "Calls for service from elderly residents without heat, power-dependent medical equipment failures reported.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 4,
+      "title": "Crowd at Fuel Station — Tension Rising",
+      "description": "Hundreds gathering at the only operational fuel station. Arguments and pushing reported.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 5,
+      "title": "Curfew Considered",
+      "description": "The emergency operations centre is considering a voluntary curfew advisory. Police input required.",
+      "timeOffsetSec": 14400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Citywide Outage — Initial Response Priorities",
+      "situation": "It is 22:00. A citywide power failure has just occurred. You are the patrol supervisor with 18 officers available on night shift. All traffic signals are dark. Radios are on battery backup — estimated 8 hours. The dispatch centre is on generator. Looting has begun at three locations reported so far. Calls for service are surging. Your district has 12 major intersections, a commercial strip, a residential care facility, and a hospital on the boundaries.",
+      "question": "How do you deploy your 18 officers during the first 30 minutes?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Triage your deployment around life-safety priorities: assign 4 officers to the highest-volume intersections as manual traffic control (priority: hospital access and emergency vehicle corridors); assign 2 officers to the residential care facility for a welfare check and to assist with any medical equipment emergencies; assign 4 officers to the commercial strip where looting has been reported (visible presence, not solo contacts); keep 4 officers mobile for dynamic response; assign 2 as a supervisor pair for command coordination and EOC liaison. Request mutual aid from neighbouring districts immediately — the outage will run hours, not minutes.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy all available officers to the looting locations — property crime in progress is the highest enforcement priority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hold all officers in staging until a full picture of the situation develops — deploying piecemeal increases risk.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Active Looting — Officers Outnumbered",
+      "situation": "Four officers have arrived at the commercial strip. Approximately 60–80 persons are actively looting multiple storefronts. Windows are broken. The crowd is loud but not yet directly threatening officers. Officers are vastly outnumbered. Mutual aid is 20 minutes away.",
+      "question": "How do you respond to active looting with limited resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not attempt arrests of individuals in the crowd — four officers engaging 80 active persons without support creates a dangerous officer safety situation and will not stop the looting. Use your vehicle PA to announce that police are present and that the area must be cleared — this may deter some participants. Establish an officer presence at the perimeter and document individuals and vehicles where possible (including licence plates). Stage for arrests when mutual aid arrives to bring resources to a level that allows safe engagement. Brief the incoming mutual aid commander on the situation. Advise the EOC that the commercial strip requires containment response.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Attempt to arrest the most visible looters immediately — decisive early action will deter the crowd.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withdraw from the area entirely and return when resources arrive — officer safety must come first.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Vulnerable Persons — Medical Equipment Failure",
+      "situation": "Your dispatch receives a call from the daughter of an 83-year-old man on home oxygen — his concentrator has failed and he has an hour of backup tank oxygen remaining. He is 4 km away. Simultaneously, a call comes from a retirement residence reporting that their backup generator has failed and residents including some on dialysis and insulin refrigeration are at risk. You have two mobile officers available.",
+      "question": "How do you prioritise and respond to the medical vulnerability calls?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Both situations are life-threatening. Dispatch one officer pair to the home oxygen patient immediately with instructions to confirm EMS is en route and to assist with transport to the hospital if EMS is delayed. Contact EMS directly about both situations. For the retirement residence, contact the fire department for emergency generator support and EMS for a triage team — this is a multi-person medical situation that exceeds a two-officer response. Advise the EOC of the retirement residence situation as a critical welfare event requiring emergency management coordination (emergency shelter, generator, medical resources).",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "The retirement residence is higher priority due to more people at risk — send both units there and ask the home oxygen patient to call 911 for EMS.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "These are medical calls — advise both callers to contact EMS and redeploy your officers to the looting situation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Fuel Station Crowd — Rising Tension",
+      "situation": "The only operational fuel station in your district (generator-powered) has a queue of approximately 400 vehicles and 200 pedestrians. Arguments have broken out at the pump queue. Two fights have been reported. The station owner is requesting police and is considering closing due to safety concerns. If the station closes, the remaining community fuel supply will be severely impacted.",
+      "question": "How do you manage the fuel station situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Deploy a visible police presence — minimum two marked units with officers in high-visibility positions. Speak directly with the station owner and reach an agreement on operational safety: establish a queue management system with the owner's staff (one vehicle at a time at pumps, defined queue lanes); recommend a purchase limit to reduce queue time; establish a designated police position that deters conflict. Engage with the crowd directly — most people are frustrated but manageable if information is provided: advise of the estimated wait, the situation, and where additional fuel resources may be available. For active fights, intervene and separate — arrest if necessary. Avoid closing the station if possible; fuel access is critical to the community and to emergency vehicles.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Close the fuel station immediately to prevent further disorder — the safety risk outweighs the fuel access benefit.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Monitor from a distance and only intervene if violence escalates — queue management is the station owner's responsibility.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Power was restored after 28 hours. Your risk-stratified deployment kept the hospital access corridor clear and enabled EMS response throughout the outage. The looting was substantially contained by the time mutual aid arrived — 12 persons were arrested and charged. The 83-year-old home oxygen patient was transported to hospital in time and received care. The retirement residence generator was restored by the fire department within 90 minutes. The fuel station remained open with police-assisted queue management. The EOC cited your deployment prioritisation and inter-agency communication as a model for civil disorder management during extended infrastructure failure.",
+      "question": "",
+      "options": []
+    }
+  }
+}

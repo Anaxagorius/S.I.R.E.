@@ -1,0 +1,142 @@
+{
+  "title": "officer_involved_shooting",
+  "description": "A police officer discharges their firearm in the line of duty, resulting in a subject being struck. The scenario focuses on the post-incident protocol — scene management, officer obligations, independent investigation procedures, and wellness support — not the shooting decision itself.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["officer-involved shooting", "post-incident protocol", "SIU", "independent investigation", "officer wellness", "CISM", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Firearm Discharged",
+      "description": "Officer fires their service weapon during an arrest situation. Subject is struck and falls.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Immediate Post-Shooting Response",
+      "description": "Officer must manage the scene, call for assistance, and begin the post-incident protocol.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Supervisor Arrives",
+      "description": "Supervisor takes control. Scene preservation, officer separation, and SIU notification protocols begin.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "SIU Notification",
+      "description": "Special Investigations Unit (or provincial equivalent) is notified. Officer obligations and rights under the SIU process apply.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Officer Notes and Legal Representation",
+      "description": "Officer must complete post-incident notes. Legal counsel and union rep are available.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Officer Wellness — CISM",
+      "description": "Mandatory wellness check and CISM process initiated.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Immediate Post-Shooting Response",
+      "situation": "You have just discharged your firearm during an arrest situation. The subject is on the ground and has been struck. You are in an altered state — adrenaline, tunnel vision clearing. Your partner is beside you. There are other bystanders approximately 30 metres away. The subject is not moving. Your immediate environment is now safe.",
+      "question": "What are your immediate obligations in the first 60 seconds after the shooting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately broadcast: 'Shots fired — officer-involved shooting — [location] — Code 3 required — EMS required.' Secure the scene — ensure the subject has been disarmed and the immediate threat is neutralised. Render first aid to the subject if it is safe to do so — a struck subject, regardless of circumstances, requires medical attention. Do not touch your firearm except to re-secure it or make it safe — it is now potential evidence. Begin preserving the scene: do not move evidence, do not allow anyone to enter or leave who was present. Contact your supervisor immediately. Do not discuss what happened with anyone — including your partner — until you have been directed to do so by your supervisor and have had the opportunity to speak with legal counsel.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Check the subject, then immediately call your partner over to compare observations — you need to ensure your accounts are consistent before the supervisor arrives.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the scene to collect your thoughts before the supervisor arrives — you need a moment to process what happened.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Supervisor Takes Control — SIU Obligations",
+      "situation": "Your supervisor has arrived. You are in Ontario — the Special Investigations Unit (SIU) has jurisdiction over police-involved incidents where a civilian is seriously injured or killed. Your supervisor advises you that the SIU will be notified. You are the subject officer. You ask what your obligations and rights are.",
+      "question": "What are a subject officer's obligations and rights under the SIU process?",
+      "options": [
+        {
+          "label": "A",
+          "text": "As the subject officer in an SIU investigation, you have the right to retain and instruct legal counsel without delay — exercise this right immediately. You are required to submit a written report to your chief (noting what occurred) within 24 hours under the SIU process, but this report is protected and generally not shared with the SIU directly. You are not required to provide a compelled interview to SIU investigators — though you may choose to do so voluntarily with your legal counsel's advice. You must surrender your service weapon to your agency as required. Do not speak to anyone about the details of the incident until you have spoken with legal counsel and your police association representative.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Provide a full statement to SIU investigators immediately — transparency is important and refusing to cooperate looks suspicious.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask your supervisor to prepare your statement for you — they know what is required and you are not in a state to write.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Completing Your Notes",
+      "situation": "Your legal counsel and union representative have advised you that you should complete your notes — a written account of your observations and actions. You are at the station, separated from other involved officers. You are still experiencing significant stress responses — racing heart, emotional numbness, and your hands are shaking. Your supervisor says the notes need to be completed before end of shift.",
+      "question": "How should you complete your post-incident notes?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your notes should be completed independently — do not discuss the incident with other officers before writing them. Write from your own memory and perspective: what you saw, heard, perceived as a threat, and why you made the decisions you did. Include your physiological state — stress responses are normal after a critical incident and your perception of threat is relevant to a use-of-force analysis. If you are too impaired by stress to write coherently, advise your supervisor and request a brief medical/psychological assessment before completing the notes. Accuracy matters more than speed. Your notes will likely be relevant to the SIU investigation and any subsequent legal proceedings.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Wait 24 hours before writing notes — you need to be calm and clear before documenting a serious incident.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask your partner to review your notes before finalising them to ensure they are consistent with what the partner observed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Mandatory CISM and Wellness",
+      "situation": "It is now 10 hours after the incident. The subject survived with serious injuries. Your supervisor has told you that a Critical Incident Stress Management debrief is mandatory under your agency's policy before you return to operational duties. You believe you are fine and want to return to work tomorrow. You are worried that participating in CISM will be seen as a sign that you cannot handle the job.",
+      "question": "How do you approach the CISM requirement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Participate fully in the CISM process. This is not optional under your agency's policy and is in place for good reason — involvement in a shooting is a significant psychological stressor regardless of circumstances. The CISM process is confidential and is not about fitness evaluation — it is support. Mandatory participation protects both you and the public: an officer who has experienced a critical incident and has not been assessed may return to duty with compromised decision-making. Discuss your concerns about career perception with the CISM counsellor — these concerns are common and can be addressed. Return to operational duties only when the CISM counsellor and your agency's occupational health process determines you are ready.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Attend the CISM debrief but do not share anything personal — answer minimally so you can be cleared for duty quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Challenge the mandatory CISM requirement — it is a violation of your privacy to be required to undergo psychological assessment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The SIU investigation concluded six months later with a finding of no reasonable grounds to charge. The subject recovered and was subsequently convicted of the offence that precipitated the incident. You completed the CISM process and returned to operational duties after 14 days on modified duty. Your written notes were detailed and consistent with physical evidence, supporting the SIU's findings. Legal counsel noted that your independent note-writing and refusal to discuss the incident with other officers before writing was critical to the integrity of the investigation. Your openness in the CISM process was later recognised by your agency as an example of professional resilience.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "title": "officer_assaulted",
+  "description": "A uniformed officer is assaulted during a routine call. The scenario covers immediate response by the officer, requesting assistance, post-incident medical assessment, reporting obligations, and survivor support processes.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": ["officer safety", "assault on police", "use of force", "CISM", "officer wellness", "Canada", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Call for Service",
+      "description": "Officer attends a domestic disturbance call. Subject becomes aggressive on contact.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Assault Occurs",
+      "description": "Subject assaults the officer. Officer is knocked to the ground. Backup is called.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Backup Arrives — Suspect Arrested",
+      "description": "Additional officers arrive. Suspect is arrested. Officer is visibly injured.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Medical Assessment Required",
+      "description": "Officer must undergo medical assessment. Supervisor on scene.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Reporting and Documentation",
+      "description": "Officer must complete post-incident documentation and use-of-force report.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "CISM and Return to Duty",
+      "description": "Officer wellness assessed. Critical Incident Stress Management process initiated.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Officer Knocked to Ground — Suspect Active",
+      "situation": "You have been called to a domestic disturbance. Upon contact, the male subject has struck you in the face and knocked you to the ground. You are stunned — pain in your jaw — but conscious and aware. The subject is standing over you and has not attempted to flee. You are alone. Your radio is on your belt. Your partner is 2 minutes away.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately activate your radio emergency button (if equipped) or broadcast 'Officer needs assistance' with your location while creating distance from the subject. Move to a defensive position. Assess your immediate safety — is the subject still aggressive, reaching for a weapon, or withdrawing? Use the appropriate level of force to protect yourself from further assault. Your goal is to prevent further injury and maintain control of the situation until backup arrives — not to immediately attempt an arrest alone while injured and compromised.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately handcuff the subject while on the ground — you must maintain control of the suspect before he flees.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Remain still until the pain clears and you have assessed your injuries before taking any action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Backup On Scene — Suspect Arrested",
+      "situation": "Your partner and two additional units have arrived. The subject has been arrested and is in handcuffs. You have pain in your jaw, ringing in your ears, and your vision was briefly blurred after the strike. Your supervisor has arrived. The supervisor asks whether you need medical attention. You feel 'okay enough' but are running on adrenaline.",
+      "question": "How do you respond to the medical assessment question?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not minimise your symptoms. Report your symptoms accurately to your supervisor: jaw pain, brief vision disturbance, and ringing in the ears following a blow to the head. These are potential signs of concussion. You must be assessed by EMS or a physician before continuing your shift — continuing to work with unassessed head trauma is a health risk and potentially a liability issue. Your supervisor has a duty of care to remove you from duty for medical evaluation. Request EMS or direct transport to a hospital emergency department for assessment.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Tell your supervisor you are fine — you do not want to appear weak and the suspect needs to be processed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask to sit in your vehicle for 10 minutes and reassess — if the symptoms persist, you will report them.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Medical Clearance — Return to Duty Decision",
+      "situation": "The ER physician has diagnosed you with a mild concussion. You have been medically cleared for light duties only, with no operational police work, vehicle operation, or use-of-force activities for five days. It is Wednesday — your long weekend starts Friday. You feel better than expected and are concerned about the impact on your colleagues and your next shift.",
+      "question": "How do you respond to the light duty restriction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Accept the medical restriction fully and comply. Advise your supervisor of the specific duty restrictions as given by the physician. Do not negotiate or minimise the restriction — a concussion is a traumatic brain injury and premature return to operational duty creates risk of second-impact syndrome, which is life-threatening. Complete the required medical paperwork for Workers Compensation. Your agency's duty-to-accommodate obligations apply. Return to full operational duties only when medically cleared to do so in writing.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Return to full operational duties — you feel well and the long weekend means minimal exposure to risk anyway.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Take the five days off without reporting the restrictions to your supervisor — this is a personal health matter.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Use-of-Force Report and Notes",
+      "situation": "You are required to complete a use-of-force report for any force applied during the incident, including defensive force used after the assault. You used your forearm to block a second strike and pushed the subject away before backup arrived. Your supervisor has advised you to complete your notes and the report before end of shift. You are on light duty and have office access.",
+      "question": "How do you complete the use-of-force documentation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete your notes independently and from your own recollection before discussing the incident with any other officer. Your notes must be in your own words and reflect what you personally observed, heard, and did. Include the subject's behaviour (assault, continued aggression), your perception of threat, what you did and why (forearm block — defensive, push to create distance — to preserve your safety before backup arrived), the sequence of events, and the subject's compliance once backup arrived. Complete the use-of-force report per your agency's policy. Do not compare or align notes with other officers before completing your own — this compromises evidentiary integrity.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Wait to write your notes until you have reviewed the body camera footage — this will ensure your notes are accurate.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask your partner to help write the report since your head still hurts and you want to ensure accuracy.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "You completed the medical assessment, received proper treatment for a mild concussion, and adhered to light duty restrictions. Your use-of-force report was completed independently and accurately. Your supervisor referred you to the Critical Incident Stress Management program for a voluntary debrief — which you participated in. The suspect was charged with assault of a peace officer under s.270 of the Criminal Code. Upon medical clearance after five days, you returned to full operational duty. Your handling of the post-incident process — from honest medical disclosure to independent documentation — was consistent with professional standards and protected both your health and the integrity of the prosecution.",
+      "question": "",
+      "options": []
+    }
+  }
+}
