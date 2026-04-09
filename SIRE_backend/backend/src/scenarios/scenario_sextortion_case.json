@@ -1,0 +1,164 @@
+{
+  "title": "scenario_sextortion_case",
+  "description": "A 16-year-old male reports being blackmailed after being manipulated into sharing intimate images online; officers respond to a sextortion complaint in a trauma-informed manner.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["sextortion", "youth", "online exploitation", "intimate images", "trauma-informed", "Canada"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Complaint Received",
+      "description": "A 16-year-old male, Marcus, contacts police with his father to report that someone online is threatening to expose images of him unless he pays money.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Trauma-Informed Interview",
+      "description": "Officers conduct a trauma-informed interview with Marcus to gather the necessary facts while avoiding re-victimization.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Digital Evidence Secured",
+      "description": "Officers work with Marcus to preserve digital communications and account information without requiring him to describe intimate content in detail.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 3,
+      "title": "Offender Pattern Assessment",
+      "description": "Investigators assess whether the offender is using a known sextortion pattern and whether other victims may be involved.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 4,
+      "title": "Cybercrime and Victim Services Coordination",
+      "description": "The case is escalated to the cybercrime unit and victim services is engaged to support Marcus and his family.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Immediate Safety Guidance",
+      "description": "Officers provide Marcus and his family with actionable guidance on stopping further harm while the investigation proceeds.",
+      "timeOffsetSec": 2400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Contact — Setting the Right Tone",
+      "situation": "Marcus, 16, arrives at the detachment with his father. Marcus is visibly ashamed and reluctant to speak. His father explains that Marcus received a message demanding $500 or images would be sent to his school contacts. You must take the initial complaint. Marcus is a youth victim and the subject matter involves intimate images. Your approach in the first minutes will determine whether Marcus cooperates fully with the investigation or shuts down.",
+      "question": "How do you begin the interaction with Marcus?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct the initial intake in a private room; speak directly to Marcus in a calm, non-judgmental tone; reassure him that he is not in trouble, that what happened to him is a recognized crime, and that many young people are targeted this way; explain what information you will need and why, and that you will avoid asking him to describe intimate content in more detail than necessary for the investigation — prioritize his dignity throughout.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Begin by asking Marcus directly to describe the images to determine whether they meet the legal definition of 'intimate image' under s.162.1 of the Criminal Code.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Interview Marcus's father first since Marcus appears unwilling to talk, and rely on the father's account to build the initial report.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Gathering Facts Without Re-Victimizing",
+      "situation": "Marcus explains that he was contacted via a social media platform by someone claiming to be a person his age. After exchanging messages over several days, he was manipulated into sharing images. The person then revealed they were recording and demanded payment. Marcus shows you the threatening messages on his phone. You need to document the offence without requiring Marcus to revisit the intimate content in detail.",
+      "question": "How do you gather the evidence needed without re-victimizing Marcus?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Focus your questions on the communications and account details — platform used, username of the offender, date of first contact, nature of the threats, payment demand amount — and have Marcus show you the threatening messages so you can photograph them with a timestamp; do not ask him to describe or show intimate images beyond confirming they exist and were shared under false pretenses; document his account in his own words, not leading questions.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Ask Marcus to email all communications including any intimate images to the police file email address so you have a complete record.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Since the images may constitute child sexual abuse material under s.163.1 CC, seize Marcus's phone immediately and send it to digital forensics before taking any further statement.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Identifying the Offender Pattern",
+      "situation": "Review of the threatening messages reveals the offender used a newly created account, professional-sounding language in the demand, and referenced multiple potential contacts to send images to — suggesting a scripted operation. The payment was demanded via cryptocurrency. The account profile photo appears to be a stock image. This pattern is consistent with a financially motivated sextortion operation targeting multiple victims rather than a personal acquaintance.",
+      "question": "How do you assess and document the offender pattern?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the indicators of an organized sextortion operation — fake profile photo, scripted demand language, cryptocurrency payment method, new account creation — and check RCMP and law enforcement databases for similar complaints; note that Marcus is likely one of multiple victims; flag the account username and cryptocurrency wallet address for cybercrime cross-referencing; do not contact the offender account at this stage as it may tip off the operation.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Contact the offender account posing as Marcus to gather more information, which will strengthen the case before involving cybercrime.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise Marcus to report the account to the platform and have it shut down immediately to prevent further threats.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Escalating to Cybercrime and Victim Services",
+      "situation": "Based on your assessment, this case warrants referral to the provincial cybercrime unit. You must formally transfer the file while ensuring continuity of care for Marcus. Victim services has a youth-specific counsellor available. Marcus's father asks whether paying the demand would stop the harassment. You must advise the family appropriately while ensuring the file is properly handed off.",
+      "question": "How do you escalate the case and advise the family?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete a detailed occurrence report documenting all evidence gathered and submit a formal referral to the cybercrime unit with all account identifiers and communication records; strongly advise the father that paying the demand does not stop the harassment and typically results in escalating demands — there is no guarantee of compliance; refer Marcus to the victim services youth counsellor and provide the family with the Canadian Centre for Child Protection's 'Cybertip.ca' reporting resource.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Advise the father that a small one-time payment is a reasonable way to end the situation quickly while the cybercrime investigation continues.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Close your involvement and advise the family to wait for cybercrime to contact them, as further patrol involvement could interfere with the cybercrime investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Immediate Safety Guidance for the Family",
+      "situation": "The cybercrime referral is in place. Victim services has been contacted. Marcus's father asks what they should do right now to protect Marcus. Marcus is still receiving threatening messages. The family is asking about blocking the account, changing Marcus's social media profiles, and whether to inform the school. You must provide practical, safe guidance that does not compromise the investigation while protecting Marcus from further harm.",
+      "question": "What immediate safety guidance do you provide?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the family to: preserve all messages without responding to the offender — do not block the account yet as this may alert the offender and the cybercrime unit needs it accessible; take screenshots of all new threats as they arrive; change Marcus's account privacy settings to private immediately; advise the school's SRO or counsellor on a need-to-know basis if Marcus's emotional wellbeing requires support — confirm with the cybercrime investigator before blocking the account; maintain regular check-ins with Marcus for signs of crisis.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Marcus to delete all his social media accounts immediately to remove himself as a target and prevent further contact.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise the family to publicize what happened on their own social media to warn other parents in the community, which will help identify other victims faster.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The cybercrime unit identified the account as part of a cross-border sextortion ring targeting youth across three provinces. Marcus received victim services support and did not pay any demands. Key training takeaways: trauma-informed approaches are essential when interviewing youth victims of image-based offences — dignity and trust must be prioritized; officers should not request or view intimate images beyond what is strictly necessary; organized sextortion operations follow recognizable patterns and should be flagged for cybercrime immediately; paying demands does not end the threat and should never be advised; victim services and Cybertip.ca are key resources for youth victims in Canada.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

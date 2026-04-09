@@ -1,0 +1,164 @@
+{
+  "title": "scenario_school_threat_assessment",
+  "description": "A student makes ambiguous threatening statements on social media; the school resource officer conducts a structured threat assessment to determine risk level and appropriate intervention.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["threat assessment", "school", "social media", "intervention", "youth", "violence prevention"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Social Media Post Flagged",
+      "description": "A parent reports a social media post by a Grade 11 student, Dylan, containing vague threatening language after he was suspended. The school principal contacts the SRO.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "SRO Briefed by Principal",
+      "description": "The SRO reviews the post and available background information on the student. Initial threat level is unclear — structured assessment is required.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Information Gathering Phase",
+      "description": "The SRO gathers information from multiple sources including staff, peers, and school records to classify the threat type.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 3,
+      "title": "Student and Family Interview",
+      "description": "The SRO interviews Dylan and his parents, applying youth-appropriate and trauma-informed interviewing techniques.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 4,
+      "title": "Mental Health Consultation",
+      "description": "The SRO consults with the school's mental health team and determines the appropriate level of intervention.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Intervention Plan Implemented",
+      "description": "A coordinated intervention plan is put in place involving school, family, and mental health supports. The safety of the school community is maintained.",
+      "timeOffsetSec": 2400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Reviewing the Social Media Post",
+      "situation": "You are the School Resource Officer (SRO) at Ridgeview Secondary School. The principal shows you a screenshot of a post made last night by Dylan, a 17-year-old Grade 11 student who was suspended yesterday for fighting. The post reads: 'They think they can just throw me away. Everyone who did this to me will regret it. This isn't over.' The post has 12 comments from peers, some supportive and some saying 'calm down.' Dylan has no prior police record. He returns from suspension in two days. You must determine how to respond.",
+      "question": "What is your first step in assessing this post?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply a structured threat assessment framework: evaluate the post for specificity (no specific target, method, or time named), directness (implied rather than explicit), and context (posted after a disciplinary consequence suggesting emotional venting vs. planning); classify it as an unresolved concern requiring further information gathering before assigning a threat level — do not dismiss it as 'just venting' without completing the full assessment.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Arrest Dylan immediately for uttering threats under s.264.1 of the Criminal Code because the post contains language about people regretting their actions.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Dismiss the post as emotional venting since it lacks specific targets or methods, and take no further action until Dylan returns to school.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Multi-Source Information Gathering",
+      "situation": "You begin gathering background information. Dylan's teachers describe him as previously engaged but increasingly withdrawn over the past month. His guidance counsellor notes a recent family breakdown — his parents separated two months ago. A classmate tells you confidentially that Dylan has been talking about feeling like 'no one cares if he disappears.' Dylan's locker and school devices have not been checked. His social media history shows three prior posts over the past month expressing hopelessness. No posts reference weapons.",
+      "question": "How do you use this information to refine the threat assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document all information systematically; note that the pattern of withdrawal, hopelessness, and recent stressors (suspension, family breakdown) elevates concern beyond a simple venting post; classify the threat as 'low-to-medium' requiring intervention — the primary risk may be self-harm rather than targeted violence, which also requires action; request a welfare check framing for the family contact and consult the school mental health team before any disciplinary or police action.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Since there is no mention of weapons, downgrade the concern to low risk and simply have the principal call Dylan's parents to inform them of the post.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Search Dylan's locker immediately without informing school administration, as the gathered information provides grounds for a safety search.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Interviewing the Student",
+      "situation": "Dylan's mother has come to the school. Dylan is present. You need to interview Dylan as part of the threat assessment. He has not been arrested and is not a suspect in a criminal matter — this is a welfare and safety-focused interview. Dylan appears tense and defensive. His mother is anxious and asks whether Dylan is 'going to be charged.' You must conduct the interview in a way that gains accurate information without alienating Dylan or triggering a defensive shutdown.",
+      "question": "How do you approach the interview with Dylan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain clearly to Dylan and his mother that this is not a criminal interview and he is not under arrest; use a non-confrontational, open-ended approach — begin with neutral topics to build rapport, then ask Dylan what was going on when he made the post and how he is feeling; listen for indicators of targeted intent, access to means, and self-harm risk; do not minimize his feelings; document responses carefully.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Open the interview by telling Dylan the post was threatening and that he needs to explain himself, to establish the seriousness of the situation from the start.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Conduct the interview without Dylan's mother present because she may coach his answers.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Mental Health Consultation",
+      "situation": "Dylan tells you he wrote the post because he was angry and felt unfairly blamed for the fight. He denies any intent to harm others. He does express feeling 'done with everything' and says 'what's the point anyway.' He becomes tearful when discussing his parents' separation. The school's mental health counsellor, Sandra, is available. Your threat assessment indicates low targeted violence risk but elevated self-harm and mental health crisis risk. You must determine the appropriate referral and next steps.",
+      "question": "What is the appropriate intervention based on your assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Consult with Sandra immediately and facilitate a warm handoff for a same-day mental health assessment; recommend to the principal that Dylan's return-to-school plan include a mental health support component; advise the mother to remove or secure any means of self-harm at home and provide crisis line information; document your threat assessment findings and file with the school's threat assessment team; no criminal charges are warranted at this stage.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Since Dylan denied any intent to harm others, close the threat assessment file and allow him to return to school on schedule with no further action.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Apprehend Dylan under provincial mental health legislation because he used the words 'what's the point' — this automatically meets the threshold for involuntary apprehension.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Coordinating the Safety Plan",
+      "situation": "Sandra has completed an initial mental health assessment. She does not recommend hospitalization but strongly recommends outpatient counselling and daily check-ins at school. The principal wants to extend the suspension by two days to 'give the school time to prepare.' Dylan's mother is cooperative. The threat assessment team — including you, the principal, Sandra, and the vice-principal — must agree on a formal safety plan for Dylan's return to school.",
+      "question": "What does an appropriate school safety plan for Dylan's return include?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Develop a written re-entry safety plan that includes: daily check-in with Sandra or the VP; a trusted adult contact person Dylan can go to if he is struggling; a monitoring period with reduced triggers (e.g., avoiding the student involved in the fight initially); parent communication expectations; a clear escalation protocol if Dylan shows further warning signs; and a follow-up threat assessment review after 30 days — balance safety with Dylan's dignity and continued access to education.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Recommend that Dylan be permanently transferred to an alternative school because his presence poses an ongoing risk to the student body.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Require Dylan to submit to weekly police check-ins as a condition of returning to school, to deter future threatening posts.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Dylan returned to school with a structured safety plan in place. He engaged with the school counsellor and his mother secured a community outpatient referral. No further incidents occurred. Key training takeaways: a structured threat assessment framework must be applied before classifying or dismissing any threat; specificity and context are essential — venting vs. planning require different responses; the primary risk can be self-harm rather than targeted violence and still requires intervention; youth interviews must be non-confrontational and clearly framed as welfare-focused when no arrest is made; safety plans should restore access to education while maintaining safeguards.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

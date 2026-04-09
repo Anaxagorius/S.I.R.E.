@@ -1,0 +1,164 @@
+{
+  "title": "scenario_youth_gang_recruitment",
+  "description": "A school counsellor alerts police that a 14-year-old student is showing signs of gang recruitment; officers assess indicators and coordinate a prevention intervention.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["youth", "gang recruitment", "prevention", "intervention", "school", "at-risk youth"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Counsellor Alert",
+      "description": "The school counsellor contacts the SRO to report a Grade 9 student, Jordan, showing multiple indicators of gang recruitment over the past three weeks.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Indicator Assessment",
+      "description": "The SRO reviews the specific indicators reported and assesses the credibility and severity of the recruitment concern.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Non-Confrontational Engagement",
+      "description": "The SRO engages Jordan using a relationship-based, non-confrontational approach to build trust and gather information.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 3,
+      "title": "Social Services Coordination",
+      "description": "The SRO coordinates with social services and the Gang Prevention Unit to develop an intervention strategy.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 4,
+      "title": "Family Engagement",
+      "description": "Officers and social workers engage Jordan's family to build a support network and discuss the risks of gang involvement.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Safety Plan Developed",
+      "description": "A comprehensive safety and prevention plan is developed with Jordan, his family, school, and community partners.",
+      "timeOffsetSec": 2400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Assessing the Gang Recruitment Indicators",
+      "situation": "Ms. Chen, the Grade 9 counsellor at Parkview Secondary, contacts you — the school resource officer — to report concerns about Jordan, 14. Over the past three weeks: Jordan has been seen wearing new, expensive brand-name clothing and shoes; he is associating with a group of older males (late teens/early 20s) who have been seen near the school at dismissal; he drew what appear to be gang-related graffiti symbols on his binder; and he has become withdrawn from his regular friend group and is missing classes. Jordan has no criminal record. You must assess the indicators.",
+      "question": "How do you assess the validity and severity of these gang recruitment indicators?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cross-reference the observed indicators against recognized gang recruitment warning signs: new unexplained material items (possible financial incentive from recruiters), association with older unknown males (typical recruiter profile), symbolic graffiti (identity adoption), and social withdrawal (isolation tactic used by recruiters to increase dependency) — the combination of four concurrent indicators over three weeks elevates this beyond casual concern; consult with the Gang Prevention Unit to identify the symbols and check if the older associates are known to police, while avoiding labelling Jordan as a gang member prematurely.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Approach Jordan's new older associates near the school and demand they identify themselves and explain why they are near a school, to establish your presence as a deterrent.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Since Jordan has no criminal record and the indicators are circumstantial, take no action until Jordan commits an offence — acting on suspicion alone could violate his rights.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Engaging Jordan — Non-Confrontational Approach",
+      "situation": "The Gang Prevention Unit confirms the binder symbols are associated with a local street-level group known to recruit youth as runners. Two of the older males observed near the school have prior drug trafficking charges. Jordan is not aware that you have been briefed. You need to make contact with Jordan. A heavy-handed or accusatory approach could push him further toward the group. A relationship-based approach is essential at this stage.",
+      "question": "How do you make initial contact with Jordan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ask the counsellor to arrange a casual, low-stakes interaction — for example, inviting Jordan to help set up an event or join a lunch conversation — and use that opportunity to build rapport over several interactions before discussing your concerns; use open-ended questions focused on how he is doing, what is going on in his life, and what he enjoys — do not confront him about the graffiti or associates in the first contact; the goal is to establish a trusted adult relationship.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Call Jordan to the principal's office and ask him directly who the older males are and whether they are gang members, so you can get information quickly before the recruitment progresses.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Search Jordan's locker and backpack for gang-related materials, which will give you evidence to confront him with during the interview.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Coordinating with Social Services and Gang Prevention",
+      "situation": "After two informal contacts, Jordan is beginning to open up. He has mentioned feeling bored, that his dad works nights and is rarely home, and that his 'new friends' treat him with respect. He has not mentioned any criminal activity. You consult with the Gang Prevention Unit and the school's social worker. A formal intervention should be coordinated. You must plan who is involved, in what role, and how to approach it without alienating Jordan or his family.",
+      "question": "How do you structure the multi-agency intervention?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Convene a case conference with the Gang Prevention Unit outreach worker, school social worker, and counsellor to assign clear roles: the outreach worker leads community mentorship connection; the social worker assesses family supports and housing stability; the counsellor monitors school engagement; your role as SRO is relationship maintenance and safety monitoring — avoid having multiple adults confront Jordan simultaneously as this can feel overwhelming and counterproductive.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Bring all agencies to meet Jordan at the same time in the principal's office to demonstrate that everyone is aware of his situation and concerned — this shows a unified front.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Notify the local Crown attorney's office of the situation and request pre-emptive bail conditions be placed on the older associates to keep them away from the school.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Engaging Jordan's Family",
+      "situation": "Jordan lives with his father, who works evenings at a warehouse. His mother is not in the picture. You and the social worker plan to visit the father at home. He is unaware of the police concerns. He may be defensive or feel accused of failing as a parent. The meeting must be handled sensitively to gain his cooperation as a key protective factor in Jordan's life.",
+      "question": "How do you approach the conversation with Jordan's father?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Frame the visit as a proactive outreach call — not a complaint or accusation — and begin by acknowledging that raising a teenager alone while working nights is difficult; share specific concerns about the older associates factually and without dramatic language; avoid labelling Jordan as a 'gang recruit'; focus on the conversation on how the family can be supported, what Jordan needs, and what community resources are available including mentorship programs; leave written information and follow up.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Inform the father that Jordan is at risk of criminal charges if he continues associating with known offenders, to create urgency that motivates the father to take immediate action.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Recommend the father ground Jordan and prohibit him from going out after school, as restricting his movements will prevent further contact with the older group.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Developing Jordan's Safety Plan",
+      "situation": "Jordan's father is now engaged and grateful for the outreach. Jordan has agreed to meet with a Gang Prevention Unit youth mentor. The school has enrolled him in an after-school sports program to reduce unsupervised time. However, the older associates have not stopped appearing near the school at dismissal. A safety plan must be documented that captures all protective factors, monitoring steps, and escalation triggers.",
+      "question": "What does a comprehensive safety plan for Jordan include?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document a written safety plan covering: identified risk factors (isolation, unsupervised evenings, recruiter contact); protective factors (father engagement, mentor relationship, after-school program); monitoring responsibilities (SRO monthly check-in, counsellor weekly contact, father nightly communication with Jordan); escalation triggers (new unexplained items, increased absences, known associate contact on school grounds); and a review date in 60 days — share the plan with all parties except Jordan's associates.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Verbally agree on a plan with the father and counsellor without documenting it, as writing things down could make Jordan feel surveilled and harm the relationship.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Place Jordan on an informal police watch list so that if he is ever observed with the older group, he can be stopped and questioned under articulable cause.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Over the following two months, Jordan's attendance improved, he continued with his mentor, and the older associates stopped appearing near the school after a targeted enforcement initiative by the Gang Prevention Unit. No charges were laid against Jordan. Key training takeaways: gang recruitment indicators should be assessed holistically — no single indicator is definitive; relationship-based engagement is more effective than confrontational tactics for at-risk youth; multi-agency coordination requires clear role assignment to avoid overwhelming the youth; family engagement must be handled sensitively and framed as support, not blame; documented safety plans with escalation triggers create accountability and continuity across agencies.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "title": "scenario_youth_justice_act",
+  "description": "Officers arrest a 15-year-old for theft over $5,000 and must navigate Youth Criminal Justice Act requirements for notices, statements, and extrajudicial measures.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["Youth Criminal Justice Act", "YCJA", "youth arrest", "extrajudicial measures", "Canadian law", "procedure"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Youth Apprehended",
+      "description": "Officers apprehend a 15-year-old, Ethan, after a loss prevention officer confirms he left the store with $6,200 in electronics without paying.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "YCJA Rights Explained",
+      "description": "Officers must advise Ethan of his rights under the Youth Criminal Justice Act, including the right to counsel and the right to have a parent or adult present.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Parent Notification",
+      "description": "Officers must notify Ethan's parents or guardians in accordance with YCJA requirements.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 3,
+      "title": "Statement Taking",
+      "description": "Officers must follow YCJA-compliant procedures if taking a statement from Ethan, ensuring it will be admissible.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Extrajudicial Measures Assessment",
+      "description": "Officers assess whether extrajudicial measures are appropriate given Ethan's background, the nature of the offence, and YCJA principles.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 5,
+      "title": "Documentation and Disposition",
+      "description": "Officers complete the required YCJA documentation and determine the appropriate disposition for Ethan.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Apprehension and Initial YCJA Rights",
+      "situation": "You are a patrol officer responding to a retail store theft call. The loss prevention officer confirms that Ethan, 15, was observed on CCTV selecting $6,200 in electronics and concealing them in a large bag before walking out without paying. The merchandise is recovered intact. Ethan has been held in the store office. He is visibly nervous but cooperative. You must now apply YCJA requirements beginning with his rights at the point of apprehension.",
+      "question": "What rights must you advise Ethan of under the YCJA?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise Ethan of all applicable rights under the YCJA and the Charter: the right to remain silent; the right to retain and instruct counsel without delay (s.25 YCJA); the right to have a parent or other adult present for any statement; the right to have a lawyer present during any statement; the right to consult with a parent before making any decision about a statement; and the specific right under s.146 YCJA that any statement made without these protections in place is presumptively inadmissible — use plain language appropriate for a 15-year-old and confirm understanding.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Advise Ethan of his standard Charter rights (right to counsel, right to silence) as you would for any adult, since the Criminal Code rights are sufficient for a youth as well.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask Ethan a few preliminary questions to establish the facts while he is still in the store, and advise him of his full rights once you arrive at the detachment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Parent Notification Requirements",
+      "situation": "Ethan has invoked his right to counsel. He has been transported to the detachment. You must now notify a parent or guardian as required by the YCJA. Ethan states his mother is at work and his father 'is not around.' He provides his mother's cell number. It is 3:30 p.m. You must comply with s.26 YCJA notification requirements.",
+      "question": "What are your obligations under s.26 YCJA for parent notification?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under s.26 YCJA, you must give notice to a parent as soon as practicable; attempt to reach the mother by phone immediately and inform her that Ethan has been apprehended, the nature of the offence, and where he is being held; if the mother cannot be reached, attempt to contact another relative or responsible adult; document all notification attempts with timestamps; do not take any formal statement from Ethan until a parent or responsible adult has been notified and is available — this is a mandatory YCJA requirement, not discretionary.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Since Ethan is over 12 and appears mature, proceed without parental notification as he has already been advised of his rights and invoked counsel.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact the Youth Justice Court directly to notify them of the arrest, which satisfies the notification obligation under the YCJA.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Taking a YCJA-Compliant Statement",
+      "situation": "Ethan's mother, Ms. Torres, has arrived at the detachment. Ethan has spoken with duty counsel by phone. He now says he wants to tell you what happened. You want to take a formal statement. Under s.146 of the YCJA, a statement by a young person is only admissible if specific conditions are met. Ms. Torres is present but appears to want to speak for Ethan.",
+      "question": "What conditions must be met for Ethan's statement to be admissible under s.146 YCJA?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under s.146 YCJA, for the statement to be admissible: Ethan must have been clearly informed of his right to have a lawyer and an adult present; he must have been given a reasonable opportunity to consult with counsel and a parent before deciding to give a statement; he must choose to give the statement voluntarily without threats or promises; and the statement must be taken in the presence of counsel or a parent unless he expressly waives that right in a manner that is clearly voluntary — ensure Ms. Torres observes but does not answer for Ethan; document the entire waiver or presence process.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Since duty counsel was already consulted, Ethan's right to counsel has been satisfied and you can take a statement in the same manner as an adult from this point forward.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow Ms. Torres to advise Ethan during the statement-taking process, as a parent present during the statement-taking satisfies all YCJA conditions without further formality.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Extrajudicial Measures Assessment",
+      "situation": "Ethan's statement confirms he took the electronics. He expresses remorse and says he planned to resell them to pay a debt to a classmate. He has no prior police contact. He is in Grade 10 with no disciplinary record at school. His mother is cooperative and clearly upset. The stolen merchandise has been fully recovered. The total value is $6,200 — above the $5,000 threshold for theft over. You must assess whether extrajudicial measures apply under the YCJA.",
+      "question": "How do you assess the appropriateness of extrajudicial measures under the YCJA?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under s.4-12 YCJA, extrajudicial measures are presumed appropriate for first-time, non-violent offenders; assess the factors: Ethan has no prior record, the offence is property crime with no victim harm, merchandise is fully recovered, and he shows remorse — these factors favour extrajudicial measures; however, the value ($6,200) is substantial, indicating a planned offence; consult with a supervisor and consider a police caution or referral to an extrajudicial sanctions program rather than a formal charge — document the Crown's position before finalizing.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Extrajudicial measures only apply to minor offences like petty theft — theft over $5,000 is indictable and therefore extrajudicial measures cannot be considered under any circumstances.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Since the merchandise was recovered and Ethan is remorseful, release him to his mother with a verbal warning — no formal record or documentation is required.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "YCJA Documentation and Disposition",
+      "situation": "After consulting with your supervisor and Crown counsel, it is determined that Ethan will receive a formal police caution under s.7 YCJA rather than charges, on the condition that he participates in a restorative justice program and his parents provide written confirmation of cooperation. You must now complete the required documentation accurately to reflect the YCJA-compliant process from apprehension through disposition.",
+      "question": "What documentation is required to complete the YCJA process properly?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete the following documentation: the youth occurrence report documenting the offence, Ethan's rights warnings and his responses, parent notification log with timestamps, statement-taking process and waiver documentation, extrajudicial measure taken (formal police caution under s.7 YCJA) with the rationale, conditions attached (restorative justice participation), and Crown consultation record — all records must comply with YCJA privacy protections under s.110-119, meaning they cannot be disclosed publicly and access is restricted.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Complete a standard adult occurrence report and note that a caution was given — YCJA-specific documentation requirements are handled by the Crown once the file is forwarded.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Since no charges are being laid, no formal documentation is required — retain only the store's loss prevention report and Ethan's verbal caution as the record.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Ethan received a formal police caution and completed a restorative justice program. No criminal charges were laid. The documentation was completed in compliance with YCJA privacy requirements. Key training takeaways: YCJA rights warnings go beyond standard Charter rights and include specific rights to have a parent and counsel present before and during statement-taking; parent notification under s.26 YCJA is mandatory and must be documented; s.146 YCJA statement requirements are strict — non-compliance makes statements inadmissible; extrajudicial measures under s.4-12 YCJA must be genuinely considered for first-time non-violent youth offenders regardless of offence value; all YCJA records carry strict privacy protections that differ from adult records.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
