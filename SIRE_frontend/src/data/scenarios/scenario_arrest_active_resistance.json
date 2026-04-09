@@ -1,0 +1,150 @@
+{
+  "title": "scenario_arrest_active_resistance",
+  "description": "An officer attempts to arrest a suspect who physically resists and attempts to flee. Tests proportional use of force under Criminal Code s.25, de-escalation, officer safety, and post-incident documentation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch Received",
+      "description": "Dispatch advises of a disturbance outside a downtown bar. A male has reportedly assaulted a patron and remains on scene.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival on Scene",
+      "description": "You arrive to find a male matching the description arguing loudly with bystanders. The victim is seated on the curb holding his jaw. The suspect is agitated and pacing.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Arrest Attempt",
+      "description": "You advise the suspect he is under arrest for assault. He immediately steps back and says 'You're not taking me anywhere' and pushes you with both hands.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Active Resistance",
+      "description": "The suspect pulls away and attempts to run. Bystanders are nearby. A second unit is 2 minutes out.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Subject Controlled",
+      "description": "The officer applies proportionate force to bring the subject under control. The subject is handcuffed on the ground.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Assessment",
+      "description": "Subject is medically assessed. Use of force report is completed. All actions are documented in the officer's notes.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Shove — Responding to Active Resistance",
+      "situation": "You have advised the suspect of his arrest for assault. He has shoved you with both hands. You are uninjured but he is stepping back in an aggressive stance. Bystanders are approximately 5 metres away. Your partner is 2 minutes out. The suspect has not displayed a weapon but his hands are clenched.",
+      "question": "What is your immediate use-of-force response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under Criminal Code s.25, a peace officer is justified in using force that is reasonably necessary to effect a lawful arrest. The suspect has physically assaulted you, constituting active resistance. Respond with force proportionate to his level of resistance — in this case, empty-hand control techniques such as joint locks or takedown to the ground are appropriate. Issue loud, clear verbal commands ('Stop resisting — get on the ground!') throughout. Do not escalate to intermediate weapons unless resistance escalates to assaultive behaviour posing bodily harm risk. Communicate your status to dispatch.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Draw your firearm immediately since he has assaulted an officer and you cannot allow him to escalate further.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Step back and wait for backup before attempting any further control, allowing him to stand freely to avoid further conflict.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Suspect Attempts to Flee",
+      "situation": "The suspect breaks your grip and runs northbound on the sidewalk. He is approximately 10 metres ahead. Bystanders on both sides of the street are watching. You are not injured. Your backup is now 60 seconds out and has been advised by dispatch of the situation.",
+      "question": "How do you respond to the fleeing suspect?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pursue on foot while immediately broadcasting your direction of travel, description, and the street name to dispatch so backup can form a containment ahead of the subject. Announce loudly that he is under arrest and to stop. Continuously assess whether pursuit is safe given bystander density, your physical capacity, and environmental hazards. If backup is imminent, consider slowing to maintain visual contact rather than closing distance alone — containment may be safer than a solo takedown in a crowd. Never abandon a lawful arrest without exhausting reasonable options.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deploy your firearm to stop the fleeing suspect before he gets away, as you have reasonable grounds he is dangerous.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stop the pursuit immediately — running after a suspect without backup is against policy and the arrest will be continued another day.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Apprehended — Post-Use-of-Force Protocol",
+      "situation": "Backup has arrived and you have apprehended the suspect in a nearby alleyway after a brief foot pursuit. The suspect was taken to the ground using a controlled takedown. He is now handcuffed but is breathing heavily and has an abrasion on his forehead from the ground contact. He is alert and verbally abusive.",
+      "question": "What are your post-use-of-force obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your post-use-of-force obligations include: (1) Medical assessment — the suspect must be assessed by EMS or at a medical facility before being placed in cells, given the visible head abrasion and physical exertion; (2) Charter rights — now that he is secured, advise him of the reason for arrest and his right to counsel under Charter s.10(a) and s.10(b) without further delay; (3) Documentation — complete a detailed use-of-force report describing each level of resistance and each force option used, consistent with your service's Use of Force Reporting Policy; (4) Notify your supervisor of the use of force incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Transport him directly to cells — the injury is minor and EMS attendance would delay processing.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "There is no need for a use-of-force report since the suspect was the initial aggressor and his injuries are self-inflicted from the takedown.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You managed an actively resistant suspect effectively: you applied proportionate force under Criminal Code s.25, pursued safely while maintaining radio communication and requesting containment, secured the suspect with backup, ensured a medical assessment was completed, delivered Charter rights upon arrest, and prepared a complete use-of-force report with supervisor notification. Every force option used was justified, proportionate, and documented.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "arrest",
+    "active resistance",
+    "use of force",
+    "Criminal Code s.25",
+    "de-escalation",
+    "officer safety",
+    "force continuum",
+    "Canada"
+  ]
+}

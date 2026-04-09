@@ -1,0 +1,150 @@
+{
+  "title": "scenario_arrest_compliant_subject",
+  "description": "An officer arrests a cooperative suspect for assault causing bodily harm under Criminal Code s.267. The scenario tests proper grounds for arrest, Charter s.10 rights, caution, search incident to arrest, and transport to cells.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch Received",
+      "description": "Dispatch advises of a reported assault at a convenience store. The victim, a store clerk, has a visible laceration above his eye and identifies a male who struck him and then left on foot northbound.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Suspect Located",
+      "description": "You locate a male matching the description one block north of the store. He is standing on the sidewalk and makes no attempt to flee.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Suspect Cooperative",
+      "description": "The suspect is calm and verbally cooperative. He confirms his name but does not comment on the alleged assault. He is not visibly armed.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Arrest Made",
+      "description": "The suspect is placed under arrest. He does not resist. Handcuffs are applied to the front in accordance with your service policy for compliant subjects.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Rights and Caution Delivered",
+      "description": "The officer clearly advises the suspect of the reason for the arrest and reads the standard Charter caution including right to retain and instruct counsel without delay.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Transport to Cells",
+      "description": "The suspect is searched incident to arrest, seated safely in the police vehicle, and transported to the division for processing.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Locating the Suspect — Establishing Grounds",
+      "situation": "You have located a male matching the victim's description one block from the scene. The victim provided a clear physical description and stated the male struck him with a closed fist, causing a laceration. The victim is visibly injured. The suspect is standing still and watching you approach. You have not yet spoken to him.",
+      "question": "What do you need before placing this individual under arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Before arresting, confirm you have reasonable and probable grounds to believe this person committed the offence — not merely suspicion. The victim's direct identification, the matching description, the close proximity to the scene, and the documented injury together constitute reasonable grounds to arrest for assault causing bodily harm under Criminal Code s.267. You do not need a confession or a warrant to arrest. Approach, identify yourself, and advise him he is under arrest.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Detain him for questioning only — you need a signed victim statement before you can arrest anyone.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Call for a supervisor to attend and authorize the arrest before proceeding.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Delivering Charter Rights — s.10(a) and s.10(b)",
+      "situation": "You have told the suspect he is under arrest for assault causing bodily harm. He is handcuffed without resistance. He looks at you and says, 'What does that mean?' He has not said anything incriminating. You are standing on a public sidewalk.",
+      "question": "What are your Charter obligations at this moment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under Charter s.10(a), you must immediately inform him of the reason for his arrest in plain language he can understand. Under Charter s.10(b), you must inform him of his right to retain and instruct counsel without delay and advise him of the availability of duty counsel. Do this before any questioning. Clearly state: 'You are under arrest for assault causing bodily harm. You have the right to retain and instruct a lawyer without delay. Do you understand?' Pause and confirm he understands before continuing.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Explain the Charter rights at the police station — it is not required on the street and there is no privacy for the conversation here.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask him what happened first; you can deliver the caution after he provides his version of events.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Search Incident to Arrest",
+      "situation": "The suspect has been told of his rights and has confirmed he understands. He says he wants to speak to a lawyer. Before placing him in the police vehicle, you intend to search him. He has a jacket, jeans, and a backpack he was carrying when you approached.",
+      "question": "How do you conduct the search incident to arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A search incident to arrest is a common law power confirmed by the Supreme Court of Canada in R v. Cloutier [1990] and R v. Caslake [1998]. It is lawful without a warrant. The search must be connected to the lawful arrest and conducted for valid purposes: officer safety, preventing escape, and evidence preservation. Search his person thoroughly — jacket, pockets, waistband — and then search the backpack he was carrying. Document every item found. Do not question him further until he has spoken to counsel, consistent with his Charter s.10(b) request.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "You cannot search the backpack without a search warrant — your authority is limited to a pat-down of his outer clothing.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Delay the search until the station — searching on a public sidewalk is unnecessarily intrusive and not required for officer safety since he is cooperative.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You successfully arrested a compliant suspect for Criminal Code s.267 assault causing bodily harm. You established reasonable grounds prior to arrest, delivered Charter s.10(a) and s.10(b) rights promptly and clearly, confirmed his understanding, conducted a lawful search incident to arrest of both his person and the backpack, and respected his invocation of the right to counsel by not questioning him further. The suspect is transported safely and documentation is completed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Beginner",
+  "tags": [
+    "arrest",
+    "compliant",
+    "Charter s.10",
+    "right to counsel",
+    "search incident to arrest",
+    "caution",
+    "Criminal Code s.267",
+    "Canada"
+  ]
+}

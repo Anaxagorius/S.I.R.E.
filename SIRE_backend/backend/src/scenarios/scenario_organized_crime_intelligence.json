@@ -1,0 +1,149 @@
+{
+  "title": "scenario_organized_crime_intelligence",
+  "description": "An officer conducts a routine traffic stop that reveals the driver is a known organized crime associate flagged on CPIC. The scenario covers the limits of intelligence-led searches, lawful grounds for investigative detention, documentation for intelligence gathering, coordination with the gang intelligence unit, and avoiding compromise of ongoing investigations.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Traffic Stop Initiated",
+      "description": "Officer conducts a traffic stop on a vehicle for a minor equipment violation — a burnt-out tail light. The driver's licence plate is run through CPIC before the stop.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "CPIC Hit Returned",
+      "description": "CPIC returns a caution flag: the registered owner is a known associate of an organized crime group, with prior arrests for drug trafficking and weapons. The Gang Intelligence Unit (GIU) has also placed an intelligence-gathering marker on this individual.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Driver Identified",
+      "description": "The driver matches the registered owner and provides a valid licence. He is polite and cooperative. No outstanding warrants. The officer notices a distinctive tattoo on the driver's forearm consistent with the organized crime group identified in the GIU marker.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "GIU Contact",
+      "description": "The officer contacts the GIU by radio on an administrative channel. The GIU advises that the individual is subject to an ongoing investigation and requests the officer gather intelligence but take no enforcement action that could compromise the investigation.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Intelligence Documentation",
+      "description": "The officer documents vehicle description, occupant descriptions, time, location, direction of travel, tattoo observation, and associates present — all as intelligence for the GIU. The equipment violation results in a written warning.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "GIU Debrief",
+      "description": "Following the stop, the officer completes a Solicitor-Client Intelligence Form and submits it to the GIU. The supervisor confirms the contact was handled correctly and the intelligence is of value to the ongoing investigation.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "CPIC Hit — Lawful Scope of the Stop",
+      "situation": "You have stopped a vehicle for a burnt-out tail light. CPIC has returned a flag identifying the registered owner as a known organized crime associate with prior drug and weapons arrests, and a GIU intelligence marker. The driver matches the owner, has no outstanding warrants, is cooperative, and has provided a valid licence. You observe a gang-affiliated tattoo on his forearm. Based solely on the CPIC caution flag and tattoo, your supervisor has suggested you search the vehicle for contraband. You have no additional grounds — no odour of drugs, no visible contraband, and no plain-view observations suggesting criminal activity beyond the original equipment violation.",
+      "question": "What is the correct course of action regarding a vehicle search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not search the vehicle. A CPIC caution flag indicating prior criminal history and an observed tattoo do not constitute reasonable grounds to believe evidence of a crime will be found in this vehicle at this time. Searching solely on that basis would violate Charter s.8 and would be an arbitrary search. Complete the traffic stop lawfully for the equipment violation, contact the GIU for guidance, and document all intelligence observations. Prior criminal history elevates officer safety awareness but does not create search authority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Search the vehicle based on the CPIC hit and gang tattoo, as they constitute reasonable grounds given his known criminal history in drug and weapons offences.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the driver to consent to a vehicle search. If he refuses, arrest him for obstruction of justice for refusing to cooperate with a known gang associate check.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "GIU Coordination — Balancing Enforcement and Investigation",
+      "situation": "You have contacted the GIU. The GIU detective informs you that this individual is a subject in an ongoing organized crime investigation involving drug trafficking and that any enforcement action beyond the original traffic violation could compromise months of covert surveillance. The detective asks you not to arrest or search even if you develop independent grounds during this stop, and to let the subject go after documenting intelligence. During your conversation, you notice through the car window what appears to be a ziplock bag with a white powder partially visible under the driver's seat.",
+      "question": "How do you correctly balance the GIU's request with your independent obligations as an officer?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your independent legal obligations as a peace officer cannot be waived by a GIU request — if you have objectively reasonable grounds (plain-view observation of suspected controlled substance), you are obligated to act on them. Advise the GIU immediately of your observation. Ask the driver about the item in plain view. The final decision on enforcement rests with you and your supervisor, not the GIU, as you cannot unlawfully ignore evidence of a crime in plain view. Document the GIU's request and your decision-making in your notes to protect all parties.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ignore the visible bag entirely and release the driver as the GIU requested, since the ongoing investigation takes absolute precedence over any enforcement action.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately arrest the driver for possession without asking about the bag, to seize the evidence before it can be destroyed, and deal with the GIU's concerns later.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Intelligence Documentation and Information Sharing",
+      "situation": "After consultation with your supervisor and the GIU, the determination was made that the visible item was a protein powder bag with no further grounds. No arrest was made. The driver was released with a warning for the tail light. You must now properly document the intelligence gathered — vehicle description, associate descriptions, tattoo, time, location, direction of travel, and the GIU interaction — and submit it through the correct channels without disclosing sensitive operational information in public-facing documents.",
+      "question": "What is the correct process for intelligence documentation and sharing?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete a Solicitor-Client Intelligence Report (or equivalent intelligence-sharing form used in your service) and route it directly to the GIU through a secure internal channel. Do not include sensitive operational details such as the ongoing investigation's covert methods in any publicly accessible police report or occurrence. Document only factual observations — vehicle, occupants, time, location, tattoo description — in the formal occurrence report. Confirm with the GIU that the intelligence has been received and filed. This ensures the information is preserved for the ongoing investigation without compromising it.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Post the intelligence observations to the shared patrol briefing board so all officers are aware, to maximize information sharing across the service.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Verbally relay all intelligence to the GIU only and make no written record, since written documentation of intelligence contacts could compromise the covert investigation if disclosed in court.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Your intelligence submission to the GIU documented the vehicle, occupants, tattoo, location, time, and direction of travel. This contact corroborated existing surveillance and confirmed the suspect's use of a specific vehicle — intelligence that became significant in a subsequent search warrant ITO. Your decision not to search without grounds protected the Charter rights of the individual and preserved the ongoing investigation. Your recognition that a GIU request cannot override your legal obligations to act on plain-view evidence — and your swift supervisor consultation — demonstrated sound judgment. The supervisor confirmed your handling of the stop was both legally correct and operationally appropriate.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "organized crime",
+    "intelligence gathering",
+    "CPIC",
+    "gang unit",
+    "Criminal Code",
+    "traffic stop",
+    "Canada"
+  ]
+}

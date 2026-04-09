@@ -1,0 +1,150 @@
+{
+  "title": "scenario_meth_lab_investigation",
+  "description": "During a welfare check at a residential address, an officer discovers indicators of a clandestine methamphetamine production site. The scenario covers scene safety and contamination risk, establishing a perimeter, calling specialized units, warrant considerations, and evidence preservation under CDSA s.7.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Welfare Check Dispatched",
+      "description": "Officer dispatched to a residential address after a neighbour reports not seeing the tenant for several days and noticing a strong chemical smell coming from the property.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival at Scene",
+      "description": "Officer arrives and notes an acrid chemical odour from outside the residence. Curtains are fully drawn. Several chemical containers are visible through a gap in the fence near a side entrance.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Indicators of Clandestine Lab",
+      "description": "A neighbour states they have heard fans running constantly, noticed yellow staining on exterior walls near ventilation, and observed frequent purchases of cold medication by the tenant. These are all recognised clandestine meth lab indicators.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Perimeter Established",
+      "description": "Officer withdraws to a safe distance, establishes a perimeter, and requests supervisory and specialized unit response. No entry is made into the structure.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Specialized Units Arrive",
+      "description": "HAZMAT and the Clandestine Lab Team arrive on scene. The HAZMAT team conducts an exterior air quality assessment. Readings confirm the presence of volatile organic compounds consistent with methamphetamine precursors.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Warrant Application",
+      "description": "The Clandestine Lab Team officer prepares a Search Warrant ITO under Criminal Code s.487, incorporating the officer's observations, neighbour statements, and HAZMAT findings. Crown counsel reviews before swearing.",
+      "timeOffsetSec": 540
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Recognition — Immediate Safety Action",
+      "situation": "You are conducting a welfare check at a residential address. Upon arrival, you detect a strong solvent-like chemical odour consistent with pseudoephedrine reduction or other methamphetamine synthesis processes. You observe chemical containers near a side entrance, yellow wall staining near ventilation outlets, and a neighbour confirms constant fan noise and frequent cold medication purchases by the tenant. You have not yet entered the residence. Clandestine meth labs pose serious risks: explosive vapours, toxic chemical inhalation, booby traps, and corrosive residue. You are alone with standard patrol equipment.",
+      "question": "What is your immediate and correct course of action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do NOT enter the residence under any circumstances — the chemical hazard presents an immediate life-safety risk to you and would contaminate the scene. Withdraw to a safe upwind distance of at least 30 metres, establish a perimeter to prevent civilian entry, and immediately request your supervisor, HAZMAT, and the Clandestine Lab Team (CLT). Document all observed exterior indicators — odour, chemical containers, staining, neighbour information — in your notes. Treat this as a potential CDSA s.7 production site.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enter the residence using your standard duty gloves and hold your breath to quickly check on the welfare of the tenant, as the welfare check is the priority.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Knock on the door and announce police presence; if no answer, force entry under your common law duty to preserve life since the welfare check justifies immediate entry.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Specialized Unit Coordination and Warrant Considerations",
+      "situation": "You have established a perimeter and supervisory and specialized units are on scene. The HAZMAT team's exterior air quality meter confirms volatile organic compounds consistent with methamphetamine precursor chemicals. No one is visibly inside. Your supervisor asks you whether you can enter the structure right now under exigent circumstances to determine if the tenant is alive inside, given the welfare check origin.",
+      "question": "What is the correct legal and tactical assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise that entry without a warrant is not justified on welfare check grounds alone when HAZMAT conditions are present and no confirmed person-in-distress signal exists — the chemical hazard also means any entry must be conducted by the CLT in full PPE, not uniformed patrol. The correct approach is to apply for a Search Warrant under Criminal Code s.487 based on the accumulated reasonable grounds (odour, chemical containers, staining, neighbour accounts, HAZMAT readings) for production of a controlled substance contrary to CDSA s.7. A telewarrant is available under s.487.1 to expedite the process.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Authorize immediate entry by the CLT team under the welfare check authority, as the risk to the tenant's life overrides the need for a warrant in all circumstances.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Request consent from the landlord to enter, as landlord consent removes the need for a warrant to enter a residential unit.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evidence Preservation and Scene Processing",
+      "situation": "A Search Warrant has been obtained under Criminal Code s.487 authorizing entry and search of the premises for evidence of production of a controlled substance under CDSA s.7. The CLT, in full Level B PPE, has entered and found an active methamphetamine production setup with precursor chemicals, glassware, and a finished product. The tenant is not inside. The CLT informs you that the scene must be fully documented and decontaminated before evidence is packaged. You are asked about evidence collection priorities.",
+      "question": "What is the correct approach to evidence preservation at this scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Allow only personnel with appropriate PPE certification to enter the scene — do not enter yourself without CLT or HAZMAT clearance. Ensure the CLT photographs and videos all equipment in situ before any item is moved. All chemical exhibits must be sampled and packaged by CLT personnel trained in hazardous substance handling, with Health Canada analysis requested for all suspected controlled substances and precursors. Maintain a detailed scene entry/exit log, and ensure chain-of-custody documentation starts from the first exhibit seized. A CDSA s.7 production charge will require the Crown to prove both the substance and the production activity.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Enter the scene in your patrol uniform to help with photography since the CLT is short-staffed, using a cloth mask for protection.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Remove the finished product immediately as the priority exhibit and leave the precursor chemicals and equipment in place for a second entry, as the finished meth is all that is needed to prove the charge.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The CLT safely dismantled and documented the clandestine methamphetamine production site. Health Canada analysis confirmed the presence of methamphetamine (Schedule I, CDSA) and multiple precursor chemicals (Schedule VI, CDSA). The tenant was subsequently identified, arrested, and charged with production of a controlled substance under CDSA s.7 and possession of a precursor for the purpose of producing a controlled substance under CDSA s.7.1. Your refusal to enter without proper PPE and a warrant, your thorough documentation of exterior indicators, and your coordination with specialized units ensured officer safety, scene integrity, and a lawful prosecution package compliant with the Charter and the CDSA.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "meth lab",
+    "clandestine lab",
+    "CDSA s.7",
+    "hazmat",
+    "scene safety",
+    "production",
+    "drug production",
+    "Canada"
+  ]
+}

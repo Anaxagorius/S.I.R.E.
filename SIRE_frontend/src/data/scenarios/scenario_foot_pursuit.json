@@ -1,0 +1,150 @@
+{
+  "title": "scenario_foot_pursuit",
+  "description": "A suspect flees on foot after being stopped for questioning related to a robbery. Officer must decide whether to pursue, how to communicate with dispatch, and how to balance officer safety with apprehension objectives.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch Received",
+      "description": "Dispatch broadcasts a description of a robbery suspect who fled the scene on foot: male, black hoodie, blue jeans, approximately 5'10\". The robbery occurred 4 minutes ago at a convenience store 2 blocks away.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Subject Located",
+      "description": "You observe a male matching the description walking quickly on Queen Street West. You exit your vehicle to speak with him.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Subject Flees",
+      "description": "As you approach and identify yourself, the male bolts eastbound down a side alley. The alley is narrow, approximately 50 metres long, with exits onto two streets.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Pursuit Ongoing",
+      "description": "You are approximately 20 metres behind. The suspect is fast. The alley is clear of bystanders. Your partner is in the vehicle rounding the block.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Suspect Contained",
+      "description": "Backup units form a perimeter. The suspect is apprehended by the second unit at the east end of the alley.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Arrest and Processing",
+      "description": "The suspect is arrested for robbery under Criminal Code s.344. Stolen property is located in his hoodie. Notes completed.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspect Flees — Pursue or Contain?",
+      "situation": "The suspect has bolted into a narrow alley. You are on foot. The alley is approximately 50 metres long with exits onto two parallel streets. There are no bystanders in the alley. Your partner is in the vehicle and can reach the far end of the alley within 45 seconds. You have reasonable grounds to believe this person is the robbery suspect based on the matching description and proximity to the scene. He may be armed — the robbery involved a threatened weapon.",
+      "question": "What is your immediate decision regarding the foot pursuit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate the foot pursuit while immediately broadcasting your location, direction of travel ('foot pursuit — alley off Queen Street West heading east'), and the suspect description to dispatch. Request your partner and additional units to seal the east exit of the alley. Continuously assess as you run: if the suspect displays a weapon, stops in a concealed position, or exits into a crowd, reassess whether containment is safer than direct pursuit. Solo foot pursuits in enclosed spaces present elevated risk — communicate constantly so units can form a closing perimeter.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do not pursue — foot pursuits are high-risk and you should return to your vehicle, radio dispatch, and wait for the suspect to be located later.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Pursue silently without broadcasting to avoid tipping off the suspect that backup is incoming.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Suspect Cornered at Alley Exit",
+      "situation": "Your partner has reached the east end of the alley in the vehicle and is blocking the exit on foot. The suspect has stopped running. He is approximately 10 metres ahead of you, facing your partner, with his back to you. He is breathing hard. His right hand is inside his hoodie pocket. You cannot see his hand. He has not displayed a weapon.",
+      "question": "How do you manage this high-risk contact?",
+      "options": [
+        {
+          "label": "A",
+          "text": "This is a high-risk contact situation due to the possible concealed weapon. Both officers should issue loud, simultaneous commands: 'Police — show us your hands!' Maintain cover positions — do not advance into the immediate threat zone. Direct him to slowly remove his hand from his pocket. Use a staggered approach so neither officer is in the other's line of fire. Do not close distance until his hands are visible and empty. If he complies, move to controlled arrest with one officer at the subject and one providing cover.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rush him from behind while he is distracted by your partner — the element of surprise will prevent him from drawing any weapon.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for him to make a move before taking any action, since you do not yet know if he is actually armed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Arrest and Post-Pursuit Documentation",
+      "situation": "The suspect complied and showed empty hands. He is now in handcuffs. A search of his hoodie reveals a folding knife and cash matching the amount taken in the robbery. He is breathing heavily and has a cut on his hand — he says he fell during the pursuit. The victim is being transported to your location to attempt an identification.",
+      "question": "What are your immediate post-pursuit obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately: (1) Advise the suspect of the reason for arrest (robbery, Criminal Code s.344) and deliver Charter s.10(a) and s.10(b) rights — he may have been briefly detained during the pursuit but formal rights must be given upon arrest; (2) Assess his injury — a cut requires EMS evaluation before transport to cells; (3) Photograph and properly seize the knife and cash as exhibits with exhibit numbers; (4) Complete a pursuit report consistent with your service's foot pursuit policy, detailing the grounds for initiating and any use-of-force decisions during the pursuit; (5) Notify your supervisor.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin questioning him about the robbery immediately while the details are fresh — you can deliver Charter rights at the station.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "The knife is not directly related to the robbery charge so leave it in his possession and focus only on the stolen cash as your exhibit.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You managed the foot pursuit safely: you broadcast your location and direction continuously, requested backup to form a perimeter, conducted a high-risk contact with proper officer positioning and cover, apprehended the suspect without unnecessary force, delivered Charter rights upon arrest, ensured medical assessment for injury, and completed required exhibits documentation and pursuit reporting. The suspect is linked to the robbery through the victim identification and recovered stolen property.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "foot pursuit",
+    "officer safety",
+    "dispatch",
+    "backup",
+    "pursuit policy",
+    "robbery",
+    "Criminal Code",
+    "Canada"
+  ]
+}

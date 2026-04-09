@@ -1,0 +1,152 @@
+{
+  "title": "scenario_cross_border_crime_cooperation",
+  "description": "A Canadian officer coordinates with US DEA and Homeland Security Investigations (HSI) on a cross-border fentanyl smuggling investigation. A vehicle crossing at a Canadian land border is suspected of carrying fentanyl from the US. The scenario covers CBSA coordination, intelligence sharing under the Mutual Legal Assistance Treaty (MLAT), Canadian jurisdiction, and the distinction between warrant requirements and border search powers.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Intelligence Received from DEA",
+      "description": "A Canadian organized crime liaison officer receives a tip from the US Drug Enforcement Administration that a vehicle carrying a large quantity of fentanyl is expected to cross a land border into Canada within 24 hours.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "CBSA Notification",
+      "description": "The officer immediately notifies the Canada Border Services Agency (CBSA) of the intelligence, providing vehicle description and anticipated border crossing. CBSA places a lookout on the vehicle across all crossing points.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Vehicle Crosses into Canada",
+      "description": "The vehicle is flagged at a land border crossing. CBSA officers exercise their Customs Act s.99 border search authority and discover a false compartment in the vehicle. A CBSA drug-detection dog alerts on the compartment.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Fentanyl Discovered",
+      "description": "The false compartment contains approximately 500 grams of suspected fentanyl — a potentially lethal quantity sufficient to kill thousands. CBSA contacts the RCMP for criminal investigation support.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Canadian Arrest and Investigation",
+      "description": "The RCMP officer arrests the driver under CDSA s.5(3) (trafficking) on Canadian territory. US law enforcement requests the officer share the full investigative file under the Mutual Legal Assistance Treaty.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "MLAT and Evidence Sharing",
+      "description": "The MLAT request is processed through the Department of Justice Canada's Central Authority, ensuring the information sharing is lawful and does not compromise the Canadian prosecution. A joint operation debrief occurs.",
+      "timeOffsetSec": 540
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Receiving and Acting on US Intelligence",
+      "situation": "You are a Canadian liaison officer and receive a tip from the US Drug Enforcement Administration (DEA) that a specific vehicle — make, model, and partial plate provided — is expected to cross a Canadian land border within 24 hours carrying a significant quantity of fentanyl. The DEA states the intelligence comes from a confidential informant within a US-based fentanyl distribution network. You have no independent Canadian-sourced corroboration yet. You must decide how to act on this foreign intelligence within Canadian law and constitutional boundaries.",
+      "question": "What is the correct initial Canadian law enforcement response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify CBSA and share the vehicle intelligence — make, model, partial plate — so a lookout can be placed under CBSA's Customs Act border screening authority. CBSA has independent authority to examine all persons and goods crossing the Canadian border under Customs Act s.99 and does not require a warrant or independent Canadian grounds to examine a vehicle at the border. Simultaneously open a Canadian CDSA investigation file, document the DEA tip as a foreign intelligence source, and consult your supervisor and Crown counsel on how the US informant evidence can be used within a Canadian prosecution without violating disclosure obligations. Do not conduct any warrantless search of the vehicle in Canada without independent Canadian grounds.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since the tip came from US law enforcement, wait for the DEA to conduct a full investigation and arrest the driver in the US before Canada takes jurisdiction.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately obtain a Criminal Code s.487 search warrant for the vehicle in Canada based solely on the DEA tip, before the vehicle has crossed the border.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "CBSA Discovery and Canadian Arrest Authority",
+      "situation": "CBSA flagged the vehicle at the border crossing and, exercising their Customs Act s.99 authority without any warrant requirement, discovered a false compartment in the vehicle. A CBSA drug-detection dog alerted to the compartment. CBSA opened the compartment and found approximately 500 grams of a white powdery substance. Preliminary field testing and the dog alert suggest fentanyl. The vehicle is now on Canadian territory. CBSA has called for RCMP support. The driver is detained by CBSA. You arrive as the RCMP investigator.",
+      "question": "What is your authority to arrest and the correct legal basis for the Canadian criminal investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "You have independent Canadian grounds to arrest the driver for importation and possession for the purpose of trafficking a controlled substance (fentanyl — Schedule I) contrary to CDSA s.6(1) and s.5(2), based on the CBSA discovery — which was itself lawful under Customs Act s.99 and requires no warrant at the border. Arrest the driver, advise him of his Charter s.10(a) and s.10(b) rights, and ensure a genuine opportunity to speak with counsel. Take custody of all drug exhibits from CBSA with a proper exhibit transfer form to maintain chain of custody. The DEA tip is a secondary intelligence source — the Canadian investigation is built on the lawful CBSA border discovery.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise CBSA to return the suspect to the US border so that DEA can conduct the arrest, as the investigation originated with US intelligence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the driver under the US DEA's authority since they initiated the investigation, and hold him pending formal extradition proceedings.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "MLAT Request and Cross-Border Information Sharing",
+      "situation": "The accused is in Canadian custody and charged with importation and trafficking of fentanyl under the CDSA. The US DEA and Homeland Security Investigations (HSI) have formally requested that Canada share the full investigative file — including the identity of the shipment's Canadian receiver, the accused's statements, and the drug analysis results — under the Mutual Legal Assistance Treaty (MLAT) between Canada and the United States. The US intends to use this to prosecute the US-side distributors. You must decide how to respond to the MLAT request correctly.",
+      "question": "What is the correct Canadian process for responding to the MLAT request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the formal MLAT request to the Department of Justice Canada's International Assistance Group (IAG), which is Canada's Central Authority under the Mutual Legal Assistance in Criminal Matters Act (MACMA). Under MACMA, only the Attorney General of Canada (through the IAG) can authorize information sharing with a foreign state — you cannot share investigative materials directly with the DEA without this authorization. Cooperate with Crown counsel to ensure that any information shared does not prejudice the Canadian prosecution, waive Crown privilege, or compromise Charter-protected material. Provide the IAG with your full case file to assess what can be shared under MACMA and the applicable treaty terms.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Share the full investigative file directly with the DEA agent since you already have an established working relationship and the treaty authorizes sharing.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Refuse all information sharing with the US since Canadian investigations cannot be disclosed to foreign law enforcement under any circumstances.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The accused was convicted in Canada of importation of fentanyl contrary to CDSA s.6(1) and sentenced to 12 years. The MLAT request was processed through the Department of Justice Canada's IAG, and appropriate portions of the Canadian investigative file were lawfully shared with the US authorities under the Mutual Legal Assistance in Criminal Matters Act. This enabled the DEA to prosecute the US-side fentanyl distribution network. Your immediate CBSA notification, legally sound arrest on independent Canadian grounds (the CBSA border discovery), proper Charter compliance at arrest, careful chain-of-custody transfer from CBSA, and correct routing of the MLAT request through the IAG resulted in successful prosecutions on both sides of the border.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "cross-border",
+    "US-Canada",
+    "DEA",
+    "CBSA",
+    "fentanyl",
+    "smuggling",
+    "MLAT",
+    "CDSA",
+    "border cooperation",
+    "Canada"
+  ]
+}

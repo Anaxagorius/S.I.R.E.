@@ -1,0 +1,150 @@
+{
+  "title": "scenario_arrest_emotionally_connected",
+  "description": "An officer must arrest a fellow officer's sibling for assault with a weapon under Criminal Code s.267(a). The fellow officer is present and emotionally distressed. Tests professional duty, impartiality, managing the witness officer, and documentation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Complaint Received",
+      "description": "Dispatch advises of a reported assault. A complainant states she was struck with a kitchen knife handle by her neighbour during a dispute over parking. The victim has a bruise on her arm consistent with the described blow.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival on Scene",
+      "description": "You arrive to find the victim and a male suspect standing outside. A fellow officer — your colleague of 3 years — is also present. He identifies the suspect as his younger sibling and immediately says 'Please don't do this.'",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Colleague Emotional",
+      "description": "Your colleague is visibly distressed and begins trying to speak to his sibling privately. The victim observes this and becomes upset, asking if anything will be done.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Arrest Decision",
+      "description": "Your investigation reveals reasonable grounds for the arrest. You must make the arrest while managing the professional and interpersonal complications.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Colleague Managed",
+      "description": "Your colleague is separated from the scene. The arrest is made professionally. The supervisor is notified.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Documentation Completed",
+      "description": "A complete report is filed. Supervisor notification is documented. The victim is provided with supports and file number. The arrestee is processed impartially.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Managing the Fellow Officer at the Scene",
+      "situation": "You have arrived at the scene of an assault with a weapon complaint. Your colleague of three years has recognized the suspect as his sibling and is now emotionally distressed. He is in uniform, still technically on duty. He is attempting to speak privately with the suspect. The victim is watching and is visibly anxious. You have not yet completed your investigation or made any arrest decision.",
+      "question": "How do you manage your colleague's presence before conducting your investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your colleague's presence creates a real and perceived conflict of interest that could compromise the investigation and the integrity of any resulting arrest. Professionally and privately advise your colleague that he must step back from the investigation immediately: he cannot participate in, observe, or influence any contact between you and either party. Direct him to a position away from the complainant, the suspect, and the evidentiary scene. If he is unable to comply, contact your supervisor to have him removed from the scene while remaining compassionate about his personal position. Document the time he was present, what he said, and the steps you took to manage the conflict. The victim's trust in the process depends on visible impartiality.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow your colleague to speak with his sibling briefly — it may help de-escalate the situation and result in a voluntary admission that makes the investigation easier.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Complete your investigation with your colleague present — his relationship to the suspect is a personal matter and does not affect your professional obligation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Conducting the Investigation Impartially",
+      "situation": "Your colleague has been separated from the scene by a supervisor who arrived in response to your call. You are alone with the complainant and the suspect. The complainant shows you her arm — a visible welt consistent with a blunt strike. She is consistent in her account. The suspect denies any assault. You have the knife handle in plain view on the ground nearby. You must decide whether you have grounds to arrest.",
+      "question": "How do you assess reasonable grounds for arrest in this emotionally charged situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your obligation is the same as in any other call: assess the evidence objectively without favour to either party. Reasonable grounds here include: the complainant's clear, consistent account of being struck with the knife handle; the visible injury consistent with the described blow; the knife handle in plain view at the scene; and the suspect's presence at the scene without an explanation that raises reasonable doubt about the act itself. These collectively meet the Criminal Code s.267(a) threshold (assault with a weapon). The identity of the accused — including his family connection to a colleague — is legally irrelevant to whether grounds exist. Your personal discomfort is not a reason to decline an arrest supported by reasonable grounds. Make the arrest decision based solely on the evidence.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since the incident is a neighbour dispute and no serious injury occurred, use your discretion to issue a Form 9 Appearance Notice rather than arresting — this will spare your colleague further distress.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Refer the matter to a plainclothes investigator rather than making the arrest yourself — the personal relationship between the suspect and your colleague makes this too sensitive for uniformed officers to handle.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Making the Arrest and Supervisor Notification",
+      "situation": "You have reasonable grounds to arrest. The suspect is cooperative. Your colleague is 30 metres away with the supervisor. As you begin the arrest process — informing the suspect of the reason for arrest and his Charter s.10(b) right to counsel — your colleague calls out loudly, 'Don't say anything — I'll get you a lawyer right now.' The suspect stops and looks at his sibling.",
+      "question": "How do you proceed, and what obligations do you have to your supervisor?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not stop or delay the lawful arrest. Calmly instruct your colleague to remain silent and not interfere with the arrest — interference with a lawful arrest by any person, including a police officer, is contrary to criminal law and police conduct standards. Continue the arrest and Charter cautions clearly, allowing the suspect to hear and respond to you directly. After the suspect is secured, approach your supervisor immediately and provide a full briefing: (1) the grounds for arrest; (2) your colleague's actions at the scene and their management; (3) your assessment that the file was handled impartially; (4) your expectation that a supervisor-level notation will be placed on the file. The supervisor notification is not optional — it is required to protect you, your colleague, and the integrity of the prosecution against allegations of bias.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pause the arrest and speak with your colleague privately to explain the situation before continuing — his outburst may be treated as Charter s.10(b) notification on the suspect's behalf and could be used as a de facto invocation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Complete the arrest and notes without flagging your colleague's conduct to the supervisor — it is not your responsibility to report a colleague's emotional response to a family crisis.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You handled a professionally and personally complex situation with integrity: you immediately separated your colleague from the scene to protect impartiality, conducted the investigation based solely on the evidence, correctly identified reasonable grounds for arrest without regard for the personal connection, delivered Charter rights completely despite the interference attempt, and provided your supervisor with a full and transparent account of the entire situation — including your colleague's conduct. Your documentation clearly records every step taken to ensure the arrest was professional, impartial, and legally sound.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "arrest",
+    "emotionally connected",
+    "professionalism",
+    "impartiality",
+    "Criminal Code s.267",
+    "supervisor notification",
+    "duty",
+    "Canada"
+  ]
+}

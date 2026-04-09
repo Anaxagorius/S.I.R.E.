@@ -1,0 +1,149 @@
+{
+  "title": "scenario_proceeds_of_crime_seizure",
+  "description": "Following a drug trafficking arrest, an officer discovers large amounts of cash and luxury items consistent with proceeds of crime. The scenario covers the legal grounds for seizure under Criminal Code Part XII.2 (s.462.32+), currency documentation, obtaining a restraint order, proper chain of custody, and working with Crown on a forfeiture application.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Drug Trafficking Arrest",
+      "description": "A known drug trafficker is arrested following a surveillance operation. A search incident to arrest yields cocaine and heroin. The officer is led to a nearby apartment the accused has been associated with.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Search Warrant Executed",
+      "description": "A Search Warrant is obtained and executed at the apartment. Officers discover $68,000 in bundled cash in vacuum-sealed bags, a $12,000 Rolex watch, multiple high-end designer items, and financial records showing no declared employment income.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Proceeds Analysis",
+      "description": "The items discovered are significantly disproportionate to any declared income. The cash is in small denominations consistent with drug proceeds. The vacuum sealing is a known method of masking drug odour on currency.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Restraint Order Application",
+      "description": "The officer consults with Crown counsel regarding a restraint order under Criminal Code s.462.33 to freeze the property pending forfeiture proceedings. An ex parte application is prepared for a Superior Court judge.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Restraint Order Granted",
+      "description": "A Superior Court judge grants the restraint order. All identified property is seized and placed under the care of the Minister of Public Works pending forfeiture proceedings.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Crown Forfeiture Referral",
+      "description": "The complete proceeds-of-crime package — arrest record, drug seizure, property inventory, and financial analysis — is delivered to the Crown for a forfeiture hearing under Criminal Code s.462.37.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Recognizing and Seizing Proceeds of Crime",
+      "situation": "Executing a Search Warrant at an apartment linked to an arrested drug trafficker, you discover $68,000 in cash in vacuum-sealed bundles, a Rolex watch, multiple luxury designer goods, and financial ledgers. The accused has no declared employment on record. The cash is in small bills — fives, tens, and twenties — consistent with street-level drug proceeds. The vacuum sealing is consistent with efforts to conceal drug odour on currency. You are the exhibit officer. You must decide whether and how to seize these items.",
+      "question": "What is the correct legal basis and process for seizing these items?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Seize the cash, watch, and luxury items under Criminal Code s.489(1) as items you believe on reasonable grounds are evidence of an offence — specifically, proceeds of crime contrary to Criminal Code s.354(1) (possession of property obtained by crime) — or under the terms of the existing Search Warrant if it authorizes proceeds seizure. Photograph all items in situ before moving them. Count and record the currency in the presence of a witness officer, noting denominations. Package each item separately with unique exhibit numbers and complete a full chain-of-custody log. Notify Crown counsel immediately to discuss a restraint order application under s.462.33.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the cash in place since it is not itself a controlled substance and cannot be seized under the Search Warrant which authorizes only drug seizures.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Seize the cash but not the luxury items, as personal property like watches and clothing can only be seized with a separate specific warrant for each item.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Currency Documentation and Chain of Custody",
+      "situation": "You have seized all items. The cash must be counted, documented, and processed through the property system. The total count is $68,240. The cash has a faint odour of controlled substances. A police drug-detection dog later confirms a positive alert on the currency. Crown counsel has been contacted and is considering a restraint order application. You must complete the formal currency documentation before the property is transferred to the financial crimes unit.",
+      "question": "What is the correct currency documentation procedure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Count all currency in the presence of a witness officer, recording denominations and total ($68,240). Document the physical condition and odour of the cash. Enter all exhibits into the police exhibit management system with individual exhibit numbers and full descriptions. Retain a complete photographic record of the currency as found. Submit a Proceeds of Crime Seizure Report to Crown. Arrange for the currency to be held securely in the police property vault under a hold pending the restraint order — do not deposit to general revenue until forfeiture proceedings are complete. Document the drug-detection dog alert as further evidence.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deposit the cash to the general police budget immediately to prevent theft risk, noting it as seized funds in the file.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Return the cash to the accused pending the outcome of the drug charges, as the cash itself cannot be linked to any specific drug transaction without further evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Restraint Order and Crown Forfeiture Package",
+      "situation": "Crown counsel has advised that the evidence supports a restraint order application under Criminal Code s.462.33. A restraint order prevents the accused or any third party from dissipating or disposing of the seized property pending a forfeiture determination. Crown is preparing an ex parte application to a Superior Court judge. You must compile the supporting materials for the application and ensure the forfeiture package is complete for Crown.",
+      "question": "What must your proceeds-of-crime package to Crown include?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prepare a comprehensive package for Crown including: (1) a summary of the drug trafficking arrest and search warrant execution; (2) itemized property list with photographs and exhibit numbers; (3) currency count record with denominations and witness officer signature; (4) drug-detection dog alert documentation; (5) financial background — no declared income versus assets discovered; (6) your investigative notes supporting reasonable grounds to believe the property is proceeds of crime under s.462.3. Crown will use this to support the s.462.33 restraint order application and a future s.462.37 forfeiture order at the conclusion of criminal proceedings.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Provide Crown only the exhibit list, as the drug trafficking charge itself is sufficient for the court to order forfeiture without any additional documentation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait until the accused is convicted of the trafficking charge before preparing any forfeiture documentation, as forfeiture proceedings can only begin after conviction.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The Superior Court granted the restraint order under Criminal Code s.462.33, preserving all seized property pending the criminal proceedings. The accused was convicted of drug trafficking contrary to CDSA s.5(1). Following conviction, Crown applied for forfeiture under Criminal Code s.462.37, and the court ordered forfeiture of the $68,240 in cash, the Rolex watch, and the luxury goods as proceeds of crime. Your meticulous currency documentation, contemporaneous photography, drug-detection dog alert record, and complete financial background summary provided Crown with the evidentiary foundation for a successful restraint and forfeiture. The proper chain of custody — from in-situ photography through vault storage — was unchallenged at the forfeiture hearing.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "proceeds of crime",
+    "Criminal Code s.462.32",
+    "forfeiture",
+    "drug trafficking",
+    "seizure",
+    "chain of custody",
+    "Canada"
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "title": "scenario_arrest_passive_resistance",
+  "description": "An officer must arrest a suspect who goes limp and refuses to comply with lawful commands (passive resistance). Tests proportionality of force, escalation model, de-escalation language, and documentation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch Received",
+      "description": "Dispatch sends officers to a reported shoplifter being held at a pharmacy. Loss prevention has detained a male who attempted to leave with concealed merchandise valued at $800.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival on Scene",
+      "description": "You arrive and confirm the shoplifting. The suspect, a male in his 30s, has been identified. You advise him he is under arrest for theft over $5,000 — but the actual value is under, making it theft under s.334(b).",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Passive Resistance Begins",
+      "description": "When asked to stand and come with you, the suspect goes completely limp and slides to the floor. He says nothing. He is not aggressive and has no visible weapons.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "De-escalation Attempted",
+      "description": "The officer uses calm verbal commands and explains consequences of continued non-compliance. The suspect remains limp and unresponsive to verbal direction.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Physical Compliance Applied",
+      "description": "Officers apply lawful pain compliance techniques to effect the arrest. The suspect is brought to his feet and handcuffed.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Transport and Documentation",
+      "description": "The suspect is transported to divisional cells. A use-of-force report is completed and reviewed by the supervisor.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Suspect Goes Limp — Initial Response",
+      "situation": "The suspect has gone completely limp on the pharmacy floor after being advised of his arrest for theft under Criminal Code s.334(b). He is face-up, arms at his sides, eyes open. He is not speaking. There are customers present. Loss prevention is watching. No weapons are visible. You have called for a second unit and they are 3 minutes out.",
+      "question": "What is your immediate response to passive resistance?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Passive resistance is a recognized level on the use-of-force continuum. Respond first with de-escalation: kneel to his level, maintain a calm tone, and clearly explain that you have lawful grounds to arrest him and that continued non-compliance will require you to use physical techniques to effect the arrest. Give him a genuine opportunity to comply voluntarily. Document the specific verbal commands you gave and his response. Await your backup before applying physical force so the situation is managed safely.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately apply a pain compliance wrist lock to bring him to his feet — passive resistance is still resistance and you do not need to wait.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave him on the floor and call EMS, since he may be having a medical episode and you cannot use force on someone who is not threatening.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Verbal De-escalation Fails",
+      "situation": "Your backup has arrived. You have issued clear verbal commands four times and explained the consequences of non-compliance. The suspect remains completely limp and will not speak. Customers have been asked to move to another area. No one else is at risk. There is no indication of a medical emergency — he is breathing normally, alert, and his eyes are tracking you.",
+      "question": "You must now physically move him — what force level is proportionate?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Passive resistance justifies empty-hand soft techniques under the force continuum. With two officers present, you may use joint manipulation — such as a wristlock or arm-bar lift — to bring him to a standing position and apply handcuffs. Use the minimum force necessary. Continuous verbal commands must accompany any physical technique ('We are going to lift you now — stop resisting'). If he continues to resist or escalates to active resistance, reassess your force level accordingly. The entire sequence of verbal attempts and physical responses must be documented in your notes and on a use-of-force report.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use your CEW (conducted energy weapon/Taser) to make him compliant quickly — passive resistance could become active at any moment.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Drag him by his jacket collar to the police vehicle since it is the quickest option with minimal harm.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Secured — Documentation Requirements",
+      "situation": "You have successfully applied a wristlock lift with your partner and have the suspect handcuffed. He walked to the police vehicle once standing. He is now secured and calm. He has a minor redness on his wrist from the joint lock but reports no pain when asked. Your supervisor is on the radio asking for a use-of-force report.",
+      "question": "What must be included in your use-of-force report and notes?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your use-of-force report and officer's notes must document: (1) the lawful grounds for the arrest; (2) the subject's behaviour at each stage (limp, non-verbal, no medical indicators); (3) each verbal command issued and the subject's response; (4) the physical technique used (wristlock lift), the reason it was selected, and its duration; (5) any injuries — observed or reported — and the fact that the subject was asked about pain; (6) that a supervisor was notified. The report must be objective, fact-based, and completed without delay. The standard is that a reasonable officer in the same circumstances would have responded similarly.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since the force was minimal and the suspect was not injured, no use-of-force report is needed — only document the theft arrest in your notes.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Your supervisor will complete the use-of-force report based on your verbal briefing — you are not required to document it yourself.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You managed a passively resistant subject professionally: you attempted de-escalation before applying physical force, awaited backup to ensure safety, used only the minimum necessary empty-hand technique proportionate to passive resistance, ensured the suspect was assessed for injury, and completed a thorough use-of-force report documenting every stage of the encounter. Your actions were consistent with Criminal Code s.25 and your service's use-of-force policy.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "arrest",
+    "passive resistance",
+    "use of force",
+    "Criminal Code s.25",
+    "force continuum",
+    "compliance",
+    "de-escalation",
+    "Canada"
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "title": "scenario_tactical_entry_warrant",
+  "description": "A team executes a Criminal Code s.487 search warrant on a residence suspected of containing weapons and drugs. Tests warrant review, team briefing, tactical considerations, warrant execution, and evidence documentation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Warrant Obtained",
+      "description": "A Criminal Code s.487 search warrant has been issued for a residential address based on information from a confidential informant and corroborating surveillance. Target offences: possession for the purpose of trafficking (CDSA s.5), unauthorized possession of a firearm (Criminal Code s.91).",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Pre-Entry Briefing",
+      "description": "The team leader briefs the entry team of 5 officers. Intelligence suggests one adult male occupant, possibly armed. The residence is a semi-detached bungalow. Entry point is the front door.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Approach and Set",
+      "description": "The team approaches in plain clothes vehicles and sets a perimeter. A perimeter officer confirms lights on inside the residence.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Warrant Executed",
+      "description": "The team announces, waits, and makes entry. The suspect is located in the kitchen and complies immediately.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Scene Cleared",
+      "description": "The residence is systematically cleared. A loaded handgun and 200 grams of cocaine are located in a bedroom closet.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Evidence Documented",
+      "description": "All evidence is photographed in place, seized, and documented. A Return to a Justice will be filed within the prescribed timeframe.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Pre-Entry Warrant Review",
+      "situation": "The search warrant has just been handed to the team leader. Execution is scheduled in 20 minutes. Before any tactical briefing, you as team leader review the warrant. You notice the warrant was issued for '123 Maple Avenue' but current surveillance confirms the target lives at '123 Maple Avenue Unit 1' — a semi-detached. The warrant does not specify a unit number.",
+      "question": "How do you address this discrepancy before execution?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A deficiency in the facial validity of a search warrant — including an ambiguous or incorrect address — can cause the warrant to be found invalid under Charter s.8 and all evidence seized to be excluded under s.24(2). Before execution, contact the issuing Justice of the Peace through the on-call Crown to seek authorization to correct the minor error or obtain an amended warrant specifying the unit. Do not execute the warrant against an ambiguous address. Document the concern, the steps taken, and the resolution. If the amendment cannot be obtained in time, delay execution rather than risk the entire investigation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Proceed with execution as planned — the address is close enough and courts routinely overlook minor technical errors on warrants.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Search both units of the semi-detached to ensure you have the right one — the warrant covers the entire civic address.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Tactical Entry Briefing",
+      "situation": "The warrant has been corrected and specifies Unit 1. The briefing is about to begin. Intelligence confirms: one adult male (known to carry a firearm), a front door with a deadbolt, and a dog inside. The residence is in a quiet residential neighbourhood. It is 7:00 a.m. Knock-and-announce is the default posture unless intelligence supports a different approach.",
+      "question": "What key elements must your tactical briefing include?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A compliant tactical briefing must cover: (1) the scope and authority of the warrant — what you are searching for and which areas are covered; (2) role assignments for each officer (door, cover, hallway, rear perimeter); (3) the threat assessment — firearms risk, dog risk, and contingency for each; (4) the entry method — knock-and-announce with a stated wait time before forced entry, unless intelligence justifies an exception (which must be documented and supervisor-approved); (5) communication plan and signal for entry; (6) medical emergency protocol; (7) rules of engagement consistent with Criminal Code s.25. All team members must confirm understanding.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Provide only a quick verbal overview — detailed briefings slow the operation and most experienced officers already know the procedures.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "The briefing should focus exclusively on the tactical entry and not waste time covering legal authority or evidence handling — those are for investigators.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evidence Located — Scene Management",
+      "situation": "Entry was made successfully after knock-and-announce. The suspect is handcuffed in the kitchen and Charter rights have been delivered. The residence has been cleared — no other persons found. In the bedroom closet, an officer has found a loaded handgun in a shoebox and a clear bag containing what appears to be cocaine. The handgun officer is holding the shoebox and waiting for direction.",
+      "question": "How do you manage the evidence discovery?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the officer to carefully replace the shoebox in its found position and step back. Before any item is touched for seizure: (1) photograph the closet in its entirety as found, then photograph each item in place with scale markers; (2) have the exhibit officer don gloves and systematically seize each item — the firearm is handled carefully and made safe by a qualified officer before further handling; (3) assign a unique exhibit number to each item; (4) seal the firearm in appropriate packaging; (5) submit the cocaine to a certified weighing process; (6) document every step in the warrant Return to a Justice to be filed within the time prescribed by Criminal Code s.487.1. Do not allow the suspect near the scene.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Pick up the handgun immediately and show it to the suspect to obtain a spontaneous statement about ownership.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Move all items to the kitchen table for easier documentation — maintaining exact positioning in a small closet is impractical.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You executed the search warrant successfully: you identified and corrected an address ambiguity before entry to protect the warrant's validity under Charter s.8; delivered a comprehensive tactical briefing covering authority, roles, threat assessment, and rules of engagement; conducted entry using the appropriate knock-and-announce procedure; and managed evidence discovery with strict scene photography, systematic exhibit numbering, and proper handling of the seized firearm and drugs. The Return to a Justice will document all seized items within the statutory timeframe.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "search warrant",
+    "Criminal Code s.487",
+    "tactical entry",
+    "warrant execution",
+    "firearms",
+    "drugs",
+    "team briefing",
+    "Canada"
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "title": "scenario_fentanyl_overdose_response",
+  "description": "An officer is the first on scene at a suspected fentanyl overdose. The scenario covers scene safety and fentanyl exposure risks, administering naloxone, summoning EMS, interviewing witnesses under the Good Samaritan Drug Overdose Act, and gathering information about the drug source.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch Received",
+      "description": "Officer dispatched to a report of an unresponsive male in a back alley. Caller states the male appears not to be breathing. Possible drug overdose.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Approach",
+      "description": "Officer arrives to find a male in his 30s unresponsive, slumped against a dumpster. A female bystander is kneeling beside him, visibly distressed. A used syringe and a small tinfoil packet are nearby.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Overdose Confirmed",
+      "description": "Officer notes pinpoint pupils, blue-tinged lips (cyanosis), and absent shallow breathing — classic opioid overdose signs. Fentanyl exposure risk is present. Officer has naloxone kit on duty belt.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Naloxone Administered",
+      "description": "Naloxone is administered nasally. EMS is en route. The male begins to regain consciousness within 3 minutes. The female witness says she called 911 and will not leave.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Witness Interview",
+      "description": "The female witness identifies herself. She states she purchased the substance from an unknown male for both of them approximately 20 minutes prior. She is visibly fearful of police.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "EMS Handover and Follow-Up",
+      "description": "EMS takes over patient care and transports the male to hospital. Officer documents the drug source information and liaises with the drug unit regarding the supply chain.",
+      "timeOffsetSec": 420
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Scene Safety — Fentanyl Exposure Risk",
+      "situation": "You arrive first on scene to find an unresponsive male with pinpoint pupils, cyanotic lips, and absent breathing consistent with an opioid overdose. A used syringe and small tinfoil packet are visible on the ground. You are aware that illicit fentanyl and carfentanil can pose an inhalation and skin-contact exposure risk, though casual skin contact carries low risk. A female bystander is crouching beside the male. You have a naloxone kit and nitrile gloves on your duty belt. EMS has been dispatched.",
+      "question": "What is your correct immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Don nitrile gloves before touching the patient or any surfaces. Do not handle loose powder, open packages, or the tinfoil packet without additional PPE. Quickly assess for hazards — if no visible powder or aerosol risk is present, proceed to administer naloxone intranasally. Do not wait for EMS to arrive before administering naloxone, as time is critical in an opioid overdose. Advise the bystander to stay back and avoid touching any drug paraphernalia.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for EMS and HAZMAT to arrive before approaching the patient, as fentanyl contact is immediately lethal to officers.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Approach the patient bare-handed to quickly perform CPR, and ask the bystander to open the tinfoil packet to identify the substance.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Naloxone Administration and EMS Coordination",
+      "situation": "You have donned gloves and assessed that there is no visible loose powder or aerosol hazard. The male is unresponsive with no effective respiration. You administer a dose of naloxone intranasally from your duty kit. After approximately 3 minutes, the male begins to show signs of revival — increased breathing and responsiveness. EMS is 4 minutes away. You know that naloxone has a shorter half-life than fentanyl, and re-sedation is possible. The male is not yet fully conscious.",
+      "question": "What are your correct actions while awaiting EMS?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stay with the patient, monitor for re-sedation, and be prepared to administer a second dose of naloxone if breathing again becomes absent or inadequate. Place the patient in the recovery position if breathing is adequate and no spinal injury is suspected. Provide EMS with a clear handover including time of naloxone administration, dose, and patient's current status. Do not leave the scene before EMS assumes care.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Once the patient shows any signs of reviving, step away and begin questioning the bystander, leaving the patient unmonitored until EMS arrives.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Administer a second naloxone dose immediately after the first to ensure maximum effect, regardless of the patient's current breathing status.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Witness Interview — Good Samaritan Act Protections",
+      "situation": "EMS has taken over patient care and is transporting the male to hospital. The female witness, who called 911, is still present. She is visibly anxious and states she does not want to get in trouble. She reveals she and the male purchased the substance from an unknown male on a nearby street corner about 20 minutes ago, and that she also used some of the substance but feels fine. You know that the Good Samaritan Drug Overdose Act (GSDOA) provides immunity from simple possession charges to persons who call 911 for an overdose. She is visibly in possession of a small amount of the substance.",
+      "question": "How do you correctly handle this witness interaction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the witness clearly that under the Good Samaritan Drug Overdose Act, she is protected from a charge of simple possession for the substance she has on her because she called 911 for the overdose. Reassure her that her cooperation is important and will not result in a possession charge in these circumstances. Obtain as much detail as possible about the drug source — physical description, location, time, and method of purchase — and document it thoroughly to pass to the drug unit for follow-up. Do not arrest or charge her for simple possession in these circumstances.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Arrest the witness immediately for simple possession of a controlled substance under CDSA s.4(1), as she has admitted to using and possessing the substance.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell the witness she must provide a formal statement at the police station before you can address any immunity, and detain her for that purpose.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The overdose victim survived thanks to your rapid naloxone administration and monitoring. Your scene safety precautions — gloves and avoiding contact with loose substances — protected you from exposure risk. The witness's information about the drug source was forwarded to the drug unit, leading to further investigation of the supply chain. Your correct application of the Good Samaritan Drug Overdose Act protected the witness from wrongful arrest and maintained her cooperation as an intelligence source. Your EMS handover was thorough, allowing hospital staff to monitor for re-sedation. The incident was fully documented and a referral was made to outreach services.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "fentanyl",
+    "overdose",
+    "naloxone",
+    "Good Samaritan Act",
+    "opioid",
+    "scene safety",
+    "EMS",
+    "CDSA",
+    "Canada"
+  ]
+}

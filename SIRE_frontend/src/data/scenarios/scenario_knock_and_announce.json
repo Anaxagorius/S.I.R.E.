@@ -1,0 +1,150 @@
+{
+  "title": "scenario_knock_and_announce",
+  "description": "Officers execute a search warrant using knock-and-announce procedure. Residents do not respond immediately. Tests knock-and-announce requirements, reasonable wait time, conditions for forced entry, and Charter compliance.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Warrant in Hand",
+      "description": "A Criminal Code s.487 search warrant has been issued for a residence linked to a stolen vehicle ring. Three adults are believed to be inside. Officers attend at 6:30 a.m.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Approach and Announce",
+      "description": "Officers approach the front door. The team leader knocks loudly three times, announces 'Police — search warrant!' and waits.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "No Immediate Response",
+      "description": "Fifteen seconds pass. No sound from inside. Movement is visible through a frosted glass panel beside the door. No response to a second announcement.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Decision Point",
+      "description": "A third announcement is made. A voice inside shouts something unintelligible. Lights go on inside. The team must decide whether a reasonable wait time has passed.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Entry Made",
+      "description": "After a total wait of 45 seconds with two clear announcements, the door is breached. Three compliant occupants are located.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Warrant Executed",
+      "description": "Three vehicles' VIN plates and documents confirming the chop shop operation are seized. All occupants are arrested.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Knock-and-Announce — What Is Required?",
+      "situation": "You are at the front door with the search warrant at 6:30 a.m. You have knocked loudly three times and announced 'Police — search warrant!' Fifteen seconds have passed. Movement is visible through the frosted sidelight — someone is awake and present. There has been no verbal response and the door has not opened. The warrant does not contain a 'no-knock' authorization.",
+      "question": "What does knock-and-announce require, and what must happen before forced entry is justified?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Knock-and-announce is a common law requirement and a Charter-informed practice that reflects s.8 privacy interests. Before forced entry is justified you must: (1) have clearly announced police presence and search warrant authority; (2) have waited a reasonable time considering the hour, the size of the dwelling, and whether occupants have had a fair opportunity to come to the door — 15 seconds at 6:30 a.m. after a single round of announcements is not sufficient; (3) have no urgent circumstances (evidence destruction, officer safety) that would justify accelerating entry. Make a second loud announcement and give a further 20-30 seconds before assessing. Document each announcement, the exact time, and observed activity inside.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "15 seconds is more than enough — breach the door now before occupants have time to destroy evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Since movement was observed inside, the occupants are clearly evading you, which legally nullifies the knock-and-announce requirement entirely.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "When Does the Wait Time Become Reasonable?",
+      "situation": "You have now made a second announcement at 30 seconds. A voice inside has shouted something unintelligible. The lights are on. Total elapsed time since first knock: 40 seconds. There is still no sound of the door being unlocked. A perimeter officer advises that a rear window has been opened slightly. No one has exited.",
+      "question": "Has a reasonable wait period elapsed, and what does the rear window opening change?",
+      "options": [
+        {
+          "label": "A",
+          "text": "At 40 seconds with two clear announcements and visible awareness of your presence, a court would likely find a reasonable wait has been afforded at 6:30 a.m. given the occupants' demonstrated awareness. However, the opening of the rear window is an objective indicator of potential evidence destruction or attempt to flee — either provides an independent exigent circumstance that can justify entry independent of the wait period. Announce a final warning ('Police — we are entering now!'), force entry at the front door, and simultaneously have your perimeter officer maintain control of the rear. Document the window observation as a contributing factor.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The rear window observation is inadmissible as a justification because the perimeter officer was not part of the warrant team and their observations are not binding.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Continue waiting indefinitely until the door is opened voluntarily — forced entry is only lawful if someone inside explicitly refuses to open the door in words.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Entry — Documenting the Entry Decision",
+      "situation": "Entry was made at 45 seconds total. Three occupants were found inside, all compliant. No evidence was found destroyed. The defence will likely challenge the entry timing in a Charter s.8 application. Your supervisor asks you to prepare a detailed entry justification note immediately after the scene is secured.",
+      "question": "What must your entry justification documentation contain?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your documentation must: (1) record the exact time of each knock and announcement in sequence; (2) describe the officers' observations at each stage — the movement seen through the sidelight, the voice, the lights coming on, the rear window opening; (3) state the total elapsed time between first announcement and entry decision; (4) articulate the legal basis for the entry timing — both the reasonable-wait standard under common law and the independent exigent circumstance created by the rear window; (5) note that no-knock authorization was not sought and that knock-and-announce was followed in good faith. This documentation becomes the foundation for Crown disclosure and responding to any future s.8 Charter application.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "A brief note that 'knock-and-announce was followed' is sufficient — courts presume police acted in good faith when executing valid warrants.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Since no evidence was destroyed, the entry timing is irrelevant and does not need to be specifically documented.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You executed the knock-and-announce procedure correctly: you announced police presence and warrant authority clearly, gave occupants a reasonable opportunity to respond before entry, identified an independent exigent circumstance (rear window movement) that also justified the entry decision, and created comprehensive documentation of the timing and basis for forced entry. Your notes will withstand a Charter s.8 challenge by providing a clear factual record of every step taken.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "knock and announce",
+    "search warrant",
+    "Charter",
+    "forced entry",
+    "warrant execution",
+    "officer safety",
+    "common law",
+    "Canada"
+  ]
+}
