@@ -1,0 +1,129 @@
+{
+  "title": "scenario_weather_medevac_delay",
+  "description": "An officer in a remote community responds to a serious medical emergency but a winter storm prevents medevac extraction for an extended period. The officer must provide emergency first aid, coordinate with EMS by telephone, manage bystanders, and make critical decisions without evacuation resources.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "medevac delay",
+    "remote policing",
+    "RCMP",
+    "emergency first aid",
+    "winter weather",
+    "Canada",
+    "isolated deployment",
+    "medical emergency"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Medical Emergency Call",
+      "description": "Officer receives a 911 call — a male has collapsed and is unresponsive at a remote community residence.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival on Scene",
+      "description": "Officer arrives to find a 52-year-old male unresponsive on the floor. Family present and distressed.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Medevac Request",
+      "description": "Medevac contacted — a blizzard has closed the airport. ETA unknown, minimum 6 hours.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Telephone EMS Guidance",
+      "description": "Provincial EMS connects officer to a registered nurse for telephone-guided emergency care.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Condition Stabilises",
+      "description": "Following telephone-guided interventions, the patient's condition partially stabilises.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Medevac Arrives",
+      "description": "Weather improves after 7 hours. Medevac lands and patient is transported to hospital.",
+      "timeOffsetSec": 25200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unresponsive Patient — No Medevac Available",
+      "situation": "You arrive at a home to find Frank, 52, unresponsive on the kitchen floor. His wife is crying and their two adult children are present. Frank has no visible pulse. He is not breathing. A blizzard has grounded all aircraft — medevac ETA is 6+ hours. There is no nurse or paramedic in the community. You have a first aid kit and an AED in your police vehicle. You are the only emergency responder on scene.",
+      "question": "What is your immediate action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin CPR immediately — 30 compressions to 2 breaths at the recommended rate. Send one of the adult children to retrieve the AED from your vehicle. Call dispatch simultaneously on speaker and request that provincial EMS connect you to telephone-guided emergency support. Direct Frank's wife and other family member to assist under your instructions — ask one to take over compressions when you fatigue and one to manage the AED when retrieved. Do not stop resuscitation to manage bystanders — they can assist.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Do not begin CPR — you are a police officer, not a paramedic, and providing medical care creates liability. Wait for EMS.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Attempt to drive the patient to the nearest community with a nurse, which is 45 kilometres away on a road that may be closed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "AED Attached — Telephone Medical Guidance",
+      "situation": "The AED has been retrieved and attached. It advises a shock, which is delivered. Frank's son has been trained in CPR and takes over compressions. Dispatch has connected you to a telephone-guided emergency support line staffed by a nurse. The nurse is asking you a series of triage questions and will guide interventions. Frank has regained a faint pulse. The nurse is advising you on positioning, monitoring breathing, and what signs to watch for.",
+      "question": "How do you manage the ongoing care and family communication?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Follow the nurse's guidance precisely — document every intervention with a timestamp. Assign Frank's son to continue monitoring his father's breathing and pulse while you coordinate with the nurse and dispatch. Speak briefly and calmly with Frank's wife to acknowledge the situation: 'He has a pulse. We are getting help and I will stay here with him.' Update dispatch every 15 minutes on Frank's status and weather conditions at the airport. Prepare a written handover note for the medevac crew when they arrive.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Disconnect from the telephone nurse and rely on your own first aid training from this point.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the family to manage Frank while you return to your vehicle to complete paperwork and await medevac.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Extended Wait — Managing Stress on Scene",
+      "situation": "It has been four hours. Frank is breathing but unconscious. His condition is stable but precarious according to the nurse. The family is exhausted and increasingly distressed. Frank's wife has been asking repeatedly if he will survive. The nurse advises she cannot answer that question. Weather remains too severe for medevac. Two neighbours have arrived and are in the kitchen. You are fatigued.",
+      "question": "How do you manage the extended scene and family distress?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the family's fear honestly and compassionately without making medical prognosis promises: 'I can see how frightening this is. Frank is breathing and we are doing everything possible to keep him stable until the medical team arrives.' Manage bystanders by asking the two neighbours to wait outside or in another room to give the immediate family space. Accept coffee or food offered — you need to sustain your capacity. Rotate any available adult family members in support tasks to give them a sense of agency. Continue documenting all observations and interventions chronologically.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the family that Frank is going to be fine — it will help them stay calm during the wait.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the neighbours to take over monitoring Frank so you can step outside for a break.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Weather cleared after 7 hours. The medevac landed and Frank was transported to a regional hospital, where he underwent emergency heart surgery. He survived. Your detailed handover notes — including the timeline of all interventions, AED event log, nursing guidance received, and vital sign observations — were praised by the attending cardiologist as critical to understanding Frank's pre-hospital course. Remote policing demands that officers maintain emergency first aid competence, collaborate with telephone-guided medical support, and sustain composure across extended high-stress events without relief.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

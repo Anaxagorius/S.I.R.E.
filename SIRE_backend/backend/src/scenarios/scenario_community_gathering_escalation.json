@@ -1,0 +1,129 @@
+{
+  "title": "scenario_community_gathering_escalation",
+  "description": "A large community gathering in a remote First Nations community escalates when a fight breaks out. Officers must balance public safety, community relations, and cultural sensitivity while managing a crowd with limited resources and communications.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "community gathering",
+    "crowd management",
+    "First Nations",
+    "RCMP",
+    "remote policing",
+    "Canada",
+    "de-escalation",
+    "cultural sensitivity"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Community Event Underway",
+      "description": "Officers attend a community feast and celebration. Approximately 200 residents present.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Fight Breaks Out",
+      "description": "A physical altercation erupts between two groups of young males near the edge of the gathering.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Crowd Encircles Fight",
+      "description": "Community members gather tightly around the fighters. Some are trying to separate them; others are escalating.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Elders Arrive",
+      "description": "Community elders approach officers and offer to assist in mediating.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "One Subject Injured",
+      "description": "One male sustains a laceration. Medical assistance is requested.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Crowd Disperses",
+      "description": "With elder assistance, the crowd calms. Officers document the incident and provide medical care.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Fight at Community Gathering",
+      "situation": "You and a partner are the two officers assigned to a large community feast in a remote First Nations community. Approximately 200 residents are present, including children and elders. Without warning, a fight breaks out between two groups of young men near the food tables. Punches are being thrown. The crowd is gathering tightly around the fight. You are 15 metres away. The atmosphere was positive minutes ago but is shifting quickly.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Move toward the fight at a brisk walk — not a run — with your partner. Use a commanding voice to announce your presence: 'Police! Break it up — step back!' Assign your partner to manage the crowd perimeter while you focus on separating the primary combatants. Physically separate the groups using your body as a barrier and escort the most aggressive individuals away from the crowd. Call in a scene update to dispatch and request medical standby. Avoid drawing weapons at this stage — physical separation is the proportionate response.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Draw your CEW and point it at the crowd to create a perimeter and stop the fight instantly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hang back and call for backup before approaching — two officers cannot safely manage a crowd of 200.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Elders Offer to Help — Cultural Protocol",
+      "situation": "You have separated the fighters. Three community elders — respected figures in this community — approach you. One elder, Margaret, says: 'We can handle this. These are our young people. Let us talk to them first before you take anyone away.' The primary fighters are still agitated but are no longer actively fighting. One has a cut above his eye. The crowd has backed off slightly.",
+      "question": "How do you respond to the elders' offer?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Welcome the elders' involvement while maintaining your law enforcement role. Tell Margaret: 'Thank you — I respect that, and I want your help. Please speak with them while my partner and I stand by. We need to make sure no one is seriously hurt and gather information about what happened. I'm not going to arrest anyone right now unless there is a continuing safety issue.' Allow the elders to engage the young men while you document observations, check the injured person, and monitor for re-escalation.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Politely decline — law enforcement must maintain control of the scene independently and cannot cede authority to community members.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Step back entirely and let the elders manage the incident without any police involvement.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Injured Subject — Arrest Decision",
+      "situation": "The elders have spoken with the young men and both sides have calmed significantly. The injured male has a 3 cm laceration above his eye that needs stitches. The primary aggressor — identified by multiple witnesses — is a 19-year-old community member with no prior criminal record. He has been cooperative since the elders intervened and has apologised to the injured party in front of the group. The injured party says he does not want charges laid. You must decide on enforcement action.",
+      "question": "How do you handle the enforcement decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the incident thoroughly: witness names, descriptions of both subjects, the sequence of events, injuries observed, and the injured party's statement. Advise both subjects they are not being arrested tonight, but the matter is being documented as a criminal file for assault causing bodily harm. Explain to the 19-year-old that the victim's preference is considered but does not eliminate the Crown's discretion to charge. Ensure the injured party receives medical care. Refer the matter to Crown for a charge assessment rather than conducting an on-scene arrest given cooperation, no prior record, and community context.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Arrest the 19-year-old immediately for assault causing bodily harm, regardless of the community context or victim's wishes.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Take no enforcement action and close the file because the victim does not want charges and the elders have resolved the matter.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The incident was documented. Medical care was arranged via the community health station for the injured male. The Crown reviewed the file and referred the matter to a community-based restorative justice process with the agreement of both parties. The 19-year-old completed a restorative circle and community service. No breach of the peace recurred that evening. Your decision to work alongside community elders rather than against them preserved the policing relationship, produced a proportional outcome, and reflected the community-based justice values recognised under Canadian reconciliation frameworks.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "title": "scenario_riot_control_decision",
+  "description": "A large protest has fully deteriorated into a riot. Buildings are burning, officers are being attacked, and injuries are mounting. The incident commander must make a series of escalating use-of-force decisions including the deployment of crowd control munitions, while managing command accountability and documentation.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "riot control",
+    "use of force",
+    "public order unit",
+    "crowd control munitions",
+    "incident command",
+    "Canada",
+    "accountability",
+    "critical incident"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Riot Declared",
+      "description": "Incident commander declares a riot under Criminal Code s.64. Dispersal order issued and ignored.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Molotov Cocktails Thrown",
+      "description": "Fire devices thrown at police line. Three officers sustain burns.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Request for Crowd Control Munitions",
+      "description": "Public Order Unit commander requests authorisation to deploy CS gas and kinetic impact projectiles.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Munitions Deployed",
+      "description": "CS gas and OC projectiles deployed. Crowd begins dispersing.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 4,
+      "title": "Isolated Pockets Remain",
+      "description": "Most rioters have fled. Approximately 40 individuals remain, some injured.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Scene Secured",
+      "description": "Area secured. Fire services enter to control building fires. Arrests processed.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Riot in Progress — Escalation Decision",
+      "situation": "The situation has deteriorated beyond an unlawful assembly into a full riot under Criminal Code s.64. A dispersal order was issued 20 minutes ago and has been ignored. Rioters are smashing storefronts, a building is on fire, and incendiary devices have been thrown at the police line. Three officers have been injured by fire. The Public Order Unit (POU) commander is requesting your authorisation to deploy CS gas and kinetic impact projectiles (rubber bullets). Approximately 400 rioters remain in the area.",
+      "question": "What is the authorisation process for deploying crowd control munitions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Crowd control munitions may only be deployed following a command authorisation decision that considers: the proportionality of force (incendiary attacks on officers justify an elevated response), the availability of lesser means that have already been tried and failed (dispersal order issued and ignored), and the risk of serious injury to officers or public that munitions are intended to reduce. Authorise CS gas and kinetic impact projectiles for deployment by trained POU officers only. Document the authorisation with your name, time, grounds, and the specific munitions authorised. Brief POU commander: targeted deployment, avoid bystanders, and cease deployment if the crowd achieves dispersal.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Authorise lethal force to stop the riot as quickly as possible given the use of incendiary devices against officers.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Deny the request for munitions — the use of any crowd control chemical agents is prohibited regardless of the situation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Munitions Deployed — Crowd Dispersing",
+      "situation": "CS gas and OC kinetic projectiles have been deployed. The crowd is visibly dispersing — approximately 80% of the estimated 400 rioters have left the area. Approximately 80 individuals remain. Of the remaining group, a portion appear to be injured or temporarily incapacitated from the munitions; others appear to be continuing to resist or are slow to move. Fire services are staged 200 metres away waiting to enter to address the building fire.",
+      "question": "How do you manage the transition from crowd dispersal to arrests and fire services entry?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cease CS gas deployment — the crowd has substantially dispersed and continued deployment is disproportionate. Divide your force: a forward arrest team to process individuals who are actively refusing to disperse or who committed observable offences; a second unit to establish a safe corridor for fire services to enter; a first aid team to attend to visibly injured individuals, including those affected by munitions. Document each arrest individually. Do not arrest injured individuals who are incapacitated on the ground — ensure they receive medical assessment first.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Continue CS gas deployment until the entire area is completely clear before allowing fire services to enter.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stand down all officers until fire services have controlled the building fire, then resume enforcement.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Command Accountability — Use of Force Documentation",
+      "situation": "The riot has been suppressed. Sixty-two individuals have been arrested. Fire services have entered and controlled the building fire. Four officers required hospital treatment for burns. Media is reporting that at least three individuals claim to have been injured by kinetic impact projectiles while attempting to leave the area peacefully. You need to account for the command decisions, the use of munitions, and the circumstances of the three alleged injuries.",
+      "question": "How do you ensure accountability and documentation for the use of crowd control munitions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete a detailed command log of every authorisation decision: time, grounds, munitions authorised, officer(s) who deployed, and the conditions at each deployment. For each claimed injury from munitions, open an investigation file: document the individual's identity, location at time of deployment, alleged injuries, and any video evidence of the deployment. Refer all use-of-force documentation to your Professional Standards unit. Make no public comment on individual injury allegations pending the investigation — but confirm publicly that all use of force will be reviewed. This accountability process is mandatory regardless of the justification for the deployment.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Prepare a brief report that documents the munitions were authorised and deployed, without specifying individual deployment decisions or accountability for the claimed injuries.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Publicly state that all munitions use was justified and that injury complaints are without merit.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The riot was suppressed. Sixty-two individuals were charged with riot, arson, and assault of a peace officer. Your detailed command authorisation log and use-of-force documentation provided a complete evidentiary record. The three injury complaints were investigated; one was sustained (an individual who was hit while attempting to comply with the dispersal order at the perimeter) — resulting in a policy review for deployment zones. Your documentation made the accountability process possible. Riot control requires command decisiveness and proportional escalation, but it equally requires meticulous documentation to withstand legal and public scrutiny.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

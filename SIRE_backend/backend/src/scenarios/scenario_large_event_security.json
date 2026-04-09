@@ -1,0 +1,129 @@
+{
+  "title": "scenario_large_event_security",
+  "description": "Officers are assigned to a major outdoor music festival with 25,000 attendees. A medical emergency in a crowd creates a crush risk, and a secondary threat report is received. Incident commanders must manage the medical emergency, crowd movement, and the threat assessment simultaneously.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "large event",
+    "crowd safety",
+    "event security",
+    "mass gathering",
+    "Canada",
+    "medical emergency",
+    "crowd crush",
+    "incident command"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Event Pre-Brief",
+      "description": "Police command briefed on event layout, medical posts, crowd management plan, and communication protocols.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Medical Emergency Reported",
+      "description": "Three persons collapse near the main stage. Crowd is densely packed. Medical access is impeded.",
+      "timeOffsetSec": 14400
+    },
+    {
+      "index": 2,
+      "title": "Crowd Surge Detected",
+      "description": "Movement analysis identifies a crowd surge toward the collapsed individuals — creating crush risk.",
+      "timeOffsetSec": 14460
+    },
+    {
+      "index": 3,
+      "title": "Threat Report Received",
+      "description": "Dispatch receives a tip of a possible weapon in the crowd near the south stage.",
+      "timeOffsetSec": 15000
+    },
+    {
+      "index": 4,
+      "title": "Dual-Track Response",
+      "description": "Incident commander manages both the medical/crowd emergency and the threat assessment concurrently.",
+      "timeOffsetSec": 15060
+    },
+    {
+      "index": 5,
+      "title": "Medical Evacuations Completed",
+      "description": "Three individuals airlifted or transported. Crowd managed. Threat investigated — false alarm.",
+      "timeOffsetSec": 16200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Medical Emergency and Crowd Crush Risk",
+      "situation": "Three individuals have collapsed near the main stage at a 25,000-person outdoor festival. The crowd is densely packed. Spectators are pressing forward toward the collapsed individuals out of curiosity, which is increasing the crush risk rather than creating space for medical access. Festival medical teams are trying to reach the patients but cannot get through the crowd. You are the police incident commander.",
+      "question": "What is your immediate action to address the medical emergency and crowd crush?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately coordinate with festival operations to make a PA announcement directing the crowd to move back from the main stage area and create space. Use officers to form a human chain to clear a medical access corridor from the nearest medical post to the patients. Coordinate with medical teams on the access route — they lead, police clear. Simultaneously, contact the stage manager to pause the performance and have the main stage performer or MC ask the crowd to move back — performer engagement is highly effective in large crowds. Document all actions and times.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy all available officers to force a path through the crowd to the patients as quickly as possible.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Announce a full evacuation of the festival grounds immediately to clear the area.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Simultaneous Threat Report",
+      "situation": "While managing the medical emergency, dispatch receives a report from a festival security guard: 'I saw a male in a red jacket with what looked like a handgun tucked in his waistband near the south stage.' The south stage is 300 metres from the main stage medical emergency. You have finite officers. The threat report is unverified. The medical emergency is ongoing but the corridor is now open and medical teams are working.",
+      "question": "How do you manage the concurrent threat report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Divide your command resources. Assign a dedicated threat response team — plainclothes officers if available — to immediately locate the described individual at the south stage without alerting the crowd. Obtain more detail from the security guard: specific location, direction of travel, physical description beyond the red jacket. Do not announce the threat over public PA systems at this stage — an unverified threat announcement could trigger a crowd stampede that poses a greater danger than the reported weapon. Maintain the medical corridor with the original team. Activate your pre-planned armed threat response protocol.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately announce over the festival PA system that there is an armed individual in the crowd and everyone should evacuate.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the threat report until the medical emergency is fully resolved, then investigate.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Threat Investigated — Medical Evacuations Underway",
+      "situation": "Two of the three collapsed patients are being evacuated. The third is receiving treatment on-site and is stable. The threat response team has located the male in the red jacket. He is cooperative and submits to a search — no weapon found. The security guard admits the object may have been a phone in a holster. The threat is assessed as a false alarm. The south stage area is clear. Main stage performance has resumed. Your event still has four hours to run.",
+      "question": "How do you reset for the remainder of the event after the two concurrent emergencies?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a rapid command debrief via radio with sector commanders: medical emergency resolution confirmed, threat assessed as false alarm, no further elevated risk. Return units to normal event disposition but increase patrol density near the main stage area given the earlier crush. Brief all officers on the threat report outcome so they are not operating under elevated alert unnecessarily. Document the threat report, investigation, and outcome in full. Notify festival management of the false alarm outcome so they can brief their security staff. Monitor the medical status of the two transported individuals through EMS liaison.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Maintain the same emergency posture for the rest of the event since two incidents have already occurred.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Request the festival be terminated early as a precautionary measure following two concurrent incidents.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The event concluded safely. All three individuals from the medical emergency were treated; one was hospitalised but recovered. The threat was confirmed as a false alarm. The festival PA intervention and performer engagement were credited with preventing a crowd crush. Post-event review noted that the simultaneous management of a medical emergency and a threat report tested dual-track command discipline — and that the decision not to issue a public threat announcement prevented a potential panic stampede. Large event policing requires pre-planned protocols, calm command decisions under simultaneous pressure, and proportional information management.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

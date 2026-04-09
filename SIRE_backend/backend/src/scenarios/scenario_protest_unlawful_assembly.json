@@ -1,0 +1,129 @@
+{
+  "title": "scenario_protest_unlawful_assembly",
+  "description": "A peaceful protest begins to deteriorate when a faction within the crowd becomes violent, smashing windows and throwing objects at police. The incident commander must determine when the assembly becomes unlawful, deliver a lawful dispersal order, and manage the transition from facilitation to enforcement.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "unlawful assembly",
+    "protest escalation",
+    "Criminal Code s.63",
+    "dispersal order",
+    "crowd management",
+    "public order",
+    "Canada",
+    "incident command"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Peaceful Assembly Underway",
+      "description": "A 600-person protest at a government plaza has been peaceful for 90 minutes.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Faction Becomes Violent",
+      "description": "A masked group of approximately 30 individuals begins smashing nearby storefronts.",
+      "timeOffsetSec": 5400
+    },
+    {
+      "index": 2,
+      "title": "Objects Thrown at Police",
+      "description": "Bottles and rocks are thrown at the police line. Two officers sustain minor injuries.",
+      "timeOffsetSec": 5700
+    },
+    {
+      "index": 3,
+      "title": "Unlawful Assembly Determination",
+      "description": "Incident commander determines the assembly meets the threshold for an unlawful assembly under the Criminal Code.",
+      "timeOffsetSec": 6000
+    },
+    {
+      "index": 4,
+      "title": "Dispersal Order Issued",
+      "description": "A lawful dispersal order is read aloud via amplified sound equipment.",
+      "timeOffsetSec": 6300
+    },
+    {
+      "index": 5,
+      "title": "Majority Disperses",
+      "description": "Most of the crowd disperses. A core group refuses and is arrested. LRAD not deployed.",
+      "timeOffsetSec": 7200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Peaceful Protest Deteriorating — Violent Faction",
+      "situation": "You are the incident commander for a 600-person protest that has been peaceful for 90 minutes. A group of approximately 30 masked individuals within the crowd has begun smashing windows in a commercial area adjacent to the protest. Bottles are being thrown toward the police line. Two officers have sustained minor injuries from projectiles. The majority of the 600 protesters are not involved in violence and are peaceful. You must decide whether to declare an unlawful assembly.",
+      "question": "What is the legal threshold for declaring an unlawful assembly, and do current conditions meet it?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under Criminal Code s.63, an unlawful assembly exists when three or more persons assemble with a common purpose to carry out any plan that will cause a person nearby to fear they will disturb the peace tumultuously. Current conditions — projectile violence, property damage, officers injured — meet this threshold for the violent faction. However, the majority remains peaceful. The lawful declaration must be directed at the entire assembly because the assembly as a whole is no longer manageable as a distinct peaceful event. Brief your legal advisor, make the determination on reasonable grounds, and prepare to read the dispersal order.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Declare an unlawful assembly only for the 30-person violent group and allow the rest to continue.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not declare an unlawful assembly — the violence involves only a small fraction of participants and the majority are still peaceful.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Issuing the Lawful Dispersal Order",
+      "situation": "You have determined the assembly is unlawful. You must now issue a dispersal order under Criminal Code s.68. The order must be read aloud, in French and English where required, and must advise those present that they are ordered to disperse, that failure to comply is a criminal offence, and that all individuals must leave the area by a specified route. Your public address system is ready. Officers are in position.",
+      "question": "What are the required elements of a lawful dispersal order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Read the formal dispersal order in both official languages (English and French in a bilingual jurisdiction) clearly and at full amplification: identify yourself as a peace officer, state that the assembly is declared unlawful, order all persons to immediately and peaceably disperse, identify the dispersal route, and advise that failure to comply is a criminal offence under Criminal Code s.68. Give the crowd a reasonable time to hear and comply — a minimum of 2–3 minutes before enforcement action begins. Document the exact time and content of the order.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Announce through a handheld megaphone without formally identifying yourself or stating the legal authority for the order.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Proceed directly to crowd dispersal using physical force without a verbal order, as the violence has already established lawful grounds for immediate action.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Enforcement — Arrest of Non-Compliant Individuals",
+      "situation": "Following the dispersal order, approximately 500 of the 600 protesters have begun dispersing peacefully via the designated route. Approximately 100 individuals remain. Of those, roughly 70 appear to be peaceful protesters who are slow to move. The remaining 30 — the violent faction — are refusing to disperse and continuing to throw objects. You must now enforce the dispersal order against non-compliant individuals.",
+      "question": "How do you conduct arrests and manage the remaining crowd proportionally?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use targeted, precise enforcement. Do not deploy indiscriminate crowd control measures (such as OC spray or batons) against the 70 slow-moving peaceful individuals. Continue verbal commands and officer contact to move the peaceful non-compliant individuals. Focus enforcement — arrests — on the violent 30 who are actively throwing objects and refusing direct commands. Use mobile arrest teams to extract and arrest individuals displaying violence. Document each arrest individually with the arresting officer, grounds, and time. Avoid mass arrest unless all remaining individuals are actively participating in violence.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy OC spray and batons across the entire remaining crowd to enforce the dispersal order efficiently.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Mass arrest all 100 remaining individuals — anyone who failed to comply with the dispersal order is equally culpable.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The dispersal order was lawfully delivered in both official languages. Within 12 minutes, most of the crowd dispersed. Thirty-two individuals were arrested — all members of the violent faction — for charges including mischief, assault of a police officer, and failing to comply with a dispersal order. The 70 slow-moving peaceful protesters dispersed without arrest. No indiscriminate crowd control munitions were used. Post-incident review confirmed the declaration of unlawful assembly was legally sound and proportionately enforced. The lawful dispersal order process preserved the legal integrity of all subsequent charges.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

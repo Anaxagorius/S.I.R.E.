@@ -1,0 +1,129 @@
+{
+  "title": "scenario_remote_domestic_violence",
+  "description": "An officer in a remote community responds to a domestic violence call. The victim is isolated, there is no shelter available in the community, the suspect is the primary income earner, and the victim has previously recanted. The officer must apply a primary aggressor determination and safety planning approach.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "domestic violence",
+    "remote policing",
+    "RCMP",
+    "First Nations",
+    "primary aggressor",
+    "safety planning",
+    "Canada",
+    "victim services"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Domestic Violence Call",
+      "description": "Neighbour calls reporting sounds of a fight and a woman screaming at a nearby home.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive",
+      "description": "Officers find a woman with visible facial injuries at the door. A male is inside.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Victim Recants",
+      "description": "The victim tells officers she fell and asks them to leave.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Medical Assessment",
+      "description": "The woman has a swollen eye and a split lip consistent with assault, not a fall.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Suspect Interviewed",
+      "description": "Officers speak with the male suspect separately. He is calm and minimises events.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Arrest and Safety Planning",
+      "description": "Suspect arrested. Victim declines shelter but accepts safety plan with officer assistance.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Domestic Violence — Victim Recants at Scene",
+      "situation": "You respond to a domestic violence call in a remote community. Carol, 34, answers the door. She has a swollen right eye beginning to close and a fresh laceration on her lip. She says 'I'm fine, I fell down the stairs. My husband didn't do anything. Please leave.' Her husband, Wayne, is visible in the background looking at her. You can hear two children inside the home. Carol appears fearful — she is not making eye contact. Wayne has prior domestic violence calls — one previous charge that Carol withdrew.",
+      "question": "How do you proceed when the victim recants at the door?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not leave. Separate Carol and Wayne immediately — ask Wayne to wait inside and speak with Carol privately at the door or outside. Conduct an independent injury assessment: the injuries are inconsistent with a fall. The recantation does not end your investigation. Document Carol's exact words, her injuries with photographs if she consents, the children's presence, and the prior call history. Advise Carol you are the primary witness to the injuries and that a charge decision will be based on all evidence — not solely on her statement.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Accept Carol's explanation and leave — the victim has told you nothing happened and you cannot investigate without her cooperation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately arrest Wayne without speaking to either party, based on the visible injuries alone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Primary Aggressor Determination",
+      "situation": "You have separated Wayne and Carol. Your partner is with Wayne inside the home. Carol, speaking quietly, tells you Wayne hit her twice but 'it was her fault — she provoked him.' She says she does not want to press charges because there is no shelter in the community, he works and she does not, and she is afraid of what will happen to her and the children if he is arrested. Wayne denies everything and says she fell. The injuries — defensive bruising on both forearms, facial impact trauma — are clearly consistent with assault.",
+      "question": "How do you make the primary aggressor determination?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the primary aggressor analysis: Wayne has a pattern of prior calls, the injuries are offensive in nature and inconsistent with the stated cause, Carol has defensive injuries consistent with shielding herself, and Wayne is calm while Carol is visibly fearful. The aggressor is Wayne. Do not treat Carol's 'provocation' statement as culpability — provocation does not justify assault. Arrest Wayne for assault causing bodily harm. Advise Carol that the decision to charge is yours — not hers — and that this is for her and her children's safety.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Take no further action — since Carol says she provoked him, you cannot make a clear primary aggressor determination.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Arrest both Carol and Wayne for mutual assault since both parties may have struck each other.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Safety Planning — No Shelter Available",
+      "situation": "Wayne has been arrested and is in custody. Carol is relieved but frightened about what happens next. There is no shelter in the community. The nearest shelter is a two-hour drive away. Carol does not want to leave her home. She is afraid Wayne will be released and return. She has no car and limited funds. Two children, aged 7 and 10, are in the home.",
+      "question": "How do you conduct safety planning with Carol?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work through a structured safety plan with Carol: identify trusted family or community members who can stay with her or with whom she can stay; confirm that Wayne's release conditions will include a no-contact order and he cannot return to the home; contact the victim services coordinator and request urgent outreach including an option for remote shelter referral if Carol later wants it; assist Carol in identifying emergency contacts and communication resources (phone charging, neighbours, community band office). Document the safety plan in writing, give Carol a copy, and ensure she has your detachment number and victim services contact.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Carol that safety planning is the responsibility of victim services and close your file now that Wayne is arrested.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Insist Carol leave the community for a shelter immediately — without a shelter she is not safe and you cannot leave her there.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Wayne was held in custody overnight and released with conditions including a no-contact order and prohibition from attending the family home. Carol accepted victim services outreach and developed a safety plan including staying with her sister for two days. Wayne was subsequently charged with assault causing bodily harm. Carol engaged in counselling through a band-operated family support service. Remote domestic violence response requires officers to actively take responsibility for the safety plan, recognise the structural barriers victims face, and not treat recantation or 'no shelter available' as reasons to close the file without action.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

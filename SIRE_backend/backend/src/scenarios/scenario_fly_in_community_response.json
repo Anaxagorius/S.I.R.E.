@@ -1,0 +1,129 @@
+{
+  "title": "scenario_fly_in_community_response",
+  "description": "An RCMP officer posted in a fly-in First Nations community must respond to a serious assault with no road access, no backup, and a medevac that is hours away. The officer must manage the scene, stabilise the victim, and contain the suspect using only available resources.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "fly-in community",
+    "remote policing",
+    "RCMP",
+    "First Nations",
+    "limited backup",
+    "Canada",
+    "Indigenous policing",
+    "isolated deployment"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Assault Call Received",
+      "description": "Officer receives a radio call reporting a serious assault at a residence. Community is accessible only by air.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Arrival on Scene",
+      "description": "Officer arrives to find a victim with serious head trauma. Suspect is known and still in the area.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Medevac Requested",
+      "description": "Medevac dispatched but weather conditions mean a 3-hour ETA. Nearest backup officer is 90 minutes away by charter.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Suspect Located Nearby",
+      "description": "Suspect is located in a neighbouring dwelling. Community members are gathering at the scene.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Suspect Becoming Agitated",
+      "description": "Suspect becomes verbally aggressive and community members are intervening informally.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Medevac Arrives",
+      "description": "Medevac lands. Victim is airlifted. Officer must complete arrest and scene documentation solo.",
+      "timeOffsetSec": 10800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Serious Assault — Solo Response, No Road Access",
+      "situation": "You are the sole RCMP officer in a fly-in First Nations community of approximately 400 residents. You receive a call of a serious assault at a residence. On arrival, you find a 32-year-old male with significant head trauma — unconscious and breathing but unresponsive. A bystander tells you the suspect, who is known to both of you, is at a house two doors away. You have no backup; the nearest officer is 90 minutes away by charter if weather holds. Medevac has been requested but will take at least three hours. Your immediate priorities are the victim's life, scene security, and suspect containment.",
+      "question": "What is your immediate priority action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Render first aid to the victim as your top immediate priority — control bleeding, maintain airway, place in recovery position. Simultaneously radio dispatch with a full situation report: serious assault, solo officer, victim critical, medevac requested, suspect location known. Request any available mutual aid including First Nations police or neighbouring RCMP detachment via charter. Do not abandon the victim to pursue the suspect while the victim remains in a life-threatening condition.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately go to the suspect's location and arrest them before they can flee, leaving the victim unattended.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait at the scene perimeter for backup before approaching the victim or the suspect, as officer safety protocols prohibit solo engagement.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Victim Stabilised — Suspect Containment",
+      "situation": "You have stabilised the victim and updated dispatch. A trusted community health representative (CHR) has arrived and is assisting with first aid. The suspect — a 28-year-old male you know well — is in a home 30 metres away. Community members are starting to gather. Medevac is 2.5 hours out. You need to contain the suspect to prevent flight while managing a growing crowd and maintaining your lone-officer safety posture.",
+      "question": "How do you contain the suspect without backup?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approach the suspect's residence in a calm, non-confrontational manner. Knock and identify yourself. Use your established knowledge of the suspect to engage respectfully and verbally — ask him to come outside and speak with you. Advise him you know what happened and that you want to hear his side. Maintain a tactically sound position. If he cooperates, conduct a lawful arrest. If he refuses, establish a containment perimeter, document his last known location, and wait for backup before forcing entry.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Force entry into the dwelling immediately and arrest the suspect before he can arm himself.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask community members to detain the suspect for you while you remain with the victim.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Community Members Intervening",
+      "situation": "The suspect has come outside and is speaking with you. However, several community members — including the suspect's family members — have gathered and are loudly arguing that this is a 'family matter' and that you should leave. Some are physically placing themselves between you and the suspect. The suspect is not yet in custody but has not been aggressive toward you. The situation is becoming volatile.",
+      "question": "How do you manage the crowd and proceed with the arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remain calm and authoritative. Clearly and respectfully address the crowd: acknowledge their concern, affirm you are there to protect everyone, and explain that a serious assault has occurred and you are legally required to act. Ask community leaders or elders present to assist in calming the crowd. Continue speaking with the suspect directly. Advise him clearly that he is under arrest. Use the minimum force necessary to complete the arrest if he cooperates, and call dispatch for the status of backup arrival.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy your CEW toward the crowd to create space and assert authority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Retreat to your vehicle and wait for backup, leaving the suspect uncontained in the crowd.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You successfully arrested the suspect with the assistance of a community elder who helped calm the crowd. The victim was airlifted to hospital and survived. Backup arrived by charter and assisted with documentation and transport of the suspect. Your scene notes, witness statements, and medical observations formed the core of a successful prosecution. The detachment later engaged the community council to discuss the policing relationship and support resources for family violence intervention. Remote and fly-in policing demands exceptional judgment, proportional force, and community relationship skills from every officer deployed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

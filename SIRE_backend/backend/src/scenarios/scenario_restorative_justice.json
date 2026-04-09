@@ -1,0 +1,129 @@
+{
+  "title": "scenario_restorative_justice",
+  "description": "Officers respond to a property crime in a First Nations community where the community council requests a restorative justice diversion instead of formal charges. Officers must understand the legal framework for diversion, assess suitability, and work with community justice processes.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "restorative justice",
+    "diversion",
+    "First Nations",
+    "RCMP",
+    "community justice",
+    "Canada",
+    "reconciliation",
+    "property crime"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Property Crime Report",
+      "description": "A band office reports that a window was broken and equipment was stolen from a community building.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Suspect Identified",
+      "description": "Community members identify the suspect — a 16-year-old community member — who is known to the victim.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Suspect Admits Offence",
+      "description": "The youth admits to taking the equipment and breaking the window when approached by officers.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Community Council Makes Request",
+      "description": "The Band Chief and community council formally request a restorative justice diversion.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Diversion Assessed",
+      "description": "Officer assesses suitability for Youth Criminal Justice Act extrajudicial measures or diversion.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Diversion Agreed",
+      "description": "Matter diverted to community justice circle with victim participation. Outcome agreed.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Youth Admits Offence — Community Requests Diversion",
+      "situation": "Tyler, a 16-year-old First Nations youth, has admitted to breaking a window and taking a generator from the band community hall. The estimated value is $900. Tyler says he was trying to help his family who had no power. He has no prior criminal record. The band hall manager says the community wants to handle this internally. The Band Chief arrives and formally requests that the matter be diverted to a community justice circle rather than proceed through the youth criminal justice system.",
+      "question": "How do you respond to the community's diversion request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the request respectfully and advise the Chief that you will conduct a formal suitability assessment for extrajudicial measures under the Youth Criminal Justice Act (YCJA). Explain that diversion is available for non-violent first-time offences and that the community justice circle can qualify as an 'extrajudicial sanction' under s.10 YCJA if it meets specific criteria. Take Tyler's statement, document the admission, and assess the statutory factors before committing to diversion. No charges will be laid pending that assessment.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Arrest Tyler and process him through formal youth court — the community request has no legal authority over the criminal process.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately agree to diversion and close the file without any formal documentation or suitability assessment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "YCJA Suitability Assessment",
+      "situation": "You assess Tyler's file against the YCJA extrajudicial measures framework. Tyler: is 16, no prior record, has admitted the offence, expressed remorse, the offence is non-violent, the victim (the band) is willing to participate in a restorative process, and there is a recognised community justice program operating in the community. The YCJA s.4 presumption favours extrajudicial measures for first-time non-violent young offenders. Tyler's guardian (his aunt) has been notified and is present.",
+      "question": "What is your assessment and next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Determine that Tyler is a suitable candidate for an extrajudicial sanction under YCJA s.10: non-violent first offence, admission, genuine remorse, victim willing to participate, recognised community program available. Refer the file to the Crown for consideration of an extrajudicial sanction agreement. Coordinate with the community justice program to arrange the circle, confirm victim participation, and document the referral. Advise Tyler and his aunt of the process, that he must participate genuinely, and that successful completion will result in no criminal record.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Deny diversion because the value of the property exceeds $500, making this too serious for community diversion.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Agree to an informal arrangement where Tyler repays the band without any formal YCJA process or Crown involvement.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Community Justice Circle — Officer's Role",
+      "situation": "Crown has approved the extrajudicial sanction referral. The community justice circle is scheduled for next week. The circle will include Tyler, his aunt, the band hall manager, an elder, and a community justice coordinator. You have been asked whether police should attend the circle. Tyler's aunt is concerned about police presence affecting Tyler's willingness to speak openly.",
+      "question": "What is the appropriate role for police in the community justice circle?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Police should not attend the circle itself — the restorative process requires a safe, non-adversarial space for Tyler to speak openly and for genuine dialogue to occur. Your role is complete at the referral stage. Provide the justice coordinator with your investigation notes, Tyler's admission, and the victim's statement. Confirm you will be available by phone if the coordinator needs to verify factual matters. Agree to receive and review the circle's outcome plan, document it in the file, and report completion to Crown as required under the YCJA.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Attend the circle in uniform to ensure Tyler is held accountable and cannot minimise what he did.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Refuse to participate in the process further — diversion is the community's responsibility, not police.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The justice circle resulted in Tyler apologising directly to the band hall manager, agreeing to repay $900 in community service hours (completing maintenance work at the band hall), and attending a two-session cultural reconnection program run by a community elder. The outcome was documented and submitted to Crown. Crown confirmed successful completion. Tyler has no criminal record. The generator was returned. The community justice process produced a proportional, culturally grounded outcome that held Tyler accountable while supporting his reintegration — a result the formal youth court system would have been unlikely to achieve.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

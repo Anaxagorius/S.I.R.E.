@@ -1,0 +1,129 @@
+{
+  "title": "scenario_peaceful_protest_management",
+  "description": "Officers are assigned to facilitate a permitted peaceful protest through the downtown core. The crowd is large but orderly. Officers must balance Charter-protected rights of assembly and expression with public safety obligations, avoiding any actions that could unnecessarily escalate the situation.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "peaceful protest",
+    "Charter rights",
+    "crowd management",
+    "public order",
+    "Canada",
+    "freedom of expression",
+    "police facilitation",
+    "public event"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Pre-Event Briefing",
+      "description": "Officers briefed on the march route, permitted timeframe, protest organisers, and community liaison contacts.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Crowd Assembles",
+      "description": "Approximately 800 protesters gather at the starting point. Organisers are cooperating with police liaisons.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 2,
+      "title": "March Begins",
+      "description": "March proceeds along the permitted route. Officers maintain a low-profile perimeter.",
+      "timeOffsetSec": 2400
+    },
+    {
+      "index": 3,
+      "title": "Counter-Demonstrators Appear",
+      "description": "A small group of counter-demonstrators appears at an intersection ahead.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 4,
+      "title": "Verbal Exchanges",
+      "description": "Heated verbal exchange between groups at the intersection. No physical contact yet.",
+      "timeOffsetSec": 3900
+    },
+    {
+      "index": 5,
+      "title": "Groups Separated",
+      "description": "Officers create a buffer between groups. March resumes and concludes peacefully.",
+      "timeOffsetSec": 4800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Police Role at a Permitted Peaceful Protest",
+      "situation": "You are the platoon commander for a 20-officer detail assigned to facilitate a permitted march through the downtown core. The march is organised by a national advocacy group. Approximately 800 participants are expected. The organisers have submitted a route plan and agreed to maintain movement. You have a police liaison team (PLT) deployed and have met with the lead organiser, Maya, prior to the event. The protest is protected under s.2(c) and 2(d) of the Canadian Charter of Rights and Freedoms.",
+      "question": "What is the correct operational posture for facilitating a peaceful protest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain a low-visibility, facilitative posture. Officers should be visible but not confrontational — no helmets, no riot gear unless circumstances change. Ensure the PLT maintains ongoing contact with Maya throughout the event. Traffic management officers manage intersections to enable the route. Brief all officers: the goal is to protect the protesters' right to march safely, not to police the content of their message. Establish clear escalation triggers and a response plan if conditions change.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy officers in full public order gear along the entire route as a visible deterrent to any potential disorder.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Follow directly behind the protest in a police vehicle column to monitor the crowd.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Counter-Demonstrators at the Route",
+      "situation": "Fifteen counter-demonstrators have positioned themselves at an intersection on the permitted route. They are holding signs and shouting at the approaching march. The march is 200 metres away and moving. Both groups have the right to demonstrate. The counter-demonstrators are on a public sidewalk. If the march reaches the intersection without intervention, there will be direct contact between the groups.",
+      "question": "How do you manage the convergence of both groups?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Position officers as a physical buffer between the two groups at the intersection before the march arrives. Do not attempt to move or disperse either group — both are exercising Charter rights. Ask your PLT to advise Maya that there are counter-demonstrators at the intersection and request she maintain the march on the east side of the street while officers buffer the west side where the counter group is standing. If the groups can be separated by the street width, allow both to continue demonstrating simultaneously. Document the counter-demonstrators' presence and any identifying information.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the counter-demonstrators from the area since the march has a permit and they do not.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stop the march at the preceding block and refuse to let it proceed until the counter-demonstrators leave.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Verbal Confrontation at the Buffer",
+      "situation": "As the march passes the intersection, a heated verbal exchange erupts between five protesters and three counter-demonstrators at the buffer line. Shouting and insults are exchanged but no physical contact has occurred. Some marchers are stopping instead of continuing forward. The momentum of the march is stalling at the intersection. Officers are in the buffer position but tension is rising.",
+      "question": "What action do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Verbal exchange, including heated exchange, is protected expression. Officers do not intervene in the content of the speech. However, the stalling of the march at the buffer creates a crowd compression risk. Instruct PLT to work with Maya to encourage marchers to keep moving — 'keep the march flowing.' Have officers at the buffer redirect those who stop to continue moving forward with the march. Increase officer presence at the intersection buffer. If physical contact occurs, intervene immediately and specifically — targeting the individuals involved, not the crowd broadly.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Arrest the loudest individuals in the verbal exchange to deter further confrontation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Order the entire march to disperse under the Trespass to Property Act since the intersection is now unsafe.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Maya assisted officers in moving the march forward past the intersection. The counter-demonstrators remained and continued demonstrating peacefully after the march passed. No arrests were made. The event concluded at the permitted endpoint. Post-event debrief noted the successful use of the police liaison team, low-visibility posture, and proportional buffer deployment. The incident reinforced the principle that police must facilitate lawful protest — not merely tolerate it — as a positive duty under the Charter, and that conflict between demonstrators is not itself grounds for dispersal.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
