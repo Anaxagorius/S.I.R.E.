@@ -1,0 +1,134 @@
+{
+  "title": "scenario_online_fraud_cra_scam",
+  "description": "An elderly victim reports losing $8,000 to a fraudster impersonating the Canada Revenue Agency; officers investigate the complaint and coordinate with the Canadian Anti-Fraud Centre.",
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["online fraud", "CRA scam", "elder fraud", "Canada Revenue Agency", "Canadian Anti-Fraud Centre", "fraud investigation"],
+  "timeline": [
+    { "index": 0, "title": "Complaint Received", "description": "Elderly victim arrives at detachment to report money lost to a CRA phone scam.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Fraud Indicators Identified", "description": "Officer identifies key fraud indicators and begins evidence collection.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Evidence Preservation", "description": "Call records and gift card receipts secured as evidence.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "CAFC Referral", "description": "Officer reports to the Canadian Anti-Fraud Centre and checks for linked complaints.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Victim Vulnerability Assessment", "description": "Officer assesses victim's ongoing vulnerability and safety.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Prevention Briefing", "description": "Victim is briefed on fraud prevention and support resources.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "CRA Scam Complaint",
+      "situation": "You are an officer at a rural RCMP detachment. An 80-year-old woman, Margaret, comes in visibly distressed. She explains that over the past three weeks she received multiple threatening phone calls from someone claiming to be a Canada Revenue Agency officer. The caller told her she owed $8,000 in back taxes and would be arrested immediately if she did not pay. Frightened, she purchased Google Play and Amazon gift cards totalling $8,000 and read the card numbers over the phone. She still has the store receipts and her phone. She asks what can be done.",
+      "question": "What is your first action when taking Margaret's complaint?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take a full occurrence report, reassure Margaret that CRA never demands payment by gift card, and tell her this is a known fraud scheme so you need to preserve all evidence including her phone and receipts.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Advise Margaret that because the money is gone and the caller was likely overseas, there is nothing the police can do, and suggest she contact the CRA directly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Margaret to call her bank to dispute the transactions, and close the file as a civil matter between her and the gift card companies.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Identifying Fraud Indicators",
+      "situation": "You have taken Margaret's initial statement. She shows you six gift card store receipts totalling $8,000 and her mobile phone showing over 20 calls from a spoofed number displayed as '1-800-959-8281' — the real CRA number. She says the caller knew her full name and SIN. You recognize multiple indicators of the CRA impersonation fraud scheme documented in RCMP advisories.",
+      "question": "Which fraud indicators should you formally document in your occurrence report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document: spoofed CRA phone number, demand for gift card payment (CRA never accepts gift cards), threat of immediate arrest, caller's possession of personal information (name and SIN), and multiple calls creating urgency — all consistent with the CRA impersonation fraud profile.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Document only the dollar amount lost and the spoofed phone number, as other details are not relevant to whether a crime occurred.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Note that since no actual CRA employee is a suspect, the file should be classified as a civil dispute and referred to the CRA fraud hotline only.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Evidence Preservation",
+      "situation": "You have documented the fraud indicators. Margaret has her cell phone, which contains the call history from the fraudster, and all six gift card receipts with the card numbers she provided. Gift card numbers are critical — in some cases investigators have traced partial redemptions. The phone call records may support a production order for telecommunications data.",
+      "question": "How do you properly preserve the available evidence at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Photograph all gift card receipts front and back (capturing card numbers and PINs), take screenshots of the call log on Margaret's phone, note the spoofed numbers, and seize the receipts as exhibits with proper tagging — advising Margaret not to delete any calls or messages pending further investigation.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Advise Margaret to keep her receipts at home for her own records, as gift card numbers are personal financial information and cannot be seized without a warrant.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Margaret to call the gift card companies herself and report the fraud; there is no police role in preserving gift card receipts.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Reporting to the Canadian Anti-Fraud Centre",
+      "situation": "Evidence is preserved. You are aware that the Canadian Anti-Fraud Centre (CAFC) is Canada's central repository for fraud complaints and maintains a national database that connects cases across jurisdictions. Reporting to CAFC may reveal a pattern of similar complaints linked to the same fraudsters. The CAFC also liaises with international partners such as the FTC and Europol.",
+      "question": "What is the correct action regarding the Canadian Anti-Fraud Centre?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Submit a detailed report to the CAFC (1-888-495-8501 or antifraudcentre.ca) with the spoofed numbers, gift card details, and complaint information, and check whether linked complaints exist — this may support a larger investigation and is standard practice under RCMP fraud reporting guidelines.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Advise Margaret to report to the CAFC herself, as it is a victim self-reporting service and police should not duplicate administrative efforts.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Skip the CAFC referral since this is a single-victim case and the CAFC only investigates organized fraud rings worth over $100,000.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Victim Vulnerability Assessment",
+      "situation": "You have filed the CAFC report. Margaret is 80 years old, lives alone, and mentions she has given her SIN to 'several government callers' over the past year. She appears cognitively sharp but is clearly frightened. Her SIN exposure means she is at heightened risk for identity theft in addition to the direct fraud loss. You need to assess her ongoing vulnerability before she leaves the detachment.",
+      "question": "How do you assess and address Margaret's ongoing vulnerability?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise Margaret to place a fraud alert with Equifax and TransUnion, contact Service Canada to flag her SIN, change any online account passwords, and — given her age and isolation — provide her with the local victim services contact number and consider a follow-up wellness check; document the vulnerability assessment in the file.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "The file is complete once the CAFC report is filed; vulnerability assessment is a social work function and outside the scope of a police occurrence report.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Margaret her SIN is probably fine since the caller likely discarded it, and suggest she change her phone number to avoid future calls.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "You correctly took a complete occurrence report, identified CRA impersonation fraud indicators, preserved gift card receipts and phone call evidence, reported to the Canadian Anti-Fraud Centre, assessed Margaret's ongoing vulnerability including SIN exposure, and connected her with victim services. These steps align with RCMP fraud investigation guidelines and Canadian Anti-Fraud Centre reporting protocols. Key lesson: CRA never demands immediate payment by gift card, and documenting fraud patterns through CAFC reporting is essential for linking cases across Canada.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

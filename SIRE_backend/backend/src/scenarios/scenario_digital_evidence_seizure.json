@@ -1,0 +1,134 @@
+{
+  "title": "scenario_digital_evidence_seizure",
+  "description": "Officers execute a search warrant at a suspect's residence and must seize multiple electronic devices while maintaining evidence integrity and following Criminal Code and case law requirements.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["digital evidence", "search warrant", "electronic devices", "forensics", "chain of custody", "Canada"],
+  "timeline": [
+    { "index": 0, "title": "Warrant Execution Commences", "description": "Officers enter the residence under the search warrant and begin identifying electronic devices.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Device Inventory", "description": "All electronic devices are catalogued and their states documented.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "R. v. Fearon Compliance", "description": "Officers apply Fearon guidelines regarding incidental search of devices.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Faraday Bag Protocol", "description": "Mobile devices and wireless-capable hardware are placed in Faraday bags.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "NAS and Storage Seizure", "description": "The network-attached storage device is identified and correctly handled.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Chain of Custody Documentation", "description": "All devices are properly documented and transferred to the digital forensics unit.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Warrant Execution and Device Identification",
+      "situation": "You are the exhibit officer during the execution of a Criminal Code s.487 search warrant at the residence of a fraud suspect. The warrant authorizes the search and seizure of computers, electronic devices, and records containing evidence of fraud offences. Upon entry, the residence is secured without incident. You observe: (1) a running laptop on the kitchen table with an open spreadsheet; (2) two smartphones on a charging station, both with screens locked; (3) two external hard drives on a bookshelf; and (4) a network-attached storage (NAS) device with three drive bays connected to the home router.",
+      "question": "What is your first step upon identifying these devices?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not touch any device yet — photograph all devices in their original locations and positions, note which devices are powered on or off, document any visible content on screens, and create a preliminary device inventory with unique location codes before any physical handling — establishing the pre-seizure state is critical for court.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately unplug all devices and bag them to prevent remote wiping — the risk of evidence destruction outweighs the need to document their original state.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Open the laptop and browse the spreadsheet to confirm it is relevant to the fraud before seizing it — only seize devices confirmed to contain evidence in order to minimize the impact on the suspect.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Applying R. v. Fearon Guidelines",
+      "situation": "You have photographed the devices in situ. The Supreme Court of Canada in R. v. Fearon (2014) held that a search of a cell phone incident to arrest is permissible under strict conditions, but does not authorize a comprehensive search of all content. For devices seized under a warrant rather than incident to arrest, the warrant must specifically authorize access to the device contents — simply authorizing seizure of the device does not automatically permit reviewing its contents. Your warrant authorizes seizure of devices but is silent on accessing their contents.",
+      "question": "How does the warrant scope affect what you can do with the seized devices on scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Seize the devices as physical exhibits under the warrant; do not attempt to access, unlock, or review the contents of any device on scene since the warrant authorizes seizure but not content review — a separate authorization or the forensics examination process under the warrant will govern content access; consult with Crown about whether an additional general warrant under s.487.01 is needed before forensic examination.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "A warrant to seize devices implicitly includes authorization to access their contents — reviewing what is on the devices is necessary to confirm they are relevant to the offence and within the warrant scope.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "R. v. Fearon only applies to cell phones seized incident to arrest; for devices seized under a search warrant, police have full authority to access all content on scene without further authorization.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Faraday Bag Protocol for Mobile Devices",
+      "situation": "You are ready to physically seize the two locked smartphones. Both are on and locked — one shows a notification on the screen. You are aware that locked smartphones can receive remote wipe commands via mobile device management software or third-party apps like Apple's Find My or Google's Find My Device. If the device receives a network connection, a wipe command could destroy all evidence. Additionally, the suspect is in a patrol car outside and could potentially send a remote wipe command if he has a third device or access to a web interface.",
+      "question": "What is the correct procedure for seizing the smartphones?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Place each smartphone individually into a Faraday bag immediately upon picking it up — Faraday bags block all wireless signals (cellular, Wi-Fi, Bluetooth) preventing remote wipe; photograph the screen notification before bagging; do not attempt to unlock or interact with the device; label each bag as an exhibit with exhibit number, date, time, seizure location, and seizing officer's name.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Put the phones in airplane mode before bagging them — this is equivalent to a Faraday bag and is simpler; unlocking the phones first to confirm they belong to the suspect is also acceptable.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Smartphones can be bagged in standard paper evidence bags; Faraday bags are an unnecessary precaution since modern phone encryption makes remote wiping irrelevant once a phone is locked.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "NAS Device Seizure",
+      "situation": "Smartphones are secured in Faraday bags. You now approach the NAS device. It has three drive bays, a power LED, and a network LED that is actively blinking, indicating it is processing requests. A NAS is a specialized computer that serves files over the network. It may contain the primary evidence in this fraud case — financial records, communication logs — but it is also: (1) currently running and potentially accessible remotely over the internet; (2) running a proprietary operating system that forensic tools must handle carefully; and (3) if shut down improperly, file system corruption could occur.",
+      "question": "How do you correctly seize the NAS device?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately disconnect the NAS's ethernet cable from the router to cut off remote access without powering it down; photograph it running and connected; contact your digital forensics unit immediately for guidance on proper shutdown procedure for this specific NAS model before powering it off; document the blinking network activity as noted pre-seizure; seize the entire unit as a single exhibit including all drive bays intact — do not remove individual drives on scene.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the individual hard drives from the NAS bays on scene for easier transport — NAS drives are standard hard drives and each should be logged as a separate exhibit.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the NAS powered on and connected to the internet so the forensics team can access it remotely from the lab — this avoids any risk of improper shutdown and maintains the device in its original operational state.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Chain of Custody Documentation",
+      "situation": "All devices are seized: the laptop, both smartphones (in Faraday bags), two external hard drives, and the NAS device. You now need to complete exhibit documentation and transfer everything to the digital forensics unit. Chain of custody documentation is a critical requirement for admissibility — any break or ambiguity in the chain of custody can be used by defence counsel to challenge the integrity of the evidence. Every person who handles an exhibit must be documented.",
+      "question": "What does complete chain of custody documentation require for each seized device?",
+      "options": [
+        {
+          "label": "A",
+          "text": "For each exhibit: assign a unique exhibit number; photograph and describe the device including make, model, serial number, and any identifying marks; record the exact location found, time of seizure, and name of seizing officer; complete an exhibit tag attached to the packaging; complete a property receipt; record every transfer between officers in the exhibit log; and deliver all devices to the digital forensics unit with a signed transfer form — each receiving officer must sign the chain of custody log.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "A single group exhibit entry covering all electronic devices is sufficient — listing each device separately is unnecessarily bureaucratic and slows the investigation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Serial numbers are not required for exhibit documentation because defence counsel cannot dispute the identity of a device that is in police custody; only the device type and the date of seizure need to be recorded.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "You correctly photographed all devices in situ before touching them, applied R. v. Fearon by recognizing that warrant authorization to seize does not automatically authorize content review on scene, placed smartphones in Faraday bags to prevent remote wipe without attempting to unlock them, disconnected the NAS from the network while consulting forensics before shutdown, and completed thorough chain of custody documentation for every exhibit. Key lessons: R. v. Fearon and subsequent case law require careful analysis of what a warrant authorizes regarding device content; Faraday bags are essential for wireless-capable devices to prevent remote wiping; NAS devices require specialist forensics guidance before shutdown to avoid file system corruption; and individual chain of custody documentation for each device is required for admissibility.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

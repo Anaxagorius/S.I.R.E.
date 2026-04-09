@@ -1,0 +1,134 @@
+{
+  "title": "scenario_cryptocurrency_seizure",
+  "description": "Officers execute a search warrant at a suspected fraud operation and discover cryptocurrency wallets on devices; they must properly seize and preserve digital assets as evidence.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["cryptocurrency", "digital asset seizure", "search warrant", "Bitcoin", "blockchain", "financial crime"],
+  "timeline": [
+    { "index": 0, "title": "Warrant Execution Begins", "description": "Officers enter the premises and begin the search under the warrant.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Crypto Assets Identified", "description": "Hardware wallets and hot wallets on computers are discovered.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Hardware Wallet Seizure Protocol", "description": "Hardware wallets are seized using proper physical handling to avoid key destruction.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Hot Wallet Preservation", "description": "On-screen wallet information is photographed and device is isolated before shutdown.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Digital Forensics Engagement", "description": "Digital forensics unit is engaged to image devices and access wallet contents.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Criminal Code Property Seizure", "description": "Cryptocurrency is processed under Criminal Code proceeds of crime and property seizure provisions.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Entering the Premises",
+      "situation": "You are leading a search warrant execution at a commercial unit suspected of operating a large-scale online investment fraud. The warrant, obtained under Criminal Code s.487, authorizes the search and seizure of computers, electronic devices, financial records, and proceeds of crime. Upon entry, your team secures three occupants. You observe multiple desktop computers running, several USB devices plugged in, and — prominently on one desk — two Ledger hardware wallets (small USB-sized cryptocurrency storage devices) alongside a notebook with what appears to be a seed phrase written on it.",
+      "question": "What is your immediate priority regarding the hardware wallets and the notebook?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not touch the hardware wallets yet — instruct all team members not to interact with them; immediately seize and bag the notebook as a priority exhibit since the written seed phrase represents the master key to the wallet funds and its loss or destruction would permanently prevent access to the assets.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Plug the hardware wallets into the nearest computer to see what cryptocurrency is stored on them before bagging them — this confirms whether they are relevant to the fraud before committing to seizing them.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the hardware wallets and notebook for last — securing the occupants and computers is the priority and small USB devices are unlikely to hold significant evidence.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Identifying Cryptocurrency Assets",
+      "situation": "The notebook is secured. You now inventory what you have found. In addition to the two Ledger hardware wallets, one of the running computers has an open browser showing a web-based 'hot wallet' interface (a cryptocurrency exchange account) displaying a balance. A second computer has a desktop application wallet open. You understand that hardware wallets store private keys offline, while hot wallets and exchange accounts are internet-connected. Each requires different handling to preserve the digital assets without inadvertently destroying access to them.",
+      "question": "How do you correctly categorize and plan the seizure of each type of asset?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Categorize assets as: (1) hardware wallets — offline devices requiring Faraday bag seizure and careful physical handling with no PIN entry attempts; (2) exchange hot wallet — browser session must be photographed immediately before screen locks or session expires, then device isolated from internet before shutdown; (3) desktop application wallet — screen photographed, device isolated, then powered down for forensic imaging — document all wallet addresses visible on screen.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "All three wallet types are essentially the same — bag all devices, shut everything down immediately, and let the forensics lab sort out the details; speed of seizure is more important than specific wallet-type protocols.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Only the exchange hot wallet is relevant since it is the only one actively showing a balance; hardware wallets and offline application wallets cannot hold meaningful assets relevant to a fraud investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hardware Wallet Seizure Protocol",
+      "situation": "You are ready to seize the two Ledger hardware wallets. These devices store private keys and are PIN-protected. If the wrong PIN is entered too many times, the device will wipe itself. If the device is exposed to strong magnetic fields or static electricity, data integrity may be compromised. The devices must be seized in a way that preserves their physical integrity, prevents wireless communication (some have Bluetooth), and does not trigger security mechanisms.",
+      "question": "What is the correct physical seizure procedure for the hardware wallets?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Place each hardware wallet individually into a Faraday bag to block any wireless signals, seal and label the bags as exhibits with unique exhibit numbers, photograph the wallets in situ before bagging, do not attempt to power them on or enter any PIN, and document any visible wallet addresses or identifiers on the device casing — chain of custody documentation must accompany each exhibit.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Ask the suspect in custody for the PIN to the hardware wallets before seizing them — if they provide the PIN voluntarily, you can document the balance on scene, which is better evidence than a later forensic report.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hardware wallets are consumer electronics and can be seized like any other USB device — place them in a standard evidence bag with other electronics; Faraday bags are only required for smartphones, not cryptocurrency hardware.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Hot Wallet and Live Session Preservation",
+      "situation": "The hardware wallets are secured. You now approach the computer showing the open browser-based exchange hot wallet. The screen displays an account with a significant cryptocurrency balance and recent transaction history. Exchange sessions are typically authenticated by cookies and will expire if the session is disrupted or if the browser is closed. Shutting down the computer immediately would likely end the session and you would lose the ability to document the balance and transaction history without a separate production order to the exchange.",
+      "question": "How do you preserve the hot wallet session evidence without compromising device integrity?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Photograph the live screen in detail, capturing the account balance, wallet addresses, transaction history, and any visible account identifiers; disconnect the computer from the internet (unplug ethernet, disable Wi-Fi) to prevent remote access or asset transfer without ending the session; then continue with forensic imaging — note all actions in the exhibit log.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately log out of the exchange account and shut down the computer to prevent the suspect from remotely accessing it later — session security outweighs the value of the displayed balance information.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the computer running and connected to the internet so the forensics team can access it remotely later — touching the device before the forensics team arrives could constitute tampering.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Engaging Digital Forensics and Legal Seizure",
+      "situation": "All assets are preserved. You now need to engage the digital forensics unit and ensure the cryptocurrency assets are processed correctly under Canadian law. Cryptocurrency is property under the Criminal Code and can be subject to seizure as proceeds of crime under s.462.32 or as evidence. However, simply holding hardware wallets does not constitute a legal seizure of the cryptocurrency itself — the assets must eventually be transferred to a Crown-controlled wallet or managed by a court-supervised process, and the chain of custody must withstand Charter scrutiny.",
+      "question": "What are the correct next steps for the forensics engagement and legal seizure of the cryptocurrency?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Submit all seized devices to the digital forensics unit with detailed exhibit notes and a brief explaining the wallet types; consult with Crown counsel and financial crimes investigators regarding a restraint order under Criminal Code s.462.33 to legally freeze the identified cryptocurrency assets; document all wallet addresses on the blockchain ledger for ongoing transaction monitoring — do not move the assets without Crown guidance and court authorization.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Transfer the cryptocurrency to a police-controlled wallet immediately to prevent the suspect from accessing it remotely — speed of asset transfer is more important than court authorization when dealing with digital assets that can be moved instantly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Cryptocurrency is not recognized as property under the Criminal Code and cannot be legally seized; document the existence of the wallets in the occurrence report and release them to the suspect pending a civil forfeiture application.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "You correctly prioritized seizing the written seed phrase as a critical key artifact, categorized hardware wallets, hot wallets, and desktop wallets with appropriate handling protocols for each, used Faraday bags for hardware wallets without attempting PIN entry, photographed the live hot wallet session before disconnecting from the internet, engaged digital forensics with proper exhibit documentation, and consulted Crown counsel regarding a Criminal Code s.462.33 restraint order. Key lessons: never attempt to access hardware wallets on scene; live session data must be photographed before network isolation; and cryptocurrency asset seizure requires Crown involvement and judicial authorization — unauthorized transfer of crypto assets, even to police-controlled wallets, can undermine admissibility.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
