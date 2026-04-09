@@ -1,0 +1,134 @@
+{
+  "title": "scenario_student_discloses_abuse",
+  "description": "During a quiet moment after class, a Grade 6 student discloses to their teacher that a family member has been hurting them. As a mandatory reporter, the teacher must receive the disclosure appropriately, understand their reporting obligations, contact Child Protective Services, involve administration, and support the student — all without conducting an investigation or confronting the family.",
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["child abuse", "mandatory reporting", "disclosure", "CPS", "child protection", "trauma-informed", "documentation"],
+  "timeline": [
+    { "index": 0, "title": "Student Approaches Teacher", "description": "A student lingers after class and begins to disclose a troubling situation at home.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Teacher Receives Disclosure", "description": "The teacher listens carefully and receives the disclosure using appropriate techniques.", "timeOffsetSec": 120 },
+    { "index": 2, "title": "Teacher Responds to Disclosure", "description": "The teacher responds in a way that supports the student and preserves the integrity of any future investigation.", "timeOffsetSec": 300 },
+    { "index": 3, "title": "Mandatory Reporting Decision", "description": "The teacher acts on their obligation as a mandatory reporter.", "timeOffsetSec": 600 },
+    { "index": 4, "title": "Contacting Child Protective Services", "description": "The teacher makes the report to child protection authorities.", "timeOffsetSec": 900 },
+    { "index": 5, "title": "Admin Involvement and Student Support", "description": "Administration is informed and supports are arranged for the student.", "timeOffsetSec": 1200 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "The Disclosure Begins",
+      "situation": "After the last class of the day on a Wednesday, all the other Grade 6 students have left. Mia, an 11-year-old student, approaches your desk looking nervous. She says: 'Can I ask you something? It's kind of private.' You notice Mia has had several unexplained absences this month and has seemed more quiet and withdrawn than usual. When you invite her to speak, she says slowly: 'My uncle has been doing things to me at home when my mom is at work... and I don't like it. He said if I told anyone, bad things would happen to our family.' She stops and looks at you with wide, fearful eyes, clearly uncertain whether she has done the right thing by speaking.",
+      "question": "How do you create the right environment and begin receiving this disclosure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stay calm, lower your body to her level if possible, and maintain a warm, steady expression — your calm signals to Mia that what she has shared has not frightened or overwhelmed you. Say something like: 'Mia, I am really glad you felt you could tell me this. You are not in trouble and you have done nothing wrong.' Stay in a place that is private but ensure the room door remains partially open or that you are visible through a window for appropriate safeguarding. Do not take notes in front of her during the disclosure — your full attention should be on her. Do not prompt her for more details than she freely offers.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Mia that before she says anything more, she needs to understand that as a teacher you are required to share everything she tells you, so she should think carefully about whether she wants to continue — full informed consent before disclosure respects her autonomy.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Pull out a notepad and begin writing down everything Mia says verbatim, ask her to slow down and repeat details, and ask clarifying questions about exactly what her uncle did, when it happened, and how many times — thorough documentation at this stage is critical for any future legal proceedings.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Receiving the Disclosure — What to Say",
+      "situation": "Mia has continued speaking in halting sentences. She has said that her uncle 'touches her in places he shouldn't' and has done so multiple times over the past two months when her mother is not home. She is trembling slightly. She says she has not told her mother because she is afraid her mother won't believe her and that it will break up the family. She asks you directly: 'Are you going to tell my mom?'",
+      "question": "What is the appropriate way to respond to what Mia has shared and to her question?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue with a warm, believing response: 'Mia, I believe you. What you're describing is not okay, and none of this is your fault.' Do NOT promise confidentiality — you cannot keep this secret. Be honest but gentle: 'I care about you and I have to make sure you're safe. That means I need to talk to some people whose job it is to help kids in situations like yours — not to get your uncle in trouble, but to make sure you are protected.' Do not promise exactly what will happen next, as child protection processes are unpredictable. Do not ask 'why did you let this happen' or any question that could be interpreted as blame.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Mia you will keep her disclosure completely confidential between the two of you, because you don't want to betray her trust and you want to gather more information before deciding whether this rises to the level that needs to be reported.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask Mia whether she might be misinterpreting her uncle's behaviour, as adults sometimes touch children innocently (bathing, medical care) and a formal report could destroy a family relationship if based on a misunderstanding.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Mandatory Reporter Obligations — No Discretion",
+      "situation": "Mia has finished sharing what she is comfortable sharing for now. She seems somewhat relieved but also very scared. The school day is officially over. Your vice principal, Mr. Patel, is in the building and you know the school counsellor, Ms. Nguyen, is preparing for a meeting. Mia's mother will be expecting Mia home soon. You are clear in your mind about what you have heard. A colleague who overheard part of the conversation in the hallway approaches you after Mia steps into the washroom and says, 'Maybe don't report yet — let's talk to the principal and get more information first before involving Children's Aid.'",
+      "question": "What is the correct course of action regarding your mandatory reporting obligation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "You must make a report to your provincial child protection authority (e.g., Children's Aid Society) today — now. Mandatory reporting obligations in every Canadian province are personal, direct, and immediate: they do not require you to first consult the principal, gather more evidence, or determine whether the abuse 'definitely' occurred. The threshold for reporting is reasonable grounds to suspect — not proof. You have more than met that threshold. Do not delay because of the colleague's suggestion. Inform Mr. Patel as a courtesy (not as permission) while you or the counsellor simultaneously makes the call to child protection.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Consult with the principal and legal counsel before making any report to Children's Aid, as a premature or unfounded report could have serious consequences for the family and for the school's relationship with the community.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact Mia's mother first to give her an opportunity to address the situation within the family before external authorities are involved — a family-first approach may resolve the issue without the trauma of a child protection investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Making the Report to Child Protection",
+      "situation": "You are calling the Children's Aid Society intake line. Ms. Nguyen is with Mia in a nearby room so Mia is not alone. You have the school's Child Protection reporting form in front of you. The CAS intake worker answers and asks you to describe the situation. You need to provide the relevant information clearly and accurately.",
+      "question": "What information do you provide and what should you avoid doing?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide the intake worker with: Mia's full name, age (11), date of birth, home address if known, school name and your contact information. Describe what Mia disclosed in her own words as closely as possible, without embellishing or interpreting — 'The student stated that her uncle touches her in places he shouldn't, and that this has happened multiple times when her mother is not home.' Provide any observable indicators (withdrawal, absences). Do NOT conduct your own investigation before or after the call — your role is reporter, not investigator. Follow the intake worker's instructions precisely, including whether to inform the mother before CAS visits.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Before calling CAS, conduct a more thorough interview with Mia to get a comprehensive, detailed account of every incident, as the CAS worker will want as much specific information as possible and a vague report may not trigger an investigation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call Mia's uncle directly to inform him that a report has been made, as he has the right to know before CAS arrives so he can prepare himself — fairness and transparency are important values even in difficult situations.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Admin Involvement and Supporting Mia",
+      "situation": "The CAS report has been made. The intake worker has advised you not to contact Mia's mother until CAS has had a chance to review the file — they may be dispatching a worker today. Mr. Patel has been informed. Mia is still with Ms. Nguyen. Mia is asking if she can go home now, as she is worried her mother will wonder why she is late. Mia also asks tearfully: 'Did I do the right thing by telling you?'",
+      "question": "How do you support Mia and manage the immediate school-side response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reassure Mia genuinely and without reservation: 'Yes, Mia, you absolutely did the right thing. It took so much courage to tell me, and I am proud of you.' Do not allow Mia to leave school until CAS has provided guidance on next steps for today — this may mean Ms. Nguyen or another trusted adult sits with her while her safety plan is confirmed. Ensure Mr. Patel is fully briefed so he can support the process and manage any parent or staff interactions. Complete your written documentation of the disclosure (using Mia's own words, not your interpretations) and your CAS report details as soon as possible today while your memory is fresh. Treat all information as strictly confidential.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Allow Mia to go home as usual so as not to raise her uncle's suspicion before CAS can investigate — keeping her routine normal protects the integrity of the CAS investigation and prevents the uncle from being alerted.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the school office staff what Mia disclosed so they are aware of the situation and can monitor Mia's arrivals and behaviour going forward — the more staff who know, the better Mia can be supported.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "CAS dispatched a worker who met with Mia and her mother that evening. A safety plan was put in place. The school connected Mia with ongoing counsellor support and monitored her wellbeing closely in subsequent weeks. Key training takeaways: (1) The threshold for reporting is 'reasonable grounds to suspect' — not certainty, not proof, and not a requirement to investigate yourself. (2) Every teacher in Canada is a mandatory reporter and this obligation is personal — it cannot be delegated to the principal. You cannot be held liable for a good-faith report that turns out to be unfounded. (3) NEVER conduct your own investigation — repeated or leading questions contaminate disclosures and can undermine legal proceedings. (4) NEVER promise confidentiality to a student before you know what they will share. (5) NEVER contact the alleged abuser, the parent (if they may be involved), or anyone not directly needed in the immediate response. (6) Documentation should use the student's own words and be completed immediately. (7) 'Need to know' confidentiality — only those directly involved in the student's safety should be informed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

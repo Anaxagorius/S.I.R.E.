@@ -1,0 +1,134 @@
+{
+  "title": "scenario_unauthorized_pickup_attempt",
+  "description": "An adult arrives at the school office requesting to pick up a Grade 3 student. The adult is not on the student's authorised pickup list and claims to be a relative. As the office administrator, you must verify identity, check authorisation, manage an insistent adult, escalate to the VP, contact the custodial parent, and call police if necessary — all while keeping the student safely in class.",
+  "category": "Education",
+  "difficulty": "Beginner",
+  "tags": ["unauthorised pickup", "student safety", "custody", "office administration", "police", "de-escalation", "authorised contacts"],
+  "timeline": [
+    { "index": 0, "title": "Adult Arrives at Office", "description": "An unfamiliar adult arrives at the school office requesting to pick up a student.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Identity Check", "description": "The office administrator requests and verifies the adult's identification.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Authorisation Check", "description": "The administrator reviews the student's pickup authorisation records.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Adult Becomes Insistent", "description": "The adult becomes agitated and insistent when told they are not on the authorised list.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Escalation to VP", "description": "The situation is escalated to the vice principal for support.", "timeOffsetSec": 600 },
+    { "index": 5, "title": "Police Involvement", "description": "The VP and administrator decide whether and when to involve police.", "timeOffsetSec": 900 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Unknown Adult at the Counter",
+      "situation": "It is 2:30 PM on a Friday afternoon, 45 minutes before regular dismissal. You are the school office administrator. A man you do not recognise approaches the counter and says: 'I'm here to pick up Lily Chen from Mrs. Park's class — I'm her uncle.' He is calm and seems confident. He does not produce any identification. You have Lily's student file at your workstation. You check quickly and his name does not appear on her emergency contacts or authorised pickup list, which includes only her mother, Ms. Chen, and one other woman named Karen Lee.",
+      "question": "What is your immediate first step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Politely and professionally ask the man for government-issued photo identification before doing anything else: 'No problem — I just need to see some photo ID first, please.' This is standard school policy for anyone picking up a student and applies to everyone, not just unfamiliar adults. Do not retrieve Lily from class while his identity and authorisation are unconfirmed. Keep the interaction calm and matter-of-fact — this is routine procedure, and stating it that way reduces defensiveness. Review the pickup authorisation records while he produces his ID.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Call Lily down from class immediately and let her confirm whether she recognises the man — if she says he is her uncle, that is sufficient confirmation to release her to him, as children generally know their own family members.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Release Lily to the man since he has given her full name and knows her classroom, which indicates he has detailed knowledge of the student and is likely telling the truth about being a family member.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Identity Confirmed — Checking Authorisation",
+      "situation": "The man has produced a driver's licence. His name is David Huang. You have confirmed his identity is as stated. You now check Lily's student file carefully: the authorised pickup list has two names — Ms. Alice Chen (mother, primary contact) and Karen Lee (listed as family friend). David Huang is not on the list. There is no note in the file about any changes to pickup authorisation, no custody order on file, and no standing instruction from Ms. Chen authorising anyone else. David says: 'Alice knows I'm coming — she asked me to pick up Lily today. She's busy with work.'",
+      "question": "What is the correct response based on the authorisation check?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain to Mr. Huang calmly and professionally: 'Thank you for the ID — I appreciate your patience. I can see that your name isn't on Lily's authorised pickup list, so I'm not able to release her without confirmation from her mother. I'll try to reach Ms. Chen right now to verify and, if she confirms, we'll update the list and you can take Lily right away.' Attempt to call Ms. Chen immediately using the contact numbers in the file. Do not release Lily under any circumstances until verbal confirmation from the custodial parent is received and documented. Do not let Mr. Huang's explanation substitute for actual confirmation.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Accept Mr. Huang's explanation that Ms. Chen knows he is coming, release Lily to him, and send a note home asking Ms. Chen to update the authorised pickup list at her earliest convenience.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask Mr. Huang to wait while you check with Lily's classroom teacher, Ms. Park, who may know whether Ms. Chen mentioned sending someone different today — teachers often receive this kind of informal communication from parents.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Adult Becomes Insistent",
+      "situation": "You have tried calling Ms. Chen — there is no answer on her mobile phone. You left a voicemail. Mr. Huang has been waiting approximately 10 minutes and is visibly frustrated. His tone is shifting: 'This is ridiculous. She is my niece. I've picked her up before. You're making a huge deal out of nothing. Just get Lily.' He is now leaning over the counter slightly and speaking more loudly. Other parents in the waiting area are watching. You are alone at the counter — the VP and another staff member are in the building.",
+      "question": "How do you respond to the escalating adult?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remain calm, steady, and professional — do not raise your voice or become apologetic in a way that signals uncertainty. Use a clear, empathetic but firm response: 'Mr. Huang, I understand this is frustrating and I can hear that you care about Lily. Our policy exists to protect all children, including her. I haven't been able to reach Ms. Chen yet, and until I do, I'm not able to release Lily to anyone not on her authorised list — that's a firm school policy that applies to everyone. I'm still trying to reach her.' Press the silent staff alert button or call the VP's extension to have support come to the office. Do not argue or escalate your own tone.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Apologise to Mr. Huang for the inconvenience, explain that the policy is not your personal decision, and bring Lily down so she can speak with him through the office window — this compromise protects Lily while showing good faith to Mr. Huang.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Raise your voice and firmly tell Mr. Huang that if he does not calm down immediately, you will have him removed from the building — responding with clear authority will de-escalate the situation and demonstrate that the school takes its policies seriously.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "VP Escalation",
+      "situation": "The VP, Ms. Marchetti, has arrived in the office. Mr. Huang is now claiming that he and Ms. Chen are in the middle of a custody dispute and that he has 'rights' to pick up Lily. He is producing what appears to be a printed document from his bag, claiming it is a court order. He has raised his voice again and is demanding to see the principal. Ms. Marchetti recognises this as a potentially complex legal and safety situation. The document he is showing does not have an official court seal visible from the counter.",
+      "question": "How does the VP handle the custody claim and the document?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ms. Marchetti greets Mr. Huang calmly and takes the lead. She asks to see the document. She notes that school policy requires any custody order affecting pickup rights to be on file in advance, verified by the board's legal team — a document produced at a counter during a disagreement cannot be acted upon immediately. She states clearly: 'If there is a custody order that grants you pickup rights, we will absolutely honour it — but we need to verify it first. Today, without prior verification, I am not able to release Lily.' She continues attempting to reach Ms. Chen. She makes note of Mr. Huang's claim and document details for the incident log.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Accept the document at face value — if it appears to be a legal custody order naming Mr. Huang, the school has a legal obligation to comply and release Lily to avoid obstructing a court order.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Bring Lily to the office so she can speak with Mr. Huang through the door — if she expresses that she is willing to leave with him, this demonstrates she is not in danger and the school can release her with reduced liability.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "When to Call Police",
+      "situation": "Mr. Huang has refused to leave the office. He is now standing in the doorway of the inner office, blocking the entrance, and saying loudly: 'I'm not leaving without Lily.' Ms. Chen has still not called back. The school cannot confirm his custody claim. Lily is unaware of the situation and is still in her classroom. Ms. Marchetti has determined that police must be called. The school day ends in 15 minutes and other parents are beginning to arrive.",
+      "question": "How do you manage the police call and protect Lily until resolution?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Call 911. Mr. Huang is now physically blocking access to the school office and refusing to leave — this constitutes trespassing and has created an immediate safety concern. Call 911 and report: 'An adult who is not on a student's authorised pickup list is refusing to leave our school office and may be involved in a custody dispute. We have not released the child. We need police assistance.' Ensure Lily remains in her classroom with her teacher — do NOT bring her to the office. Have another staff member quietly monitor the main exits. Ensure all other students' dismissal proceeds safely and calmly from an alternate area if needed.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Release Lily to Mr. Huang to diffuse the situation — a calm resolution that avoids a confrontation in front of other students and families is in everyone's best interest, and Lily can be kept safe if she is with an adult family member.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait until the school day ends in 15 minutes and all other students have been dismissed before calling police, as a police response during peak dismissal would cause chaos, panic among parents, and could traumatise students.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Police arrived within minutes. Mr. Huang was found not to have any valid custody order entitling him to pick up Lily. Ms. Chen was reached by police and confirmed she had not sent Mr. Huang and did not want him to have access to Lily. Lily was safely released to her mother at dismissal. A full incident report was completed. Key training takeaways: (1) NEVER release a student to anyone not on the authorised pickup list, regardless of their explanation, relationship claim, or emotional state. (2) Verbal confirmation from the custodial parent over the phone is the minimum required before releasing to an unlisted adult — and should be documented immediately. (3) Never bring the student to the office to 'meet' the unverified adult — keeping the student in class protects them and prevents manipulation. (4) A document produced on the spot is not sufficient to override school policy — custody orders must be pre-verified and on file. (5) Call 911 when an adult refuses to leave, becomes threatening, or when a custody dispute is actively occurring on school premises — police are equipped to handle this; school staff are not. (6) Your calm, firm, consistent communication protects both the student and the school from serious harm and legal liability.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

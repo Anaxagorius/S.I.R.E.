@@ -1,0 +1,134 @@
+{
+  "title": "scenario_student_self_harm_ideation",
+  "description": "A student's peer reports to a teacher that the student has been talking about wanting to hurt themselves. As the teacher, you must respond appropriately, engage the student with care, involve the school counsellor, notify parents, and help establish a safety plan — all while following safe messaging guidelines.",
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["self-harm", "mental health", "suicide ideation", "safe messaging", "counsellor", "safety plan", "mandatory reporting"],
+  "timeline": [
+    { "index": 0, "title": "Peer Report Received", "description": "A student approaches a teacher to report that their friend has been talking about wanting to hurt themselves.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Teacher Meets with Student", "description": "The teacher arranges a private conversation with the student in question.", "timeOffsetSec": 300 },
+    { "index": 2, "title": "Risk Assessment Conversation", "description": "The teacher engages the student using supportive, safe messaging guidelines.", "timeOffsetSec": 600 },
+    { "index": 3, "title": "Contacting VP and Counsellor", "description": "The teacher involves school administration and the school counsellor.", "timeOffsetSec": 900 },
+    { "index": 4, "title": "Parent Notification", "description": "The school counsellor and administration prepare to notify the student's parents.", "timeOffsetSec": 1200 },
+    { "index": 5, "title": "Safety Plan", "description": "A collaborative safety plan is developed with the student, counsellor, and family.", "timeOffsetSec": 1800 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Peer Report — Taking it Seriously",
+      "situation": "After class on a Tuesday afternoon, Destiny, a Grade 9 student, lingers behind looking anxious. She quietly tells you that her best friend, Kayla, has been saying things like 'I wish I wasn't here anymore' and 'everyone would be better off without me.' Destiny says Kayla has been withdrawing from friends, skipping lunch, and mentioned 'having a plan' — though Destiny isn't sure exactly what that means. Destiny begs you not to tell anyone because Kayla made her promise to keep it secret, and she is worried Kayla will be angry at her for telling.",
+      "question": "How do you respond to Destiny's report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Thank Destiny sincerely and tell her she did exactly the right thing by coming forward — that being a good friend means getting help, even if it feels like breaking a secret. Reassure her that you take this seriously and that your role is to keep Kayla safe. Explain clearly that you cannot keep this confidential because Kayla's safety is at stake, but that you will be as supportive and discreet as possible. Do not dismiss or minimise what Destiny shared. Ask Destiny if she knows where Kayla is right now so you can locate her, and then send Destiny to class or to a trusted space while you act.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Reassure Destiny that it sounds like Kayla is probably just going through a rough patch and venting — teenagers often say dramatic things without meaning them literally. Ask Destiny to keep a closer eye on Kayla and to come back to you only if things get more serious.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Promise Destiny you will keep her report confidential as she asked, and approach Kayla yourself casually in the hallway without involving administration or the counsellor, to preserve the trust-based relationship you have with both students.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Finding Kayla and Initiating a Private Conversation",
+      "situation": "You have located Kayla in the library, sitting alone and looking withdrawn. You approach and ask if you can speak with her privately. She agrees and you find a quiet room with a window in the door — private but visible for safety. Kayla is guarded initially but has agreed to talk. You are aware that how you open this conversation will significantly affect whether she opens up. You do not want to frighten her, trigger defensiveness, or cause her to shut down.",
+      "question": "How do you begin the conversation with Kayla?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin by expressing genuine care: 'Kayla, I wanted to check in with you because I care about you and I've noticed things seem hard lately. I want you to know you're not in trouble at all — I just want to make sure you're okay.' Use open-ended, non-judgmental questions: 'How have you been feeling lately?' Listen actively without interrupting, avoid minimising her feelings, and do not express shock or alarm at what she shares. Make eye contact, use her name, and validate her emotions: 'That sounds really painful. Thank you for trusting me with that.'",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Ask Kayla directly and immediately, 'I heard you told Destiny you want to hurt yourself — what exactly do you mean by that? What is your plan?' — as direct, specific questioning is most efficient and gets the critical information quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Kayla upfront that Destiny came to you so she knows who told you, as honesty and transparency are the foundation of any trust-based student-teacher relationship, even in a crisis.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Safe Messaging — Asking the Critical Question",
+      "situation": "Kayla has opened up somewhat. She admits she has been feeling 'really hopeless' and that she has thought about 'not being here anymore.' She is tearful. She says she has not told her parents because they are going through a divorce and she doesn't want to add to their stress. You need to assess her level of risk. Safe messaging guidelines advise asking directly about suicidal thoughts, but caution against asking for elaborate detail about methods, as detailed discussions of method can be harmful.",
+      "question": "How do you conduct a risk assessment conversation with Kayla?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ask directly and calmly: 'Kayla, I want to ask you something important because I care about you — have you had thoughts of ending your life or hurting yourself?' This direct question does not increase risk — research shows it can provide relief. If she says yes, acknowledge it: 'Thank you for telling me. That takes real courage.' Ask 'Have you thought about how you might do it?' to assess plan/intent, but do NOT ask for step-by-step details or dwell on method. Assess whether she has access to the means she mentions. Tell her, honestly but gently, that you will need to involve the school counsellor to help keep her safe.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Avoid asking directly about suicide, as research shows that asking about suicide can plant the idea in a student's mind and increase the risk of them acting on it.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask Kayla to describe in detail exactly how she plans to hurt herself, what method she would use, and how long she has been planning it, so you have comprehensive information for the counsellor's report.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Involving the School Counsellor and VP",
+      "situation": "Kayla has confirmed she has had thoughts of suicide and has a vague plan. She is distressed but somewhat relieved to have spoken about it. You have told her you need to involve the school counsellor, Ms. Fontaine, and she is reluctantly accepting this. You must now contact Ms. Fontaine and the VP, Mr. Osei. Kayla has asked you to stay with her — she does not want to be alone right now. The school day ends in 45 minutes.",
+      "question": "How do you involve the counsellor and administration without leaving Kayla alone?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the room phone or your school radio to contact the front office and ask them to send Ms. Fontaine (the school counsellor) to your location immediately. Do not leave Kayla alone — a student who has disclosed suicidal ideation should not be left unattended. Stay with Kayla, continue the supportive conversation, and reassure her that the counsellor is there to help, not to punish. When Ms. Fontaine arrives, provide a private briefing outside the door (within sight of Kayla) before transitioning Kayla's care. Ensure Mr. Osei is informed by the office so administration is aware before parent contact is made.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Ask Kayla to wait in the room while you personally walk to the counsellor's office to explain the situation in detail — a face-to-face briefing will ensure the counsellor has full context before meeting Kayla.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Give Kayla the school counsellor's phone number and suggest she call or visit the counsellor herself, as empowering Kayla to take this step on her own will build her sense of agency and reduce the stigma she may feel about being 'sent' to the counsellor.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Parent Notification",
+      "situation": "Ms. Fontaine has taken over with Kayla and conducted a more thorough safety assessment. She agrees the risk level is significant and that parents must be notified today before Kayla leaves the building. Kayla is extremely resistant to her parents being called, saying her mother is 'falling apart' from the divorce and that telling her will 'make everything worse.' She is becoming more distressed. School policy and professional obligation require parent notification when a student's safety is at risk.",
+      "question": "How do you approach parent notification in this situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge Kayla's fears directly and validate her concern for her mother: 'I can hear how much you love your mom and want to protect her. That tells me a lot about who you are.' Explain honestly: 'My job — and Ms. Fontaine's job — is to make sure you're safe. That means we need to let your family know what you've shared so they can support you. We'll do this together, and we'll help you find the right words.' Ms. Fontaine contacts the parent/guardian by phone now, provides a calm and clear explanation of concerns, and arranges for Kayla to be picked up and connected with community mental health supports. Kayla must not leave school alone.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Respect Kayla's wishes and delay contacting her parents until tomorrow, when there is more time to prepare a proper plan — calling a parent in a panic at the end of the school day may cause more harm than good.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact Kayla's father instead of her mother, as the father may be better emotionally equipped to handle this information given that the mother is reportedly struggling — splitting the parental notification between the two divorced parents is more equitable.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Kayla's mother was contacted, came to the school, and was connected with the school counsellor. A community mental health referral was made and Kayla was assessed that evening. A safety plan was developed in collaboration with Kayla, her mother, and Ms. Fontaine. Key training takeaways: (1) ALWAYS take peer reports of suicidal ideation seriously — never dismiss statements like 'I wish I wasn't here' as venting. (2) You cannot promise confidentiality when a student's safety is at risk — be honest about this with both the reporting peer and the student. (3) Asking directly about suicide does NOT increase risk — research consistently shows that a calm, direct question can provide significant relief. (4) Do NOT leave a student who has disclosed suicidal ideation alone at any point before handing off to a counsellor. (5) Safe messaging guidelines advise asking about the existence of a plan and access to means, but NOT probing for detailed method descriptions. (6) Parent notification before the student leaves school is non-negotiable when there is a credible risk of self-harm — this protects both the student and the school.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

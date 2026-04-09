@@ -1,0 +1,134 @@
+{
+  "title": "scenario_student_allergic_reaction_epipen",
+  "description": "A student shows signs of anaphylaxis in the school cafeteria after eating. The school has the student's prescribed EpiPen on file. As a supervising teacher, you must recognise anaphylaxis, administer the EpiPen correctly, call 911, monitor for a second dose, and hand off to EMS.",
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["anaphylaxis", "EpiPen", "allergic reaction", "cafeteria", "epinephrine", "emergency", "EMS"],
+  "timeline": [
+    { "index": 0, "title": "Symptoms Appear", "description": "A student begins showing signs of a serious allergic reaction in the cafeteria.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Recognising Anaphylaxis", "description": "The supervising teacher assesses the severity of the reaction.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Locating and Administering EpiPen", "description": "The EpiPen is retrieved from secure storage and administered.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Calling 911", "description": "Emergency services are contacted following EpiPen administration.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Second Dose Decision", "description": "The teacher monitors the student and assesses whether a second EpiPen is needed.", "timeOffsetSec": 480 },
+    { "index": 5, "title": "EMS Handoff", "description": "Paramedics arrive and assume care of the student.", "timeOffsetSec": 720 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Student in Distress — Cafeteria",
+      "situation": "You are supervising the Grade 5 lunch period in the school cafeteria when Aiden, a 10-year-old student, approaches you looking frightened. He says he thinks he accidentally ate something with peanuts. You can see that his lips are beginning to swell, there is visible redness spreading across his face and neck, and he is scratching at his arms. His voice sounds slightly hoarse. You know from his student record that Aiden has a severe peanut allergy and has a prescribed EpiPen kept in the school office. Other students nearby are watching.",
+      "question": "How do you assess and categorise this situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recognise this as anaphylaxis, not a mild allergic reaction. The presence of throat/airway involvement (hoarse voice) combined with hives, swelling, and known allergen exposure meets the clinical threshold for anaphylaxis. Do not wait for symptoms to worsen. Immediately send a staff member or fast student runner to the office with a clear message: 'Get Aiden's EpiPen right now — he is having an anaphylactic reaction.' Stay with Aiden, keep him calm and seated (do NOT let him stand or walk — positional changes during anaphylaxis can cause cardiovascular collapse), and note the time.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Give Aiden an antihistamine tablet from the first aid kit first, as antihistamines are designed for allergic reactions and may be enough to control the symptoms before escalating to the EpiPen.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Take Aiden to the office yourself to access the EpiPen, as you are the only one who knows where it is stored and the most responsible person to retrieve it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "EpiPen Retrieved — Administering Epinephrine",
+      "situation": "The office has sent the EpiPen auto-injector to the cafeteria with the school secretary, Ms. Kowalski. The EpiPen has arrived. Aiden is now wheezing audibly and his lip swelling has worsened noticeably in the last two minutes. His skin is pale and clammy, suggesting circulatory involvement. He is frightened and says it is getting hard to breathe. The EpiPen is labelled with his name and the medication has not expired.",
+      "question": "How do you administer the EpiPen correctly?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remove the blue safety cap from the EpiPen. With your dominant hand, grip the auto-injector firmly in your fist (never place your thumb over the bottom). Press the orange tip firmly against Aiden's outer mid-thigh — it can be administered through clothing. Hold it in place with firm pressure until you hear a click, then continue holding for a full 10 seconds to ensure the full dose is delivered. Remove and massage the injection site for 10 seconds. Note the exact time of administration. Tell Aiden that help is coming and to stay seated and as calm as possible.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Administer the EpiPen into Aiden's upper arm, as this is the most common injection site and is more accessible than the thigh when the student is seated.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait a few more minutes before using the EpiPen to see if Aiden's symptoms stabilise on their own — epinephrine is a powerful medication and administering it unnecessarily could cause serious side effects.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Calling 911 After EpiPen Administration",
+      "situation": "You have successfully administered the EpiPen at 12:14 PM. Aiden appears slightly less distressed and his breathing has marginally improved. Ms. Kowalski is asking whether you still need to call 911 since he seems to be responding to the medication. A few students nearby overheard and one student says, 'My cousin used an EpiPen and was fine, he didn't need to go to hospital.' Aiden's mother works nearby and someone has suggested calling her to come pick him up instead.",
+      "question": "What do you do after administering the EpiPen?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Call 911 immediately. This is non-negotiable: every student who receives an EpiPen for anaphylaxis must be transported to hospital by ambulance, regardless of whether symptoms appear to improve. Epinephrine wears off within 15–20 minutes and biphasic anaphylaxis (a second wave of symptoms hours later) is a documented risk. Inform 911 that a child has received an EpiPen for anaphylaxis, provide your location, describe current symptoms, and state the time the EpiPen was administered. Do not allow the mother to transport Aiden by personal vehicle.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Call Aiden's mother to come pick him up and take him to their family doctor, since EpiPen administration is already the appropriate emergency treatment and hospital visits are costly, time-consuming, and may be unnecessary if he continues to improve.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Monitor Aiden in the nurse's office for 30 minutes. If he continues to improve, allow him to return to class and send a note home; if he deteriorates, call 911 at that point.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Monitoring — Is a Second EpiPen Needed?",
+      "situation": "911 has been called and EMS is 6 minutes away. You have been monitoring Aiden since the EpiPen was administered 8 minutes ago (12:14 PM, now 12:22 PM). Initially he seemed to improve, but in the last 2 minutes his breathing has become laboured again, the wheezing has returned, and he says his throat feels tight again. He is pale and appears frightened. The school keeps a second EpiPen on file for Aiden specifically labelled 'secondary dose.' The 911 dispatcher is still on the line.",
+      "question": "What do you do about a potential second EpiPen dose?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Administer the second EpiPen now. If symptoms are returning or not adequately controlled 5–10 minutes after the first dose and EMS has not yet arrived, a second dose of epinephrine is clinically appropriate. Administer it to the opposite thigh using the same technique. Tell the 911 dispatcher that you are administering a second EpiPen at 12:22 PM due to return of symptoms. Document the second administration time. Continue monitoring Aiden closely until EMS arrives and do not leave his side.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Do not give the second EpiPen — the first dose has already been given and you are concerned that two doses will cause an overdose or dangerous cardiac side effects. Wait for EMS to make this decision.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait until EMS arrives in 6 minutes before giving the second dose, as paramedics are better qualified to make medication dosing decisions and can provide superior monitoring during administration.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "EMS Arrival and Handoff",
+      "situation": "Paramedics have arrived and are assessing Aiden, who is responding to the second EpiPen. A paramedic is asking for a timeline of events. Aiden's mother has arrived at the school after being contacted by the office and is visibly distressed, asking why nobody called her first before giving her son medication. The EMS crew is preparing to load Aiden onto the stretcher. You have both used EpiPens in your hand.",
+      "question": "How do you manage the handoff to EMS and the interaction with Aiden's mother?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide EMS with a clear timeline: suspected allergen exposure at approximately 12:10 PM, first EpiPen administered at 12:14 PM, partial improvement then symptom return, second EpiPen administered at 12:22 PM, both used auto-injectors are here for the paramedics. Hand over both used EpiPens to EMS — this is standard practice. Calmly address Aiden's mother: explain that Aiden was in anaphylaxis and school protocol (and provincial health legislation) authorise staff to administer a prescribed EpiPen without waiting for parental consent in a life-threatening emergency. Offer to follow up with a full incident report.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Apologise to Aiden's mother for administering the EpiPen without her consent and acknowledge that you may have overstepped your authority as a school employee when dealing with her child's medical care.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Dispose of the used EpiPens in the sharps container in the nurse's office before EMS leaves, as used auto-injectors are a sharps hazard and should not be transported in public.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Aiden was transported by ambulance and received further treatment in the emergency department. He made a full recovery. The school subsequently updated its anaphylaxis emergency protocol and held a staff training refresher. Key training takeaways: (1) Anaphylaxis involves two or more body systems (skin + respiratory, or skin + cardiovascular) — when airway or circulation is involved, act immediately with epinephrine. (2) Antihistamines and inhalers do NOT treat anaphylaxis — epinephrine is the ONLY first-line treatment. (3) Always inject into the outer mid-thigh — through clothing is acceptable and the thigh provides faster absorption than the arm. (4) Hold the EpiPen in place for 10 full seconds after the click. (5) 911 is MANDATORY after every EpiPen administration — do not allow private vehicle transport. (6) A second dose is appropriate if symptoms return or do not improve within 5–10 minutes and EMS has not arrived. (7) Always hand the used EpiPens to EMS — they contain dosing and timing information needed for hospital treatment.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
