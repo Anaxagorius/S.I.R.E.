@@ -1,0 +1,164 @@
+{
+  "title": "scenario_school_lockdown_response",
+  "description": "A threat is reported at an elementary school requiring officers to initiate and manage a lockdown while coordinating with school administration and securing the scene.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["school lockdown", "threat response", "school safety", "coordination", "patrol"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Anonymous Threat Received",
+      "description": "An anonymous caller tells the school secretary that someone will 'hurt kids at the school today.' The school contacts police at 9:15 a.m.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Lockdown Initiated",
+      "description": "Officers arrive and consult with the principal. Lockdown protocol is activated. Students and staff shelter in classrooms with doors locked.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Perimeter Established",
+      "description": "Additional units establish an outer perimeter. Parents begin arriving after learning of the lockdown via social media.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 3,
+      "title": "Threat Assessment Underway",
+      "description": "Officers begin systematic assessment of the threat's credibility while the building remains in lockdown.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Building Cleared",
+      "description": "Search teams systematically clear the building and confirm no threat is present. All-clear is given.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Student Reunification",
+      "description": "Students are reunified with parents at a designated reunification site using a controlled, accountable process.",
+      "timeOffsetSec": 2400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Threat Call Received — Initial Response",
+      "situation": "You are a patrol officer dispatched to Maplewood Elementary School after an anonymous caller told the secretary: 'Someone is going to hurt kids at your school today.' The call was made at 9:10 a.m. You arrive at 9:18 a.m. The principal meets you at the front entrance. There are 340 students and 28 staff inside. The school has a lockdown protocol. No weapon or specific threat source has been confirmed. You must decide how to proceed with immediate actions.",
+      "question": "What is your immediate priority upon arriving at the school?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Direct the principal to initiate the school's lockdown protocol immediately while you request additional units and advise dispatch; position yourself at the main entrance to control access, prevent entry and exit, and gather initial information from the principal about any known threat indicators or suspicious persons observed this morning.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the principal to hold off on lockdown and first walk the hallways to assess the situation yourself, to avoid unnecessary disruption to students.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately evacuate all students to the parking lot so they are away from the building while you investigate the interior alone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Perimeter and Communication",
+      "situation": "Lockdown is in effect. Three additional units have arrived. Students and staff are sheltering in classrooms. Parents are beginning to arrive at the school perimeter after seeing social media posts from students who texted family members. A crowd of approximately 30 parents is forming at the front entrance, some demanding entry. You are the senior officer on scene. Your supervisor is en route and will arrive in 10 minutes.",
+      "question": "How do you manage the arriving parents and establish scene control?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign one officer to establish a physical perimeter keeping parents at least 50 metres from the entrance; have a second officer communicate calmly with parents explaining that a precautionary lockdown is in place, that students are safe and sheltering in classrooms, and that a reunification process will be established once the building is cleared — do not confirm threat details; coordinate a public message through the school board.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Allow parents who can identify their children to enter the school and collect them, to reduce crowd tension at the perimeter.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the parents for now and focus entirely on the interior, as the perimeter is a lower priority than locating the threat source.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Threat Assessment — Credibility Evaluation",
+      "situation": "Your supervisor has arrived and you begin a threat assessment. The school secretary provides a recording of the anonymous call. The voice sounds young — possibly a teenager or young adult. No specific location, name, or method was mentioned. The principal reports that a grade 6 student, 'Tyler,' was sent home yesterday after threatening a classmate, and his guardian was notified. Tyler is not present in school today. A teacher also reports seeing an unfamiliar adult male walking near the portable classrooms at 8:50 a.m.",
+      "question": "How do you prioritize the threat assessment with two potential leads?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pursue both leads simultaneously: dispatch an officer to contact Tyler's guardian to confirm his whereabouts and determine if he could be responsible for the call; separately, obtain a description of the unfamiliar male from the teacher and broadcast to all units conducting the exterior perimeter check — treat both as unresolved until confirmed otherwise, and maintain lockdown status throughout.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Focus exclusively on the unfamiliar adult male as the more serious threat and disregard the suspended student lead because he is not on school property.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Lift the lockdown now that a likely suspect has been identified, to restore normalcy before conducting further investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Building Clearance Protocol",
+      "situation": "Tyler's guardian confirms he is at home and has been there since last night. The unfamiliar male was not located during the perimeter check. Your supervisor authorizes a systematic building clearance. You have four officers available. The school has two floors, 24 classrooms, a gymnasium, a library, and a basement utility area. Tactical resources are not available — this will be conducted by patrol officers. You must plan the clearance.",
+      "question": "How do you organize the building clearance?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Organize officers into two-person teams for mutual cover; clear the building systematically from the basement upward and from exterior to interior, communicating cleared areas by radio; instruct staff to keep classroom doors locked until an officer physically knocks and verbally identifies themselves; do not rush — methodical clearance is safer than a fast incomplete sweep.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Have each officer independently clear a floor simultaneously to complete the sweep as quickly as possible and lift the lockdown sooner.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the principal to do a PA announcement asking students and staff to report anything suspicious, and use those reports instead of a physical sweep.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "All-Clear and Reunification Planning",
+      "situation": "The building has been cleared — no threat or weapon was found. Your supervisor authorizes an all-clear. Approximately 120 parents are now waiting outside. The school board communications officer is requesting guidance on the reunification process. You must establish a process to release students to their guardians in a controlled, accountable manner that ensures every child is released only to an authorized person.",
+      "question": "How do you organize the student reunification process?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Designate a reunification site away from the main entrance (e.g., the gym or a nearby community centre); require parents to show ID and sign out students; have school staff verify each child against the emergency contact list before release; assign officers to manage crowd flow and prevent unauthorized access to students; ensure all students are accounted for before declaring reunification complete.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Open the front doors and allow parents to come in and find their children in classrooms directly, which is faster and reduces the crowd outside.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Release students to any adult who approaches and verbally identifies a child by name, since verifying ID would take too long with a large crowd.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All 340 students were reunified safely with authorized guardians. The threat caller was later identified as a Grade 8 student from a nearby school acting on a dare. Key training takeaways: lockdown should be initiated immediately on a credible threat without awaiting confirmation; parents must be managed compassionately but firmly — premature access endangers students; threat assessment runs in parallel with lockdown, not instead of it; building clearance requires methodical two-person teams, not solo sweeps; reunification must use ID verification and sign-out to prevent unauthorized release of minors.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

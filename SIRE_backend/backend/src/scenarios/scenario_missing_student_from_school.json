@@ -1,0 +1,164 @@
+{
+  "title": "scenario_missing_student_from_school",
+  "description": "A 13-year-old student is discovered missing from school mid-day; officers investigate whether the absence is voluntary or indicates a safety concern.",
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["missing student", "school", "youth", "missing persons", "risk assessment", "patrol"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "School Reports Student Missing",
+      "description": "Ridgewood Middle School contacts police at 1:15 p.m. after discovering that Grade 8 student Lily did not return from the lunch period and has not been seen since noon.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officer Arrives at School",
+      "description": "The responding officer arrives and begins gathering information from school staff and administration about Lily's last known location and circumstances.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Witness and Record Review",
+      "description": "The officer interviews students who last saw Lily and reviews available school records including CCTV footage.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 3,
+      "title": "Risk Classification",
+      "description": "The officer conducts a formal risk assessment to determine whether Lily's absence is voluntary or whether she is at risk.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 4,
+      "title": "Parent Contact",
+      "description": "The officer contacts Lily's parents and gathers information about her home situation, relationships, and any recent behaviour changes.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Student Located",
+      "description": "Lily is located and the officer assesses her safety and next steps.",
+      "timeOffsetSec": 2400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Response to the School",
+      "situation": "You are dispatched to Ridgewood Middle School at 1:15 p.m. on a Wednesday in October. The vice-principal, Mr. Patel, reports that Lily, 13 and in Grade 8, did not return from the lunch period at 12:45 p.m. She was seen eating lunch with friends at noon. She has no history of skipping. A quick check of the school grounds by a teacher found no sign of her. Mr. Patel is visibly concerned. You must begin the investigation immediately.",
+      "question": "What are your immediate priorities upon arriving at the school?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confirm the details with Mr. Patel — exact last sighting time and location, description of clothing, who she was last with, and whether any staff noticed anything unusual; determine whether the school has CCTV coverage of exits; contact dispatch to have a missing youth file opened; begin identifying which students were with Lily at lunch as your first witnesses — treat this as a potential at-risk missing youth case until risk is formally assessed.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Mr. Patel to wait one more hour before involving police further, as most students who skip school return on their own within a few hours.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact Lily's parents immediately before gathering any information at the school, to let them know their daughter is missing.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Interviewing Witnesses and Reviewing CCTV",
+      "situation": "Two friends who ate lunch with Lily tell you she seemed upset during lunch and said 'I just want to go home.' She received a text message during lunch and went quiet afterward. She told them she was going to the washroom and never came back. CCTV footage from the school's front exit shows Lily leaving the building alone at 12:18 p.m. carrying only her jacket — no backpack. She turned left on the street outside. No one followed her.",
+      "question": "How do you use the witness accounts and CCTV to advance the investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document all witness observations and note the CCTV timestamp and direction of travel; the facts — emotional distress before leaving, leaving without her backpack, departing in response to a text — are significant risk indicators; obtain the CCTV footage as an exhibit; broadcast Lily's description and last known direction of travel to patrol units to begin area canvass; now prepare to conduct a risk classification to guide resource allocation.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Since Lily left voluntarily through the front door, classify this as a runaway case and reduce the urgency of the response until she contacts her parents.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the two friends to try texting Lily to find her location, as peer contact is more likely to get a response than police contact.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Risk Classification",
+      "situation": "You now have the following information: Lily is 13 years old; she left school mid-day without her backpack; she appeared emotionally distressed before leaving; she left after receiving a text; she has no history of skipping; she turned onto a residential street with no obvious destination; it is a cool October afternoon; and she has been missing for approximately one hour. You must formally classify her risk level to determine the level of police response required.",
+      "question": "How do you classify Lily's risk level and what does that determine?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Classify Lily as 'medium-to-high risk' based on her age (13 is a vulnerable age category), emotional distress before departure, absence of essential items suggesting unplanned exit, unknown reason for leaving, and no known safe destination — this classification requires active immediate search rather than a passive watch; escalate to supervisor, initiate a neighbourhood canvass of the route visible on CCTV, and contact her parents without further delay.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Classify Lily as low risk because she left voluntarily and was not reported to be in danger at the time she left — no police resources beyond a file creation are warranted yet.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait to classify the risk until you have spoken to her parents, as they may have information that changes the picture before you commit resources.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Contacting the Parents",
+      "situation": "You reach Lily's mother, Ms. Nguyen, by phone. She is immediately distressed. She tells you that Lily has been having significant conflict with a 16-year-old boy she met online named 'Cody,' who has been pressuring her. Ms. Nguyen saw messages on Lily's tablet last week that worried her — Cody was asking Lily to meet him in person. Ms. Nguyen had spoken to Lily about it but believed Lily agreed to stop contact. She is now frightened that Lily may have gone to meet Cody.",
+      "question": "How does this new information change your response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Elevate Lily's risk classification to high risk given the potential for an in-person meeting with an older online acquaintance who was pressuring her; ask Ms. Nguyen for any information about Cody — last name, social media profiles, any known location — and whether Lily has a phone and its number; request an emergency ping of Lily's phone from dispatch if the carrier can provide it; notify your supervisor and request additional units; document all new information immediately.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Ask Ms. Nguyen to check Lily's room and computer at home first before escalating the police response, as Lily may have gone home directly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise Ms. Nguyen to send Cody a message on social media to ask if he knows where Lily is, since contacting him directly through the family is faster than police-driven identification.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Locating Lily",
+      "situation": "A cell phone ping places Lily's phone at a coffee shop approximately 1.2 kilometres from the school. Two units respond and locate Lily inside. She is alone, sitting at a corner table, and appears to have been crying. A male who was with her left when police vehicles were observed outside, according to a witness. Lily is physically unharmed. You must now manage the reunion with her family and assess any further action required.",
+      "question": "How do you approach Lily upon locating her?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approach Lily calmly and privately without uniformed presence that could embarrass or further distress her; confirm she is physically safe; use a non-judgmental, open-ended approach to understand what happened and why she left; do not lecture her; gather a description of the male who fled for follow-up; contact Ms. Nguyen to confirm Lily is safe and arrange a safe handoff — assess whether a referral to victim services or youth mental health supports is appropriate given the circumstances.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately question Lily in detail about Cody and the male who was with her, using formal interview techniques, to gather evidence while the details are fresh.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reunite Lily with her mother immediately in the coffee shop and let the family handle the conversation about what happened, as this is now a family matter.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Lily was safely reunited with her mother. The male who fled was identified from the witness description and CCTV as a 17-year-old, Cody, with no criminal record. A further investigation was initiated regarding the online communications. Lily was referred to youth mental health services. Key training takeaways: voluntary departure does not mean low risk — context, age, and circumstances drive risk classification; a 13-year-old leaving school distressed without belongings warrants an active response, not a passive watch; new information from parents must immediately reassess risk level; cell phone pings are a key rapid-location tool; locating youth requires a calm, non-judgmental approach to maintain trust and gather accurate information.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

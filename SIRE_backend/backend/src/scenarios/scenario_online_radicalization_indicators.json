@@ -1,0 +1,134 @@
+{
+  "title": "scenario_online_radicalization_indicators",
+  "description": "A concerned parent reports that their 19-year-old son has been consuming extremist content online and showing behavioural changes; officers assess radicalization indicators using structured protocols.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["radicalization", "extremism", "online", "prevention", "intervention", "CSIS", "Canada"],
+  "timeline": [
+    { "index": 0, "title": "Parent Concern Report", "description": "A parent walks in to report behavioural and online changes in their adult son.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Structured Assessment Initiated", "description": "Officer begins a Behavioural Threat Assessment using recognized radicalization indicators.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Civil Liberties Balance", "description": "Officer balances public safety concerns with the subject's Charter rights.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "CSIS and RCMP National Security Consultation", "description": "Officer consults with national security partners through appropriate channels.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Mental Health and Community Intervention", "description": "Mental health professionals and community resources are engaged.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Documentation and Pre-Charge Diversion", "description": "Officer considers pre-charge diversion and documents all steps appropriately.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Parent Report of Radicalization Concerns",
+      "situation": "You are an officer at a mid-sized RCMP detachment. A 52-year-old woman, Linda, comes in and asks to speak privately. She is visibly distressed. She explains that over the past eight months, her 19-year-old son Amir has changed dramatically: he has withdrawn from friends, dropped out of college, spends 12–16 hours a day on his computer consuming content she describes as 'hateful and violent political videos,' has begun expressing admiration for individuals she has seen described in news coverage as violent extremists, has given away several personal possessions, and last week told her that 'sacrifices sometimes need to be made.' She is frightened and doesn't know if she is overreacting.",
+      "question": "How do you receive and respond to Linda's report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take Linda's full account in a private, non-judgmental setting, reassure her she was right to come forward, document all indicators she has described, and explain that these behavioural changes — social withdrawal, ideological adoption, giving away possessions, and statements suggesting personal sacrifice — are recognized indicators of the radicalization-to-violence pathway that officers are trained to take seriously.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Advise Linda that her son is an adult with Charter rights to freedom of expression, watching political videos is entirely legal, and police cannot investigate someone's ideology — suggest she see a family counsellor.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately run Amir's name through all law enforcement databases and search his social media accounts before gathering more information from Linda — the behavioural indicators described are enough to justify immediate surveillance.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Structured Radicalization Assessment",
+      "situation": "You have Linda's full account. You now need to apply a structured assessment framework. The RCMP and Public Safety Canada use the Behavioural Threat Assessment (BTA) model and radicalization indicator frameworks that include: ideological adoption, grievance narrative, in-group/out-group thinking, intent signals, capability or planning indicators, and personal stressors. Linda's information touches on several of these. However, you are aware that many of these indicators individually can have innocent explanations — the pattern and combination matter.",
+      "question": "How do you conduct the structured radicalization assessment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the BTA indicator framework: document each indicator Linda described against the recognized categories (ideological, behavioural, social withdrawal, grievance, intent signalling — 'sacrifices need to be made'); note the eight-month escalating timeline; assess the pattern as HIGH concern given the combination of multiple concurrent indicators and the escalating trajectory; and document your assessment clearly, distinguishing observed facts from inference.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Each of the indicators Linda described has an innocent explanation; without a specific named target, a specific date, or physical weapons, the concern level is LOW and no formal assessment is warranted — document the complaint and close the file.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The structured BTA framework only applies to terrorism investigations opened by RCMP National Security; a front-line officer's role is to assess immediate threats only and refer everything ideological directly to CSIS without conducting any local assessment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Balancing Civil Liberties",
+      "situation": "You have completed your BTA assessment noting HIGH concern. Amir is a 19-year-old Canadian citizen who has not committed any criminal act. He has constitutionally protected rights under the Charter: freedom of expression (s.2(b)), freedom of belief, freedom of association (s.2(d)), and the right against arbitrary detention (s.9). Investigating someone's ideology alone — without evidence of criminal planning — risks violating these rights. However, radicalization intervention programs exist precisely for this stage, before a crime occurs.",
+      "question": "How do you proceed in a way that balances Charter rights with public safety?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Confine your investigation to observable behavioural indicators and verifiable information Linda has provided; do not covertly access Amir's devices or online accounts without judicial authorization; do not place Amir under surveillance based solely on ideology; instead, focus on whether any of the indicators constitute reasonable grounds for a criminal investigation — and if not yet, pursue intervention through non-criminal pathways.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Linda gave you permission to investigate her son since she is his parent — parental consent extends to adult children living in the family home and allows police to search his room and devices without a warrant.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "National security concerns override Charter protections; when radicalization is suspected, all civil liberties considerations are suspended and police have broad authority to investigate without restriction.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "CSIS and RCMP National Security Consultation",
+      "situation": "You have documented your assessment and identified that Amir does not currently have a criminal record or known criminal associates. The situation does not yet have grounds for criminal charges. You are aware that CSIS (the Canadian Security Intelligence Service) has a mandate to investigate threats to national security including the radicalization-to-violence process, and that the RCMP's National Security Program coordinates with CSIS and maintains radicalization intervention resources. You need to consult without over-escalating.",
+      "question": "How do you engage national security partners appropriately?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the RCMP's Integrated National Security Enforcement Team (INSET) or your supervisor's National Security liaison to share the case details and your BTA assessment — this triggers a coordinated review by specialists who can determine whether CSIS involvement is warranted and whether the subject appears in any national security indices, while keeping the intervention at the appropriate level.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Contact CSIS directly and request that they open a full covert surveillance file on Amir immediately — CSIS is the appropriate first call for any radicalization concern and RCMP consultation is not required.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Radicalization assessments that do not yet involve criminal grounds should not be shared with any federal agency — doing so without criminal grounds violates Amir's privacy rights under PIPEDA and could expose the department to liability.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Mental Health and Community Intervention",
+      "situation": "RCMP INSET has reviewed the file and confirmed Amir does not appear in any national security indices. They support a community-based intervention approach at this stage. Canada's intervention model for pre-criminal radicalization includes: mental health assessment, connection to a credible community messenger, family support services, and the RCMP's Terrorism Early Warning and Redirection (or similar provincial) diversion programs. Linda is willing to participate but Amir does not know police are involved.",
+      "question": "What intervention approach is most appropriate at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Refer Linda to your jurisdiction's pre-charge diversion or Community Outreach program; coordinate a mental health consultation through a community mental health team familiar with radicalization; connect the family with a credible community messenger (such as a former extremist or community leader) through RCMP outreach programs; and document all referrals and steps in the file — the goal at this stage is prevention, not prosecution.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Arrange for officers in plain clothes to befriend Amir online under false identities to gather intelligence — undercover online contact is an effective early intervention tool that does not require a warrant.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Arrest Amir under the Criminal Code terrorism pre-charge provisions to disrupt the radicalization before it progresses further — preventive arrest is the most effective intervention at this stage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "You correctly received Linda's report with empathy and professionalism, applied the Behavioural Threat Assessment framework to identify a HIGH-concern pattern, balanced Charter rights by restricting your investigation to observable indicators and avoiding warrantless surveillance, consulted with RCMP INSET through proper channels, and recommended a community-based mental health and diversion intervention rather than premature criminal action. Key lessons: radicalization indicators require structured assessment, not reflexive criminal investigation; Charter rights apply even when ideology is concerning; and pre-criminal intervention through mental health, community outreach, and family support is Canada's preferred model for early-stage radicalization — consistent with Public Safety Canada's Counter-Radicalization strategy.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "title": "scenario_identity_theft",
+  "description": "A victim discovers their personal information has been used to open fraudulent credit accounts; officers investigate an identity theft complaint under the Criminal Code of Canada.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["identity theft", "fraud", "Criminal Code", "digital evidence", "credit fraud", "Canada"],
+  "timeline": [
+    { "index": 0, "title": "Complaint Received", "description": "Victim reports discovering three fraudulent credit cards opened in their name.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Credit Bureau Reports Obtained", "description": "Officer assists victim in obtaining Equifax and TransUnion reports to map the fraud.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Point of Compromise Identified", "description": "Investigation traces how the personal information was obtained.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Evidence Gathered", "description": "Evidence collected in accordance with Criminal Code s.402.2 identity theft provisions.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Financial Crimes Unit Coordination", "description": "File escalated and coordinated with the financial crimes unit.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Victim Remediation Advice", "description": "Victim is guided through steps to restore their identity and credit.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Identity Theft Complaint",
+      "situation": "You are a front-line RCMP officer. David, a 34-year-old teacher, comes in with a stack of mail he received over the past month. It includes collection notices for three credit cards he never opened — two from major Canadian banks and one from a national retailer — with a combined balance of $22,000. His credit score has dropped 200 points. He has never lost his wallet and his SIN card is at home. He is unsure how this happened and wants to report it.",
+      "question": "What is the correct initial action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Open an occurrence report for identity theft under Criminal Code s.402.2, take David's full statement, collect the collection notices as exhibits, and explain that identity theft is a criminal offence in Canada that carries up to 5 years imprisonment — this is a police matter, not just a bank dispute.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Advise David to contact each bank directly to dispute the accounts, as fraudulent credit applications are a civil banking matter and do not constitute a criminal offence without a known suspect.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Refer David to the CAFC website to file an online self-report, as identity theft is handled exclusively at the federal level and front-line officers cannot open such files.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Obtaining Credit Bureau Reports",
+      "situation": "You have opened the occurrence file. To map the full scope of the fraud, you need to understand every account opened in David's name and when. Canadian credit bureaus — Equifax Canada and TransUnion Canada — maintain complete credit histories. A full credit report will show all hard inquiries and new accounts, including dates, creditors, and addresses used by the fraudster.",
+      "question": "What steps do you take regarding credit bureau reports?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise David to immediately request free fraud-flagged credit reports from both Equifax Canada and TransUnion Canada; review the reports together to identify all fraudulent accounts and inquiry dates, and document each account in the occurrence report as it establishes the full scope of the offence.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Issue a production order to the credit bureaus directly, as victims do not have the right to access their own credit files during an active police investigation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Credit bureau information is third-party financial data and cannot be used as evidence without a court order; advise David to seek a civil lawyer instead.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Identifying the Point of Compromise",
+      "situation": "The credit reports reveal that all three accounts were opened within a 10-day window six months ago using David's correct SIN, date of birth, and a slightly altered home address — a nearby street number. David recalls that six months ago he responded to an email asking him to 'verify his TD Bank account details' by entering his personal information on a website. He did not think it was suspicious at the time. He also used a public Wi-Fi network at a coffee shop the same week.",
+      "question": "How do you identify and document the likely point of compromise?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document both potential sources: the phishing email (request David forward it or provide the sender address and link) and the public Wi-Fi exposure. Note that the altered address used on fraudulent applications suggests deliberate identity use rather than data breach, and that the phishing email may constitute a separate fraud offence — cross-reference with any phishing files already in the system.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Since David clicked the link himself, his information was disclosed voluntarily and no criminal act occurred — close the file and advise better cyber hygiene in future.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The point of compromise is irrelevant to the identity theft charge; only the fraudulent account openings matter and investigating the phishing email would be out of scope.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Evidence Collection Under s.402.2 Criminal Code",
+      "situation": "Criminal Code s.402.2 makes it an offence to obtain or possess another person's identity information with intent to commit a criminal offence. To build a file, you need to gather evidence of both the identity information obtained and its use. You have: collection notices, credit bureau reports, and the phishing email details. You need to consider what additional evidence should be sought through proper judicial authorization.",
+      "question": "What evidence should you seek and how?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Seize and exhibit the collection notices and credit reports; prepare a production order application under Criminal Code s.487.012 to the creditor banks for the fraudulent application records (IP addresses, device fingerprints, supporting documents submitted); and seek a preservation demand for the phishing domain's registration and hosting records before they are deleted.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Contact the banks informally and ask them to email you the application records voluntarily — banks routinely share this information with police without any judicial authorization required.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Evidence of identity theft requires a DNA sample from the suspect; without a known suspect, no further evidence collection is possible and the file should be suspended.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Financial Crimes Unit Coordination",
+      "situation": "Your production orders have returned application records from the banks. The fraudulent applications were submitted from three different IP addresses, all traced to a VPN service. One application was submitted with a scanned copy of a falsified provincial driver's licence using David's information. This level of organization and the use of forged documents suggests a structured identity fraud operation. This exceeds typical front-line capacity.",
+      "question": "How do you appropriately escalate and coordinate this file?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prepare a comprehensive package — occurrence report, production order results, exhibits, and a synopsis — and formally refer the file to the Financial Crimes unit (or Serious and Organized Crime unit) noting the indicators of an organized fraud operation; maintain your role as the originating officer and file complainant liaison.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Since a VPN was used, the suspects are untraceable; close the file as unsolvable and advise David to accept the credit loss through his bank's fraud protection program.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Continue handling the full investigation yourself without specialist involvement; escalating too early undermines the front-line officer's authority and may delay the file.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "You correctly opened a criminal occurrence under Criminal Code s.402.2, assisted David in mapping the fraud through credit bureau reports, identified the phishing email as the likely point of compromise, obtained production orders for bank application records, and escalated the file to the Financial Crimes unit when organized fraud indicators emerged. Key lessons: identity theft is a criminal offence — not merely a civil banking dispute — and proper judicial authorization is required before obtaining subscriber and application records from financial institutions.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

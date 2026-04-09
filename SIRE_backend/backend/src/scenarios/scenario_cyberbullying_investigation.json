@@ -1,0 +1,164 @@
+{
+  "title": "scenario_cyberbullying_investigation",
+  "description": "A teenage girl reports being targeted by sustained online harassment and identity-based cyberbullying; an officer investigates under the Protecting Canadians from Online Crime Act.",
+  "category": "Police",
+  "difficulty": "Beginner",
+  "tags": ["cyberbullying", "online harassment", "youth", "social media", "digital evidence", "Canada"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Complaint Received",
+      "description": "A 15-year-old and her mother attend the detachment to report ongoing harassment across Instagram and TikTok over the past three weeks.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Initial Interview",
+      "description": "The officer takes a formal complaint and conducts a preliminary interview with the victim and her mother to understand the scope and nature of the harassment.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Digital Evidence Preservation",
+      "description": "The officer advises the victim on preserving digital evidence and takes steps to secure screenshots and platform data before it can be deleted.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 3,
+      "title": "Suspect Identification",
+      "description": "Using available evidence, the officer works to identify the account holders responsible for the harassment.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 4,
+      "title": "Criminal Code Assessment",
+      "description": "The officer assesses potential Criminal Code offences applicable to the conduct and determines the appropriate charge pathway.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 5,
+      "title": "Victim Safety and Referral",
+      "description": "The officer addresses the victim's immediate safety needs and connects her with appropriate support services.",
+      "timeOffsetSec": 2400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Taking the Initial Complaint",
+      "situation": "Aisha, 15, and her mother attend your detachment. Aisha states that for the past three weeks, classmates have been posting mean comments on her TikTok videos, creating fake Instagram accounts impersonating her, and sending her direct messages saying she should 'disappear.' Some posts mock her race and cultural background. Aisha is visibly distressed and has been absent from school. Her mother is upset and demands you 'arrest them all today.' You must take the complaint and manage expectations appropriately.",
+      "question": "How do you take the complaint and set appropriate expectations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take a formal statement from Aisha in a private, youth-friendly setting with her mother present; document all platforms, account names, dates, and the content of messages she can recall; explain to the mother that the investigation will be thorough but that arrests cannot be made without proper evidence gathering and potential suspect identification — set realistic timelines; assess Aisha's current emotional safety and risk of self-harm.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Aisha's mother to take screenshots and bring them back tomorrow, then begin the investigation, to avoid taking a long statement during the initial visit.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise Aisha to block the accounts and close her social media profiles, as this will stop the harassment and no police action is needed if she removes herself from the platforms.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Preserving Digital Evidence",
+      "situation": "Aisha shows you her phone. You can see the harassing comments, fake profile pages, and direct messages. Some accounts appear to have been created recently. You know that social media platforms delete inactive or reported accounts, and direct messages can be deleted by the sender. You have Aisha's phone in hand. You must advise on — and take steps toward — preserving this evidence before it disappears.",
+      "question": "How do you preserve the digital evidence properly?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the evidence by photographing the screen captures with a date-time stamp and note the full account usernames, URLs, and post dates visible on screen; advise Aisha not to delete anything, block accounts, or respond; explain that she should preserve her phone's content and avoid factory resets; draft a preservation request to the platforms under the Protecting Canadians from Online Crime Act (PCOCA) to prevent deletion of account data before a production order can be obtained.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Take Aisha's phone and retain it as evidence immediately, as you need to prevent her from accidentally deleting content.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Report the accounts to Instagram and TikTok directly from the police account and wait for the platforms to provide records voluntarily — no legal process is needed at this stage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Identifying the Suspects",
+      "situation": "Aisha believes the fake accounts were created by two classmates — 'Madison' and 'Jayden' — based on the writing style and inside information in the posts. However, social media accounts are anonymous and you cannot confirm identity without platform records. The accounts list usernames only. You need to formally identify the account holders to proceed with any charges. A preservation request has been sent to Instagram.",
+      "question": "What is the lawful process to obtain subscriber information for the fake accounts?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply for a Production Order under s.487.012 of the Criminal Code to compel Instagram and TikTok to provide subscriber information, IP addresses, and account activity logs for the identified accounts; this requires sworn information to a justice demonstrating reasonable grounds to believe an offence has been committed and that the records will provide relevant evidence — do not attempt to access the accounts or contact platform security informally.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Contact the school principal and ask them to confront Madison and Jayden based on Aisha's belief — a school admission can substitute for platform records.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Create an undercover social media profile and directly message the suspect accounts to get them to admit their identity.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Assessing Criminal Code Offences",
+      "situation": "Platform records confirm that both fake accounts were registered to email addresses associated with Madison, 16, a classmate. The conduct includes: creating fake accounts impersonating Aisha (posting as her); sending repeated private messages telling her she should 'disappear'; and publicly posting racially motivated comments on her videos. You must assess which Criminal Code provisions apply.",
+      "question": "Which Criminal Code offences are most applicable to this conduct?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assess the following provisions: criminal harassment (s.264 CC) — repeated communications causing Aisha to fear for her safety; identity fraud/impersonation (s.403 CC) — creating fake accounts in Aisha's name; public incitement of hatred or wilful promotion of hatred (s.319 CC) — if racial comments meet the threshold; and distribution of intimate images without consent (s.162.1 CC) if any images were shared — consult with Crown counsel on the strongest charge pathway given the evidence before laying charges.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Charge Madison with uttering threats (s.264.1 CC) only, as the messages saying Aisha should 'disappear' are the clearest offence and additional charges are unnecessary.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Determine that no Criminal Code offence applies because the harassment occurred online rather than in person, and refer the family to the school board for a bullying complaint.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Victim Safety and Referral",
+      "situation": "Crown counsel recommends proceeding with criminal harassment and identity fraud charges. Madison will be dealt with through the Youth Criminal Justice Act process. However, Aisha has been absent from school for two weeks and her mother reports she is not sleeping and has stopped eating. Aisha mentions that 'other kids are still watching what happened to me online.' You must address Aisha's immediate safety needs before closing your file actions for this phase.",
+      "question": "How do you address Aisha's safety and well-being at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a safety assessment for Aisha's risk of self-harm given the described symptoms; provide her mother with crisis line information and a referral to victim services; coordinate with the school's SRO or vice-principal for a safe and supported return-to-school plan; advise the family on blocking remaining harassing accounts while preserving evidence; document Aisha's victim impact for Crown proceedings; follow up within 48 hours.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Advise Aisha that now that charges are laid, the police role is complete and her ongoing wellbeing is a matter for her family and school to manage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Aisha to avoid social media entirely until the court process is over, as continued use could compromise the investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Madison was charged under the YCJA with criminal harassment and identity fraud. Aisha was connected with victim services and returned to school with a safety plan in place. Key training takeaways: cyberbullying cases require formal evidence preservation before contacting suspects or platforms informally; the Protecting Canadians from Online Crime Act provides legal tools — preservation requests and production orders — to obtain platform records; identity-based harassment may engage hate crime provisions; victim safety including self-harm risk must be assessed throughout; youth suspects are processed under the Youth Criminal Justice Act with appropriate diversionary considerations.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

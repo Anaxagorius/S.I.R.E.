@@ -1,0 +1,164 @@
+{
+  "title": "scenario_school_resource_officer",
+  "description": "A school resource officer responds to a physical altercation between two students that may involve a weapon, balancing law enforcement duties with the educational environment.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["school resource officer", "SRO", "school violence", "youth", "use of force", "de-escalation"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Altercation Reported",
+      "description": "The SRO is radioed by a teacher who reports a physical fight in the second-floor hallway involving two male students, one of whom may have a knife.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "SRO Arrives on Scene",
+      "description": "The SRO arrives at the second-floor hallway and assesses the situation. Bystander students are present.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "De-escalation and Scene Control",
+      "description": "The SRO intervenes to stop the fight and control the scene while managing the presence of bystanders.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Search and Weapon Investigation",
+      "description": "The SRO must determine the legal basis for searching the students for a potential weapon.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Arrest vs. Diversion Decision",
+      "description": "The SRO must decide whether to arrest or consider diversion options under the Youth Criminal Justice Act.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Restoring Order in the School",
+      "description": "The SRO works with administration to restore calm and ensure the school community is supported after the incident.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arriving at the Fight",
+      "situation": "You are the SRO at Centreville Secondary School. A teacher radios you at 10:40 a.m. reporting a fight in the second-floor hallway near the library. She says: 'I think I saw something shiny — it might be a knife.' You arrive 45 seconds later. Two male students, both appearing to be 15 or 16, are grappling on the floor. Approximately 20 bystander students are in the hallway watching. Both students appear to be struggling for control. One has a cut on his forearm. You are alone — backup is two minutes away.",
+      "question": "What are your immediate priorities upon arriving at the scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a loud, clear command for all bystanders to move back and into the nearest classroom; attempt to verbally separate the students with firm commands before physically intervening; assess both students for a visible weapon before engaging physically — if a weapon is visible, do not rush in until you can safely control the weapon hand; if no weapon is visible, move to physically separate them while backup is en route — your safety and the safety of bystanders are the immediate priorities.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately physically tackle the larger student to separate them as quickly as possible, before bystanders can record the incident.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for backup before approaching since a potential weapon is present, and continue to direct bystanders verbally from a safe distance.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Separating the Students and Controlling the Scene",
+      "situation": "You successfully separate the two students verbally after issuing commands. Student A (Tyler, 15) is on his feet and agitated but not advancing. Student B (Marco, 16) is on the floor, winded and bleeding from a forearm cut. No weapon is visible on the floor or in either student's hands. A teacher has arrived and is helping move bystanders back. Tyler's right hand is in his jacket pocket. Backup is one minute away.",
+      "question": "How do you control Tyler and the potential weapon concern?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Maintain a safe distance from Tyler and issue clear commands: 'Show me your hands — take your hand out of your pocket slowly'; observe his body language for compliance or escalation; keep yourself positioned to respond if he presents a weapon; do not rush to pat down or grab Tyler until you can see both hands — verbal commands first; direct the teacher to keep bystanders clear; as soon as backup arrives, jointly control the scene to allow a safe search.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Deploy your OC spray on Tyler pre-emptively since he has a hand in his pocket and may have a weapon — better to act before a weapon is drawn.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow Tyler to keep his hand in his pocket since he has stopped fighting — forcing the issue may re-escalate the confrontation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Searching for the Weapon — Legal Authority",
+      "situation": "Backup has arrived. Tyler has complied and removed his hand from his pocket — it was empty. Both students are now separated and seated in the hallway. Marco has a visible knife wound on his forearm. The teacher states she 'saw something shiny' but did not see a knife clearly. There is no weapon on the floor. You want to search both students. You must determine your lawful authority to conduct the search.",
+      "question": "What is the lawful basis for searching both students?",
+      "options": [
+        {
+          "label": "A",
+          "text": "You have authority to search incident to detention or arrest: the visible injury to Marco's forearm is consistent with a knife wound, and the teacher's observation of 'something shiny' during the fight, combined with the injury pattern, provides reasonable grounds to believe a weapon may be present — detain both students for investigation and conduct a search incident to detention for officer safety; document your grounds clearly; a school administrator search under the Safe Schools Act can run concurrently but does not replace your legal basis.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Ask Tyler and Marco to consent to a search — if they refuse, you cannot search them without an arrest and you currently have no grounds for arrest.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the school principal to conduct the search under school authority, since police searches of students in schools require a warrant.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Arrest vs. Diversion Decision",
+      "situation": "Searching Tyler's backpack reveals a folding knife with a 7 cm blade. Tyler states: 'I just carry it for protection — I wasn't trying to stab anyone.' Marco's injury was caused by the knife during the struggle. Tyler has no prior criminal record. Marco does not want to make a complaint. The offence is possession of a prohibited weapon in a school and assault causing bodily harm. Tyler is 15. You must decide between arrest and Youth Criminal Justice Act alternatives.",
+      "question": "How do you determine whether to arrest Tyler or pursue an extrajudicial measure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Consider YCJA extrajudicial measures: Tyler is 15, has no prior record, and expressed remorse; however, the offence involved a knife in a school and caused injury — this combination is serious enough to warrant consultation with a supervisor and Crown before deciding on diversion; the weapon must be seized regardless; a formal caution or Crown caution may be appropriate rather than immediate arrest if Marco declines to proceed — document all facts fully and let the decision involve your supervisor and Crown counsel.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Since Marco does not want to make a complaint, release Tyler with a verbal warning and confiscate the knife — no further police action is warranted.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Arrest Tyler immediately, take him into custody, and process him fully — the weapon offence in a school is non-negotiable and leaves no room for diversion.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Restoring Calm in the School",
+      "situation": "Tyler has been taken to the office pending a supervisor's decision on charges. Marco is receiving first aid — his wound is minor and does not require hospital care. Approximately 20 students witnessed the fight and videos are already circulating on social media. The principal is asking for guidance on how to address the school community. Some students are shaken. You must advise the principal on how to restore calm and address the school community.",
+      "question": "How do you advise the principal on restoring order and supporting students?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the principal to: make a calm, factual PA announcement that an incident occurred, that it is resolved, and that the school is safe — without identifying students; offer counsellor availability for any students who are distressed; work with teachers to hold brief classroom check-ins to allow students to ask questions and feel supported; advise staff not to discuss ongoing investigation details with students; and recommend the school's crisis communication protocol be activated if parent inquiries increase.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Advise the principal to say nothing to students until the police investigation is complete, to avoid interfering with the evidence-gathering process.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send a letter home to all parents identifying the students involved and describing the weapon, to ensure transparency with the school community.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Tyler received a formal Crown caution and the knife was seized. Marco's wound did not require stitches. The school held classroom check-ins and counselling was accessed by three students. Key training takeaways: in school environments, bystander management and de-escalation precede physical intervention; verbal commands and hands-visibility checks are the first response to a potential weapon — pre-emptive force is not justified on suspicion alone; search incident to detention in schools requires documented grounds; YCJA diversion options must be genuinely considered for first-time youth offenders even in serious matters; school trauma recovery involves communication, counselling access, and community trust — not information lockdown.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

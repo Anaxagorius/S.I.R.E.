@@ -1,0 +1,134 @@
+{
+  "title": "scenario_social_media_threat_assessment",
+  "description": "A member of the public reports disturbing social media posts suggesting a person may be planning violence; officers must assess the credibility of the online threat and determine appropriate action.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["social media", "threat assessment", "online threats", "public safety", "intervention", "Criminal Code"],
+  "timeline": [
+    { "index": 0, "title": "Threat Report Received", "description": "A concerned person reports disturbing posts on a public social media account.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Post Content Assessment", "description": "Officer evaluates the posts for specificity, means, timeline, and credibility indicators.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Records Check and Poster Identification", "description": "CPIC and records checks conducted; account holder is identified.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Evidence Preservation", "description": "Posts are preserved before potential deletion by the platform or user.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Criminal Code Assessment", "description": "Officer evaluates applicability of Criminal Code s.264.1 uttering threats.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Response Level Determination", "description": "Officer determines the appropriate response and protective action.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Threat Report Received",
+      "situation": "A teacher at a local high school calls police after seeing posts on a student's public Instagram account. The posts, made over the past 48 hours, include photographs of firearms and ammunition alongside text stating: 'They will all pay on Friday. Westview will remember me.' The poster's account name is 'TruthSeeker2007'. The teacher is afraid to come to the school Friday and wants police to act immediately. Today is Wednesday afternoon.",
+      "question": "What is your first action upon receiving this call?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take a full report from the teacher, obtain the exact URL/handle of the account, document the post content verbatim as described by the reporter, and immediately attempt to view the public posts yourself to assess the content firsthand — a two-day-old post on a public account may still be visible but could be deleted at any moment.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Advise the teacher that social media posts are protected free speech under the Canadian Charter and cannot be acted upon until a physical act of violence has occurred.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately dispatch officers to Westview school to lock it down before doing anything else — the school lockdown is the priority and investigation can follow afterward.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing Post Content and Specificity",
+      "situation": "You have located the public Instagram account 'TruthSeeker2007' and can view the posts. You observe: (1) multiple posts over 48 hours with escalating tone; (2) a photograph of what appears to be a semi-automatic rifle and ammunition magazine; (3) text referencing 'Westview' — a school name in your jurisdiction — and a specific day (Friday); (4) language suggesting grievances against unspecified people at that location. The Behavioural Threat Assessment model uses factors including specificity, capability, means, and leakage to assess credibility.",
+      "question": "How do you assess the threat using structured threat assessment criteria?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply threat assessment criteria: specificity is HIGH (named location, named day); capability indicators are PRESENT (photograph of apparent firearm); leakage is PRESENT (public posting of intent); timeline is IMMINENT (48 hours to Friday) — this combination elevates the threat to HIGH credibility and requires immediate investigative and protective action, not a wait-and-see approach.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "The posts are vague enough to constitute general frustration rather than a specific threat — many online posts use violent language without intent; classify as LOW credibility and monitor for further escalation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Since no specific victim is named by name, Criminal Code s.264.1 cannot apply and the threat does not meet the legal threshold for police action — document and close the file.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Records Check and Poster Identification",
+      "situation": "You have assessed the threat as HIGH credibility. You need to identify the person behind the account. The Instagram profile shows a first name (Jake) and a photograph. The teacher believes it is a Grade 12 student who matches the photo. You can run CPIC and local records checks on the name if confirmed. However, the account may also be falsely attributed. You need to both confirm identity and check for prior criminal history, mental health interactions, and weapons licence status.",
+      "question": "What records checks and identification steps should you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ask the school principal to confidentially confirm the student's full legal name and date of birth based on the photograph; run CPIC, local police records, the Canadian Firearms Registry (CFP) for a Possession and Acquisition Licence, and any mental health apprehension history — all before making contact with the subject to avoid tipping him off.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Go directly to the student's home and confront him about the posts — confrontation will quickly reveal whether the threat is real or a joke, and the direct approach is faster than database checks.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "CPIC can only be queried on confirmed suspects with a full legal name and date of birth; since you only have a first name and photo, no records checks are possible at this stage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preserving the Social Media Posts",
+      "situation": "Records confirm the student — Jake — has no criminal record and no PAL. However, his father does hold a PAL and there are registered firearms in the household. The principal has confirmed the name and provided the address. You are aware that social media posts are frequently deleted by the poster or removed by the platform once flagged. Before taking any action that might alert Jake, you need to preserve the post content as evidence — deletion would make the evidence inaccessible without a formal request to the platform.",
+      "question": "How do you preserve the social media posts before they are deleted?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take detailed screenshots and screen recordings of all posts, capturing the account profile, post content, timestamps, and any comments — save to the file with timestamps; issue a preservation demand under Criminal Code s.487.012 to Instagram's law enforcement portal for the account data and post history before notifying the subject or taking any action that might trigger deletion.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Report the posts to Instagram for violation of community guidelines and request they preserve the content — this is the standard method and a police preservation demand is not applicable to US-based social media companies.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The posts are already visible to the public and therefore no preservation steps are needed — public content cannot be deleted in a way that affects a police investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Criminal Code s.264.1 Assessment and Response",
+      "situation": "Posts are preserved. Criminal Code s.264.1 makes it an offence to knowingly utter, convey, or cause a person to receive a threat to cause death or bodily harm to any person. The threat does not need to be communicated directly to the intended victim — public posts that cause fear in a person who receives them can qualify. However, the Crown will need to prove the words were intended as a threat. Given the firearm photograph, the specific location, and the imminent timeline, you need to determine the appropriate response level and any protective action for the school.",
+      "question": "What response and protective measures are appropriate?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify the school's principal to activate the Hold and Secure protocol (staff and students remain inside, no entry or exit) as a precautionary measure; dispatch officers to Jake's residence for an immediate wellness check and to speak with his parents regarding the firearms in the household; prepare grounds for arrest under s.264.1 uttering threats — the specificity, means, and timeline meet the threshold for reasonable grounds to arrest.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Contact Jake by phone to ask if the posts were a joke — if he says yes, no further action is needed; public safety measures like school lockdowns are disproportionate until there is physical evidence of planning.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "S.264.1 only applies to direct threats communicated to a specific named person; since Jake's posts did not name a specific victim, no Criminal Code offence has been committed and the matter should be handled by the school's discipline process.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "You correctly assessed the threat using structured behavioural threat assessment criteria, identified high-credibility indicators including specificity, means, and imminence, confirmed the poster's identity through school and records checks before alerting the subject, preserved the social media evidence via screenshots and a Criminal Code preservation demand, activated Hold and Secure at the school as a precautionary measure, and prepared grounds for arrest under Criminal Code s.264.1. Key lessons: threat specificity, capability, and imminence are the key risk factors in social media threat assessment; evidence preservation before subject notification is critical; and Criminal Code s.264.1 does not require a direct communication to a named victim — public posts causing fear can qualify.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

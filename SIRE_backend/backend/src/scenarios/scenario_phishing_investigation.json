@@ -1,0 +1,134 @@
+{
+  "title": "scenario_phishing_investigation",
+  "description": "An officer investigates a coordinated phishing campaign that defrauded multiple victims through fake bank login pages, tracing the operation and coordinating with financial institutions.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["phishing", "fraud investigation", "cybercrime", "financial crime", "digital evidence", "Canada"],
+  "timeline": [
+    { "index": 0, "title": "Complaints Consolidated", "description": "Multiple phishing victims' complaints are linked into a single investigation file.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Phishing Infrastructure Traced", "description": "The phishing domain and hosting infrastructure are identified.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Judicial Authorizations Obtained", "description": "Production orders and preservation demands are issued for electronic records.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "Bank Security Coordination", "description": "Officer coordinates with financial institution security teams.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Case Built for Charges", "description": "Evidence is organized to support Criminal Code fraud and computer offence charges.", "timeOffsetSec": 240 },
+    { "index": 5, "title": "Charges and Crown Disclosure", "description": "Charges are recommended and the Crown disclosure package is prepared.", "timeOffsetSec": 300 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Multiple Phishing Complaints",
+      "situation": "Over two weeks, your detachment has received seven separate fraud complaints from victims who all report the same pattern: they received a convincing email purportedly from their Canadian bank warning of suspicious activity, clicked a link, entered their credentials on what looked like their bank's login page, and subsequently had funds transferred out of their accounts. Total losses across all seven victims amount to $47,000. Each complaint was entered as a separate occurrence. You are assigned to review them.",
+      "question": "What is your first investigative step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Link all seven occurrences under a single master file number, identify common elements (same sending domain, same fake login URL, same financial institution targeted), and open a consolidated fraud investigation — the common modus operandi indicates a single campaign and consolidation avoids duplicate investigative effort.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Keep each occurrence separate since they are different victims; linking files without a confirmed suspect could contaminate evidence and violate each victim's privacy rights.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Refer all seven complaints to the CAFC and close the local files, as phishing campaigns are a federal cybercrime matter beyond the jurisdiction of a provincial/territorial detachment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Tracing the Phishing Infrastructure",
+      "situation": "Reviewing the complaints, you identify that all victims received emails from the domain 'td-secure-alert.ca' and were redirected to 'login.td-secure-alert.ca'. This domain is clearly not a legitimate TD Canada Trust domain. The fake login page captured credentials and forwarded victims to the real TD website to avoid suspicion. The domain was registered 18 days ago. You need to identify who registered it and where it is hosted before the registration lapses or is deleted.",
+      "question": "How do you trace the phishing domain and preserve the evidence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Issue a preservation demand under Criminal Code s.487.012 to the domain registrar and web host for all registration records, IP logs, and associated account information before the data is deleted; conduct a WHOIS lookup for publicly available registrant information; and document the phishing page content by taking a preserved screenshot through a controlled environment.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Request the domain registrar to immediately take down the phishing site as the top priority — evidence preservation is secondary to stopping ongoing victim harm.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "WHOIS data is publicly available so no judicial authorization is needed for any part of the domain investigation; simply download all available information and the investigation is complete at this stage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Obtaining Judicial Authorizations",
+      "situation": "The preservation demand has been served. The registrar's WHOIS record lists a fictitious name and a ProtonMail address — the operator used privacy protection services. However, the domain was paid for via a credit card, and the hosting account has login IP logs. To obtain the credit card records, the hosting account details, and the ProtonMail account subscriber information, you need appropriate judicial authorizations under Part VI of the Criminal Code.",
+      "question": "What judicial authorizations do you apply for and under which provisions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply for production orders under Criminal Code s.487.014 for the hosting provider's account records and IP login logs, a production order for the domain registrar's payment records, and a production order for the ProtonMail subscriber information — these are third-party records and require judicial authorization; grounds include reasonable belief they contain evidence of fraud (s.380) and unauthorized computer use (s.342.1).",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "A standard search warrant under s.487 is the only tool available for electronic records; send the warrant to all three providers simultaneously even though they are likely located in different countries.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Since the suspect used a VPN and anonymous email, no judicial authorization will yield useful results; suspend the file and wait for the suspect to make a mistake in a future offence.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Coordinating with Bank Security",
+      "situation": "Production orders have been served. While awaiting results, you know that TD Canada Trust's security team has its own records of the fraudulent transactions — including the destination accounts the funds were transferred to, transaction timestamps, and the IP addresses used to initiate the transfers. Bank security teams can share certain information with police proactively under PIPEDA's law enforcement exception, and they may have already identified the mule accounts.",
+      "question": "How do you coordinate with the financial institution's security team?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact TD's law enforcement liaison unit with your file number and case synopsis; request voluntary disclosure under PIPEDA s.7(3)(c.1) of transaction records, destination account details, and any fraud intelligence they hold — note that a production order can be served if voluntary disclosure is declined; document all communications in the file.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Bank records are always protected by PIPEDA and can only be obtained by a court-ordered production order — voluntary sharing by the bank would constitute an unauthorized disclosure and the evidence would be inadmissible.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Approach the bank's local branch manager directly and ask them to print out all transaction records for the affected accounts — branch managers have authority to release client records to police on request.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Building the Case for Charges",
+      "situation": "Production order results and bank records have returned. The credit card used to register the domain traces to a prepaid Visa purchased in cash at a pharmacy — a common money laundering step. However, the hosting account IP logs show logins from a residential IP address in your province. A follow-up production order to the ISP for the subscriber of that IP at the time of the logins has identified a named suspect. The suspect has no prior record. You now need to build the charge recommendation package.",
+      "question": "Which Criminal Code offences apply and how do you structure the charge package?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recommend charges under: s.380(1) fraud over $5,000 (total losses $47,000), s.342.1 unauthorized use of computer (credential harvesting), s.403 identity fraud (impersonating a bank), and s.368 use of forged documents (fake login page); compile a Crown brief with occurrence report, production order returns, victim statements, and a forensic timeline linking the suspect IP to the phishing domain administration.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Charge only under s.380 fraud; computer-specific offences like s.342.1 require a specialist cybercrime unit to lay and cannot be included in a front-line officer's charge recommendation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Since the phishing emails originated from servers outside Canada, Canadian courts have no jurisdiction and no charges can be laid regardless of where the suspect lives.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "You correctly consolidated seven separate complaints into a coordinated investigation, traced the phishing domain using preservation demands and production orders under the Criminal Code, coordinated with the financial institution's law enforcement liaison unit using PIPEDA provisions, followed the IP evidence chain to identify a suspect, and built a multi-count charge package including fraud, unauthorized computer use, identity fraud, and forged documents. Key lessons: production orders (not search warrants) are the correct tool for third-party electronic records, and PIPEDA permits voluntary disclosure to law enforcement under specific conditions — making bank cooperation an important investigative avenue before seeking judicial authorization.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
