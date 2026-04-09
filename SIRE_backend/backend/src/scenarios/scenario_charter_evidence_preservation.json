@@ -1,0 +1,150 @@
+{
+  "title": "scenario_charter_evidence_preservation",
+  "description": "An officer seizes a mobile phone from a suspect arrested for fraud. Tests Charter s.8 protection of digital devices, the R v. Fearon SCC framework, warrant vs. production order, and chain of custody for digital evidence.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrest Made",
+      "description": "A suspect is arrested for fraud over $5,000 under Criminal Code s.380(1)(a) based on a victim complaint and bank transaction records. At the time of arrest, a smartphone is visible in the suspect's jacket pocket.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Phone Seized",
+      "description": "The officer seizes the phone as a potential instrument and evidence of fraud. The phone is locked with a passcode. The suspect refuses to provide the passcode.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Legal Authority Question",
+      "description": "The officer considers whether to search the phone immediately under search incident to arrest authority or to secure it and seek a warrant.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Preservation Steps",
+      "description": "The phone is placed in airplane mode to prevent remote wiping. The officer prepares the warrant application.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Warrant Application",
+      "description": "A Criminal Code s.487 search warrant specifically authorizing the search of the digital contents of the phone is obtained from a Justice.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Digital Forensics",
+      "description": "The phone is submitted to the digital forensics unit with a chain of custody form. A forensic image is created before any examination.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Can You Search the Phone Incident to Arrest?",
+      "situation": "You have arrested the suspect for fraud. The locked smartphone was in his jacket pocket at the time of arrest. You believe the phone contains text messages and banking app records relevant to the fraud. The phone is locked with a passcode. The suspect has invoked his right to counsel. You are deciding whether to search the phone under your search incident to arrest authority without a warrant.",
+      "question": "What does R v. Fearon [2014] SCC 77 say about searching a cell phone incident to arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "In R v. Fearon [2014] SCC 77, the Supreme Court of Canada held that while a cell phone can be searched incident to arrest without a warrant in limited circumstances, the default position is that a search warrant is required for the contents of a digital device. Where searching without a warrant is permitted under Fearon, there are strict conditions: (1) the arrest must be lawful; (2) the search must be truly incidental to the arrest — not exploratory; (3) the nature and extent of the search must be tailored to the purpose; (4) detailed notes must be made of what was searched and why. Since the phone is locked and the suspect has invoked counsel, the more defensible course is to seize and preserve the phone and apply for a warrant to search its digital contents.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Cell phones are containers like any other and are fully searchable under Caslake incident to arrest — no warrant is required regardless of the content.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "You cannot seize the phone at all without a warrant — search incident to arrest only covers weapons, not evidentiary items.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Preserving the Phone — Preventing Remote Wipe",
+      "situation": "You have decided to seize and preserve the phone pending a warrant. You are aware that smartphones can be remotely wiped — the suspect may have an associate with access to a device management system or a 'Find My Phone' remote erase function. The phone has not been unlocked. You need to preserve the evidence while your warrant application is prepared.",
+      "question": "What immediate technical and procedural steps must you take to preserve the digital evidence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "To prevent remote evidence destruction: (1) immediately place the phone in airplane mode if accessible via the lock screen, which disables all wireless communications including cellular, Wi-Fi, and Bluetooth, preventing a remote wipe — do not unlock the device to do this; (2) if airplane mode is not accessible from the lock screen, place the phone in a Faraday bag, which blocks all radio signals, ensuring isolation from any remote commands; (3) note the exact time of seizure, the phone's observed state (locked, screen on/off), battery level if visible, and any notifications visible on the lock screen; (4) document these preservation steps in your notes as they may be required in the warrant application as grounds showing the urgency of preservation before a warrant could be obtained.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Leave the phone as found and do not interact with it at all until the warrant is obtained — any interaction before the warrant could void the evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the suspect to unlock the phone and put it in airplane mode — since he has already been arrested, his cooperation is legally required.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Warrant vs. Production Order — Choosing the Right Tool",
+      "situation": "The phone is preserved in a Faraday bag. You are preparing your application for legal authority to access its contents. The fraud investigator suggests you consider either a Criminal Code s.487 search warrant for the phone's contents or a s.487.012 production order directed at the service provider for call records. You need both the data on the device and the carrier records.",
+      "question": "What is the distinction between a search warrant and a production order, and how should you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A Criminal Code s.487 search warrant authorizes officers to search a specified place or thing — in this case, the digital contents of the seized device — and seize evidence found within it. It is the correct instrument for accessing the data stored on the physical phone. A s.487.012 production order directs a third party (e.g., the telecom carrier) to produce records in their possession — such as call logs, subscriber information, and tower data — without requiring the officer to possess the device. Both tools serve different evidentiary purposes. For this investigation: apply for a s.487 warrant specifically describing the phone and the categories of data sought (banking apps, text messages, email), and separately apply for a s.487.012 production order to the carrier for call records. Each application must demonstrate reasonable grounds that the evidence sought will afford proof of the fraud offence.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "A production order alone is sufficient — it covers both the device contents and the carrier's records, eliminating the need for a separate search warrant.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply for a general search warrant for all records connected to the fraud — the warrant does not need to specify the phone separately.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You handled digital evidence preservation correctly: you applied the R v. Fearon framework and correctly determined that the locked device required a warrant rather than a search incident to arrest; took immediate preservation steps by placing the phone in a Faraday bag to prevent remote wiping; documented all steps contemporaneously; and correctly distinguished between a Criminal Code s.487 search warrant for the device contents and a s.487.012 production order for the carrier's records, applying for both with appropriate grounds. The chain of custody was established from the moment of seizure through submission to digital forensics.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "Charter s.8",
+    "digital evidence",
+    "mobile phone",
+    "R v Fearon",
+    "search warrant",
+    "production order",
+    "chain of custody",
+    "Canada"
+  ]
+}

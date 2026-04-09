@@ -1,0 +1,150 @@
+{
+  "title": "scenario_search_incident_to_arrest",
+  "description": "After arresting a suspect for possession for the purpose of trafficking under CDSA s.5, an officer conducts a search incident to arrest, including of a backpack. Tests the scope of search authority, R v. Caslake, plain view doctrine, and evidence documentation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrest Made",
+      "description": "A male is arrested for possession for the purpose of trafficking (cocaine) under CDSA s.5(2) based on a controlled buy conducted by an undercover officer 20 minutes earlier. He has a backpack over his shoulder.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Charter Rights Delivered",
+      "description": "The suspect is advised of the reason for arrest and his Charter s.10(a) and s.10(b) rights. He invokes the right to counsel and says he wants to call a lawyer.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Search Begins",
+      "description": "The officer begins a search of the suspect's person and the backpack. The suspect asks if the officer has a warrant to search the bag.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Items Found",
+      "description": "A large quantity of cocaine is found in the backpack, along with a small locked container the officer cannot immediately open.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Plain View Item Located",
+      "description": "While searching the backpack, the officer sees an unrelated item in plain view — a folded piece of paper with what appears to be a handwritten list of addresses and names consistent with a drug ledger.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Exhibit Processing",
+      "description": "All seized items are documented, photographed, and placed in exhibit bags. The locked container is handled with appropriate legal authority analysis.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Does the Search Power Extend to the Backpack?",
+      "situation": "You have arrested the suspect for CDSA s.5(2) trafficking. He has a backpack over his shoulder at the time of arrest. He asks, 'Do you have a warrant to search my bag?' You are about to search him incident to arrest.",
+      "question": "What is the legal scope of a search incident to arrest, and does it cover the backpack?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The authority for search incident to arrest is a common law power confirmed and defined by the Supreme Court of Canada in R v. Caslake [1998] 1 SCR 51. The Court held that this power extends to items in the arrested person's immediate possession — including a backpack they were carrying — and does not require a warrant. However, the search must be connected to the arrest: its purpose must be to protect officer safety, prevent escape, or preserve evidence related to the offence of arrest. Since the arrest is for drug trafficking and the backpack was in his possession at the time, searching it falls squarely within the Caslake authority. Proceed with the search and document the specific lawful purpose.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The backpack is personal property and requires a separate search warrant — a search incident to arrest only covers the person's clothing.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Seize but do not search the backpack until you obtain a warrant; search incident to arrest for drug offences is more limited than for violent offences.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Locked Container Found in Backpack",
+      "situation": "In the backpack you find a large quantity of cocaine consistent with the trafficking arrest. You also find a small metal container that is padlocked shut. You cannot open it. You do not know what is inside. The container is roughly the size of a glasses case. The suspect says nothing.",
+      "question": "What is your authority — if any — to open or deal with the locked container?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under R v. Caslake, your search incident to arrest authority permits searching containers found on the person for items related to the purposes of the power. However, if the container requires force to open, courts have considered whether a locked container within a container requires more particularized authority. The safest approach here is: seize and secure the container as an exhibit, noting its description and location found; then apply for a further search warrant specifically authorizing the opening of the locked container, citing the circumstances of its discovery in a drug trafficking arrest. This two-step approach — seize under Caslake, open under a new warrant — is the legally defensible course. Document your reasoning.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "You can force it open immediately — since the backpack was lawfully searched and the container was inside it, your authority to open it is continuous and does not require any additional authorization.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the container inside the backpack, seal the entire bag as one exhibit, and let the Crown decide what to do with it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Plain View Doctrine — The Drug Ledger",
+      "situation": "While completing the backpack search, you see a folded piece of paper resting on top of items in the bag. When you unfold it to check for weapons, you see it contains what appears to be a handwritten ledger — columns with names, dates, dollar amounts, and gram weights consistent with drug trafficking records. The cocaine from the arrest is already seized. The ledger is related to a potentially broader trafficking organization.",
+      "question": "Under what authority can you seize the paper ledger, and what must you do to preserve its evidentiary value?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The plain view doctrine permits seizure of evidence in plain view if: (1) the officer is lawfully in the position to observe it — you are, as you are conducting a lawful Caslake search; (2) the incriminating character of the item is immediately apparent — a document listing names, gram weights, and dollar amounts during a trafficking arrest meets this standard; (3) the officer has lawful access to the item — satisfied by the search incident to arrest authority. Seize the ledger as an exhibit related to the trafficking offence. Photograph it in place before moving it, assign an exhibit number, seal it in a paper exhibit bag, and note the exact location and circumstances of discovery. Notify your supervisor and the investigator that additional search authority for the broader organization may need to follow.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do not seize the ledger — you were only authorized to search for evidence related to the specific transaction that led to the arrest, not for broader trafficking organization evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Photograph the ledger and leave it in the bag to be seized later under a new warrant — taking it now exceeds your search incident to arrest authority since it is paper and not contraband.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You executed the search incident to arrest correctly: you articulated the Caslake authority extending to the backpack and documented the search's connection to the arrest; took the legally defensible approach of seizing but not forcing open the locked container, preserving it for a new warrant; applied the plain view doctrine correctly to seize the drug ledger after observing it during a lawful search; and ensured all items were photographed in place, assigned exhibit numbers, and properly packaged. Your careful documentation protects the integrity of the evidence against Charter s.8 challenges.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "search incident to arrest",
+    "R v Caslake",
+    "Charter s.8",
+    "CDSA",
+    "plain view",
+    "evidence",
+    "trafficking",
+    "Canada"
+  ]
+}

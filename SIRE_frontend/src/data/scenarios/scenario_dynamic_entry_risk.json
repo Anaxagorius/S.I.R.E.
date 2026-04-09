@@ -1,0 +1,151 @@
+{
+  "title": "scenario_dynamic_entry_risk",
+  "description": "A team assessing whether a search warrant execution warrants dynamic (no-knock) entry based on credible intelligence of an armed subject inside. Tests balancing officer safety, Charter rights, intelligence assessment, and command decisions.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Warrant Obtained",
+      "description": "A search warrant is issued for a residence linked to a known weapons trafficker. A confidential informant states the primary suspect, with a lengthy violent criminal record, is inside and has a loaded sawed-off shotgun accessible in the living room.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Intelligence Assessment",
+      "description": "The team leader reviews the informant's track record, recent surveillance, and the subject's criminal history including prior assaults on police. There is a 9-year-old child reported to be in the residence.",
+      "timeOffsetSec": 25
+    },
+    {
+      "index": 2,
+      "title": "Entry Method Decision",
+      "description": "The team convenes to decide: standard knock-and-announce, dynamic entry, or containment and callout. A supervisor must authorize any dynamic entry.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Entry Executed",
+      "description": "The selected entry approach is executed. The suspect is apprehended in the living room. A sawed-off shotgun is located under the couch.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 4,
+      "title": "Child Safeguarded",
+      "description": "The child is located in a back bedroom and is unharmed. Victim services is requested to attend.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 5,
+      "title": "Post-Incident Review",
+      "description": "Entry decision is documented. All use-of-force considerations, Charter compliance steps, and supervisor authorizations are recorded.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Assessing the Intelligence for Dynamic Entry",
+      "situation": "You are the team leader. Your informant has told you the suspect keeps a loaded sawed-off shotgun in the living room and has previously stated he 'will not be taken alive.' The suspect has prior convictions for assault causing bodily harm and was acquitted on a weapons charge. Surveillance over the past 48 hours confirms the suspect is inside. There is also a 9-year-old child believed to be in the residence. You must assess whether dynamic entry is justified.",
+      "question": "What factors determine whether dynamic entry is legally and operationally justified?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Dynamic (no-knock) entry in Canada requires specific justification under Charter s.8 and Criminal Code s.25 because it represents a significant intrusion. The justification analysis must include: (1) the reliability and specificity of the intelligence — who the informant is, their track record, whether the information is recent and corroborated; (2) the immediacy of the threat — is the firearm accessible and likely to be deployed if announcement is made? (3) the risk to officers and others, including the child; (4) whether judicial pre-authorization for no-knock entry has been obtained or whether exigent circumstances exist; (5) whether less-intrusive alternatives (containment and callout, negotiated surrender) were considered and rejected with reasons. Document your assessment in writing before entry.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The informant information alone is sufficient — when a firearm is involved, dynamic entry is automatically justified without further analysis.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "The presence of a child inside means dynamic entry is prohibited and you must default to knock-and-announce regardless of the threat level.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Supervisor Authorization",
+      "situation": "Based on your assessment, you believe dynamic entry is the safest option for officers given the credible, specific threat. You want to proceed but your policy requires supervisor authorization for dynamic entry. Your supervisor is available by phone. The entry is scheduled in 30 minutes.",
+      "question": "What information must you provide to the supervisor to obtain authorization?",
+      "options": [
+        {
+          "label": "A",
+          "text": "To obtain valid supervisor authorization for dynamic entry, you must brief your supervisor on: (1) the specific intelligence indicating an accessible, loaded firearm and the subject's stated intent; (2) the informant's credibility and corroborating surveillance; (3) the alternatives considered and why they were assessed as higher risk — specifically, how a knock-and-announce would provide the suspect time to access and deploy the firearm; (4) the presence of the child and the planned protocol to secure her immediately post-entry; (5) the team's composition and training; (6) your recommended entry plan. The supervisor's authorization must be documented in writing including the time it was granted. This authorization does not replace judicial authority but reflects the command accountability structure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Give the supervisor a brief verbal summary and proceed — detailed briefings prior to dynamic entries create unnecessary delays that increase risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "If the supervisor is not physically present on scene, verbal authorization over the phone is not valid and you must default to knock-and-announce.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Entry Review — Documenting the Entry Decision",
+      "situation": "Dynamic entry was executed. The suspect was apprehended in the living room and the sawed-off shotgun was recovered from under the couch. The child was unharmed in the back bedroom. The suspect is in custody. Your supervisor has arrived on scene and is conducting an immediate supervisory review of the entry decision.",
+      "question": "What must be documented in the post-entry review?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Post-dynamic-entry documentation must capture: (1) the specific intelligence that supported the dynamic entry decision — informant reliability, corroboration, currency of information; (2) the threat assessment analysis and why alternatives were rejected; (3) the written supervisor authorization including time, authorizing officer's name, and the specific basis for authorization; (4) the entry timeline — times of approach, entry, clearance, and suspect contact; (5) all use-of-force during entry; (6) confirmation that the Charter s.10(a) and s.10(b) rights were given to the suspect without delay after control was established; (7) steps taken to safeguard the child. This documentation must be preserved as it will be central to any Charter s.8 application challenging the entry.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since the intelligence was confirmed accurate by the recovery of the firearm, no further documentation of the decision-making process is required.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "The documentation should be minimal to avoid creating a record that could be used by the defence in Charter applications.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You navigated the most demanding entry-method decision: you conducted a thorough intelligence reliability assessment, analyzed the legal and safety justifications for dynamic entry, obtained and documented proper supervisor authorization with specific rationale, executed the entry resulting in apprehension and weapon recovery, delivered Charter rights promptly to the suspect, safeguarded the child, and created comprehensive post-incident documentation that will withstand a Charter s.8 challenge. Your analysis balanced officer safety against the Charter right of the occupants against unreasonable search.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "dynamic entry",
+    "no-knock",
+    "risk assessment",
+    "Charter",
+    "officer safety",
+    "search warrant",
+    "tactical",
+    "use of force",
+    "Canada"
+  ]
+}
