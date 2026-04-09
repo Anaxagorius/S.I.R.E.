@@ -1,0 +1,142 @@
+{
+  "title": "active_threat_avoidance",
+  "description": "An active threat event unfolds in a public space. Officers respond using avoidance-focused tactics — prioritising civilian evacuation, containment, and harm reduction while awaiting tactical resources.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["active threat", "avoidance", "Run-Hide-Fight", "containment", "civilian evacuation", "Canada"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Shots Fired — Shopping Centre",
+      "description": "Multiple 911 calls report shots fired at a shopping centre. Caller reports a lone male with a firearm near the food court.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "First Unit Arrives",
+      "description": "First officer arrives at north entrance. Gunshots audible inside. Civilians streaming out of multiple exits.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "ERT En Route",
+      "description": "Emergency Response Team dispatched. ETA 18 minutes. Patrol officers must manage until tactical resources arrive.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Shooter Location Narrowed",
+      "description": "CCTV operator advises shooter is near food court, level 2. Hostages believed sheltered in a locked restaurant.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "ERT On Scene",
+      "description": "Emergency Response Team arrives and takes command of inner perimeter. Patrol officers transition to outer perimeter and casualty coordination.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Incident Resolved",
+      "description": "ERT neutralises threat. Scene turned over to major crimes for investigation.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "First On Scene — Shots Audible",
+      "situation": "You are a patrol officer who has just arrived at the north entrance of a busy shopping centre. You can hear what sound like gunshots coming from inside. Panicked civilians are pushing past you. You are alone — your partner is two minutes behind you. ERT has been dispatched with an 18-minute ETA. Your agency's active threat protocol emphasises harm reduction and rapid civilian evacuation before a tactical entry by lone patrol units.",
+      "question": "What is your immediate action as the first officer on scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not enter alone. Establish an outer perimeter at the north entrance. Immediately advise communications of your position, the number of civilians exiting, and the direction of the gunshots. Direct fleeing civilians away from the entrance and away from other building exits toward a designated assembly point. Request additional units, ERT, EMS, and a command post. Prepare to brief additional officers as they arrive.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Enter the building immediately and move toward the sound of gunfire to locate and engage the suspect as fast as possible.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait at your vehicle until backup arrives before taking any action, since you are alone.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Perimeter Established — Civilians Exiting",
+      "situation": "You have established your position at the north entrance. Two additional patrol units have arrived. Civilians continue to exit — some are injured. An injured woman near the entrance has a gunshot wound to the leg and cannot walk. You can hear intermittent shots from inside — approximately one shot every 90 seconds, suggesting the threat is moving. Your agency protocol allows a warm zone rescue when civilians are in immediate life threat and the threat is not confirmed in your area.",
+      "question": "How do you handle the injured civilian at the entrance?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign one officer to provide immediate haemorrhage control (tourniquet or pressure) and move the injured civilian to a casualty collection point at least 50 metres from the entrance — behind cover. Do not move her further into or alongside the building. Advise EMS of her location and condition. The other two officers maintain the perimeter and continue directing evacuees.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the injured civilian where she is until EMS arrives — moving her may worsen her injury.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Bring the injured civilian inside the building to the first aid room, which is closer.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "CCTV Intelligence — Shooter Location",
+      "situation": "Your communications centre advises that a mall CCTV operator has located the suspect on level 2 near the food court. The suspect is a lone male, moving between stores, and has fired a total of seven rounds. An estimated 30 civilians are believed to be sheltering in a locked restaurant on level 2 — they have called 911. The suspect does not appear to know the restaurant is occupied. ERT ETA is now 10 minutes.",
+      "question": "How do you communicate with the sheltering civilians and manage the inner perimeter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Have communications advise the restaurant caller to remain barricaded, stay quiet, silence all phones, move away from the door and windows, and await law enforcement. Do not attempt entry to reach them — the suspect is between you and the restaurant, and a patrol entry risks drawing attention to the civilians' location. Brief the incoming ERT commander on the suspect's last known location, direction of movement, and the civilians' location so ERT can plan entry accordingly.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Enter the building with two officers now to reach the restaurant before ERT — the civilians need protection immediately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise the restaurant caller to unlock the door and evacuate down the nearest stairwell while the suspect is distracted.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "ERT Transition — Command Handoff",
+      "situation": "ERT has arrived on scene. The ERT commander has taken over tactical command of the inner perimeter. You are the senior patrol officer present. The ERT commander asks you for a situation briefing before entry. You have been on scene for 18 minutes and have the most current information.",
+      "question": "What information do you provide to the ERT commander?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide a structured briefing: (1) suspect description and last confirmed CCTV location — level 2 food court, moving west toward anchor store; (2) shot count and timing — 7 rounds, approximately 90-second intervals; (3) civilian shelter-in-place — 30 civilians in locked restaurant, northeast corner of level 2, caller is still on line with communications; (4) casualty location — one GSW casualty at casualty collection point, EMS attending; (5) perimeter positions of all units; (6) building layout — exits confirmed at north, south, and west; east parking exit unclear. Offer to remain available for additional questions and coordinate the outer perimeter during ERT entry.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Give a brief verbal summary and step aside — ERT are the experts and will assess the situation themselves.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Insist on leading the entry team since you have been on scene the longest and know the layout.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "ERT conducted a successful entry. The suspect was located in the food court and was taken into custody without further injury to civilians. The 30 sheltering civilians in the restaurant were evacuated safely after ERT secured the scene. Your avoidance-focused response — establishing a perimeter, directing civilian evacuation, providing first aid in the warm zone, protecting the shelter-in-place location, and conducting a thorough command handoff — was consistent with current active threat response doctrine for patrol officers. The ERT commander credited your intelligence with enabling a faster and safer tactical entry.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "title": "scenario_child_welfare_involvement",
+  "description": "A child protection worker from the Children's Aid Society arrives at the school requesting to interview and potentially remove a student from the school premises. As the school administrator, you must verify their identity and authority, understand the school's legal obligations, prepare the student appropriately, and document everything carefully.",
+  "category": "Education",
+  "difficulty": "Advanced",
+  "tags": ["CAS", "child welfare", "child protection", "administration", "legal authority", "documentation", "student removal"],
+  "timeline": [
+    { "index": 0, "title": "CPS Worker Arrives", "description": "A child protection worker arrives at the school office requesting access to a student.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Verification of Identity and Authority", "description": "The school administrator verifies the worker's credentials and legal authority.", "timeOffsetSec": 120 },
+    { "index": 2, "title": "Administrator Consultation", "description": "The principal is consulted and the school's role is clarified.", "timeOffsetSec": 300 },
+    { "index": 3, "title": "Student Preparation", "description": "The student is retrieved from class and prepared age-appropriately.", "timeOffsetSec": 600 },
+    { "index": 4, "title": "Interview and Potential Removal", "description": "The worker conducts their interview and indicates they may need to remove the student.", "timeOffsetSec": 900 },
+    { "index": 5, "title": "Documentation and Debrief", "description": "The school completes detailed documentation and supports staff involved.", "timeOffsetSec": 1200 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "CAS Worker at the Office Window",
+      "situation": "It is 10:15 AM on a Thursday morning. The school office secretary, Ms. Park, comes to find you (the vice principal) looking flustered. She says a woman is at the front desk claiming to be from the Children's Aid Society and asking to see a Grade 4 student named Jayden. The woman is dressed in business casual, carries a bag, and has produced what appears to be a government-issued ID card. Ms. Park is unsure what to do and has left the woman waiting at the counter. You are the most senior administrator currently in the building — the principal is at a district meeting.",
+      "question": "How do you approach this initial interaction?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Greet the worker professionally and calmly. Ask to see her identification again and examine it carefully — check her name, photo, title, and the CAS agency name. Ask for her business card or agency phone number, and excuse yourself briefly to call the CAS main intake line directly (using a number you independently look up, not the one she provides) to verify she is an active worker on this file. This is standard procedure and a legitimate CAS worker will expect and respect this verification step. Do not bring Jayden to the office until identity and authority are confirmed.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Accept the worker's ID at face value and immediately bring Jayden from class, as CAS workers deal with time-sensitive situations and unnecessary delays could compromise a child's safety and the CAS investigation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Refuse to allow the worker access to Jayden or any information about him without a written court order, as the school has a strict confidentiality policy and cannot allow access to a student based solely on a verbal request, regardless of the requester's claimed authority.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Confirming Authority and Scope",
+      "situation": "You have verified the worker's identity — she is Ms. Davies, a confirmed CAS worker. She advises that she has an active file concerning Jayden and needs to conduct an in-person interview with him at school today as part of their investigation. She has documentation authorising a school interview without parental consent at this stage. She does not have a court order for removal — she says she will determine next steps after the interview. You have reached the principal by phone and she says to proceed according to protocol. The question now is: what is the school's specific role?",
+      "question": "What is the school's legal obligation and appropriate role at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The school is legally obligated to cooperate with CAS when workers arrive with proper authority and identification. Provincial child welfare legislation authorises CAS workers to interview a child at school without parental notification in specific circumstances — the school cannot prevent this. Your role is to: provide a private, comfortable space for the interview; retrieve Jayden from class in a low-key, calm manner; and remain available but not present in the interview room unless the worker requests it. Do NOT contact Jayden's parents without first checking with the CAS worker — she may direct you not to, as premature parental notification can compromise the safety assessment.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Contact Jayden's parents immediately to inform them that CAS is at the school and to get their consent before any interview takes place — parents have a fundamental right to be notified when a government agency is interviewing their child.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Insist on being present in the room during the entire interview to serve as Jayden's advocate and to ensure the interview is conducted fairly — the school has a duty of care to all students on its premises.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Retrieving and Preparing Jayden",
+      "situation": "You are heading to Jayden's Grade 4 classroom to retrieve him. His teacher, Mr. Hartley, looks concerned when you arrive at the door. Jayden is seated at his desk. He is 9 years old and has no idea why someone from outside the school wants to speak with him. The class will wonder why he is being called out. Mr. Hartley asks you quietly in the hall, 'Should I tell him it's CAS? He might panic.' You need to bring Jayden out of class calmly and prepare him minimally for the meeting.",
+      "question": "How do you retrieve Jayden and prepare him for the interview?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ask Mr. Hartley to call Jayden out of class naturally and without alarming the other students — for example: 'Jayden, can you come with Ms. [VP name] please?' Keep it low-key. In the hallway, kneel to Jayden's level and use calm, age-appropriate language: 'Someone from an organisation that helps kids and families is here and would like to chat with you for a few minutes. You're not in any trouble — this is just a conversation, and I'll be right outside.' Do not name CAS explicitly (this is the CAS worker's role to explain in the interview), do not describe the subject matter, and do not coach him on what to say or not say.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Jayden directly that the Children's Aid Society is here because someone reported that he may not be safe at home, so he should tell the worker everything honestly and not be afraid — full transparency will reduce his anxiety and improve the quality of the interview.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Have Jayden's classroom teacher escort him to the interview room and attend the meeting as a familiar, trusted adult — having someone he knows present will make Jayden more comfortable and willing to open up.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "The Interview and Potential Removal",
+      "situation": "The interview has been underway for 25 minutes. Ms. Davies emerges from the interview room and closes the door. She tells you that based on her interview and information in the file, she has determined that Jayden cannot safely return home today and she is exercising her authority under the Child, Youth and Family Services Act to apprehend him and transport him to a place of safety. Jayden's parents have not been notified. Jayden is not aware yet. Ms. Davies is composed and clear about her legal authority.",
+      "question": "What is the school's role when CAS moves to apprehend a student?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cooperate with Ms. Davies' apprehension decision — a CAS worker acting under the Child, Youth and Family Services Act (or equivalent provincial legislation) has the authority to apprehend a child without a court order when they have reasonable grounds to believe the child is in need of protection. The school cannot legally obstruct this. Your role is to: provide Jayden's emergency information and any relevant school records as requested, help prepare Jayden for the transition calmly (Ms. Davies will speak with him; support from you may be appropriate), ensure Jayden can collect any personal items (backpack, coat), and document the exact time and details of the apprehension in writing before Ms. Davies leaves.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Refuse to allow Jayden to leave the school with Ms. Davies until his parents have been notified and have had an opportunity to respond — the school has a legal duty to release students only to authorised individuals, and CAS workers are not listed on Jayden's pickup authorisation form.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call Jayden's parents immediately to warn them that CAS is taking Jayden, so they have the opportunity to arrive at the school before he is removed — parents have the right to be present when their child is apprehended.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Documentation and Post-Removal Procedures",
+      "situation": "Jayden has left the school with Ms. Davies at 11:47 AM. Ms. Davies has left a business card and stated that CAS will contact the family. Your school secretary is shaken. Mr. Hartley is asking what to tell the class about where Jayden went. The principal has returned from her meeting and needs a full briefing. There will be parent inquiries by the afternoon, and potentially media interest if the situation becomes known in the community. You must now manage the aftermath professionally and carefully.",
+      "question": "How do you manage documentation, staff support, and confidentiality in the aftermath?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete a thorough, time-stamped written incident log immediately: worker's name and agency, ID verification steps taken, time of arrival, time of interview, time of departure, name of student, brief description of events, and any documents provided or received. This record is confidential and for school use only. Inform Mr. Hartley to say only: 'Jayden needed to leave early today' — teachers must not disclose to students or parents that CAS was involved. Ensure all staff involved understand the strict confidentiality requirement. Brief the principal completely. Contact the school board's legal or communications team if media inquiries are anticipated. Arrange a brief staff debrief to support those affected by the emotional weight of the situation.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Inform Jayden's classmates that Jayden had a family emergency and may not be back for a while — the class will be anxious if no explanation is given, and a brief explanation that preserves his privacy while explaining his absence is the most compassionate approach.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Post a note in the daily communications to parents advising them that a child welfare matter occurred at the school today and that the school cooperated fully with authorities — transparency with the school community is a core value and parents deserve to know when government agencies are operating on school premises.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Jayden was placed in temporary foster care while CAS completed their investigation. The school maintained professional confidentiality throughout and provided educational continuity support once Jayden's placement was confirmed. Key training takeaways: (1) Always independently verify a CAS worker's identity by calling the agency directly — child predators have impersonated CAS workers. (2) Schools are legally required to cooperate with CAS workers who have proper authority — you cannot obstruct or delay an apprehension. (3) Never contact a student's parents without checking with the CAS worker — premature notification can endanger the child. (4) Never coach a student on what to say or what not to say before a CAS interview — this can be considered obstruction. (5) When a student is apprehended, document everything in writing before the worker leaves the building: time, names, contact information, and what occurred. (6) Strict confidentiality after an apprehension protects the child, the investigation, and the school — CAS involvement must never be disclosed to other parents, students, or the media. (7) Staff involved in welfare apprehensions often experience secondary trauma — provide a structured debrief and support.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

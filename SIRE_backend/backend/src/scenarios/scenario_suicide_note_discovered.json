@@ -1,0 +1,134 @@
+{
+  "title": "scenario_suicide_note_discovered",
+  "description": "A teacher discovers what appears to be a suicide note in a student's belongings. As the teacher, you must immediately locate the student, assess their safety, involve the crisis support team, coordinate with administration, and make decisions about emergency services and parent contact.",
+  "category": "Education",
+  "difficulty": "Advanced",
+  "tags": ["suicide", "crisis response", "mental health", "safe messaging", "emergency services", "administration", "documentation"],
+  "timeline": [
+    { "index": 0, "title": "Note Discovered", "description": "A teacher finds what appears to be a suicide note in a student's belongings.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Locating the Student", "description": "Staff work to immediately locate the student on school grounds.", "timeOffsetSec": 120 },
+    { "index": 2, "title": "Assessing Student Safety", "description": "The teacher makes first contact with the student and assesses immediate risk.", "timeOffsetSec": 300 },
+    { "index": 3, "title": "Immediate Support Team Response", "description": "The counsellor and administration are brought in to support the student.", "timeOffsetSec": 600 },
+    { "index": 4, "title": "Parent Contact", "description": "The school contacts the student's family to notify them of the crisis.", "timeOffsetSec": 900 },
+    { "index": 5, "title": "Emergency Services Decision", "description": "The team assesses whether 911 or the mental health crisis line must be engaged.", "timeOffsetSec": 1200 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "The Note — What Do You Do First?",
+      "situation": "It is 1:45 PM on a Friday. You are a Grade 11 homeroom teacher collecting notebooks from your class that has just left for afternoon activities. In sorting through the materials, you find a handwritten letter inside a student's binder — it belongs to Ethan, a 16-year-old student who has seemed increasingly withdrawn over the past few weeks. The letter begins with 'By the time anyone reads this…' and goes on to express that Ethan feels he has become a burden to everyone who loves him, that he has made his decision, and that he is sorry. It is clearly addressed to his family. Your classroom is now empty. Ethan is not in the room.",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat this as an immediate, serious crisis — do not wait, second-guess, or assume this is creative writing. Secure the note (do not leave it in the binder; keep it with you as documentation). Immediately contact the main office by phone or radio and report: 'I have found what appears to be a suicide note belonging to Ethan [surname]. I need the counsellor and VP at my location immediately, and someone needs to locate Ethan on school property right now. This is urgent.' Do not start walking the school alone to find Ethan — a coordinated, immediate response is required.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Return the note to Ethan's binder without reading further — it may be a creative writing assignment or a private journal entry, and reading a student's private correspondence without clear evidence of harm would be a serious breach of his privacy rights.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Go find Ethan yourself immediately to confront him privately about the note, as time is critical and involving administrators and counsellors will take too long — a direct, one-on-one conversation is most efficient.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Coordinating the Search for Ethan",
+      "situation": "The VP, Ms. Larivière, and the school counsellor, Mr. Baptiste, have been alerted and are now with you. Ms. Larivière is coordinating a quiet, discreet campus search. The note is in your hand. It is 1:52 PM. Ethan was last seen leaving your classroom approximately 10 minutes ago. A student in the hallway mentions they thought they saw Ethan heading toward the back stairwell near the gymnasium. The school has a policy that all students must be on school grounds until 3:15 PM dismissal. There are no sign-outs recorded for Ethan today.",
+      "question": "How should the search and coordination be handled?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Hand the note to Mr. Baptiste (the counsellor) so it is with the qualified crisis responder — it is critical evidence and should not be separated from the response team. Confirm that Ms. Larivière is sending specific staff to check the back stairwell, all washrooms, and exterior areas quietly and without alarming other students. Ask that the front office monitor exits and that the gym teacher discretely check the back of the building. Mr. Baptiste should be the primary person to make first contact with Ethan once located — not a custodian or unqualified staff member. Call 911 if Ethan is not located within 10 minutes or if there is any reason to believe he has left the building.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Make an announcement over the PA system asking Ethan to report to the main office immediately, as this is the fastest way to locate him and reduces the time he may be alone.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact Ethan's parents first before searching the school, so they can come in and handle the situation themselves — parents have the primary right and responsibility to respond to their child's mental health crisis.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "First Contact with Ethan",
+      "situation": "Ethan has been found sitting alone on the floor in the back stairwell near the gymnasium, knees pulled up to his chest, earbuds in. He looks up when Mr. Baptiste approaches but does not flee. Mr. Baptiste has asked you to be present but to remain slightly back. Ethan's eyes are red from crying. When Mr. Baptiste gently asks how he is doing, Ethan says quietly: 'I don't really want to talk.' He does not appear to have any visible injuries. He has a backpack with him.",
+      "question": "How does the crisis responder approach this conversation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mr. Baptiste sits at Ethan's level, maintains calm and non-threatening body language, and says: 'Ethan, I'm not here to get you in trouble. I'm here because we care about you and we're concerned. You don't have to talk right now, but I'm going to stay here with you.' He does not immediately confront Ethan about the note. After a brief, calm silence, Mr. Baptiste might gently say: 'I want to understand how you're feeling today. Are you safe right now?' He does not leave Ethan alone under any circumstances. If Ethan has any objects that could be used for self-harm in his backpack, calmly ask if he'd feel comfortable setting the bag aside while they talk.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Show Ethan the note immediately so he knows you found it and why you are there — withholding this information would feel manipulative to a teenager and starting the conversation with full transparency establishes trust.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Ethan directly that he is in serious trouble for writing the note and that his parents are already on their way — a firm, clear statement about consequences may shock him out of his current state of mind and motivate him to engage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Immediate Crisis Support Response",
+      "situation": "Ethan has agreed to move with Mr. Baptiste to a quiet, private office near the counselling suite. He is speaking haltingly but has confirmed that yes, he wrote the note, and yes, he has been thinking about ending his life. He says he has 'thought about it a lot' and that he 'knows how he would do it.' When asked if he has the means nearby, he hesitates. He is cooperative but fragile. Ms. Larivière is outside the room. It is now 2:15 PM.",
+      "question": "What is the appropriate crisis support response at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Mr. Baptiste continues the safety assessment using a structured approach: confirming ideation (present), plan (present), means (unclear/possible), intent (high concern given the note and verbal confirmation). Given the level of risk disclosed, this student must not be left alone for any reason — a staff member should be physically present at all times, even if Ethan needs to use the washroom. Ms. Larivière should now be briefed and should prepare to contact Ethan's parents immediately. The decision about whether to call 911 or a crisis mobile team depends on the means assessment — if Ethan confirms access to a specific lethal means (e.g., a firearm in the home, stockpiled medications), 911 is required.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Since Ethan is now calm, cooperative, and willingly in the office, the immediate danger has passed. Allow him some time alone to compose himself while Mr. Baptiste steps out to brief Ms. Larivière — this respects his dignity and gives him space.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Complete a written safety contract with Ethan in which he signs a promise not to harm himself tonight — these contracts are a well-established best practice and, once signed, provide sufficient assurance to allow him to be released to his parents without further emergency intervention.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Parent Contact",
+      "situation": "Ms. Larivière is preparing to call Ethan's parents. The counsellor has assessed that Ethan has a specific plan and has disclosed having access to medication at home. This significantly elevates the risk level. Ethan does not want his parents called — he says his father 'will overreact' and his mother 'will blame herself.' It is 2:35 PM. His parents are both reachable by phone. Mr. Baptiste is maintaining continuous supervision of Ethan in the counselling office.",
+      "question": "How should parent contact be handled?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ms. Larivière calls Ethan's parents immediately — Ethan's objection does not override the school's duty of care. She speaks calmly but clearly: 'I'm calling because we're very concerned about Ethan's safety today and I need you to come to the school right away.' She does not deliver the full crisis disclosure over the phone in a way that could cause parents to drive dangerously, but she is clear that this is urgent. She requests that when the parent(s) arrive, someone remove any medications, firearms, or other potential means from the home before Ethan returns. She also advises that a hospital assessment tonight is likely necessary and that the school will help connect them with crisis supports.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Respect Ethan's explicit request and wait for him to agree to his parents being called — involving parents against a student's wishes can permanently damage the student's trust in school staff and may make him less likely to seek help in the future.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send an email to Ethan's parents rather than calling, so they have written documentation of the school's communication and can process the information at their own pace rather than receiving an alarming call.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Ethan's parents came to the school. With the counsellor's support, they had a brief, calm conversation with Ethan and were connected with crisis line resources. They took Ethan directly to the emergency department for a psychiatric assessment, where he was seen that evening. A community mental health follow-up was arranged. Key training takeaways: (1) A suicide note is always treated as a genuine, imminent crisis — never explain it away. (2) Coordinate a response team immediately; do not act alone. (3) A PA announcement to find a student in crisis is never appropriate — it causes public humiliation and can escalate risk. (4) Never leave a student in active suicidal crisis alone, even for a moment. (5) 'No-suicide contracts' are not evidence-based and provide false reassurance — they are NOT a substitute for a proper safety assessment and professional referral. (6) When specific lethal means are disclosed, 911 or a mobile crisis team must be considered — the threshold is low when a plan AND access to means are both present. (7) A thorough, time-stamped written incident report must be completed by all involved staff on the day of the incident.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

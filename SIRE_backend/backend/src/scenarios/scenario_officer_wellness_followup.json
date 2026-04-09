@@ -1,0 +1,158 @@
+{
+  "title": "scenario_officer_wellness_followup",
+  "description": "A supervisor must conduct mandatory wellness check-ins for an officer placed on administrative duties following a fatal officer-involved shooting, navigating EAP referrals, SIU investigation restrictions, and return-to-work planning.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["officer wellness", "EAP", "peer support", "officer-involved shooting", "administrative duties", "SIU", "return-to-work", "Police Services Act", "PTSD", "critical incident stress"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Fatal Shooting Occurs",
+      "description": "An officer is involved in a fatal officer-involved shooting. The SIU investigation is initiated and the officer is placed on administrative duties.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "72-Hour Mark Reached",
+      "description": "Seventy-two hours after the incident, the supervisor must conduct the first mandatory wellness check-in with the officer.",
+      "timeOffsetSec": 259200
+    },
+    {
+      "index": 2,
+      "title": "EAP and Peer Support Offered",
+      "description": "The supervisor ensures the officer is connected with Employee Assistance Program resources and peer support.",
+      "timeOffsetSec": 262800
+    },
+    {
+      "index": 3,
+      "title": "Administrative Duties Clarified",
+      "description": "The officer asks about their status, restrictions, and timeline while on administrative duties during the SIU investigation.",
+      "timeOffsetSec": 345600
+    },
+    {
+      "index": 4,
+      "title": "Wellness Progress Assessed",
+      "description": "The supervisor conducts a follow-up wellness check and begins planning for eventual operational reintegration.",
+      "timeOffsetSec": 1209600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Mandatory Wellness Check Timing",
+      "situation": "Constable Amara was involved in a fatal officer-involved shooting 72 hours ago. She shot and killed an armed man who charged at her with a machete. The SIU investigation is ongoing. She has been placed on administrative duties by the Chief as per standard protocol. She has not been formally interviewed by SIU yet. You are her direct supervisor. Departmental policy and operational support guidelines require a mandatory wellness check-in. When must the first wellness check-in occur and who must conduct it?",
+      "question": "When must the first mandatory wellness check-in occur and who must conduct it?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under most Canadian police services' operational support and critical incident policies, the first mandatory wellness check-in must occur within 24-72 hours of a critical incident — the 72-hour mark is typically the outer limit, not a target. It must be conducted by: (1) the officer's direct supervisor (you) — this is not delegable to another officer or an HR clerk; (2) in consultation with or alongside an Occupational Health and Wellness (OHW) professional or Employee Assistance Program (EAP) referral agent where available. At the 72-hour mark, acute stress responses may be at their peak — research shows post-traumatic stress symptoms emerge within 24-72 hours for many individuals (DSM-5). The check-in must not be conducted in a group setting or over email — it requires a private, face-to-face meeting in a neutral location comfortable for Amara. Document that the check-in occurred, the date, time, and general nature of the conversation, but do not record the contents of the wellness discussion in the incident investigation file — wellness check-in notes are welfare records, not investigative records.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait until the SIU investigation is complete before conducting the first wellness check-in — any contact with the subject officer during the SIU investigation could be perceived as coaching or improper communication.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Assign an HR representative to conduct the wellness check-in — supervisors are too close to the operational incident to conduct an objective wellness assessment and may inadvertently discuss the investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "EAP and Peer Support Referral",
+      "situation": "At the wellness check-in, Amara is visibly affected. She describes difficulty sleeping, intrusive thoughts, and a reluctance to return to operational duties. She says she does not want to 'see a shrink' and feels that talking about it will make it worse. She asks if she has to see anyone. You need to ensure she is connected with appropriate support resources without making her feel coerced. What support resources must be offered and how?",
+      "question": "What EAP and peer support resources must be offered and how must they be offered?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Offer the following support resources clearly and without pressure: (1) Employee Assistance Program (EAP) — a confidential counselling service (typically 6-8 sessions) through the police service's contracted EAP provider; explain that EAP sessions are confidential, not reported to the employer, and are provided at no cost; (2) Peer Support Program — a peer support officer who has personally experienced a critical incident and is trained to provide non-clinical, peer-to-peer support; this is often more acceptable to officers who resist clinical counselling; (3) Occupational Health and Wellness referral — if Amara's symptoms suggest she may be experiencing acute stress disorder or early PTSD, a mandatory referral to Occupational Health for a fit-for-duty assessment may be appropriate — this is separate from voluntary EAP; (4) Critical Incident Stress Debriefing (CISD) facilitator — if not already offered in the first 72 hours; (5) Police chaplain if relevant to Amara's preferences. Amara cannot be required to access voluntary counselling but she must be clearly informed of each option. Acknowledge her feelings about not wanting to 'see a shrink' and normalize peer support as a starting point. Document that the resources were offered and Amara's response — do not document the content of the wellness conversation.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Mandate EAP participation immediately — Amara's symptoms suggest she is not coping well and allowing her to refuse support puts her at risk; compulsory EAP referral is within a supervisor's authority.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Provide Amara with the EAP brochure and let her decide — unsolicited offers of support can feel patronizing and it is better to let the officer come forward if and when they are ready.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Operational Status and Administrative Duties",
+      "situation": "Amara asks directly: 'What exactly am I allowed to do? Can I work? Can I carry my backup firearm? Can I drive a police vehicle? When will this end?' She has been placed on administrative duties by the Chief pending the SIU investigation. You need to explain her operational status accurately and within the applicable legal framework without discussing the SIU investigation itself.",
+      "question": "What are the lawful restrictions on operational duties during an SIU investigation and what administrative duties are permitted?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under the applicable Police Services Act and departmental policy, an officer placed on administrative duties during an SIU investigation: (1) retains full employment status and is entitled to full salary, benefits, and seniority accrual — administrative duties are not a disciplinary measure; (2) typically cannot carry their service firearm or perform front-line patrol duties while the investigation is ongoing — the Chief's authority to remove the officer from operational duties for this period is established in the applicable Police Act; (3) may perform a range of internal administrative functions (office work, report review, training delivery, administrative projects) — these assignments must be meaningful and not constitute constructive punishment; (4) the duration of administrative status is linked to the SIU investigation timeline, which is outside the police service's control — advise Amara that the SIU Act sets timelines but complex cases can take months; (5) if Amara is granted full-time sick leave due to an operational stress injury, she transitions to a different status governed by occupational health and collective agreement provisions. Be clear and factual — do not speculate about investigation outcomes or timelines.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Administrative duties during an SIU investigation are entirely discretionary — the supervisor can assign whatever duties they believe appropriate, including continued front-line patrol without a firearm.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Amara is suspended with pay — administrative duties means no work at all; she should remain at home and attend only mandatory wellness appointments until the SIU concludes.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Communicating Without Prejudicing the Investigation",
+      "situation": "During a follow-up wellness check two weeks after the incident, Amara starts to describe what happened during the shooting. She says 'I just need to talk through what I did — I need to know if I did the right thing.' You want to be supportive but you are aware that the SIU investigation is ongoing and Amara has not yet given a statement. What can you say and what is off-limits as her supervisor?",
+      "question": "What can a supervisor say during a wellness check-in and what must remain off-limits to avoid prejudicing the SIU investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "As Amara's supervisor conducting a wellness check-in, you must maintain a clear boundary: (1) You can: listen supportively and empathetically to Amara's emotional experience (how she is feeling, how the incident has affected her life, her concerns about the future); validate that what she is experiencing is a normal human response to a traumatic event; ask open-ended wellness-focused questions about sleep, support systems, and daily functioning; remind her of support resources; (2) You must not: elicit, record, or engage in any discussion about the specific facts of the shooting — what she saw, what she decided, what she heard, what actions she took; offer any opinion about whether her actions were justified or appropriate; discuss what other witnesses or investigators have said; discuss evidence or the SIU's investigation activities. If Amara begins to describe the incident facts, gently redirect: 'I want you to talk to your personal lawyer and the peer support officer about those details — in this conversation I want to focus on how you're doing as a person.' Document that the check-in occurred and was wellness-focused, not the content of the discussion.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Allow Amara to fully debrief the incident — this is part of trauma processing and a supervisor who cuts off discussion of the incident events will increase the officer's sense of isolation and harm.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Refuse to have any substantive wellness conversation with Amara until the SIU investigation concludes — all supervisor contact with a subject officer during an SIU investigation is legally risky.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Return-to-Work Planning",
+      "situation": "The SIU has concluded its investigation without charges being laid. Amara has been attending EAP sessions and peer support meetings. The Occupational Health unit has conducted a fitness-for-duty assessment. Amara says she wants to return to operational patrol. You must now facilitate a return-to-work plan. What criteria must be met before operational reintegration and what does the return-to-work plan require?",
+      "question": "What criteria must be met before operational reintegration and what does the return-to-work plan require?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Operational reintegration after a fatal officer-involved shooting requires: (1) SIU investigation conclusion without charges — administrative duty restrictions are tied to the SIU investigation; this must be confirmed in writing before operational reintegration begins; (2) Occupational Health fitness-for-duty clearance — an independent fitness-for-duty assessment by a qualified occupational health professional (typically a physician or registered psychologist) confirming Amara is fit to perform full operational duties including the use of force; this is mandatory, not optional, and protects both Amara and the public; (3) return of service firearm — the service should follow a documented process for returning the officer's service firearm or issuing a replacement with updated certification; (4) a phased return-to-work plan developed collaboratively with Amara, Occupational Health, and the EAP counselor if involved — this may include starting with administrative duties for one or two weeks, then partner patrol, then solo patrol; (5) a supervisor support plan committing to regular check-ins with Amara for 60 days post-return; (6) documentation of each step in the return-to-work plan in the occupational health file — not the SIU or PS file. Do not pressure Amara to return before she and OHW are ready — premature return increases risk of a workplace injury claim.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Once the SIU concludes without charges, Amara returns to full operational duties immediately — the SIU conclusion removes all legal barriers and no further assessment is required.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Require Amara to pass a use-of-force recertification test and complete a written psychological self-assessment before returning to operational duties — formal external assessments are unnecessary and can stigmatize officers.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Amara completed EAP counselling and peer support, received a fitness-for-duty clearance from Occupational Health, and returned to full operational patrol through a phased four-week plan. Regular supervisor check-ins were maintained for 60 days post-return. The SIU concluded without charges. Key training takeaways: The first mandatory wellness check-in must occur within 24-72 hours of a critical incident and be conducted by the direct supervisor in a private, face-to-face setting; EAP, peer support, and CISD resources must be actively offered and documented — voluntary counselling cannot be mandated; administrative duties during an SIU investigation are not disciplinary — the officer retains full salary and meaningful work assignments; during wellness conversations, supervisors must not elicit incident facts while the SIU investigation is ongoing — redirect to personal counsel; return-to-work after a fatal OIS requires SIU closure and an Occupational Health fitness-for-duty clearance before operational reintegration.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

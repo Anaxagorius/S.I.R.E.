@@ -1,0 +1,134 @@
+{
+  "title": "scenario_missing_student_school_staff",
+  "description": "During afternoon attendance, a teacher discovers that a student is unaccounted for — not in class and not signed out. The school must conduct a systematic search, escalate appropriately, call police when warranted, and notify parents — all before it becomes a full missing person situation.",
+  "category": "Education",
+  "difficulty": "Beginner",
+  "tags": ["missing student", "attendance", "school search", "police", "parent notification", "safety protocol", "sign-out log"],
+  "timeline": [
+    { "index": 0, "title": "Absence Noted", "description": "A teacher records that a student is absent from afternoon class with no explanation.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Initial Check", "description": "The teacher takes initial steps to verify the student's whereabouts.", "timeOffsetSec": 120 },
+    { "index": 2, "title": "Systematic School Search", "description": "Staff organise a structured search of the school premises.", "timeOffsetSec": 300 },
+    { "index": 3, "title": "Decision to Escalate", "description": "The school determines that the situation warrants escalation to administration and police.", "timeOffsetSec": 600 },
+    { "index": 4, "title": "Police Call", "description": "The school contacts police with a clear and accurate account of the situation.", "timeOffsetSec": 900 },
+    { "index": 5, "title": "Parent Notification", "description": "Parents are notified of the situation in a timely and coordinated manner.", "timeOffsetSec": 1200 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Student Unaccounted For — First Steps",
+      "situation": "It is 1:10 PM on a Wednesday afternoon. You have just taken afternoon attendance in your Grade 8 class and you cannot account for one student: Noah, a 13-year-old boy. He was present this morning for all classes. He is not in his seat, has not been signed out at the office, and did not ask to go to the washroom or nurse's office. Two classmates shrug when asked if they know where he is. Noah does not have any scheduled activities that would take him out of class this period. You have no reason to believe he is in distress, but you cannot locate him.",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately contact the school office by phone from your classroom — do not leave your class unattended. Tell the secretary: 'I'm missing Noah [surname] from afternoon attendance. Can you check whether he was signed out, check with the nurse's office, and confirm with the main office if anyone has seen him in the last 30 minutes?' Record the exact time you noticed him missing (1:10 PM) and write this down — time documentation is critical for any subsequent police report. Maintain your class calmly and await confirmation from the office before escalating.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Leave your class unsupervised and personally walk the hallways and common areas to look for Noah, as you are his teacher and are best placed to recognise him and understand where he might go.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait until the end of the period to report the absence, as students sometimes step out briefly and return — reporting prematurely could cause unnecessary alarm if Noah simply stepped out to use the washroom or get a drink.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Initial Verification",
+      "situation": "The office has checked: Noah was not signed out and is not in the nurse's office. The secretary pulled the morning attendance — Noah was confirmed present at 9:00 AM and at 11:45 AM for period 3. The last confirmed sighting was at 12:05 PM in the hallway near the east exit, reported by a classmate. It is now 1:20 PM — approximately 75 minutes have passed since he was last seen. The vice principal, Ms. Richter, has been informed. The school has a security camera on the east exit. Noah has no history of skipping class.",
+      "question": "What should the school do in this verification phase?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritise reviewing the east exit security footage immediately to determine whether Noah left the building — this will tell you whether the search should be internal or external. Simultaneously, ask the office to check the sign-out logs thoroughly (sometimes students sign themselves out informally). Ms. Richter should check with the guidance counsellor to see if Noah had any appointment or was dealing with any known issues. Ask the classmate who saw him near the east exit whether Noah seemed upset, in a hurry, or was with anyone. All of this takes less than 10 minutes and dramatically narrows the search.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Call Noah's parents right now and ask if he came home or contacted them, as parents should be the first people notified when a child cannot be located at school.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Assume Noah skipped school and mark him absent for disciplinary follow-up, as a 13-year-old leaving school without signing out is almost certainly doing so voluntarily — school truancy procedures are the appropriate response, not a missing student protocol.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Organising the School Search",
+      "situation": "Security footage shows Noah exiting the east door at 12:08 PM and walking quickly toward the playing field — he did not appear to be with anyone. He did not reappear on any other camera. The sign-out log has no record of him. It is now 1:35 PM. Ms. Richter is coordinating a search. The school has four available staff who are free this period. The building has two floors, multiple washrooms, a gymnasium, a storage room, and exterior areas including the playing field and bicycle racks.",
+      "question": "How should the systematic school search be organised?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Organise a coordinated sweep using available staff: assign specific zones (north wing, south wing, gymnasium and change rooms, all washrooms, exterior playing field, rear of building near bicycle racks) so the entire school is covered simultaneously without duplication. Each staff member checks in by radio or phone when their zone is clear. The search should be completed within 10–12 minutes if well-coordinated. Establish a central reporting point (Ms. Richter) who tracks all reports. Given that Noah was seen leaving the building, prioritise the exterior perimeter and immediate neighbourhood perimeter while the interior sweep is completed.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Send one staff member (the custodian) to walk through the entire school building alone and report back, as a broad, unfocused search with multiple staff will create confusion and may miss Noah if multiple people check the same areas.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Use the PA system to announce that Noah should report to the office immediately, as a direct announcement is the fastest way to locate a student who may simply be in a common area not covered by cameras.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Escalation Decision — When to Call Police",
+      "situation": "The full school search has returned negative. It is now 1:55 PM. Noah has been unaccounted for for approximately 1 hour and 50 minutes. Camera footage confirms he left the building at 12:08 PM and has not returned. Ms. Richter has escalated to the principal, Mr. Dupont. Some staff are suggesting waiting until the end of the school day (3:15 PM) before calling police in case Noah returns on his own. The school board's protocols indicate that police should be called for a missing student under 18 when location is unknown and they have not returned within a reasonable search period.",
+      "question": "When and how should the school escalate to police?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Call police now — do not wait until 3:15 PM. A 13-year-old who left school grounds without authorisation, cannot be located after a full internal search, and has now been missing for nearly 2 hours warrants a police report. The common belief that police won't take a missing person report within 24 hours is a myth — for a minor, police will respond immediately. Call 911 if you have reason to believe he may be in danger, or the non-emergency police line for a welfare check and missing youth report. Have the following information ready: full name, date of birth, physical description, what he was wearing, last confirmed location with timestamp, and any known concerns.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Wait until the end of the school day at 3:15 PM before calling police — Noah is a teenager and likely left voluntarily, and a premature police call will embarrass his family, alarm other parents, and create unnecessary administrative burden if he returns on his own.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do not call police until you have spoken with Noah's parents first, as calling police without parental knowledge could be seen as overstepping and the parents may already know where Noah is.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Calling Police — Providing Accurate Information",
+      "situation": "Mr. Dupont is calling the police non-emergency line. A dispatcher answers and asks for information about the missing youth. The school has Noah's student file available, which includes his photo, physical description, emergency contacts, and home address. His parents have not yet been notified. The dispatcher asks for details and Mr. Dupont needs to provide them clearly and efficiently.",
+      "question": "What information should be provided to police and in what order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide the following information clearly and in order: (1) Your name, role, and the school's address and phone number. (2) Student's full name, date of birth, grade. (3) Physical description: height, build, hair colour/style, eye colour, ethnicity, and crucially — exactly what he was wearing when last seen (use the camera footage description). (4) Last confirmed sighting: east exit camera, 12:08 PM, walking toward playing field, appeared to be alone and moving quickly. (5) Any relevant context: no history of skipping, no known distress, no disciplinary issues. (6) Parent/guardian names and contact numbers (so police can coordinate). Answer all dispatcher questions fully and accurately.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Provide only Noah's name and grade to police and direct them to contact the parents for any further details, as the school is bound by student privacy legislation and cannot share personal student information with third parties without parental consent, even in an emergency.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the police to check whether Noah may have gone to a friend's house before providing his personal information — you want to avoid over-escalating a situation that may have a simple explanation before releasing private student data.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Police located Noah at a nearby park approximately 45 minutes after the report was made. He had left school after receiving an upsetting text message from a family member and had not felt safe staying. He was returned to school, where the counsellor was immediately brought in to support him. His parents were notified within minutes of the police call being placed. Key training takeaways: (1) Time documentation from the moment of noticing the absence is essential for any police report. (2) Reviewing CCTV footage early is the single most efficient step for narrowing an internal vs. external search. (3) A coordinated, zone-based search is far more effective than an unstructured one — cover the building and exterior simultaneously. (4) There is NO waiting period before reporting a missing minor to police — this is a dangerous myth. (5) The decision to call police and the decision to notify parents should happen at the same time or very close together — there is no reason to delay one for the other. (6) Student privacy legislation contains explicit emergency exemptions — sharing necessary information with police during an active missing-person situation is both legal and required.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

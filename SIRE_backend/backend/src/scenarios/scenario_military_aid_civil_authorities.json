@@ -1,0 +1,142 @@
+{
+  "title": "military_aid_civil_authorities",
+  "description": "A prolonged natural disaster overwhelms provincial and municipal response capacity. Police must request and integrate Canadian Armed Forces assistance under the National Defence Act, coordinate joint operations, and manage command authority across military and civilian structures.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": ["military aid", "MACA", "National Defence Act", "CAF", "joint operations", "Canada", "emergency management", "law enforcement"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Disaster Overwhelms Civil Capacity",
+      "description": "A prolonged earthquake response has exhausted provincial and municipal resources. Federal assistance requested.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "CAF Deployment Authorised",
+      "description": "Canadian Armed Forces deployment under Military Aid to Civil Authorities authorised by the Minister of National Defence.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 2,
+      "title": "Joint Operations Established",
+      "description": "Military and police command structures meet to establish joint operational protocols and delineate responsibilities.",
+      "timeOffsetSec": 14400
+    },
+    {
+      "index": 3,
+      "title": "Rules of Engagement Clarified",
+      "description": "Ambiguity arises over law enforcement authority — who can detain, arrest, and use force.",
+      "timeOffsetSec": 21600
+    },
+    {
+      "index": 4,
+      "title": "Joint Search Operation",
+      "description": "Military assets support a police-led search for missing persons in a collapsed structure.",
+      "timeOffsetSec": 28800
+    },
+    {
+      "index": 5,
+      "title": "Transition Back to Civil Authority",
+      "description": "CAF begins transition back to base. Police must reabsorb functions and manage the handoff.",
+      "timeOffsetSec": 259200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Requesting Military Aid — Correct Process",
+      "situation": "You are the provincial emergency management coordinator working with the RCMP district commander. A major earthquake has overwhelmed all provincial and municipal search and rescue, logistics, and security resources. Hospitals are at capacity, 4,000 persons are displaced, and critical infrastructure is compromised. You are considering requesting Military Aid to Civil Authorities (MACA) from the Canadian Armed Forces. You need to understand the correct process and what military aid can and cannot provide.",
+      "question": "What is the correct process and scope of MACA?",
+      "options": [
+        {
+          "label": "A",
+          "text": "MACA requests are initiated by the province to Public Safety Canada, which then coordinates with the Department of National Defence. The request must come from a civilian authority (provincial government or Public Safety Canada), not directly from police. The CAF does not have independent law enforcement authority in Canada — Canadian Armed Forces personnel operating in aid of civil authorities act in support of, not in replacement of, police. Military personnel cannot arrest civilians, exercise normal police powers, or use force except in self-defence unless specifically authorised under narrow legislative provisions. The correct use of CAF under MACA includes logistics, search and rescue support, engineering, communications, and force multiplication in non-law-enforcement roles. Initiate the request through the Provincial Emergency Operations Centre to the provincial government.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Contact the nearest Canadian Forces Base directly — in a major disaster, operational speed is more important than process.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Request military units to take over law enforcement functions in the affected area — police are overwhelmed and the CAF has the personnel.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Joint Command Structure — Establishing Protocols",
+      "situation": "CAF deployment has been authorised. A military Task Force commander has arrived with 350 personnel including engineering, logistics, medical, and infantry. He has convened a joint meeting with the RCMP district commander, the provincial emergency management director, and municipal fire and EMS. There is ambiguity about who is in overall command of the response, who directs military assets, and how conflicts between civilian and military priorities will be resolved.",
+      "question": "How should the joint command structure be established?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under MACA, civil authority remains primary. The CAF Task Force commander is in command of his military personnel but places his assets in support of the civilian Incident Commander (in this case the provincial emergency management director at the EOC). A formal written tasking arrangement must be established: civilian authority tasks the military with specific support functions; the military retains command of its personnel for execution. Establish a joint coordination cell with representatives from each agency. Resolve all command ambiguities through the written tasking arrangement before operations begin. RCMP retains all law enforcement functions — military personnel do not conduct arrests, detentions, or use of force against civilians except in self-defence.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the most senior military officer present to assume overall command — the CAF has the most resources and best logistics capability.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Operate separate parallel command structures and coordinate by phone as situations arise — establishing a joint structure takes too long.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Rules of Engagement — Civilian Enforcement Authority",
+      "situation": "On day two, a confrontation occurs at a food distribution point. Military personnel have been tasked with crowd management support. A civilian becomes aggressive and begins pushing military personnel. A corporal asks the platoon commander whether he can detain the civilian. Separately, an RCMP sergeant on scene is 10 metres away managing a different situation. The platoon commander contacts you for guidance.",
+      "question": "Can military personnel detain the aggressive civilian?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Military personnel in MACA roles do not have the power of arrest and generally cannot detain civilians — law enforcement authority rests with the RCMP. However, any person in Canada may use reasonable force to defend themselves or others from assault. If the civilian poses an immediate threat of assault to military personnel, they may use proportionate defensive force — but this is not an arrest and they cannot hold the civilian as a prisoner. The correct action is: military personnel create space and call the RCMP sergeant over immediately. The RCMP officer, who is present, should handle the law enforcement function. Brief all military commanders on this boundary before operations continue.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Military personnel should detain the civilian until police can attend — preventing disorder is within their mandate.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Military personnel have full law enforcement authority under a declared state of emergency and can arrest as needed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Joint Search Operation — Missing Persons",
+      "situation": "RCMP and CAF engineers are conducting a joint search of a collapsed apartment building for two missing persons — believed trapped in the basement. CAF has thermal imaging and heavy lifting equipment. RCMP has the legal authority over the scene as a potential crime scene (building may have collapsed due to negligence). The CAF engineer commander is moving quickly and wants to begin demolition of unstable sections to reach the basement. RCMP officers on scene are concerned about evidence preservation.",
+      "question": "How do you manage the balance between rescue urgency and scene preservation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Life safety takes precedence over scene preservation in a live rescue situation. The RCMP officer on scene should communicate clearly to the CAF engineer: confirm life rescue is the immediate priority and that the CAF should proceed with the heavy equipment as needed to access the basement. However, ask the CAF engineers to document their actions (photos, video) as they remove debris — this supports any subsequent investigation. RCMP must maintain a continuous log of what was moved, by whom, and when. If the persons are recovered alive, scene preservation steps can follow. If deceased, this becomes an RCMP major crime scene, and the CAF role transitions to evidence protection support only.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Halt CAF operations and secure the scene as a crime scene first — evidence preservation must come before rescue operations.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow CAF to operate fully without documentation — evidence concerns are secondary and documentation slows the rescue.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Both missing persons were recovered alive from the apartment basement. The CAF's heavy equipment was critical to the rescue and the engineer team's real-time documentation enabled a successful RCMP investigation of the building collapse, which later resulted in charges of criminal negligence against the building owner. The joint command structure functioned effectively with clear delineation of military and law enforcement roles. The MACA framework was respected throughout — civilian authority was maintained and the CAF operated as force multiplication in support of civil agencies. The response was cited by Public Safety Canada as a model for integrated CAF-police operations.",
+      "question": "",
+      "options": []
+    }
+  }
+}

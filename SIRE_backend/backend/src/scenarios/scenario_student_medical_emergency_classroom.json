@@ -1,0 +1,134 @@
+{
+  "title": "scenario_student_medical_emergency_classroom",
+  "description": "A student suddenly collapses unresponsive in a classroom. As the teacher, you must manage the emergency response, coordinate with staff, support arriving EMS, and care for the rest of your students during a frightening situation.",
+  "category": "Education",
+  "difficulty": "Beginner",
+  "tags": ["medical emergency", "CPR", "AED", "classroom management", "EMS", "first aid"],
+  "timeline": [
+    { "index": 0, "title": "Student Collapses", "description": "A student suddenly collapses from their chair onto the classroom floor, unresponsive.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Teacher Response", "description": "The teacher assesses the student and begins coordinating the emergency response.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Calling 911", "description": "Emergency services are contacted and AED retrieval is initiated.", "timeOffsetSec": 120 },
+    { "index": 3, "title": "First Aid / AED", "description": "CPR or AED is administered while managing the classroom environment.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "EMS Arrives", "description": "Paramedics arrive on scene and take over patient care.", "timeOffsetSec": 600 },
+    { "index": 5, "title": "Handoff and Aftermath", "description": "The teacher hands off to EMS, supports students, and completes documentation.", "timeOffsetSec": 900 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Student Down — Initial Response",
+      "situation": "You are teaching a Grade 10 science class of 28 students when Marcus, a 15-year-old student seated near the back, suddenly slumps out of his chair and falls to the floor. The class goes silent. You rush over and find Marcus lying on his back, eyes closed, not responding to your voice or a firm tap on his shoulder. You cannot see his chest rising. You have approximately 30 students watching in alarm and a classroom phone on the wall.",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Shout loudly for help to get another adult's attention, then send a reliable student immediately to the office to report a student is unresponsive and to call 911. Direct another student to retrieve the AED located near the gym. Kneel beside Marcus, tilt his head back gently to open the airway, and check for normal breathing for no more than 10 seconds.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the class to stay calm and wait quietly, then run to the office yourself to get help, leaving the unresponsive student and all other students alone in the classroom.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Assume Marcus has fainted and will recover on his own. Loosen his collar, elevate his legs, and continue monitoring him for a few minutes before deciding whether to call for help.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing Breathing and Beginning CPR",
+      "situation": "A student has run to the office, and another is sprinting toward the gym for the AED. You have tilted Marcus's head back and checked his airway — he is not breathing normally. His lips are beginning to look slightly bluish. You are trained in CPR. Other students in the classroom are distressed; some are crying, and several are holding up their phones to record the situation.",
+      "question": "What do you do next?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Begin chest compressions immediately — position your hands on the centre of Marcus's chest (lower half of sternum), interlock your fingers, and compress hard and fast at a rate of 100–120 per minute to a depth of at least 5 cm. Simultaneously, firmly direct a student near the door to stand outside and guide EMS to the room. Instruct remaining students to move to the far side of the room, away from the emergency, and remind them firmly but calmly to put phones away.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Spend time trying to find a pulse in Marcus's neck for up to 30 seconds before deciding whether to begin CPR, as you do not want to do unnecessary compressions if his heart is still beating.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Prioritise moving all other students out of the classroom first before addressing Marcus, as the psychological impact on bystanders is your primary concern at this moment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "AED Arrives on Scene",
+      "situation": "You have completed two cycles of 30 compressions while another teacher, Ms. Tremblay, has arrived from next door and confirmed that 911 has been called with an ETA of approximately 6 minutes. The student returns with the AED. You continue compressions while Ms. Tremblay opens the AED case. Marcus remains unresponsive with no spontaneous breathing. The 911 dispatcher has stayed on the line and is providing guidance.",
+      "question": "How do you incorporate the AED into your response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Without stopping compressions longer than necessary, have Ms. Tremblay power on the AED and attach the electrode pads as shown in the diagram — one pad below the right collarbone and one on the left side of the chest below the armpit. Once the AED instructs 'Analysing rhythm', ensure everyone stands clear and that no one is touching Marcus. Follow all AED voice prompts exactly: deliver a shock if advised, then immediately resume compressions for 2 minutes before allowing the AED to re-analyse.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Stop compressions for a full minute to properly read the AED instruction sheet and position the pads correctly, as incorrect pad placement could harm the student.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Decide not to use the AED because Marcus is a teenager and you are worried that a defibrillation shock could cause injury in someone so young. Continue compressions and wait for EMS.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Managing the Classroom During Resuscitation",
+      "situation": "The AED has delivered one shock and you have resumed CPR. Ms. Tremblay is assisting with compressions in 2-minute rotation intervals, which is the recommended approach to maintain compression quality. EMS is estimated to be 3 minutes away. Several students are standing near the classroom doorway watching; one student is crying loudly and appears to be in shock. You notice another student, Sofia, quietly slipping out of the room, and you suspect she may be going to text Marcus's parents directly.",
+      "question": "How do you manage the student welfare situation in the classroom?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Briefly ask the VP or office staff (who should now be present or reachable by phone) to take all remaining students to another space — such as a nearby classroom or the library — away from the scene. Ask them to ensure a staff member remains with the students for emotional support. Request that the office hold off on contacting Marcus's family until you have information from EMS and the principal has been notified, as partial information can cause additional panic and family members rushing to the scene can complicate EMS access.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Allow students to remain where they are and continue watching — removing them from the classroom would be too disruptive and might cause more distress than simply letting them see that adults are helping their classmate.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stop compressions momentarily to address the crying student personally and comfort them, as their emotional wellbeing is the priority over continuing resuscitation efforts.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "EMS Handoff",
+      "situation": "Paramedics arrive in the classroom with a stretcher and cardiac monitor. They take over patient care immediately. A paramedic asks you for a brief history: what you observed, how long Marcus has been unresponsive, how many AED shocks were delivered, and whether Marcus has any known medical conditions. You know from Marcus's student file that he has a documented heart condition (LQTS — Long QT Syndrome) and takes medication. Marcus's parents have not yet been notified.",
+      "question": "What information do you provide to EMS, and what do you do next?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Give EMS a clear, concise handoff: the time you found Marcus unresponsive, that CPR was started within approximately 1–2 minutes, that the AED delivered one shock, and crucially, that Marcus has a documented diagnosis of LQTS and takes medication — offer to retrieve his emergency information card if available. Step back immediately to allow EMS space to work. Notify the principal so that Marcus's emergency contacts are called by administration with accurate, calm information about which hospital he is being transported to.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Let EMS do their job without interruption — they are professionals and will have access to Marcus's medical history through hospital records, so there is no need to provide a verbal handoff that might slow them down.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call Marcus's parents yourself right now using your personal phone while EMS works, as they have the right to know immediately, even though you only have partial information and the situation is still unfolding.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Marcus was transported to hospital, where he received further treatment. Your quick, calm, and coordinated response significantly contributed to the best possible outcome. Key training takeaways: (1) In a cardiac emergency, the chain of survival is — call 911, start CPR, use AED early, hand off to EMS; never delay any link in this chain. (2) Send others for help and AED while you stay with the patient — never leave an unresponsive patient alone. (3) AEDs are safe for use on children and teenagers and are designed to be used by untrained bystanders. (4) Rotate compressors every 2 minutes to maintain compression quality. (5) Removing bystander students protects their wellbeing and gives EMS unobstructed access. (6) Always provide EMS with a verbal handoff including known medical conditions — this information is critical and time-sensitive.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

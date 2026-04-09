@@ -1,0 +1,134 @@
+{
+  "title": "scenario_student_experiencing_homelessness",
+  "description": "A teacher notices warning signs that a Grade 7 student may be experiencing homelessness — the student arrives very early each day, is frequently hungry, wears the same clothes repeatedly, and the family is difficult to reach. The teacher must respond with a trauma-informed approach, involve the right supports, and connect the student and family with appropriate resources.",
+  "category": "Education",
+  "difficulty": "Beginner",
+  "tags": ["homelessness", "trauma-informed", "student wellbeing", "community resources", "counsellor referral", "food insecurity", "family support"],
+  "timeline": [
+    { "index": 0, "title": "Signs Observed", "description": "A teacher begins to notice a pattern of behaviours in a student that may indicate housing instability.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Teacher Approaches Student", "description": "The teacher decides how and when to approach the student with care.", "timeOffsetSec": 300 },
+    { "index": 2, "title": "Private Conversation", "description": "The teacher has a private, non-judgmental conversation with the student.", "timeOffsetSec": 600 },
+    { "index": 3, "title": "Counsellor Referral", "description": "The teacher involves the school counsellor and identifies immediate needs.", "timeOffsetSec": 900 },
+    { "index": 4, "title": "Student Rights and Immediate Needs", "description": "The school addresses the student's immediate needs and clarifies their enrolment rights.", "timeOffsetSec": 1200 },
+    { "index": 5, "title": "Connecting to Community Supports", "description": "The school connects the student and family to housing and community resources.", "timeOffsetSec": 1800 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Recognising the Signs",
+      "situation": "You are a Grade 7 core teacher and over the past three weeks you have noticed a pattern with one of your students, Tyler, a 12-year-old boy. Tyler arrives at school at least 30 minutes before the building opens and waits by the front door. He comes to class tired and frequently asks to go to the breakfast programme even after it has closed. He has been wearing the same two outfits alternating all week, every week. He becomes anxious when school breaks or holidays are mentioned. The emergency contact number on file rings without answer. He is quiet and withdrawn but never disruptive.",
+      "question": "How do you initially assess and interpret these signs?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recognise these as a cluster of indicators consistent with housing instability or homelessness: arriving before building opens (no consistent home to wait at), food insecurity, limited clothing, anxiety about school closures (loss of safety net), and unreachable family. Avoid assuming or labelling the situation. Do not discuss your observations with other students or staff who are not part of the student support team. Begin by consulting quietly with the school counsellor, Ms. Adeyemi, to share your observations and ask for guidance before approaching Tyler directly — this ensures a coordinated, trauma-informed approach.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Ask Tyler's classmates if they know anything about his home situation, as peers often have information that can help teachers understand what is happening in a student's life outside of school.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send a note home with Tyler asking his parents or guardians to contact the school at their earliest convenience to discuss some concerns you have about him, as family communication should always be the first step.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Approaching Tyler — Timing and Setting",
+      "situation": "After consulting with Ms. Adeyemi, you have agreed that you will approach Tyler for an initial conversation today before she follows up more formally. Tyler arrives this morning as usual — alone, earlier than other students — and you encounter him in the hallway before the first bell. He looks tired. You want to begin building a conversation that is warm and non-threatening. It is important not to humiliate him or make him feel he is being singled out as a problem.",
+      "question": "How do you approach Tyler?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use a natural, casual opening that does not immediately signal concern or surveillance. You might say: 'Hey Tyler, I'm glad I caught you — I was hoping to chat with you for a sec before things get busy.' Invite him to walk with you to a quiet, semi-private area like your classroom or a quiet corner, where the conversation feels safe but not interrogative. Begin with a genuine, low-pressure connection: 'How are things going for you lately?' Frame your care as genuine interest in him as a person, not as problem-solving. Do not reference the specific observations you've made — let him guide what he shares.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Call Tyler to the front of the class after attendance and tell the class that you are recognising Tyler's hard work and dedication — you would like to let him know the breakfast programme has extended hours this week — while privately signalling your awareness of his situation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait until Tyler comes to you — approaching him without a specific complaint or problem to address oversteps your role as a classroom teacher and could feel invasive to a child who values his independence and privacy.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "The Private Conversation",
+      "situation": "You and Tyler are in your classroom before the bell. Tyler is guarded but not hostile. When you ask how things are going, he shrugs and says 'fine.' There is a long pause. You sense he is waiting to see if it is safe to say more. After a moment he says, quietly: 'We've been staying at my aunt's for a bit. It's kind of crowded.' He doesn't elaborate, but the statement is significant — it suggests a temporary living arrangement outside the family home.",
+      "question": "How do you respond to what Tyler has shared?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Respond with warmth and normalisation: 'Thanks for telling me that, Tyler. It sounds like things have been a bit unsettled at home — that's tough.' Do not push for more details about why or how long. Focus on immediate, practical offers of support: 'I want to make sure you have everything you need here at school. Do you know about the breakfast programme and the snack station in the library? Those are open to anyone.' Let him know the school cares: 'Ms. Adeyemi is someone I work with who's really good at helping students access extra support — would it be okay if she reached out to you?' Keep the tone collaborative and non-pitying.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Ask Tyler directly what happened to their family home, how long they have been at his aunt's, how many people are living there, and whether his parents are working — this information is needed to determine eligibility for school-administered support funds.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Express sympathy visibly and tell Tyler that his situation sounds really hard and unfair, that you feel terrible hearing this, and that you are going to make sure everyone at school knows to look out for him from now on.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Counsellor Referral and Immediate Needs",
+      "situation": "Tyler has reluctantly agreed to speak with Ms. Adeyemi. She has now met with him and confirmed that the family has been couch-surfing between relatives for approximately six weeks following a dispute with a landlord. Tyler's mother is working but has been too stressed and embarrassed to contact the school. Ms. Adeyemi is now assessing Tyler's immediate practical needs: he is hungry most mornings, does not have consistent access to hygiene items, and feels anxious about whether he will still be at this school next week.",
+      "question": "How does the school address Tyler's immediate needs and his enrolment concerns?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Address immediate needs first: ensure Tyler has access to the school's breakfast programme every morning and identify a discreet way to provide him with a hygiene kit (toothbrush, deodorant, extra clothing from the school's emergency supplies) without drawing attention. Reassure Tyler explicitly: under Canadian education legislation and policy, a student experiencing homelessness or housing instability is entitled to remain enrolled in their school of origin — he will not be removed from this school because of his housing situation. Contact his mother warmly and non-judgmentally to establish communication and let her know the school wants to support, not scrutinise, their family.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Inform Tyler that because his family's current address is outside the school's catchment area, he may need to transfer to the school nearest his aunt's residence, but that the school will do everything possible to make the transition smooth.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Report Tyler's situation to the Children's Aid Society as a child in need of protection, since homelessness constitutes inadequate housing and is grounds for a child welfare referral.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Connecting Family to Community Resources",
+      "situation": "Ms. Adeyemi has made phone contact with Tyler's mother, Ms. Hooper. She is relieved but tearful — she says she has been too ashamed to ask for help and did not know schools could provide this kind of support. She confirms the family is looking for more stable housing. Ms. Adeyemi is preparing a referral package. The school principal, Mr. Saini, has approved use of the emergency student fund for immediate needs. Tyler has been coming to school more comfortably over the past two days since the conversation began.",
+      "question": "What community resources and supports should the school connect the family to?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Work with Ms. Adeyemi to compile a warm referral package for Ms. Hooper — not just a list of phone numbers, but direct introductions where possible. Relevant supports include: local emergency family shelter and transitional housing programmes, the municipal housing registry for subsidised housing waitlist, the local food bank and community meal programmes, 211 Ontario (or the equivalent provincial social services referral line), the school district's homeless/transient student liaison if one exists, and available community legal clinics that can advise on tenant rights. Offer to connect Ms. Hooper with the school social worker if available. Follow up with Tyler and Ms. Hooper within one week to check in.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Provide Ms. Hooper with the website address for the city's social services portal and encourage her to register for online services — digital self-referral is the most efficient and least stigmatising approach for families in need.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise Ms. Hooper to contact her local MPP or city councillor, as housing is a political issue best addressed through elected representatives who have the authority and resources to help families in housing crises.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Ms. Hooper connected with a transitional housing programme through the school's referral. The family secured stable housing six weeks later. Tyler remained enrolled and engaged at school throughout this period, supported by the school's ongoing care. Key training takeaways: (1) Clusters of signs — early arrival, food insecurity, limited clothing, anxiety about holidays, unreachable family — are meaningful and warrant a quiet, coordinated response. (2) Always approach the student first through a trusted, trauma-informed lens — curiosity and care, not interrogation. (3) Students experiencing homelessness have the right to remain enrolled in their school of origin — this stability is critically important to their wellbeing. (4) Homelessness alone is NOT a child protection matter — do not make a CAS referral purely because of housing instability. (5) Shame and stigma are major barriers — normalise the school's role as a support hub. (6) Practical immediate supports (food, hygiene, clothing) signal safety and help the student re-engage academically. (7) Warm referrals — direct introductions or supported calls — are far more effective than lists of phone numbers.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

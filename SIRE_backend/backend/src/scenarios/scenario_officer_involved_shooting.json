@@ -1,150 +1,141 @@
 {
-  "title": "scenario_officer_involved_shooting",
-  "description": "An officer discharges their firearm in a lethal-force incident. Tests post-incident protocol obligations, independent oversight notification, officer conduct during investigation, and psychological support requirements under Canadian law.",
+  "title": "officer_involved_shooting",
+  "description": "A police officer discharges their firearm in the line of duty, resulting in a subject being struck. The scenario focuses on the post-incident protocol — scene management, officer obligations, independent investigation procedures, and wellness support — not the shooting decision itself.",
   "category": "Law Enforcement",
   "difficulty": "Advanced",
-  "tags": [
-    "officer-involved shooting",
-    "use of lethal force",
-    "SIU",
-    "ASIRT",
-    "post-incident protocol",
-    "Charter rights",
-    "Criminal Code s.25",
-    "officer wellness",
-    "Canada"
-  ],
+  "tags": ["officer-involved shooting", "post-incident protocol", "SIU", "independent investigation", "officer wellness", "CISM", "Canada", "law enforcement"],
   "timeline": [
     {
       "index": 0,
-      "title": "Armed Threat Call",
-      "description": "Officers are dispatched to reports of a person with a knife threatening pedestrians.",
+      "title": "Firearm Discharged",
+      "description": "Officer fires their service weapon during an arrest situation. Subject is struck and falls.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Confrontation",
-      "description": "Officer confronts the subject who is advancing with a large knife and ignoring verbal commands.",
-      "timeOffsetSec": 60
+      "title": "Immediate Post-Shooting Response",
+      "description": "Officer must manage the scene, call for assistance, and begin the post-incident protocol.",
+      "timeOffsetSec": 30
     },
     {
       "index": 2,
-      "title": "Firearm Discharged",
-      "description": "The officer discharges their firearm. The subject is struck and falls. Officer calls for EMS immediately.",
+      "title": "Supervisor Arrives",
+      "description": "Supervisor takes control. Scene preservation, officer separation, and SIU notification protocols begin.",
       "timeOffsetSec": 120
     },
     {
       "index": 3,
-      "title": "EMS Arrives",
-      "description": "EMS responds and treats the subject. The subject survives with serious injuries.",
+      "title": "SIU Notification",
+      "description": "Special Investigations Unit (or provincial equivalent) is notified. Officer obligations and rights under the SIU process apply.",
       "timeOffsetSec": 300
     },
     {
       "index": 4,
-      "title": "Scene Secured",
-      "description": "Scene is preserved. Sergeant arrives and begins post-incident protocol.",
+      "title": "Officer Notes and Legal Representation",
+      "description": "Officer must complete post-incident notes. Legal counsel and union rep are available.",
       "timeOffsetSec": 600
     },
     {
       "index": 5,
-      "title": "Independent Oversight Notification",
-      "description": "The Serious Incident Response Team (or equivalent) is notified and assumes jurisdiction over the investigation.",
-      "timeOffsetSec": 900
+      "title": "Officer Wellness — CISM",
+      "description": "Mandatory wellness check and CISM process initiated.",
+      "timeOffsetSec": 3600
     }
   ],
   "root": "node-1",
   "nodes": {
     "node-1": {
-      "title": "Immediately After the Discharge",
-      "situation": "You have discharged your firearm once. The subject dropped to the ground after being struck in the right shoulder. Your ears are ringing. The subject is on the ground approximately 5 metres away. The knife is beside him. You are breathing heavily. A bystander is recording with a phone from about 15 metres away. Another officer arrived 30 seconds after the discharge. EMS is responding — ETA 4 minutes.",
-      "question": "What are your immediate obligations in the seconds and minutes following the discharge?",
+      "title": "Immediate Post-Shooting Response",
+      "situation": "You have just discharged your firearm during an arrest situation. The subject is on the ground and has been struck. You are in an altered state — adrenaline, tunnel vision clearing. Your partner is beside you. There are other bystanders approximately 30 metres away. The subject is not moving. Your immediate environment is now safe.",
+      "question": "What are your immediate obligations in the first 60 seconds after the shooting?",
       "options": [
         {
           "label": "A",
-          "text": "Immediate obligations in this order: (1) Call out your status and the situation on radio: 'Shots fired — one subject down — officer is safe — EMS required now — [location]'; (2) Approach the subject cautiously — the knife must be confirmed clear before you or EMS can safely approach; (3) Apply emergency first aid to the subject if safe to do so — your duty of care does not end with the discharge; (4) Secure the scene — no one enters the immediate area until forensic preservation begins; (5) Do not touch, move, or holster your firearm immediately — the weapon is evidence and must be preserved in position if operationally safe; (6) Advise the arriving officer of the situation — the arriving officer assumes scene security so you can step back and begin stabilising.",
-          "outcome": {
-            "type": "node",
-            "target": "node-2"
-          }
+          "text": "Immediately broadcast: 'Shots fired — officer-involved shooting — [location] — Code 3 required — EMS required.' Secure the scene — ensure the subject has been disarmed and the immediate threat is neutralised. Render first aid to the subject if it is safe to do so — a struck subject, regardless of circumstances, requires medical attention. Do not touch your firearm except to re-secure it or make it safe — it is now potential evidence. Begin preserving the scene: do not move evidence, do not allow anyone to enter or leave who was present. Contact your supervisor immediately. Do not discuss what happened with anyone — including your partner — until you have been directed to do so by your supervisor and have had the opportunity to speak with legal counsel.",
+          "outcome": { "type": "node", "target": "node-2" }
         },
         {
           "label": "B",
-          "text": "Holster your firearm and move the knife away from the subject so bystanders know the threat is over.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Check the subject, then immediately call your partner over to compare observations — you need to ensure your accounts are consistent before the supervisor arrives.",
+          "outcome": { "type": "failure" }
         },
         {
           "label": "C",
-          "text": "Ask the bystander recording the incident to delete the video since it may misrepresent the circumstances.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Leave the scene to collect your thoughts before the supervisor arrives — you need a moment to process what happened.",
+          "outcome": { "type": "failure" }
         }
       ]
     },
     "node-2": {
-      "title": "Sergeant Arrives — Officer Conduct During Investigation",
-      "situation": "Your sergeant has arrived. The subject has been transported to hospital in serious but stable condition. Your firearm has been secured by your sergeant. The sergeant advises you that the province's independent oversight body (SIU/ASIRT/IIOS) has been notified and will be assuming jurisdiction. The sergeant asks you to give an immediate full account of the incident.",
-      "question": "How do you respond to the sergeant's request for a full immediate account?",
+      "title": "Supervisor Takes Control — SIU Obligations",
+      "situation": "Your supervisor has arrived. You are in Ontario — the Special Investigations Unit (SIU) has jurisdiction over police-involved incidents where a civilian is seriously injured or killed. Your supervisor advises you that the SIU will be notified. You are the subject officer. You ask what your obligations and rights are.",
+      "question": "What are a subject officer's obligations and rights under the SIU process?",
       "options": [
         {
           "label": "A",
-          "text": "You are the 'subject officer' in an independent oversight investigation. In most Canadian jurisdictions, subject officers have the right to decline to give a statement to the independent investigator (though the specific rights vary by province). Your sergeant should understand this: politely advise that you want to consult with your union representative or legal counsel before providing a formal account to any investigator, including supervisors who may be interviewed by the oversight body. You should provide basic scene information required for officer safety and scene preservation (where you were standing, where the subject was) but not a narrative account of your decision-making until you have legal guidance. This is not obstruction — it is your legal right.",
-          "outcome": {
-            "type": "node",
-            "target": "node-3"
-          }
+          "text": "As the subject officer in an SIU investigation, you have the right to retain and instruct legal counsel without delay — exercise this right immediately. You are required to submit a written report to your chief (noting what occurred) within 24 hours under the SIU process, but this report is protected and generally not shared with the SIU directly. You are not required to provide a compelled interview to SIU investigators — though you may choose to do so voluntarily with your legal counsel's advice. You must surrender your service weapon to your agency as required. Do not speak to anyone about the details of the incident until you have spoken with legal counsel and your police association representative.",
+          "outcome": { "type": "node", "target": "node-3" }
         },
         {
           "label": "B",
-          "text": "Provide a full immediate account to the sergeant — honesty requires immediate and complete disclosure of everything that occurred.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Provide a full statement to SIU investigators immediately — transparency is important and refusing to cooperate looks suspicious.",
+          "outcome": { "type": "failure" }
         },
         {
           "label": "C",
-          "text": "Decline to say anything at all — including scene location information — until a lawyer is present.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Ask your supervisor to prepare your statement for you — they know what is required and you are not in a state to write.",
+          "outcome": { "type": "failure" }
         }
       ]
     },
     "node-3": {
-      "title": "Mandatory Psychological Support and Return to Duty",
-      "situation": "You have met with your union representative and been connected with legal counsel. The oversight investigation is underway. Your supervisor advises you that you are being placed on administrative duties pending the investigation conclusion — this is standard protocol. Your supervisor also says the department's Critical Incident Stress Management coordinator is available. You are feeling physically and emotionally shaken.",
-      "question": "How should you approach the administrative placement and psychological support?",
+      "title": "Completing Your Notes",
+      "situation": "Your legal counsel and union representative have advised you that you should complete your notes — a written account of your observations and actions. You are at the station, separated from other involved officers. You are still experiencing significant stress responses — racing heart, emotional numbness, and your hands are shaking. Your supervisor says the notes need to be completed before end of shift.",
+      "question": "How should you complete your post-incident notes?",
       "options": [
         {
           "label": "A",
-          "text": "Administrative placement during an OIS investigation is standard procedure, not discipline — accept it professionally. Contact the CISM coordinator immediately: an officer-involved shooting is among the highest psychological-impact incidents officers experience. Research consistently demonstrates that officers who engage early psychological support have significantly better outcomes than those who defer or avoid it. Engage the Employee Assistance Program and, if available, a peer support officer familiar with OIS experiences. Do not discuss the incident with colleagues pending the investigation — protect evidentiary integrity. Cooperate fully with the independent oversight process once you have legal counsel.",
-          "outcome": {
-            "type": "node",
-            "target": "node-4"
-          }
+          "text": "Your notes should be completed independently — do not discuss the incident with other officers before writing them. Write from your own memory and perspective: what you saw, heard, perceived as a threat, and why you made the decisions you did. Include your physiological state — stress responses are normal after a critical incident and your perception of threat is relevant to a use-of-force analysis. If you are too impaired by stress to write coherently, advise your supervisor and request a brief medical/psychological assessment before completing the notes. Accuracy matters more than speed. Your notes will likely be relevant to the SIU investigation and any subsequent legal proceedings.",
+          "outcome": { "type": "node", "target": "node-4" }
         },
         {
           "label": "B",
-          "text": "Refuse the administrative placement — being taken off patrol duty implies guilt and is demoralising.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Wait 24 hours before writing notes — you need to be calm and clear before documenting a serious incident.",
+          "outcome": { "type": "failure" }
         },
         {
           "label": "C",
-          "text": "Decline CISM support — participating in psychological counselling will be used against you in the investigation.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Ask your partner to review your notes before finalising them to ensure they are consistent with what the partner observed.",
+          "outcome": { "type": "failure" }
         }
       ]
     },
     "node-4": {
+      "title": "Mandatory CISM and Wellness",
+      "situation": "It is now 10 hours after the incident. The subject survived with serious injuries. Your supervisor has told you that a Critical Incident Stress Management debrief is mandatory under your agency's policy before you return to operational duties. You believe you are fine and want to return to work tomorrow. You are worried that participating in CISM will be seen as a sign that you cannot handle the job.",
+      "question": "How do you approach the CISM requirement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Participate fully in the CISM process. This is not optional under your agency's policy and is in place for good reason — involvement in a shooting is a significant psychological stressor regardless of circumstances. The CISM process is confidential and is not about fitness evaluation — it is support. Mandatory participation protects both you and the public: an officer who has experienced a critical incident and has not been assessed may return to duty with compromised decision-making. Discuss your concerns about career perception with the CISM counsellor — these concerns are common and can be addressed. Return to operational duties only when the CISM counsellor and your agency's occupational health process determines you are ready.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Attend the CISM debrief but do not share anything personal — answer minimally so you can be cleared for duty quickly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Challenge the mandatory CISM requirement — it is a violation of your privacy to be required to undergo psychological assessment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
       "title": "Scenario Complete",
-      "situation": "The independent oversight investigation concluded that the use of lethal force was proportionate and justified under Criminal Code s.25 and s.34 — the subject had been advancing with a knife and had not complied with numerous verbal commands. No charges were laid against the officer. The officer completed CISM debriefing, EAP counselling, and a fitness-for-duty evaluation before returning to active patrol after six weeks. Scene preservation was exemplary. The officer's conduct during the post-incident period — particularly their careful handling of the statement question — was consistent with policy. Officer-involved shooting incidents require rigorous post-incident protocol to protect the investigation's integrity, the officer's legal rights, and the subject's rights.",
-      "question": "Scenario complete. Well done!",
+      "situation": "The SIU investigation concluded six months later with a finding of no reasonable grounds to charge. The subject recovered and was subsequently convicted of the offence that precipitated the incident. You completed the CISM process and returned to operational duties after 14 days on modified duty. Your written notes were detailed and consistent with physical evidence, supporting the SIU's findings. Legal counsel noted that your independent note-writing and refusal to discuss the incident with other officers before writing was critical to the integrity of the investigation. Your openness in the CISM process was later recognised by your agency as an example of professional resilience.",
+      "question": "",
       "options": []
     }
   }

@@ -1,149 +1,141 @@
 {
-  "title": "scenario_officer_injury_on_duty",
-  "description": "An officer sustains a significant injury during a call. Tests duty-of-care obligations, injury reporting requirements, fitness-for-duty assessment, and supervisor responsibilities under occupational health and police service policy.",
+  "title": "officer_injury_on_duty",
+  "description": "A police officer sustains a significant injury during a routine enforcement action. The scenario covers immediate first aid, reporting obligations, Workers Compensation, modified duty, and return-to-work planning.",
   "category": "Law Enforcement",
-  "difficulty": "Intermediate",
-  "tags": [
-    "officer safety",
-    "on-duty injury",
-    "workplace safety",
-    "fitness for duty",
-    "injury reporting",
-    "WSIB",
-    "officer wellness",
-    "Canada"
-  ],
+  "difficulty": "Beginner",
+  "tags": ["officer safety", "duty injury", "Workers Compensation", "modified duty", "return to work", "Canada", "law enforcement"],
   "timeline": [
     {
       "index": 0,
-      "title": "Foot Pursuit",
-      "description": "Officer pursues a suspect on foot through a parking lot.",
+      "title": "Injury Occurs On Duty",
+      "description": "Officer sustains a knee injury during a foot pursuit. Injury prevents continued operational activity.",
       "timeOffsetSec": 5
     },
     {
       "index": 1,
-      "title": "Injury Sustained",
-      "description": "Officer slips on ice and falls, striking their knee on a concrete curb.",
-      "timeOffsetSec": 30
+      "title": "Medical Assessment",
+      "description": "Officer must seek medical attention and report the injury.",
+      "timeOffsetSec": 60
     },
     {
       "index": 2,
-      "title": "Suspect Apprehended by Backup",
-      "description": "Backup apprehends the suspect. Officer is on the ground unable to bear weight on the injured leg.",
-      "timeOffsetSec": 120
+      "title": "Workers Compensation Filing",
+      "description": "Officer and supervisor must complete required Workers Compensation documentation.",
+      "timeOffsetSec": 3600
     },
     {
       "index": 3,
-      "title": "EMS Responds",
-      "description": "EMS assesses the officer at scene. Suspected knee ligament injury. Hospital evaluation recommended.",
-      "timeOffsetSec": 300
+      "title": "Modified Duty Assignment",
+      "description": "Officer is assigned to modified duties pending recovery. Questions arise about expectations.",
+      "timeOffsetSec": 86400
     },
     {
       "index": 4,
-      "title": "Supervisor Arrives",
-      "description": "Sergeant arrives and begins the duty injury reporting process.",
-      "timeOffsetSec": 420
+      "title": "Return to Work Planning",
+      "description": "Physiotherapy recommends a graduated return to operational duties.",
+      "timeOffsetSec": 2592000
     },
     {
       "index": 5,
-      "title": "Hospital Clearance and Return Protocol",
-      "description": "Officer is assessed at hospital. Fitness-for-duty decision must be made.",
-      "timeOffsetSec": 14400
+      "title": "Full Operational Clearance",
+      "description": "Officer returns to full operational duties with appropriate sign-off.",
+      "timeOffsetSec": 5184000
     }
   ],
   "root": "node-1",
   "nodes": {
     "node-1": {
-      "title": "Injury Occurs During Foot Pursuit",
-      "situation": "During a foot pursuit of a suspect in a parking lot, you slip on a patch of black ice and fall hard, striking your right knee on a concrete curb. You feel immediate sharp pain and cannot bear weight on the leg. You are on the ground in the parking lot. The suspect is visible 20 metres ahead. Backup is 45 seconds away.",
-      "question": "What is your immediate priority given the injury and the ongoing pursuit?",
+      "title": "Knee Injury — Immediate Response",
+      "situation": "You have been injured during a foot pursuit — you slipped and heard a pop in your left knee. You are on the ground. The suspect has been apprehended by your partner. You cannot bear weight on the knee. The pain is significant. Your partner asks if you are okay.",
+      "question": "What is the correct immediate action?",
       "options": [
         {
           "label": "A",
-          "text": "Broadcast your situation and location on radio immediately: 'Officer down — injured — foot pursuit at [location] — suspect is [description and direction].' Your first obligation is to stop the pursuit — continuing a foot pursuit while unable to bear weight is unsafe for you and reduces operational effectiveness. Broadcasting your position and the suspect's direction allows backup to continue the apprehension without you. Begin managing your own injury: do not attempt to stand unsupported. Stay on the radio and provide updates as backup closes on the suspect. Your obligation to your own safety is not secondary to the arrest.",
-          "outcome": {
-            "type": "node",
-            "target": "node-2"
-          }
+          "text": "Tell your partner honestly that you have injured your knee and cannot stand. Request EMS to assess you at the scene. Do not attempt to walk on the injured knee — you may worsen the injury. Advise your partner to notify your supervisor of the injury and your location. The suspect is secure — your injury is the immediate priority. Your partner will handle scene management. Immobilise the knee and wait for medical assessment.",
+          "outcome": { "type": "node", "target": "node-2" }
         },
         {
           "label": "B",
-          "text": "Attempt to crawl forward and maintain visual contact with the suspect until backup arrives — abandoning a pursuit is unacceptable.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Push through — walk it off, finish the arrest processing, and see a doctor after your shift.",
+          "outcome": { "type": "failure" }
         },
         {
           "label": "C",
-          "text": "Ignore the injury and stand up to continue the pursuit — injuries sometimes feel worse initially than they actually are.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Ask your partner not to report the injury — you do not want it on your record.",
+          "outcome": { "type": "failure" }
         }
       ]
     },
     "node-2": {
-      "title": "EMS and Supervisor on Scene — Injury Reporting",
-      "situation": "The suspect was apprehended by backup. EMS has assessed your knee and suspects a significant ligament injury. They recommend hospital evaluation. Your sergeant has arrived and asks whether you want to decline the hospital and 'finish the shift' — the service is short-staffed. EMS notes you are unable to bear weight without significant pain.",
-      "question": "How do you respond to the sergeant's suggestion to decline hospital and finish the shift?",
+      "title": "Reporting the Injury — Workers Compensation",
+      "situation": "EMS has assessed you. The knee likely has ligament damage — an MRI has been ordered. You are off duty pending the assessment. Your supervisor is with you at the hospital and asks you to complete the Workers Compensation Board (WCB) injury report. You are unsure what information to include.",
+      "question": "How should the duty injury be reported?",
       "options": [
         {
           "label": "A",
-          "text": "Decline the sergeant's suggestion firmly but professionally. EMS has made a medical recommendation — overriding it for operational convenience creates both safety and liability risk for you, your supervisor, and the service. Explain that you cannot safely perform officer duties while unable to bear weight, and that a duty-related injury requires formal reporting regardless of severity. Your sergeant has an obligation under occupational health and safety legislation (e.g., Ontario OHSA) to ensure injured workers receive appropriate treatment and to file a workplace injury report. Accept EMS transport for hospital evaluation. You will initiate a WSIB (or provincial equivalent) workplace injury report in conjunction with your supervisor.",
-          "outcome": {
-            "type": "node",
-            "target": "node-3"
-          }
+          "text": "Complete the WCB injury report accurately and promptly. Include: the date, time, and location of the injury; the circumstances (foot pursuit, slip, hearing a pop); the immediate symptoms (inability to bear weight, pain); and the body part affected. Your supervisor must also complete their portion. File the report as soon as possible — WCB time limits apply and late reports can affect benefit eligibility. Be accurate and honest — do not understate the injury or symptoms. Keep a copy for your own records. If you need assistance completing the form, your union representative can help.",
+          "outcome": { "type": "node", "target": "node-3" }
         },
         {
           "label": "B",
-          "text": "Agree to decline hospital — the service needs you and the injury may be minor; you can see a doctor tomorrow if it still hurts.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Downplay the injury on the WCB form — you do not want to appear unable to handle the demands of the job.",
+          "outcome": { "type": "failure" }
         },
         {
           "label": "C",
-          "text": "Decline both hospital and injury reporting — a slip-and-fall during a foot pursuit will reflect poorly on your fitness and performance record.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Refuse to complete the WCB form — you prefer to use your sick time rather than go through the WCB process.",
+          "outcome": { "type": "failure" }
         }
       ]
     },
     "node-3": {
-      "title": "Hospital Assessment — Fitness for Duty Decision",
-      "situation": "Hospital imaging confirms a partial ACL tear and medial meniscus damage. The treating physician says you are not cleared for full active duties for a minimum of 6 weeks and recommends physiotherapy. Your supervisor asks how you want to handle the return-to-work plan, noting there are administrative functions you could perform.",
-      "question": "How should the return-to-work and fitness-for-duty process be managed?",
+      "title": "Modified Duty Assignment",
+      "situation": "The MRI confirms a partial ACL tear. Your physician has restricted you from operational police work including foot pursuits, physical arrests, and vehicle operation for a minimum of 8 weeks. Your agency's HR department has assigned you to modified duties in a role that involves report-taking and administrative support. You are frustrated — this is not what you joined the police for.",
+      "question": "What is the correct approach to modified duty?",
       "options": [
         {
           "label": "A",
-          "text": "Work with your supervisor and the service's occupational health unit to establish a modified-duty plan consistent with the physician's restrictions. Modified duties are appropriate — the goal is to keep you contributing to the service within your medical limitations while recovering. Initiate the WSIB workplace injury claim formally. Attend all physiotherapy appointments and provide timely medical updates to occupational health. Do not return to active patrol duties until you receive medical clearance — performing duties beyond your medical restrictions exposes you to further injury, voids your WSIB coverage, and creates liability for the service. A fitness-for-duty evaluation will be required before return to full active duties.",
-          "outcome": {
-            "type": "node",
-            "target": "node-4"
-          }
+          "text": "Accept the modified duty assignment. Your employer has a duty to accommodate your injury under occupational health legislation and WCB requirements. Modified duty is designed to maintain your employment and income while you recover — it is not a punishment. Perform the assigned work to the best of your ability. Attend all physiotherapy appointments and keep your supervisor updated on your recovery timeline. Do not attempt operational activities beyond your medical restrictions — this could worsen the injury, void your WCB claim, and create liability. Communicate any concerns about the modified role through your supervisor or union representative.",
+          "outcome": { "type": "node", "target": "node-4" }
         },
         {
           "label": "B",
-          "text": "Return to full active patrol after two weeks — the injury is improving and the service needs experienced officers on the street.",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Refuse modified duty and take sick leave instead — working a desk job is demeaning and does not fit your role.",
+          "outcome": { "type": "failure" }
         },
         {
           "label": "C",
-          "text": "Decline modified duties — if you can't do full patrol work, you'd rather use sick leave to avoid being seen as 'desk duty.'",
-          "outcome": {
-            "type": "failure"
-          }
+          "text": "Ask your supervisor to keep the modified duty informal so other officers do not know about your injury.",
+          "outcome": { "type": "failure" }
         }
       ]
     },
     "node-4": {
+      "title": "Return to Full Operational Duties",
+      "situation": "Eight weeks have passed. Your physiotherapist recommends a graduated return: weeks 9–10 at operational duty with no running or foot pursuits; weeks 11–12 with full operational clearance pending a functional test. Your supervisor and the WCB case manager are asking how you would like to structure the return. The functional test must be passed before full clearance.",
+      "question": "How do you approach the graduated return to full operational duties?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Accept and complete the graduated return as recommended. Work weeks 9–10 with the documented restrictions and communicate those restrictions clearly to your partner and supervisor so they can support you appropriately at incidents. Complete the physiotherapy-prescribed functional test. Do not rush full operational clearance — returning before the knee is ready increases the risk of re-injury, which could result in a longer recovery. Once the functional test is passed, request written clearance from both the physiotherapist and the WCB case manager before returning to unrestricted operational duties. Document the clearance in your personnel file.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Request immediate full operational clearance — you feel fine and do not need the graduated return.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Return to full operational duties without completing the functional test — the test is unnecessary if you feel recovered.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
       "title": "Scenario Complete",
-      "situation": "Your WSIB claim was approved. You completed six weeks of modified administrative duties while attending physiotherapy twice weekly. At week seven, occupational health cleared you for a graduated return to full duties. A scene safety review was conducted for the parking lot, and improved ice treatment protocols were implemented. The hazard reporting process was credited with preventing a potential future injury. Your injury was documented accurately and professionally throughout. On-duty injuries must be reported, investigated, and managed through proper occupational health processes — officer wellness is an operational necessity, not a personal luxury.",
-      "question": "Scenario complete. Well done!",
+      "situation": "You completed the WCB process correctly, maintained your income and employment through the modified duty period, attended all physiotherapy appointments, and completed the functional test successfully at week 11. You received written clearance and returned to full operational duties at week 12. Your transparent reporting, cooperative approach to WCB, and adherence to the graduated return protected your long-term career and the agency's duty-of-care obligations. Your supervisor noted your professionalism during a difficult recovery period.",
+      "question": "",
       "options": []
     }
   }

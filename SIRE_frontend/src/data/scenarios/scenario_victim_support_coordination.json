@@ -1,0 +1,164 @@
+{
+  "title": "scenario_victim_support_coordination",
+  "description": "An officer has cleared a violent home invasion scene and must coordinate victim services for a 68-year-old assault victim under the Canadian Victims Bill of Rights.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": ["Canadian Victims Bill of Rights", "CVBR", "victim services", "home invasion", "safety planning", "victim impact statement", "documentation"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Scene Cleared",
+      "description": "Officers clear a violent home invasion scene. Margaret, 68, was assaulted and her home ransacked. The suspect is at large.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "CVBR Rights Explained",
+      "description": "The attending officer must advise Margaret of her rights under the Canadian Victims Bill of Rights, S.C. 2015, c. 13.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 2,
+      "title": "Victim Services Referral Made",
+      "description": "The officer contacts Victim Services and initiates a mandatory referral for Margaret.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 3,
+      "title": "Safety Plan Developed",
+      "description": "With the suspect still at large, the officer works with Margaret and Victim Services to develop an immediate safety plan.",
+      "timeOffsetSec": 1500
+    },
+    {
+      "index": 4,
+      "title": "Victim Impact Statement Process Explained",
+      "description": "The officer explains the Victim Impact Statement process and the victim's right to participate in the court process.",
+      "timeOffsetSec": 2400
+    },
+    {
+      "index": 5,
+      "title": "Documentation Completed",
+      "description": "The officer completes the occurrence report documenting all victim support steps taken.",
+      "timeOffsetSec": 3600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "CVBR Rights at Scene",
+      "situation": "You have just cleared a violent home invasion scene. Margaret, 68, was found assaulted in her living room; the suspect fled before officers arrived. Her home has been ransacked. EMS has treated her for minor injuries. She is shaken but alert. She has no family nearby and is clearly frightened. Under the Canadian Victims Bill of Rights (S.C. 2015, c. 13), you must advise her of her rights before doing anything else.",
+      "question": "What rights does Margaret have under the Canadian Victims Bill of Rights that you must advise her of at scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under the Canadian Victims Bill of Rights (S.C. 2015, c. 13), Margaret has four core rights: (1) the right to information — she may request information about the criminal justice system, available victim services, and the status of the investigation; (2) the right to protection — she is entitled to have her security and privacy considered and to request reasonable protection measures; (3) the right to participation — she has the right to present a Victim Impact Statement and have her views considered; and (4) the right to seek restitution — she may request that the court consider a restitution order against the offender. Advise her of these rights clearly in plain language, give her a written resource such as a Victim Services pamphlet, confirm understanding, and document that the advisory was given.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "The CVBR rights advisory is Victim Services' responsibility — focus on completing the scene investigation and let the Victim Services worker advise Margaret of her rights when they arrive.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise Margaret of her right to file a civil suit against the offender, which is the primary remedy available under the Canadian Victims Bill of Rights.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Victim Services Referral",
+      "situation": "You have advised Margaret of her CVBR rights. She is still visibly distressed and asks, 'What happens next? Will someone help me?' Many provinces require police to make a mandatory referral to Victim Services unless the victim explicitly opts out. Your detachment has a partnership with a 24-hour Victim Services unit. It is 11:30 p.m.",
+      "question": "How and when do you make a mandatory referral to Victim Services for Margaret?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Make the referral to Victim Services immediately at scene — do not wait until the report is filed the next day. Contact the 24-hour Victim Services line and provide the worker with Margaret's name, the nature of the incident, her location, her physical and emotional condition, and immediate needs (she has no family nearby). Under most provincial Victim Services frameworks and CVBR s.6, referrals should be automatic unless the victim opts out — ask Margaret's consent, but advise her that a worker can provide crisis support, safety planning assistance, and court preparation resources. Document the referral time, the worker's name, and Margaret's consent in the occurrence report.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Provide Margaret with a Victim Services pamphlet and advise her to call the number herself when she feels ready — police referrals are optional and victims prefer to self-refer.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Delay the Victim Services referral until after the occurrence report is complete and approved by a supervisor, to ensure the worker has accurate case information.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Safety Planning — Suspect at Large",
+      "situation": "The Victim Services worker has arrived and is with Margaret. You advise her that the suspect has not been apprehended. Margaret says she is afraid to stay in her home and cannot afford a hotel. Her front door lock has been forced and cannot be secured. She has a neighbour she trusts two doors away. The suspect is described and a BOLO has been issued. How do you address Margaret's immediate safety?",
+      "question": "How do you address the victim's immediate safety with the suspect still at large?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Develop a concrete safety plan collaboratively with Margaret and the Victim Services worker: (1) arrange emergency temporary housing through Victim Services or a shelter if she is unwilling to stay — do not leave her in an unsecured premises alone; (2) work with the Victim Services worker to contact her trusted neighbour and arrange for Margaret to stay there temporarily; (3) request an enhanced patrol presence on the street and log it in the CAD dispatch notes; (4) document the suspect description and confirm the BOLO is active and circulated; (5) advise Margaret of the steps to apply for an emergency protection order or peace bond if the suspect is identified; (6) provide her with the direct line of the on-call investigator and the Victim Services worker's number for overnight contact. Under CVBR s.9-10, the right to protection requires active measures, not just verbal advice.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Advise Margaret to lock her doors, call 911 if she sees the suspect again, and go to a neighbour's if she feels unsafe — the safety planning role belongs to Victim Services, not the attending officer.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Margaret that until the suspect is arrested there is nothing police can do to guarantee her safety at home, and she should consider staying with family out of town.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Victim Impact Statement Process",
+      "situation": "Margaret is calmer now that a safety plan is in place. She asks what will happen in court and whether she will have a say. She says the last time a family member went through the justice system 'nobody told them anything.' You need to explain the Victim Impact Statement process accurately and completely, consistent with CVBR rights and Criminal Code ss. 722-722.2.",
+      "question": "How do you explain the Victim Impact Statement process and Margaret's right to participate?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain to Margaret that under Criminal Code s.722, she has the right to prepare a Victim Impact Statement (VIS) describing the physical, emotional, and financial harm caused by the offence; the VIS is submitted to the court and the Crown before sentencing; she has the right to read it aloud in court (s.722.2) or have someone else read it on her behalf; her VIS is considered by the judge during sentencing; the Crown can assist her in preparing it and Victim Services can also provide support; she is not required to submit a VIS but it is her right to do so; advise her that the right to information under CVBR s.6 also means she can request case updates from the Crown, and that Victim Services will help keep her informed of court dates. Document that the VIS process was explained and that she was connected with Victim Services for follow-up.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Margaret that the VIS is filed by the Crown on her behalf automatically and she does not need to do anything — Crown counsel will write it based on the officer's report.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Advise Margaret that VIS are only relevant at sentencing hearings and are rarely read aloud — they primarily serve as background documents for the judge and have limited impact.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Documentation of Victim Support Steps",
+      "situation": "The scene investigation is complete, Margaret is with her neighbour, the Victim Services worker is following up, and the suspect investigation is ongoing. You must now complete your occurrence report. Your supervisor advises that a Crown Brief may be required and that documentation of victim support steps is increasingly scrutinized in court for CVBR compliance. What must you document in the occurrence report regarding victim support?",
+      "question": "What must be documented in the occurrence report regarding the victim support steps taken?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The occurrence report must document all of the following victim support steps: (1) date/time and content of CVBR rights advisory given to Margaret, including confirmation of her understanding; (2) Victim Services referral — time of call, name of worker contacted, Margaret's consent, and worker's response; (3) safety planning details — specific measures taken, enhanced patrol log entry reference, neighbour's address used as temporary housing, and the BOLO confirmation; (4) Victim Impact Statement process explanation — time and substance of the discussion; (5) all contact information provided to Margaret including the on-call investigator's number and Victim Services direct line; (6) Margaret's physical and emotional state at each stage; and (7) any specific requests Margaret made under CVBR rights to information. Complete and accurate documentation ensures CVBR compliance can be demonstrated in any subsequent review, Charter application, or Crown proceeding.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Document the factual details of the offence only — victim support activities are welfare matters handled by Victim Services and do not belong in the criminal occurrence report.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Note in the report that 'victim was referred to Victim Services' — this single notation is sufficient to demonstrate CVBR compliance for Crown purposes.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "Margaret was safely housed with her neighbour for the night, an enhanced patrol was logged, a Victim Services worker provided ongoing crisis support, and the occurrence report fully documented all CVBR-compliant steps. Key training takeaways: The Canadian Victims Bill of Rights (S.C. 2015, c. 13) grants victims four core rights — information, protection, participation, and restitution — and the attending officer has an active obligation to advise victims of these rights at scene; Victim Services referrals must be immediate and not delayed until report completion; safety planning for victims with suspects at large requires concrete actionable measures, not just advice; Victim Impact Statements under Criminal Code s.722 are the victim's right and police must explain the process; all victim support steps must be documented in the occurrence report to demonstrate CVBR compliance.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
