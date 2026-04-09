@@ -103,8 +103,22 @@ export default function TraineeInterface() {
     /** Live timeline events injected by the admin during the session. */
     const [timelineEvents, setTimelineEvents] = useState([]);
 
+    /** Options for the current node, shuffled so the correct answer is not always first. */
+    const [shuffledOptions, setShuffledOptions] = useState([]);
+
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
+
+    /** Shuffle options whenever the current node changes so the correct answer is not always first. */
+    useEffect(() => {
+        const options = scenarioData?.nodes?.[currentNodeId]?.options || [];
+        const arr = [...options];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        setShuffledOptions(arr);
+    }, [currentNodeId, scenarioData]);
 
     /** Start the elapsed timer once scenario data is first available. */
     useEffect(() => {
@@ -369,7 +383,7 @@ export default function TraineeInterface() {
 
             {/** Options rendered as clickable cards. */}
             <div className="options-container">
-                {(currentNode.options || []).map((option, index) => (
+                {shuffledOptions.map((option, index) => (
                     <div
                         key={index}
                         className="option-card"
