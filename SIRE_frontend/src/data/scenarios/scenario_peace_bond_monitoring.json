@@ -1,0 +1,151 @@
+{
+  "title": "scenario_peace_bond_monitoring",
+  "description": "An officer is assigned to conduct a peace bond compliance check on an individual subject to conditions under Criminal Code s.810. They must assess compliance, document observations, and respond appropriately to potential breaches — understanding both the authority and the limits of peace bond enforcement.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Peace Bond Assigned",
+      "description": "An officer is briefed on a subject under a 12-month Criminal Code s.810 peace bond with conditions including no contact with a former partner and no weapons.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Compliance Check",
+      "description": "Officer attends the subject's residence to conduct a scheduled compliance check.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Potential Breach Observed",
+      "description": "Officer observes the subject with a hunting knife in a visible sheath on their belt. A no-weapons condition is listed.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Subject's Explanation",
+      "description": "Subject says the knife was for hunting and the peace bond only prohibits 'weapons' — he argues a hunting knife is a tool.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Breach Assessment",
+      "description": "Officer must assess whether the peace bond condition has been breached and what action is appropriate.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Documentation and Follow-Up",
+      "description": "Officer documents the compliance check and reports the potential breach to the supervising officer and Crown.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Peace Bond Conditions — Understanding the Authority",
+      "situation": "You are assigned to a follow-up compliance check on Derek, 34, who is under a Criminal Code s.810 peace bond entered after his former partner feared for her safety. The conditions include: no contact with the former partner; no attendance within 500 metres of her residence or workplace; no possession of any firearm, ammunition, weapon, or explosive. You attend Derek's residence and he answers the door. He has a hunting knife in a sheath on his belt.",
+      "question": "What legal authority do you have to enforce peace bond conditions and address what you observed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A peace bond is a court order made under Criminal Code s.810. Breach of a peace bond condition is an offence under s.811. You have authority to conduct compliance checks as a condition of the bond. On observing the knife, you have grounds to inquire about it and assess whether it constitutes a breach. Document exactly what you observed: the type of knife, its location (visible, sheathed, on his belt), the condition of the peace bond as written, and his response. Read the exact wording of the 'no weapons' condition from the order before making any determination — the interpretation of 'weapon' will depend on the exact language of the order.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "A peace bond is a civil order and you have no authority to enforce it — tell him to speak with his Crown attorney if he has questions.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest Derek immediately for breach of peace bond — the knife is clearly a weapon and no further assessment is needed.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Interpreting the Peace Bond Condition",
+      "situation": "You review the peace bond order on your MDT. The condition reads: 'Shall not possess any firearm, weapon, prohibited device, ammunition, explosive substance, or any other dangerous item.' Derek says: 'It's a hunting knife, not a weapon. I use it for deer hunting. A kitchen knife is also a knife — am I supposed to throw away my cutlery?' The condition includes the phrase 'any other dangerous item.'",
+      "question": "How do you interpret this condition and respond to Derek's argument?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The phrase 'any other dangerous item' in the peace bond condition likely encompasses a hunting knife worn on the person outside the home context of a hunt. Whether this constitutes a breach is a legal question for Crown and ultimately the court. Do not make the final legal determination yourself. Advise Derek that in your view the knife may constitute a breach of the 'any other dangerous item' language, and you are required to document and report what you observed. Photograph the knife and sheath in situ. Seize the knife pending Crown consultation if you believe you have reasonable grounds a breach occurred. Report to your supervisor and Crown for a determination on whether to proceed with a breach charge.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept Derek's argument — a hunting knife is not a weapon in the Criminal Code sense and the condition clearly refers to firearms and prohibited devices.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell Derek that the condition is ambiguous and therefore unenforceable, and move on to the rest of the compliance check.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Compliance Check — Remainder of the Visit",
+      "situation": "You have documented the knife and are continuing the compliance check. Derek is cooperative. You note a recent social media post on his visible public profile where he tagged a location photograph that appears to show his former partner's workplace in the background — though she is not in the photo. Derek says he was just photographing the area and did not know she worked there. The no-attendance condition prohibits being within 500 metres of her workplace.",
+      "question": "How do you assess and document the potential proximity breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the social media observation precisely: the post date and time, the image description, and the apparent proximity to the former partner's workplace. Identify the location in the photograph using address information or a mapping tool and assess whether it is within 500 metres of the protected person's workplace. If it is, this is additional potential breach evidence to report to Crown alongside the knife observation. Print or screenshot the post as evidence. Do not confront Derek about this second potential breach during the visit — complete the compliance check and report both observations to your supervisor. Crown will determine whether cumulative breach evidence warrants a s.811 charge.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Derek he needs to be more careful about his social media posts and leave it at that — the photo does not conclusively prove he was within 500 metres.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Contact the former partner to ask whether she was aware Derek had been near her workplace — she is the best judge of whether the condition was breached.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Both observations — the hunting knife and the social media location near the workplace — were reported to Crown. Crown reviewed the peace bond order language and concluded that a hunting knife worn on the person in a residential context was within the 'any other dangerous item' prohibition. The proximity analysis confirmed Derek was within 300 metres of the former partner's workplace on the day of the post. Derek was charged with two counts of breach of recognisance under Criminal Code s.811. At the hearing, Derek's lawyer argued the knife exception but Crown successfully argued the order's broad language. A new, more explicit peace bond was entered with clearer conditions and Derek was placed under enhanced monitoring. The former partner was notified of the compliance check outcome and victim services was re-engaged.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "peace bond",
+    "Criminal Code s.810",
+    "Criminal Code s.811",
+    "breach of recognisance",
+    "compliance check",
+    "domestic safety",
+    "IPV",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

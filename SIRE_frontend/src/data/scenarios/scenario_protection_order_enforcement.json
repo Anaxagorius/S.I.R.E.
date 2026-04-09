@@ -1,0 +1,151 @@
+{
+  "title": "scenario_protection_order_enforcement",
+  "description": "Officers respond to a 911 call from a woman stating her former partner has arrived at her home in violation of a protection order. They must verify the order, assess the breach, make an arrest decision, and manage the scene safely — understanding that protection orders exist to protect victims and must be enforced proactively.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "911 Call",
+      "description": "A woman calls 911 stating her former partner is at her door and she has a protection order prohibiting him from attending her residence.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "En Route",
+      "description": "Officers are dispatched. Dispatch confirms the CPIC entry for an active civil protection order. Male is still at the door.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Officers Arrive",
+      "description": "Officers arrive to find the subject on the front step arguing with the complainant through the closed door.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Order Verification",
+      "description": "Officers verify the order and advise the subject of its terms. He argues the order has expired.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Arrest Decision",
+      "description": "Officers determine whether there are grounds to arrest for breach of the protection order.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Complainant Safety",
+      "description": "Officers complete the scene safely, arrange for the complainant's wellbeing, and document the incident.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Arriving at a Protection Order Breach — Immediate Priority",
+      "situation": "You arrive at a residential address at 22:45. A male is on the front steps arguing through the locked front door. You can hear the female complainant inside yelling 'Get away from me!' Dispatch confirms an active civil protection order (restraining order) is registered in CPIC prohibiting the subject from attending this address. The subject turns to you and says: 'She texted me to come over — I didn't do anything wrong.'",
+      "question": "What is your immediate priority on scene?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your immediate priority is to physically separate the subject from the complainant's door and ensure the complainant's safety. Position the subject away from the entrance — back to your cruiser. Do not begin an extended discussion about the texting claim or the order's terms in the complainant's doorway. Once separation is achieved, verify the order details from CPIC or the copy the complainant may have, advise the subject of the specific condition he is breaching, and then proceed to assess whether an arrest is warranted. Speed and physical separation are the immediate priorities — legal discussion comes second.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately ask the complainant to open the door and explain the situation before taking any action with the subject.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Listen to the subject's explanation about the text message before doing anything — if she invited him, this may not be a breach.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Verifying the Protection Order",
+      "situation": "The subject — Marcus — says the order expired last month and he has 'paperwork at home' proving it. Dispatch shows the CPIC entry as active with no expiry noted. The complainant has opened the door and says: 'It is still active — here is my copy.' Her copy shows an expiry date of August 15 of next year. Marcus says: 'That's wrong. I was in court last month and the judge changed it.' You cannot confirm or deny a court variation at this moment.",
+      "question": "How do you resolve the dispute about the order's currency?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat the CPIC-registered order and the complainant's copy as the operative document. The onus is on Marcus to produce court documentation of a variation or expiry — his verbal claim is not sufficient. Advise Marcus clearly: 'The CPIC record and the complainant's copy both show an active order. If the order was varied or expired, you will need to produce documentation. In the meantime, the registered order is in effect and you are in breach of it by being at this address. I am going to ask you to leave now and I will be investigating this further. If you have court documentation varying the order, provide it to your lawyer to address through proper channels.' If he refuses to leave, you have grounds to arrest for breach.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept Marcus's claim and allow him to stay until he can produce the paperwork proving the order was changed — innocent until proven guilty.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell both parties this is a civil matter and they need to resolve the dispute about the order through their lawyers — you cannot make a decision tonight.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Arrest for Breach — Grounds and Proportionality",
+      "situation": "Marcus is advised clearly that the registered order is in effect and he must leave. He says: 'I'm not going anywhere until she admits she texted me.' He remains on the property, is not violent, but is refusing to leave. You have observed him at the complainant's address in breach of the order. The complainant is visibly distressed and says: 'Please get him out of here.' You must now decide whether to arrest.",
+      "question": "What are the grounds and considerations for arresting Marcus for breach of the protection order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "You have grounds to arrest Marcus under Criminal Code s.145(3) or the applicable provincial family law enforcement provision for breach of a court order. He is currently on the protected property in breach of the registered restraining order and has refused a direct instruction to leave. The complainant's invitation does not relieve him of his obligation — only a court can vary the order. Arrest him for breach. Advise him of his Charter rights. The complainant's invitation claim will be assessed by Crown and the court. Document in your notes: (1) the CPIC order details; (2) the order copy reviewed; (3) Marcus's verbal claim of a variation and his inability to produce documentation; (4) your clear direction to leave and his refusal; (5) the complainant's statement.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue Marcus a caution and tell him to leave — arresting someone for standing at a door when the complainant may have invited him is excessive.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell the complainant that since she may have texted Marcus to come over, she weakened the order herself and police cannot enforce it tonight.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Marcus was arrested for breach of a court order. The following day, his lawyer produced court documents showing the order had been varied six weeks earlier to permit contact by text message only — not in person attendance. Crown reviewed the matter and the arrest remained justified as Marcus possessed the variation but did not produce it at the time of the breach. The in-person attendance at the address remained a breach of the original prohibition. A new, updated order was registered on CPIC reflecting the varied terms. The complainant received a safety planning session and victim services follow-up. The CPIC update was flagged to the local domestic violence unit. The officer's careful documentation — including Marcus's failure to produce variation documents at the scene — was decisive in confirming the lawfulness of the arrest.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "protection order",
+    "restraining order",
+    "breach of court order",
+    "CPIC",
+    "Criminal Code s.145",
+    "domestic violence",
+    "IPV",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

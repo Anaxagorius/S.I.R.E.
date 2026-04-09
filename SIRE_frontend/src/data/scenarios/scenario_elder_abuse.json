@@ -1,0 +1,151 @@
+{
+  "title": "scenario_elder_abuse",
+  "description": "Officers conduct a wellness check on an elderly man at a care facility and observe signs consistent with elder abuse. They must assess capacity, investigate potential financial and physical abuse, navigate mandatory reporting obligations, and coordinate with adult protective services — all while respecting the autonomy of a potentially vulnerable person.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Wellness Check Requested",
+      "description": "Social services requests a police wellness check on a 78-year-old male at a private care home after a family member raised concerns.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Attend",
+      "description": "Officers arrive at the care facility. The subject — Clarence — has unexplained bruising on his arms and appears frightened.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Physical Observations",
+      "description": "Officers observe signs consistent with physical abuse and poor living conditions despite family paying premium rates.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 3,
+      "title": "Capacity Assessment",
+      "description": "Officers must assess whether Clarence can make autonomous decisions and whether his apparent fear has a source.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Financial Abuse Indicators",
+      "description": "Clarence mentions his bank account has been accessed by a care worker. Officers assess financial abuse indicators.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Coordinated Response",
+      "description": "Officers coordinate with adult protective services, the Seniors' Safety Team, and Crown if charges are warranted.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Elder Abuse — Recognising Indicators and Immediate Assessment",
+      "situation": "You attend the care facility to conduct a wellness check on Clarence, 78, who has mild cognitive impairment but is largely communicative. He has unexplained bruising on both forearms in patterns inconsistent with accidental falls. The facility manager says 'He bruises easily — it's his blood thinners.' Clarence appears startled when the manager enters the room and does not speak while she is present. When she leaves, he says quietly: 'She pinches me when I complain about the food.'",
+      "question": "How do you respond to Clarence's disclosure and the physical indicators?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat this as a potential physical abuse investigation immediately. Remove Clarence from the room to speak with him privately, away from the manager and facility staff. The manager's presence appears to be suppressing his willingness to speak — this itself is a red flag. Photograph the bruising with a ruler scale after obtaining Clarence's consent. Document his spontaneous disclosure verbatim. Arrange a medical assessment of the bruising (a physician's opinion on injury pattern is important evidence). Do not dismiss the facility manager's explanation — document it — but note the inconsistency between the explanation and the pattern of bruising.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the facility manager's explanation — blood thinners commonly cause bruising in the elderly and the manager works with Clarence daily.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell Clarence you will investigate later — do not risk inflaming the situation with the facility manager until you have more information.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Capacity and Autonomy",
+      "situation": "Alone with Clarence, he is coherent and describes specific incidents — the manager pinching him when he complains, a care worker taking money from his wallet, and being told not to 'bother' his family. He says: 'I know I'm getting old but I'm not stupid. I don't want to make trouble but it hurts.' He appears to have intact capacity for this conversation. He asks if he can just be moved to another facility rather than having anyone charged.",
+      "question": "How do you balance Clarence's expressed wishes with your investigative obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Respect Clarence's capacity and his perspective — he has the right to make decisions about his own situation. At the same time, elder abuse in a care facility may involve criminal offences that police have an independent obligation to investigate regardless of victim preference. Explain clearly: 'Clarence, you have the right to decide how you want to proceed. I am going to document what you have told me and report it to adult protective services — that is required regardless of your wishes. Whether criminal charges are pursued will be a decision made with your input and involvement. You will not be forced into anything, but I cannot ignore what you have described.' Assess whether any emergency protective intervention is needed today.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since Clarence has capacity and is asking you not to charge anyone, respect his wishes completely — document the visit and close the file.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell Clarence that since he has mild cognitive impairment he cannot make this decision himself — you will proceed without his consent.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Financial Abuse Investigation",
+      "situation": "Clarence says a care worker named 'Donna' has been 'borrowing' money from his wallet — he has noticed missing $20 bills on several occasions after Donna helps him with his banking. His family pays the facility $4,800 per month for his care. He has no signed consent or Power of Attorney document authorising Donna to access his funds. This describes potential theft or fraud under the Criminal Code.",
+      "question": "How do you investigate the financial abuse allegation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document Clarence's account of the missing money with dates, amounts, and circumstances as specifically as he can recall. Obtain Clarence's consent to access his bank records to identify suspicious transactions — or seek a production order if consent to access is more complex given his situation. Request his most recent bank statements through his family if he consents, to identify cash withdrawals inconsistent with his normal pattern. Identify 'Donna' through the facility employment records (via a formal request or search warrant if access is refused). Alert Adult Protective Services to conduct a parallel financial investigation. Financial elder abuse is a Criminal Code offence — theft (s.322) and fraud (s.380) — and the Seniors' Safety Team or equivalent should be engaged.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Clarence to contact his bank directly about the missing money — financial disputes between a resident and a care worker are a civil matter.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the facility manager to investigate the allegation against Donna and report back to you — the facility has its own internal process.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Adult Protective Services was notified and conducted an emergency assessment. Clarence was temporarily moved to a different facility while the investigation proceeded. A medical examination found bruising consistent with pinching rather than accidental injury. Bank records obtained by production order showed 22 cash withdrawals in small amounts over six months correlating with Donna's shift schedule. Donna was charged with theft under $5,000 and criminal breach of trust. The facility manager was charged with assault (the pinching). The facility was reported to the provincial long-term care regulator. Clarence participated in the investigation willingly once he understood his safety was being prioritised. He was supported throughout by a victim services worker specialising in elder abuse.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "elder abuse",
+    "financial abuse",
+    "physical abuse",
+    "care facility",
+    "Adult Protective Services",
+    "Criminal Code s.380",
+    "mandatory reporting",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

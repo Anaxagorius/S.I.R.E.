@@ -1,0 +1,151 @@
+{
+  "title": "scenario_charter_s10_right_to_counsel",
+  "description": "An officer arrests a suspect for assault. The suspect invokes their right to counsel under Charter s.10(b). The officer must understand when the right is triggered, facilitate meaningful access, and respect the implementational duties — or risk exclusion of a confession obtained while the right was suspended.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrest for Assault",
+      "description": "Officer arrests a male for assault causing bodily harm following a bar fight. The suspect is handcuffed and placed in the cruiser.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Charter Caution Given",
+      "description": "Officer reads the standard Charter caution and s.10(b) right-to-counsel warning. Suspect immediately asks to call a lawyer.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Access to Counsel",
+      "description": "Officer must facilitate meaningful access to counsel and must not elicit evidence from the suspect until access is provided.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Waiver Issue",
+      "description": "After speaking with duty counsel the suspect makes an unsolicited admission. Officer must assess waiver and proceed correctly.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Interview Room",
+      "description": "Suspect is taken to the detachment interview room. Second officer wishes to begin questioning immediately.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Confession",
+      "description": "Suspect, after a proper break and re-advising, makes an inculpatory statement.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Charter s.10(b) — Immediate Right to Counsel",
+      "situation": "You arrest a 24-year-old male for assault causing bodily harm after a bar fight in which a victim suffered a broken nose. You handcuff the suspect and place him in your cruiser. Before any questioning you read: 'You have the right to retain and instruct counsel without delay. Do you understand?' He says: 'Yes. I want a lawyer right now.' You are 12 minutes from the detachment. Your partner wants to ask him a few quick questions in the cruiser about what happened.",
+      "question": "How do you respond to your partner's suggestion to question the suspect en route?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Decline. The suspect has invoked his right to counsel under Charter s.10(b). As confirmed in R v Manninen and R v Bartle, once a detainee invokes the right to counsel, police must: (1) immediately stop eliciting evidence; (2) facilitate the opportunity to contact counsel without delay; (3) not question the suspect until counsel has been reached or the right has been validly waived. There are no questions to be asked in the cruiser. Drive directly to the detachment so the suspect can access the phone.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Allow your partner to ask a few brief questions since the suspect hasn't reached a lawyer yet and the conversation is casual — not a formal interview.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell the suspect he can call a lawyer once he gets to the station, and that casual conversation in the car doesn't count as a rights violation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Facilitating Meaningful Access to Counsel",
+      "situation": "At the detachment, you place the suspect in a private room with a phone. He asks for a specific lawyer named 'Mr. Khalil' — the suspect says he is not comfortable speaking with duty counsel. You call the number provided but there is no answer. It is 02:30 in the morning. The suspect says he will only speak to Mr. Khalil and refuses duty counsel.",
+      "question": "How do you handle the suspect's refusal to use duty counsel?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the suspect that he has a right to counsel of his choice, but that this right must be exercised diligently. Provide him a reasonable opportunity — typically two to three attempts over 30 to 60 minutes — to reach Mr. Khalil. After a reasonable time, advise him clearly: 'You have had a reasonable opportunity to reach your lawyer of choice. If you are unable to reach Mr. Khalil tonight, you may speak with duty counsel who is available 24 hours, or you may wait until morning to continue trying. The investigation will continue in the interim.' Do not begin questioning until he either reaches counsel, validly waives the right, or an unreasonable delay has elapsed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell the suspect he has no choice but to use duty counsel since his personal lawyer is unavailable at night.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "After one unanswered call, proceed with the interview since the suspect has had his opportunity and the investigation cannot wait.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Counsel Caution and Resuming the Interview",
+      "situation": "After two hours, the suspect successfully reached duty counsel and spoke privately for 15 minutes. After hanging up the phone he spontaneously says to you: 'Look, I hit him but he started it — he was grabbing my girlfriend.' You note this unsolicited admission. Your partner now wants to begin the formal video-recorded interview. Before doing so you must properly re-advise the suspect.",
+      "question": "What must you do before the formal interview begins?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Before beginning the formal interview, re-advise the suspect of: (1) his right to remain silent — read the standard police caution; (2) his right to a second consultation with counsel if his legal situation has changed; and (3) the fact that the interview is being video recorded. Document the spontaneous unsolicited admission made after counsel contact separately in your notes, noting it was volunteered without elicitation. Obtain an explicit acknowledgement that he understands his rights and is prepared to speak with you voluntarily before commencing the interview.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Begin the formal interview immediately — he already spoke to a lawyer so no re-advising is necessary.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the spontaneous admission and do not note it, since it was not part of a formal interview and therefore cannot be used.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The suspect was properly re-advised, acknowledged his rights, and agreed to speak. During the video-recorded interview he provided a full account. The spontaneous post-counsel admission was separately documented. At trial, defence brought a Charter s.10(b) application, arguing the suspect's right to counsel of choice was not properly respected. The court found that two attempts over two hours with proper advising about duty counsel constituted a reasonable opportunity. All evidence — including the spontaneous admission and the interview — was admitted. The officer's thorough documentation at each stage of the rights-advising process was central to the court's analysis.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "Charter s.10",
+    "right to counsel",
+    "R v Manninen",
+    "R v Bartle",
+    "duty counsel",
+    "waiver",
+    "police interview",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

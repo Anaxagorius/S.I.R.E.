@@ -1,0 +1,151 @@
+{
+  "title": "scenario_bwc_activation_failure",
+  "description": "An officer fails to activate their body-worn camera during a use-of-force incident. They must understand the policy obligations, document the failure honestly, and manage the investigative and disciplinary consequences — including a potential credibility challenge in court.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Call Dispatched",
+      "description": "Officer is dispatched to a domestic disturbance call. Policy requires BWC activation upon arrival at all calls.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "BWC Not Activated",
+      "description": "In the urgency of arrival, the officer forgets to activate the BWC. A use-of-force incident occurs inside the residence.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Incident Concluded",
+      "description": "Officer restrains the suspect. Suspect later alleges excessive force. The officer realises the BWC was never activated.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Reporting Decision",
+      "description": "Officer must decide how to report the BWC failure — honestly or by omission.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Supervisor Review",
+      "description": "Supervisor reviews the incident including the lack of BWC footage. A use-of-force report is required.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Professional Standards",
+      "description": "Professional Standards investigates the use-of-force complaint and the BWC non-activation.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "BWC Activation Failure — Immediate Decision",
+      "situation": "You arrived at a domestic disturbance and in the urgency of the situation — a man was physically assaulting his partner when you entered — you did not activate your BWC. You restrained the suspect using an arm bar and a brief take-down. The suspect has been arrested. He is now saying you used excessive force. You notice your BWC is still inactive. Your partner's BWC was activated and captured a portion of the struggle. You now have to complete your use-of-force report and occurrence report.",
+      "question": "How do you handle the BWC non-activation in your reports?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Disclose the BWC non-activation fully and immediately. In your use-of-force report, note clearly: 'BWC was not activated upon arrival. This was an oversight in the urgency of the dynamic situation. I am aware this is a violation of policy. My partner's BWC captured a portion of the incident and was activated.' Notify your supervisor proactively before they discover the gap themselves. Do not attempt to hide or minimise the non-activation — a gap in your footage is immediately visible from the metadata, and attempting to conceal it will transform a policy compliance issue into a dishonesty finding.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do not mention the BWC at all in your report — if supervisors ask, you can explain at that time.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Write in your report that your BWC malfunctioned — a technical fault rather than human error — to avoid the policy violation finding.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Use-of-Force Report — Documenting Without BWC",
+      "situation": "Because there is no BWC footage of the full incident, your use-of-force documentation must be especially thorough. The report will be the primary record of your account and will be reviewed by Professional Standards, possibly the Special Investigations Unit (SIU), and defence counsel. You must document every aspect of the force used and the threat you were responding to with precision.",
+      "question": "What does your use-of-force report need to include given the absence of your BWC footage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document with maximum precision: (1) the threat assessment at each point — what the suspect was doing, what you perceived, and why you believed force was necessary; (2) the specific technique(s) used, in sequence, and the reason each was selected as proportionate and necessary; (3) the exact duration of each application; (4) any de-escalation attempted before force; (5) any injuries to the suspect, victim, or yourself; (6) the reference to your partner's BWC footage (directing attention to timestamps where the struggle is visible); (7) the BWC non-activation disclosed and explained. A thorough, credible written account in the absence of footage is your only protection against an unsupported excessive force allegation.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Write a general summary — 'suspect was restrained using approved techniques in response to active resistance' — since without footage you cannot be held to details.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Refer investigators entirely to your partner's BWC since it captures the incident — your own written account is not necessary if footage exists.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Professional Standards Inquiry — Responding Honestly",
+      "situation": "Professional Standards contacts you for a formal interview regarding the use-of-force complaint and the BWC non-activation. The PS investigator asks: 'Did you deliberately not activate your BWC because you knew you were about to use force?' You did not — it was a genuine oversight in a rapidly evolving situation. You must answer clearly and honestly.",
+      "question": "How do you respond to the Professional Standards investigator?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Answer clearly and honestly: 'No. The non-activation was an oversight. When I arrived, the suspect was actively assaulting his partner and I reacted immediately — BWC activation was not in my mind at that moment. I acknowledge this was a policy violation and I have completed the required non-activation report. I have also completed remedial training on BWC policy as directed.' A clear, direct, and consistent account of an honest mistake is the correct response. Attempting to construct a justification for an oversight will be far more damaging if the explanation is found to be inconsistent with the contemporaneous metadata.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Refuse to answer PS questions without your Police Association representative present — take no position on the BWC until you have legal advice.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell PS the BWC was activated but must have malfunctioned after you turned it on — you remember turning it on but there was no footage.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The Professional Standards investigation found that the BWC non-activation was an unintentional policy violation — there was no evidence of deliberate avoidance. The officer received a written reprimand and mandatory BWC compliance retraining. The use-of-force complaint was reviewed using the partner's BWC footage and the officer's detailed written account. The force was found to be proportionate and necessary under the circumstances. At the civil complaint hearing, the officer's thorough written documentation — filed before the complaint was made — was cited as a demonstration of good faith. The absence of BWC footage, while a policy failure, did not result in a finding of excessive force.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "body-worn camera",
+    "BWC",
+    "use of force",
+    "police accountability",
+    "professional standards",
+    "SIU",
+    "policy compliance",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

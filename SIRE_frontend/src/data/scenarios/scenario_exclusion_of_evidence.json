@@ -1,0 +1,152 @@
+{
+  "title": "scenario_exclusion_of_evidence",
+  "description": "Evidence has been gathered during an arrest that may have involved Charter violations. The officer must understand the s.24(2) exclusionary framework, assess whether the breach was serious, and take steps to preserve admissibility — including accurate documentation and transparent disclosure.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrest Without Proper Grounds",
+      "description": "A junior officer arrests a suspect for drug possession without articulating reasonable and probable grounds.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Search Conducted",
+      "description": "A full search is conducted incident to the arrest, yielding cocaine. The suspect invokes Charter rights.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Supervisory Review",
+      "description": "Supervising officer reviews the arrest and identifies potential Charter s.8 and s.9 breaches.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Documentation Decision",
+      "description": "Officer must decide how to document the circumstances truthfully despite the potential Charter problem.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Disclosure Package Prepared",
+      "description": "Officer prepares the disclosure package for Crown. The Charter breach must be disclosed.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Crown Consultation",
+      "description": "Crown assesses the s.24(2) factors and determines the admissibility of the evidence.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Charter s.24(2) — Recognising the Exclusion Risk",
+      "situation": "Your junior partner arrested a male for possession of cocaine after observing him 'acting nervously' near a bus stop. No CPIC query was run first, no odour or open drug use was observed, and no CI information existed. The arrest grounds were 'I thought he looked like he was on drugs.' A search incident to arrest found 14 grams of cocaine. You are the supervisor reviewing the file. The suspect is in cells. The arrest may constitute a Charter s.9 breach (arbitrary detention) and the search a Charter s.8 breach.",
+      "question": "As the supervising officer, what is your immediate obligation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a thorough review of the arresting officer's notes and interview them about the specific grounds they had at the moment of arrest. If the grounds are legally insufficient — 'looked nervous' is not articulable cause — document the supervisory review, advise the arresting officer to document their subjective grounds accurately and completely (no embellishment), and immediately notify Crown so that a s.24(2) analysis can be conducted. The goal is accurate disclosure — not suppression of the Charter problem. Attempting to fix the grounds retrospectively would compound the breach.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise the junior officer to add additional grounds to their notes — things they may have noticed but forgot to write down — to strengthen the arrest to withstand the Charter application.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Proceed with the charge as written — it is Crown's job to sort out Charter applications and your job is only to document what happened.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "s.24(2) Factors — Assessing Admissibility",
+      "situation": "You have notified Crown of the potential Charter breach. Crown asks you to assist in a s.24(2) analysis under R v Grant. The three Grant factors are: (1) seriousness of the Charter-infringing state conduct; (2) impact of the breach on the accused's Charter-protected interests; and (3) society's interest in adjudication on the merits. You must assess where this case falls.",
+      "question": "How do you assess the seriousness of the breach for the s.24(2) analysis?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assess honestly: (1) The conduct was moderately serious — the officer lacked objective grounds but was not acting in deliberate bad faith. Good-faith negligence is less serious than wilful misconduct but more serious than a technical error. (2) The impact on the accused was significant — a full body search based on an arbitrary detention is a serious intrusion. (3) Cocaine is a serious controlled substance and society has an interest in the evidence being heard. The balance is uncertain. Provide Crown with a candid factual account of exactly what the arresting officer observed and when. The court will make the s.24(2) ruling — your job is accurate, complete disclosure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Crown the breach was minor and technical — just a documentation problem — so the evidence should obviously be admitted under s.24(2).",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell Crown the breach is so serious the charge should be dropped rather than risk a s.24(2) hearing at trial.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Disclosure Obligations — Transparent Package",
+      "situation": "Crown directs you to prepare a complete and transparent disclosure package. The package must include the arresting officer's verbatim notes, your supervisory review notes, any body-worn camera footage, and any communications that bear on what the arresting officer actually observed. Crown warns that any omission from the disclosure package could trigger a Stinchcombe stay of proceedings — a remedy more damaging to the case than the s.24(2) exclusion itself.",
+      "question": "What must the disclosure package include regarding the Charter breach?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The package must include: the arresting officer's notes exactly as written at the time (no post-hoc additions); your supervisory review notes documenting when you identified the issue and what steps you took; any BWC footage from the arrest — even if unfavourable; any CAD communications or radio logs; and a frank narrative of the grounds as observed. Omitting the supervisory review notes, or providing edited versions of the BWC footage, would constitute a failure to meet disclosure obligations under Stinchcombe and R v McNeil, and could result in a stay of proceedings or finding of abuse of process.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Include only the arresting officer's original notes and the evidence seized — the supervisory review is internal and does not need to be disclosed to defence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Submit the BWC footage only from the moment after the arrest was made, since footage of the pre-arrest observations is not relevant to the charge.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Crown received the complete disclosure package and brought a proactive s.24(2) application on behalf of the prosecution. The court found a Charter s.9 breach (arbitrary detention) and a derivative s.8 breach (search). However, applying R v Grant, the court admitted the evidence: the officer's conduct was negligent but not deliberate or systemic; the cocaine was a real and serious drug quantity; and society's interest in having the case heard on the merits was compelling. The evidence was admitted. The officer's honest documentation and the supervisory review notes were cited by the judge as evidence of institutional good faith — a mitigating factor in the s.24(2) analysis.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "Charter s.24(2)",
+    "exclusion of evidence",
+    "R v Grant",
+    "Charter breach",
+    "s.8",
+    "s.9",
+    "disclosure",
+    "Stinchcombe",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "title": "scenario_child_custody_dispute",
+  "description": "Officers are called to a child custody dispute where one parent is refusing to return the children after a scheduled access visit. Officers must understand the limits of police authority in civil custody matters, the role of court orders, and when criminal offences may apply.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Call Received",
+      "description": "A mother calls police stating her ex-partner has not returned the children after a scheduled access visit that ended two hours ago.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Attend Father's Residence",
+      "description": "Officers attend the father's residence. He is present with the two children and says the custody order is wrong.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Order Reviewed",
+      "description": "Mother presents a valid court order specifying access times. Father says the order is under appeal.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Children's Welfare",
+      "description": "Officers must assess the children's immediate safety and welfare independently of the civil dispute.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 4,
+      "title": "Enforcement Decision",
+      "description": "Officers must decide whether to enforce the custody order, refer the matter to civil court, or take other action.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Resolution",
+      "description": "Officers facilitate a resolution that prioritises the children's welfare and the integrity of the court order.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Civil Custody Order — Scope of Police Authority",
+      "situation": "A mother shows you a valid court order granting her primary custody with the father having access every second weekend, ending at 18:00 on Sunday. It is 20:15 on Sunday. The father says: 'The order is under appeal and I'm not giving them back until the appeal is heard.' The children — ages 6 and 9 — appear calm and are watching television. There are no signs of danger or abuse. You must determine your legal authority in this situation.",
+      "question": "What is the police role in enforcing a civil custody order?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Police can assist in enforcing the terms of a valid court custody order. An appeal does not automatically suspend the order — the father would need a court stay of the order pending appeal. In the absence of a court-issued stay, the current order remains in effect and must be complied with. Advise the father clearly: 'This is a valid court order. Unless you have a court-issued stay of this order, you are required to return the children to their mother as specified. Failure to comply may constitute a Criminal Code s.282 offence — abduction in contravention of a custody order.' Give him a reasonable opportunity to produce a stay order. If none exists, the children should be returned.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell both parents this is a civil matter and police cannot get involved — they need to return to Family Court.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Since the children appear safe and the situation is non-violent, leave the family to resolve it themselves tonight.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Assessing the Children's Welfare",
+      "situation": "The father cannot produce a stay order. He becomes emotional and says: 'The kids told me their mother's new boyfriend hit my son — I'm keeping them here for their safety.' The nine-year-old looks at you and says nothing. The six-year-old says 'I want to stay with Daddy.' There is no visible injury on either child. You cannot confirm or deny the abuse allegation at this moment. The children's welfare is your primary consideration.",
+      "question": "How do you respond to the father's allegation of abuse in the mother's home?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take the abuse allegation seriously and investigate it as a separate child welfare matter — do not dismiss it, but also do not allow it to be used to unilaterally override the custody order. Speak separately with each child in an age-appropriate way with the father out of earshot, without leading questions, to assess whether there is any immediate safety concern. If the nine-year-old discloses abuse, or if there are visible injuries, engage child welfare services immediately. If no immediate safety concern is identified, the custody order stands, and the father is directed to pursue his abuse concerns through a variation application or by contacting child welfare authorities directly — he cannot make himself the judge of the children's safety.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Believe the father's allegation and allow him to keep the children until the abuse can be investigated — the children's safety overrides any court order.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell the father the allegation is a family law matter and police are not able to investigate — return the children immediately without any inquiry into the abuse allegation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Criminal Code s.282 — Abduction and Final Decision",
+      "situation": "Neither child discloses abuse or injury. There are no visible marks or signs of fear. The nine-year-old says 'Dad and Mom fight a lot but I'm okay.' The father continues to refuse to return the children. He is not violent or threatening. You have grounds to consider a Criminal Code s.282 charge (abduction in contravention of a custody order) but must also weigh the impact on the children of a potentially traumatic arrest of their father.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the father that continued refusal to comply with the court order constitutes an offence under Criminal Code s.282. Give him a final, clear opportunity to comply voluntarily: 'I am giving you one final opportunity to return the children as required by the court order. If you do not comply, I will have grounds to arrest you for abduction in contravention of a custody order, which will be far more damaging to your appeal than complying tonight.' If he then complies, document the circumstances fully and advise the mother to seek a contempt application through Family Court. If he continues to refuse, arrest him, ensure the children are transferred to the mother, and arrange for a child welfare check as a precautionary measure.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Arrest the father immediately for Criminal Code s.282 without any further opportunity to comply — the two-hour delay already constitutes the offence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Document the incident and leave — the children are safe and the Family Court can sort out the order enforcement through a contempt application next week.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Confronted with the final warning and the clear explanation of the criminal consequences, the father agreed to return the children. He was not arrested. The occurrence report documented the full incident including the abuse allegation, the outcome of the children's brief welfare interview, the final warning given, and the return of the children. The officer provided both parents with information about child welfare and family court variation processes. The mother was advised to file an urgent contempt application for the delay. The father's lawyer subsequently filed an abuse allegation through proper child welfare channels, which was investigated and found unsubstantiated. The children remained in the mother's primary care per the order.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "child custody",
+    "custody order",
+    "Criminal Code s.282",
+    "abduction",
+    "family law",
+    "child welfare",
+    "civil order enforcement",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

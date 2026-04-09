@@ -1,0 +1,151 @@
+{
+  "title": "scenario_video_evidence_integrity",
+  "description": "An officer seizes video footage as key evidence in an assault investigation. They must maintain proper chain of custody, preserve video integrity, manage third-party footage from multiple sources, and ensure the evidence meets legal admissibility standards — or risk exclusion at trial.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Assault Reported",
+      "description": "Officer responds to an assault. Surveillance cameras in the area may have captured the incident.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Video Sources Identified",
+      "description": "Three potential video sources are identified: a store camera, a transit camera, and a witness's cell phone video.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Seizure Process",
+      "description": "Officer must decide how to properly seize each type of footage with legal authority.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Chain of Custody",
+      "description": "Footage is transferred to the property room. Officer documents the chain of custody.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Integrity Challenged",
+      "description": "Defence alleges the store video was altered after seizure due to metadata inconsistency.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Admissibility Ruling",
+      "description": "Court rules on the admissibility of the video evidence based on chain of custody documentation.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Seizing Video Footage — Legal Authority",
+      "situation": "You have identified three video sources. The store owner is cooperative and ready to hand over the SD card immediately. The transit authority requires a production order or consent process. The civilian witness has footage on their personal phone and is also cooperative. For each source you must use the correct legal mechanism — a consent seizure, a production order, or a search warrant — or the evidence may be challenged under Charter s.8.",
+      "question": "What is the correct legal process for each of these three video sources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Store camera: Obtain the store owner's written consent to seize or copy the SD card. Document the consent in writing, have the owner sign it, and note the exact state of the recording system at seizure. Transit camera: Transit is typically a government entity with its own retention policies — obtain a formal production order under Criminal Code s.487.012 to compel production, which protects both the investigation and the transit authority legally. Civilian phone: Obtain the witness's explicit written consent to take a copy (do not take the phone itself if a copy suffices). For each source, document exactly who provided the footage, at what time, what the footage contains, and all subsequent handling.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since all parties are cooperative, take all footage informally without written consent or production orders — consent given verbally is sufficient.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Seize the store SD card and the witness's phone immediately without documentation since the evidence will be lost if you wait for paperwork.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Preserving Video Integrity — No Alteration or Editing",
+      "situation": "The store owner says the footage is on an SD card, but the camera system also continuously compresses recordings overnight. If you take the SD card now you will have the raw footage. If you wait for a formal copy from the store's DVR system it will have been processed. The store owner offers to email you a 'trimmed clip' showing just the relevant 90 seconds to save you time.",
+      "question": "Should you accept the trimmed email clip, or take the full SD card?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not accept an edited or trimmed clip. Request the original unprocessed source footage — the full SD card or a certified forensic copy of the original recording in its native format. Context before and after the incident may be relevant to credibility (did the victim provoke the assault?) and to continuity (is there a gap that could suggest editing?). When copying the footage, use a write-blocker or forensic imaging tool where available. Document the file metadata (creation date, file size, hash value if possible) at the moment of seizure. An edited clip provided by a civilian without provenance documentation will face integrity challenges at trial.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the trimmed email clip — it shows exactly what you need and the store owner is a reliable person who would not alter it.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the store owner to upload the clip to a cloud drive and email you the link — that way you have it without having to handle any hardware.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Chain of Custody Documentation",
+      "situation": "You have the SD card and the transit production order footage on a USB drive. You must now enter both into the property system. The SD card will be accessed by the digital forensics unit for enhancement. The USB drive will be copied for disclosure. You must document the chain of custody from the moment of seizure through every transfer, access, and copy — or the integrity of the evidence can be challenged.",
+      "question": "What chain of custody documentation is required for each piece of video evidence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "For each item, complete a property report or exhibit tag that records: the item description, the source (name, location, date/time of seizure), the seizing officer, the condition of the item at seizure, any identifying file metadata noted at seizure. Every subsequent person who accesses the evidence — forensics, Crown, another officer — must sign and date the chain of custody log. When forensics returns the SD card after examination, record the return, any findings, and whether the original was altered in any way. For digital copies made for disclosure, note the date copied, the officer who made the copy, and that the copy is a true and complete reproduction of the original.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Place both items in an evidence bag, seal them, and write your name and the date on the outside — the formal property report can be done later.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Keep the SD card on your desk until the forensics team can come to pick it up — logging it into property before they have looked at it will delay the investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Defence challenged the store video at trial, noting that the file metadata showed a 'last modified' date after the date of seizure. Cross-examination of the officer revealed that this was caused by the forensics unit opening the file on a Windows computer that automatically updated the 'accessed' metadata — the content of the file was unchanged and the hash value at seizure matched the hash value at trial. The officer's property log recorded the hash value at seizure and documented each access. The court admitted the video. The judge noted that the chain of custody documentation was thorough and the hash verification was decisive in defeating the integrity challenge.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "video evidence",
+    "chain of custody",
+    "production order",
+    "evidence integrity",
+    "digital forensics",
+    "Charter s.8",
+    "hash verification",
+    "Canada",
+    "Law Enforcement"
+  ]
+}
