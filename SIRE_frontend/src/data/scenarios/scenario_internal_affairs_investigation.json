@@ -1,0 +1,158 @@
+{
+  "title": "scenario_internal_affairs_investigation",
+  "description": "An officer used OC spray on a passively resisting subject during a street check; a Professional Standards complaint follows and the officer must navigate the internal investigation process while protecting their legal rights.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["Professional Standards", "internal affairs", "Police Act", "OC spray", "use of force", "collective agreement", "compelled statement", "Wigmore"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Complaint Filed",
+      "description": "A formal complaint is filed with Professional Standards alleging the officer used excessive force (OC spray) on a passively resisting subject during a street check.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "Officer Notified of Subject Status",
+      "description": "The officer is formally notified of their status as a subject officer in the Professional Standards investigation.",
+      "timeOffsetSec": 86400
+    },
+    {
+      "index": 2,
+      "title": "Use-of-Force Documentation Requested",
+      "description": "Professional Standards requests use-of-force documentation from the officer.",
+      "timeOffsetSec": 172800
+    },
+    {
+      "index": 3,
+      "title": "Statement Request Made",
+      "description": "Professional Standards requests a compelled statement from the officer regarding the incident.",
+      "timeOffsetSec": 259200
+    },
+    {
+      "index": 4,
+      "title": "Investigation Progressing",
+      "description": "The investigation is progressing toward a resolution. The officer must understand possible outcomes.",
+      "timeOffsetSec": 604800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Notification of Subject Officer Status",
+      "situation": "You used OC spray on Marcus, 22, during a street check after he refused to provide his name, raised his voice, and took a step toward you. He was not physically assaultive. A bystander filmed the incident and filed a formal complaint with Professional Standards (PS). You are now formally notified that you are the subject officer in a Professional Standards investigation under the applicable provincial Police Act. What rights do you have as a subject officer under investigation?",
+      "question": "What rights does an officer under a Professional Standards investigation have under the Police Act and collective agreement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "As a subject officer under the applicable Police Act and collective agreement, you have the following rights: (1) the right to be notified in writing of the nature of the complaint or conduct under investigation and the specific allegation(s); (2) the right to be represented by legal counsel or a union/association representative at all stages of the investigation; (3) the right to review the complaint and any supporting materials disclosed to you before giving any statement; (4) the right to a reasonable time to retain counsel before participating in any interview; (5) the right to receive copies of any statements you give; (6) protection from self-incrimination in parallel criminal proceedings — statements compelled under the Police Act cannot be used in a criminal prosecution against you (derivative-use immunity); (7) the right to have the investigation conducted fairly and within the timelines mandated by the applicable Police Act. Contact your police association representative immediately upon notification — do not give any statement before consulting representation.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "As a police officer under the Police Act, you have an immediate obligation to cooperate fully with Professional Standards — your rights as a subject officer are limited and you should provide a full statement immediately to demonstrate transparency.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Your Charter rights (right to silence, right to counsel) apply fully to the Professional Standards process — refuse to participate in any interviews and wait for the investigation to conclude without providing any statement.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Police Act Obligations vs. Charter Rights",
+      "situation": "Your association representative advises you that the Professional Standards investigator has invoked the compelled statement provision under the Police Act, requiring you to submit to an interview regarding the use of OC spray. You are aware that the same incident is currently under criminal review by the Chief's office. You need to understand when the Police Act compels your cooperation and when your Charter rights protect you.",
+      "question": "When must an officer speak in a Professional Standards process and when can they decline under the Charter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under the applicable Police Act, you can be compelled to participate in a Professional Standards interview regarding your professional conduct — this is a lawful administrative compulsion. However, two critical constitutional protections apply: (1) Under s.7 and s.13 of the Charter, a statement compelled under the Police Act cannot be directly used against you in a criminal prosecution; (2) Under the principle established in R v S(RJ) [1995] 1 SCR 451 and confirmed in R v White [1999] 2 SCR 417, compelled statements also attract 'derivative use immunity' — evidence discovered as a result of the compelled statement is also protected. This means you must participate in the PS interview regarding your use of force decision-making under the Police Act, but simultaneously your criminal counsel can seek a stay of any criminal proceedings that use information derived from that compelled statement. You do not have a blanket Charter right to refuse the PS interview, but you must have counsel present.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "The Charter right to silence under s.7 fully overrides any Police Act compulsion — refuse to give any statement to Professional Standards until any parallel criminal review is concluded.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Police Act compelled statements can be freely used in both the disciplinary process and any criminal proceeding — there is no constitutional protection for administrative statements made by police officers.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Use-of-Force Documentation",
+      "situation": "Professional Standards requests your use-of-force documentation. You completed a Use of Force Report (UFR) immediately after the incident and your Body Worn Camera (BWC) footage was automatically flagged and preserved. Your notes contain entries about Marcus's behaviour. PS also wants your entire duty notebook for that shift. What documentation must be provided to Professional Standards and on what basis?",
+      "question": "What use-of-force documentation must be provided to Professional Standards and what are your obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under the applicable Police Act and departmental policy, you are required to produce: (1) the completed Use of Force Report — a mandatory document required any time OC spray or other force options are deployed, documenting the threat assessment, subject behaviour, officer response, and outcome; (2) your duty notebook entries for the relevant period; (3) your BWC footage — which was automatically preserved and is departmental property subject to PS review; (4) any other occurrence reports or supplementary notes related to the street check. Your association representative should review these documents with you before production to ensure they are complete and accurate. Do not add, alter, or amend notes after the investigation begins — retroactive alterations are a disciplinary and potentially criminal matter. If your UFR contains incomplete or inaccurate information, consult counsel before correcting it. The notes and UFR are administrative documents, not voluntary statements, and their production is mandatory under the Police Act.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Only the Use of Force Report is required — your duty notebook is subject to solicitor-client privilege through your association and cannot be compelled by Professional Standards.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Update your notes to provide more detail about Marcus's threatening behaviour before submitting them to PS — more complete notes will strengthen your position in the investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Compelled Statement vs. Admissible Evidence",
+      "situation": "Professional Standards has now scheduled your compelled interview. Your association representative wants to ensure the statement given in the PS process cannot be used against you if criminal charges are pursued. What is the legal framework governing the use of compelled police statements and what protections apply under Canadian law?",
+      "question": "What is the Wigmore framework and Charter protection for compelled statements given in Police Act proceedings?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The legal framework protecting compelled police statements involves two overlapping protections: (1) Charter s.13 provides that a witness who gives evidence in one proceeding cannot have that evidence used to incriminate them in another proceeding — this provides direct-use immunity for your PS statement in any subsequent criminal trial; (2) R v White [1999] 2 SCR 417 extends this to derivative-use immunity — evidence discovered by investigators as a result of your PS statement cannot be used criminally either; (3) The Wigmore criteria for class privilege (which the police association may invoke) require: (a) the communication originated in confidence; (b) confidentiality is essential to the relationship; (c) the relationship deserves protection; (d) the injury to the relationship outweighs the benefit of disclosure. However, courts have not uniformly extended class privilege to PS proceedings — direct and derivative-use immunity under the Charter is the stronger and more reliable protection. Ensure your criminal counsel is aware of the compelled PS interview and applies for appropriate protection before any criminal prosecution is initiated.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "A compelled Police Act statement is completely inadmissible in any proceeding, including the PS disciplinary hearing itself — the Wigmore framework creates an absolute privilege that bars its use in all contexts.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "There is no Charter protection for statements made in administrative police proceedings — a PS compelled statement can be used freely in any subsequent criminal or civil proceeding against the officer.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Resolution Without Discipline",
+      "situation": "The Professional Standards investigation has concluded. The investigator has reviewed your BWC footage, UFR, notes, and your compelled statement. The footage shows Marcus raised his voice and gestured aggressively before you deployed OC spray, but also shows he had not yet made physical contact. The investigator is considering resolution options. What outcomes are possible in the Professional Standards process under the applicable Police Act?",
+      "question": "What resolution outcomes are possible in a Police Act Professional Standards investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under the applicable Police Act, Professional Standards investigations can conclude with a range of outcomes: (1) No further action — the complaint is unsubstantiated or the conduct was lawful; (2) Informal resolution — a conversation or coaching without formal findings, typically for minor conduct issues; (3) Mediation — structured resolution between the complainant and officer, available where both parties consent; (4) Notice of hearing — formal disciplinary process if the conduct is substantiated and serious enough to warrant a penalty (ranging from a written reprimand to reduction in rank, suspension, or dismissal); (5) Withdrawal or dismissal — where the complaint is frivolous, vexatious, or made in bad faith. In this case, the BWC footage showing the aggressive gesture prior to deployment may support a finding that force was justified under the Ontario (or applicable provincial) use-of-force model, potentially resulting in no further action or informal coaching on de-escalation — but the outcome depends on the investigators' assessment of proportionality. The complainant also has the right to request a review if dissatisfied with the outcome.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Professional Standards investigations can only result in either full exoneration or termination — there is no intermediate outcome available under the Police Act.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Once a formal PS investigation is initiated, a Notice of Hearing is mandatory and discipline must be imposed — the severity of the penalty is the only variable.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The Professional Standards investigation resulted in informal resolution — coaching on de-escalation and proportional force assessment. No formal discipline was imposed. The parallel criminal review was closed without charges. Key training takeaways: Subject officers in a Police Act investigation have the right to written notification, counsel, and union representation before giving any statement; the Charter does not permit blanket refusal of a compelled Police Act interview but provides direct-use and derivative-use immunity under s.13 and R v White [1999]; use-of-force documentation including the UFR, BWC footage, and notes must be produced to Professional Standards and must not be altered after the investigation begins; Police Act proceedings can resolve through a spectrum of outcomes from no action to formal discipline — officers should understand all options; compelled administrative statements carry constitutional protections in subsequent criminal proceedings.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

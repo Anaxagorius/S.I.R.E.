@@ -1,0 +1,164 @@
+{
+  "title": "scenario_crown_brief_preparation",
+  "description": "An officer arrests a suspect for aggravated assault and must prepare a Crown brief meeting Stinchcombe disclosure obligations, including witness statements, exhibits, medical records, and photo identification documentation.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["Crown brief", "Stinchcombe disclosure", "aggravated assault", "Criminal Code s.268", "witness statements", "exhibits", "photo identification", "R v Stinchcombe"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrest Made",
+      "description": "Suspect arrested for aggravated assault (CC s.268) following a bar fight that left the victim with serious injuries.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "Crown Brief Initiated",
+      "description": "The officer begins compiling the Crown brief, identifying all required components under Stinchcombe obligations.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 2,
+      "title": "Witness Statements Collected",
+      "description": "Witness statements are obtained and reviewed for completeness and admissibility.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 3,
+      "title": "Exhibits Documented",
+      "description": "All physical exhibits from the scene are logged, packaged, and documented for the Crown brief.",
+      "timeOffsetSec": 10800
+    },
+    {
+      "index": 4,
+      "title": "Medical Records Authorized",
+      "description": "The officer seeks authorization to obtain the victim's medical records for inclusion in the Crown brief.",
+      "timeOffsetSec": 14400
+    },
+    {
+      "index": 5,
+      "title": "Photo ID Procedure Documented",
+      "description": "A photo identification procedure is conducted and fully documented for the Crown brief.",
+      "timeOffsetSec": 18000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Crown Brief Contents — Stinchcombe Obligations",
+      "situation": "You have arrested Derek, 34, for aggravated assault (CC s.268) arising from a bar fight in which the victim, Ryan, 28, suffered a fractured orbital socket and lacerations requiring surgery. You have three eyewitnesses, security camera footage, the victim's clothing, and a broken beer bottle recovered at scene. Defence counsel is retained. You must now prepare the Crown brief. Under R v Stinchcombe [1991] 3 SCR 326, what must the Crown brief include?",
+      "question": "What must a Crown brief include to meet Stinchcombe disclosure obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under R v Stinchcombe [1991] 3 SCR 326, the Crown has a duty to disclose all relevant material in its possession — material that is not clearly irrelevant or privileged — regardless of whether the Crown intends to use it at trial. The Crown brief must include: (1) the Information or Indictment; (2) the officer's notes (will-say) and all other officers' notes; (3) all witness statements including exculpatory statements; (4) all exhibit documentation and continuity logs; (5) accused's criminal record and any caution/warning given; (6) any statements made by the accused; (7) electronic evidence and surveillance footage; (8) expert reports such as medical or forensic analysis; (9) photo identification procedures; (10) all investigative steps taken even if unproductive. Withholding material that may assist the defence is a constitutional violation under CC s.7 and s.11(d) of the Charter.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "The Crown brief needs to include only the evidence the Crown plans to rely upon at trial — exculpatory material and investigative dead ends are not relevant and need not be disclosed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Provide the Crown with your occurrence report and witness statements — it is the Crown's duty to identify and gather any additional materials they need for the brief.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Witness Statements",
+      "situation": "You have three eyewitnesses: Priya, a bartender who saw the altercation start; Marcus, a patron who was standing nearby; and Sofia, who was seated at an adjacent table. Each witnessed different portions of the incident. Priya's account is fully inculpatory; Marcus's account is partially inconsistent with Priya's on the issue of who threw the first punch; Sofia did not see the initial contact but saw Derek strike Ryan repeatedly after Ryan fell. What are the requirements for witness statements in the Crown brief?",
+      "question": "What are the requirements for witness statements in the Crown brief?",
+      "options": [
+        {
+          "label": "A",
+          "text": "All three statements — Priya's, Marcus's, and Sofia's — must be included in the Crown brief in their entirety and disclosed to defence, regardless of internal inconsistencies. Under Stinchcombe, Marcus's partially inconsistent account is especially important as it may assist the defence and must not be omitted or paraphrased to reduce its impact. Each statement must: be taken in the witness's own words; be signed or acknowledged; include the date, time, and location of the interview; note whether the witness was cautioned; be consistent with any recorded interview or notes taken; and be free from leading questions that could challenge admissibility. Summaries or 'will-say' documents may supplement but cannot substitute for the full statement in the brief.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Only include Priya's statement since she has the most complete and consistent account — Marcus's inconsistent account will confuse the brief and may undermine the Crown's case.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Summarize all three witnesses' accounts in a single narrative will-say statement — individual statements are not required unless defence specifically requests them.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Exhibit Documentation",
+      "situation": "The exhibits from this case include: the victim's bloodstained shirt; the broken beer bottle (potential weapon); security footage from two cameras (bar interior and exterior); and photographs of the crime scene and victim's injuries taken at hospital. Some exhibits were collected by the first responding officer and some by a scenes of crime officer (SOCO). How must the exhibits be documented for the Crown brief?",
+      "question": "How must the exhibits be documented for the Crown brief?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Each exhibit must be documented with a complete chain of custody establishing its integrity from collection to court. For each exhibit: (1) record who seized it, the date, time, and precise location of seizure; (2) describe the exhibit in detail including its condition at time of seizure; (3) log every person who handled it with date and purpose; (4) confirm secure packaging and sealing with exhibit tags; (5) record exhibit number and cross-reference to the exhibit log; (6) for electronic evidence (CCTV footage), document the device, extraction method, and hash value or forensic copy process to establish authenticity. The SOCO-collected items require a separate will-say from the SOCO establishing their portion of the chain. The exhibit log in the Crown brief must be a single coherent master document correlating all exhibits to witness references.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Photograph each exhibit and attach the photos to the occurrence report — physical exhibit logs are maintained separately by property room staff and do not need to be reproduced in the Crown brief.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The first responding officer's notes are sufficient to establish exhibit continuity — a separate exhibit documentation process is only needed for DNA or other forensic exhibits.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Medical Records and Authorization",
+      "situation": "Ryan, the victim, sustained a fractured orbital socket and multiple lacerations requiring emergency surgery. His medical records are essential for proving the 'wounding' element of aggravated assault under CC s.268. Ryan is cooperative and willing to share his records. However, medical records are protected by provincial privacy legislation (e.g., Ontario's Personal Health Information Protection Act). How are victim medical records properly obtained for inclusion in the Crown brief?",
+      "question": "How are victim medical records obtained and included in the Crown brief lawfully?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Obtain Ryan's medical records through a signed, informed consent/authorization form — not through a production order without his consent, as he is a cooperative victim. The authorization must: (1) identify the specific records sought (ER admission records, surgical report, discharge summary, treating physician's notes); (2) identify the recipient (the Crown and investigating officer); (3) be signed voluntarily with no coercion; (4) specify the purpose (criminal prosecution); and (5) comply with provincial personal health information legislation (e.g., PHIPA in Ontario). Attach the signed authorization to the Crown brief and include a summary of the medical evidence (ideally a treating physician's will-say) alongside the records. If Ryan later becomes uncooperative, a production order under CC s.487.014 is available but must be supported by a judicial authorization.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Simply obtain the medical records directly from the hospital using your police badge — victims in criminal cases are required to provide medical records to police and no formal authorization is needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Request the Crown to subpoena the hospital records directly — medical records cannot be included in the Crown brief prior to trial and must only be disclosed to the judge at the hearing.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Photo Identification Procedure",
+      "situation": "Sofia, the witness who saw Derek strike Ryan repeatedly, was unable to identify the suspect at the scene. You wish to conduct a photo identification procedure to have her attempt to identify Derek from a photo line-up. The result — positive or negative — must be documented in the Crown brief. The identification procedure must be conducted in a manner that is admissible and not susceptible to a Charter s.7 or s.11(d) challenge based on procedural unfairness.",
+      "question": "How must a photo identification procedure be conducted and documented for the Crown brief?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a double-blind sequential photo line-up procedure to minimize suggestion: (1) use 8-12 photographs including Derek's photo and foils (similar appearance, same gender, approximate age, ethnicity) — no distinctive features should single out the suspect; (2) the presenting officer must not know which photo is the suspect (double-blind) to prevent unconscious cueing; (3) present photos sequentially, not simultaneously; (4) instruct Sofia that the perpetrator may or may not be in the array and she is not required to make an identification; (5) document her confidence statement verbatim immediately after any identification; (6) photograph or scan the entire photo array as presented; (7) record the date, time, location, Sofia's name, the presenting officer's name, and the instructions given; (8) include all of this documentation — including negative or uncertain results — in the Crown brief. Failure to document a fair procedure allows defence to apply to exclude the identification under s.24(2) Charter.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Show Sofia a single photo of Derek and ask if he is the person she saw — this is the most efficient method and Sofia's verbal confirmation is sufficient documentation in the occurrence report.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Conduct a live line-up at the detachment — photo arrays are considered less reliable than live identification procedures and courts prefer live line-ups for serious assault charges.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The Crown brief was completed with all Stinchcombe-compliant disclosures: all three witness statements including Marcus's inconsistent account, a complete exhibit log with chain of custody documentation, victim medical records obtained by signed authorization, and a properly documented double-blind sequential photo identification procedure. The Crown successfully opposed a disclosure application at trial. Key training takeaways: R v Stinchcombe [1991] requires disclosure of all relevant material including exculpatory evidence — withholding any piece is a constitutional violation; witness statements must be disclosed in full, not summarized, regardless of inconsistencies; exhibit continuity must be a single coherent documented chain; medical records require either victim consent or a production order under CC s.487.014; photo identification procedures must be double-blind sequential with verbatim confidence statements documented — all results, positive or negative, must be disclosed.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "title": "scenario_siu_iio_asirt_involvement",
+  "description": "An officer fires their service weapon during a violent confrontation; the suspect dies in hospital and the SIU/IIO/ASIRT is invoked, requiring scene preservation, mandatory notifications, and careful navigation of subject vs. witness officer obligations.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["SIU", "IIO", "ASIRT", "serious incident", "officer-involved shooting", "scene preservation", "subject officer", "witness officer", "BWC", "firearm preservation"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Shots Fired",
+      "description": "An officer fires their service weapon during a violent confrontation with an armed suspect. The suspect is struck.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "Suspect Transported to Hospital",
+      "description": "The suspect is transported to hospital by EMS. Officers await notification on the suspect's condition.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 2,
+      "title": "Death Confirmed",
+      "description": "The hospital confirms the suspect has died. Mandatory notifications to SIU (Ontario), IIO (BC), or ASIRT (Alberta) are triggered.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 3,
+      "title": "SIU Investigators En Route",
+      "description": "The SIU lead investigator contacts the scene supervisor. Officers must preserve the scene and segregate involved officers.",
+      "timeOffsetSec": 5400
+    },
+    {
+      "index": 4,
+      "title": "Subject and Witness Officers Identified",
+      "description": "The supervisor designates the subject officer and witness officers, triggering different legal obligations for each.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 5,
+      "title": "Firearm and BWC Surrendered",
+      "description": "The subject officer's service firearm and BWC footage must be preserved and surrendered to SIU investigators.",
+      "timeOffsetSec": 9000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Mandatory Notification",
+      "situation": "You are the shift supervisor. At 21:45, Constable Osei discharged his service weapon while confronting a man armed with a knife who charged at him. The suspect, Tyrone, 31, was struck once in the torso. EMS transported him to hospital. At 23:10, the hospital confirms Tyrone has died. This is a mandatory SIU-reportable incident in Ontario (the Special Investigations Unit — known as the IIO in British Columbia and ASIRT in Alberta). Who must be notified and in what order?",
+      "question": "Who must be notified and in what order after an officer-involved shooting results in death?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Upon confirmation of death (or serious injury), mandatory notifications must be made immediately in the following order: (1) your chain of command — the duty officer and the detachment/division commander must be notified without delay; (2) the SIU (in Ontario) — the Chief of Police or designate is required under s.24 of the Special Investigations Unit Act, 2019 (Ontario) to notify the SIU Director immediately upon becoming aware of a serious incident involving police; equivalent obligations exist under the IIO Act (BC) and ASIRT regulation (Alberta); (3) legal counsel for the police service and the association representative for the subject officer; (4) document the exact time, recipient, and method of each notification. Do not notify media, city council, or other external parties before the SIU is contacted. The 24-hour notification clock to the SIU runs from the moment the police service becomes aware of the death or serious injury — any delay constitutes a breach of the Act.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Notify the Chief of Police first thing in the morning — the SIU notification obligation does not arise until the Chief formally reviews the incident report, and notifications after business hours are not required.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Notify media and community liaison immediately to control the narrative — SIU notifications can follow once the police service has issued a public statement.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Scene Preservation",
+      "situation": "Constable Osei discharged his weapon in a parking lot adjacent to a convenience store. The scene contains: one spent cartridge casing, the suspect's knife (on the ground approximately 2 metres from Tyrone's body), blood pooling, and Constable Osei's duty belt which was partially displaced during the struggle. A bystander is still present and may have footage. SIU investigators are 90 minutes away. What are the scene preservation obligations before SIU arrival?",
+      "question": "What are the scene preservation obligations before SIU investigators arrive?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under the Special Investigations Unit Act, 2019 (Ontario) and equivalent provincial statutes, police are required to preserve the scene in its post-incident state for SIU investigation. Immediately: (1) establish a large perimeter around the entire parking lot and convenience store exterior — include all potential ballistic paths and the suspect's travel route; (2) ensure EMS-required movement of Tyrone's body is documented — photograph the original position before any movement; (3) do not move, touch, or recover the knife, cartridge casing, or any other items until SIU authorizes collection; (4) do not allow non-essential personnel inside the perimeter; (5) identify and detain the bystander witness until SIU arrives — do not view or demand their personal footage without SIU direction; (6) segregate Constable Osei from all other officers immediately — he must not discuss the incident with any other officer, including his partner; (7) document all scene conditions contemporaneously: time, weather, lighting, and any post-incident changes; (8) request a SOCO hold on the scene and log the preservation start time.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Secure the suspect's knife as evidence before SIU arrives to ensure it is not moved by bystanders — SIU can document it in the property room when they arrive.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Scene preservation obligations only apply until EMS has cleared — once the suspect is transported, police may collect and document all exhibits in accordance with standard procedures before SIU arrival.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Officer vs. Witness Officer Distinction",
+      "situation": "The SIU lead investigator calls to confirm the scene is preserved and asks you to formally designate which officers are subject officers and which are witness officers. Constable Osei fired the shot. Constable Yuen was his partner and was present but did not discharge her weapon. Two other officers arrived after the shooting and provided first aid to Tyrone. What is the legal distinction between subject and witness officers and what are the different obligations?",
+      "question": "What is the legal distinction between subject and witness officers and what are their different obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under the SIU Act (Ontario) s.23-27 and equivalent provincial provisions: A subject officer is an officer whose conduct is directly at issue in the SIU investigation — in this case, Constable Osei as the officer who discharged the firearm. A witness officer is any officer involved in or present at the incident whose conduct is not directly at issue — in this case, Constable Yuen and the two officers who provided first aid. The different obligations are: Subject Officer — (1) must surrender their service firearm and BWC to SIU; (2) may decline to give an interview or provide notes to SIU (constitutional right to silence); (3) must not discuss the incident with anyone including supervisors, peers, or counsel employed by the police service; (4) entitled to retain personal legal counsel at the service's expense. Witness Officer — (1) must submit to a compelled interview with SIU investigators; (2) must provide their notes and occurrence reports to SIU on request; (3) must not discuss their account with the subject officer or with other witness officers before giving their statement. Designations must be communicated in writing to each officer by the supervisor.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "All officers present at an SIU-reportable incident are subject officers and all have the same right to decline giving a statement — the distinction between subject and witness officers is informal and has no legal basis.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Witness officers have no legal obligation to cooperate with SIU — their statements are voluntary and subject officers are the only officers who must comply with any SIU requirements.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "SIU Cooperation Requirements",
+      "situation": "The SIU investigator asks Constable Osei (subject officer) to submit to an interview and hand over his notes. Constable Osei's personal lawyer has arrived and advises him that he has a right to silence. The SIU investigator insists that certain obligations still apply to a subject officer. What must the subject officer provide to the SIU and what can he lawfully decline?",
+      "question": "What must the subject officer provide to SIU and what can they lawfully decline?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Under the SIU Act, 2019 (Ontario) s.23, the subject officer is required to: (1) surrender their service firearm — this is mandatory and immediate; (2) surrender their BWC footage — the device and footage are property of the service and must be provided to SIU; (3) provide their notes to SIU only if the police service agrees (s.34 SIU Act) — in Ontario, a subject officer's notes are producible but the officer retains the right to decline a voluntary interview. The subject officer has the constitutional right to decline a SIU interview — the right to silence under Charter s.7 applies to subject officers in SIU proceedings because the SIU investigation could result in criminal charges. Personal counsel advising Constable Osei of his right to decline the interview is correct. However, declining the interview does not mean refusing to surrender the firearm or BWC — those surrenders are mandatory regardless of the officer's decision about an interview. The supervisor must communicate these distinctions clearly to Constable Osei and document compliance.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "The subject officer must cooperate fully with SIU including giving a full statement — the right to silence does not apply in administrative investigations and refusal to give a statement is an obstruction of the SIU process.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The subject officer need not provide anything to SIU — the firearm, BWC footage, and notes are all protected by the officer's right to silence and police association privilege until the SIU investigation concludes.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Firearm and BWC Preservation",
+      "situation": "SIU requests immediate surrender of Constable Osei's service firearm and his Body Worn Camera. His firearm has one round discharged. The BWC was activated during the incident. The SIU investigator wants both items before the subject officer is transported from scene. The sergeant must facilitate this process properly. What must happen to the service firearm and BWC footage?",
+      "question": "What must happen to the subject officer's service firearm and BWC footage for SIU preservation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "For the service firearm: (1) do not clear or render the firearm safe before surrender — the SIU requires it in its post-incident state with spent cartridge in the chamber to reconstruct the discharge; (2) a firearms-qualified person (SIU investigator or designated officer) must render it safe in accordance with the SIU's protocol — not by the subject officer independently; (3) the firearm must be placed in a security-sealed container with a signed, dated exhibit tag at the time of transfer; (4) the subject officer receives a written receipt for the firearm; (5) the subject officer is immediately provided an administrative replacement firearm for duty continuation if not removed from operational duties. For the BWC: (1) the entire device must be surrendered with no footage reviewed, altered, or downloaded by police prior to SIU receipt; (2) if the device must remain charged or cannot be surrendered due to technical constraints, the SIU takes control of the device and creates their own forensic copy; (3) no police personnel, including the subject officer, may review their own BWC footage before giving a statement — this is to prevent reconstruction of accounts.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Allow Constable Osei to review his BWC footage before surrendering it so he can prepare an accurate account — the footage is his best recollection tool and reviewing it will produce a more accurate statement.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Clear and make the firearm safe before handing it to SIU to comply with departmental safe firearms handling protocols — SIU investigators are civilians and cannot receive a loaded firearm.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The scene was fully preserved, the SIU was notified within the mandatory window, subject and witness officers were properly designated, Constable Osei's firearm and BWC were surrendered in their post-incident state, and witness officers gave compelled statements. Constable Osei exercised his right to decline a voluntary interview on advice of counsel. Key training takeaways: SIU/IIO/ASIRT notifications are mandatory and immediate upon a police service learning of a death or serious injury involving an officer — delays breach the applicable Act; scene preservation before SIU arrival requires maintaining the scene in its post-incident state, segregating involved officers, and not moving any exhibits; subject officers have Charter s.7 right to silence in SIU proceedings but must surrender their firearm and BWC; witness officers are compellable and must not discuss their accounts with the subject officer before statements are given; BWC footage must not be reviewed by any officer before surrender to SIU.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

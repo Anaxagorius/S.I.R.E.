@@ -1,0 +1,158 @@
+{
+  "title": "scenario_community_debrief",
+  "description": "Officers used force to arrest an Indigenous youth during a street check caught on viral video; the detachment commander must lead a community debrief addressing accountability and transparency concerns while a Professional Standards review is ongoing.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["community debrief", "Indigenous community engagement", "critical incident", "transparency", "sub judice", "accountability", "reconciliation", "Professional Standards"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Viral Video Circulated",
+      "description": "A bystander video of officers using force on an Indigenous youth during a street check goes viral, generating community outrage and demands for accountability.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "Community Demands Accountability",
+      "description": "Local Indigenous community leaders formally request a meeting with the detachment commander within 48 hours.",
+      "timeOffsetSec": 86400
+    },
+    {
+      "index": 2,
+      "title": "Professional Standards Review Initiated",
+      "description": "A Professional Standards review of the incident is initiated. The commander must plan the community debrief carefully.",
+      "timeOffsetSec": 172800
+    },
+    {
+      "index": 3,
+      "title": "Community Debrief Scheduled",
+      "description": "The detachment commander schedules a community debrief — not a press conference — for three days after the incident.",
+      "timeOffsetSec": 259200
+    },
+    {
+      "index": 4,
+      "title": "Debrief Conducted",
+      "description": "The debrief takes place. The commander must balance transparency with sub judice obligations and make meaningful commitments.",
+      "timeOffsetSec": 432000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Community Debrief vs. Press Conference",
+      "situation": "A bystander video shows officers using physical force to arrest Elijah, 16, an Indigenous youth, during a street check that escalated after he questioned why he was being stopped. The video has been shared widely and Indigenous community leaders are demanding accountability. A Professional Standards review has been initiated. You are the detachment commander. Your public affairs unit recommends a press conference. Community leaders are calling for a direct dialogue. Which approach do you take and why?",
+      "question": "What is the distinction between a community debrief and a press conference, and which is appropriate here?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A press conference is a one-way broadcast to media with scripted messaging designed to manage public perception. A community debrief is a structured, two-way dialogue between police leadership and directly affected community members — it is designed to listen, explain process, and receive community concerns rather than deliver a message. The community debrief is appropriate here because: (1) the Indigenous community is directly and disproportionately affected and has a legitimate stake in accountability; (2) a press conference would be perceived as performative rather than genuine, especially given historical distrust between police and Indigenous communities; (3) the MMIWG Calls for Justice and the TRC Calls to Action (particularly Calls 25 and 26) call for meaningful Indigenous engagement in policing accountability; (4) a debrief allows the commander to hear specific community concerns that may inform future policy. Choose the community debrief format — engage Indigenous community liaison officers (if any) and request that community-selected Elders or leaders set the agenda for the meeting.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Hold a press conference to address media inquiries and control the public narrative — the Indigenous community can watch the press conference and submit written questions through the police public affairs unit afterward.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Decline any public engagement until the Professional Standards review is complete — any statements made before the review concludes may compromise the investigation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Indigenous Community Engagement Protocol",
+      "situation": "You have decided to hold a community debrief. The community consists of members of a First Nation whose traditional territory includes the city. They have a Band Council and an Indigenous Policing Liaison Committee. Some members have requested that Elders open and close the meeting. Others have asked that Elijah's family be present. Your detachment has a standing Indigenous Community Consultation Protocol. What protocols apply when engaging Indigenous communities after a critical incident?",
+      "question": "What protocols apply when engaging Indigenous communities after a critical incident involving use of force on an Indigenous youth?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The following protocols apply: (1) contact the Band Council and Indigenous Policing Liaison Committee in advance — do not show up unannounced or send only a press release; (2) allow the community to choose the location — offering to meet at a community hall, cultural centre, or Band Office demonstrates respect and reduces power imbalance; (3) honour the request for Elder-led opening and closing — acknowledge the traditional territory at the start of the meeting; (4) allow Elijah's family to participate — they are directly affected parties; (5) engage the detachment's Indigenous Community Liaison Officer (or request one from another detachment if unavailable) to facilitate; (6) provide a community-facing agenda in advance so the community can prepare questions; (7) bring a note-taker to document community concerns and commitments made; (8) be prepared for difficult, emotional dialogue and do not become defensive or dismissive; (9) acknowledge the disproportionate impact of police street checks on Indigenous peoples and the historical context of policing and Indigenous communities in Canada.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Hold the debrief at the police station — this demonstrates authority and professionalism and the community should come to you as you are the ones being scrutinized.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Invite community members to submit their concerns in writing before the meeting so the commander can prepare scripted responses — unscripted dialogue creates legal risk and should be avoided.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Transparency and Sub Judice Obligations",
+      "situation": "The community debrief begins. Community members are asking direct questions: 'Why did officers stop Elijah?' 'Was this racial profiling?' 'What do you know about what happened?' 'Will the officers be disciplined?' A Professional Standards review and a potential Charter s.9 complaint are ongoing. You must be transparent with the community while not prejudging the outcome of ongoing proceedings. What can you say and what must remain confidential?",
+      "question": "What can the detachment commander say at the community debrief and what must remain confidential due to sub judice and investigative obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "At the community debrief, the commander can: (1) confirm that a use of force occurred during a street check involving an Indigenous youth and that a Professional Standards review is underway; (2) explain how the PS review process works, who conducts it, and the range of possible outcomes; (3) explain what a street check is and what legal authority governs it (e.g., Ontario's CARD — Community Safety Note-Taking — policy following the carding ban); (4) acknowledge that systemic concerns about street checks and Indigenous youth are legitimate and are heard; (5) commit to sharing the outcome of the PS review with the community to the extent permitted by privacy law and the Police Act. The commander must not: (1) name or describe the involved officers; (2) opine on whether the use of force was justified or constituted racial profiling — this pre-judges the review; (3) characterize Elijah's conduct in a way that sounds like a defence or victim-blaming; (4) make commitments about discipline outcomes. Acknowledge what you cannot say and why — transparency about the limits of transparency is itself a form of honesty.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Provide the community with a full briefing on all evidence gathered to date, including officer notes and the bystander video analysis — radical transparency is the only way to rebuild trust.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Decline to say anything substantive about the incident itself — acknowledge the community's concerns in general terms only and refer all questions to the Professional Standards unit directly.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Commitments to the Community",
+      "situation": "Community members at the debrief are asking what concrete steps the police service will take to ensure this does not happen again. They specifically ask about: training on implicit bias; a review of street check policies; the possibility of an independent Indigenous oversight representative; and a follow-up meeting in 60 days. What specific commitments can the commander lawfully make at the debrief without prejudging the PS outcome?",
+      "question": "What specific commitments can the detachment commander make at the community debrief?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The commander can make the following commitments, which are independent of the PS outcome and within their authority: (1) commit to a 60-day follow-up meeting with a status update on the PS review and policy actions; (2) commit to initiating a review of the detachment's street check data disaggregated by race — this is consistent with the intent of the Anti-Racism Act (Ontario) and can be initiated regardless of the individual PS outcome; (3) commit to establishing or strengthening engagement with the Indigenous Policing Liaison Committee with regular quarterly meetings; (4) commit to reviewing mandatory Indigenous cultural competency and implicit bias training curricula and reporting on completion rates; (5) commit to sharing the PS review outcome with community representatives to the extent permitted by the Police Act; (6) write all commitments on a visible board during the meeting or distribute them in writing before the meeting ends — unwritten commitments will be perceived as empty promises. Do not commit to disciplinary outcomes, changes to law, or resources not within the commander's authority to approve.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Commit to ensuring the involved officers are disciplined — this demonstrates accountability and will satisfy community demands without prejudging the formal review.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Make no commitments at the debrief — commitments made in public can be legally binding and the commander has no authority to commit the police service to policy changes without approval from the police board.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Follow-up and Accountability",
+      "situation": "The debrief concluded with the community receiving acknowledgment of their concerns, a transparent explanation of the PS process, and six written commitments from you as commander. The community liaison coordinator asks how you will ensure these commitments are tracked and followed through. Past experience has taught the community that promises made at police meetings often go unmet. How do you ensure accountability on the commitments made?",
+      "question": "How does the detachment commander ensure follow-through on commitments made at the community debrief?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a structured accountability mechanism: (1) assign a named owner (the commander or a designated senior officer) and a deadline for each of the six commitments — this is immediately communicated to the community in writing after the debrief; (2) place the commitments on a 60-day work plan shared with the community liaison coordinator in writing; (3) at the 60-day follow-up meeting, provide a written status update on each commitment — items completed, items in progress, and any items that required escalation to the police board; (4) if a commitment cannot be fulfilled within the stated timeline, notify the community in advance with an explanation and revised timeline — do not let commitments silently lapse; (5) share the PS review outcome with the community within five business days of the decision being communicated to the involved parties, consistent with privacy law; (6) request that the Indigenous Policing Liaison Committee appoint a follow-up monitoring representative who can contact the commander's office directly. Document all follow-up steps in a formal community engagement log.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Send a formal letter to the Band Council summarizing the commitments made — the letter creates a written record and the community can follow up if they wish to check on progress.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Follow-up is only needed if the community specifically requests it — once the PS review concludes, the incident is formally closed and further engagement is at the community's discretion.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The community debrief was conducted at the community cultural centre with Elder-led opening, Elijah's family present, and substantive two-way dialogue. The commander made six written commitments, assigned named owners and deadlines, and held a 60-day follow-up meeting. The PS review concluded with coaching for the involved officers on street check legal authority. The street check data review revealed disproportionate stops of Indigenous youth — the commander initiated a policy reform. Key training takeaways: A community debrief is two-way dialogue, not a press conference — location, facilitation, and agenda should respect Indigenous protocols; what a commander can say is bounded by sub judice and privacy obligations — transparency about these limits is itself honest engagement; commitments must be specific, written, assigned, and time-bound to be credible; follow-through with a structured accountability mechanism is what distinguishes meaningful engagement from performative apology.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

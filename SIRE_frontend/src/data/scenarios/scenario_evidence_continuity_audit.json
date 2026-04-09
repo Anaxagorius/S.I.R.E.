@@ -1,0 +1,164 @@
+{
+  "title": "scenario_evidence_continuity_audit",
+  "description": "A major drug trafficking case is going to trial and defence counsel challenges the continuity of drug evidence from seizure through Health Canada analysis, requiring a full chain-of-custody reconstruction.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["chain of custody", "evidence continuity", "CDSA", "drug trafficking", "Health Canada", "exhibit audit", "defence application"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Trial Date Set",
+      "description": "A major drug trafficking case (CDSA ss.5 and 7) is scheduled for trial. Defence counsel files an application challenging the continuity of drug evidence.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "Chain of Custody Review Initiated",
+      "description": "The investigating officer begins a full review of chain of custody documentation from seizure to Health Canada analysis.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 2,
+      "title": "Packaging and Sealing Verified",
+      "description": "Exhibit packaging and sealing records are reviewed to confirm continuity requirements are met.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 3,
+      "title": "Health Canada Submission Reviewed",
+      "description": "Documentation accompanying the drug submission to Health Canada is examined for completeness.",
+      "timeOffsetSec": 10800
+    },
+    {
+      "index": 4,
+      "title": "Custody Log Gap Identified",
+      "description": "A gap is identified in the custody log during the investigation — the officer must address it properly.",
+      "timeOffsetSec": 14400
+    },
+    {
+      "index": 5,
+      "title": "Affidavit Evidence Prepared",
+      "description": "The officer prepares affidavit evidence to rebut the defence's continuity challenge at the voir dire.",
+      "timeOffsetSec": 18000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Chain of Custody Requirements",
+      "situation": "Your major drug trafficking investigation culminated in the seizure of 2.3 kg of cocaine at a storage locker. The substance was seized under the Controlled Drugs and Substances Act (CDSA) ss.5 (trafficking) and 7 (production). It has been analyzed by Health Canada. Defence counsel has filed a voir dire application under Charter s.24(2) arguing the evidence should be excluded for breaks in chain of custody. You must first understand what proper chain of custody requires for drug exhibits.",
+      "question": "What constitutes proper chain of custody for drug exhibits under the CDSA?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Proper chain of custody for drug exhibits requires: (1) continuous, documented accountability for the exhibit from the moment of seizure to its presentation in court; (2) identification of every person who possessed, handled, moved, tested, or observed the exhibit, with date, time, and purpose for each transfer; (3) evidence that the exhibit was not altered, substituted, or contaminated between seizure and analysis — packaging integrity is critical; (4) a signed exhibit receipt at each transfer point; (5) secure storage records confirming the exhibit was stored in a controlled access property room when not in use; (6) documentation of the condition of the exhibit at each stage, noting any changes (e.g., partial destruction for testing); (7) the Health Canada analyst's receipt and acknowledgment of the sample. Any unexplained gap in this chain raises reasonable doubt about whether the substance analyzed is the same substance seized — the Crown bears the burden of establishing continuity on a balance of probabilities.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Chain of custody for drug exhibits simply requires the seizing officer's notes and the Health Canada certificate of analysis — no intermediate transfer documentation is necessary unless the defence can prove tampering.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Drug exhibit continuity is presumed once a Health Canada certificate of analysis is filed — the defence application is frivolous and continuity documentation from seizure to analysis is not legally required.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Exhibit Tag and Packaging",
+      "situation": "You retrieve the drug exhibit from the property room and examine it. The evidence bag is a tamper-evident heat-sealed bag with your exhibit tag attached. However, you note there is a secondary bag inside with a different exhibit number. The outer bag bears your seal and the analysis lab's seal with dates. The inner bag is unsealed. Defence argues the unsealed inner bag proves the packaging was breached. What are the packaging and sealing requirements that establish continuity?",
+      "question": "What are the packaging and sealing requirements that establish exhibit continuity?",
+      "options": [
+        {
+          "label": "A",
+          "text": "At time of seizure, drug exhibits must be: (1) placed in a tamper-evident container (heat-sealed bag or equivalent) and sealed immediately; (2) signed across the seal by the seizing officer with date and time; (3) tagged with a unique exhibit number that is cross-referenced in the seizing officer's notes and the exhibit log; (4) photographed in their original condition and packaging before any movement; (5) each subsequent handler must note the condition of the seal before opening — if a seal is broken for analysis, the analyst must document the condition of the exhibit received, note the break in the original seal, and re-seal after analysis with a new dated signature. The unsealed inner bag requires explanation: if it was created by Health Canada during sample sub-division, there will be a corresponding analyst's note — obtain that documentation. The outer tamper-evident seal with both your signature and the analyst's dated seal strongly supports continuity despite the inner bag anomaly.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "The outer tamper-evident bag with both seals is conclusive evidence of continuity — the inner bag is simply a Health Canada sub-sample container and no further explanation or documentation is needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "If the original seal was broken at any point, continuity is irrevocably broken and the exhibit should be withdrawn — it is not possible to rehabilitate a drug exhibit with a broken inner seal.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Health Canada Submission",
+      "situation": "You locate the Health Canada submission package. You need to confirm it was completed correctly. The submission was made by Constable Ramos, who is no longer with the detachment. You have a copy of the submission cover sheet but the tracking number for the courier and the transmittal receipt from Health Canada are in Constable Ramos's old case file. What documentation must accompany a drug exhibit submission to Health Canada and what must you retrieve?",
+      "question": "What documentation must accompany drug exhibit submission to Health Canada and what must be retrieved to establish continuity?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A complete Health Canada drug submission package must include: (1) a completed Drug Submission Form identifying the exhibit number, case number, submitting officer, detachment, offence, and description of the substance; (2) a custody transfer receipt signed by both the submitting officer and the Health Canada receiving analyst; (3) the courier tracking number and delivery confirmation if submitted by courier; (4) a note in the exhibit log reflecting the transfer date, the recipient, and the exhibit's condition at time of transfer. To establish continuity, retrieve from Constable Ramos's case file: the courier tracking number and delivery confirmation, the Health Canada receipt, and Constable Ramos's will-say or notes documenting the transfer. Contact Health Canada directly using your case number to obtain a confirmation of receipt with date and condition of exhibit as received. Obtain a will-say from Ramos if available; document all retrieval steps.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "The Health Canada Certificate of Analysis itself establishes that Health Canada received and analyzed the exhibit — no submission cover sheet, tracking record, or transfer receipt is required.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Since Constable Ramos is no longer with the detachment, continuity for the submission leg cannot be established — notify the Crown to seek a stay of the analysis evidence.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Audit Trail Reconstruction — Custody Log Gap",
+      "situation": "While reconstructing the exhibit log, you find a 48-hour period during which the exhibit has no log entry. The exhibit was signed out by a Property Room technician on a Tuesday for 'repackaging' but not signed back in until Thursday. The Property Room technician, Janelle, still works at the detachment. Defence argues this unexplained gap is fatal to continuity. How do you address this gap?",
+      "question": "A gap in the custody log is identified — how do you address it?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Address the gap through a transparent, documented reconstruction process: (1) interview Janelle and obtain a detailed will-say explaining the reason for the 48-hour period, what repackaging was performed, where the exhibit was stored during that time, who had access, and whether the tamper-evident outer seal was broken — obtain a signed statement; (2) review Property Room access logs, cameras, or electronic key card records for the period in question to corroborate Janelle's account; (3) note any contemporaneous documentation Janelle may have created (internal repackaging notes, supervisor authorization for repackaging); (4) do not alter or add late entries to the custody log — any reconstructed documentation must be clearly labeled as a supplementary statement prepared after the fact; (5) disclose the gap and all explanatory documentation to the Crown and defence — attempting to conceal the gap is a Charter s.7 violation and could result in a stay of proceedings.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Have Janelle add a backdated entry to the custody log explaining the repackaging — a corrected log is better than a gap and courts understand administrative oversights.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "A 48-hour gap in the custody log is not material if the final condition of the exhibit matches the original seizure description — advise the Crown to oppose the continuity challenge without addressing the gap directly.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Preparing for the Continuity Challenge",
+      "situation": "You have gathered: your seizing notes, the exhibit tag and packaging photos, Janelle's will-say explaining the 48-hour repackaging period, the Health Canada submission package retrieved from Ramos's file, the Health Canada Certificate of Analysis, and the property room access log covering the gap period. Defence is proceeding with the voir dire application. You must now prepare the affidavit evidence to rebut the application. What does this affidavit evidence require?",
+      "question": "How do you prepare the affidavit evidence to rebut the defence continuity application?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prepare sworn affidavit evidence that collectively establishes an unbroken — or adequately explained — chain from seizure to Health Canada analysis: (1) your affidavit as seizing officer detailing seizure, packaging, sealing, and initial exhibit log entry with reference to your contemporaneous notes; (2) Janelle's affidavit explaining the repackaging process, storage conditions during the 48-hour period, confirmation that the outer seal was not broken, and access controls in place; (3) a will-say from Constable Ramos confirming the courier submission process and the tracking/delivery documentation now retrieved; (4) the Health Canada analyst's affidavit or certificate of analysis confirming the condition of the exhibit received, sub-sampling procedure (explaining the inner bag), and analytical results; (5) property room access log as an exhibit to establish who had access during the gap. Each affidavit must be sworn before a commissioner of oaths, cross-reference exhibit numbers consistently, and be disclosed to defence in advance of the voir dire. The combined evidence, even with the explained gap, can satisfy the Crown's burden of establishing continuity on a balance of probabilities.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Prepare a single comprehensive officer's affidavit summarizing all continuity steps on behalf of all officers involved — individual affidavits from each handler are unnecessary if the investigating officer can speak to the overall chain.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Submit the Health Canada Certificate of Analysis alone — it is a public document and creates a statutory presumption of continuity that the defence must rebut, so no further affidavit evidence is required.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The Crown successfully withstood the defence continuity application at voir dire. The complete chain of custody was established through sworn affidavit evidence from each handler, the custody log gap was explained transparently by Janelle's will-say and supported by access records, and the Health Canada sub-sampling procedure explained the unsealed inner bag. The drug evidence was admitted. Key training takeaways: Chain of custody for drug exhibits requires documented accountability at every transfer point from seizure to courtroom; packaging must be tamper-evident, sealed with dated signatures at each access point; Health Canada submission requires a full package including cover sheet, transmittal receipt, and courier confirmation; custody log gaps must be addressed through transparent reconstruction and disclosure — never through backdated entries; affidavit evidence rebutting a continuity challenge must come from each handler individually, not a single summary affidavit.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
