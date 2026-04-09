@@ -1,0 +1,151 @@
+{
+  "title": "scenario_charter_s8_search_seizure",
+  "description": "An officer discovers potential evidence during a vehicle stop but lacks a warrant. They must assess whether a warrantless search is justified, weigh the Charter s.8 right against unreasonable search and seizure, and make a legally defensible decision.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Traffic Stop",
+      "description": "Officer stops a vehicle for expired registration. The driver is nervous and a gym bag is visible on the back seat.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Smell Detected",
+      "description": "Officer detects a moderate odour of cannabis emanating from the vehicle. Driver has no licence and cannot identify the owner.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Grounds Assessment",
+      "description": "Officer considers available legal authorities and weighs reasonable expectation of privacy against investigative necessity.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Search Decision Made",
+      "description": "Officer decides on a course of action and either secures the scene for a warrant or conducts a grounds-based search.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 4,
+      "title": "Evidence Located",
+      "description": "A subsequent lawful search reveals 200 grams of cannabis and $3,000 in cash. Continuity of evidence is maintained.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 5,
+      "title": "Arrest and Documentation",
+      "description": "Suspect arrested. Officer documents the grounds for the search in detailed notes to withstand a Charter s.8 challenge at trial.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Charter s.8 — Grounds for Warrantless Vehicle Search",
+      "situation": "You stop a vehicle at 23:15 for expired registration. The driver cannot produce a licence and is visibly anxious. When you approach the window you detect a moderate odour of fresh cannabis. A closed gym bag sits on the rear seat. Cannabis is legal in small quantities but the amount and packaging are unknown. You are alone. You have no prior information connecting this driver to drug trafficking.",
+      "question": "What legal basis, if any, authorises you to search the vehicle without a warrant right now?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The odour of cannabis alone does not automatically justify a full vehicle search under s.8. However, combined with the nervous behaviour, lack of licence, and the closed bag in plain proximity, you have reasonable grounds to believe evidence of an offence may be present. You may conduct a search incident to a lawful arrest if you arrest for possession, or seek a telewarrant. Articulate each ground clearly in your notes before proceeding — vague grounds will invite s.8 exclusion under s.24(2) at trial.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "The smell of cannabis alone gives full authority to search any closed container in the vehicle without further grounds or arrest.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Since cannabis is legal, there are no grounds for any search. Release the driver with a traffic ticket for the registration offence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Arrest First — Search Incident to Arrest",
+      "situation": "You have reasonable grounds based on the odour, behaviour, and circumstances to arrest the driver for possession of cannabis for the purpose of distribution. Before searching, you must form and articulate grounds for the arrest. The driver asks: 'Are you allowed to search my car without a warrant?' You must be prepared to explain the legal authority you are relying on.",
+      "question": "How do you explain your legal authority to search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the driver that you are arresting them for possession for the purpose of distributing cannabis under the Cannabis Act s.9, based on the odour and circumstances. The search of the vehicle is a lawful search incident to arrest under common law, authorised by R v Caslake, limited to areas where the accused could reasonably access evidence or weapons. Advise them of their right to counsel under Charter s.10(b). Record the precise grounds for arrest and search in your notes contemporaneously.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell the driver you are searching because you smell drugs and that gives you all the authority you need — no arrest is necessary first.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Search the vehicle without explaining anything, to avoid arguments that could delay the search.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Scope of the Search and Evidence Continuity",
+      "situation": "The driver is under arrest for possession for the purpose of distributing. You search the vehicle incident to arrest. In the gym bag you find 200 grams of cannabis in multiple smaller bags consistent with distribution, and $3,000 in cash. You also notice that the centre console is locked. Defence counsel will likely argue that opening the locked console exceeds the scope of a search incident to arrest.",
+      "question": "Are you authorised to open the locked centre console as part of the search incident to arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Yes. A search incident to arrest extends to the entire passenger compartment of the vehicle, including locked containers within it, as confirmed in R v Caslake and R v Belnavis. The locked console is within the arrestee's area of potential access and may contain further evidence. Photograph the console locked before opening, note the method used, and record all contents. This careful documentation will rebut any allegation that the search exceeded its scope.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "No. A locked container requires a separate warrant — stop the search, secure the vehicle, and obtain a warrant before opening the console.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Open the console but do not document it separately, since it is part of the broader vehicle search already documented.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The locked console contained a digital scale and an additional 50 grams of cannabis. The suspect was charged with possession for the purpose of distributing under the Cannabis Act. At trial, defence brought a Charter s.8 application. The officer's contemporaneous notes clearly documented: the articulable grounds for arrest, the authority relied upon for the search, the scope of the search, and the precise contents of each container before and after opening. The application was dismissed. The judge found the search was lawful as incident to a valid arrest and the scope was consistent with the Caslake standard. The officer's thorough documentation was decisive.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "Charter s.8",
+    "search and seizure",
+    "search incident to arrest",
+    "warrantless search",
+    "Cannabis Act",
+    "R v Caslake",
+    "s.24(2) exclusion",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

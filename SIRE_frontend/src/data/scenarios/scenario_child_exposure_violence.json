@@ -1,0 +1,151 @@
+{
+  "title": "scenario_child_exposure_violence",
+  "description": "Officers attending a domestic violence call find children have witnessed the assault. They must address both the criminal investigation and mandatory child welfare reporting obligations, conducting age-appropriate welfare checks while maintaining the integrity of the criminal file.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Domestic Disturbance Call",
+      "description": "Officers respond to a domestic disturbance. On arrival, they find the complainant with injuries and three children aged 4, 7, and 11 in the home.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Children Observed",
+      "description": "The 11-year-old tells police 'Dad was hitting Mom again.' The younger children are crying. The complainant asks police to keep the children out of it.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Child Welfare Assessment",
+      "description": "Officers must assess the children's immediate safety and determine mandatory reporting obligations.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 3,
+      "title": "Mandatory Reporting Decision",
+      "description": "Officers consider their mandatory child welfare reporting obligations under provincial legislation.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Child Interview Consideration",
+      "description": "Officers must decide how to document what the 11-year-old said without improperly interviewing a child witness.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 5,
+      "title": "Coordinated Response",
+      "description": "Officers arrange for child welfare involvement and victim services while completing the criminal investigation.",
+      "timeOffsetSec": 720
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Child Exposure to Violence — Immediate Safety Assessment",
+      "situation": "You arrive at a residence where the mother has a black eye and a bleeding lip. Three children — ages 4, 7, and 11 — are present. The 4-year-old is hiding under a table. The 11-year-old, Maya, says: 'Dad was hitting Mom. He does it all the time. He left when he heard the sirens.' The complainant says: 'Leave the kids out of this — they didn't see anything.' You must assess the children's safety and wellbeing independently of what the complainant is telling you.",
+      "question": "What is your immediate obligation regarding the children?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct an immediate visual welfare check of all three children — look for signs of injury, fear, or distress without conducting a formal investigative interview. Observe their physical condition (any visible injuries), emotional state (are they in immediate distress?), and environment (is the home a safe space?). Note the 11-year-old's spontaneous statement verbatim — this is evidence, not an interview. The complainant does not have authority to exclude children from a welfare assessment. You have an independent obligation to assess all persons on scene for safety, including children.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Respect the complainant's wishes and focus the investigation on the adult victim — the children appear physically uninjured and interviewing them without parental consent could be problematic.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Ask the 11-year-old to give you a full statement right now about everything she saw — she is old enough to be a witness and her account will strengthen the case.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Mandatory Reporting Obligations",
+      "situation": "In every Canadian province, police officers are mandatory reporters under child welfare legislation (e.g., Ontario's Child, Youth and Family Services Act). Children who witness domestic violence are considered to be in need of protection from emotional harm in most provincial frameworks, regardless of whether they are physically injured. The complainant says: 'Child welfare will just make things worse — please don't call them.' Maya, the 11-year-old, says quietly: 'I'm scared when Dad gets like this.'",
+      "question": "Do you have a mandatory reporting obligation in this situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Yes — in all Canadian provinces, police are mandatory reporters. A child who has witnessed domestic violence is likely a child in need of protection under provincial legislation — emotional harm is a recognised category of harm, not only physical injury. The complainant's request that you not call child welfare does not relieve your mandatory reporting obligation. Make the report to child welfare services during or immediately after the call. Document the referral in the occurrence report. A report to child welfare does not mean the children will be removed — it means a trained child welfare worker will assess the situation. Failure to report is a criminal offence in some provinces and a professional liability in all.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "A mandatory report is only required if the children are physically abused — witnessing violence is a parenting issue, not a child welfare matter.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the mandatory reporting decision to the complainant — she is the custodial parent and knows her children best.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Documenting the Child's Spontaneous Statement",
+      "situation": "Maya said spontaneously: 'Dad was hitting Mom. He does it all the time. He left when he heard the sirens.' You want to use this as evidence in the assault case against the father. However, you must not conduct an investigative interview of a child witness without a specialised child interviewer — doing so could contaminate the child's evidence and render any subsequent video statement inadmissible. You must document what Maya said without going further.",
+      "question": "How do you handle Maya's spontaneous statement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document Maya's spontaneous statement verbatim in your notes — the exact words, the context in which they were spoken, her location, demeanour, and who else was present. Do not ask any follow-up questions about what she observed — even seemingly neutral questions can prime a child witness and compromise a subsequent formal interview. Note in your report that a child witness made a spontaneous disclosure and that a formal video-recorded statement should be obtained by a trained child investigator. Refer the matter to a Joint Force child interviewing unit or the equivalent in your jurisdiction. Protect the integrity of the evidence for the subsequent specialist interview.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask Maya follow-up questions like 'What exactly did you see?' and 'How many times did this happen?' to build a stronger evidence base while she is willing to talk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not document Maya's statement — it was an unsolicited comment by a child and cannot be used as evidence in adult criminal proceedings.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Child welfare was contacted and a worker attended that evening, conducting an independent assessment and safety planning with the mother. Maya was subsequently interviewed by a trained child forensic interviewer in a video-recorded session. Her account was consistent with the complainant's initial statement. The father was charged with assault and two counts of criminal harassment. The spontaneous statement documented by the officer was admitted as a prior consistent statement. Maya's formal video interview was admitted under the special measures provisions for child witnesses. All three children were connected with counselling services through the child welfare agency. The officer's careful documentation of the spontaneous statement — and their restraint in not asking follow-up questions — preserved the integrity of the child evidence.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "child exposure to violence",
+    "child welfare",
+    "mandatory reporting",
+    "domestic violence",
+    "child witness",
+    "forensic interview",
+    "CYFSA",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

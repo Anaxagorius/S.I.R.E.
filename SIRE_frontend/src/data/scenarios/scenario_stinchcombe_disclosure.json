@@ -1,0 +1,151 @@
+{
+  "title": "scenario_stinchcombe_disclosure",
+  "description": "An officer investigating a serious assault must understand Crown disclosure obligations under R v Stinchcombe, ensure all relevant materials — including potentially exculpatory evidence — are gathered, preserved, and disclosed. Failures can result in a stay of proceedings or appellate reversal.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Assault Investigation",
+      "description": "Officer investigates a serious assault. Multiple sources of evidence are identified.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Witness Identifies Potential Exculpatory Information",
+      "description": "A witness provides a statement partially inconsistent with the Crown's theory. The officer must decide how to handle it.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Video Footage Identified",
+      "description": "A business camera may have recorded the incident from a different angle. The officer must preserve it.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 3,
+      "title": "Prior Inconsistent Statement",
+      "description": "The complainant gave two different accounts — the officer must retain both.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Disclosure Package Compiled",
+      "description": "Officer prepares the full disclosure package for Crown, including potentially adverse materials.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Trial Disclosure Challenge",
+      "description": "Defence alleges incomplete disclosure. Court assesses the officer's compliance with Stinchcombe.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Stinchcombe — Officer's Disclosure Obligations",
+      "situation": "You are investigating a serious assault in which the complainant alleges a stranger punched him outside a bar. During canvassing you interview a bystander who says she saw the incident differently: 'It looked like the victim threw the first punch but I might be wrong — it was dark.' This partially exculpatory statement could support a self-defence argument. Your investigation otherwise strongly supports the complainant's account. A junior officer suggests not formally recording this statement since 'it doesn't help the case.'",
+      "question": "How do you handle this potentially exculpatory witness statement?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Record the witness statement in full, accurately, and without editing or minimising the exculpatory content. Under R v Stinchcombe, the Crown — and police on its behalf — have a constitutional obligation to disclose all relevant material to the defence, whether or not it supports the prosecution's theory. Potentially exculpatory evidence is not 'useless' — it is exactly what Stinchcombe protects. Suppressing or failing to record this statement could result in a stay of proceedings, an appeal reversal, and a finding of abuse of process. Include the statement in the disclosure package in full.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Take a brief note of the conversation in your notebook but do not make a formal statement, so it does not technically need to be disclosed.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Omit the witness from the investigation entirely — since she admitted she might be wrong her statement is too unreliable to be relevant.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Preserving Video Evidence",
+      "situation": "A business owner tells you that her security camera was pointed toward the alley where the assault occurred. The footage is stored on a 72-hour overwrite loop. It is currently 48 hours after the assault. You must act immediately. The footage may show either corroborating or contradicting evidence of the assault. You do not yet know which.",
+      "question": "What steps must you take to preserve this video evidence under your disclosure obligations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately request the business owner preserve the footage and not overwrite it. Attend personally to view the footage and, if relevant to the incident (whether favourable or not), obtain a formal copy through consent or a production order if consent is refused. Document the footage in your notes: what it shows, what it does not show, and any limitations (camera angle, lighting, partial view). All video footage relevant to the incident must be preserved and included in the disclosure package regardless of whether it helps or hurts the Crown's case. Failure to preserve it when you had the opportunity will be held against the Crown.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait until you know the complainant's account is solid before pursuing the video, so you can assess whether it is worth the effort.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not preserve the footage — if the business owner overwrites it naturally, there is no obligation since you did not destroy it.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Retaining Prior Inconsistent Statements",
+      "situation": "Reviewing the complainant's statements, you find that in his first call to 911 he said 'a group of guys jumped me,' but in his formal statement he said 'one man punched me from behind.' You are preparing the disclosure package. Defence will certainly use this inconsistency to challenge the complainant's credibility at trial. A colleague suggests including only the formal statement in disclosure since 'the 911 call was just him being in shock.'",
+      "question": "How do you handle the prior inconsistent 911 statement in the disclosure package?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Include both the 911 recording and transcript AND the formal statement in the disclosure package. Prior inconsistent statements are a key category of Stinchcombe material — they directly relate to the credibility of the Crown's principal witness. Defence has a constitutional right to this material to make full answer and defence. Note the inconsistency in the investigation summary so Crown is aware of the credibility issue before proceeding. Never decide unilaterally to exclude information because it appears adverse to the Crown.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Include only the formal statement, which was taken in a controlled, sober environment and is more reliable — the 911 call was not a formal statement.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Include only the 911 call since it was the first account given and is therefore more spontaneous and reliable.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The disclosure package included: the bystander's partial-exculpatory statement, the full business camera footage (which showed the complainant pushing the accused first), the 911 recording, the formal statement, and a disclosure index noting the inconsistency. At trial, defence used the video and prior inconsistent statement extensively. Crown proceeded and the accused was ultimately acquitted based on self-defence. The officer's complete and transparent disclosure package was subsequently cited as a model in a departmental review. Despite the acquittal, no stay application was made and no misconduct finding arose. The judge noted that full and transparent disclosure — even when it disadvantages the Crown — is the hallmark of a fair criminal justice system.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "Stinchcombe",
+    "disclosure",
+    "exculpatory evidence",
+    "prior inconsistent statement",
+    "video evidence",
+    "stay of proceedings",
+    "full answer and defence",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

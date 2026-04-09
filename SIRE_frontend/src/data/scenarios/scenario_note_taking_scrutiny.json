@@ -1,0 +1,151 @@
+{
+  "title": "scenario_note_taking_scrutiny",
+  "description": "An officer's notebook and occurrence report are challenged during a Crown voir dire and cross-examination. The officer must demonstrate that their notes are accurate, contemporaneous, and untampered — or face loss of evidence and personal credibility findings.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Incident Response",
+      "description": "Officer responds to a robbery in progress. Notes are taken at scene in the officer's notebook.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Report Written",
+      "description": "Officer writes the occurrence report at the end of shift, consulting their notebook.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 2,
+      "title": "Disclosure Requested",
+      "description": "Defence requests full disclosure including original notebook, not just the occurrence report.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 3,
+      "title": "Court Appearance",
+      "description": "Officer is cross-examined on discrepancies between the notebook and the occurrence report.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 4,
+      "title": "Notebook Alteration Alleged",
+      "description": "Defence alleges that a note was added after the fact based on different ink colour.",
+      "timeOffsetSec": 1500
+    },
+    {
+      "index": 5,
+      "title": "Credibility Finding",
+      "description": "Court makes a credibility finding about the officer's notes.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Contemporaneous Notes — Foundational Requirements",
+      "situation": "You responded to a robbery and took notes throughout. You are now writing your occurrence report at the end of a 12-hour shift. You realise you forgot to note the victim's exact description of the suspect's jacket in your notebook. You remember it clearly — it was a distinctive red hoodie with a logo — and you want to add that detail to your notes before finalising the report.",
+      "question": "How do you correctly add information you omitted from your original notes?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not alter or insert the detail into the original notebook entry. Instead, add a new entry at the current time and date clearly noting: 'Addendum to notes of [original date/time]: I omitted to record that the victim described the suspect's jacket as a red hoodie with a logo. This detail was noted mentally at the time but not recorded.' Initial and date the addendum. Attempting to backfill into original notes creates the appearance of falsification and will be detected — different ink, different impression depth, inconsistent spacing — and will destroy your credibility.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Carefully insert the red hoodie detail between existing lines in your notebook since your memory is clear and the information is accurate — the content is true even if the timing of writing is slightly off.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Include the red hoodie detail only in the occurrence report but not the notebook — courts only care about the occurrence report, not the notebook.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Discrepancies Between Notes and Report",
+      "situation": "At the preliminary inquiry, defence counsel shows you a discrepancy: your notebook says the suspect was 'approximately 5'10\\'', but your occurrence report says 'approximately 5'8\\''. The defence asks you to explain the discrepancy. Your notes are the primary document; you wrote the occurrence report later from memory supplemented by your notes.",
+      "question": "How do you handle this discrepancy honestly and professionally in court?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the discrepancy without deflection: 'My notebook written at the scene states 5'10''. My occurrence report written at the end of shift states 5'8''. I believe my notebook entry is more reliable as it was made contemporaneously at the scene. I cannot fully explain the discrepancy — it may have been a transcription error when I wrote the report. My notebook is my primary record.' Officers who acknowledge errors honestly retain more credibility than those who attempt to rationalise inconsistencies. The judge will assess reliability based on the full picture.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Insist there is no discrepancy — when you look again at the numbers they are actually consistent and defence is misreading them.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Say the occurrence report is the authoritative document and the notebook is just a rough working draft that should not be taken literally.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Allegation of Note Tampering",
+      "situation": "Defence produces a forensic document examiner's report that shows a two-line entry in your notebook was written in different ink from the surrounding entries, suggesting it was added later. The entry contains the victim's verbatim complaint. You know these notes were written at scene — you had two pens and switched mid-entry when one ran dry. You did not document the pen change at the time.",
+      "question": "How do you address the allegation of note tampering?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calmly explain under oath: 'During note-taking I ran out of ink in my primary pen and switched to a second pen I carry in my breast pocket. Both entries were made contemporaneously — I did not add or alter any notes after leaving the scene. I did not document the pen change at the time, which I acknowledge is a gap in my practice. Going forward I will note any pen change in my notebook with an initialled notation.' If you kept the old pen, produce it through Crown. This honest explanation, supported by the physical pen, is far more credible than denial or evasion.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Deny that you ever changed pens and assert that the forensic expert must be wrong.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Admit that you did add those two lines later because you thought it would help the victim's case — the content is accurate so there is no real problem.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The officer produced the depleted pen through Crown as a physical exhibit consistent with their explanation. The forensic examiner confirmed both pens were consistent with field-issue police pens. The court accepted the officer's explanation of the pen change as credible. The victim's verbatim complaint was admitted. The addendum regarding the red hoodie was found properly recorded and admitted without issue. The judge noted that the officer's candour in acknowledging the discrepancy and the pen change was consistent with honesty, in contrast to officers who are evasive under cross-examination. All evidence was admitted and the accused was convicted.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "note-taking",
+    "police notebook",
+    "occurrence report",
+    "court testimony",
+    "credibility",
+    "disclosure",
+    "document tampering",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

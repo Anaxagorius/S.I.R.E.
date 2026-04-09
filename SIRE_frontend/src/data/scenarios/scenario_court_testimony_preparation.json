@@ -1,0 +1,151 @@
+{
+  "title": "scenario_court_testimony_preparation",
+  "description": "An officer is called to testify at a criminal trial six months after an arrest. They must prepare properly, review their notes, avoid reconstruction errors, and handle aggressive cross-examination with accuracy and composure — maintaining credibility as the Crown's key witness.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Subpoena Received",
+      "description": "Officer receives a subpoena to testify in a criminal trial taking place six months after the original arrest.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Pre-Trial Preparation",
+      "description": "Officer reviews their original notes and occurrence report in advance of testifying.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Crown Consultation",
+      "description": "Crown attorney briefs the officer on the issues in dispute and the defence theory.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Direct Examination",
+      "description": "Officer gives their evidence in chief under questioning from Crown.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 4,
+      "title": "Cross-Examination",
+      "description": "Defence counsel cross-examines on discrepancies, note-taking practices, and memory.",
+      "timeOffsetSec": 1200
+    },
+    {
+      "index": 5,
+      "title": "Credibility Finding",
+      "description": "The judge makes findings of credibility that determine the outcome of the trial.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Pre-Trial Preparation — Reviewing Notes",
+      "situation": "You are testifying in six days about an arrest you made during a street robbery investigation seven months ago. You have your original notebook and occurrence report. Crown has told you that the key issues in dispute are: the exact wording of the Charter caution you gave, the precise sequence of events at the arrest scene, and whether the accused made a spontaneous utterance. You have not looked at your notes since you filed the occurrence report.",
+      "question": "How do you prepare for testimony?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review your original notebook notes and occurrence report thoroughly before testifying — this is not only permitted but expected. You are entitled to refresh your memory from notes made at or near the time of the incident. Make note of any gaps or discrepancies between your notebook and occurrence report so you are not caught off guard on the stand. Do not attempt to reconstruct memory for events not in your notes — if you did not write it down, testify only to what your notes record. Meet with Crown to understand what issues are in dispute. Do not discuss what you intend to say with other police witnesses before testifying.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Rely on your general recollection without reviewing notes — reading notes before testifying can appear like you are memorising a script rather than giving genuine evidence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Discuss the events with your partner who was also present to align your accounts before you both testify, to avoid embarrassing inconsistencies.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Testifying From Notes — Application to Use Notes in Court",
+      "situation": "You are on the stand. Crown asks you to describe exactly what you said to the accused when you administered the Charter caution. You can recall the general substance but are not certain of the exact words used. Your notebook contains the verbatim caution you gave, written immediately after the arrest. Defence objects if you reach for your notebook without asking permission.",
+      "question": "What is the correct procedure for using your notes to refresh memory while testifying?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ask the court for permission to refer to your notes: 'Your Honour, I recorded the verbatim caution in my notebook at the time. May I refer to those notes to ensure accuracy?' The court will typically allow this — a police officer who recorded information contemporaneously and seeks to testify accurately from those notes is following good practice. Once permitted, read directly from your notes and make clear you are doing so: 'According to my notes made on [date], the caution I administered was...' Do not paraphrase or reconstruct from memory when you have a contemporaneous record.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Testify from memory without using notes — police officers are expected to remember what they did without referring to notes in court.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Open your notebook and read from it without asking the court's permission, since you are entitled to use your own notes at any time.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Cross-Examination — Handling Aggressive Questioning",
+      "situation": "Defence counsel is now cross-examining you. She asks: 'You testified that the accused said, quote, \"I wasn't even there.\" But your notes say, quote, \"accused denied involvement.\" Those are not the same thing, are they?' She is correct — you paraphrased in testimony something your notes recorded as a summary. You spoke beyond your notes. This is a credibility trap.",
+      "question": "How do you respond to this challenge?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the distinction honestly: 'You are correct — my notes record the accused's utterance as \"denied involvement\" — that was my note of his words. In testifying that he said \"I wasn't even there\" I was characterising the substance of what he said rather than quoting directly. I should have been more careful to distinguish between his exact words and my summary. My notes are the most reliable record of his exact words.' This honest correction of an over-statement is far better than defending an inaccurate claim. Credibility comes from accuracy, not from consistency with a false version.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Insist that 'denied involvement' and 'I wasn't even there' mean the same thing and the distinction is semantic — refuse to concede the point.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Change your testimony to say you remember the exact words clearly and that 'I wasn't even there' is what he actually said, to avoid the inconsistency.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The judge found the officer to be a credible witness overall. She noted that the officer's immediate acknowledgement of the paraphrasing error — rather than defending an inaccuracy — was indicative of an honest witness. The spontaneous utterance, despite being recorded as a summary, was admitted given the officer's transparent acknowledgement of its nature. The accused was convicted. The Crown commended the officer's preparation and candour. Post-trial, the officer implemented a standing practice of using direct quotations for spontaneous utterances rather than summary characterisations — a lesson that will protect their credibility in all future testimony.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "court testimony",
+    "witness preparation",
+    "refreshing memory",
+    "cross-examination",
+    "credibility",
+    "police notes",
+    "spontaneous utterance",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

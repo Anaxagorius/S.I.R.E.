@@ -1,0 +1,151 @@
+{
+  "title": "scenario_police_caution",
+  "description": "An officer must administer the correct police caution (right to silence / warning to detainee) at the right time, in the right form, and ensure it is understood. Errors in cautioning can render subsequent statements inadmissible and expose the officer to a voir dire challenge.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Suspect Detained",
+      "description": "An officer detains a male on reasonable grounds for possession of stolen property following a traffic stop.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Caution Required",
+      "description": "Suspect asks: 'Am I being arrested?' Officer must now determine the appropriate caution to administer.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Language Barrier",
+      "description": "Suspect indicates English is not his first language and asks for clarification of what was said.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Second Caution on Arrest",
+      "description": "Grounds for arrest crystallise. Officer upgrades from detention to arrest and must re-caution.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Spontaneous Statement",
+      "description": "Before the interview begins, the suspect makes an unsolicited statement. Officer must respond correctly.",
+      "timeOffsetSec": 450
+    },
+    {
+      "index": 5,
+      "title": "Interview",
+      "description": "Officer conducts a cautioned video-recorded interview and documents the caution process.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Police Caution — Investigative Detention vs. Arrest",
+      "situation": "You have stopped a vehicle and found a sealed box in the trunk that CPIC confirms is listed as stolen property. The driver cannot explain how he came to have the item. You are not yet ready to arrest — you need to CPIC the driver and confirm ownership — but you are detaining him. He asks: 'Am I being arrested? Do I have to answer your questions?' You must correctly advise him of his status and rights without misrepresenting the situation.",
+      "question": "What is the correct caution for an investigative detention at this stage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the suspect clearly: 'You are not under arrest. You are being detained for investigative purposes. You do not have to answer my questions. However, you do have the right to retain and instruct counsel without delay — do you want to speak to a lawyer?' The police caution in Canada is grounded in the common law and the Charter. The key obligation is that a detained person understands they are not compelled to speak and that they have access to legal advice. Document the exact words used and the suspect's response in your notes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell him he must answer your questions during an investigative detention since he has not yet been formally arrested.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not caution him until you are ready to arrest — cautioning too early will prevent him from speaking freely.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Language Barrier — Ensuring Comprehension",
+      "situation": "After giving the caution, the suspect says: 'I understand some English but not all. Can you say again — am I free to go?' He appears genuinely uncertain. There is no interpreter immediately available. You must ensure the caution was meaningfully understood, as a caution given but not comprehended may be treated as no caution at all.",
+      "question": "How do you ensure the caution has been meaningfully understood?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Simplify and repeat the caution using plain language: 'You must stay — you cannot leave. You do not have to talk to me. If you want a lawyer, I will get you one.' Ask the suspect to tell you in his own words what he understood. If comprehension cannot be confirmed, request a qualified interpreter before proceeding — either a bilingual officer or a telephone interpreter service. Do not continue questioning until meaningful comprehension of the caution is established. Document all steps taken to ensure understanding.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Proceed — you have given the caution and it is the suspect's responsibility to ask for clarification if he does not understand.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Skip the caution since the language barrier means any statement will be inadmissible anyway.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Upgrading to Arrest — Re-Cautioning Required",
+      "situation": "CPIC confirms the suspect has a prior conviction for theft and the registered owner of the box has been reached — she confirms it was stolen from her garage last week. You now have reasonable and probable grounds to arrest. You arrest the suspect for possession of stolen property (Criminal Code s.354). When your status changes from detention to arrest, a fresh caution must be administered under Charter s.10(a) and s.10(b).",
+      "question": "What caution must you now administer on arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Administer the full arrest caution: (1) advise the reason for arrest under Charter s.10(a) — 'You are under arrest for possession of stolen property'; (2) advise of the right to retain and instruct counsel without delay under Charter s.10(b) — 'You have the right to retain and instruct a lawyer without delay. Do you understand?'; (3) advise of the right to silence / police caution — 'You are not obliged to say anything but anything you do say may be given in evidence.' Confirm understanding, obtain an interpreter if needed, and document the caution word for word.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "You already gave him a caution during the detention so there is no need to repeat the process — it would be redundant and confusing.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell him he is under arrest and transport him to the detachment — administer the formal caution once you are inside the building.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The suspect, after speaking with duty counsel via phone interpreter, agreed to speak. He admitted the item was given to him by a friend and he knew it might be stolen. The statement was recorded and properly cautioned. At the voir dire, defence argued the caution was invalid because the suspect did not understand English fully. The officer's notes showed: the initial caution given, the language barrier identified, the plain-language re-read with confirmation of understanding, the telephone interpreter used at arrest, and the word-for-word caution documented. The court admitted the statement. The judge commented that the officer's detailed contemporaneous notes of the cautioning process were exemplary.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "police caution",
+    "right to silence",
+    "Charter s.10",
+    "investigative detention",
+    "arrest caution",
+    "voir dire",
+    "language barrier",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

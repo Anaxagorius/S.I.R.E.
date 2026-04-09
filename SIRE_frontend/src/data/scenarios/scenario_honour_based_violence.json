@@ -1,0 +1,151 @@
+{
+  "title": "scenario_honour_based_violence",
+  "description": "An officer responds to a concern about a young woman whose family may be planning a forced marriage. They must recognise honour-based violence indicators, conduct a sensitive safety assessment, understand the criminal framework, and connect the potential victim with appropriate resources — without inadvertently escalating the danger.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Referral Received",
+      "description": "A school counsellor calls police expressing concern about a 17-year-old female student who has disclosed that her family is planning to take her abroad 'to get married.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Initial Interview",
+      "description": "Officers meet with the student at the school. She appears fearful and reluctant to speak.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Disclosure",
+      "description": "The student discloses that she has been told she will marry a man she has never met and that her family will not accept a refusal.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Safety Assessment",
+      "description": "Officers assess the immediate risk of harm and the potential for escalation if the family learns she has spoken to police.",
+      "timeOffsetSec": 480
+    },
+    {
+      "index": 4,
+      "title": "Legal Framework",
+      "description": "Officers identify applicable Criminal Code provisions and child welfare obligations.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Coordinated Response",
+      "description": "Officers coordinate a sensitive multi-agency response prioritising the young woman's safety.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Honour-Based Violence — Recognising Indicators and Initial Approach",
+      "situation": "Priya, 17, is referred by her school counsellor who says: 'She came to me crying — she says her family is taking her to India next month to meet someone she is supposed to marry. She said her older sister refused a marriage and was beaten and forced to leave the family.' Priya is from a loving but highly traditional family. She says: 'I don't want to get married but I don't want to get my family in trouble. Please don't go to my house.' You must conduct an initial assessment without inadvertently increasing her risk.",
+      "question": "How do you approach this initial interview with Priya?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct the interview in a private, safe location away from anyone connected to her family or community — at the school with the counsellor available but not in the room. Use a trauma-informed, non-leading approach: open questions only, allow her to tell her story in her own words, do not interrupt or express judgement about her family. Explain clearly: 'What you tell me is confidential but I have to tell you that if there is a risk of harm to you, I may have obligations to act to keep you safe — I will explain what those are as we go.' Critically: do not contact her family until a proper safety plan is in place — premature contact with the family in forced marriage or honour-based violence cases can dramatically escalate the danger to the potential victim.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact Priya's parents immediately to clarify whether a marriage is planned — parents have the right to know police are speaking with their minor child.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell Priya that arranged marriages are a cultural practice and police cannot interfere with family decisions unless there is physical violence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Safety Assessment — Escalation Risk",
+      "situation": "Priya tells you: 'The wedding is in India on the 14th — I have a flight in three weeks. I told my mother I don't want to go and she slapped me and said I had no choice. My passport has been taken away. If I refuse, my father says I will be sent to live with relatives and never allowed to speak to my siblings again.' She is visibly distressed. Her passport has been confiscated, her travel is being compelled, and she describes physical assault by her mother.",
+      "question": "How do you assess the immediate safety risk and potential criminal elements?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The disclosed facts indicate multiple potential criminal offences: assault by the mother (Criminal Code s.265); forced marriage is an offence under Criminal Code s.293.1 (forced marriage — a person compelled to marry without their free and full consent); removal of a minor from Canada for forced marriage may constitute Criminal Code s.273.3 (removal of a child from Canada). The confiscation of the passport constitutes controlling behaviour and may be evidence of forcible confinement (s.279) or criminal harassment (s.264). Assess the immediacy of the danger: is she safe tonight? Conduct a risk assessment using a domestic violence / honour-based violence risk tool. Do not minimise the risk because the family appears traditional or because Priya minimises it herself — she may be minimising to protect her family.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Since no one is physically harming her right now, tell her to wait until the situation escalates further before police can act — you need more concrete evidence of a criminal offence.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus only on retrieving her passport — that is the most tangible and actionable issue — and leave the marriage question to family court.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Safety Planning and Multi-Agency Response",
+      "situation": "Priya is safe tonight — she will be returning home from school as normal. The flight is in three weeks. She says: 'I want to stay in Canada and finish school. I don't want to be married. But I don't want my family arrested.' You must develop a safety plan that protects her while respecting her wishes as much as possible — but also recognising that a 17-year-old's fear of her family may limit her ability to advocate for herself.",
+      "question": "What components of a multi-agency safety response are required?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately engage: (1) Child welfare services — Priya is 17 and has disclosed assault; the province has mandatory reporting obligations; child welfare can apply for court intervention if needed; (2) A specialist unit (Forced Marriage Unit or Domestic Violence high-risk team) if available in your jurisdiction; (3) Victim services with expertise in honour-based violence — not general domestic violence services; (4) A plan for passport recovery if she consents to police action; (5) A safety plan that includes a code word, a trusted person she can contact, and an emergency escape plan. Do not proceed with family contact without her knowledge and a safety plan agreed with child welfare. Arrange a follow-up meeting before the flight date.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Arrange a meeting with Priya and her parents together to discuss the situation — a family mediation approach is the most culturally sensitive solution.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the mother for the assault now — this will send a clear message to the family that forced marriage will not be tolerated.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Child welfare obtained an emergency protective order prohibiting Priya's removal from the country pending an investigation. Priya was connected with a specialist victim services worker who met with her at school. Her passport was recovered through the court order. The mother's assault was documented and Crown was consulted — a charge was laid after consultation with Priya and her victim services worker. Priya was ultimately placed with a trusted aunt who supported her decision not to marry. The forced marriage did not proceed. The case was handled through the coordinated multi-agency approach throughout, prioritising Priya's safety above case-building. The officer's careful documentation of each disclosure, the safety risk factors, and the multi-agency steps taken formed the basis of a successful child welfare application.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "honour-based violence",
+    "forced marriage",
+    "Criminal Code s.293.1",
+    "child welfare",
+    "safety planning",
+    "trauma-informed",
+    "passport confiscation",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

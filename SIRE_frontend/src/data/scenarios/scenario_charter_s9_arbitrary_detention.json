@@ -1,0 +1,151 @@
+{
+  "title": "scenario_charter_s9_arbitrary_detention",
+  "description": "An officer detains a pedestrian based on a vague suspicion. They must assess whether the detention is lawful under Charter s.9, determine whether articulable cause for an investigative detention exists, and avoid an arbitrary detention finding.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Night Patrol Observation",
+      "description": "Officer spots a male walking quickly near a recently burglarised strip mall at 02:00.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Initial Contact",
+      "description": "Officer exits the cruiser and asks the male to stop. The male asks why he has been stopped.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Grounds Assessment",
+      "description": "Officer evaluates specific articulable facts to determine if investigative detention is legally justified.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Charter Rights Advising",
+      "description": "Officer advises the detainee of rights under Charter s.10(a) and s.10(b).",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 4,
+      "title": "Brief Investigation",
+      "description": "Officer conducts a pat-down for officer safety and asks focused investigative questions. No evidence found.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 5,
+      "title": "Release or Arrest",
+      "description": "Officer determines no grounds exist for arrest and releases the individual, documenting the contact.",
+      "timeOffsetSec": 360
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Charter s.9 — Investigative Detention Threshold",
+      "situation": "It is 02:10 on a Tuesday. You are patrolling a commercial area where a break-in occurred at a pharmacy two nights ago. You observe a male in his 30s walking quickly along the sidewalk, carrying a backpack, and glancing over his shoulder twice. He is the only person visible on the street. There is no BOLO or physical description matching a suspect. You exit your cruiser and call out 'Hey, stop there a minute.' The man stops and says: 'Am I being detained? I haven't done anything.'",
+      "question": "Do you have the legal authority to detain this person under Charter s.9?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Not yet. Being out at 02:00, walking quickly, and looking over one's shoulder in a commercial area does not meet the 'articulable cause' standard from R v Mann — you must be able to point to specific facts that, viewed objectively, justify a reasonable suspicion that this person is connected to recent criminal activity. On these facts alone the detention would be arbitrary under Charter s.9. Continue the voluntary conversation — the person may choose to speak with you voluntarily — but do not physically detain him or tell him he must stay unless you can articulate additional specific grounds.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Yes. Being in the area of a recent break-in at 02:00 and behaving nervously is enough to detain any individual for questioning. Tell him he must stay and answer your questions.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Physically grab the man's arm to stop him walking away while you conduct your questioning, since it is too dangerous to let potential suspects leave during a patrol stop.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Voluntary Conversation and Emerging Grounds",
+      "situation": "The man agrees to speak with you voluntarily. He says he is coming from a friend's apartment nearby. As he speaks you notice his right jacket pocket is visibly bulging with a hard, angular object. He is reluctant to identify himself and his hands are trembling. You now have specific articulable facts: the recent break-in in the area, the late hour with no innocent explanation offered, a visible bulge consistent with a pry bar or similar tool, and visible nervousness. These facts now collectively satisfy the R v Mann investigative detention threshold.",
+      "question": "Now that additional grounds exist, how do you properly detain the individual under Charter s.9?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Advise the person clearly and in plain language: 'I am now detaining you for investigative purposes. You are not under arrest but you are not free to go. The reason for your detention is [state the specific articulable facts]. You have the right to retain and instruct counsel without delay under the Canadian Charter of Rights and Freedoms. Do you understand?' Document every fact that forms the grounds for detention in your notes immediately — this will be the foundation of any s.9 application at court.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Detain the person without explaining why, to avoid giving him information that might cause him to flee or become defensive.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell the person he must stay because you are investigating a break-in and everyone in the area is automatically detained for questioning.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Pat-Down for Officer Safety",
+      "situation": "The person has been properly detained and advised of their Charter rights. He declines to answer further questions. You can see the hard bulge in his jacket pocket and are aware of the recent break-in involving tools. You want to conduct a protective pat-down. Under R v Mann, a pat-down for officer safety during an investigative detention is only permitted where there are reasonable grounds to believe the detained person poses a danger.",
+      "question": "Are you entitled to pat down the detainee for officer safety?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Yes — the visible bulge consistent with a hard tool, the late-night context, and the recent break-in collectively provide reasonable grounds to believe the detainee may be armed with an object capable of causing bodily harm. Conduct a limited pat-down of the outer clothing for weapons only — do not reach into pockets without further grounds. Tell the person: 'For my safety I am going to pat down your outer clothing.' Document the specific grounds for the pat-down separately from the grounds for detention.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Conduct a full search of the backpack and all pockets — if you can detain, you can search everything for safety.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Do not conduct any pat-down since no weapon has been confirmed and any pat-down would violate Charter s.8 without a warrant.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The pat-down located a large screwdriver in the jacket pocket — a tool but not a weapon per se. No other evidence was found. After querying CPIC you found no connection to the pharmacy break-in and released the individual, providing him with your badge number. Your detailed notes — recording the specific articulable facts at each stage — correctly documented the voluntary conversation phase, the emergence of additional grounds, the Charter rights advising, and the limited scope of the pat-down. At a subsequent civil complaint review your notes demonstrated the detention was grounded in specific articulable facts per R v Mann and was not arbitrary under Charter s.9.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "Charter s.9",
+    "arbitrary detention",
+    "investigative detention",
+    "R v Mann",
+    "articulable cause",
+    "pat-down",
+    "Charter rights",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

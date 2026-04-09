@@ -251,6 +251,28 @@ import scenarioFoundStolenProperty from "./scenarios/scenario_found_stolen_prope
 import scenarioMissingChild from "./scenarios/scenario_missing_child.json";
 import scenarioFoundIntoxicated from "./scenarios/scenario_found_intoxicated.json";
 
+// Police: Charter, Legal & Procedural (Canada-Specific)
+import scenarioCharterS8SearchSeizure from "./scenarios/scenario_charter_s8_search_seizure.json";
+import scenarioCharterS9ArbitraryDetention from "./scenarios/scenario_charter_s9_arbitrary_detention.json";
+import scenarioCharterS10RightToCounsel from "./scenarios/scenario_charter_s10_right_to_counsel.json";
+import scenarioPoliceCaution from "./scenarios/scenario_police_caution.json";
+import scenarioExclusionOfEvidence from "./scenarios/scenario_exclusion_of_evidence.json";
+import scenarioNoteTakingScrutiny from "./scenarios/scenario_note_taking_scrutiny.json";
+import scenarioStinchcombeDisclosure from "./scenarios/scenario_stinchcombe_disclosure.json";
+import scenarioCourtTestimonyPreparation from "./scenarios/scenario_court_testimony_preparation.json";
+import scenarioVideoEvidenceIntegrity from "./scenarios/scenario_video_evidence_integrity.json";
+import scenarioBwcActivationFailure from "./scenarios/scenario_bwc_activation_failure.json";
+
+// Police: Domestic & Family-Related Incidents
+import scenarioIntimatePartnerViolence from "./scenarios/scenario_intimate_partner_violence.json";
+import scenarioBreachReleaseConditions from "./scenarios/scenario_breach_release_conditions.json";
+import scenarioChildCustodyDispute from "./scenarios/scenario_child_custody_dispute.json";
+import scenarioChildExposureViolence from "./scenarios/scenario_child_exposure_violence.json";
+import scenarioElderAbuse from "./scenarios/scenario_elder_abuse.json";
+import scenarioHonourBasedViolence from "./scenarios/scenario_honour_based_violence.json";
+import scenarioPeaceBondMonitoring from "./scenarios/scenario_peace_bond_monitoring.json";
+import scenarioProtectionOrderEnforcement from "./scenarios/scenario_protection_order_enforcement.json";
+
 /** All demo scenarios with display metadata and bundled scenario data. */
 const DEMO_SCENARIOS = [
     // ── Physical / Environmental ─────────────────────────────────────────────
@@ -1688,6 +1710,136 @@ const DEMO_SCENARIOS = [
         name: "Found Intoxicated Person (Public Safety)",
         description: "An incapacitated intoxicated person is found outside in cold weather — officers must assess medical risk, invoke protective custody authority, and select the least restrictive disposition.",
         data: scenarioFoundIntoxicated,
+    },
+
+    // ── Police: Charter, Legal & Procedural (Canada-Specific) ────────────────
+    {
+        id: "scenario_charter_s8_search_seizure",
+        icon: "🔍",
+        name: "Charter s.8 — Search and Seizure Challenge",
+        description: "An officer discovers evidence during a vehicle stop and must assess whether a warrantless search is justified, articulate the legal basis, and ensure the search withstands a Charter s.8 challenge at trial.",
+        data: scenarioCharterS8SearchSeizure,
+    },
+    {
+        id: "scenario_charter_s9_arbitrary_detention",
+        icon: "⛓️",
+        name: "Charter s.9 — Arbitrary Detention Analysis",
+        description: "An officer stops a pedestrian in a high-crime area and must establish articulable cause for an investigative detention — or risk a finding of arbitrary detention under Charter s.9.",
+        data: scenarioCharterS9ArbitraryDetention,
+    },
+    {
+        id: "scenario_charter_s10_right_to_counsel",
+        icon: "⚖️",
+        name: "Charter s.10 — Right to Counsel Timing",
+        description: "A suspect invokes their right to counsel upon arrest. The officer must facilitate meaningful access, respect implementational duties, and re-advise properly before any interview.",
+        data: scenarioCharterS10RightToCounsel,
+    },
+    {
+        id: "scenario_police_caution",
+        icon: "🗣️",
+        name: "Police Caution — Right to Silence",
+        description: "An officer must administer the correct caution at the right stage — investigative detention or arrest — and ensure it is understood despite a language barrier, to protect subsequent statements from exclusion.",
+        data: scenarioPoliceCaution,
+    },
+    {
+        id: "scenario_exclusion_of_evidence",
+        icon: "🚫",
+        name: "Exclusion of Evidence Risk (Charter s.24(2))",
+        description: "Evidence is gathered during an arrest that may have involved Charter violations. A supervisor must assess the breach under the R v Grant framework and ensure transparent disclosure to Crown.",
+        data: scenarioExclusionOfEvidence,
+    },
+    {
+        id: "scenario_note_taking_scrutiny",
+        icon: "📓",
+        name: "Note-Taking Under Scrutiny",
+        description: "An officer's notebook is challenged at trial for discrepancies and alleged tampering — they must demonstrate contemporaneous and unaltered notes through honest and precise testimony.",
+        data: scenarioNoteTakingScrutiny,
+    },
+    {
+        id: "scenario_stinchcombe_disclosure",
+        icon: "📋",
+        name: "Disclosure Obligations (Stinchcombe)",
+        description: "An officer must gather, preserve, and disclose all relevant evidence — including potentially exculpatory materials — understanding that selective disclosure risks a stay of proceedings.",
+        data: scenarioStinchcombeDisclosure,
+    },
+    {
+        id: "scenario_court_testimony_preparation",
+        icon: "🏛️",
+        name: "Court Testimony Preparation",
+        description: "An officer prepares to testify six months after an arrest — reviewing notes, managing discrepancies, using notes in court properly, and handling aggressive cross-examination with accuracy.",
+        data: scenarioCourtTestimonyPreparation,
+    },
+    {
+        id: "scenario_video_evidence_integrity",
+        icon: "🎥",
+        name: "Video Evidence Integrity",
+        description: "An officer seizes video footage from multiple sources and must maintain chain of custody, document metadata, and rebut a defence integrity challenge at trial.",
+        data: scenarioVideoEvidenceIntegrity,
+    },
+    {
+        id: "scenario_bwc_activation_failure",
+        icon: "📷",
+        name: "Body-Worn Camera Activation Failure",
+        description: "An officer fails to activate their BWC during a use-of-force incident. They must report the failure honestly, document the incident thoroughly, and respond transparently to a Professional Standards inquiry.",
+        data: scenarioBwcActivationFailure,
+    },
+
+    // ── Police: Domestic & Family-Related Incidents ──────────────────────────
+    {
+        id: "scenario_intimate_partner_violence",
+        icon: "💔",
+        name: "Intimate Partner Violence (Conflicting Accounts)",
+        description: "Officers attend an IPV call where the victim recants and the accused claims self-defence — officers must make an independent charge decision based on evidence, not on victim cooperation.",
+        data: scenarioIntimatePartnerViolence,
+    },
+    {
+        id: "scenario_breach_release_conditions",
+        icon: "📵",
+        name: "Breach of Release Conditions",
+        description: "An accused on a no-contact bail order has been texting the complainant. Officers must investigate the breach, enforce the court order, and address the complainant's ambivalence about prosecution.",
+        data: scenarioBreachReleaseConditions,
+    },
+    {
+        id: "scenario_child_custody_dispute",
+        icon: "👨‍👩‍👧",
+        name: "Child Custody Dispute",
+        description: "A parent refuses to return children after a custody access visit, citing a pending appeal. Officers must understand the scope of police authority in civil custody matters and when Criminal Code s.282 applies.",
+        data: scenarioChildCustodyDispute,
+    },
+    {
+        id: "scenario_child_exposure_violence",
+        icon: "🧒",
+        name: "Child Exposure to Violence",
+        description: "Children have witnessed a domestic assault. Officers must conduct a welfare check, meet mandatory reporting obligations under provincial child welfare legislation, and preserve child witness evidence.",
+        data: scenarioChildExposureViolence,
+    },
+    {
+        id: "scenario_elder_abuse",
+        icon: "👴",
+        name: "Elder Abuse",
+        description: "An officer conducting a wellness check at a care facility observes signs of physical and financial abuse of an elderly resident — balancing capacity, autonomy, and mandatory reporting obligations.",
+        data: scenarioElderAbuse,
+    },
+    {
+        id: "scenario_honour_based_violence",
+        icon: "🌍",
+        name: "Forced Marriage / Honour-Based Violence Indicators",
+        description: "A school counsellor refers a 17-year-old who fears a forced marriage abroad. Officers must recognise indicators, conduct a trauma-informed assessment, and coordinate a sensitive multi-agency safety response.",
+        data: scenarioHonourBasedViolence,
+    },
+    {
+        id: "scenario_peace_bond_monitoring",
+        icon: "📜",
+        name: "Peace Bond Monitoring",
+        description: "An officer conducting a peace bond compliance check observes a potential breach. They must interpret the order's conditions, document observations, and report findings to Crown for a breach determination.",
+        data: scenarioPeaceBondMonitoring,
+    },
+    {
+        id: "scenario_protection_order_enforcement",
+        icon: "🛡️",
+        name: "Protection Order Enforcement",
+        description: "Officers respond to a 911 call where a subject is at the complainant's door in breach of a restraining order — they must verify the order, manage a disputed expiry claim, and make a lawful arrest decision.",
+        data: scenarioProtectionOrderEnforcement,
     },
 ];
 

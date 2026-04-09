@@ -1,0 +1,151 @@
+{
+  "title": "scenario_intimate_partner_violence",
+  "description": "Officers respond to a reported intimate partner violence incident where both parties give conflicting accounts. The victim recants, the accused claims self-defence, and officers must make an independent charge decision based on the evidence — not on either party's cooperation.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "911 Call",
+      "description": "A 911 hang-up call from a residence. Dispatched notes indicate a domestic disturbance. Neighbours have reported yelling.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scene Arrival",
+      "description": "Officers arrive to find the female complainant with a swollen lip and the male accused with scratches on his arm. Both are upset.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Conflicting Accounts",
+      "description": "Complainant initially says the accused struck her. The accused says she attacked him first. Complainant begins to recant.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Independent Investigation",
+      "description": "Officers must assess all available evidence independently of victim cooperation to make a charge decision.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Charge Decision",
+      "description": "Officers must decide whether to lay a charge and on what grounds — independent of whether the complainant wishes to proceed.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Release Decision",
+      "description": "Officers must decide on appropriate release conditions to address ongoing safety risk.",
+      "timeOffsetSec": 780
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "IPV — Recanting Victim and Conflicting Accounts",
+      "situation": "You arrive at a residence following a 911 hang-up. The female complainant has a visibly swollen lip and is tearful. The male accused has scratches on his forearms. The complainant tells you: 'He punched me in the face — please help me.' Two minutes later, after the accused says something to her you cannot hear, she says: 'Actually I was drinking, I fell — please don't do anything, I don't want him charged.' The accused says she attacked him and the scratches are defensive injuries. Children are present in the home.",
+      "question": "How do you proceed when the victim has recanted her original complaint?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Separate the parties immediately and conduct independent interviews. In IPV cases, police in most Canadian jurisdictions operate under a pro-charge or mandatory charge policy — you do not require the complainant's consent to lay a charge. Assess the physical evidence independently: the swollen lip is consistent with a punch, not a fall; the scratch pattern on the accused may or may not be consistent with defensive injuries. Document the initial spontaneous statement before recantation and photograph all visible injuries on both parties. Conduct a child safety check. Your charge decision is based on the evidence, not on whether the victim wishes to proceed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the complainant's recantation and do not charge the accused — she has the right to decide whether she wants police involvement.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell the complainant that if she does not cooperate you cannot do anything and the accused will remain in the home tonight.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Documenting the Independent Evidence",
+      "situation": "In the separated interview the complainant, calmer now, says quietly: 'He hits me sometimes but I'm scared of what he'll do if I press charges. Please don't make it worse.' She will not give a formal statement. You observe: a swollen lip with a cut consistent with a closed-fist strike, the 911 hang-up (the call itself is evidence), a neighbour who called in the yelling and will give a statement, and children who appear frightened and are not making eye contact. The accused has scratches but no other injuries.",
+      "question": "What evidence must you document and preserve independent of the complainant's cooperation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document and preserve: (1) Photographs of all visible injuries on both parties — close-up with a ruler scale; (2) the complainant's original spontaneous statement before recantation, noted verbatim; (3) the 911 hang-up recording (request preservation immediately); (4) the neighbour's account and formal statement; (5) description and photographs of any scene evidence (broken items, blood, disarray); (6) the children's observable emotional state (do not interview children as witnesses without a child protection specialist); (7) the accused's demeanour and account. This independent evidence base allows the Crown to proceed even if the complainant does not testify, through the principled exception to the hearsay rule.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Without a signed statement from the complainant, document only the call and the parties' names — there is nothing to charge without a willing witness.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus only on the accused's scratches as potential evidence of self-defence — if he has injuries then the complainant may be the primary aggressor.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Charge and Release Conditions",
+      "situation": "You have reasonable and probable grounds to arrest the accused for assault causing bodily harm under Criminal Code s.267. He is arrested and will appear before a justice for a bail hearing. The complainant has asked that he be allowed to remain in the home 'for the children's sake.' You must recommend appropriate conditions that protect the complainant and children while the accused's situation proceeds through the courts.",
+      "question": "What release conditions do you recommend to address ongoing safety risk?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recommend conditions that reflect the identified safety risk: (1) no contact with the complainant and children except through a lawyer (do not make exceptions based on the complainant's current wishes — victims of IPV are at the highest risk of serious harm or homicide in the period immediately following police involvement); (2) no attendance at the family residence; (3) no possession of firearms or weapons; (4) a reporting condition to police if a no-contact order is breached. Document that the complainant's request for co-residency was considered and the reason for your recommendation against it. The children's safety is a factor that may engage child welfare as well.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Recommend no-contact conditions but with an exception allowing him to return home if the complainant consents in writing — it is ultimately their choice as a family.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Let him remain in the home tonight since the complainant does not want him removed — record it as resolved by mutual agreement.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The accused was arrested for assault causing bodily harm and held overnight for bail. Conditions included no contact with the complainant and no attendance at the residence. The 911 hang-up, the complainant's original spontaneous statement, the neighbour's formal statement, and photographs of injuries were preserved. At trial, the complainant declined to testify. Crown successfully applied to admit the original statements under the principled exception to the hearsay rule (R v Khan; R v Starr). The accused was convicted. The children were assessed by child welfare as a precautionary step and found to be safe with the mother. The officers' thorough independent evidence documentation made the conviction possible without the complainant's active cooperation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "intimate partner violence",
+    "IPV",
+    "domestic violence",
+    "recanting victim",
+    "pro-charge policy",
+    "independent charge",
+    "release conditions",
+    "Canada",
+    "Law Enforcement"
+  ]
+}

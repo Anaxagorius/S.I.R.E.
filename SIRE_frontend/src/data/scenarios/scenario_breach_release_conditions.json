@@ -1,0 +1,151 @@
+{
+  "title": "scenario_breach_release_conditions",
+  "description": "An accused on bail conditions for a domestic assault contacts the complainant directly. Officers must investigate the breach, determine whether an arrest is warranted, and manage the complainant's ambivalence — understanding that breach enforcement protects the integrity of the court order.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Breach Reported",
+      "description": "The complainant calls police to report that the accused — subject to a no-contact order — has been texting her.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Attend",
+      "description": "Officers attend the complainant's residence to take a report. She shows them the text messages on her phone.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Complainant Ambivalent",
+      "description": "The complainant says she does not want the accused charged with breach — she wants to reconcile and invited the contact.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 3,
+      "title": "Evidence Assessment",
+      "description": "Officers assess the text messages and determine whether an offence under Criminal Code s.145 has been committed.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Arrest or Caution",
+      "description": "Officers must decide whether to arrest the accused for breach or issue a warning.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Safety Planning",
+      "description": "Officers conduct safety planning with the complainant and make appropriate referrals.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Breach of Release Conditions — Legal Framework",
+      "situation": "The accused was released from custody on a no-contact order as a condition of bail. The order prohibits all direct or indirect contact with the complainant. The complainant has shown you 14 text messages from the accused sent over three days. The messages are friendly and include one saying 'I miss you and the kids — please drop the charges.' The complainant says she wants to reconcile, she initiated some contact, and she does not want him in trouble. She is asking you not to do anything.",
+      "question": "Does the complainant's invitation to contact change whether a breach offence has been committed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "No. A court-ordered no-contact condition is a court order — it can only be varied or removed by a court, not by the parties' private agreement. The accused has an obligation to abide by the order or apply to the court to vary it. The complainant cannot authorise the accused to violate a court order. The accused's decision to contact the complainant — even at her invitation — constitutes a breach of his release conditions under Criminal Code s.145(3). The complainant's wishes are relevant to the sentence recommendation but not to whether an offence occurred.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "If the complainant invited the contact, there is no breach — the no-contact order is primarily to protect the complainant and if she does not feel endangered, enforcement is not warranted.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Issue the accused a verbal warning and document it — a formal breach charge for text messages when the complainant consented is disproportionate and will waste court time.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Evidence Gathering — Preserving the Text Messages",
+      "situation": "You must preserve the text messages as evidence of the breach. The complainant's phone is the primary record. She is willing to show you the messages but says she does not want to give up her phone. The messages are time-stamped and clearly from the accused's phone number, which matches his number recorded in the original incident.",
+      "question": "How do you preserve the text messages as evidence without seizing the complainant's phone?",
+      "options": [
+        {
+          "label": "A",
+          "text": "With the complainant's consent, photograph each relevant text message on her phone using the police camera or your BWC held steady — capturing the sender's number, the timestamp, and the message content. Read the messages into your BWC audio contemporaneously. Request in writing that the complainant preserve the messages and not delete them pending the investigation. If the complainant subsequently refuses consent to access her device, consider whether a production order targeting the accused's phone carrier records is available as an alternative. Document the content of each message in your notes with exact quotes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Note the messages in your occurrence report from memory after the complainant reads them to you — you do not need the phone itself.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Seize the complainant's phone immediately as evidence — a no-contact breach is a criminal matter and the phone is evidence of the offence.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Arrest Decision and Complainant Safety",
+      "situation": "You have sufficient evidence to arrest the accused for breach of release conditions under Criminal Code s.145(3). The complainant is tearful and says: 'If you arrest him again he will never forgive me and things will get worse.' She mentions they share young children and are financially dependent on the accused's income. You are aware that the period following renewed police contact is a high-risk time for escalation of violence.",
+      "question": "How do you proceed with the arrest decision and address the complainant's safety concerns?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Proceed with arresting the accused for the breach — breach enforcement is fundamental to the court system's credibility and the protection of victims. The complainant's expressed preferences, her safety concerns, and the financial implications are all documented in your report but do not override the obligation to enforce a court order. Conduct safety planning with the complainant: explain what will happen next (accused's bail may be revoked), provide her with a victim services referral, discuss a safety plan if the accused's bail is continued, and document that you advised her of her options including a civil restraining order. Record her safety concerns in your report for Crown and the bail hearing justice.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do not arrest — given the financial dependency and shared children, refer the matter to Crown for a letter of caution instead.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Document the breach in the file but take no action tonight — wait to see if the accused contacts the complainant again before making an arrest.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The accused was arrested for breach of release conditions. At the bail hearing, Crown sought revocation of bail given the breach of no-contact conditions. The justice revoked the accused's release and he was remanded pending trial. Victim services was engaged to support the complainant with financial assistance navigation and housing planning. At the breach trial, the text messages were admitted. The accused pleaded guilty to the breach. The original assault charge subsequently proceeded to trial. The officers' thorough safety planning documentation and victim services referral were cited in the victim impact statement as evidence that the system had responded with care. The consistency of breach enforcement in this jurisdiction has been associated with reduced recidivism in IPV files.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "breach of conditions",
+    "no-contact order",
+    "Criminal Code s.145",
+    "domestic violence",
+    "IPV",
+    "bail conditions",
+    "safety planning",
+    "Canada",
+    "Law Enforcement"
+  ]
+}
