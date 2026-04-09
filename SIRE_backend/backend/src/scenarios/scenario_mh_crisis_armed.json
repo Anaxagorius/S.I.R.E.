@@ -1,0 +1,149 @@
+{
+  "title": "scenario_mh_crisis_armed",
+  "description": "Officers respond to a person in mental health crisis brandishing a knife in a park, requiring de-escalation, tactical positioning, and consideration of use-of-force options.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "mental health crisis",
+    "use of force",
+    "de-escalation",
+    "knife",
+    "EDP",
+    "Crisis Intervention Team"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Call Received",
+      "description": "911 reports a shirtless male in a park waving a large knife and yelling. Several bystanders are in the area.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive on Scene",
+      "description": "Two patrol units arrive. The subject is approximately 15 metres away, pacing and yelling about people stealing his thoughts. Bystanders have not cleared the area.",
+      "timeOffsetSec": 45
+    },
+    {
+      "index": 2,
+      "title": "Perimeter Established",
+      "description": "Officers spread out to maintain reactionary gap. Bystanders are directed away from the scene by a third officer.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "De-escalation Attempted",
+      "description": "Lead officer initiates verbal contact using a calm tone. Subject pauses his pacing and makes eye contact briefly.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Subject's Sister Arrives",
+      "description": "A woman who identifies herself as the subject's sister approaches, saying she knows how to calm him down.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 5,
+      "title": "Knife Dropped",
+      "description": "With officer permission and under close supervision, the sister speaks to the subject. He drops the knife and sits on the ground.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Armed Subject in a Public Park",
+      "situation": "You arrive at a city park to find a 28-year-old male, shirtless and visibly agitated, pacing with a large kitchen knife. He is yelling about people 'stealing his thoughts.' Bystanders, including children, are scattered nearby and watching. Your partner is behind you. The subject has not yet directed any threats at a specific person.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish a safe reactionary gap of at least 7–10 metres, direct bystanders back and away using your partner and any available officers, broadcast for backup and a Crisis Intervention Team (CIT), and do not draw your firearm unless an imminent lethal threat is presented.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Immediately draw your firearm and issue clear verbal commands for the subject to drop the knife, advancing toward him to maintain authority.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Charge the subject and attempt to disarm him physically before he can harm a bystander.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Verbal De-escalation",
+      "situation": "Bystanders have been moved back. Your partner and two additional units are staged behind you. The subject is still pacing and muttering but has not advanced toward anyone. A Crisis Intervention Team is en route (ETA 12 minutes). The subject makes brief eye contact with you. This is your opening to initiate verbal contact.",
+      "question": "How do you engage the subject verbally?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Speak in a calm, low, non-threatening voice from a safe distance: introduce yourself by first name, acknowledge that he seems distressed, ask his name, and avoid challenging or dismissing his statements about thought theft — focus on his emotional state, not the content of his delusions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Issue loud, repeated commands to drop the knife and get on the ground, using a firm authoritative tone to assert control.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Stay silent and wait for the CIT to arrive before attempting any contact, making no verbal engagement.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Sister Requests to Intervene",
+      "situation": "Dialogue has reduced the subject's pacing. He has told you his name is Marcus and that he has not slept in three days. A woman runs up behind your perimeter line identifying herself as Marcus's sister, and says she knows Marcus and can calm him down. She says he responds to her voice. CIT is still 6 minutes out. Marcus sees her and briefly lowers the knife.",
+      "question": "How do you handle the sister's request?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Allow the sister to speak to Marcus from a position you control — she stands beside you at a safe distance, speaks calmly to Marcus by name, while you maintain tactical positioning; you do not step back or lose your reactionary gap.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Refuse the sister's involvement entirely as it is an uncontrolled variable and wait for CIT without utilizing this resource.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Allow the sister to approach Marcus freely without restrictions, stepping back to give them privacy.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Marcus drops the knife when his sister speaks to him and he is safely taken into custody. He is assessed by paramedics and transported to hospital under provincial Mental Health Act apprehension criteria. Key training takeaways: the 21-foot rule (Tueller Drill) and reactionary gap are critical when facing edged weapons; de-escalation through empathic, non-confrontational language is the standard first response; family members can be valuable assets if properly managed; Crisis Intervention Team training emphasizes identifying mental health crises early to divert from force escalation pathways; firearm deployment should remain a last resort when lethal threat is imminent and unavoidable.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

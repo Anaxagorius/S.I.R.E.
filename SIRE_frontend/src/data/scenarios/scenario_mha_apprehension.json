@@ -1,0 +1,148 @@
+{
+  "title": "scenario_mha_apprehension",
+  "description": "An officer must complete an involuntary apprehension under provincial Mental Health Act legislation for a person who meets the criteria for examination but refuses voluntary transport.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "Mental Health Act",
+    "involuntary apprehension",
+    "Form 1",
+    "crisis intervention",
+    "documentation"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Family Calls for Help",
+      "description": "Husband calls police: his 55-year-old wife with bipolar disorder has not slept in 36 hours, spent the night rearranging furniture, is making paranoid statements about government poisoning, and has refused food and water.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive",
+      "description": "Officers arrive and speak with the husband. The wife is inside and appears agitated but is not making threats. She has not eaten or drunk anything in over 24 hours.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "MHA Criteria Assessed",
+      "description": "Officers engage the wife, who refuses to go to hospital voluntarily and denies anything is wrong. Officers assess the situation against provincial MHA criteria.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Form Completed",
+      "description": "Officer completes the provincial involuntary examination form with specific documented observations supporting each required legal ground.",
+      "timeOffsetSec": 360
+    },
+    {
+      "index": 4,
+      "title": "Transport Arranged",
+      "description": "Officers explain the process to the woman respectfully and without handcuffs, and transport her to hospital with dignity.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Hospital Reception",
+      "description": "Officers complete the hospital handover, provide documented grounds to the receiving nurse, and ensure proper reception procedures are followed.",
+      "timeOffsetSec": 900
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Assessing MHA Criteria",
+      "situation": "You are at the home of a 55-year-old woman with a history of bipolar disorder. Her husband says she stopped taking lithium three weeks ago after her prescription lapsed. She has been awake for 36 hours, spent the night rearranging the house, and is making statements that the government is injecting poison into the water. She has refused food and water for over 24 hours. She is not physically threatening anyone, but she is clearly deteriorating. You speak with her — she is pleasant but firmly insists nothing is wrong.",
+      "question": "How do you assess whether she meets the criteria for an involuntary examination under provincial Mental Health Act legislation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assess against the applicable provincial MHA threshold — most jurisdictions require reasonable grounds to believe the person has a mental disorder AND poses a danger to self or others, or is unable to care for themselves; her refusal of food and water for 24+ hours and inability to recognize her own condition likely meets the 'unable to care for self' criterion — document specific observations, not conclusions.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Decline to complete an MHA apprehension because she has not made threats against herself or others and is technically not in immediate physical danger.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apprehend her under the Criminal Code for causing a disturbance since she is making irrational statements at home.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Completing the Required Form",
+      "situation": "You have determined that this woman meets the threshold for involuntary examination under the provincial Mental Health Act. You must now complete the required form (Form 1 or provincial equivalent) before transporting her. The form requires specific documented grounds. You have the following observations: 36 hours without sleep, 24+ hours without food or water, delusional beliefs about government poisoning, refusal to voluntarily seek treatment, history of bipolar disorder, lapsed medication.",
+      "question": "How do you correctly complete the form?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document specific first-person observations for each required ground — 'I observed the person refusing offered food and water, stating the water is poisoned. The husband confirmed she has not eaten or drunk anything since approximately 0800 yesterday. I believe she is unable to care for herself' — avoid vague conclusions and cite factual observations that meet each legislative element.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Write 'subject appears to be mentally ill and a danger to herself' as the grounds, which covers all required elements.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the grounds section for the attending physician to complete at the hospital, as they are better qualified to make the assessment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Transporting the Person with Dignity",
+      "situation": "The form is completed. You now must transport the woman to hospital. She is not physically violent but is resistant, repeating that she does not need help. Her husband is present. She asks why she is being forced to go. You must balance the legal authority to transport with the ethical obligation to treat her with dignity and minimize trauma.",
+      "question": "How do you conduct the transport?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Explain calmly what you are doing and why, using plain language: 'We're taking you to the hospital so a doctor can check on you — this is just to make sure you're okay.' Avoid handcuffs unless she becomes physically resistant; allow her husband to come separately if possible; use a plain vehicle if available to reduce stigma.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Handcuff her as standard procedure for any involuntary MHA transport to ensure officer safety during transport.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell her she has no choice, decline to explain the process, and place her in a marked police vehicle without further communication.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The woman is transported to hospital and assessed by a psychiatrist. She is admitted for stabilization and medication adjustment. Key training takeaways: provincial MHA criteria vary but typically include danger to self, danger to others, or inability to care for self — all three grounds must be considered; Form 1 (Ontario) or provincial equivalent must contain specific documented factual observations, not conclusions; involuntary apprehension is a last resort after voluntary options are exhausted; least restrictive means apply throughout — use of restraints is not automatic; hospital reception requires proper documentation handover; treat all persons under the MHA with dignity and respect.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

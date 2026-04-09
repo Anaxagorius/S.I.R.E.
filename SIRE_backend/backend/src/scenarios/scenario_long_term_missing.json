@@ -1,0 +1,149 @@
+{
+  "title": "scenario_long_term_missing",
+  "description": "A patrol officer is asked to conduct a case review of a long-term missing person file that has been inactive for two years, applying current investigative standards and identifying overlooked leads.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "investigations",
+    "long-term missing",
+    "cold case",
+    "missing persons",
+    "file review",
+    "vulnerable person",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "File Assigned for Review",
+      "description": "A new constable is assigned the two-year-old inactive missing person file of a 34-year-old woman. Family is requesting an update.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "File Review Commenced",
+      "description": "Officer reviews the original investigation documentation and identifies critical investigative gaps.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Investigative Gaps Identified",
+      "description": "CCTV records from the bar were not obtained. Phone records were never requested. Not all known contacts were interviewed.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Actionable Leads Identified",
+      "description": "Officer re-contacts bar staff and discovers a regular patron not previously interviewed who says he saw the woman leave.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Witness Locates New Information",
+      "description": "Previously uninterviewed witness recalls seeing the woman get into an unfamiliar vehicle. He did not know to call police at the time.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "File Escalated to Major Crimes",
+      "description": "Information is documented, a tip report prepared, and the file is escalated to the Major Crimes Unit for further investigation.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Cold File Review — Identifying Investigative Gaps",
+      "situation": "You have been assigned a two-year-old missing person file. Angela, a 34-year-old woman, was reported missing after she failed to return home from a night at a downtown bar. She was last seen leaving the bar alone at approximately 01:45. The original investigation lasted four days and was closed as 'insufficient information.' Her family is requesting a status update. You are reading the original officer's notes for the first time.",
+      "question": "How do you approach the file review to identify investigative gaps?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply a systematic review against standard missing person investigative checklists: Were CCTV records from the bar and surrounding businesses requested and obtained? Were Angela's electronic devices (cell phone, laptop) seized and forensically examined? Were all persons named in the investigation interviewed? Was her phone's cell tower data obtained via production order? Were NCMPUR (National Centre for Missing Persons and Unidentified Remains) forms completed?",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact Angela's family to see if they have any new information before reviewing the existing file thoroughly, as the family may have leads that were not previously provided.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Submit the file to Major Crimes immediately since two years have passed and it is beyond patrol capacity.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Pursuing Actionable Leads",
+      "situation": "Your file review reveals significant gaps: no CCTV footage was ever obtained from the bar (which has a two-week overwrite cycle — too late now); Angela's cell phone was never seized; and the bar manager was interviewed but bar staff were not. Phone records were never requested. You identify two bar staff who were working that night and are still employed there. Angela's cell phone is still in police storage — never examined.",
+      "question": "What are your investigative priorities given the identified gaps?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request a digital forensic examination of Angela's cell phone through your forensics unit (it is in storage and has not been tampered with); contact the bar and request interviews with the staff who were working that night; consult with your supervisor about escalating to Major Crimes for production orders on her phone records; update the NCMPUR file with the new investigative steps.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Focus only on the cell phone examination and wait for those results before taking any other steps, to avoid duplicating effort.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Re-interview only Angela's family and close friends since two years have passed and bar staff are unlikely to remember anything useful.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "New Witness — Escalation to Major Crimes",
+      "situation": "A bar staff member you have re-contacted — a server who was not interviewed during the original investigation — tells you that she remembers Angela's last night because she was concerned about her. The server says Angela appeared intoxicated and was waiting outside for a ride. The server saw her get into a dark-coloured sedan she did not recognize as a taxi or rideshare. This information was never documented. You now have a new witness with a material account.",
+      "question": "How do you handle this new information?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the witness statement thoroughly and accurately in a tip report and supplemental occurrence; do not conduct an extensive re-interview yourself — this has now become a Major Crimes matter; formally escalate the file to the Major Crimes or Serious Crimes Unit with a clear summary of investigative gaps, steps taken, and the new witness information; update NCMPUR with the new details.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Ask the witness for a sketch artist appointment and begin developing your own suspect theory based on the vehicle description.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Keep the new information in your notes until you have more evidence to corroborate the witness before escalating, to avoid wasting Major Crimes resources.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The file is formally escalated to Major Crimes. The new witness is interviewed by a detective and the vehicle description is matched to a person of interest. Key training takeaways: long-term missing person files are not closed matters — they require periodic review against current investigative standards; NCMPUR (National Centre for Missing Persons and Unidentified Remains) must be kept updated with every new investigative step; investigative gaps in the original file (no CCTV, no device forensics, incomplete witness canvass) are common and correctable; a patrol officer's role in a cold file review is to identify gaps, take initial steps within their capacity, and escalate appropriately — not to independently investigate at a major crimes level; every new piece of information must be formally documented regardless of how minor it appears.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

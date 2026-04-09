@@ -1,0 +1,149 @@
+{
+  "title": "scenario_sar_coordination",
+  "description": "A hiker is reported overdue from a wilderness trail; officers must initiate a missing person investigation, request SAR activation, and manage the coordination between police and volunteer Search and Rescue.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "search and rescue",
+    "SAR",
+    "missing hiker",
+    "wilderness",
+    "inter-agency",
+    "GSAR"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Overdue Hiker Reported",
+      "description": "A 47-year-old male's emergency contact reports him overdue from a solo backcountry hike. His vehicle is at the trailhead. It is dark and 2°C.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Trailhead Confirmed",
+      "description": "Officers confirm vehicle at trailhead. Trail register shows he signed in at 07:00. Expected return was 17:00. No cell service on trail.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 2,
+      "title": "SAR Activated",
+      "description": "Officer requests GSAR activation through the provincial Emergency Management office. SAR team lead contacted and en route.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 3,
+      "title": "SAR Briefed and Deployed",
+      "description": "SAR team lead arrives. Officer provides comprehensive briefing. Incident command structure established.",
+      "timeOffsetSec": 1800
+    },
+    {
+      "index": 4,
+      "title": "Subject Located by SAR",
+      "description": "A SAR team locates the hiker at a trail waypoint 4 km in. He has a broken ankle and is unable to walk. Core temperature is low.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 5,
+      "title": "Medical Evacuation Coordinated",
+      "description": "Officers coordinate helicopter medevac with provincial air ambulance. Hiker extracted and transported to hospital.",
+      "timeOffsetSec": 9000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Overdue Hiker — Initial Assessment",
+      "situation": "It is 20:30 and an emergency contact calls to say her husband, David, a 47-year-old experienced hiker, has not returned from a solo backcountry trail. He was due back at 17:00. His vehicle is at the trailhead. The temperature is dropping to 2°C and it has been dark for two hours. He has no satellite communicator. You confirm the vehicle at the trailhead. He signed the trail register at 07:00 — a 10-hour overdue.",
+      "question": "What are your immediate priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Establish the Last Point Known (LPK) from the trail register and vehicle, gather all subject information from the emergency contact (description, experience level, gear carried, planned route, medical conditions), and immediately request activation of the local Ground Search and Rescue (GSAR) team through the provincial Emergency Management Authority — do not wait until morning.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait until 24:00 and then reassess — he may have camped voluntarily or decided to extend his hike and will return in the morning.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Conduct a solo vehicle sweep of the accessible road portions of the trail before requesting SAR, to confirm he is not injured near the trailhead.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Briefing the SAR Team Lead",
+      "situation": "The GSAR team lead has arrived at the trailhead command post with 14 volunteers. She asks for a full briefing. You have: David's description and photograph, gear list (day pack, no overnight gear, trail runners), planned route (looped trail, 18 km), no known medical conditions, no satellite communicator, emergency contact is his wife, temperature overnight will be 0°C. The SAR team is ready to deploy but needs the police briefing first.",
+      "question": "How do you structure the briefing and the command relationship?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide the GSAR team lead with all subject information in a clear, organized briefing: subject description, last known point, planned route, gear carried, time sensitivity (10 hours overdue, overnight cold exposure risk); establish that police retain the missing person investigation (file, notifications, family liaison) while SAR leads the physical search; agree on a communications protocol.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Take operational command of the physical search yourself, directing individual SAR volunteers to their search sectors, as police have overarching authority over SAR operations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Provide only a brief summary and let the SAR team develop their own search plan, as they are the subject matter experts and police should not interfere.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Located — Medical Evacuation",
+      "situation": "Three hours into the search, a SAR team radios in: they have located David at a trail waypoint 4 km in. He fell on a wet rock and has a broken ankle. He is conscious and alert but cold, hypothermic, and unable to self-rescue. The weather is deteriorating. A helicopter medevac from the provincial air ambulance service is the best option, but you need to confirm the aircraft can operate safely and identify a suitable landing zone.",
+      "question": "How do you coordinate the medical evacuation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request the provincial air ambulance through dispatch, provide the GPS coordinates of the subject's location and the nearest suitable landing zone as identified by the SAR team lead, advise of weather conditions, and ask SAR to provide first aid and hypothermia management until the aircraft arrives; notify the emergency contact and keep a unit at the trailhead to guide ground crews if needed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Have the SAR team carry David out on foot, as a helicopter medevac introduces additional complexity and weather risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Request the helicopter directly without consulting the SAR team lead about landing zone suitability in the immediate area.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "David is evacuated by helicopter and transported to hospital for treatment of a broken ankle and mild hypothermia. He makes a full recovery. Key training takeaways: police and SAR have distinct but complementary roles — police own the missing person investigation file, family liaison, and documentation; SAR leads the physical search under the Incident Command System (ICS); neither should unilaterally take over the other's function; GSAR should be activated as soon as overdue indicators and environmental risk factors are present — not after further delay; the briefing provided to the SAR team lead is a critical transfer of information that determines search effectiveness; helicopter medevac decisions require coordination with air ambulance dispatch and SAR for safe LZ identification.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

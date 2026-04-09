@@ -1,0 +1,149 @@
+{
+  "title": "scenario_missing_elderly_dementia",
+  "description": "An 82-year-old woman with advanced dementia wanders away from a long-term care facility in winter and is reported missing; officers coordinate an urgent search and safe return.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "missing elderly",
+    "dementia",
+    "vulnerable person",
+    "Silver Alert",
+    "search coordination",
+    "hypothermia"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Missing Person Report from LTC Facility",
+      "description": "Staff at a long-term care facility report an 82-year-old resident with severe dementia missing. She was last seen in the dining room at 14:30. It is now 16:45. Outdoor temperature is −8°C.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Immediate Perimeter Search",
+      "description": "Officers search the facility grounds, parking areas, and immediate surrounding streets. She is not found on facility property.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Silver Alert Activated",
+      "description": "Supervisor authorizes a Silver Alert with the woman's description. Additional units and search and rescue volunteers are requested.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Significant Location Canvass",
+      "description": "Staff identify the woman's former home address two blocks away as a location significant to her personal history. Officers extend search in that direction.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Subject Located",
+      "description": "A dog walker reports seeing an elderly woman in a park matching the description. Officers respond.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Medical Assessment and Safe Return",
+      "description": "Subject is found confused and shivering. EMS is dispatched. Officers provide emergency warmth until EMS arrives.",
+      "timeOffsetSec": 1080
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Missing Elderly Woman — Urgent Conditions",
+      "situation": "You respond to a long-term care facility where an 82-year-old woman with severe dementia, Margaret, has been missing for over two hours. She was last seen in the dining room at 14:30 and is now unaccounted for. She is wearing indoor clothing — a housecoat and slippers. It is currently −8°C and getting dark. Staff have searched the inside of the building. She has no cell phone.",
+      "question": "What is your immediate response to this missing person report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Treat this as a high-risk missing person emergency — initiate an immediate perimeter search of facility grounds, request additional units, notify your supervisor for Silver Alert consideration, and contact local SAR resources; simultaneously gather her description, photograph, last known direction of travel, and any significant personal locations (former home, church, family address) that a person with dementia may instinctively seek.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for additional units to arrive before beginning the search to ensure an organized response.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Classify as a low-risk missing person since dementia patients often wander and return on their own, and begin standard documentation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Expanding the Search Using Personal History",
+      "situation": "A ground-level perimeter search of the facility property and adjacent streets has not located Margaret. A Silver Alert has been activated. Additional officers are en route. A staff member tells you that Margaret frequently talks about her house on Maple Street — she lived there for 40 years before moving to the facility. That address is approximately two blocks away. The temperature is now −10°C and it will be full dark in 30 minutes.",
+      "question": "How do you direct search resources?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Prioritize the former home address on Maple Street and any en-route significant locations (parks, stores, churches she may have attended) — persons with dementia often navigate toward personally meaningful places from their long-term memory; direct one unit to the address immediately while others continue the perimeter canvass; canvass residents in the neighbourhood.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue expanding the search in a uniform radius outward from the facility without prioritizing any specific direction.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for the Silver Alert tip line to generate leads before directing search resources to avoid sending officers to the wrong area.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Subject Located — Medical Emergency",
+      "situation": "A member of the public calls after seeing an elderly woman matching Margaret's description sitting on a bench in a park adjacent to her former street. You are the first officer to arrive. Margaret is sitting on the bench, confused, shivering, and wearing only a housecoat and wet slippers. She does not recognize you and is asking to go home. She is conscious but lethargic. EMS is 8 minutes away.",
+      "question": "How do you manage this medical situation before EMS arrives?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Approach slowly and speak in a calm, reassuring tone — do not startle her; identify yourself gently, use her first name, and say 'You're safe, I'm here to help.' Wrap her in your emergency blanket or jacket, shield her from wind, move her to the warm police vehicle if she will cooperate, monitor her level of consciousness, and advise dispatch of her condition for EMS priority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Transport Margaret to the LTC facility immediately in your police vehicle without waiting for EMS, to get her out of the cold as fast as possible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave Margaret on the bench and wait nearby for EMS, to avoid disturbing her further before medical professionals arrive.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "EMS arrives and assesses Margaret for hypothermia — her core temperature is low but she is stabilized with warming measures and transported to hospital. She recovers fully. Key training takeaways: elderly persons with dementia who wander outdoors in winter are at immediate life risk — there is no waiting period and no low-risk classification for this population; persons with dementia often navigate toward personally meaningful long-term memory locations; approach confused elderly persons calmly and gently — use first names, speak slowly; Silver Alert (where available) is the appropriate tool; hypothermia recognition includes lethargy, confusion, shivering and cool skin — first responder warming measures save lives.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "title": "scenario_medication_noncompliance",
+  "description": "Family members call police after a relative with schizophrenia has stopped taking prescribed antipsychotic medication and is becoming increasingly delusional and threatening.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "medication non-compliance",
+    "schizophrenia",
+    "mental health crisis",
+    "family support",
+    "Mental Health Act"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Family Calls Police",
+      "description": "Elderly parents call police: their 33-year-old son with schizophrenia has not taken medication in three weeks, shattered a living room window, and is barricaded in his bedroom making threats against 'the people watching him.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Officers Arrive and Brief",
+      "description": "Officers arrive and speak with the parents outside. Son is in his bedroom; they can hear him speaking loudly to himself. He is not currently violent.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "Mental Health Worker Contacted",
+      "description": "Officers identify the subject's ACT team mental health worker and reach her by phone. She provides critical history and is willing to assist.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "De-escalation Through Door",
+      "description": "Officer engages the subject through the bedroom door using a calm, non-confrontational approach. Subject acknowledges the officer's presence.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Crisis Team Coordinated",
+      "description": "In consultation with the mental health worker, the officer arranges for the ACT team crisis van to attend and coordinates an MHA assessment.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Peaceful Resolution",
+      "description": "Subject agrees to speak with his mental health worker in person. ACT team facilitates voluntary hospital transport.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Gathering History from Family",
+      "situation": "You arrive at the home of a 33-year-old man with schizophrenia. His elderly parents called after he shattered a living room window and barricaded himself in his bedroom. You can hear him inside, talking loudly to himself. The parents are frightened. He has a known mental health history and is connected to an Assertive Community Treatment (ACT) team. He has not threatened his parents directly. Your priority right now is information gathering.",
+      "question": "What information do you need before engaging the subject?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Ask the parents for his full name, his ACT team worker's name and contact number, his current medications and the date he stopped taking them, any prior hospitalizations, whether he has access to weapons, and the specific threatening statements he made — then contact the mental health worker immediately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Proceed directly to the bedroom door to assess the subject before speaking at length with the parents, as every minute increases risk.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Call dispatch for a CPIC check on the subject to determine if there are any criminal records before taking any further action.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Engaging the Subject Through the Door",
+      "situation": "You have spoken to the parents and reached the subject's ACT team mental health worker by phone. She tells you his name is Kevin, he responds well to his name, and he tends to calm down if you avoid arguing with his beliefs. She says offering him water or food often helps. His ACT team van can be at the house in 30 minutes. You are now at the bedroom door. Kevin can hear you. He yells: 'I know what you are — you're one of them.'",
+      "question": "How do you engage Kevin through the door?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Speak calmly and address him by name: 'Kevin, my name is [name], I'm not here to hurt you. I'm here because your parents care about you and they're worried. I'm going to stay right here — I'm not coming in. Can I get you a glass of water?' Avoid arguing with or confirming his paranoid beliefs.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell Kevin firmly that if he does not open the door in five minutes, you will be authorized to enter, to give him a clear incentive to comply.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell Kevin that you know he is not well and that the people watching him are not real, to help ground him in reality.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Coordinating the ACT Team Response",
+      "situation": "Kevin has accepted a glass of water passed through a slightly opened door and is speaking to you intermittently. He has not made any direct threats in the past 20 minutes. The ACT team mental health worker is now on-site. She asks whether she should try to speak directly with Kevin through the door, or whether you should remain the contact and she advises you. You must decide the best approach while also determining whether MHA criteria are met.",
+      "question": "How do you coordinate with the ACT team worker?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Allow the ACT team worker to take the lead on direct communication with Kevin — she has a pre-existing therapeutic relationship and Kevin is more likely to engage voluntarily with her; you maintain a safety perimeter and assess MHA criteria in consultation with her based on what she observes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Insist on remaining the sole point of contact since the officer retains scene authority and the mental health worker should advise from a distance only.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Immediately apprehend Kevin under the MHA now that the ACT team worker is on-site to expedite hospital assessment.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Kevin's ACT team worker speaks with him through the door and he agrees to open it. He accepts voluntary transport to hospital in the ACT team van, avoiding the need for police-led MHA apprehension. Key training takeaways: family members and community mental health workers are critical partners in medication non-compliance crises; gathering history before engaging reduces escalation risk; the ACT/PACT model provides intensive community support for high-need individuals with serious mental illness; never challenge or confirm delusional content — redirect to basic needs; voluntary transport is always preferable to involuntary apprehension and should be maximally pursued; officers support the mental health system but are not clinicians.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

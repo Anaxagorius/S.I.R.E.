@@ -1,0 +1,149 @@
+{
+  "title": "scenario_missing_indigenous",
+  "description": "Family members report a 23-year-old Indigenous woman missing after she failed to return from a night out; the investigation must navigate MMIWG calls to action and immediate, thorough response obligations.",
+  "category": "Police",
+  "difficulty": "Intermediate",
+  "tags": [
+    "patrol",
+    "missing Indigenous woman",
+    "MMIWG",
+    "missing persons",
+    "vulnerable person",
+    "National Inquiry",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Family Reports Missing Person",
+      "description": "The family of a 23-year-old First Nations woman calls to report she did not return after going out downtown the previous night. They explicitly note a prior dismissive police response.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Report Taken — Urgency Assessed",
+      "description": "The reporting officer documents the family's concerns about prior response failures and risk-classifies the file based on the totality of circumstances.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Immediate Investigation Initiated",
+      "description": "Officers canvass last known location, request CCTV footage from downtown businesses, and contact taxi and rideshare companies.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Associate and Digital Canvass",
+      "description": "Officers contact friends who were with the woman that night and review her last known social media activity.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Woman Located at Hospital",
+      "description": "Hospital contacts police: a woman matching the description was admitted overnight following an assault. She was unable to contact family.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Family Notified — Concerns Addressed",
+      "description": "Officers notify the family, explain investigation steps taken, and address their concerns about the adequacy of the police response with empathy.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Missing Person Report — Indigenous Woman",
+      "situation": "A family calls to report that Sarah, a 23-year-old First Nations woman, did not return after going downtown with friends the night before. She has no known mental health or substance use issues. The caller — Sarah's aunt — explicitly tells you: 'The last time we reported someone missing, the police told us to wait and see.' The family is clearly anxious and mistrustful. Sarah has been missing approximately 10 hours.",
+      "question": "How do you receive this report and respond to the family's concerns?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Take the report immediately and fully — acknowledge the family's prior experience and commit to a thorough response; risk-classify based on the totality of circumstances (overnight, 10 hours unaccounted, no contact, night out); do not apply different standards based on assumptions about lifestyle; document the family's concerns about prior police response in the file.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Advise the family that since Sarah is an adult who voluntarily went out, you must wait 24 hours before opening a formal investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Record only basic information and advise the family to call back when they have more information about where Sarah was going.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Immediate Investigation Steps",
+      "situation": "You have filed the missing person report and classified it as elevated risk. You have Sarah's physical description, phone number, the names of friends she was with, and the name of the bar she attended. It is now morning. CCTV footage from the area may be available but has a 24–48 hour deletion cycle at some businesses. Friends have not been contacted yet. Rideshare and taxi records could track her route.",
+      "question": "What are your immediate investigative priorities?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Act immediately on time-sensitive evidence: contact downtown businesses to preserve CCTV footage before it is overwritten; request cell tower data from her carrier through an emergency production order; contact rideshare and taxi companies; interview the friends who were with her last night; check hospital emergency departments and shelters.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the full 24-hour period before requesting CCTV preservation or digital records, to follow standard missing persons procedures.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Focus the investigation on the possibility that Sarah is with a known romantic partner rather than pursuing all investigative avenues simultaneously.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Woman Located — Addressing Family Concerns",
+      "situation": "The hospital calls: a woman matching Sarah's description was admitted overnight following an assault. She has a non-life-threatening injury and was unconscious on arrival — she could not contact her family. Sarah is now awake and recovering. Her family has been notified and is en route to the hospital. The family member who called police is grateful but asks: 'What would have happened if you hadn't taken this seriously?' You must navigate this feedback while closing the file.",
+      "question": "How do you respond to the family's concern about the prior dismissive response and this investigation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the family's experience honestly and with empathy — do not become defensive; confirm that the investigation followed proper protocols and that immediate action was taken; encourage them to contact the police liaison or file a formal commendation or complaint regarding the prior response; document the family's feedback in the file for supervisory review.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell the family that the prior response was handled by a different officer and you cannot comment on other officers' conduct.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advise the family that Sarah being found safe means the prior response was likely adequate and not worth pursuing further.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Sarah is recovering from her injuries. Her family is at her side. Key training takeaways: the National Inquiry into MMIWG (Murdered and Missing Indigenous Women and Girls) Calls for Justice require police to treat every missing Indigenous woman with immediate urgency and the same rigour applied to any other missing person; systemic racism and bias have historically led to under-investigation of cases involving Indigenous women — officers must actively counteract this by following protocol and documenting every investigative step; CCTV and digital records are time-sensitive and must be preserved immediately; family concerns about prior policing experiences must be acknowledged with empathy and not dismissed; document family feedback for supervisory review as part of systemic accountability.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "title": "scenario_runaway_investigation",
+  "description": "A 15-year-old girl is reported as a runaway by her parents, but indicators during the investigation suggest she may be a victim of trafficking rather than a voluntary runaway.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": [
+    "patrol",
+    "runaway",
+    "missing youth",
+    "human trafficking",
+    "exploitation indicators",
+    "vulnerable person"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Report Filed — Prior Runaway History",
+      "description": "Mother reports her 15-year-old daughter missing for four days following an argument. She has run away twice before. Patrol officer takes the report.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Initial Risk Assessment",
+      "description": "Officer notes the daughter has a new older boyfriend the parents don't know, recently received new clothing and a new phone, and has been absent from school.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Social Media and Associate Canvass",
+      "description": "Officer discovers posts from a hotel location associated with a 28-year-old male known to police.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Hotel Attendance",
+      "description": "Officers and a child welfare worker attend the hotel address. The youth is located but is hostile and refuses to cooperate.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Trauma-Informed Interview Attempted",
+      "description": "A specialized officer conducts a private interview using a trauma-informed approach. The youth begins to disclose.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Investigation Escalated",
+      "description": "File is escalated to the human trafficking unit. Child welfare notification made. Youth is placed in secure, supportive care.",
+      "timeOffsetSec": 1200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Runaway Report — Prior History Noted",
+      "situation": "A mother reports her 15-year-old daughter, Kayla, missing for four days after an argument. She mentions Kayla has run away twice before. Your dispatch record confirms two prior unfounded runaway reports. The mother describes new changes: an unknown older boyfriend, new expensive clothing, a new cell phone Kayla won't explain, and three consecutive school absences. The mother says she just assumed Kayla was with friends again.",
+      "question": "How do you treat this report given the prior runaway history?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not dismiss this report because of prior runaway history — re-evaluate with fresh eyes; the combination of an unknown older male, unexplained new possessions, school absenteeism, and four days of unexplained absence are recognized trafficking exploitation indicators; classify as elevated risk and initiate an active investigation immediately.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Document as a repeat runaway with a low-risk classification, as Kayla has returned on her own before and there is no indication of foul play.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Advise the mother to contact Kayla's school and friends and call back only when she has more information to provide.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Digital Investigation — Hotel Location Identified",
+      "situation": "You have accessed Kayla's publicly visible social media. She posted a photo four days ago tagged at a downtown hotel. A reverse image search of a background detail identifies the hotel. A records check on the male in one of the photos reveals a 28-year-old with prior charges for living on the avails of prostitution (Criminal Code s.212, now s.286.2). He is known to the human trafficking unit. You have a confirmed location of interest and a suspect with a trafficking-relevant record.",
+      "question": "How do you proceed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately notify your supervisor and human trafficking unit; request that child welfare services (CFS/CAS) be notified; attend the hotel with a CFS worker and plain-clothes officers — do not attend in a manner likely to cause the suspect to flee; request a welfare check from hotel management under child welfare authority.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attend the hotel alone in uniform and knock on the room door to check on Kayla, as welfare takes priority over investigative considerations.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apply for a search warrant before taking any action at the hotel, which will take 24–48 hours, to ensure lawful entry.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Youth Located — Hostile and Non-Compliant",
+      "situation": "Officers and a CFS worker attend the hotel. The male suspect has left the room. Kayla is found alone in the room. She is physically unharmed but is aggressive and hostile: she says she came here voluntarily, she is 'fine,' and she yells that you have no right to be there. She refuses to go with the CFS worker or speak to police. She says her 'boyfriend' will be back soon. She is 15 years old — a child under Canadian law.",
+      "question": "How do you handle Kayla's hostility and refusal to cooperate?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Understand that hostility and refusal to acknowledge exploitation is a documented trauma response in trafficking victims — do not arrest or threaten; advise her calmly that her safety is the priority, that she is not in trouble, and that you need to speak with her privately; invoke child welfare authority to remove her from the environment; request a specialized victim/trafficking-trained interviewer for the formal disclosure interview.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept Kayla's statement that she is fine and voluntarily present, and clear the scene since she has not identified herself as a victim.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest Kayla for breach of curfew under provincial child welfare legislation to secure her cooperation and bring her to the station.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Kayla is placed in safe care by CFS. After several days with a trauma-informed support worker, she discloses that she was trafficked by the male suspect. The file is escalated to the human trafficking unit. The male suspect is arrested and charged under Criminal Code s.279.01 (Trafficking in Persons) and s.286.1 (Obtaining sexual services from a person under 18). Key training takeaways: prior runaway history must never be used to discount trafficking risk; recognized CCTT trafficking indicators include age-gap relationships, unexplained new possessions, school absence, hotel locations, and a known trafficker contact; victim hostility is a trauma response, not evidence of willing participation; mandatory child welfare reporting applies whenever a child is believed to be in need of protection; trauma-informed interviewing must be conducted by trained specialists.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
