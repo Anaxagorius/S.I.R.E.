@@ -1,0 +1,90 @@
+{
+  "title": "scenario_controversial_topic",
+  "description": "A teacher must handle student conflict that erupts during a lesson on a sensitive topic.",
+  "timeline": [
+    { "index": 0, "title": "Lesson Begins", "description": "Teacher introduces a sensitive curricular topic—race in history, evolution, or reproductive health.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Conflict Erupts", "description": "Two students clash sharply over the topic, and the argument becomes personal and heated.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Classroom Tension", "description": "Other students take sides; the room becomes unsafe for open dialogue.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "De-escalation", "description": "Teacher intervenes to restore calm and establish discussion norms.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Pedagogical Reframe", "description": "Teacher reframes the conflict as a learning opportunity with structured guidelines.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Students engage productively with the topic and the classroom climate is restored.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Conflict Erupts During Sensitive Lesson",
+      "situation": "You are leading a Grade 11 history class discussion on the legacy of residential schools. Marcus makes a comment that Jaylen finds deeply offensive—Jaylen responds loudly and angrily, pointing at Marcus and saying he's 'ignorant.' Other students are now talking over each other; some are laughing nervously. The discussion has derailed. You must act immediately.",
+      "question": "How do you de-escalate the conflict in the moment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Raise your hand to signal for quiet, use a calm and steady voice: 'Let's pause here. I'm going to ask everyone to take a breath—this is clearly important and I want us to engage with it safely.' Redirect without singling out either student: 'We have strong feelings in this room, and that means the topic matters. Let's use that energy carefully.'",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately send both Marcus and Jaylen to the office to remove the conflict from the room, and then continue the lesson with the rest of the class.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Take Marcus's side since his comment was not intended to be offensive and tell Jaylen that this is a historical discussion, not a personal attack.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Re-establishing a Safe Discussion Environment",
+      "situation": "You have temporarily de-escalated the room. The students are quieter but the tension is palpable. Several students are looking down or avoiding eye contact. You need to re-establish norms for discussing sensitive topics before the conversation continues. Without clear guidelines, the same conflict will resurface.",
+      "question": "How do you rebuild the discussion environment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pause instruction and collaboratively establish or revisit discussion agreements with the class: 'Assume good intent but acknowledge impact,' 'Speak from your own experience,' and 'Challenge ideas, not people.' Validate that discomfort is part of learning about injustice, then invite the class to re-engage with those ground rules visible.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Move on to a different, less controversial topic for the rest of the lesson to avoid further conflict.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell students that if they cannot handle this topic maturely, you will have to assign individual reading instead of having class discussions.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Following Up with Affected Students",
+      "situation": "The lesson ended more productively than it started. However, Jaylen was visibly upset for the rest of class and left quickly when the bell rang. Marcus seemed unaware of how his words landed. Both students need a follow-up conversation—Jaylen to feel supported and heard, Marcus to understand the impact of his words. You also need to decide whether the curriculum content needs a content advisory next time.",
+      "question": "How do you follow up with the two students involved?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check in privately with Jaylen after class to acknowledge his experience and offer counselor support if needed. Have a separate private conversation with Marcus, without assigning blame, to explore what he meant and the impact his words had. Document both conversations. Revise your lesson plan to include content advisory and pre-teaching of key terms.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Let both students process the experience on their own—they are in high school and need to learn to handle difficult conversations themselves.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Bring both students together for a joint conversation and ask them to resolve the conflict between themselves while you mediate publicly.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You managed a highly charged classroom conflict during a sensitive lesson with skill and equity. You de-escalated without assigning blame, co-established discussion norms that protected all students, allowed the class to re-engage productively with the material, and followed up individually with both affected students. Your reflective revision of the lesson plan ensures future students are better prepared. Teaching controversial topics responsibly requires exactly this kind of preparation, presence, and follow-through.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Advanced",
+  "tags": ["controversial topics", "classroom conflict", "de-escalation", "discussion norms", "culturally responsive", "sensitive content", "historical injustice"]
+}

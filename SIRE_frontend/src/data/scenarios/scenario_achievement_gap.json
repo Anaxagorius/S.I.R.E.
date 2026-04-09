@@ -1,0 +1,90 @@
+{
+  "title": "scenario_achievement_gap",
+  "description": "A teacher must differentiate instruction across a wide range of student performance levels.",
+  "timeline": [
+    { "index": 0, "title": "Gap Identified", "description": "Assessment data reveals a wide performance spread across the class.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Lesson Planning", "description": "Teacher must adapt the upcoming unit to address multiple levels.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Instruction Begins", "description": "Differentiated instruction strategies are put into practice.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Student Grouping", "description": "Students are grouped strategically; advanced students show frustration.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Progress Check", "description": "Mid-unit formative assessment reveals who is still struggling.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "All students are appropriately challenged; support systems are activated.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Wide Range of Performance Levels",
+      "situation": "You have just reviewed the diagnostic assessment results for your Grade 5 literacy class. Six students are reading two or more grade levels below benchmark, ten are at grade level, and four are reading significantly above grade level. You have one lesson period to begin the new narrative writing unit. Your current lesson plan is designed for the grade-level students.",
+      "question": "How do you approach lesson planning for this unit?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Redesign the unit with tiered activities: provide scaffolded sentence frames and graphic organizers for struggling students, grade-level tasks for on-level students, and extension writing challenges for advanced students—all working toward the same learning objective.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Teach to the middle and assume that struggling students will catch up through exposure to grade-level content over time.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Separate below-level students into a different activity corner and give them worksheets while you teach the majority of the class.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Delivering Differentiated Instruction",
+      "situation": "You have planned tiered activities and launched the unit. The below-level students are using graphic organizers and the above-level students have extension tasks. However, mid-lesson you notice that three of your advanced students are finished and visibly bored, and two of your struggling students have stopped working and appear confused despite the scaffolds. You cannot address everyone at once.",
+      "question": "How do you manage both groups simultaneously?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use a structured peer learning model: pair each advanced student as a 'writing coach' with a struggling peer using a defined role card, while you circulate to the other struggling students. This supports both groups and builds classroom community.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the advanced students to re-do the same task more neatly and give the struggling students the same worksheet a second time hoping repetition helps.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Focus all your attention on the struggling students and tell the advanced students to sit quietly until the others have caught up.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Formative Assessment and Adjusting",
+      "situation": "After implementing differentiated instruction and peer learning, you administer a mid-unit formative check. Results show that two students are still not making adequate progress despite scaffolding. These students may have unidentified learning needs. Your school has a Student Support Team (SST) that reviews cases and recommends intervention.",
+      "question": "What is the appropriate next step for persistently struggling students?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the specific patterns of difficulty observed, compile the assessment data, and refer these two students to the Student Support Team. Continue differentiated instruction in the meantime and communicate your concerns to the students' parents.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Lower the expectations for these two students so they can pass the unit without further support.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Hold these students in at recess each day to reteach the material individually without involving support services.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You responded to a wide achievement gap with thoughtful differentiated instruction: tiered tasks tied to a shared objective, strategic peer learning structures, and a timely referral to the Student Support Team for students who needed additional investigation. Every student received an appropriate level of challenge and the classroom culture was strengthened through collaborative learning. Your data-driven approach ensures equity in the classroom.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["differentiated instruction", "achievement gap", "tiered activities", "formative assessment", "peer learning", "student support team"]
+}

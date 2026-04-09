@@ -1,0 +1,90 @@
+{
+  "title": "scenario_physical_student_conflict",
+  "description": "An argument between two students turns physical in the classroom.",
+  "timeline": [
+    { "index": 0, "title": "Argument Begins", "description": "Two students begin a heated verbal exchange in the classroom.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Escalation", "description": "The argument intensifies rapidly and physical contact occurs.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Physical Intervention", "description": "Teacher must ensure safety of all students in the room.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Scene Secured", "description": "Students are separated and other students are moved to safety.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Administration Notified", "description": "Administration and, if necessary, emergency services are called.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Both students are in administrative care; incident is documented.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Verbal Argument Turns Physical",
+      "situation": "During an independent work period in your Grade 10 class, a heated argument erupts between Dario and Kyle over a personal matter. Within seconds, Dario shoves Kyle against a desk and Kyle throws a punch. Students around them scatter. Several students are screaming and blocking the exits. You must act immediately.",
+      "question": "What is your immediate priority?",
+      "options": [
+        {
+          "label": "A",
+          "text": "In a loud, authoritative voice, direct all other students to move to the far wall or hallway immediately: 'Everyone move to the wall—now!' Use your voice to verbally command Dario and Kyle to stop. Do not physically step between actively swinging students. Activate your emergency call button or send a student to get help.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Step directly between the two students and try to physically separate them with your body to stop the fight as quickly as possible.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait to see if the fight stops on its own before getting involved—intervening too early may escalate things.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Securing the Scene and Calling for Help",
+      "situation": "The fight has briefly paused. Dario and Kyle are still facing each other with clenched fists. Other students have moved back but are still in the room. You have activated your classroom emergency alert. Administration has not yet arrived. You need to keep the combatants separated and get the rest of the class to safety in the next 60 seconds.",
+      "question": "How do you manage the room while waiting for administration?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calmly but firmly direct the rest of the class to leave the room and wait in the hallway. Maintain verbal commands to Dario and Kyle to stay back from each other. Keep a barrier between them if possible using furniture. Do not leave the room yourself until administration arrives.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Allow all students including the fighters to leave through the hallway together since administration will sort it out.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Lock the classroom door to contain the situation and prevent either student from leaving until they have calmed down.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Incident Documentation and Support",
+      "situation": "Administration has arrived and taken over the scene. Both students have been separated and escorted to the office. Your remaining students are in the hallway. You are shaken. You need to check on any students who may have been injured as bystanders, return remaining students to learning safely, and complete a detailed incident report. Several students are visibly distressed.",
+      "question": "How do you handle the aftermath with your class and documentation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check briefly with students for any injuries and report anything immediately to the school nurse or administration. Bring students back to class with acknowledgment: 'I know that was scary—let's take a few minutes to settle.' Complete your incident report with an objective, factual account of everything you observed. Follow up with the counselor for any students showing distress.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell students to forget it happened and immediately resume the academic lesson to restore normalcy as fast as possible.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Discuss with students in detail what you think led to the fight to process the event as a class before writing any documentation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You managed a physical student altercation correctly: you prioritized the safety of bystanders first, used authoritative verbal commands rather than dangerous physical intervention, evacuated other students, maintained separation using verbal barriers, activated emergency assistance promptly, and addressed the emotional aftermath with compassion and documentation. Your training and composure under extreme pressure protected all students in the room.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Advanced",
+  "tags": ["physical altercation", "student fight", "classroom safety", "emergency response", "de-escalation", "incident report", "student wellbeing"]
+}

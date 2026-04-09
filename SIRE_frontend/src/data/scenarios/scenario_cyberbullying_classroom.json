@@ -1,0 +1,90 @@
+{
+  "title": "scenario_cyberbullying_classroom",
+  "description": "Cyberbullying is discovered to be affecting in-class dynamics and student wellbeing.",
+  "timeline": [
+    { "index": 0, "title": "In-Class Tension", "description": "Unusual tension is observed between students with no clear in-class cause.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Source Identified", "description": "A student reports that cyberbullying from a class group chat is affecting the classroom.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Victim Supported", "description": "Teacher checks in with the targeted student and assesses the severity.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Investigation Initiated", "description": "Administration is looped in and an investigation begins.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Classroom Culture Response", "description": "Teacher addresses the broader classroom climate without exposing the victim.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Cyberbullying is addressed through formal process; classroom climate improves.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Classroom Tension Without Obvious Cause",
+      "situation": "You notice that over the past three days, your Grade 8 class has been unusually tense. A group of students are avoiding one student, Nadia, and laughing at inside jokes she is not part of. Nadia seems withdrawn and has been frequently excusing herself to the washroom. A student, James, quietly tells you after class that there is a group chat where students have been posting mocking edits of Nadia's photos.",
+      "question": "How do you respond to James's report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Thank James for his courage in reporting it. Ask him to share only what he is comfortable sharing about the content. Assure him you will not reveal his identity. Tell him you will look into it and take steps to keep Nadia safe. Then plan to check in with Nadia privately.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell James this is a social media issue that happened outside of school and is not your responsibility as a classroom teacher.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask James to show you the group chat immediately so you can see it on his phone in front of other students in the hallway.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Supporting the Targeted Student",
+      "situation": "You check in with Nadia privately. She breaks down and confirms she has seen the mocking posts and has been receiving direct messages calling her names. She has not told her parents. She says she feels unsafe coming to school and has been thinking about staying home. You assess she is distressed but not in immediate danger. This is clearly severe cyberbullying.",
+      "question": "How do you support Nadia in this moment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Listen without judgment, validate that what is happening is wrong and not her fault. Tell Nadia you must report this to administration to keep her safe, and that you will support her through the process. Ask if she would like to speak with the counselor today. Advise her to screenshot evidence and not delete messages.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Nadia to block the students online and avoid looking at the group chat—these situations usually blow over on their own.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call Nadia's parents immediately during your conversation with her before she has consented or been prepared for that step.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Formal Reporting and Classroom Response",
+      "situation": "You have reported the cyberbullying to administration, who will now investigate and contact the involved students' parents. Nadia is connected to the counselor. However, the classroom dynamic is still toxic—students are aware something is happening but the issue has not been addressed as a community. You want to address the classroom climate without exposing Nadia or prejudging outcomes.",
+      "question": "How do you address the broader classroom culture?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Facilitate a classroom conversation about digital citizenship and online kindness without referencing Nadia or the specific incident. Use a structured activity on how online behavior affects real-world relationships and what bystander responsibility looks like. This shifts the culture without breaching confidentiality.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the class that what happened in the group chat was unacceptable and that the students involved will be punished—do not say Nadia's name but make it obvious the lesson is about her.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do nothing to the class as a whole and wait for administration to handle everything—the classroom is not the place for this conversation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You navigated a complex cyberbullying situation with sensitivity and professionalism. You protected your reporting student's identity, responded to the targeted student with compassion and actionable next steps, followed formal reporting procedures, and addressed the classroom climate proactively without exposing the victim. Your understanding that cyberbullying affecting school relationships falls within your professional responsibility—even when it happens off-campus—was correct and essential.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["cyberbullying", "digital citizenship", "student safety", "online harassment", "reporting", "classroom climate", "confidentiality"]
+}

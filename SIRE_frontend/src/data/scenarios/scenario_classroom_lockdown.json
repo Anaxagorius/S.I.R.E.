@@ -1,0 +1,90 @@
+{
+  "title": "scenario_classroom_lockdown",
+  "description": "An active threat alert initiates lockdown procedures while class is in session.",
+  "timeline": [
+    { "index": 0, "title": "Alert Received", "description": "The school PA announces a lockdown while class is in session.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Immediate Lockdown", "description": "Teacher initiates lockdown procedures immediately.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Securing the Room", "description": "Classroom is secured; students are accounted for and positioned safely.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Maintaining Calm", "description": "Teacher manages student panic and maintains order during the lockdown.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "All-Clear Communication", "description": "Teacher receives and verifies the all-clear before releasing students.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Lockdown ends; students are debriefed and supported.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Lockdown Alert During Class",
+      "situation": "You are mid-lesson with 28 Grade 11 students when the PA announces: 'Lockdown. This is not a drill. All staff and students are to follow lockdown procedures immediately.' Two students were in the hallway to use the washroom. The classroom door is currently unlocked. Students are panicking, asking questions, and several are reaching for their phones.",
+      "question": "What are your immediate first actions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Immediately lock and barricade the door. Quickly check the hallway for your two missing students and pull them inside if they are immediately visible and safe—do not search beyond the doorway. Move all students away from windows and doors to the safest interior corner. Turn off the lights.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Prop the door open so your two missing students can get back in, then focus on calming the class while waiting for more information.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Go into the hallway to find your two missing students before securing the classroom, leaving the class unattended.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Maintaining Order and Safety",
+      "situation": "The room is locked and darkened. Students are huddled at the far wall. Several are visibly terrified and some are texting their parents. One student is crying loudly, which risks drawing attention. Another student wants to call 911 on their phone. You have 26 of your 28 students. Two remain unaccounted for. You need to manage the group and communicate appropriately.",
+      "question": "How do you manage the class during the lockdown?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Whisper firmly and calmly: 'Everyone needs to be as quiet as possible. I need you to stay here and stay low. Please silence your phones.' Take attendance silently on paper. Send a quiet text to administration reporting your location, student count, and the two missing students. Do not use the PA or make loud noise.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Turn the lights back on and use the classroom PA intercom to ask administration for an update on the missing students.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Allow students to call their parents to keep them calm—keeping morale up is more important than silence during a lockdown.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Receiving the All-Clear",
+      "situation": "After 25 minutes, the PA announces: 'All-clear. The lockdown has been lifted. Students and staff may resume normal activities.' However, you also hear a knock at the door and someone saying 'it's okay, you can come out.' You cannot see who is at the door. Your lockdown training specifies that you should verify the all-clear through official school communication, not just a voice at the door.",
+      "question": "How do you respond to the all-clear?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not open the door based solely on the knock and voice. Wait to receive official confirmation from administration via text, email, or the pre-arranged code word. Once verified, calmly open the door and follow administrator instructions for reunification or next steps.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Open the door immediately since the PA announced all-clear—the knock confirms it is safe.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the all-clear announcement and keep the door locked for an extra hour until you personally see police leave the building.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You executed lockdown procedures correctly under extreme stress: you immediately secured the room, accounted for students, moved everyone to a safe position, managed the group silently while communicating key information to administration, and correctly waited for verified official communication before opening the door. Your composure and training protected 26 students. The two missing students were confirmed safe in another secured classroom. Post-lockdown, you provided your class with space to decompress and connected distressed students with counseling support.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Advanced",
+  "tags": ["lockdown", "active threat", "emergency procedures", "school safety", "crisis management", "student safety", "first responder"]
+}

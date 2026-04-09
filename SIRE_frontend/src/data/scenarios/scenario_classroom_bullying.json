@@ -1,0 +1,90 @@
+{
+  "title": "scenario_classroom_bullying",
+  "description": "Persistent bullying is observed in a classroom setting and must be addressed.",
+  "timeline": [
+    { "index": 0, "title": "Bullying Observed", "description": "Teacher witnesses repeated targeted behavior directed at one student by another.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Pattern Confirmed", "description": "The teacher confirms this is not a one-time conflict but a pattern over multiple days.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Victim Check-In", "description": "Teacher checks in privately with the targeted student.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Perpetrator Addressed", "description": "Teacher addresses the student responsible for bullying.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Administration and Parents Notified", "description": "Administration is informed and parents of both students are contacted.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "A safety plan is in place; monitoring continues.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Bullying Observed in the Classroom",
+      "situation": "Over the past week, you have noticed that every time Sam answers a question in class, a group of students led by Derek snickers, whispers, and rolls their eyes. Today Derek loudly mimics Sam's voice when Sam answers a question, causing several students to laugh. Sam immediately looks down and goes silent. This has happened at least five times in the past week.",
+      "question": "How do you respond immediately in the classroom?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Without naming Derek, address the whole class firmly: 'That behavior is not acceptable here—everyone in this room deserves to participate without being mocked.' Then check in with Sam privately at the earliest opportunity and document what you witnessed.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Laugh it off to avoid embarrassing Derek, then privately tell Sam after class not to let it bother them.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call Derek out by name in front of the class and tell him he is a bully and will face consequences if he does it again.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Private Check-In with the Targeted Student",
+      "situation": "After class, you pull Sam aside privately. Sam admits this has been happening since the start of the month and says they have been avoiding raising their hand in all classes because of it. Sam asks you not to do anything because they are afraid it will get worse. Sam also mentions that Derek has sent mean messages through a class group chat outside of school.",
+      "question": "How do you respond to Sam's disclosure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Thank Sam for trusting you, validate their fear, and explain that as a teacher you have a duty to act—but you will do so carefully and confidentially. Ask Sam about the group chat messages and note this as possible cyberbullying. Reassure Sam that your goal is their safety, not retaliation.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Respect Sam's request and take no action—Sam has the right to decide whether to report, and you should not intervene without their consent.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately call Derek into the room and confront him in front of Sam about the mocking and the group chat.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Reporting and Formal Action",
+      "situation": "You have documented five observed incidents and Sam's verbal disclosure. School policy requires you to report all confirmed or suspected bullying to administration. This will trigger a formal investigation that includes notifying both sets of parents and potentially a restorative process or disciplinary action for Derek. You need to submit a formal incident report.",
+      "question": "How do you proceed with formal reporting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Submit a complete incident report to administration with your five documented observations and Sam's disclosure (keeping the chat details). Inform the administrator that Sam expressed concern about retaliation, so handling must be carefully managed. Follow your school's anti-bullying protocol from this point.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Handle it yourself by giving Derek a private warning and moving his seat, without involving administration or notifying parents.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Post a general anti-bullying reminder in the class newsletter without filing a formal report, hoping the situation resolves on its own.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You responded to classroom bullying with the correct sequence: immediate de-escalation in a way that protected both students' dignity, a private and compassionate check-in with the targeted student, careful documentation, and timely formal reporting per school policy. You understood that despite Sam's request for inaction, your duty to protect student safety supersedes that request. Your professional response created a clear record and triggered the supports that can genuinely address the harm.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["bullying", "student safety", "incident reporting", "anti-bullying policy", "documentation", "victim support", "classroom climate"]
+}

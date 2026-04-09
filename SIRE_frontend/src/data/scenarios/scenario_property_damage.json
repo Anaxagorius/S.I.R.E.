@@ -1,0 +1,90 @@
+{
+  "title": "scenario_property_damage",
+  "description": "A student intentionally damages classroom equipment or property.",
+  "timeline": [
+    { "index": 0, "title": "Damage Occurs", "description": "A student intentionally damages a classroom device or piece of equipment.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Immediate Response", "description": "Teacher secures the scene and addresses the immediate situation.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Student Confronted", "description": "Teacher addresses the responsible student calmly and directly.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Administration Notified", "description": "Administrator is informed and a formal process is initiated.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Parental Contact", "description": "Parents are notified and consequences are determined.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Consequences are applied; repair or replacement is arranged.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Student Destroys Classroom Property",
+      "situation": "During a heated moment after receiving a low grade, you watch Marcus deliberately push a Chromebook off the desk, cracking the screen. He then crosses his arms and sits back in his chair. The class goes silent. Other students are watching to see how you respond. The device is clearly damaged. Marcus is agitated but not verbally threatening.",
+      "question": "How do you respond immediately?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remain calm and do not match Marcus's energy. Address the class briefly: 'Please continue your work.' Then approach Marcus quietly and say: 'I need you to take a moment to collect yourself—step into the hallway, please.' Remove him from the audience and secure the damaged device.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately yell at Marcus in front of the class, telling him he is going to pay for the Chromebook and is getting expelled.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Do nothing right away to avoid a confrontation and address it privately after class with no formal reporting.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Addressing Marcus in the Hallway",
+      "situation": "In the hallway, Marcus is calmer. He says he 'snapped' because he feels the grading is unfair. While you understand frustration, the intentional destruction of property is a serious matter. You need to have a brief conversation, document what happened, and refer this to administration—this is not something you can handle alone at the classroom level.",
+      "question": "How do you address Marcus in the hallway?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge his frustration without endorsing his behavior: 'I hear you—grades can feel really frustrating, and I want to address that with you. But what just happened with the Chromebook is serious and I have to report it. I'm going to walk you to the office now.' Keep the conversation brief and non-confrontational.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Accept Marcus's explanation that he 'just snapped,' tell him you understand, and let him return to class after a five-minute cool-down without reporting the incident.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call Marcus's parents in front of him in the hallway and demand they come to the school immediately to address the situation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Administrative Referral and Documentation",
+      "situation": "You have brought Marcus to the office. The administrator is now handling the disciplinary process, which will involve parent notification and potentially a repair or replacement consequence. You return to your class. You need to document the incident thoroughly: time, what you observed, the sequence of events, and what was said in the hallway. This documentation protects you, the school, and ensures fair process.",
+      "question": "How do you complete your documentation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Write a factual, timestamped incident report describing exactly what you observed—Marcus's action, the context (receiving a low grade), the hallway conversation, and the damaged device. Submit it to administration before end of day. Photograph the damaged device as evidence.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Send a brief verbal summary to the administrator and consider the paperwork optional since you were an eyewitness and don't need to write it down.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Include your opinion that Marcus is a 'problem student' with a history of poor attitudes in the written report.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You handled the property damage incident professionally: you de-escalated without public confrontation, removed Marcus from the audience, acknowledged his frustration while making clear the behavior was unacceptable, walked him to administration without delay, and completed thorough factual documentation. You correctly understood this exceeded classroom-level discipline and required formal administrative involvement and parent notification. Your steady, professional response protected all students and maintained institutional accountability.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["property damage", "classroom discipline", "incident report", "administration referral", "de-escalation", "documentation", "student behavior"]
+}
