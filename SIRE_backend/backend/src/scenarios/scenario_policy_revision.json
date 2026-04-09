@@ -1,0 +1,164 @@
+{
+  "title": "scenario_policy_revision",
+  "description": "After a court ruling excluded drug evidence because officers followed an outdated vehicle search policy conflicting with R v Nolet [2010] SCC 24, the sergeant must lead a policy revision process including legal consultation, drafting, approval, and training implementation.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["policy revision", "R v Nolet", "vehicle search", "SCC", "legal consultation", "drug evidence exclusion", "training implementation", "judicial exclusion"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Evidence Excluded by Court",
+      "description": "A Court of Queen's Bench ruling excludes drug evidence because officers followed an outdated departmental vehicle search policy that conflicted with R v Nolet [2010] SCC 24.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "Sergeant Reviews Judgment",
+      "description": "The sergeant reviews the court's full written reasons to extract actionable lessons about the policy deficiency.",
+      "timeOffsetSec": 86400
+    },
+    {
+      "index": 2,
+      "title": "Legal Consultation Initiated",
+      "description": "The sergeant consults with Crown counsel and the department's legal advisor to begin the policy revision process.",
+      "timeOffsetSec": 172800
+    },
+    {
+      "index": 3,
+      "title": "Policy Draft Circulated",
+      "description": "A revised vehicle search policy draft is circulated for stakeholder review and comment.",
+      "timeOffsetSec": 432000
+    },
+    {
+      "index": 4,
+      "title": "Approval Process Initiated",
+      "description": "The revised policy undergoes the required approval process before implementation.",
+      "timeOffsetSec": 604800
+    },
+    {
+      "index": 5,
+      "title": "Training Rollout Begins",
+      "description": "The approved revised policy is communicated to all officers through a mandatory training rollout.",
+      "timeOffsetSec": 864000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Analyzing the Court's Findings",
+      "situation": "The Court of Queen's Bench has issued written reasons excluding 1.8 kg of methamphetamine found during a vehicle search. The judge found that the officers conducted an inventory search under the old departmental policy when conducting an investigative vehicle search, conflating the two. R v Nolet [2010] SCC 24 holds that a warrantless vehicle search justified on reasonable grounds to believe the vehicle contains contraband is a search incident to detention/arrest with Charter implications — it cannot be justified as an administrative inventory search. You are the sergeant responsible for leading the policy revision. How do you extract actionable lessons from the judgment?",
+      "question": "How do you extract actionable lessons from a judicial exclusion ruling for policy revision purposes?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Read the full written reasons with a structured analytical framework: (1) identify the specific Charter right the court found was violated — in this case s.8 (unreasonable search and seizure); (2) identify the factual conduct that the court found objectionable — officers invoking an administrative inventory search policy to justify a search they were conducting on the basis of reasonable grounds to believe contraband was present; (3) identify the specific policy provision the officers relied upon and the way they applied it; (4) locate the gap between what R v Nolet [2010] SCC 24 requires (reasonable grounds to believe for investigative vehicle search; no administrative justification) and what the old policy permitted (inventory search as a basis for vehicle searches generally); (5) note any obiter dicta or judicial observations about what a lawful policy would look like; (6) document your analysis in a policy issue memorandum that separates (a) the constitutional rule, (b) the old policy's deficiency, and (c) what the revised policy must accomplish. This analysis forms the foundation of every subsequent step in the revision process.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Read the judgment summary paragraph only — the specific legal reasoning is complex and should be left to Crown counsel; your role is to identify that the policy was wrong and initiate a revision.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The court's finding is an anomaly specific to the facts of this case — review the old policy and determine whether it needs clarification rather than revision, since the officers simply misapplied a valid policy.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Legal Consultation and Authority Review",
+      "situation": "Your policy issue memorandum identifies that the old policy conflated administrative inventory searches with investigative vehicle searches and provided no clear constitutional threshold for the latter. You need to consult the right authorities before drafting a revised policy. Who must be consulted and what must the consultation accomplish?",
+      "question": "Who must be consulted when revising a vehicle search policy following a judicial exclusion ruling?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The following consultations are required: (1) Crown counsel — the Crown Attorney's office should review the judgment and advise on the constitutional requirements for investigative vehicle searches post-Nolet, including the threshold for reasonable grounds and the circumstances under which ancillary authority (e.g., common law search incident to investigative detention) is available; (2) departmental legal counsel or the police service's solicitor — to advise on legal liability exposure from the current gap and to review draft policy language for constitutional compliance; (3) Charter specialist or senior Crown advisor — for complex constitutional provisions (e.g., the interplay between Nolet, R v Caslake [1998] 1 SCR 51 on search incident to arrest, and R v Mann [2004] 3 SCR 59 on investigative detention) to ensure the policy reflects the full current state of the law; (4) front-line supervisors — to ensure the revised policy is operationally workable and reflects how vehicle searches actually occur in the field; (5) police association representative — to address any officer safety or fairness implications of the revised policy. Document each consultation with a summary of advice received.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Consult only with the divisional commander — they have final authority on policy and any legal questions can be addressed if a revised policy is challenged in court in a future case.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Read R v Nolet and draft the policy yourself — external legal consultation is unnecessary and time-consuming for a sergeant with operational experience in vehicle searches.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Drafting the Policy Revision",
+      "situation": "Legal consultation is complete. Crown counsel advises that R v Nolet [2010] SCC 24 permits a warrantless investigative vehicle search when officers have reasonable grounds to believe the vehicle contains contraband — this is higher than reasonable suspicion and lower than balance of probabilities. The search must be based on articulable facts specific to the vehicle and situation. Administrative inventory searches are a distinct category governed by different criteria. What must the revised vehicle search policy include to comply with R v Nolet?",
+      "question": "What must a revised vehicle search policy include to comply with R v Nolet [2010] SCC 24?",
+      "options": [
+        {
+          "label": "A",
+          "text": "The revised vehicle search policy must: (1) distinguish clearly between three types of vehicle searches — (a) search incident to arrest (Caslake — contemporaneous, related to the offence of arrest); (b) investigative vehicle search under Nolet (reasonable grounds to believe contraband present, based on articulable facts); (c) administrative inventory search (lawful impoundment, standardized inventory procedure, not used for investigative purposes); (2) specify that an investigative vehicle search requires the officer to document the specific articulable facts supporting reasonable grounds to believe before the search — generic suspicion is insufficient; (3) prohibit using an administrative inventory search policy as a legal basis for a search where investigative intent exists — this was the constitutional defect in the previous policy; (4) require documentation in the officer's notes before or contemporaneously with the search identifying: the type of search, the legal basis, and the specific grounds; (5) require supervisory notification for any vehicle search that yields evidence used in a prosecution; (6) cross-reference R v Nolet [2010] SCC 24 and include a plain-language summary of its ratio in the policy itself for officer reference.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "The revised policy only needs to add a note that inventory searches cannot be used for drug investigations — the rest of the old policy framework is constitutionally sound and can remain unchanged.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The revised policy should require officers to obtain a warrant for all vehicle searches to ensure constitutional compliance — warrantless vehicle searches should no longer be authorized departmentally.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Stakeholder Review and Approval",
+      "situation": "You have drafted a revised vehicle search policy in consultation with Crown counsel. The draft distinguishes the three search types, sets out the Nolet reasonable grounds threshold with documentation requirements, and prohibits conflating inventory and investigative search authority. The draft must now go through the approval process. What approval process must a policy revision undergo before it can be implemented?",
+      "question": "What approval process must a policy revision undergo before implementation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "A substantive policy revision affecting constitutional rights and evidence admissibility must follow the department's full policy governance process: (1) internal review by the Policy and Standards unit or equivalent — to ensure the draft is consistent with other departmental policies and formatting standards; (2) legal review by departmental counsel — a final constitutional compliance check before the draft is finalized; (3) front-line supervisor and union/association review — circulate for operational comment with a defined comment period (e.g., 14 days); (4) training unit review — to assess whether the policy change requires new training materials and to identify required roll-out resources; (5) divisional command approval — the commander with policy authority must sign off on the final draft; (6) Police Services Board approval if required by the applicable provincial Police Act for policies affecting officer powers; (7) once approved, assign an effective date and a policy review date (typically 12-24 months) to ensure the policy remains current with evolving case law. Document every approval step with date, approver, and any conditions imposed.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "The divisional commander's signature is sufficient to approve and implement the revised policy — secondary reviews by legal counsel and the police board are optional and can be completed after implementation begins.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Issue the revised policy immediately as an interim operational directive before the full approval process to prevent further Charter violations in the field — the approval process can be completed retroactively.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Training Implementation",
+      "situation": "The revised vehicle search policy has been approved. The training unit estimates that 340 officers will need to be trained on the revised policy before it takes effect. Officers work rotating shifts across multiple detachments. The policy must be understood, not just distributed. What training implementation strategy ensures the revised policy reaches all officers effectively?",
+      "question": "How do you ensure the revised vehicle search policy reaches all 340 officers effectively?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Implement a multi-modal training strategy: (1) develop a standalone module — a 60-90 minute module covering the constitutional error identified in court, the ratio of R v Nolet, the three vehicle search types, and the new documentation requirements — this can be delivered online (LMS) or in-person at shift briefings; (2) create a policy reference card (laminated or digital) summarizing the three search types and the Nolet reasonable grounds threshold — officers can carry it on duty; (3) require completion within a defined rollout window (e.g., 30 days before policy effective date) and track completion in the training management system; (4) include a short knowledge check or scenario-based quiz at the end of training to confirm comprehension — not just completion; (5) brief shift supervisors first so they can reinforce the policy on patrol; (6) schedule a legal update briefing at each detachment led by Crown counsel where feasible; (7) document each officer's completion date in the training system — this is critical if a future Charter application raises a question about whether the officer was trained on the revised policy; (8) set a mandatory refresher date in the training calendar (12 months after initial rollout).",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Email the approved policy to all officers and require a read receipt — documented receipt of the policy is sufficient to establish that officers were aware of the revised search requirements.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Post the revised policy on the departmental intranet and add it to the next annual training day — there is no urgency since vehicle searches are uncommon enough that officers can consult the policy when needed.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The revised vehicle search policy was approved and implemented with a 30-day training rollout. All 340 officers completed the mandatory training module with a scenario-based knowledge check. Crown counsel participated in detachment briefings. The policy reference card was distributed and a 12-month mandatory refresher was scheduled. In the two years following implementation, no drug evidence was excluded due to vehicle search policy issues. Key training takeaways: A judicial exclusion ruling is the most authoritative signal that a policy is constitutionally deficient — read the full reasons analytically; legal consultation must include Crown counsel, departmental legal counsel, and front-line supervisors; R v Nolet [2010] SCC 24 requires articulable reasonable grounds to believe contraband is present for an investigative vehicle search — administrative inventory authority cannot substitute; policy revisions require full governance approval before implementation; training must be documented, comprehension-tested, and tracked — read receipts alone are insufficient.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
