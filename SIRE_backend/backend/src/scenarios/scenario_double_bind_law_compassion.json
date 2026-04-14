@@ -1,0 +1,150 @@
+{
+  "title": "scenario_double_bind_law_compassion",
+  "description": "An officer faces a genuine ethical double-bind: strict application of the law will cause measurable harm to an innocent third party, while compassionate deviation from policy is outside the officer's authority. Tests ethical reasoning, the limits of discretion, and how to seek appropriate authorisation when facing irresolvable field-level conflicts.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "ethics",
+    "double bind",
+    "law vs compassion",
+    "officer discretion",
+    "moral injury",
+    "vulnerable person",
+    "supervisor escalation",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Child Welfare Call",
+      "description": "Officer responds to a report of a young child left alone in an apartment.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Discovery",
+      "description": "Officer finds a 7-year-old child home alone. The child is safe. The mother is located at work — she left the child alone due to a childcare breakdown.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "The Dilemma",
+      "description": "Child welfare legislation may require reporting. An apprehension could separate the child from her only parent. But leaving without action may expose the child to future risk.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 3,
+      "title": "Mother Arrives",
+      "description": "The mother arrives — she is distressed and explains her situation. She has no family support and lost her daycare suddenly.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Officer Must Decide",
+      "description": "Officer must decide how to proceed — formal apprehension, referral, or discretionary resolution — and justify the decision.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 5,
+      "title": "Resolution",
+      "description": "Officer makes a decision and documents the outcome.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Child Alone — Initial Discovery",
+      "situation": "You have responded to a report of a young child left alone. You find a 7-year-old girl in a third-floor apartment. She is calm, fed, and not in immediate danger. She says 'Mommy is at work — she told me to stay inside.' The apartment is clean and there is food in the kitchen. There is no sign of neglect. The child is not distressed. The mother works at a grocery store two blocks away.",
+      "question": "What is your immediate obligation and how do you assess the situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your immediate obligation is the child's safety — she is currently safe and not in immediate danger. Before escalating to child welfare processes, gather relevant facts: (1) How long has the child been alone? Is this a one-time occurrence or a pattern? (2) Is there an immediate childcare option (a neighbour, family friend) who can attend while you locate the mother? (3) Contact the mother immediately — she may be unaware of the complaint or has made informal safety arrangements; (4) Assess the child directly — is she distressed, has she been left without basic needs, or is this a momentary gap in supervision? The duty to report under child welfare legislation is context-dependent — the threshold is risk of harm, not momentary absence. Gather facts before activating formal processes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact child welfare services immediately and have them attend — any child left alone triggers a mandatory apprehension.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Leave the child where she is and call the mother to come home — the child is safe and no further action is required.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "The Double Bind",
+      "situation": "The mother has arrived. She is a single parent with no family in the country and no support network. She explains that her daycare provider closed suddenly without notice this morning. She had no option but to go to work — she would have lost her job on a final warning. The child was left with food, a phone, and clear instructions. This has never happened before. You know that filing a formal child welfare report may trigger an investigation that could separate the child from her mother — a caring and resourceful parent in crisis. But not reporting leaves a documentation gap if something goes wrong in the future.",
+      "question": "How do you reason through this ethical double-bind?",
+      "options": [
+        {
+          "label": "A",
+          "text": "This is a genuine double-bind with real costs on both paths. The correct approach is not to make the decision unilaterally at the field level. Escalate to your supervisor and contact child welfare for a consultation (not necessarily a formal report): (1) Explain the specific circumstances to your supervisor and ask for guidance; (2) Many provinces have a 'voluntary support pathway' through child welfare — a consultation referral that connects the family with emergency childcare supports without triggering an investigation, if the child is not at immediate risk; (3) Document everything you observed — the apartment's condition, the child's wellbeing, the mother's circumstances, and your assessment of risk level; (4) Connect the mother with emergency social supports (emergency childcare subsidies, community services) as part of the resolution. The goal is the child's long-term safety, not technical compliance that creates harm.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "File a formal child welfare report — you are a law enforcement officer, not a social worker, and any risk to a child requires formal reporting regardless of circumstances.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Take no action and file no report — the family's poverty and circumstances make formal intervention unjust, and you have discretion not to report.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Supervisor Guidance and Resolution",
+      "situation": "Your supervisor has been consulted. Child welfare has confirmed that a 'voluntary support referral' is appropriate in these circumstances — the child is safe, the parent is cooperative, and this appears to be an acute situational crisis rather than a chronic neglect pattern. Your supervisor confirms this is the appropriate path. The mother has accepted the referral. She has been connected with an emergency daycare resource for tomorrow. You must document the encounter.",
+      "question": "How do you document this incident given the nuanced resolution?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document thoroughly and accurately: the initial report received, the child's condition and assessment, the apartment's condition and any relevant observations, the mother's account and circumstances, the supervisor consultation and their direction, the child welfare consultation and their recommendation, the referral pathway used, and the mother's acceptance of support. Your documentation must be factually complete — if this family is encountered again, the next officer needs to understand what occurred and why the resolution chosen was appropriate in context. A thorough record of a carefully reasoned discretionary decision is far stronger than a minimal record that raises more questions than it answers.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Write a minimal report noting only that the child was found safe and the mother returned — the less detail, the less scrutiny.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Write the report as if the mother was home when you arrived — the voluntary referral resolved the issue and a full account of the child being alone may cause unnecessary problems.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Your supervisor-authorised voluntary support referral resulted in the family being connected with emergency childcare resources. A child welfare caseworker followed up with the mother and identified additional supports including emergency childcare subsidies and a family resource centre. The child remained safely with her mother. Your thorough documentation was reviewed by your duty inspector as an example of professional judgment in a genuinely difficult case. Six months later, the mother reached out to the community police office to thank the officer for the approach taken. Double-bind situations are real — they exist when both available options cause some harm. The professional response is to escalate beyond the field level, consult available expertise, document reasoning thoroughly, and choose the option least likely to cause lasting harm to those most vulnerable.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

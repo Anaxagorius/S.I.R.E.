@@ -273,6 +273,17 @@ import scenarioHonourBasedViolence from "./scenarios/scenario_honour_based_viole
 import scenarioPeaceBondMonitoring from "./scenarios/scenario_peace_bond_monitoring.json";
 import scenarioProtectionOrderEnforcement from "./scenarios/scenario_protection_order_enforcement.json";
 
+// Post-Incident & Investigative Follow-Ups
+import scenarioVictimSupportCoordination from "./scenarios/scenario_victim_support_coordination.json";
+import scenarioCrownBriefPreparation from "./scenarios/scenario_crown_brief_preparation.json";
+import scenarioEvidenceContinuityAudit from "./scenarios/scenario_evidence_continuity_audit.json";
+import scenarioInternalAffairsInvestigation from "./scenarios/scenario_internal_affairs_investigation.json";
+import scenarioSiuIioAsirtInvolvement from "./scenarios/scenario_siu_iio_asirt_involvement.json";
+import scenarioCommunityDebrief from "./scenarios/scenario_community_debrief.json";
+import scenarioAfterActionReview from "./scenarios/scenario_after_action_review.json";
+import scenarioPolicyRevision from "./scenarios/scenario_policy_revision.json";
+import scenarioOfficerWellnessFollowup from "./scenarios/scenario_officer_wellness_followup.json";
+
 // Education: Teaching & Learning Challenges
 import scenarioClassroomChronicMisbehavior from "./scenarios/scenario_classroom_chronic_misbehavior.json";
 import scenarioStudentRefusingParticipation from "./scenarios/scenario_student_refusing_participation.json";
@@ -1861,6 +1872,71 @@ const DEMO_SCENARIOS = [
         name: "Protection Order Enforcement",
         description: "Officers respond to a 911 call where a subject is at the complainant's door in breach of a restraining order — they must verify the order, manage a disputed expiry claim, and make a lawful arrest decision.",
         data: scenarioProtectionOrderEnforcement,
+    },
+
+    // ── Police: Post-Incident & Investigative Follow-Ups ─────────────────────
+    {
+        id: "scenario_victim_support_coordination",
+        icon: "🤝",
+        name: "Victim Support Coordination",
+        description: "An officer clears a violent home invasion scene and must coordinate victim services under the Canadian Victims Bill of Rights — referral, safety planning, and documentation of all support steps.",
+        data: scenarioVictimSupportCoordination,
+    },
+    {
+        id: "scenario_crown_brief_preparation",
+        icon: "📁",
+        name: "Crown Brief Preparation",
+        description: "Following an aggravated assault arrest, an officer prepares a complete Crown brief meeting all Stinchcombe disclosure obligations — witness statements, exhibits, medical records, and photo identification documentation.",
+        data: scenarioCrownBriefPreparation,
+    },
+    {
+        id: "scenario_evidence_continuity_audit",
+        icon: "🔗",
+        name: "Evidence Continuity Audit",
+        description: "A drug trafficking case heads to trial when defence counsel challenges the chain of custody. The officer must reconstruct the exhibit continuity from seizure through Health Canada analysis and rebut the application.",
+        data: scenarioEvidenceContinuityAudit,
+    },
+    {
+        id: "scenario_internal_affairs_investigation",
+        icon: "🔎",
+        name: "Internal Affairs Investigation",
+        description: "An officer who used OC spray on a passively resistant subject is notified they are under Professional Standards investigation — they must navigate rights, Police Act obligations, and documentation requirements.",
+        data: scenarioInternalAffairsInvestigation,
+    },
+    {
+        id: "scenario_siu_iio_asirt_involvement",
+        icon: "⚠️",
+        name: "SIU / IIO / ASIRT Involvement",
+        description: "A suspect dies after an officer-involved shooting. Officers must preserve the scene, notify supervisors, and understand subject officer vs. witness officer obligations under provincial civilian oversight legislation.",
+        data: scenarioSiuIioAsirtInvolvement,
+    },
+    {
+        id: "scenario_community_debrief",
+        icon: "🗣️",
+        name: "Community Debrief",
+        description: "After a use-of-force incident involving an Indigenous youth goes viral, a detachment commander organizes a community debrief — balancing transparency, sub judice obligations, and Indigenous engagement protocols.",
+        data: scenarioCommunityDebrief,
+    },
+    {
+        id: "scenario_after_action_review",
+        icon: "📊",
+        name: "After-Action Review",
+        description: "A tactical team executed a warrant on the wrong address. The supervisor must conduct an after-action review to reconstruct the decision chain, identify policy failures, and produce actionable recommendations.",
+        data: scenarioAfterActionReview,
+    },
+    {
+        id: "scenario_policy_revision",
+        icon: "📝",
+        name: "Policy Revision (Post-Judicial Exclusion)",
+        description: "Drug evidence was excluded because officers followed an outdated vehicle search policy that conflicted with R v Nolet. The sergeant leads a policy revision process to align procedures with current SCC authority.",
+        data: scenarioPolicyRevision,
+    },
+    {
+        id: "scenario_officer_wellness_followup",
+        icon: "💚",
+        name: "Officer Wellness Follow-Up",
+        description: "A supervisor conducts the mandatory wellness check-in 72 hours after a fatal officer-involved shooting — facilitating EAP referral, navigating SIU restrictions, and planning return-to-operational-duties.",
+        data: scenarioOfficerWellnessFollowup,
     },
 
     // ── Education: Teaching & Learning Challenges ─────────────────────────────

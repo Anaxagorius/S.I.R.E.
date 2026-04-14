@@ -1,0 +1,134 @@
+{
+  "title": "scenario_student_seizure",
+  "description": "A student experiences a tonic-clonic seizure during class. As the teacher, you must respond safely, decide when to call 911, support the student through the post-ictal phase, notify parents, and complete proper documentation.",
+  "category": "Education",
+  "difficulty": "Beginner",
+  "tags": ["seizure", "first aid", "epilepsy", "medical emergency", "documentation", "parent notification"],
+  "timeline": [
+    { "index": 0, "title": "Seizure Onset", "description": "A student suddenly stiffens and begins convulsing at their desk.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Safety Measures", "description": "The teacher implements immediate seizure safety protocols.", "timeOffsetSec": 30 },
+    { "index": 2, "title": "Timing the Seizure", "description": "The seizure continues and the teacher monitors its duration.", "timeOffsetSec": 90 },
+    { "index": 3, "title": "Decision to Call 911", "description": "The teacher assesses whether emergency services are required.", "timeOffsetSec": 180 },
+    { "index": 4, "title": "Post-Ictal Phase", "description": "The seizure ends and the student enters the post-ictal recovery phase.", "timeOffsetSec": 360 },
+    { "index": 5, "title": "Recovery and Documentation", "description": "The student is stabilised, parents are notified, and documentation is completed.", "timeOffsetSec": 900 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Seizure Begins — Immediate Response",
+      "situation": "You are leading a Grade 7 English class when Priya, a 12-year-old student, suddenly lets out a brief cry, goes rigid in her chair, and then begins convulsing — her arms and legs shaking rhythmically. She slides from her chair onto the floor. You are aware from her student file that Priya has a documented history of epilepsy. The class is watching in shock and several students are beginning to panic.",
+      "question": "What is your immediate response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Note the exact time the seizure started — this is critical for the 5-minute rule. Immediately clear the area around Priya, asking nearby students to push desks back to create a safe space. Place something soft (a folded jacket or your arm) under her head to prevent injury. Do NOT restrain her movements, do NOT put anything in her mouth, and do NOT move her unless she is in immediate danger from a hard surface or edge. Calmly direct the class to move to one side of the room and assign a steady student to go to the office to inform staff.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Hold Priya's arms and legs firmly to prevent her from injuring herself during the convulsions — physical restraint will stop the involuntary movements from causing harm.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Try to insert a rolled-up cloth or ruler between Priya's teeth to prevent her from biting her tongue, as tongue injuries are the most serious risk during a seizure.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Monitoring the Seizure Duration",
+      "situation": "You have cleared the area and placed a jacket under Priya's head. The convulsing continues. You have been watching the clock — the seizure has now been going on for 2 minutes and 45 seconds. A vice principal, Mr. Osei, has arrived at the classroom door after the student you sent reached the office. Priya's body is still convulsing rhythmically. Mr. Osei asks you what is happening.",
+      "question": "What do you do while monitoring the ongoing seizure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Briefly update Mr. Osei: Priya is having a tonic-clonic seizure, it has been approximately 3 minutes, and she has a known history of epilepsy. Instruct Mr. Osei to stay nearby and be ready to call 911 if the seizure reaches 5 minutes, does not stop on its own, or if Priya is injured. Continue watching the clock and monitoring Priya's breathing and colour. Do not leave her side. Keep the environment calm and quiet, as stimulation does not help and may distress her further when she regains consciousness.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Assume that because Priya has a history of epilepsy, all seizures she experiences at school are expected and safe, and therefore no further monitoring or escalation is needed regardless of duration.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave Priya in Mr. Osei's care and return to teaching the rest of the class, as the VP is now present and your primary responsibility is the other 25 students.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "The 5-Minute Decision",
+      "situation": "The seizure has now reached exactly 5 minutes and shows no sign of stopping. Priya's convulsions are slightly less intense but she is still actively seizing. Her lips appear slightly bluish (cyanosis), which is concerning. Mr. Osei is beside you and looks to you for a decision. You also know that Priya does not have a seizure action plan on file indicating a specific duration threshold for her.",
+      "question": "What is the correct action at the 5-minute mark?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Call 911 immediately. A seizure lasting 5 minutes or longer is classified as status epilepticus and is a medical emergency requiring paramedic intervention. While Mr. Osei or another staff member calls 911, gently roll Priya into the recovery position (on her side, if possible, during or after convulsions subside) to protect her airway. Send a staff member to the school entrance to direct EMS to the classroom. Continue monitoring and do not give anything by mouth.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Wait until the 10-minute mark before calling 911, since Priya has a known seizure history and her body may simply need more time to naturally terminate the seizure without medical intervention.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call Priya's parents first before calling 911 so they can decide whether emergency services are needed, as parents should make medical decisions for their child.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Post-Ictal Phase — Seizure Has Ended",
+      "situation": "At approximately the 6-minute mark, Priya's convulsions stop. Paramedics are en route with an ETA of 4 minutes. Priya is now in the post-ictal phase — she is breathing, has regained some colour, but is confused, groggy, and does not know where she is. She is asking for her mother and appears frightened. She has a small abrasion on her left elbow from the fall. Some students have re-entered the room and are whispering to each other.",
+      "question": "How do you support Priya during the post-ictal phase?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Gently speak to Priya in a calm, reassuring voice: 'You're safe, Priya. You're at school. I'm staying right here with you.' Keep her on her side to protect her airway as she regains consciousness. Do not try to stand her up — post-ictal confusion and muscle weakness make falls a serious risk. Cover her with a jacket for warmth and dignity. Ask Mr. Osei to ensure the remaining students are moved out of the classroom to give Priya privacy and allow EMS unobstructed access.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Ask Priya directly what happened and whether she took her medication this morning, as this information will be important for the documentation report and should be gathered while the incident is fresh.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Help Priya sit up in a chair immediately so she looks more comfortable and composed before EMS arrives, as lying on the floor may be distressing for her and for the other students who are watching.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "EMS Handoff and Parent Notification",
+      "situation": "EMS has arrived and is assessing Priya, who is gradually becoming more alert. A paramedic asks you for information about the seizure. Meanwhile, the office has not yet contacted Priya's parents. The principal, Ms. Beauchamp, has now arrived on scene and is asking for a status update. Priya is asking if she can just go home and is refusing to go in the ambulance.",
+      "question": "How do you manage the EMS handoff and parent notification?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide EMS with a clear verbal report: seizure started at [time], was tonic-clonic in nature, lasted approximately 6 minutes, 911 was called at the 5-minute mark due to no self-termination, she has documented epilepsy, there is no personalised seizure action plan on file. Note the elbow abrasion. Communicate to Ms. Beauchamp that parents need to be called now. Since Priya is a minor, the decision to accept or refuse EMS transport is made by her parents or guardian, not by Priya herself — EMS will advise. Document all observations in detail.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Support Priya's decision to refuse EMS transport, as students have autonomy over their own medical care, and allow her to rest in the nurse's office until she feels ready to return to class.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Provide only a brief verbal summary to EMS and focus on comforting Priya rather than documentation, since detailed notes can be completed after school using your memory of the event.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete — Debrief",
+      "situation": "Priya was assessed by paramedics and transported to hospital, where she was evaluated and later discharged. Her parents requested a meeting with the school to develop a formal Seizure Action Plan. Key training takeaways: (1) NEVER restrain a seizing student and NEVER place anything in their mouth — these interventions cause injury. (2) Always time the seizure from the very first moment — the 5-minute threshold for calling 911 begins immediately. (3) Call 911 for any seizure lasting 5+ minutes, a second seizure without regaining consciousness, a seizure in someone with no known history, a seizure with injury, or difficulty breathing. (4) The post-ictal phase is normal — expect confusion, fatigue, and disorientation lasting up to 30 minutes. (5) A student with epilepsy should have an individualised Seizure Action Plan on file — if one does not exist, this event is a prompt to request one. (6) Detailed, time-stamped documentation protects the student, the school, and staff.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

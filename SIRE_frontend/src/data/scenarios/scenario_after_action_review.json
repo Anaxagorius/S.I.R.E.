@@ -1,0 +1,164 @@
+{
+  "title": "scenario_after_action_review",
+  "description": "A tactical team executed a high-risk arrest warrant on the wrong address due to a transposition error; the supervisor must conduct an after-action review to identify systemic failures and develop policy recommendations without conducting a discipline process.",
+  "category": "Police",
+  "difficulty": "Advanced",
+  "tags": ["after-action review", "AAR", "wrong address", "arrest warrant", "systemic failure", "policy recommendations", "critical incident review"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Wrong Address Entry",
+      "description": "A tactical team executes a high-risk arrest warrant at the wrong address due to a transposition error. No injuries occurred but the family was traumatized.",
+      "timeOffsetSec": 0
+    },
+    {
+      "index": 1,
+      "title": "Scene Secured",
+      "description": "The team confirms the error, secures the scene, and ensures the affected family is safe. The supervisor is notified immediately.",
+      "timeOffsetSec": 900
+    },
+    {
+      "index": 2,
+      "title": "AAR Initiated",
+      "description": "The supervisor initiates a formal after-action review process, separate from the discipline investigation.",
+      "timeOffsetSec": 86400
+    },
+    {
+      "index": 3,
+      "title": "Timeline Reconstruction Begins",
+      "description": "The supervisor begins reconstructing the critical decision chain that led to the warrant being executed at the wrong address.",
+      "timeOffsetSec": 172800
+    },
+    {
+      "index": 4,
+      "title": "Policy Failures Identified",
+      "description": "Systems and policy failures contributing to the error are identified during the AAR process.",
+      "timeOffsetSec": 259200
+    },
+    {
+      "index": 5,
+      "title": "Recommendations Finalized",
+      "description": "Actionable policy recommendations are developed and prepared for submission to command.",
+      "timeOffsetSec": 432000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "AAR vs. Discipline Process",
+      "situation": "At 06:00, your tactical team executed a high-risk arrest warrant at 1432 Elm Street. The correct address was 1423 Elm Street. A family of four — including two young children — were inside. No injuries occurred but the family was traumatized and the parents have retained legal counsel. A Professional Standards investigation has been separately initiated. You must now initiate an After-Action Review (AAR). Before you begin, you need to understand the distinct purpose and legal character of the AAR.",
+      "question": "What is the distinct purpose of an AAR and how does it differ from a discipline process?",
+      "options": [
+        {
+          "label": "A",
+          "text": "An After-Action Review (AAR) is a structured organizational learning process designed to determine what happened, why it happened, and how to prevent recurrence — its purpose is systemic improvement, not individual accountability. The AAR differs from a discipline process in the following ways: (1) Purpose — AAR identifies systemic and process failures; discipline determines individual misconduct and imposes penalties; (2) Standard — AAR applies a root cause analysis standard asking 'what went wrong in the system?'; discipline applies a conduct standard asking 'did an individual breach a policy or law?'; (3) Findings — AAR findings are policy recommendations; discipline findings are findings of misconduct; (4) Participation — AAR participants should feel safe to speak candidly about errors without fear of self-incrimination; discipline is adversarial; (5) Documentation — AAR reports are typically protected from use in discipline proceedings if designed properly. The AAR must not be used as a proxy for the discipline process, and statements made in an AAR context must not be forwarded to Professional Standards without legal counsel review of applicable protections.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "An AAR is essentially a pre-disciplinary investigation — its findings are forwarded to Professional Standards to support the conduct file, and participating officers should understand that their statements may be used in the discipline process.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "An AAR is only conducted after the Professional Standards discipline process concludes — it would be premature and prejudicial to conduct a review while discipline proceedings are pending.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Timeline Reconstruction",
+      "situation": "To understand what went wrong, you must reconstruct the decision chain from the point the warrant was obtained to the moment of entry. You know the warrant was prepared by the case officer, reviewed by a supervisor, approved by a justice, and the address was transposed somewhere between the affidavit and the operational briefing document. Multiple people handled the warrant at multiple stages. How do you reconstruct the critical decision chain?",
+      "question": "How do you reconstruct the critical decision chain that led to the warrant error in the AAR?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reconstruct the timeline using documentary evidence and structured interviews: (1) collect all documentary evidence in sequence: the Information to Obtain (ITO), the warrant as signed by the justice, the operational briefing document, the tactical brief, and any email or radio communications referencing the address; (2) identify every point at which the address was written, typed, verified, or communicated — map the chain visually; (3) identify the first document where the transposition error appears and the last document where the correct address appears; (4) interview each person who handled the document at each stage — frame interviews as 'walk me through what you did at this step' not 'why did you make this error'; (5) identify any verification steps that were specified by policy and whether they were completed; (6) note timing pressures, environmental factors (briefing time, shift length, lighting), or system design issues (e.g., similar-looking address fields) that may have contributed; (7) create a timeline with document identifiers, timestamps, and actors at each stage. Focus on the system, not the individual.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Interview only the officer who prepared the operational briefing document — they are the most likely point of failure and focusing the reconstruction on their actions will identify the error efficiently.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The transposition error speaks for itself — no further timeline reconstruction is necessary since the root cause (human transcription error) is already obvious from comparing the warrant and the briefing document.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Systems and Policy Failures",
+      "situation": "Your timeline reconstruction reveals: (1) the case officer typed '1432' instead of '1423' in the operational briefing document; (2) the supervising officer signed the tactical brief without cross-referencing the original warrant; (3) departmental policy requires a 'two-check' address verification before any high-risk entry — the briefing form has a checkbox for this but both checkboxes were signed without verification being recorded; (4) the tactical team's briefing was conducted under time pressure with no independent address read-back by the team leader. What systemic and policy failures contributed to the wrong-address entry?",
+      "question": "What policy or system failures contributed to the wrong-address entry and how do you frame them for the AAR?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Frame the systemic failures as layered failure points, not individual blame: (1) Policy compliance failure — the two-check verification policy existed but was not operationally enforced; checkboxes were completed as a formality rather than a substantive verification step, indicating a normalization of deviance (Vaughan); (2) Form design failure — the operational briefing form allowed checkboxes to be signed without requiring verification evidence (e.g., 'I compared the briefing document address to the warrant signed page _ of _'); (3) Supervisory oversight failure — the supervising officer's review did not include address cross-referencing against the original judicial authorization; (4) Time-pressure culture failure — tactical briefings conducted under time pressure without a mandatory independent address confirmation step; (5) Information transfer risk — the address was manually re-entered into the briefing document rather than copied directly from the warrant. Each of these is a system or process failure that an individual cannot fully guard against alone — the system must be redesigned to make errors harder to commit.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "The sole systemic failure was the individual officer's transcription error — existing policies were adequate and would have prevented the error if followed; the recommendation should be re-training of the involved officer.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The failure was a supervisory failure only — the supervisor who signed the tactical brief without verification bears sole responsibility and the system design was not a contributing factor.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Recommendations Development",
+      "situation": "You have identified five systemic failure points. You must now convert these into actionable policy recommendations. Your recommendations will go to the divisional commander and may inform service-wide policy changes. Effective recommendations must be specific, measurable, and achievable. How do you convert the AAR findings into actionable policy recommendations?",
+      "question": "How do you convert AAR findings into actionable policy recommendations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Each finding should generate a specific, measurable recommendation using the SMART framework (Specific, Measurable, Achievable, Relevant, Time-bound): (1) For normalization of deviance on the two-check policy — recommend quarterly spot audits of completed tactical briefing forms by a supervisor not involved in the operation, with findings reported to the divisional commander; (2) For form design failure — recommend revision of the operational briefing form within 30 days to require the specific warrant page number and warrant date to be entered alongside the address, preventing checkbox completion without substantive cross-reference; (3) For supervisory oversight — recommend that supervisory review of tactical briefs include a mandatory attestation that the address was verified against the original judicial authorization; (4) For time-pressure culture — recommend a minimum briefing preparation time standard for high-risk entries with a documented exception process requiring command approval for deviations; (5) For information transfer risk — recommend that warrant addresses be copy-pasted from the electronically filed warrant into the operational briefing system, with manual re-entry prohibited. Each recommendation must name an owner and a timeline.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Recommend mandatory re-training for all tactical unit members on address verification — a single training intervention addressing all five failure points is more efficient than five separate policy changes.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Recommendations should be general in nature — specific operational policies are the commander's prerogative and the AAR should not prescribe solutions, only describe problems.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Communication of AAR Findings",
+      "situation": "The AAR report is complete. It contains the timeline reconstruction, five systemic failure findings, and five SMART recommendations. You must now decide who receives the report, how it is communicated, and whether it receives any protection from disclosure in the parallel Professional Standards process or potential civil litigation by the affected family. What protections apply and to whom are AAR findings reported?",
+      "question": "To whom are AAR findings reported and what protections apply to the AAR report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "AAR findings are reported to the divisional commander and the Chief of Police (or designate) for organizational learning and policy action — not to Professional Standards as part of the discipline file. Regarding protections: (1) if the AAR was conducted under a formal Quality Improvement framework or with legal counsel involvement from the outset, the report may attract limited privilege as a legal advice or quality improvement document — consult legal counsel before finalizing the report to assess applicable protections; (2) in civil litigation by the affected family, the AAR report may be producible as a relevant document in the hands of the police service — early legal counsel involvement helps structure the report to preserve what privilege is available without compromising the learning purpose; (3) the report must be disclosed to Professional Standards only if ordered by a court or tribunal — it should not be proactively forwarded; (4) the divisional commander must implement the recommendations with named owners and timelines — communicate implementation progress to the AAR team; (5) a summary of findings and actions taken (without identifying individual officers) should be shared with the affected family through their counsel as part of the civil response — this demonstrates good faith and commitment to accountability.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Send the AAR report directly to Professional Standards along with the divisional commander — full transparency between the AAR and discipline processes ensures consistent findings and prevents contradictory outcomes.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Mark the AAR report 'confidential' and distribute it only to involved officers — public disclosure of AAR findings would damage the police service's reputation and is not required by law.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The AAR produced five systemic findings and five SMART recommendations. The divisional commander implemented all five recommendations within 60 days: the operational briefing form was redesigned, a supervisory attestation was added to the review process, a minimum briefing preparation time was established, copy-paste address entry became mandatory in the electronic warrant system, and quarterly audits of completed forms were initiated. The Professional Standards investigation concluded separately. The affected family's civil claim was settled. Key training takeaways: An AAR is a systemic learning process distinct from discipline — it asks 'what failed in the system?' not 'who is to blame?'; timeline reconstruction must be evidence-based using documents and structured interviews; systemic failures follow predictable patterns including normalization of deviance, form design weaknesses, supervisory oversight gaps, and time-pressure cultures; recommendations must be SMART and assigned to named owners; AAR reports have legal sensitivities regarding disclosure — legal counsel should be involved from the outset.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

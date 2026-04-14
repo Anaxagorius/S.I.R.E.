@@ -1,0 +1,151 @@
+{
+  "title": "scenario_burnout_cumulative_stress",
+  "description": "An experienced officer is showing signs of burnout and cumulative operational stress. Tests recognition of warning signs, self-assessment obligations, supervisor responsibilities, and the pathway to appropriate support under police service wellness policy.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "burnout",
+    "cumulative stress",
+    "officer wellness",
+    "operational stress injury",
+    "OSI",
+    "PTSD",
+    "EAP",
+    "mental health",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Pattern Emerges",
+      "description": "A 12-year patrol officer has been showing changed behaviour over several months — irritability, missed details, and increased sick days.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Critical Incident History",
+      "description": "Review shows the officer attended four critical incidents in the past 18 months including a child fatality.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Colleague Reports Concern",
+      "description": "A colleague quietly alerts the sergeant that the officer said something worrying about not wanting to come to work.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Supervisor Conversation",
+      "description": "The sergeant initiates a private conversation with the officer.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Support Offered",
+      "description": "The sergeant offers EAP and CISM resources. The officer is resistant initially.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 5,
+      "title": "Resolution",
+      "description": "A support plan is agreed upon. The officer's operational status is assessed.",
+      "timeOffsetSec": 1800
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Recognising Cumulative Stress in Yourself",
+      "situation": "You are a 12-year patrol officer. Over the past several months you have noticed: you dread coming to work in a way you never did before; you are consistently irritable with colleagues and family; you are sleeping poorly and having intrusive memories of a child fatality call you attended eight months ago; you have called in sick four times this month for the first time in your career; and you are making small errors in your reports that a colleague quietly corrected for you. You are aware that something is wrong but you have not told anyone.",
+      "question": "What is the appropriate professional response to these signs of cumulative operational stress?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recognise these signs for what they are: cumulative operational stress and probable symptoms of an Operational Stress Injury (OSI) — a term used in Canadian public safety services for PTSD, depression, anxiety, and burnout caused by duty exposure. The professional and ethical response is to seek help proactively before your condition affects your safety, the safety of colleagues, and the safety of the public you serve. Options include: (1) Contact your service's Employee Assistance Program confidentially; (2) Contact your RCMP/police association peer support program if available; (3) Approach your supervisor for a confidential conversation; (4) Seek your own referral to a mental health professional. Continuing to work while experiencing these symptoms without disclosure is a risk to yourself and others — officer wellness is an operational matter, not a personal one.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Push through — you have handled difficult calls before and every officer goes through difficult periods. This will pass on its own.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Request a transfer to a quieter posting without disclosing anything — reducing your call exposure will help without requiring you to disclose any difficulties.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Supervisor Initiates a Conversation",
+      "situation": "Your sergeant has asked to speak with you privately. She says she has noticed some changes and is concerned about you. She mentions the missed shifts and that a colleague has expressed concern. She asks directly: 'How are you actually doing?' You feel defensive — you are afraid this conversation could affect your career or result in you being taken off the road.",
+      "question": "How do you respond to your sergeant's direct question?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Be honest. This is a difficult moment — but your sergeant has noticed what you have been aware of for months. Being honest now is safer for you than continuing to mask symptoms while they worsen. Tell her truthfully that you have been struggling since the child fatality call, that you are not sleeping well, that work has become very difficult to face, and that you recognise you need some support. Express your concern about operational impact honestly — asking for help early typically results in better outcomes and shorter recovery times than waiting until a crisis. Your sergeant cannot guarantee specific outcomes, but being honest is the only path that can lead to appropriate support. Denial prolongs the injury.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Tell your sergeant everything is fine and the sick days were physical illness — discussing your mental state with your supervisor could end your career.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Become angry and accuse your sergeant of trying to find grounds to discipline you — her concern is intrusive and inappropriate.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Support Resources Offered — Officer Resistance",
+      "situation": "Your sergeant has responded with genuine support. She recommends the Employee Assistance Program, a peer support contact who is a retired officer who experienced PTSD, and a referral to the service's occupational health nurse. She also says she wants to discuss reducing your critical incident exposure while you get support. You feel relieved and also ashamed — you are worried that accepting help means admitting you cannot do the job.",
+      "question": "How do you navigate the tension between accepting support and the stigma of needing it?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Accept the support offered and challenge the shame directly — not because it is easy, but because it is accurate: attending hundreds of traumatic calls over 12 years and eventually reaching a point of saturation is not weakness. It is a foreseeable occupational consequence. The research on first responder OSI is unambiguous — untreated cumulative stress causes deteriorating performance, relationship breakdown, increased use of alcohol and substances, and significantly elevated suicide risk. Accepting support is what competent professionals do when they identify a problem that exceeds their individual capacity to manage. Contact the EAP within 48 hours. Meet the peer support contact. Engage occupational health. A modified critical incident exposure arrangement while you stabilise is sensible operational management, not a punishment.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Accept the peer support but decline the EAP and occupational health — talking to a retired officer is fine, but formal clinical support feels like too much.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Decline all support — you do not want any record of mental health treatment in your employment file.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You engaged the EAP and were referred to a registered psychologist with experience in first responder trauma. A clinical assessment identified significant symptoms of PTSD related to cumulative exposure, anchored to the child fatality incident. You completed 12 weeks of evidence-based trauma-focused therapy. You were placed on modified duties for eight weeks — not removed from the service, and not disciplined. You returned to full operational duties at week nine following a fitness-for-duty clearance. You now serve as a peer supporter for officers in your detachment who are struggling. Burnout and cumulative operational stress are not character failures — they are occupational injuries. Early recognition, honest disclosure, and full engagement with available supports are the professional standard. Officers who model this process strengthen the culture for every officer who comes after them.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
