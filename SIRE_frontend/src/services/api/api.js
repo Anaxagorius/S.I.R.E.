@@ -47,6 +47,21 @@ export const getScenario = async (scenarioKey) => {
     return apiClient.get(`/scenarios/${scenarioKey}`);
 };
 
+/** Creates a new custom scenario and persists it to the backend. Returns the saved scenario with its generated id. */
+export const createCustomScenario = async (scenarioData) => {
+    return apiClient.post("/scenarios", scenarioData);
+};
+
+/** Updates an existing custom scenario by its id. */
+export const updateCustomScenario = async (id, scenarioData) => {
+    return apiClient.put(`/scenarios/${id}`, scenarioData);
+};
+
+/** Deletes a custom scenario by its id. */
+export const deleteCustomScenario = async (id) => {
+    return apiClient.delete(`/scenarios/${id}`);
+};
+
 /** Retrieves a session by its session code. */
 export const getSession = async (sessionCode) => {
     return apiClient.get(`/session/${sessionCode}`);
