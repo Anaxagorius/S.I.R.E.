@@ -16,7 +16,7 @@ import { io } from "socket.io-client";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
-import { getScenarios, createSession, createActionTasks } from "../../services/api/api";
+import { getScenarios, createSession, createActionTasks, getItsmIntegrations, pushToItsm } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 import { accuracyColor, readinessLabel } from "../../utils/scoringUtils";
 import { getStandardsRef } from "../../utils/standardsMapping";
@@ -136,6 +136,11 @@ export default function AdminDashboard() {
     /** Feedback message shown after pushing to the action tracker. */
     const [trackerPushMsg, setTrackerPushMsg] = useState(null);
 
+    /** ITSM integrations available for pushing evidence packs. */
+    const [itsmIntegrations, setItsmIntegrations] = useState([]);
+    const [itsmPushStatus, setItsmPushStatus] = useState(null); // null | 'pushing' | 'ok' | 'error'
+    const [itsmPushMessage, setItsmPushMessage] = useState("");
+
     /** State for the end-session confirmation modal. */
     const [showEndModal, setShowEndModal] = useState(false);
 
@@ -160,6 +165,21 @@ export default function AdminDashboard() {
             }
         }
         loadScenarios();
+        return () => { cancelled = true; };
+    }, []);
+
+    /** Fetch configured ITSM integrations on mount for the post-session push option. */
+    useEffect(() => {
+        let cancelled = false;
+        async function loadItsm() {
+            try {
+                const data = await getItsmIntegrations();
+                if (!cancelled) setItsmIntegrations(data.filter(integration => integration.isEnabled));
+            } catch {
+                // Non-critical — silently ignore if integrations endpoint not reachable
+            }
+        }
+        loadItsm();
         return () => { cancelled = true; };
     }, []);
 
@@ -384,6 +404,53 @@ export default function AdminDashboard() {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    }
+
+    /** Build the session snapshot payload shared by export and ITSM push. */
+    function buildSessionSnapshot() {
+        return {
+            sessionCode,
+            scenarioName,
+            exportedAt: new Date().toISOString(),
+            participants: trainees.map((t) => ({
+                displayName: t.displayName,
+                role: t.role || null,
+                score: traineeScores.get(t.displayName)?.score ?? 0,
+                decisions: traineeScores.get(t.displayName)?.decisions ?? 0,
+            })),
+            actionItems,
+            injectLog: injectQueue.map((inj) => ({
+                id: inj.id,
+                message: inj.message,
+                severity: inj.severity,
+                channel: inj.channel,
+                pressureType: inj.pressureType,
+                roleFilter: inj.roleFilter,
+                releasedAt: inj.releasedAt,
+                deliveryLog: inj.deliveryLog || [],
+                acknowledgements: inj.acknowledgements || [],
+            })),
+            eventLog,
+        };
+    }
+
+    /** Push the session evidence pack to a configured ITSM integration. */
+    async function handlePushToItsm(integrationId) {
+        setItsmPushStatus("pushing");
+        setItsmPushMessage("");
+        try {
+            const result = await pushToItsm(integrationId, buildSessionSnapshot());
+            if (result.success) {
+                setItsmPushStatus("ok");
+                setItsmPushMessage(`Evidence pack pushed (HTTP ${result.statusCode}).`);
+            } else {
+                setItsmPushStatus("error");
+                setItsmPushMessage(`Push returned HTTP ${result.statusCode} ${result.statusText}.`);
+            }
+        } catch (err) {
+            setItsmPushStatus("error");
+            setItsmPushMessage(err.message || "Push failed.");
+        }
     }
 
     /** Function that sends an admin inject event via Socket.IO. */
@@ -1253,6 +1320,33 @@ export default function AdminDashboard() {
                         <Button text="Return to Home" onClick={() => navigate("/")} />
                         <Button text="Export Results" onClick={handleExportResults} />
                     </div>
+
+                    {/** ITSM push — only shown when at least one ITSM integration is configured. */}
+                    {itsmIntegrations.length > 0 && (
+                        <div className="dashboard-card" style={{ marginTop: "0.75rem" }}>
+                            <h3>📤 Push Evidence Pack to ITSM</h3>
+                            <p style={{ fontSize: "0.85rem", color: "var(--color-text-muted)", marginBottom: "0.75rem" }}>
+                                Send the full session findings (participants, action items, decisions, KPIs) to your
+                                configured ITSM or incident management platform.
+                            </p>
+                            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                                {itsmIntegrations.map(integration => (
+                                    <Button
+                                        key={integration.id}
+                                        text={itsmPushStatus === "pushing" ? "Pushing…" : `Push to ${integration.name}`}
+                                        onClick={() => handlePushToItsm(integration.id)}
+                                        disabled={itsmPushStatus === "pushing"}
+                                    />
+                                ))}
+                            </div>
+                            {itsmPushStatus === "ok" && (
+                                <p style={{ color: "rgb(80,220,80)", fontSize: "0.85rem", marginTop: "0.5rem" }}>✅ {itsmPushMessage}</p>
+                            )}
+                            {itsmPushStatus === "error" && (
+                                <p style={{ color: "rgb(255,100,100)", fontSize: "0.85rem", marginTop: "0.5rem" }}>❌ {itsmPushMessage}</p>
+                            )}
+                        </div>
+                    )}
                 </div>
                 );
             })()}

@@ -18,6 +18,7 @@ import Demo from "../screens/Demo"
 import ScenarioBuilder from "../screens/ScenarioBuilder"
 import Analytics from "../screens/Analytics"
 import ActionTracker from "../screens/ActionTracker"
+import Integrations from "../screens/Integrations"
 
 /** Function that returns the AppRouter component for handling client-side routing. */
 export default function AppRouter() {
@@ -35,6 +36,7 @@ export default function AppRouter() {
             <Route path="/scenario-builder" element={<ScenarioBuilder />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/action-tracker" element={<ActionTracker />} />
+            <Route path="/integrations" element={<Integrations />} />
         </Routes>
     );
 }

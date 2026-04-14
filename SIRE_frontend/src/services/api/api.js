@@ -104,3 +104,45 @@ export const createActionTasks = async (tasks) => {
 export const updateActionTask = async (id, updates) => {
     return apiClient.put(`/action-tasks/${id}`, updates);
 };
+
+/* ---- Integrations ---- */
+
+/** Returns all configured ITSM integrations. */
+export const getItsmIntegrations = async () => {
+    return apiClient.get("/integrations/itsm");
+};
+
+/** Creates or updates an ITSM integration. Pass an id field to update an existing one. */
+export const saveItsmIntegration = async (data) => {
+    return apiClient.post("/integrations/itsm", data);
+};
+
+/** Sends a test payload to the configured ITSM webhook. */
+export const testItsmIntegration = async (id) => {
+    return apiClient.post(`/integrations/itsm/${id}/test`, {});
+};
+
+/** Pushes an evidence pack for a completed session to the configured ITSM webhook. */
+export const pushToItsm = async (id, sessionSnapshot) => {
+    return apiClient.post(`/integrations/itsm/${id}/push`, sessionSnapshot);
+};
+
+/** Returns all configured threat intel feeds. */
+export const getThreatIntelFeeds = async () => {
+    return apiClient.get("/integrations/threat-intel");
+};
+
+/** Adds a new threat intel feed. */
+export const addThreatIntelFeed = async (data) => {
+    return apiClient.post("/integrations/threat-intel", data);
+};
+
+/** Proxy-fetches items from a configured threat intel feed via the backend. */
+export const fetchThreatIntelFeed = async (id) => {
+    return apiClient.get(`/integrations/threat-intel/${id}/fetch`);
+};
+
+/** Deletes an integration (ITSM or threat intel) by id. */
+export const deleteIntegration = async (id) => {
+    return apiClient.delete(`/integrations/${id}`);
+};

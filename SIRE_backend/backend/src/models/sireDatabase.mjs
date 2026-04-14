@@ -91,6 +91,29 @@ db.exec(`
   )
 `)
 
+/**
+ * integrations table
+ * Stores external integration configurations (ITSM webhooks, threat-intel feeds).
+ *
+ * Columns:
+ *   id         - UUID primary key
+ *   type       - integration category: 'itsm' | 'threat-intel'
+ *   name       - human-readable label for the integration
+ *   config     - JSON blob containing type-specific settings (webhookUrl, platformType, authToken, feedUrl, etc.)
+ *   is_enabled - 1 (active) or 0 (disabled)
+ *   created_at - ISO-8601 timestamp of record creation
+ */
+db.exec(`
+  CREATE TABLE IF NOT EXISTS integrations (
+    id         TEXT PRIMARY KEY,
+    type       TEXT NOT NULL,
+    name       TEXT NOT NULL,
+    config     TEXT NOT NULL DEFAULT '{}',
+    is_enabled INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  )
+`)
+
 
 
 /**
@@ -171,6 +194,18 @@ const stmts = {
   updateActionTask: db.prepare(
     'UPDATE action_tasks SET owner = ?, due_date = ?, status = ?, standards_ref = ?, closed_at = ? WHERE id = ?'
   ),
+
+  /* integrations */
+  getIntegrationById: db.prepare('SELECT * FROM integrations WHERE id = ?'),
+  listIntegrations:   db.prepare('SELECT * FROM integrations ORDER BY created_at ASC'),
+  listIntegrationsByType: db.prepare('SELECT * FROM integrations WHERE type = ? ORDER BY created_at ASC'),
+  insertIntegration:  db.prepare(
+    'INSERT INTO integrations (id, type, name, config, is_enabled) VALUES (?, ?, ?, ?, ?)'
+  ),
+  updateIntegration:  db.prepare(
+    'UPDATE integrations SET name = ?, config = ?, is_enabled = ? WHERE id = ?'
+  ),
+  deleteIntegration:  db.prepare('DELETE FROM integrations WHERE id = ?'),
 }
 
 /* ------------------------------------------------------------------ */
@@ -362,4 +397,54 @@ export const sireDatabase = {
       throw err
     }
   },
+
+  /* ---- integrations ---- */
+
+  /**
+   * Retrieves an integration by its id.
+   * @param {string} id
+   * @returns {{ id: string, type: string, name: string, config: string, is_enabled: number, created_at: string } | null}
+   */
+  getIntegrationById: (id) => stmts.getIntegrationById.get(id) ?? null,
+
+  /**
+   * Returns all integrations ordered by creation time.
+   * @returns {Array}
+   */
+  listIntegrations: () => stmts.listIntegrations.all(),
+
+  /**
+   * Returns all integrations of a specific type.
+   * @param {'itsm'|'threat-intel'} type
+   * @returns {Array}
+   */
+  listIntegrationsByType: (type) => stmts.listIntegrationsByType.all(type),
+
+  /**
+   * Persists a new integration record.
+   * @param {{ id: string, type: string, name: string, config: object, isEnabled?: boolean }} integration
+   */
+  createIntegration: ({ id, type, name, config, isEnabled = true }) => {
+    stmts.insertIntegration.run(id, type, name, JSON.stringify(config), isEnabled ? 1 : 0)
+  },
+
+  /**
+   * Updates an existing integration record.
+   * @param {{ id: string, name: string, config: object, isEnabled?: boolean }} integration
+   * @throws {Error} with code 'INTEGRATION_NOT_FOUND' if no integration with the given id exists
+   */
+  updateIntegration: ({ id, name, config, isEnabled = true }) => {
+    const result = stmts.updateIntegration.run(name, JSON.stringify(config), isEnabled ? 1 : 0, id)
+    if (result.changes === 0) {
+      const notFound = new Error(`Integration '${id}' not found`)
+      notFound.code = 'INTEGRATION_NOT_FOUND'
+      throw notFound
+    }
+  },
+
+  /**
+   * Removes an integration by its id.
+   * @param {string} id
+   */
+  deleteIntegration: (id) => stmts.deleteIntegration.run(id),
 }
