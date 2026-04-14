@@ -76,3 +76,8 @@ export const createSession = async (scenarioKey) => {
 export const joinSession = async (sessionKey) => {
     return apiClient.post("/sessions/join", { sessionKey });
 };
+
+/** Retrieves program-level analytics aggregated from persisted session results. */
+export const getAnalytics = async () => {
+    return apiClient.get("/analytics");
+};

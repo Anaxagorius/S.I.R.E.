@@ -11,7 +11,7 @@ import About from "../../assets/images/About.png";
 import "./TraineeInterfaceLayout.css";
 
 /** Function that returns the TraineeInterfaceLayout component. */
-export default function TraineeInterfaceLayout({ children, time, score, decisions }) {
+export default function TraineeInterfaceLayout({ children, time, score, decisions, simTime }) {
 
     /** Show only the last 5 correct decisions in the history panel. */
     const recentCorrect = (decisions || []).filter((d) => d.isCorrect).slice(-5);
@@ -26,9 +26,17 @@ export default function TraineeInterfaceLayout({ children, time, score, decision
                         <img src={About} alt="S.I.R.E. Logo" />
                         <h3>Trainee Interface</h3>
                         <div className="timer-box">
-                            <p>Time</p>
+                            <p>Real Time</p>
                             <h2>{time || "00:00"}</h2>
                         </div>
+
+                        {/** Simulated incident timeline time (when available). */}
+                        {simTime != null && (
+                            <div className="timer-box" style={{ marginTop: "0.5rem", opacity: 0.75 }}>
+                                <p style={{ fontSize: "0.75rem" }}>Incident T+</p>
+                                <h2 style={{ fontSize: "1.4rem" }}>{simTime}</h2>
+                            </div>
+                        )}
 
                         {/** Live score display. */}
                         <div className="score-box">

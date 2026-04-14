@@ -26,8 +26,11 @@ export default function Home() {
             {/** Navigation button — sign in or create an account. */}
             <Button text="Login / Sign Up" to="/login" />
 
-            {/** Demo mode button — runs entirely in the browser without a backend. */}
+            {/** Navigation button — demo mode button — runs entirely in the browser without a backend. */}
             <Button text="Demo" to="/demo" />
+
+            {/** Navigation button — program-level analytics and metrics dashboard. */}
+            <Button text="Analytics" to="/analytics" />
 
             {/** Main carousel content — rendered in the right panel by HomeLayout. */}
             <HomeCarousel />

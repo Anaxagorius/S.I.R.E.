@@ -40,6 +40,17 @@ function formatTime(secs) {
     return `${m}:${s}`;
 }
 
+/** Format a simulated incident offset in seconds as a human-readable string (e.g. "1h 30m" or "45m"). */
+function formatSimOffset(secs) {
+    if (secs == null || secs < 0) return null;
+    const h = Math.floor(secs / 3600);
+    const m = Math.floor((secs % 3600) / 60);
+    const s = secs % 60;
+    if (h > 0) return `${h}h ${m}m`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
+}
+
 /** Function that returns the TraineeInterface component. */
 export default function TraineeInterface() {
 
@@ -121,8 +132,16 @@ export default function TraineeInterface() {
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
 
-    /** Shuffle options whenever the current node changes so the correct answer is not always first. */
+    /** Wall-clock timestamp (ms) when the current node was first presented — for time-to-decision KPI. */
+    const nodeStartedAtRef = useRef(null);
+
+    /** Highest simulated incident timeline offset seen (in seconds) — for real vs simulated time display. */
+    const [maxSimOffsetSec, setMaxSimOffsetSec] = useState(null);
+
+    /** Shuffle options whenever the current node changes so the correct answer is not always first.
+     *  Also records the wall-clock time the node was first presented for time-to-decision tracking. */
     useEffect(() => {
+        nodeStartedAtRef.current = Date.now();
         const options = scenarioData?.nodes?.[currentNodeId]?.options || [];
         const arr = [...options];
         for (let i = arr.length - 1; i > 0; i--) {
@@ -189,8 +208,11 @@ export default function TraineeInterface() {
             socket.on("timeline:tick", (payload) => {
                 setTimelineEvents((prev) => [
                     ...prev,
-                    { title: payload.title, description: payload.description, time: new Date().toLocaleTimeString() },
+                    { title: payload.title, description: payload.description, time: new Date().toLocaleTimeString(), simOffsetSec: payload.timeOffsetSec },
                 ]);
+                if (typeof payload.timeOffsetSec === "number") {
+                    setMaxSimOffsetSec((prev) => (prev === null || payload.timeOffsetSec > prev) ? payload.timeOffsetSec : prev);
+                }
             });
 
             socket.on("event:log:broadcast", (payload) => {
@@ -251,6 +273,7 @@ export default function TraineeInterface() {
         if (!outcome) return;
 
         const currentNode = scenarioData.nodes[currentNodeId];
+        const decisionTimeMs = nodeStartedAtRef.current != null ? Date.now() - nodeStartedAtRef.current : undefined;
 
         if (outcome.type === "node") {
             const points = 10;
@@ -275,7 +298,10 @@ export default function TraineeInterface() {
                     action: `${option.label ? `[${option.label}] ` : ""}${option.text}`,
                     rationale: null,
                     displayName,
+                    role: role || undefined,
                     score: newScore,
+                    isCorrect: true,
+                    decisionTimeMs,
                 });
             }
 
@@ -306,7 +332,10 @@ export default function TraineeInterface() {
                     action: `${option.label ? `[${option.label}] ` : ""}${option.text}`,
                     rationale: null,
                     displayName,
+                    role: role || undefined,
                     score,
+                    isCorrect: false,
+                    decisionTimeMs,
                 });
             }
 
@@ -321,11 +350,13 @@ export default function TraineeInterface() {
 
     /** Derived formatted time string for display. */
     const time = formatTime(elapsedSeconds);
+    /** Simulated incident time string (null when no timeline events have fired). */
+    const simTime = formatSimOffset(maxSimOffsetSec);
 
     /** Show error state if scenario couldn't be loaded. */
     if (loadError) {
         return (
-            <TraineeInterfaceLayout time={time} score={score} decisions={decisions}>
+            <TraineeInterfaceLayout time={time} score={score} decisions={decisions} simTime={simTime}>
                 <BackButton to="/join-session" />
                 <div className="scenario-card">
                     <h2>Unable to Load Scenario</h2>
@@ -338,7 +369,7 @@ export default function TraineeInterface() {
     /** Show loading state while scenario data is being fetched. */
     if (!scenarioData || !currentNodeId) {
         return (
-            <TraineeInterfaceLayout time={time} score={score} decisions={decisions}>
+            <TraineeInterfaceLayout time={time} score={score} decisions={decisions} simTime={simTime}>
                 <div className="scenario-card">
                     <h2>Loading Scenario...</h2>
                     <p>Please wait while the scenario is being loaded.</p>
@@ -352,7 +383,7 @@ export default function TraineeInterface() {
     /** Guard against a missing or invalid node reference in the scenario definition. */
     if (!currentNode) {
         return (
-            <TraineeInterfaceLayout time={time} score={score} decisions={decisions}>
+            <TraineeInterfaceLayout time={time} score={score} decisions={decisions} simTime={simTime}>
                 <div className="scenario-card">
                     <h2>Scenario Error</h2>
                     <p>An unexpected error occurred: node &quot;{currentNodeId}&quot; was not found in the scenario. Please contact the administrator.</p>
@@ -369,7 +400,7 @@ export default function TraineeInterface() {
     /** Terminal node — show scenario-complete card instead of options. */
     if (currentNode.options.length === 0) {
         return (
-            <TraineeInterfaceLayout time={time} score={score} decisions={decisions}>
+            <TraineeInterfaceLayout time={time} score={score} decisions={decisions} simTime={simTime}>
                 {role && (
                     <div className="scenario-card" style={{ padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                         <span style={{ opacity: 0.7, fontSize: "0.8rem" }}>Your role:</span>
@@ -425,7 +456,7 @@ export default function TraineeInterface() {
     }
 
     return (
-        <TraineeInterfaceLayout time={time} score={score} decisions={decisions}>
+        <TraineeInterfaceLayout time={time} score={score} decisions={decisions} simTime={simTime}>
 
             {/** Role badge. */}
             {role && (

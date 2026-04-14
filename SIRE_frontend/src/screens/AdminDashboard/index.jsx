@@ -213,22 +213,27 @@ export default function AdminDashboard() {
         });
 
         socket.on("event:log:broadcast", (payload) => {
-            /** Detect correct vs incorrect decisions by tracking score changes per trainee. */
+            /** Use isCorrect field from backend when available, otherwise fall back to score-delta detection. */
             let isCorrect = null;
-            if (payload.actorRole === "trainee" && payload.score !== undefined && payload.displayName) {
-                const prevScore = traineeScoreRef.current.get(payload.displayName) ?? 0;
-                isCorrect = payload.score > prevScore;
-                traineeScoreRef.current.set(payload.displayName, payload.score);
-
-                setTraineeScores((prev) => {
-                    const next = new Map(prev);
-                    const existing = next.get(payload.displayName) || { score: 0, decisions: 0 };
-                    next.set(payload.displayName, {
-                        score: payload.score,
-                        decisions: existing.decisions + 1,
+            if (payload.actorRole === "trainee" && payload.displayName) {
+                if (typeof payload.isCorrect === "boolean") {
+                    isCorrect = payload.isCorrect;
+                } else if (payload.score !== undefined) {
+                    const prevScore = traineeScoreRef.current.get(payload.displayName) ?? 0;
+                    isCorrect = payload.score > prevScore;
+                }
+                if (payload.score !== undefined) {
+                    traineeScoreRef.current.set(payload.displayName, payload.score);
+                    setTraineeScores((prev) => {
+                        const next = new Map(prev);
+                        const existing = next.get(payload.displayName) || { score: 0, decisions: 0 };
+                        next.set(payload.displayName, {
+                            score: payload.score,
+                            decisions: existing.decisions + 1,
+                        });
+                        return next;
                     });
-                    return next;
-                });
+                }
             }
 
             setEventLog((prev) => [
@@ -307,6 +312,9 @@ export default function AdminDashboard() {
 
     /** Function that confirms session end and transitions to the ended state. */
     function handleConfirmEnd() {
+        if (socketRef.current && sessionCode) {
+            socketRef.current.emit("session:end:admin", { sessionCode });
+        }
         setSessionState("ended");
         setShowEndModal(false);
     }
@@ -760,7 +768,32 @@ export default function AdminDashboard() {
             )}
 
             {/** Post session that displays final results (After-Action Review). */}
-            {sessionState === "ended" && (
+            {sessionState === "ended" && (() => {
+                // Compute KPIs from the session event log
+                const traineeDecisions = eventLog.filter(e => e.actorRole === "trainee" && e.isCorrect !== null && e.isCorrect !== undefined);
+                const correctDecisions = traineeDecisions.filter(e => e.isCorrect === true).length;
+                const overallAccuracy = traineeDecisions.length > 0 ? (correctDecisions / traineeDecisions.length * 100).toFixed(0) : null;
+                const activeTrainees = new Set(traineeDecisions.map(e => e.displayName)).size;
+                const participationRate = trainees.length > 0 ? (activeTrainees / trainees.length * 100).toFixed(0) : null;
+
+                // Role-based scorecard
+                const roleScores = {};
+                for (const t of trainees) {
+                    if (t.role && !roleScores[t.role]) {
+                        roleScores[t.role] = { correct: 0, total: 0, displayNames: [] };
+                    }
+                    if (t.role) roleScores[t.role].displayNames.push(t.displayName);
+                }
+                for (const entry of traineeDecisions) {
+                    const trainee = trainees.find(t => t.displayName === entry.displayName);
+                    const r = trainee?.role;
+                    if (r && roleScores[r]) {
+                        roleScores[r].total++;
+                        if (entry.isCorrect) roleScores[r].correct++;
+                    }
+                }
+
+                return (
                 <div>
                     <div className="dashboard-card">
                         <h2>Session Report</h2>
@@ -768,25 +801,90 @@ export default function AdminDashboard() {
                         <p><strong>Scenario:</strong> {scenarioName}</p>
                     </div>
 
+                    {/** KPI summary cards */}
+                    <div className="kpi-grid">
+                        <div className="kpi-card">
+                            <div className="kpi-label">Participants</div>
+                            <div className="kpi-value">{trainees.length}</div>
+                        </div>
+                        <div className="kpi-card">
+                            <div className="kpi-label">Participation Rate</div>
+                            <div className="kpi-value">{participationRate != null ? `${participationRate}%` : "—"}</div>
+                        </div>
+                        <div className="kpi-card">
+                            <div className="kpi-label">Decision Accuracy</div>
+                            <div className="kpi-value">{overallAccuracy != null ? `${overallAccuracy}%` : "—"}</div>
+                        </div>
+                        <div className="kpi-card">
+                            <div className="kpi-label">Total Decisions</div>
+                            <div className="kpi-value">{traineeDecisions.length}</div>
+                        </div>
+                    </div>
+
                     <div className="dashboard-card">
                         <h3>Participants ({trainees.length})</h3>
                         <ul>
                             {trainees.map((t, i) => {
                                 const stats = traineeScores.get(t.displayName);
+                                const myDecisions = eventLog.filter(e => e.actorRole === "trainee" && e.displayName === t.displayName && e.isCorrect !== null && e.isCorrect !== undefined);
+                                const myCorrect = myDecisions.filter(e => e.isCorrect === true).length;
+                                const myAccuracy = myDecisions.length > 0 ? `${(myCorrect / myDecisions.length * 100).toFixed(0)}%` : null;
                                 return (
-                                    <li key={t.socketId || i}>
+                                    <li key={t.socketId || i} style={{ marginBottom: "0.35rem" }}>
                                         {t.displayName}
                                         {t.role && <span className="role-badge" style={{ marginLeft: "0.4rem" }}>{t.role}</span>}
                                         {" — "}
                                         <strong style={{ color: "rgb(80,220,80)" }}>
                                             {stats?.score ?? 0} pts
                                         </strong>
-                                        {" "}({stats?.decisions ?? 0} decisions)
+                                        {" "}({stats?.decisions ?? 0} decisions
+                                        {myAccuracy != null && `, ${myAccuracy} accuracy`})
                                     </li>
                                 );
                             })}
                         </ul>
                     </div>
+
+                    {/** Role-based scorecard */}
+                    {Object.keys(roleScores).length > 0 && (
+                        <div className="dashboard-card">
+                            <h3>Role Scorecard</h3>
+                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+                                <thead>
+                                    <tr style={{ borderBottom: "1px solid rgb(80,80,80)", textAlign: "left" }}>
+                                        <th style={{ padding: "0.4rem 0.5rem" }}>Role</th>
+                                        <th style={{ padding: "0.4rem 0.5rem" }}>Decisions</th>
+                                        <th style={{ padding: "0.4rem 0.5rem" }}>Accuracy</th>
+                                        <th style={{ padding: "0.4rem 0.5rem" }}>Readiness</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {Object.entries(roleScores).map(([role, data]) => {
+                                        const acc = data.total > 0 ? (data.correct / data.total * 100) : null;
+                                        const readinessColor = acc == null ? "rgba(255,255,255,0.3)" : acc >= 80 ? "rgb(80,220,80)" : acc >= 50 ? "rgb(255,180,40)" : "rgb(255,100,100)";
+                                        const readinessLabel = acc == null ? "—" : acc >= 80 ? "Strong" : acc >= 50 ? "Developing" : "Needs Work";
+                                        return (
+                                            <tr key={role} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                                                <td style={{ padding: "0.4rem 0.5rem" }}><span className="role-badge">{role}</span></td>
+                                                <td style={{ padding: "0.4rem 0.5rem" }}>{data.total}</td>
+                                                <td style={{ padding: "0.4rem 0.5rem" }}>
+                                                    {acc != null ? (
+                                                        <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                                            <span style={{ flex: 1, background: "rgba(255,255,255,0.08)", borderRadius: "99px", height: "6px", overflow: "hidden" }}>
+                                                                <span style={{ display: "block", width: `${acc}%`, height: "100%", background: readinessColor, borderRadius: "99px", transition: "width 0.4s" }} />
+                                                            </span>
+                                                            {acc.toFixed(0)}%
+                                                        </span>
+                                                    ) : "—"}
+                                                </td>
+                                                <td style={{ padding: "0.4rem 0.5rem", color: readinessColor, fontWeight: 600 }}>{readinessLabel}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
 
                     {actionItems.length > 0 && (
                         <div className="dashboard-card">
@@ -852,11 +950,13 @@ export default function AdminDashboard() {
 
                     <div className="session-actions">
                         <Button text="Start New Session" onClick={handleStartNewSession} />
+                        <Button text="View Analytics" onClick={() => navigate("/analytics")} />
                         <Button text="Return to Home" onClick={() => navigate("/")} />
                         <Button text="Export Results" onClick={handleExportResults} />
                     </div>
                 </div>
-            )}
+                );
+            })()}
 
             {/** End-session confirmation modal overlay. */}
             {showEndModal && (
