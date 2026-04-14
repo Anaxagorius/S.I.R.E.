@@ -9,11 +9,11 @@ import { scenarioRegistry } from '../services/scenarioRegistry.mjs'
 import { sireDatabase } from '../models/sireDatabase.mjs'
 import { auditLogger } from '../config/auditLogger.mjs'
 import { buildAuditContext } from '../utils/auditContext.mjs'
-import { normalizeScenarioKey, isPlainObject, normalizeText } from '../utils/validation.mjs'
+import { normalizeScenarioKey, isPlainObject } from '../utils/validation.mjs'
 
 const router = Router()
 
-/** Clamp a string to a maximum byte length, returning null when the value is missing. */
+/** Clamp a string to a maximum character length, returning null when the value is missing. */
 function clampString(value, max) {
   if (typeof value !== 'string') return null
   const trimmed = value.trim()
@@ -121,7 +121,7 @@ router.post('/scenarios', (req, res) => {
 
   const { title, description, ...rest } = parsed.data
   const id = `custom_${nanoid(8).toLowerCase()}`
-  const jsonData = { title: id, description, ...rest }
+  const jsonData = { title, description, ...rest }
 
   try {
     sireDatabase.createScenario({ id, title, description, jsonData })
