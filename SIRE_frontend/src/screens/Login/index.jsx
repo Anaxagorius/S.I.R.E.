@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-31
+ * Last Update: 2026-04-14
  * Description: Login screen of the application.
  * Allows users to authenticate using their email and password, handles form state,
  * displays errors, and communicates with the backend API.
@@ -9,6 +9,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/api/api";
+import { useAuth } from "../../context/AuthContext";
 import FormLayout from "../../layouts/FormLayout";
 import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
@@ -22,6 +23,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const { login: authLogin } = useAuth();
 
     /** Asynchronous function that handles the login form submission. */
     async function handleLogin(e) {
@@ -30,7 +32,7 @@ export default function Login() {
         setError(null);
         try {
             const data = await login(email, password);
-            localStorage.setItem("authToken", data.authToken);
+            authLogin(data.authToken, data.user);
             navigate("/role");
         } catch (error) {
             setError(error.message || "Login failed");
@@ -38,6 +40,58 @@ export default function Login() {
             setLoading(false);
         }
     }
+
+    return (
+        <FormLayout>
+
+            {/** Back navigation. */}
+            <BackButton to="/" />
+
+            {/** Login form. */}
+            <form className="login-form" onSubmit={handleLogin}>
+
+                {/** Email input. */}
+                <div className="form-group">
+                    <label htmlFor="email">Email*</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email..."
+                        required
+                    />
+                </div>
+
+                {/** Password input. */}
+                <div className="form-group">
+                    <label htmlFor="password">Password*</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter your password..."
+                        required
+                    />
+                </div>
+
+                {/** Signup redirect. */}
+                <div>
+                    <p className="no-account-text">
+                        Don&apos;t have an account? <Link to="/signup">Sign up here.</Link>
+                    </p>
+                </div>
+
+                {/** Error message. */}
+                {error && <div className="error">{error}</div>}
+
+                <Button text={loading ? "Logging in..." : "Login"} type="submit" disabled={loading} />
+            </form>
+
+        </FormLayout>
+    );
+}
 
     return (
         <FormLayout>

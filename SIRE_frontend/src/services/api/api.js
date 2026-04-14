@@ -81,3 +81,13 @@ export const joinSession = async (sessionKey) => {
 export const getAnalytics = async () => {
     return apiClient.get("/analytics");
 };
+
+/** Retrieves a list of all registered users (admin only). */
+export const getUsers = async () => {
+    return apiClient.get("/users");
+};
+
+/** Updates a user's system role (admin only). */
+export const setUserRole = async (userId, role) => {
+    return apiClient.put(`/users/${userId}/role`, { role });
+};

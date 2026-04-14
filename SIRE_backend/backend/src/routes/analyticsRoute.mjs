@@ -8,6 +8,7 @@
  */
 import { Router } from 'express'
 import { sireDatabase } from '../models/sireDatabase.mjs'
+import { requireAuth, requireRole } from '../middleware/authMiddleware.mjs'
 
 const router = Router()
 
@@ -132,7 +133,7 @@ function aggregateAnalytics(rows) {
 }
 
 /** GET /api/analytics — returns program-level analytics from persisted session results. */
-router.get('/analytics', (req, res) => {
+router.get('/analytics', requireAuth, requireRole('admin', 'facilitator'), (req, res) => {
   try {
     const rows = sireDatabase.listSessionResults()
     const analytics = aggregateAnalytics(rows)
