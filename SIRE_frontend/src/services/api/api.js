@@ -102,3 +102,8 @@ export const updateDocument = async (id, data) => {
 export const deleteDocument = async (id) => {
     return apiClient.delete(`/documents/${id}`);
 };
+
+/** Retrieves program-level analytics aggregated from persisted session results. */
+export const getAnalytics = async () => {
+    return apiClient.get("/analytics");
+};

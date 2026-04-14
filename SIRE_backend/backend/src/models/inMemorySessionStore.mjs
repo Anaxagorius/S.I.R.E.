@@ -36,6 +36,8 @@ export const inMemorySessionStore = {
       actionItems: [],
       /** @type {Array<object>} Ordered audit trail of all significant session events. */
       eventLog: [],
+      /** Wall-clock ms when the session timeline was first started. */
+      startedAtMs: null,
     }
     sessionMap.set(sessionCode, record)
     return record
@@ -214,6 +216,20 @@ export const inMemorySessionStore = {
     const s = sessionMap.get(sessionCode)
     if (!s) return null
     return s.actionItems
+  },
+  /** Mark the session as started and record the wall-clock start time. */
+  markStarted: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    if (s.startedAtMs === null) s.startedAtMs = Date.now()
+    return s
+  },
+  /** Append an event log entry used for analytics KPI computation. */
+  logEvent: (sessionCode, entry) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    s.eventLog.push(entry)
+    return entry
   },
   /** Update a trainee's role (facilitator-assigned override). */
   assignTraineeRole: (sessionCode, displayName, role) => {

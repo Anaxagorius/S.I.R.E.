@@ -34,7 +34,7 @@ function scheduleEntry(entry, onFire) {
 }
 
 export const escalationService = {
-  startTimeline: ({ io, sessionCode, scenarioDefinition }) => {
+  startTimeline: ({ io, sessionCode, scenarioDefinition, onEnd }) => {
     // Clear any existing timers for the session
     escalationService.stopTimeline({ sessionCode })
 
@@ -89,6 +89,7 @@ export const escalationService = {
       inMemorySessionStore.setEnded(sessionCode)
       inMemorySessionStore.appendEventLog(sessionCode, { type: 'session:end' })
       io.of('/sim').to(room).emit('session:end', { sessionCode })
+      if (typeof onEnd === 'function') onEnd(sessionCode)
     } else if (lastOffset > 0) {
       completionEntry = {
         handle: null,
@@ -101,6 +102,7 @@ export const escalationService = {
         inMemorySessionStore.setEnded(sessionCode)
         inMemorySessionStore.appendEventLog(sessionCode, { type: 'session:end' })
         io.of('/sim').to(room).emit('session:end', { sessionCode })
+        if (typeof onEnd === 'function') onEnd(sessionCode)
       })
     }
 

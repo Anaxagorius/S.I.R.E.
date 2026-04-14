@@ -92,6 +92,32 @@ db.exec(`
 /* ------------------------------------------------------------------ */
 /*  Prepared statements                                                 */
 /* ------------------------------------------------------------------ */
+ * session_results table
+ * Stores completed session summaries for program-level analytics.
+ *
+ * Columns:
+ *   session_code       - the short code that identified the session
+ *   scenario_key       - scenario identifier (e.g. 'scenario_fire')
+ *   started_at         - ISO-8601 timestamp when the timeline started
+ *   ended_at           - ISO-8601 timestamp when the session ended
+ *   participant_count  - number of trainees who joined
+ *   json_data          - full KPI summary serialised as a JSON string
+ *   created_at         - ISO-8601 timestamp when this record was inserted
+ */
+db.exec(`
+  CREATE TABLE IF NOT EXISTS session_results (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_code      TEXT NOT NULL,
+    scenario_key      TEXT NOT NULL,
+    started_at        TEXT,
+    ended_at          TEXT,
+    participant_count INTEGER NOT NULL DEFAULT 0,
+    json_data         TEXT NOT NULL DEFAULT '{}',
+    created_at        TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  )
+`)
+
+
 
 const stmts = {
   /* users */
@@ -127,6 +153,13 @@ const stmts = {
     'UPDATE documents SET name = ?, description = ?, url = ?, scenario_id = ? WHERE id = ?'
   ),
   deleteDocument:    db.prepare('DELETE FROM documents WHERE id = ?'),
+  /* session_results */
+  insertSessionResult: db.prepare(
+    'INSERT INTO session_results (session_code, scenario_key, started_at, ended_at, participant_count, json_data) VALUES (?, ?, ?, ?, ?, ?)'
+  ),
+  listSessionResults: db.prepare(
+    'SELECT id, session_code, scenario_key, started_at, ended_at, participant_count, json_data, created_at FROM session_results ORDER BY created_at DESC LIMIT 100'
+  ),
 }
 
 /* ------------------------------------------------------------------ */
@@ -279,4 +312,26 @@ export const sireDatabase = {
    * @param {string} id
    */
   deleteDocument: (id) => stmts.deleteDocument.run(id),
+  /* ---- session_results ---- */
+
+  /**
+   * Persists a completed session result for program-level analytics.
+   * @param {{ sessionCode: string, scenarioKey: string, startedAt: string|null, endedAt: string, participantCount: number, kpis: object }} result
+   */
+  saveSessionResult: ({ sessionCode, scenarioKey, startedAt, endedAt, participantCount, kpis }) => {
+    stmts.insertSessionResult.run(
+      sessionCode,
+      scenarioKey,
+      startedAt || null,
+      endedAt,
+      participantCount,
+      JSON.stringify(kpis)
+    )
+  },
+
+  /**
+   * Returns up to 100 most-recent session results (newest first).
+   * @returns {Array<{ id: number, session_code: string, scenario_key: string, started_at: string, ended_at: string, participant_count: number, json_data: string, created_at: string }>}
+   */
+  listSessionResults: () => stmts.listSessionResults.all(),
 }

@@ -4,6 +4,7 @@ import { sessionService } from '../services/sessionService.mjs';
 import { scenarioRegistry } from '../services/scenarioRegistry.mjs';
 import { escalationService } from '../services/escalationService.mjs';
 import { inMemorySessionStore } from '../models/inMemorySessionStore.mjs';
+import { sireDatabase } from '../models/sireDatabase.mjs';
 import { securityConfig } from '../config/securityConfig.mjs';
 import { environmentConfig } from '../config/environmentConfig.mjs';
 import { auditLogger } from '../config/auditLogger.mjs';
@@ -33,6 +34,111 @@ const emitError = (socket, code, message) => {
     correlationId: generateRandomUuid()
   });
 };
+
+/**
+ * Compute analytics KPIs from a completed session record and persist to the database.
+ * Safe to call multiple times — duplicate records are acceptable for audit purposes.
+ */
+function persistSessionResult(session, logger) {
+  try {
+    const eventLog = session.eventLog || [];
+    const traineeEvents = eventLog.filter(e => e.actorRole === 'trainee');
+
+    const decisionTimes = traineeEvents
+      .filter(e => typeof e.decisionTimeMs === 'number')
+      .map(e => e.decisionTimeMs);
+    const avgTimeToDecisionMs = decisionTimes.length > 0
+      ? Math.round(decisionTimes.reduce((a, b) => a + b, 0) / decisionTimes.length)
+      : null;
+
+    const activeTrainees = new Set(traineeEvents.map(e => e.displayName)).size;
+    const participationRate = session.trainees.length > 0
+      ? activeTrainees / session.trainees.length
+      : 0;
+
+    const decisionsWithOutcome = traineeEvents.filter(e => typeof e.isCorrect === 'boolean');
+    const correctCount = decisionsWithOutcome.filter(e => e.isCorrect).length;
+    const overallAccuracy = decisionsWithOutcome.length > 0
+      ? correctCount / decisionsWithOutcome.length
+      : null;
+
+    const milestonesCompleted = Math.max(0, session.currentTimelineIndex + 1);
+
+    // Per-role breakdown
+    const roleMap = {};
+    for (const t of session.trainees) {
+      if (t.role && !roleMap[t.role]) {
+        roleMap[t.role] = { accuracySum: 0, accuracyCount: 0, timeSum: 0, timeCount: 0 };
+      }
+    }
+    for (const evt of traineeEvents) {
+      if (evt.role && roleMap[evt.role]) {
+        if (typeof evt.isCorrect === 'boolean') {
+          roleMap[evt.role].accuracyCount++;
+          if (evt.isCorrect) roleMap[evt.role].accuracySum++;
+        }
+        if (typeof evt.decisionTimeMs === 'number') {
+          roleMap[evt.role].timeSum += evt.decisionTimeMs;
+          roleMap[evt.role].timeCount++;
+        }
+      }
+    }
+    const roleBreakdown = {};
+    for (const [role, data] of Object.entries(roleMap)) {
+      roleBreakdown[role] = {
+        accuracy: data.accuracyCount > 0 ? data.accuracySum / data.accuracyCount : null,
+        avgDecisionTimeMs: data.timeCount > 0 ? Math.round(data.timeSum / data.timeCount) : null,
+      };
+    }
+
+    // Per-trainee summary for the detailed JSON
+    const participants = session.trainees.map(t => {
+      const myEvents = traineeEvents.filter(e => e.displayName === t.displayName);
+      const myDecisions = myEvents.filter(e => typeof e.isCorrect === 'boolean');
+      const myCorrect = myDecisions.filter(e => e.isCorrect).length;
+      const myTimes = myEvents.filter(e => typeof e.decisionTimeMs === 'number').map(e => e.decisionTimeMs);
+      return {
+        displayName: t.displayName,
+        role: t.role || null,
+        score: myEvents.length > 0 ? myEvents[myEvents.length - 1].score ?? 0 : 0,
+        decisions: myDecisions.length,
+        correctDecisions: myCorrect,
+        avgDecisionTimeMs: myTimes.length > 0
+          ? Math.round(myTimes.reduce((a, b) => a + b, 0) / myTimes.length)
+          : null,
+      };
+    });
+
+    const kpis = {
+      avgTimeToDecisionMs,
+      participationRate,
+      overallAccuracy,
+      milestonesCompleted,
+      roleBreakdown,
+      participants,
+    };
+
+    const endedAt = new Date().toISOString();
+    const startedAt = session.startedAtMs ? new Date(session.startedAtMs).toISOString() : null;
+
+    sireDatabase.saveSessionResult({
+      sessionCode: session.sessionCode,
+      scenarioKey: session.scenarioKey,
+      startedAt,
+      endedAt,
+      participantCount: session.trainees.length,
+      kpis,
+    });
+
+    if (logger) {
+      logger.info('Session result persisted', { sessionCode: session.sessionCode });
+    }
+  } catch (err) {
+    if (logger) {
+      logger.warn('Failed to persist session result', { sessionCode: session.sessionCode, error: String(err) });
+    }
+  }
+}
 
 /**
  * Normalize allowed origins from env/config:
@@ -277,7 +383,16 @@ export function attachSocketServer(httpServer, logger) {
       const room = `session:${sessionCode}`;
       socket.join(room);
 
-      escalationService.startTimeline({ io, sessionCode, scenarioDefinition });
+      escalationService.startTimeline({
+        io,
+        sessionCode,
+        scenarioDefinition,
+        onEnd: (code) => {
+          const session = inMemorySessionStore.getSession(code);
+          if (session) persistSessionResult(session, logger);
+        },
+      });
+      inMemorySessionStore.markStarted(sessionCode);
 
       auditLogger.event({
         action: 'session:start',
@@ -820,6 +935,12 @@ export function attachSocketServer(httpServer, logger) {
       const action = normalizeActionText(payload?.action);
       const rationale = normalizeRationaleText(payload?.rationale);
       const displayName = normalizeDisplayName(payload?.displayName);
+      const role = normalizeRole(payload?.role);
+      const score = typeof payload?.score === 'number' ? payload.score : undefined;
+      const isCorrect = typeof payload?.isCorrect === 'boolean' ? payload.isCorrect : undefined;
+      const decisionTimeMs = typeof payload?.decisionTimeMs === 'number' && payload.decisionTimeMs >= 0
+        ? payload.decisionTimeMs
+        : undefined;
 
       if (!sessionCode || !action || !displayName) {
         emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, action, displayName are required');
@@ -860,11 +981,27 @@ export function attachSocketServer(httpServer, logger) {
       }
 
       const timestampIso = new Date().toISOString();
+
+      // Store event in the session's analytics log
+      inMemorySessionStore.logEvent(sessionCode, {
+        actorRole: 'trainee',
+        displayName,
+        role: role || null,
+        action,
+        score: score !== undefined ? score : null,
+        isCorrect: isCorrect !== undefined ? isCorrect : null,
+        decisionTimeMs: decisionTimeMs !== undefined ? decisionTimeMs : null,
+        timestampIso,
+      });
+
       simNamespace.to(room).emit('event:log:broadcast', {
         actorRole: 'trainee',
         displayName,
+        role: role || null,
         action,
         rationale,
+        score: score !== undefined ? score : undefined,
+        isCorrect: isCorrect !== undefined ? isCorrect : undefined,
         timestampIso
       });
 
@@ -893,6 +1030,10 @@ export function attachSocketServer(httpServer, logger) {
 
       if (!sessionCode || !injectId || !noteText) {
         emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, injectId, and text are required');
+    socket.on('session:end:admin', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      if (!sessionCode) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode is required');
         return;
       }
 
@@ -918,6 +1059,22 @@ export function attachSocketServer(httpServer, logger) {
         action: 'inject:note:add',
         actor,
         context: buildAuditContext({ sessionCode, injectId, socketId: socket.id }, ['sessionCode', 'injectId', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+      // Persist analytics before marking session inactive
+      persistSessionResult(session, logger);
+      inMemorySessionStore.setActive(sessionCode, false);
+
+      const room = `session:${sessionCode}`;
+      simNamespace.to(room).emit('session:end', { sessionCode });
+
+      auditLogger.event({
+        action: 'session:end:admin',
+        actor,
+        context: buildAuditContext({ sessionCode, socketId: socket.id }, ['sessionCode', 'socketId']),
         outcome: 'success',
         correlationId: generateRandomUuid()
       });
