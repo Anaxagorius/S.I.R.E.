@@ -1938,7 +1938,6 @@ const DEMO_SCENARIOS = [
         description: "A supervisor conducts the mandatory wellness check-in 72 hours after a fatal officer-involved shooting — facilitating EAP referral, navigating SIU restrictions, and planning return-to-operational-duties.",
         data: scenarioOfficerWellnessFollowup,
     },
-
     // ── Education: Teaching & Learning Challenges ─────────────────────────────
     {
         id: "scenario_classroom_chronic_misbehavior",
@@ -2061,6 +2060,7 @@ const DEMO_SCENARIOS = [
         description: "A substitute teacher faces severe classroom management challenges with students testing limits — they must de-escalate, establish authority, and escalate appropriately when needed.",
         data: scenarioSubstituteManagement,
     },
+
 ];
 
 export default DEMO_SCENARIOS;
