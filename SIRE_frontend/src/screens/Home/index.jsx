@@ -32,6 +32,9 @@ export default function Home() {
             {/** Navigation button — program-level analytics and metrics dashboard. */}
             <Button text="Analytics" to="/analytics" />
 
+            {/** Navigation button — ITSM and threat intel integrations. */}
+            <Button text="Integrations" to="/integrations" />
+
             {/** Main carousel content — rendered in the right panel by HomeLayout. */}
             <HomeCarousel />
         </HomeLayout>
