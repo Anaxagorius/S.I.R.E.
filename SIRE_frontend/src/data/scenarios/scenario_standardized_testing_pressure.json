@@ -1,0 +1,90 @@
+{
+  "title": "scenario_standardized_testing_pressure",
+  "description": "Students are showing test anxiety and resistance ahead of a high-stakes standardized exam.",
+  "timeline": [
+    { "index": 0, "title": "Anxiety Surfaces", "description": "Several students express fear and dread about the upcoming standardized exam.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Resistance Grows", "description": "A subset of students begins refusing to engage in exam preparation activities.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Classroom Climate Shifts", "description": "Tension is affecting the learning environment and peer dynamics.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Teacher Intervention", "description": "Teacher addresses test anxiety directly with structured strategies.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Preparation Reframed", "description": "Exam prep is reframed as skills development rather than performance anxiety.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Students are better regulated and engaging productively in exam preparation.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Student Test Anxiety Emerges",
+      "situation": "The provincial literacy assessment is two weeks away. In your Grade 10 English class, three students have said they 'refuse to care about a stupid test,' two are visibly anxious and asking daily if the test will ruin their transcript, and one student had a panic attack during last year's testing period. The rest of the class is restless. You are about to begin a practice session.",
+      "question": "How do you open the class to address the emotional climate before starting preparation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Pause the academic agenda briefly. Acknowledge the test is stressful, normalize test anxiety as a common experience, and invite students to name their feelings without judgment. Then pivot to framing preparation as building skills they already have—not as a measure of their worth.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell students the test is extremely important and their results will affect their futures—they need to take it seriously and stop complaining.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the emotional tension and begin the practice test immediately to maximize preparation time.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Structuring Anxiety-Informed Preparation",
+      "situation": "The class has calmed after your opening conversation, but you still need to cover key test-taking strategies. Some students are disengaged because they feel they 'already know this stuff.' Others are overwhelmed by the format. You want to make the next two weeks productive without heightening stress. You also know that teaching self-regulation skills alongside content is evidence-based.",
+      "question": "How do you structure the preparation period?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Integrate short breathing or grounding exercises at the start of each practice session, use low-stakes practice formats (not timed initially), build in specific instruction on test-taking strategies such as annotation and process of elimination, and gradually introduce timed conditions only in the final week.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Give students full-length timed practice tests every day for two weeks so they get used to the pressure through repetition.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell students the preparation is optional since you cannot force them to care—if they don't want to practice, they can work on other homework.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Supporting High-Anxiety Students",
+      "situation": "The student who had a panic attack last year, Leila, approaches you privately and says she is 'terrified' of the test and doesn't think she can do it. She is already struggling with anxiety outside of school. Your school has a counselor and testing accommodations exist for students with documented anxiety disorders. Leila does not currently have a formal plan.",
+      "question": "How do you support Leila specifically?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Listen empathetically, validate her feelings, and then proactively refer Leila to the school counselor to explore whether formal testing accommodations such as separate room or extended time might be warranted. Follow up with the counselor and keep Leila's situation confidential from peers.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Leila that everyone is nervous and she just needs to push through it—the test is the same for everyone.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the class anonymously that 'some students' have anxiety about the test and ask others to be sensitive, inadvertently drawing attention to Leila's situation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You addressed standardized testing anxiety with a balanced approach: normalizing emotions, reframing preparation as skill-building, integrating self-regulation into practice sessions, and connecting a high-needs student to counseling and possible accommodations. You avoided both minimizing student anxiety and creating additional pressure. This approach protects student wellbeing while still equipping them with the tools they need to perform to their potential.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["test anxiety", "standardized testing", "self-regulation", "exam preparation", "accommodations", "student wellbeing", "counselor referral"]
+}

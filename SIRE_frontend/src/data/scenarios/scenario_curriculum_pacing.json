@@ -1,0 +1,90 @@
+{
+  "title": "scenario_curriculum_pacing",
+  "description": "A teacher is significantly behind on curriculum pacing and must catch up without sacrificing key content.",
+  "timeline": [
+    { "index": 0, "title": "Gap Identified", "description": "Department head shares pacing data revealing the teacher is three weeks behind the curriculum map.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Cause Analysis", "description": "Teacher reflects on what caused the pacing delay.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Prioritization", "description": "Teacher identifies which content is essential vs. supplemental.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Recovery Plan", "description": "Teacher designs a realistic catch-up plan without skipping essential outcomes.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Communication", "description": "Teacher communicates the adjusted plan to students and informs colleagues.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Pacing is restored and essential curriculum outcomes are on track.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Significantly Behind on Pacing",
+      "situation": "Your department head has reviewed curriculum pacing data and noted that your Grade 8 social studies class is approximately three weeks behind the shared pacing guide, with final assessments approaching in six weeks. You have covered Unit 2 thoroughly but have not yet started Unit 3, which contains several essential learning outcomes that will appear on the shared final exam.",
+      "question": "What is your first step in responding to the pacing concern?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Review the curriculum map honestly to identify what has been covered versus what is outstanding. Distinguish between essential learning outcomes (those assessed on the final exam or required by curriculum standards) and supplemental enrichment content that can be trimmed.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Dramatically increase the pace by covering two to three units per week, delivering lectures without time for questions, practice, or consolidation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the department head the pacing guide is unrealistic and continue delivering Unit 2 content at the same pace since depth is more important than coverage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Designing the Recovery Plan",
+      "situation": "You have identified that four of the seven remaining Unit 3 outcomes are essential and three are supplemental. You have six weeks and can realistically cover the essential outcomes with some restructuring. You need to design a catch-up plan that prioritizes without simply lecturing students through content they cannot process.",
+      "question": "How do you structure the recovery plan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Create a condensed plan: bundle related essential outcomes into thematic lessons, use graphic organizers and structured note-taking to deliver content efficiently, and shift some supplemental material to optional extension readings. Build in one formative checkpoint per week to verify understanding.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Assign the three supplemental units as independent homework reading with a multiple-choice quiz so you never have to teach them in class.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell students the remaining units will not be taught and remove those outcomes from your final exam without informing the department head.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Communicating the Plan",
+      "situation": "Your recovery plan is ready. You need to communicate it clearly to students so they understand the adjusted schedule and expectations. You also need to loop in your department head with your plan to show you have taken the concern seriously. Transparency here builds trust with both students and colleagues.",
+      "question": "How do you communicate your pacing recovery plan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Share an updated course calendar with students that explains which outcomes are being prioritized, what the remaining timeline looks like, and what the final exam will cover. Provide your department head with the written recovery plan and invite feedback before implementation.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Say nothing to students about the schedule change and hope they don't notice—just start moving faster.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell students the school made a scheduling error and that you had to cut content—this way the responsibility does not fall on you.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You responded to the pacing gap with honest reflection, strategic prioritization of essential outcomes, a realistic recovery plan that preserved instructional quality, and transparent communication with both students and your department head. You avoided the twin pitfalls of rushing through content without understanding or abandoning required outcomes. Your professionalism and collaborative approach preserved curriculum integrity and student learning.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["curriculum pacing", "unit planning", "curriculum map", "essential outcomes", "teacher planning", "department collaboration"]
+}

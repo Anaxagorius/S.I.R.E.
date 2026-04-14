@@ -1,0 +1,90 @@
+{
+  "title": "scenario_substitute_management",
+  "description": "A substitute teacher faces severe classroom management challenges and must handle escalation.",
+  "timeline": [
+    { "index": 0, "title": "Class Begins", "description": "Substitute teacher arrives and attempts to establish order with an unfamiliar class.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Behavior Escalates", "description": "Several students test boundaries, ignore instructions, and become increasingly disruptive.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Loss of Control", "description": "The class becomes chaotic; substitute is overwhelmed and struggling to maintain authority.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Seeking Support", "description": "Substitute follows proper protocol to request in-school support.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Order Restored", "description": "With support, the substitute regains control and documents the incidents.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "The substitute completes a written report for the returning teacher; the most disruptive students are referred.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Class Tests the Substitute's Authority",
+      "situation": "You are a substitute covering a Grade 8 class for the day. The regular teacher left a lesson plan and seating chart. Within five minutes, students are not in their assigned seats, talking over you, and ignoring your instructions to begin the warm-up activity. One student shouts 'You're not our real teacher' and several classmates laugh. The lesson plan is not being followed.",
+      "question": "How do you establish authority and redirect the class?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stand at the front, wait calmly for quiet without raising your voice, then clearly state the expectations: 'I am your teacher today and the rules are the same. Please find your assigned seats—I have the seating chart.' Reference the regular teacher's expectations and the consequences listed in the sub plan. Do not take the bait of the 'not our real teacher' comment.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell students you are not going to teach the lesson plan and instead let them have a free period if they just sit quietly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Yell at the class that you will send everyone to the office if they do not listen immediately.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Escalating Disruption",
+      "situation": "Despite your calm approach, the class has not fully settled. Three students—Alex, Devon, and Marcus—are still out of their seats, throwing paper, and narrating your every action mockingly. Other students are laughing. The rest of the class is unable to work. Your verbal redirections are not working and the situation is deteriorating. You have already given two clear warnings.",
+      "question": "What is your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the classroom phone or emergency call system to contact the main office and calmly request that an administrator or department head come to assist. State clearly: 'I have a class management situation and I need support in Room 214.' This is the appropriate protocol—not a failure.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Give up on the lesson plan entirely and let the three disruptive students do whatever they want while you focus on the well-behaved students.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Physically move Alex, Devon, and Marcus by the arm to different seats in the room to separate them.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Documentation and Report to the Regular Teacher",
+      "situation": "An administrator arrived, removed the three most disruptive students, and order has been restored. You were able to deliver the lesson to the remaining class. Now, at the end of the day, you need to leave a clear written report for the returning teacher detailing exactly what happened, which students were removed, and what was and was not completed from the lesson plan.",
+      "question": "How do you complete your substitute report?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Write a factual, detailed substitute note: describe the behavior of the three students specifically (names, actions, times), what verbal interventions you tried, that you called the office, who responded, what was covered in the lesson plan, and what was not completed. Leave it prominently on the teacher's desk.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Leave a brief note saying the class was 'difficult' and that you did your best—no student names or specific details are needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Say nothing about the three removed students so you do not get them in further trouble—they have already been dealt with.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You handled a challenging substitute situation with professionalism. You established authority using calm, clear expectations; recognized when the situation exceeded your resources and called for appropriate support without hesitation; completed the lesson with the majority of students; and left a thorough, factual written report for the returning teacher. Calling for support is a strength, not a failure—it protects students and ensures continuity of accountability.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Beginner",
+  "tags": ["substitute teacher", "classroom management", "escalation", "calling for support", "documentation", "student behavior", "authority"]
+}

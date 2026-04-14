@@ -1,0 +1,90 @@
+{
+  "title": "scenario_iep_504_accommodations",
+  "description": "A teacher is not meeting required IEP/504 accommodations; an administrator must address it.",
+  "timeline": [
+    { "index": 0, "title": "Concern Raised", "description": "A parent contacts administration reporting accommodations are not being provided.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Administrator Investigation", "description": "Administrator reviews the IEP/504 plan and speaks with the teacher.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Gap Confirmed", "description": "It is confirmed that key accommodations have not been consistently implemented.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Corrective Action", "description": "Administrator works with the teacher to establish an immediate correction plan.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Monitoring", "description": "A follow-up monitoring schedule is established to ensure compliance.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Accommodations are now consistently implemented; parent is informed.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Parent Reports Accommodation Failure",
+      "situation": "A parent calls the school to report that their child, who has an IEP requiring extended time on tests and preferential seating near the front, has not been receiving either accommodation in Ms. Carter's class for the past three weeks. The parent is upset and asking whether their child's rights have been violated. As the administrator, you must investigate promptly.",
+      "question": "How do you begin your response to this complaint?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Acknowledge the parent's concern, thank them for bringing it forward, and tell them you will investigate immediately and contact them with findings within 24 hours. Then pull the IEP/504 documentation to verify the required accommodations before meeting with the teacher.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the parent it is likely a misunderstanding and that Ms. Carter is an experienced teacher who would not make such an error—no immediate investigation is needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Call Ms. Carter immediately in front of the parent during the phone call to ask her to explain herself.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Meeting with the Teacher",
+      "situation": "You have reviewed the IEP documentation and confirmed the required accommodations. You now meet with Ms. Carter privately. She is defensive and says she 'didn't have time to set up preferential seating' and 'forgot about the extended time on last week's quiz.' She is unaware this constitutes a legal obligation, not a suggestion.",
+      "question": "How do you address this with Ms. Carter?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use a non-punitive but clear tone to explain that IEP and 504 accommodations are legally mandated and non-optional. Review each accommodation line by line with Ms. Carter, identify specific implementation gaps, and co-create a concrete action plan with timelines.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Accept Ms. Carter's explanation and tell her to try harder, without establishing any follow-up or documentation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Immediately place a formal reprimand in Ms. Carter's personnel file and notify human resources without first attempting a corrective conversation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Establishing Accountability and Parent Communication",
+      "situation": "Ms. Carter now understands the legal requirement and has agreed to a correction plan. She will implement extended time immediately and move the student's seat by tomorrow. However, the student has already been disadvantaged on the quiz taken without extended time. The parent is awaiting your call. You also need to establish a monitoring system to ensure compliance going forward.",
+      "question": "How do you proceed with accountability and parent communication?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Call the parent, acknowledge the failure, explain the corrective steps being taken, and offer to have the student retake the assessment with proper accommodations. Establish a bi-weekly check-in with Ms. Carter and schedule an IEP team review to document the corrective action.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the parent the issue is resolved and no reassessment is needed—the student's grade will stand.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Apologize to the parent but explain that it is the teacher's responsibility and there is nothing more administration can do.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You handled this accommodation failure with professionalism and urgency. You validated the parent's concern immediately, investigated with documentation in hand, corrected the teacher's understanding through a constructive conversation, remediated the student's impacted grade, and established ongoing monitoring. This approach upholds the student's legal rights, restores parent trust, and provides the teacher with the guidance needed to comply going forward.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Advanced",
+  "tags": ["IEP", "504 plan", "accommodations", "legal compliance", "administrator", "parent communication", "special education"]
+}

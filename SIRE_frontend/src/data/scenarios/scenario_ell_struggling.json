@@ -1,0 +1,90 @@
+{
+  "title": "scenario_ell_struggling",
+  "description": "An English Language Learner is not comprehending core content and is falling behind.",
+  "timeline": [
+    { "index": 0, "title": "Comprehension Gap Observed", "description": "Teacher notices the ELL student is consistently not completing work or is submitting incorrect responses.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Language Barrier Identified", "description": "It becomes clear the student cannot access the instructional language of the lesson.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Immediate Scaffolding", "description": "Teacher provides in-class language supports to help the student access content.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "ELL Support Consultation", "description": "Teacher connects with the ESL/ELL specialist for student-specific strategies.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Adapted Assessment", "description": "Assessment is modified to fairly evaluate content knowledge without penalizing language barriers.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "The student has access to appropriate supports and is demonstrating content understanding.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Student Cannot Access the Lesson",
+      "situation": "Amir is a Grade 6 student who immigrated three months ago and is at an early-intermediate English proficiency level. During today's science lesson on ecosystems, Amir is staring blankly at the text-heavy worksheet and has not written anything in 15 minutes. When you check in with him, he shrugs and says 'I don't understand.' Your lesson was not designed with language scaffolds.",
+      "question": "What do you do immediately to support Amir?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sit with Amir briefly and provide visual supports—point to diagrams in the textbook, use gesture and simple vocabulary, and provide a bilingual word bank if available. Modify the task temporarily so he can demonstrate content knowledge using drawings or labeling.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Amir to try his best and copy from the board, and plan to address his language needs once you have more time—perhaps next week.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Pair Amir with a student who speaks his home language and ask that student to translate the entire lesson while you continue teaching the rest of the class.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Consulting the ELL Specialist",
+      "situation": "After the lesson, you reflect that Amir's language barrier is significantly affecting his ability to access all subject content, not just science. The school has a designated ESL/ELL specialist, Ms. Reyes, who provides pull-out sessions twice a week. However, those sessions do not address content-area vocabulary or your curriculum materials. You need to collaborate to create lasting supports.",
+      "question": "How do you work with the ELL specialist to support Amir?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Schedule a meeting with Ms. Reyes, share your upcoming lesson materials and key vocabulary, and co-develop content-specific language scaffolds such as visual glossaries, sentence frames, and adapted readings. Establish a regular communication channel to keep both supports aligned.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Assume Ms. Reyes's pull-out sessions will resolve the problem and make no changes to your classroom delivery.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Request that Amir be moved to a lower-level class until his English improves, so he doesn't fall further behind in your course.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Equitable Assessment",
+      "situation": "The unit test is next week. Amir has been making progress with language scaffolds in place, but the test is entirely text-based with no visual supports, and it includes complex instructions and multi-part written responses. Administering the test in its current form would assess Amir's English proficiency more than his science knowledge.",
+      "question": "How do you ensure Amir is assessed fairly?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Adapt the test to include visual supports, simplified instructions, and alternative response options such as labeling diagrams or matching. Consult the ELL specialist to ensure the modifications are appropriate and aligned with proficiency level expectations and school policy.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Give Amir the same test as everyone else to be fair and consistent—modifications would give him an unfair advantage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Excuse Amir from the test entirely and give him full marks for participation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You responded to Amir's language barriers with immediate classroom-level scaffolds, meaningful collaboration with the ELL specialist, and equitable assessment practices. You correctly identified that language acquisition is separate from content knowledge and ensured Amir had the tools to demonstrate what he knows. Your proactive approach protects Amir's right to access the curriculum and sets a sustainable model for inclusive instruction.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["ELL", "ESL", "language learner", "scaffolding", "differentiation", "equitable assessment", "collaboration"]
+}

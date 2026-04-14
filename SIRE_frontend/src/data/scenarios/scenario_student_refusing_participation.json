@@ -1,0 +1,90 @@
+{
+  "title": "scenario_student_refusing_participation",
+  "description": "A student becomes completely disengaged and refuses all classroom participation.",
+  "timeline": [
+    { "index": 0, "title": "Withdrawal Noticed", "description": "Teacher notices the student has stopped engaging with the lesson.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Refusal to Respond", "description": "Student refuses to answer questions or complete in-class tasks.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Peer Awareness", "description": "Classmates notice the tension and begin whispering.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Private Check-In", "description": "Teacher attempts a quiet one-on-one conversation with the student.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Support Identified", "description": "Underlying cause is explored and a support pathway is identified.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Student is re-engaged or appropriately referred for support.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Student Has Shut Down",
+      "situation": "Maya, a typically engaged Grade 7 student, has arrived to class today and is sitting with her arms crossed, head down, and refusing to open her notebook. When called on, she says nothing. When asked to begin the warm-up activity, she shakes her head. The class has noticed and the room is getting tense.",
+      "question": "How do you respond to Maya's immediate refusal?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Quietly approach Maya, lower yourself to her level, and in a calm, non-confrontational tone say: 'You don't have to talk right now—I just want you to know I'm here when you're ready.' Then resume the lesson to reduce pressure on her.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Stand at the front of the class and tell Maya that her refusal is unacceptable, and she will receive a zero for today's work if she does not participate immediately.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Send Maya to the office immediately since her refusal is disrupting the class.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Checking In Privately",
+      "situation": "Maya did not participate during the lesson but did not cause further disruption. As the class transitions to independent work, you have a brief window to check in with her quietly at her desk. She makes brief eye contact when you approach. You want to understand what is going on without escalating the situation.",
+      "question": "What do you say during your private check-in with Maya?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Speak gently and openly: 'Maya, I've noticed you seem to be having a tough time today. I care about how you're doing—can you tell me a little about what's going on, or would you prefer to write it down?' Then listen actively without judgment.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Maya that her attitude is affecting her grade and if she doesn't explain herself, you'll have to call home right now.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask other students if they know what is wrong with Maya so you can understand the situation faster.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Connecting to Support",
+      "situation": "Maya quietly discloses that she is having problems at home and hasn't been sleeping. She says she 'just can't do anything today.' You sense there may be more going on but she is not ready to share more. She does not appear to be in immediate danger but clearly needs support beyond what the classroom can provide right now.",
+      "question": "What is the appropriate next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Thank Maya for trusting you, validate her feelings, and arrange for her to visit the school counselor during or after class. Document the conversation and inform the counselor of the context so Maya receives appropriate support.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell Maya she needs to push through for today and that everyone has hard days—if she needs support she can talk to her parents at home.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Share Maya's disclosure with other teachers at lunch to get their opinions on what might be going on at home.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You responded to Maya's refusal with empathy and de-escalation rather than punishment. By reducing pressure, seeking a private conversation, and connecting Maya to the school counselor, you maintained her dignity and addressed the likely root cause of her disengagement. Your documentation ensures continuity of care and the support structures of the school are now actively engaged on her behalf.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Beginner",
+  "tags": ["student engagement", "refusal", "trauma-informed", "counselor referral", "de-escalation", "check-in"]
+}

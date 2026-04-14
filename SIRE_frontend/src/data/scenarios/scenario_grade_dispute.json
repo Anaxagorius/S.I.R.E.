@@ -1,0 +1,90 @@
+{
+  "title": "scenario_grade_dispute",
+  "description": "A parent disputes a failing grade and threatens to escalate to administration.",
+  "timeline": [
+    { "index": 0, "title": "Parent Contact", "description": "Parent sends an angry email disputing their child's failing grade on a major assignment.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Initial Meeting", "description": "Teacher meets with the parent to review the graded work.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Disagreement Escalates", "description": "Parent insists the grade is unfair and threatens to go to administration.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Professional Response", "description": "Teacher responds with documented evidence and established grading criteria.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Resolution Pathway", "description": "Dispute is addressed through proper channels with clear next steps.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Grade outcome is determined fairly; relationship with parent is preserved.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Angry Email from Parent",
+      "situation": "You receive an email from a parent who is upset that their child, Priya, received a 48% on a research essay. The parent writes: 'Priya worked very hard on this assignment and your grading is clearly unfair. I expect you to revisit this grade immediately or I will be contacting the principal.' You have a clear rubric that was distributed before the assignment.",
+      "question": "How do you respond to the parent's email?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Reply professionally within 24 hours, acknowledge the parent's concern, invite them to a meeting to review the rubric and Priya's submission together, and confirm you take grading concerns seriously. Do not change the grade prior to the meeting.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Reply telling the parent that the grade is final and that contacting the principal won't change anything—this is your professional decision.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Raise Priya's grade to 65% before the meeting to reduce the conflict, then explain the adjustment as a reassessment.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "The Parent Meeting",
+      "situation": "The parent arrives at the meeting clearly frustrated. You have brought the graded essay, the rubric, your written feedback, and class exemplars. The parent argues that Priya 'always gets good grades' and that the rubric was 'too hard to understand.' You walk through each rubric criterion. Despite your explanations, the parent insists this is personal and threatens to go above you.",
+      "question": "How do you maintain professionalism during this difficult meeting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stay calm, continue to refer to the rubric and specific evidence from the essay, validate the parent's frustration without conceding: 'I can see how much Priya invested in this—here's exactly what the rubric required and where the gaps were.' Offer a path to resubmission if your school policy allows it.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Become defensive and tell the parent that if they don't trust your professional judgment, they should speak to someone else—then end the meeting abruptly.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Agree to bump the grade to a passing mark to preserve the relationship and avoid involving administration.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Escalation to Administration",
+      "situation": "The parent follows through and contacts the principal, claiming the grade is unfair and that you were dismissive in the meeting. The principal asks you to meet to discuss the situation. You need to present your case clearly. You have all documentation: the rubric, assignment instructions, Priya's submission with annotated feedback, and your meeting notes.",
+      "question": "How do you present your position to the principal?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Provide the principal with the complete documentation package, explain the grading process calmly, and describe the steps you took to address the concern. Make clear you are open to a grade review process if the school's policy supports it, but that your grading was rubric-based and consistent.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the principal the parent is being unreasonable and that you won't change anything—this is your classroom and your grades.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Change the grade before the meeting with the principal to avoid the conflict entirely.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You handled the grade dispute professionally at every stage: responding promptly and respectfully to the parent, presenting clear rubric-based evidence during the meeting, maintaining your position without being dismissive, and cooperating fully with administration during the review. Your documentation protected both you and the student, and the process modeled integrity in grading. Whether or not the grade was ultimately changed, the process followed proper channels and maintained trust in the school community.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["grade dispute", "parent communication", "grading", "rubric", "documentation", "administration", "professionalism"]
+}

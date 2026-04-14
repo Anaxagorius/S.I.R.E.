@@ -1,0 +1,90 @@
+{
+  "title": "scenario_inappropriate_language",
+  "description": "A student uses a slur or makes an offensive gesture in class, disrupting the environment.",
+  "timeline": [
+    { "index": 0, "title": "Incident Occurs", "description": "A student uses a racial or homophobic slur or offensive gesture during class.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Immediate Response", "description": "Teacher addresses the incident without escalating or shaming.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Victim Impact", "description": "Teacher checks in with the student(s) who may have been targeted.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Accountability", "description": "Teacher holds the responsible student accountable through proper channels.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Classroom Repair", "description": "Teacher addresses the classroom community after the incident.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "Incident is formally documented; affected parties are supported.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Slur Used in the Classroom",
+      "situation": "During a group work period in your Grade 9 class, you clearly hear a student, Ryan, use a homophobic slur while laughing with his group. Two students in the group visibly flinch and go quiet. The rest of the class continues working but several students nearby looked up. Ryan does not appear to realize you heard him.",
+      "question": "How do you respond immediately?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calmly stop the class, make brief but clear statement without targeting Ryan by name: 'I need everyone to pause—language like that is not acceptable in our classroom and it causes real harm.' Then privately ask Ryan to step into the hallway for a brief conversation, without humiliating him in front of peers.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Ignore it since it may have been meant as a joke and drawing attention to it might make it a bigger issue than it is.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Stop the entire class and publicly lecture Ryan about hate speech and discrimination for several minutes in front of his peers.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Hallway Conversation with Ryan",
+      "situation": "In the hallway, Ryan is initially defensive and says it was 'just a word' and that he didn't mean anything by it. He does not seem to understand the harm caused. You need to have a brief, direct, non-punitive educational conversation before returning to class. You also need to document this and consider whether a formal consequence and administrative referral are warranted.",
+      "question": "How do you handle the conversation with Ryan?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calmly explain why the word is harmful regardless of intent: 'Even when it's not meant as an attack, that word has a real history of harm and it affects people who hear it. I need you to understand that.' Inform Ryan that this will be documented and that there may be formal follow-up from administration. Return him to class without further shaming.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Accept Ryan's explanation that it was a joke, tell him to be more careful, and send him back to class without any documentation or follow-up.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell Ryan he is suspended as of now and that you are calling his parents immediately from the hallway.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Supporting Targeted Students and Reporting",
+      "situation": "After class, you check in privately with the two students who visibly reacted during the incident. One of them, a student who identifies as LGBTQ+, is visibly upset and says this is not the first time they have heard that word at school. They ask if anything will actually be done. You must now complete your documentation and refer the incident to administration per your school's harassment and discrimination policy.",
+      "question": "How do you proceed with support and formal reporting?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Validate the affected student's experience: 'You deserve to feel safe here and I'm taking this seriously.' Refer them to the counselor. Complete a formal incident report for administration with all observed details and file it today. Notify administration that a student shared this has happened before, which may indicate a pattern.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Tell the affected student that Ryan has already been spoken to and the matter is resolved—no formal report is needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Report only the slur incident without mentioning the student's disclosure that it has happened before, to avoid making the report seem too complicated.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You responded to inappropriate language with the correct sequence: immediate clear class-wide message that the language was unacceptable, a private educational conversation with the responsible student, compassionate check-in with affected students, and a thorough formal incident report that captures all relevant context including the disclosure of a prior pattern. Your response communicated that all students are safe and valued, and that harmful language has real consequences in your classroom.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["inappropriate language", "slur", "hate speech", "LGBTQ+", "incident reporting", "classroom safety", "anti-discrimination"]
+}

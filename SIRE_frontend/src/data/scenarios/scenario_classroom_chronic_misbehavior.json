@@ -1,0 +1,90 @@
+{
+  "title": "scenario_classroom_chronic_misbehavior",
+  "description": "A teacher's repeated lesson disruptions by one student escalating to administrator involvement.",
+  "timeline": [
+    { "index": 0, "title": "First Disruption", "description": "Student interrupts the lesson for the first time.", "timeOffsetSec": 5 },
+    { "index": 1, "title": "Repeated Behavior", "description": "Disruptions continue despite initial verbal warning.", "timeOffsetSec": 60 },
+    { "index": 2, "title": "Classmate Impact", "description": "Other students begin losing focus; learning environment deteriorates.", "timeOffsetSec": 180 },
+    { "index": 3, "title": "Escalation Point", "description": "Teacher attempts a formal intervention; student refuses to cooperate.", "timeOffsetSec": 300 },
+    { "index": 4, "title": "Administrator Involvement", "description": "Administration is notified; parent contact is initiated.", "timeOffsetSec": 420 },
+    { "index": 5, "title": "Resolved", "description": "A behavioral support plan is established and the classroom environment is restored.", "timeOffsetSec": 540 }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Disruption",
+      "situation": "During a Grade 9 math lesson, Jordan has interrupted the class four times in 20 minutes—calling out answers, making jokes, and tapping loudly on the desk. Other students are visibly distracted. This is the third consecutive day of similar behavior. You have already made eye contact and used proximity without effect.",
+      "question": "How do you address Jordan's behavior right now?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Calmly pause the lesson, privately redirect Jordan with a specific behavioral expectation ('Jordan, I need you to raise your hand and wait to be called on'), and document the incident after class.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Publicly call Jordan out in front of the class, telling them their behavior is ruining the lesson for everyone and threatening immediate detention.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ignore the behavior and continue the lesson, hoping Jordan will settle down on their own.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Pattern Persists",
+      "situation": "Despite your redirection, Jordan's disruptive behavior has continued for two more days. You have documented three separate incidents. Your private conversations with Jordan have not produced lasting change. The class climate is suffering and other students have started to mimic the behavior. It is time to implement a more structured response.",
+      "question": "What is your next appropriate step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact Jordan's parent or guardian to share your documented concerns, describe the impact on learning, and collaboratively develop a behavioral support plan with specific goals and check-in intervals.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Move Jordan's seat to the hallway for the remainder of the unit so the rest of the class can learn without interruption.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Assign Jordan a failing participation grade for the week to create consequences without involving anyone else.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Administrator Referral",
+      "situation": "The parent meeting was productive but Jordan's behavior has not meaningfully improved after one week. The disruptions are now affecting your ability to deliver instruction, and two other students have complained. You have thorough documentation of all incidents and prior interventions. Administration needs to be looped in.",
+      "question": "How do you escalate appropriately to administration?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Submit a formal behavioral referral to your administrator with all documented incidents, prior interventions, and outcomes. Request a meeting to collaboratively determine next steps such as a formal behavior plan, counseling referral, or restorative practice.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Send Jordan to the office without a referral form, asking the secretary to 'deal with it,' without providing context or documentation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Complain about Jordan to colleagues in the staff room without submitting any formal referral or documentation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "You responded to chronic misbehavior with a structured, escalating approach: private redirection with clear expectations, parent communication backed by documentation, and a formal administrator referral with complete incident records. This approach protected the learning environment, maintained Jordan's dignity, and engaged the support structures available in the school. A behavior support plan is now in place.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "Education",
+  "difficulty": "Intermediate",
+  "tags": ["classroom management", "chronic misbehavior", "behavioral intervention", "documentation", "parent communication", "administrator referral"]
+}

@@ -284,6 +284,27 @@ import scenarioAfterActionReview from "./scenarios/scenario_after_action_review.
 import scenarioPolicyRevision from "./scenarios/scenario_policy_revision.json";
 import scenarioOfficerWellnessFollowup from "./scenarios/scenario_officer_wellness_followup.json";
 
+// Education: Teaching & Learning Challenges
+import scenarioClassroomChronicMisbehavior from "./scenarios/scenario_classroom_chronic_misbehavior.json";
+import scenarioStudentRefusingParticipation from "./scenarios/scenario_student_refusing_participation.json";
+import scenarioAchievementGap from "./scenarios/scenario_achievement_gap.json";
+import scenarioIep504Accommodations from "./scenarios/scenario_iep_504_accommodations.json";
+import scenarioEllStruggling from "./scenarios/scenario_ell_struggling.json";
+import scenarioAcademicallyAbsent from "./scenarios/scenario_academically_absent.json";
+import scenarioGradeDispute from "./scenarios/scenario_grade_dispute.json";
+import scenarioCurriculumPacing from "./scenarios/scenario_curriculum_pacing.json";
+import scenarioStandardizedTestingPressure from "./scenarios/scenario_standardized_testing_pressure.json";
+import scenarioControversialTopic from "./scenarios/scenario_controversial_topic.json";
+
+// Education: Classroom Environment Issues
+import scenarioClassroomBullying from "./scenarios/scenario_classroom_bullying.json";
+import scenarioCyberbullyingClassroom from "./scenarios/scenario_cyberbullying_classroom.json";
+import scenarioInappropriateLanguage from "./scenarios/scenario_inappropriate_language.json";
+import scenarioPropertyDamage from "./scenarios/scenario_property_damage.json";
+import scenarioPhysicalStudentConflict from "./scenarios/scenario_physical_student_conflict.json";
+import scenarioClassroomLockdown from "./scenarios/scenario_classroom_lockdown.json";
+import scenarioSubstituteManagement from "./scenarios/scenario_substitute_management.json";
+
 /** All demo scenarios with display metadata and bundled scenario data. */
 const DEMO_SCENARIOS = [
     // ── Physical / Environmental ─────────────────────────────────────────────
@@ -1917,6 +1938,129 @@ const DEMO_SCENARIOS = [
         description: "A supervisor conducts the mandatory wellness check-in 72 hours after a fatal officer-involved shooting — facilitating EAP referral, navigating SIU restrictions, and planning return-to-operational-duties.",
         data: scenarioOfficerWellnessFollowup,
     },
+    // ── Education: Teaching & Learning Challenges ─────────────────────────────
+    {
+        id: "scenario_classroom_chronic_misbehavior",
+        icon: "🚨",
+        name: "Chronic Classroom Misbehavior",
+        description: "A student repeatedly disrupts lessons despite interventions — a teacher must escalate through proper channels, involve administration, and develop a behavior support plan.",
+        data: scenarioClassroomChronicMisbehavior,
+    },
+    {
+        id: "scenario_student_refusing_participation",
+        icon: "🙅",
+        name: "Student Refusing to Participate",
+        description: "A student becomes completely disengaged and refuses all classroom participation — a teacher must identify root causes and employ evidence-based re-engagement strategies.",
+        data: scenarioStudentRefusingParticipation,
+    },
+    {
+        id: "scenario_achievement_gap",
+        icon: "📊",
+        name: "Achievement Gap in One Classroom",
+        description: "A teacher faces a wide range of student performance levels in a single class and must implement differentiated instruction to reach all learners without neglecting any group.",
+        data: scenarioAchievementGap,
+    },
+    {
+        id: "scenario_iep_504_accommodations",
+        icon: "📋",
+        name: "IEP / 504 Accommodations Not Being Met",
+        description: "Required IEP and 504 accommodations are not being consistently applied — an administrator must address compliance, support the teacher, and protect the student's legal rights.",
+        data: scenarioIep504Accommodations,
+    },
+    {
+        id: "scenario_ell_struggling",
+        icon: "🌐",
+        name: "ESL/ELL Student Struggling with Instruction",
+        description: "An English Language Learner is unable to access core content and is falling behind — a teacher must implement appropriate scaffolding and coordinate with ELL support staff.",
+        data: scenarioEllStruggling,
+    },
+    {
+        id: "scenario_academically_absent",
+        icon: "😶",
+        name: "Academically Absent Student",
+        description: "A student is physically present but mentally completely disengaged — a teacher must distinguish disengagement from underlying issues and apply appropriate interventions.",
+        data: scenarioAcademicallyAbsent,
+    },
+    {
+        id: "scenario_grade_dispute",
+        icon: "📝",
+        name: "Grade Dispute Escalating with Parents",
+        description: "A parent aggressively disputes a failing grade and threatens to escalate to administration — a teacher must defend sound assessment practices and de-escalate the conflict professionally.",
+        data: scenarioGradeDispute,
+    },
+    {
+        id: "scenario_curriculum_pacing",
+        icon: "📅",
+        name: "Curriculum Pacing Conflict",
+        description: "A teacher is significantly behind on curriculum pacing — they must make principled decisions about content prioritization and communicate proactively with administration.",
+        data: scenarioCurriculumPacing,
+    },
+    {
+        id: "scenario_standardized_testing_pressure",
+        icon: "📄",
+        name: "Standardized Testing Pressure",
+        description: "Students are showing significant test anxiety and resistance ahead of a high-stakes standardized exam — a teacher must balance adequate preparation with student wellbeing.",
+        data: scenarioStandardizedTestingPressure,
+    },
+    {
+        id: "scenario_controversial_topic",
+        icon: "⚖️",
+        name: "Teaching Controversial Topics",
+        description: "A lesson on a sensitive topic in history, science, or health sparks heated student conflict — a teacher must manage the classroom, maintain academic integrity, and uphold inclusivity.",
+        data: scenarioControversialTopic,
+    },
+
+    // ── Education: Classroom Environment Issues ───────────────────────────────
+    {
+        id: "scenario_classroom_bullying",
+        icon: "😤",
+        name: "Bullying in the Classroom",
+        description: "Persistent bullying is observed within a classroom setting — a teacher must intervene appropriately, document incidents, and coordinate a multi-level response with administration and counsellors.",
+        data: scenarioClassroomBullying,
+    },
+    {
+        id: "scenario_cyberbullying_classroom",
+        icon: "💻",
+        name: "Cyberbullying Affecting Class Dynamics",
+        description: "Online harassment among students is spilling into the classroom and affecting learning — a teacher and administrator must investigate, support the victim, and apply appropriate consequences.",
+        data: scenarioCyberbullyingClassroom,
+    },
+    {
+        id: "scenario_inappropriate_language",
+        icon: "🚫",
+        name: "Inappropriate Language or Gestures",
+        description: "A student uses a slur or makes an offensive gesture in class — a teacher must respond immediately, maintain a safe learning environment, and follow disciplinary procedures.",
+        data: scenarioInappropriateLanguage,
+    },
+    {
+        id: "scenario_property_damage",
+        icon: "🔨",
+        name: "Classroom Property Damage",
+        description: "A student intentionally damages classroom equipment or property — a teacher must manage the immediate situation, document the incident, and navigate the consequences process.",
+        data: scenarioPropertyDamage,
+    },
+    {
+        id: "scenario_physical_student_conflict",
+        icon: "⚠️",
+        name: "Student Conflict Escalating Physically",
+        description: "An argument between two students turns physical in the classroom — a teacher must de-escalate safely, protect all students, and follow proper reporting and consequences procedures.",
+        data: scenarioPhysicalStudentConflict,
+    },
+    {
+        id: "scenario_classroom_lockdown",
+        icon: "🔒",
+        name: "Classroom Lockdown During Instruction",
+        description: "An active threat alert initiates lockdown procedures while class is in session — a teacher must execute lockdown protocols calmly, account for all students, and manage the room until all-clear.",
+        data: scenarioClassroomLockdown,
+    },
+    {
+        id: "scenario_substitute_management",
+        icon: "🧑‍🏫",
+        name: "Substitute Teacher Management Challenges",
+        description: "A substitute teacher faces severe classroom management challenges with students testing limits — they must de-escalate, establish authority, and escalate appropriately when needed.",
+        data: scenarioSubstituteManagement,
+    },
+
 ];
 
 export default DEMO_SCENARIOS;
