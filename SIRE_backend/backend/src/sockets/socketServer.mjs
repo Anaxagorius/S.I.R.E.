@@ -39,62 +39,62 @@ const emitError = (socket, code, message) => {
  */
 function persistSessionResult(session, logger) {
   try {
-    const eventLog = session.eventLog || []
-    const traineeEvents = eventLog.filter(e => e.actorRole === 'trainee')
+    const eventLog = session.eventLog || [];
+    const traineeEvents = eventLog.filter(e => e.actorRole === 'trainee');
 
     const decisionTimes = traineeEvents
       .filter(e => typeof e.decisionTimeMs === 'number')
-      .map(e => e.decisionTimeMs)
+      .map(e => e.decisionTimeMs);
     const avgTimeToDecisionMs = decisionTimes.length > 0
       ? Math.round(decisionTimes.reduce((a, b) => a + b, 0) / decisionTimes.length)
-      : null
+      : null;
 
-    const activeTrainees = new Set(traineeEvents.map(e => e.displayName)).size
+    const activeTrainees = new Set(traineeEvents.map(e => e.displayName)).size;
     const participationRate = session.trainees.length > 0
       ? activeTrainees / session.trainees.length
-      : 0
+      : 0;
 
-    const decisionsWithOutcome = traineeEvents.filter(e => typeof e.isCorrect === 'boolean')
-    const correctCount = decisionsWithOutcome.filter(e => e.isCorrect).length
+    const decisionsWithOutcome = traineeEvents.filter(e => typeof e.isCorrect === 'boolean');
+    const correctCount = decisionsWithOutcome.filter(e => e.isCorrect).length;
     const overallAccuracy = decisionsWithOutcome.length > 0
       ? correctCount / decisionsWithOutcome.length
-      : null
+      : null;
 
-    const milestonesCompleted = Math.max(0, session.currentTimelineIndex + 1)
+    const milestonesCompleted = Math.max(0, session.currentTimelineIndex + 1);
 
     // Per-role breakdown
-    const roleMap = {}
+    const roleMap = {};
     for (const t of session.trainees) {
       if (t.role && !roleMap[t.role]) {
-        roleMap[t.role] = { accuracySum: 0, accuracyCount: 0, timeSum: 0, timeCount: 0 }
+        roleMap[t.role] = { accuracySum: 0, accuracyCount: 0, timeSum: 0, timeCount: 0 };
       }
     }
     for (const evt of traineeEvents) {
       if (evt.role && roleMap[evt.role]) {
         if (typeof evt.isCorrect === 'boolean') {
-          roleMap[evt.role].accuracyCount++
-          if (evt.isCorrect) roleMap[evt.role].accuracySum++
+          roleMap[evt.role].accuracyCount++;
+          if (evt.isCorrect) roleMap[evt.role].accuracySum++;
         }
         if (typeof evt.decisionTimeMs === 'number') {
-          roleMap[evt.role].timeSum += evt.decisionTimeMs
-          roleMap[evt.role].timeCount++
+          roleMap[evt.role].timeSum += evt.decisionTimeMs;
+          roleMap[evt.role].timeCount++;
         }
       }
     }
-    const roleBreakdown = {}
+    const roleBreakdown = {};
     for (const [role, data] of Object.entries(roleMap)) {
       roleBreakdown[role] = {
         accuracy: data.accuracyCount > 0 ? data.accuracySum / data.accuracyCount : null,
         avgDecisionTimeMs: data.timeCount > 0 ? Math.round(data.timeSum / data.timeCount) : null,
-      }
+      };
     }
 
     // Per-trainee summary for the detailed JSON
     const participants = session.trainees.map(t => {
-      const myEvents = traineeEvents.filter(e => e.displayName === t.displayName)
-      const myDecisions = myEvents.filter(e => typeof e.isCorrect === 'boolean')
-      const myCorrect = myDecisions.filter(e => e.isCorrect).length
-      const myTimes = myEvents.filter(e => typeof e.decisionTimeMs === 'number').map(e => e.decisionTimeMs)
+      const myEvents = traineeEvents.filter(e => e.displayName === t.displayName);
+      const myDecisions = myEvents.filter(e => typeof e.isCorrect === 'boolean');
+      const myCorrect = myDecisions.filter(e => e.isCorrect).length;
+      const myTimes = myEvents.filter(e => typeof e.decisionTimeMs === 'number').map(e => e.decisionTimeMs);
       return {
         displayName: t.displayName,
         role: t.role || null,
@@ -104,8 +104,8 @@ function persistSessionResult(session, logger) {
         avgDecisionTimeMs: myTimes.length > 0
           ? Math.round(myTimes.reduce((a, b) => a + b, 0) / myTimes.length)
           : null,
-      }
-    })
+      };
+    });
 
     const kpis = {
       avgTimeToDecisionMs,
@@ -114,10 +114,10 @@ function persistSessionResult(session, logger) {
       milestonesCompleted,
       roleBreakdown,
       participants,
-    }
+    };
 
-    const endedAt = new Date().toISOString()
-    const startedAt = session.startedAtMs ? new Date(session.startedAtMs).toISOString() : null
+    const endedAt = new Date().toISOString();
+    const startedAt = session.startedAtMs ? new Date(session.startedAtMs).toISOString() : null;
 
     sireDatabase.saveSessionResult({
       sessionCode: session.sessionCode,
@@ -126,14 +126,14 @@ function persistSessionResult(session, logger) {
       endedAt,
       participantCount: session.trainees.length,
       kpis,
-    })
+    });
 
     if (logger) {
-      logger.info('Session result persisted', { sessionCode: session.sessionCode })
+      logger.info('Session result persisted', { sessionCode: session.sessionCode });
     }
   } catch (err) {
     if (logger) {
-      logger.warn('Failed to persist session result', { sessionCode: session.sessionCode, error: String(err) })
+      logger.warn('Failed to persist session result', { sessionCode: session.sessionCode, error: String(err) });
     }
   }
 }

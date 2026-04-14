@@ -251,7 +251,7 @@ export default function Analytics() {
                                 {[...recentSessions].reverse().map((s) => {
                                     const pct = s.overallAccuracy != null ? s.overallAccuracy * 100 : null;
                                     const color = accuracyColor(s.overallAccuracy);
-                                    const label = formatScenarioName(s.scenarioKey).toLowerCase() || s.sessionCode;
+                                    const label = formatScenarioName(s.scenarioKey) || s.sessionCode;
                                     return (
                                         <div key={s.id} className="trend-bar-col" title={`${label} — ${fmtPct(s.overallAccuracy)} accuracy`}>
                                             <div className="trend-bar-track">
