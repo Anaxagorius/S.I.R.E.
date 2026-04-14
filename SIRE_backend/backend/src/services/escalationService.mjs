@@ -50,6 +50,8 @@ export const escalationService = {
 
     applicationLogger.info('Starting timeline', { sessionCode, events: events.length })
     inMemorySessionStore.setActive(sessionCode, true)
+    inMemorySessionStore.setStarted(sessionCode)
+    inMemorySessionStore.appendEventLog(sessionCode, { type: 'session:start' })
 
     /** @type {TimerEntry[]} */
     const entries = events.map((evt, idx) => {
@@ -68,6 +70,13 @@ export const escalationService = {
           description: evt.description,
           timeOffsetSec: evt.timeOffsetSec,
         })
+        inMemorySessionStore.appendEventLog(sessionCode, {
+          type: 'timeline:tick',
+          index: currentIndex,
+          title: evt.title,
+          description: evt.description,
+          timeOffsetSec: evt.timeOffsetSec,
+        })
       })
       return entry
     })
@@ -77,6 +86,8 @@ export const escalationService = {
     const sessionEndBufferSec = 1
     if (events.length === 0) {
       inMemorySessionStore.setActive(sessionCode, false)
+      inMemorySessionStore.setEnded(sessionCode)
+      inMemorySessionStore.appendEventLog(sessionCode, { type: 'session:end' })
       io.of('/sim').to(room).emit('session:end', { sessionCode })
     } else if (lastOffset > 0) {
       completionEntry = {
@@ -87,6 +98,8 @@ export const escalationService = {
       }
       scheduleEntry(completionEntry, () => {
         inMemorySessionStore.setActive(sessionCode, false)
+        inMemorySessionStore.setEnded(sessionCode)
+        inMemorySessionStore.appendEventLog(sessionCode, { type: 'session:end' })
         io.of('/sim').to(room).emit('session:end', { sessionCode })
       })
     }
@@ -143,6 +156,8 @@ export const escalationService = {
     if (state.completionEntry && state.completionEntry.remainingMs > 0) {
       scheduleEntry(state.completionEntry, () => {
         inMemorySessionStore.setActive(sessionCode, false)
+        inMemorySessionStore.setEnded(sessionCode)
+        inMemorySessionStore.appendEventLog(sessionCode, { type: 'session:end' })
         io.of('/sim').to(room).emit('session:end', { sessionCode })
       })
     }

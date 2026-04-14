@@ -1,13 +1,14 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-04-01
+ * Last Update: 2026-04-14
  * Description: Administrator dashboard for managing session lifecycle.
  * Handles four states (selecting scenario, waiting, active session, and post-session review).
  * Connects to the backend via Socket.IO to provide real-time session management.
  * Supports admin event injection (message + severity) during active sessions.
  * Includes end-session confirmation modal with restart, home navigation, and export options.
  * Features: category/difficulty filters on scenario selection, per-trainee score tracking,
- * and an enhanced after-action review with highlighted correct/incorrect decisions.
+ * an enhanced after-action review with highlighted correct/incorrect decisions,
+ * AAR HTML generation, granular CSV exports, and inline inject notes.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -16,7 +17,7 @@ import { io } from "socket.io-client";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
-import { getScenarios, createSession } from "../../services/api/api";
+import { getScenarios, createSession, getSessionExport } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
 /** Icon map keyed by scenario ID, used to enrich scenarios fetched from the API. */
@@ -42,6 +43,221 @@ function difficultyClass(difficulty) {
     if (difficulty === "Intermediate") return "difficulty-intermediate";
     if (difficulty === "Advanced") return "difficulty-advanced";
     return "";
+}
+
+/** Trigger a browser file download with the given content and filename. */
+function triggerDownload(filename, content, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+/** Escape a value for CSV output. */
+function csvEscape(value) {
+    const s = String(value ?? "");
+    return s.includes(",") || s.includes('"') || s.includes("\n")
+        ? `"${s.replace(/"/g, '""')}"`
+        : s;
+}
+
+/** Build a CSV string from an array of header strings and an array of row arrays. */
+function buildCSV(headers, rows) {
+    return [headers.join(","), ...rows.map((r) => r.map(csvEscape).join(","))].join("\n");
+}
+
+/** Generate and download participants as a CSV file. */
+function exportParticipantsCSV(sessionCode, trainees, traineeScores) {
+    const headers = ["Display Name", "Role", "Score", "Decisions"];
+    const rows = trainees.map((t) => [
+        t.displayName,
+        t.role || "",
+        traineeScores.get(t.displayName)?.score ?? 0,
+        traineeScores.get(t.displayName)?.decisions ?? 0,
+    ]);
+    triggerDownload(
+        `sire-session-${sessionCode}-participants.csv`,
+        buildCSV(headers, rows),
+        "text/csv"
+    );
+}
+
+/** Generate and download the event log as a CSV file. */
+function exportEventLogCSV(sessionCode, eventLog) {
+    const headers = ["Time", "Actor", "Role", "Event", "Result"];
+    const rows = eventLog.map((entry) => [
+        entry.time || entry.timestampIso || "",
+        entry.displayName || entry.title || "",
+        entry.actorRole || "",
+        entry.description || entry.action || "",
+        entry.isCorrect === true ? "Correct" : entry.isCorrect === false ? "Incorrect" : "",
+    ]);
+    triggerDownload(
+        `sire-session-${sessionCode}-event-log.csv`,
+        buildCSV(headers, rows),
+        "text/csv"
+    );
+}
+
+/** Generate and download action items as a CSV file. */
+function exportActionItemsCSV(sessionCode, actionItems) {
+    const headers = ["Time", "Captured By", "Role", "Action Item", "Assigned To"];
+    const rows = actionItems.map((item) => [
+        item.timestampIso ? new Date(item.timestampIso).toLocaleTimeString() : "",
+        item.capturedBy || "",
+        item.role || "",
+        item.text || "",
+        item.assignedTo || "",
+    ]);
+    triggerDownload(
+        `sire-session-${sessionCode}-action-items.csv`,
+        buildCSV(headers, rows),
+        "text/csv"
+    );
+}
+
+/** Generate and download the inject log as a CSV file. */
+function exportInjectLogCSV(sessionCode, injectQueue) {
+    const headers = ["Created", "Released At", "Severity", "Role Filter", "Message", "Edited", "Notes"];
+    const rows = injectQueue.map((inj) => [
+        inj.createdAt ? new Date(inj.createdAt).toLocaleTimeString() : "",
+        inj.releasedAt ? new Date(inj.releasedAt).toLocaleTimeString() : "not released",
+        inj.severity || "",
+        inj.roleFilter || "all",
+        inj.message || "",
+        inj.originalMessage ? `was: ${inj.originalMessage}` : "",
+        (inj.notes || []).map((n) => n.text).join("; "),
+    ]);
+    triggerDownload(
+        `sire-session-${sessionCode}-inject-log.csv`,
+        buildCSV(headers, rows),
+        "text/csv"
+    );
+}
+
+/** Generate a styled HTML after-action report and trigger a download. */
+function generateAAR({ sessionCode, scenarioName, trainees, traineeScores, eventLog, actionItems, injectQueue, sessionExport }) {
+    const now = new Date().toLocaleString();
+    const startedAt = sessionExport?.startedAt ? new Date(sessionExport.startedAt).toLocaleString() : "—";
+    const endedAt = sessionExport?.endedAt ? new Date(sessionExport.endedAt).toLocaleString() : "—";
+
+    const participantRows = trainees.map((t) => {
+        const stats = traineeScores.get(t.displayName);
+        return `<tr>
+            <td>${t.displayName}</td>
+            <td>${t.role || "—"}</td>
+            <td>${stats?.score ?? 0} pts</td>
+            <td>${stats?.decisions ?? 0}</td>
+        </tr>`;
+    }).join("");
+
+    const auditTrail = sessionExport?.eventLog || [];
+    const timelineRows = auditTrail.map((evt) => {
+        const ts = evt.timestampIso ? new Date(evt.timestampIso).toLocaleTimeString() : "—";
+        let desc = "";
+        if (evt.type === "join") desc = `${evt.displayName} joined (role: ${evt.role || "none"})`;
+        else if (evt.type === "session:start") desc = "Session started";
+        else if (evt.type === "session:end") desc = "Session ended";
+        else if (evt.type === "session:pause") desc = "Session paused";
+        else if (evt.type === "session:resume") desc = "Session resumed";
+        else if (evt.type === "timeline:tick") desc = `[Timeline] ${evt.title}: ${evt.description}`;
+        else if (evt.type === "inject:release") desc = `[Inject][${evt.severity?.toUpperCase()}]${evt.roleFilter ? ` → ${evt.roleFilter}` : ""} ${evt.message}`;
+        else if (evt.type === "decision") desc = `${evt.displayName} decided: ${evt.action}`;
+        else desc = JSON.stringify(evt);
+        return `<tr><td>${ts}</td><td>${desc}</td></tr>`;
+    }).join("") || eventLog.map((entry, i) => `<tr>
+        <td>${entry.time || "—"}</td>
+        <td>${entry.title || ""}: ${entry.description || entry.action || ""}${entry.isCorrect === true ? " ✅" : entry.isCorrect === false ? " ❌" : ""}</td>
+    </tr>`).join("");
+
+    const actionItemRows = actionItems.map((item) => `<tr>
+        <td>${item.timestampIso ? new Date(item.timestampIso).toLocaleTimeString() : "—"}</td>
+        <td>${item.capturedBy || ""}</td>
+        <td>${item.role || "—"}</td>
+        <td>${item.text || ""}</td>
+        <td>${item.assignedTo || "—"}</td>
+    </tr>`).join("");
+
+    const releasedInjects = injectQueue.filter((inj) => inj.released);
+    const injectRows = releasedInjects.map((inj) => `<tr>
+        <td>${inj.releasedAt ? new Date(inj.releasedAt).toLocaleTimeString() : "—"}</td>
+        <td><span style="font-weight:600">[${(inj.severity || "info").toUpperCase()}]</span> ${inj.message}</td>
+        <td>${inj.roleFilter || "All"}</td>
+        <td>${(inj.notes || []).map((n) => n.text).join("; ") || "—"}</td>
+    </tr>`).join("");
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>After-Action Report — ${scenarioName} (${sessionCode})</title>
+<style>
+  body { font-family: Arial, Helvetica, sans-serif; background: #fff; color: #111; margin: 0; padding: 2rem; }
+  h1 { color: #1a3a6e; border-bottom: 3px solid #1a3a6e; padding-bottom: 0.5rem; }
+  h2 { color: #1a3a6e; margin-top: 2rem; border-bottom: 1px solid #ccc; padding-bottom: 0.3rem; }
+  .meta { background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem; }
+  .meta p { margin: 0.3rem 0; }
+  table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.9rem; }
+  th { background: #1a3a6e; color: #fff; text-align: left; padding: 0.5rem 0.75rem; }
+  td { padding: 0.4rem 0.75rem; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) td { background: #f9f9f9; }
+  footer { margin-top: 3rem; border-top: 1px solid #ccc; padding-top: 1rem; font-size: 0.8rem; color: #666; }
+  .section-note { color: #666; font-size: 0.85rem; }
+  @media print { body { padding: 0.5rem; } }
+</style>
+</head>
+<body>
+<h1>🗒️ After-Action Report (AAR)</h1>
+<div class="meta">
+  <p><strong>Session Code:</strong> ${sessionCode}</p>
+  <p><strong>Scenario:</strong> ${scenarioName}</p>
+  <p><strong>Started:</strong> ${startedAt}</p>
+  <p><strong>Ended:</strong> ${endedAt}</p>
+  <p><strong>Report Generated:</strong> ${now}</p>
+  <p><strong>Participants:</strong> ${trainees.length}</p>
+</div>
+
+<h2>1. Participant Performance</h2>
+${trainees.length === 0 ? '<p class="section-note">No participants recorded.</p>' : `
+<table>
+  <thead><tr><th>Name</th><th>Role</th><th>Score</th><th>Decisions</th></tr></thead>
+  <tbody>${participantRows}</tbody>
+</table>`}
+
+<h2>2. Session Timeline &amp; Audit Trail</h2>
+${timelineRows ? `
+<table>
+  <thead><tr><th>Time</th><th>Event</th></tr></thead>
+  <tbody>${timelineRows}</tbody>
+</table>` : '<p class="section-note">No timeline events recorded.</p>'}
+
+<h2>3. Action Items &amp; Recommendations</h2>
+${actionItems.length === 0 ? '<p class="section-note">No action items captured.</p>' : `
+<table>
+  <thead><tr><th>Time</th><th>Captured By</th><th>Role</th><th>Action Item</th><th>Assigned To</th></tr></thead>
+  <tbody>${actionItemRows}</tbody>
+</table>`}
+
+<h2>4. Inject Log</h2>
+${releasedInjects.length === 0 ? '<p class="section-note">No injects were released during this session.</p>' : `
+<table>
+  <thead><tr><th>Released At</th><th>Inject</th><th>Audience</th><th>Facilitator Notes</th></tr></thead>
+  <tbody>${injectRows}</tbody>
+</table>`}
+
+<footer>
+  <p>Generated by S.I.R.E. (Scenario-based Incident Response Exercise) — ${now}</p>
+  <p>This report is for internal training purposes only.</p>
+</footer>
+</body>
+</html>`;
+
+    triggerDownload(`sire-aar-${sessionCode}.html`, html, "text/html");
 }
 
 /** Function that returns the AdminDashboard component for managing and monitoring session flow. */
@@ -123,6 +339,12 @@ export default function AdminDashboard() {
 
     /** State for the end-session confirmation modal. */
     const [showEndModal, setShowEndModal] = useState(false);
+
+    /** Server-side session export data (fetched on demand for AAR). */
+    const [sessionExport, setSessionExport] = useState(null);
+
+    /** State for inline inject notes: Map<injectId, text-being-typed>. */
+    const [injectNoteText, setInjectNoteText] = useState({});
 
     /** Fetch the available scenarios from the backend on mount. */
     useEffect(() => {
@@ -298,6 +520,8 @@ export default function AdminDashboard() {
         setQueueRoleFilter("");
         setEditingInjectId(null);
         setActionItems([]);
+        setSessionExport(null);
+        setInjectNoteText({});
     }
 
     /** Function that opens the end-session confirmation modal. */
@@ -335,6 +559,37 @@ export default function AdminDashboard() {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    }
+
+    /** Fetch server-side export data and generate a styled HTML AAR. */
+    async function handleGenerateAAR() {
+        let exportData = sessionExport;
+        if (!exportData && sessionCode) {
+            try {
+                exportData = await getSessionExport(sessionCode);
+                setSessionExport(exportData);
+            } catch {
+                exportData = null;
+            }
+        }
+        generateAAR({
+            sessionCode,
+            scenarioName,
+            trainees,
+            traineeScores,
+            eventLog,
+            actionItems,
+            injectQueue,
+            sessionExport: exportData,
+        });
+    }
+
+    /** Add a facilitator note to a queued inject. */
+    function handleAddInjectNote(injectId) {
+        const text = injectNoteText[injectId]?.trim();
+        if (!text || !socketRef.current || !sessionCode) return;
+        socketRef.current.emit("inject:note:add", { sessionCode, injectId, text });
+        setInjectNoteText((prev) => ({ ...prev, [injectId]: "" }));
     }
 
     /** Function that sends an admin inject event via Socket.IO. */
@@ -427,6 +682,9 @@ export default function AdminDashboard() {
                 <div className="dashboard-card">
                     <h2>Select a Scenario</h2>
                     <p>Choose a training scenario below to create a new session.</p>
+                    <div style={{ marginTop: "0.75rem" }}>
+                        <Button text="📚 Document Library" onClick={() => navigate("/document-library")} />
+                    </div>
                 </div>
 
                 {/** Error display. */}
@@ -673,20 +931,51 @@ export default function AdminDashboard() {
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
-                                                <div>
-                                                    <span style={{ opacity: 0.8 }}>[{inj.severity.toUpperCase()}]</span>
-                                                    {inj.roleFilter && <span style={{ opacity: 0.7, marginLeft: "0.4rem" }}>→ {inj.roleFilter}</span>}
-                                                    {inj.originalMessage && <span style={{ color: "rgb(255,180,40)", marginLeft: "0.4rem", fontSize: "0.75rem" }}>✏ edited</span>}
-                                                    <span style={{ marginLeft: "0.5rem" }}>{inj.message}</span>
-                                                    {inj.released && <span style={{ marginLeft: "0.5rem", color: "rgb(80,220,80)", fontSize: "0.75rem" }}>✅ released {inj.releasedAt ? new Date(inj.releasedAt).toLocaleTimeString() : ""}</span>}
-                                                </div>
-                                                {!inj.released && (
-                                                    <div style={{ display: "flex", gap: "0.3rem", flexShrink: 0 }}>
-                                                        <button onClick={() => handleStartEditInject(inj)} style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer" }}>✏ Edit</button>
-                                                        <button onClick={() => handleReleaseInject(inj.id)} style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer", background: "rgba(80,220,80,0.15)", border: "1px solid rgba(80,220,80,0.4)", borderRadius: "4px", color: "rgb(80,220,80)" }}>▶ Release</button>
+                                            <div>
+                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
+                                                    <div>
+                                                        <span style={{ opacity: 0.8 }}>[{inj.severity.toUpperCase()}]</span>
+                                                        {inj.roleFilter && <span style={{ opacity: 0.7, marginLeft: "0.4rem" }}>→ {inj.roleFilter}</span>}
+                                                        {inj.originalMessage && <span style={{ color: "rgb(255,180,40)", marginLeft: "0.4rem", fontSize: "0.75rem" }}>✏ edited</span>}
+                                                        <span style={{ marginLeft: "0.5rem" }}>{inj.message}</span>
+                                                        {inj.released && <span style={{ marginLeft: "0.5rem", color: "rgb(80,220,80)", fontSize: "0.75rem" }}>✅ released {inj.releasedAt ? new Date(inj.releasedAt).toLocaleTimeString() : ""}</span>}
                                                     </div>
+                                                    {!inj.released && (
+                                                        <div style={{ display: "flex", gap: "0.3rem", flexShrink: 0 }}>
+                                                            <button onClick={() => handleStartEditInject(inj)} style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer" }}>✏ Edit</button>
+                                                            <button onClick={() => handleReleaseInject(inj.id)} style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer", background: "rgba(80,220,80,0.15)", border: "1px solid rgba(80,220,80,0.4)", borderRadius: "4px", color: "rgb(80,220,80)" }}>▶ Release</button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                {/** Facilitator notes on this inject. */}
+                                                {(inj.notes || []).length > 0 && (
+                                                    <ul style={{ listStyle: "none", padding: "0.3rem 0 0 0", margin: 0, fontSize: "0.75rem", opacity: 0.8 }}>
+                                                        {inj.notes.map((n) => (
+                                                            <li key={n.id} style={{ padding: "0.15rem 0" }}>
+                                                                📝 {n.text}
+                                                                <span style={{ opacity: 0.6, marginLeft: "0.3rem" }}>({new Date(n.createdAt).toLocaleTimeString()})</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
                                                 )}
+                                                <div style={{ display: "flex", gap: "0.3rem", marginTop: "0.4rem" }}>
+                                                    <input
+                                                        type="text"
+                                                        value={injectNoteText[inj.id] || ""}
+                                                        onChange={(e) => setInjectNoteText((prev) => ({ ...prev, [inj.id]: e.target.value }))}
+                                                        onKeyDown={(e) => e.key === "Enter" && handleAddInjectNote(inj.id)}
+                                                        placeholder="Add facilitator note…"
+                                                        maxLength={500}
+                                                        style={{ flex: 1, fontSize: "0.75rem", padding: "0.2rem 0.4rem", background: "var(--color-surface)", color: "inherit", border: "1px solid var(--color-border-mid)", borderRadius: "4px" }}
+                                                    />
+                                                    <button
+                                                        onClick={() => handleAddInjectNote(inj.id)}
+                                                        disabled={!(injectNoteText[inj.id] || "").trim()}
+                                                        style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer" }}
+                                                    >
+                                                        + Note
+                                                    </button>
+                                                </div>
                                             </div>
                                         )}
                                     </li>
@@ -851,9 +1140,15 @@ export default function AdminDashboard() {
                     )}
 
                     <div className="session-actions">
+                        <Button text="⬇ Generate AAR" onClick={handleGenerateAAR} />
+                        <Button text="Export Results (JSON)" onClick={handleExportResults} />
+                        <Button text="Export Participants (CSV)" onClick={() => exportParticipantsCSV(sessionCode, trainees, traineeScores)} />
+                        <Button text="Export Event Log (CSV)" onClick={() => exportEventLogCSV(sessionCode, eventLog)} />
+                        <Button text="Export Action Items (CSV)" onClick={() => exportActionItemsCSV(sessionCode, actionItems)} />
+                        <Button text="Export Inject Log (CSV)" onClick={() => exportInjectLogCSV(sessionCode, injectQueue)} />
                         <Button text="Start New Session" onClick={handleStartNewSession} />
                         <Button text="Return to Home" onClick={() => navigate("/")} />
-                        <Button text="Export Results" onClick={handleExportResults} />
+                        <Button text="📚 Document Library" onClick={() => navigate("/document-library")} />
                     </div>
                 </div>
             )}
@@ -866,9 +1161,10 @@ export default function AdminDashboard() {
                         <p>Choose how you would like to proceed:</p>
                         <div className="modal-actions">
                             <Button text="Confirm End Session" onClick={handleConfirmEnd} />
+                            <Button text="⬇ Generate AAR" onClick={handleGenerateAAR} />
+                            <Button text="Export Results (JSON)" onClick={handleExportResults} />
                             <Button text="Start New Session" onClick={handleStartNewSession} />
                             <Button text="Return to Home" onClick={() => navigate("/")} />
-                            <Button text="Export Results" onClick={handleExportResults} />
                             <Button text="Cancel" onClick={() => setShowEndModal(false)} />
                         </div>
                     </div>

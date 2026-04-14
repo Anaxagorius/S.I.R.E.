@@ -185,6 +185,12 @@ export function attachSocketServer(httpServer, logger) {
           timestampIso: new Date().toISOString()
         });
 
+        inMemorySessionStore.appendEventLog(sessionCode, {
+          type: 'join',
+          displayName,
+          role: role || null,
+        });
+
         auditLogger.event({
           action: 'session:join',
           actor,
@@ -349,6 +355,8 @@ export function attachSocketServer(httpServer, logger) {
       const room = `session:${sessionCode}`;
       simNamespace.to(room).emit('session:paused', { sessionCode, pausedAt: new Date().toISOString() });
 
+      inMemorySessionStore.appendEventLog(sessionCode, { type: 'session:pause' });
+
       auditLogger.event({
         action: 'session:pause',
         actor,
@@ -380,6 +388,8 @@ export function attachSocketServer(httpServer, logger) {
 
       const room = `session:${sessionCode}`;
       simNamespace.to(room).emit('session:resumed', { sessionCode, resumedAt: new Date().toISOString() });
+
+      inMemorySessionStore.appendEventLog(sessionCode, { type: 'session:resume' });
 
       auditLogger.event({
         action: 'session:resume',
@@ -478,6 +488,15 @@ export function attachSocketServer(httpServer, logger) {
       simNamespace.to(room).emit('inject:queue:updated', {
         sessionCode,
         injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
+      });
+
+      inMemorySessionStore.appendEventLog(sessionCode, {
+        type: 'inject:release',
+        injectId: inject.id,
+        message: inject.message,
+        severity: inject.severity,
+        roleFilter: inject.roleFilter || null,
+        timestampIso: inject.releasedAt,
       });
 
       auditLogger.event({
@@ -652,18 +671,65 @@ export function attachSocketServer(httpServer, logger) {
         return;
       }
 
+      const timestampIso = new Date().toISOString();
       simNamespace.to(room).emit('event:log:broadcast', {
         actorRole: 'trainee',
         displayName,
         action,
         rationale,
-        timestampIso: new Date().toISOString()
+        timestampIso
+      });
+
+      inMemorySessionStore.appendEventLog(sessionCode, {
+        type: 'decision',
+        displayName,
+        role: socket.data?.participantRole || null,
+        action,
+        rationale: rationale || null,
+        timestampIso,
       });
 
       auditLogger.event({
         action: 'event:log',
         actor,
         context: buildAuditContext({ sessionCode, displayName, socketId: socket.id }, ['sessionCode', 'displayName', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('inject:note:add', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const injectId = normalizeInjectId(payload?.injectId);
+      const noteText = normalizeActionItemText(payload?.text);
+
+      if (!sessionCode || !injectId || !noteText) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, injectId, and text are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const note = inMemorySessionStore.addNoteToInject(sessionCode, injectId, noteText);
+      if (!note) {
+        emitError(socket, 'INJECT_NOT_FOUND', 'Inject not found');
+        return;
+      }
+
+      const room = `session:${sessionCode}`;
+      simNamespace.to(room).emit('inject:queue:updated', {
+        sessionCode,
+        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
+      });
+
+      auditLogger.event({
+        action: 'inject:note:add',
+        actor,
+        context: buildAuditContext({ sessionCode, injectId, socketId: socket.id }, ['sessionCode', 'injectId', 'socketId']),
         outcome: 'success',
         correlationId: generateRandomUuid()
       });

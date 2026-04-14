@@ -65,6 +65,30 @@ db.exec(`
   )
 `)
 
+/**
+ * documents table
+ * Stores reference documents (URL links) that can be attached to scenarios
+ * and referenced by participants during exercises.
+ *
+ * Columns:
+ *   id          - unique document identifier (UUID)
+ *   name        - human-readable document title
+ *   description - short summary of the document
+ *   url         - link to the document (external URL or data URI)
+ *   scenario_id - optional scenario this document is linked to (nullable)
+ *   created_at  - ISO-8601 timestamp of record creation
+ */
+db.exec(`
+  CREATE TABLE IF NOT EXISTS documents (
+    id          TEXT PRIMARY KEY,
+    name        TEXT NOT NULL,
+    description TEXT NOT NULL DEFAULT '',
+    url         TEXT NOT NULL,
+    scenario_id TEXT,
+    created_at  TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  )
+`)
+
 /* ------------------------------------------------------------------ */
 /*  Prepared statements                                                 */
 /* ------------------------------------------------------------------ */
@@ -89,6 +113,20 @@ const stmts = {
   ),
   listScenarios:     db.prepare('SELECT id, title, description, created_at FROM scenarios ORDER BY id ASC'),
   deleteScenario:    db.prepare('DELETE FROM scenarios WHERE id = ?'),
+
+  /* documents */
+  getDocumentById:   db.prepare('SELECT * FROM documents WHERE id = ?'),
+  listDocuments:     db.prepare('SELECT * FROM documents ORDER BY created_at ASC'),
+  listDocumentsByScenario: db.prepare(
+    'SELECT * FROM documents WHERE scenario_id = ? ORDER BY created_at ASC'
+  ),
+  insertDocument:    db.prepare(
+    'INSERT INTO documents (id, name, description, url, scenario_id) VALUES (?, ?, ?, ?, ?)'
+  ),
+  updateDocument:    db.prepare(
+    'UPDATE documents SET name = ?, description = ?, url = ?, scenario_id = ? WHERE id = ?'
+  ),
+  deleteDocument:    db.prepare('DELETE FROM documents WHERE id = ?'),
 }
 
 /* ------------------------------------------------------------------ */
@@ -194,4 +232,51 @@ export const sireDatabase = {
    * @param {string} id
    */
   deleteScenario: (id) => stmts.deleteScenario.run(id),
+
+  /* ---- documents ---- */
+
+  /**
+   * Retrieves a document by its id.
+   * @param {string} id
+   * @returns {{ id: string, name: string, description: string, url: string, scenario_id: string|null, created_at: string } | null}
+   */
+  getDocumentById: (id) => stmts.getDocumentById.get(id) ?? null,
+
+  /**
+   * Returns all documents, optionally filtered to a specific scenario.
+   * @param {string} [scenarioId]
+   * @returns {Array<{ id: string, name: string, description: string, url: string, scenario_id: string|null, created_at: string }>}
+   */
+  listDocuments: (scenarioId) => {
+    if (scenarioId) return stmts.listDocumentsByScenario.all(scenarioId)
+    return stmts.listDocuments.all()
+  },
+
+  /**
+   * Persists a new document reference.
+   * @param {{ id: string, name: string, description?: string, url: string, scenarioId?: string|null }} doc
+   */
+  createDocument: ({ id, name, description = '', url, scenarioId = null }) => {
+    stmts.insertDocument.run(id, name, description, url, scenarioId || null)
+  },
+
+  /**
+   * Updates an existing document reference.
+   * @param {{ id: string, name: string, description?: string, url: string, scenarioId?: string|null }} doc
+   * @throws {Error} with code 'DOCUMENT_NOT_FOUND' if no document with the given id exists
+   */
+  updateDocument: ({ id, name, description = '', url, scenarioId = null }) => {
+    const result = stmts.updateDocument.run(name, description, url, scenarioId || null, id)
+    if (result.changes === 0) {
+      const notFound = new Error(`Document '${id}' not found`)
+      notFound.code = 'DOCUMENT_NOT_FOUND'
+      throw notFound
+    }
+  },
+
+  /**
+   * Removes a document by its id.
+   * @param {string} id
+   */
+  deleteDocument: (id) => stmts.deleteDocument.run(id),
 }

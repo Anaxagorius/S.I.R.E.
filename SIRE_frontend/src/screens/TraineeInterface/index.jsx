@@ -1,6 +1,6 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-04-01
+ * Last Update: 2026-04-14
  * Description: Trainee interface screen for interacting with scenario-based decision nodes.
  * Dynamically loads the scenario from the backend based on the session's scenario key,
  * or uses bundled scenario data passed directly in navigation state (demo mode).
@@ -13,7 +13,8 @@
  * sessionStorage (populated by JoinSession) so the scenario survives a page refresh.
  *
  * Features: live elapsed timer, scoring (+10 per correct decision), inline feedback
- * overlay, decision history, and a scenario-complete card on terminal nodes.
+ * overlay, decision history, scenario-complete card on terminal nodes, and reference
+ * documents linked to the current scenario.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -22,6 +23,7 @@ import { io } from "socket.io-client";
 import TraineeInterfaceLayout from "../../layouts/TraineeInterfaceLayout";
 import BackButton from "../../components/BackButton";
 import apiClient from "../../services/api/apiClient";
+import { getDocuments } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 
 /** Read a value from sessionStorage safely (returns null if unavailable). */
@@ -115,6 +117,9 @@ export default function TraineeInterface() {
     const [actionText, setActionText] = useState("");
     const [actionAssignedTo, setActionAssignedTo] = useState("");
 
+    /** Reference documents linked to this scenario (from document library). */
+    const [referenceDocs, setReferenceDocs] = useState([]);
+
     /** Options for the current node, shuffled so the correct answer is not always first. */
     const [shuffledOptions, setShuffledOptions] = useState([]);
 
@@ -140,6 +145,18 @@ export default function TraineeInterface() {
         const id = setInterval(() => setElapsedSeconds((s) => s + 1), 1000);
         return () => clearInterval(id);
     }, [scenarioData]);
+
+    /** Fetch reference documents linked to this scenario from the document library. */
+    useEffect(() => {
+        if (!scenarioKey || isDemo) return;
+        let cancelled = false;
+        getDocuments(scenarioKey).then((docs) => {
+            if (!cancelled) setReferenceDocs(docs || []);
+        }).catch(() => {
+            // Reference docs are optional — silently ignore errors
+        });
+        return () => { cancelled = true; };
+    }, [scenarioKey, isDemo]);
 
     /** Load scenario data from backend and connect to socket. Skip entirely in demo mode. */
     useEffect(() => {
@@ -442,6 +459,26 @@ export default function TraineeInterface() {
                     {timelineEvents.map((evt, i) => (
                         <p key={i}><strong>[{evt.time}] {evt.title}:</strong> {evt.description}</p>
                     ))}
+                </div>
+            )}
+
+            {/** Reference documents linked to this scenario. */}
+            {referenceDocs.length > 0 && (
+                <div className="scenario-card">
+                    <h3>📚 Reference Documents</h3>
+                    <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: "0.85rem" }}>
+                        {referenceDocs.map((doc) => (
+                            <li key={doc.id} style={{ padding: "0.3rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                                <a href={doc.url} target="_blank" rel="noopener noreferrer"
+                                    style={{ color: "rgb(100,180,255)", fontWeight: 600 }}>
+                                    {doc.name}
+                                </a>
+                                {doc.description && (
+                                    <span style={{ marginLeft: "0.5rem", opacity: 0.7 }}>— {doc.description}</span>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
 

@@ -16,6 +16,7 @@ import AdminDashboard from "../screens/AdminDashboard"
 import TraineeInterface from "../screens/TraineeInterface"
 import Demo from "../screens/Demo"
 import ScenarioBuilder from "../screens/ScenarioBuilder"
+import DocumentLibrary from "../screens/DocumentLibrary"
 
 /** Function that returns the AppRouter component for handling client-side routing. */
 export default function AppRouter() {
@@ -31,6 +32,7 @@ export default function AppRouter() {
             <Route path="/trainee-interface" element={<TraineeInterface />} />
             <Route path="/demo" element={<Demo />} />
             <Route path="/scenario-builder" element={<ScenarioBuilder />} />
+            <Route path="/document-library" element={<DocumentLibrary />} />
         </Routes>
     );
 }

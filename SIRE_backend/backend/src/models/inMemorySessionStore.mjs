@@ -23,6 +23,8 @@ export const inMemorySessionStore = {
       scenarioKey,
       instructorDisplayName,
       createdAtEpochMs: Date.now(),
+      startedAt: null,
+      endedAt: null,
       trainees: [],
       currentTimelineIndex: -1,
       isActive: false,
@@ -32,6 +34,8 @@ export const inMemorySessionStore = {
       injectQueue: [],
       /** @type {Array<import('./types.mjs').ActionItemRecord>} */
       actionItems: [],
+      /** @type {Array<object>} Ordered audit trail of all significant session events. */
+      eventLog: [],
     }
     sessionMap.set(sessionCode, record)
     return record
@@ -65,6 +69,18 @@ export const inMemorySessionStore = {
     s.isActive = isActive
     return s
   },
+  setStarted: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    if (!s.startedAt) s.startedAt = new Date().toISOString()
+    return s
+  },
+  setEnded: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    if (!s.endedAt) s.endedAt = new Date().toISOString()
+    return s
+  },
   pauseSession: (sessionCode) => {
     const s = sessionMap.get(sessionCode)
     if (!s) return null
@@ -93,6 +109,7 @@ export const inMemorySessionStore = {
       releasedAt: null,
       editedAt: null,
       createdAt: new Date().toISOString(),
+      notes: [],
     }
     s.injectQueue.push(inject)
     return inject
@@ -155,5 +172,33 @@ export const inMemorySessionStore = {
     if (!trainee) return null
     trainee.role = role
     return trainee
+  },
+  /** Append a timestamped event to the session's ordered audit trail. */
+  appendEventLog: (sessionCode, entry) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const event = { ...entry, timestampIso: entry.timestampIso || new Date().toISOString() }
+    s.eventLog.push(event)
+    return event
+  },
+  /** Return the full ordered audit trail for a session. */
+  getEventLog: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    return s.eventLog
+  },
+  /** Add a facilitator note to a queued inject (released or not). */
+  addNoteToInject: (sessionCode, injectId, noteText) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const inject = s.injectQueue.find(i => i.id === injectId)
+    if (!inject) return null
+    const note = {
+      id: crypto.randomUUID(),
+      text: noteText,
+      createdAt: new Date().toISOString(),
+    }
+    inject.notes.push(note)
+    return note
   },
 }

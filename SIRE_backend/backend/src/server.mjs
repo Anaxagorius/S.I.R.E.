@@ -15,6 +15,8 @@ import sessionRoute from './routes/sessionRoute.mjs';
 import sessionsRoute from './routes/sessionsRoute.mjs';
 import scenarioRoute from './routes/scenarioRoute.mjs';
 import authRoute from './routes/authRoute.mjs';
+import exportRoute from './routes/exportRoute.mjs';
+import documentRoute from './routes/documentRoute.mjs';
 
 import { environmentConfig } from './config/environmentConfig.mjs';
 import { applicationLogger } from './config/logger.mjs';
@@ -122,6 +124,8 @@ app.use('/api', authRoute);
 app.use('/api', healthRoute);
 app.use('/api', scenarioRoute);
 app.use('/api', sessionsRoute);
+app.use('/api', exportRoute);
+app.use('/api', documentRoute);
 
 // Security enforcement AFTER public endpoints
 app.use('/api', requireApiKey);

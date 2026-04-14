@@ -76,3 +76,29 @@ export const createSession = async (scenarioKey) => {
 export const joinSession = async (sessionKey) => {
     return apiClient.post("/sessions/join", { sessionKey });
 };
+
+/** Fetches the full export snapshot for a session (audit trail, event log, etc.). */
+export const getSessionExport = async (sessionCode) => {
+    return apiClient.get(`/sessions/${sessionCode}/export`);
+};
+
+/** Retrieves all reference documents, optionally filtered to a scenario. */
+export const getDocuments = async (scenarioId) => {
+    const qs = scenarioId ? `?scenarioId=${encodeURIComponent(scenarioId)}` : '';
+    return apiClient.get(`/documents${qs}`);
+};
+
+/** Creates a new reference document entry. */
+export const createDocument = async (data) => {
+    return apiClient.post('/documents', data);
+};
+
+/** Updates an existing reference document entry. */
+export const updateDocument = async (id, data) => {
+    return apiClient.put(`/documents/${id}`, data);
+};
+
+/** Deletes a reference document entry. */
+export const deleteDocument = async (id) => {
+    return apiClient.delete(`/documents/${id}`);
+};
