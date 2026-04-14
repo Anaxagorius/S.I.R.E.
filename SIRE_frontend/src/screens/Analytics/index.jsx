@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import BackButton from "../../components/BackButton";
 import { getAnalytics } from "../../services/api/api";
+import { accuracyColor, readinessLabel, formatScenarioName } from "../../utils/scoringUtils";
 import "./Analytics.css";
 
 /** Human-readable labels for role keys. */
@@ -47,22 +48,6 @@ function fmtDate(iso) {
     } catch {
         return iso;
     }
-}
-
-/** Colour for an accuracy value: green / amber / red. */
-function accuracyColor(v) {
-    if (v == null) return "rgba(255,255,255,0.35)";
-    if (v >= 0.8) return "rgb(80,220,80)";
-    if (v >= 0.5) return "rgb(255,180,40)";
-    return "rgb(255,100,100)";
-}
-
-/** Readiness label for an accuracy value. */
-function readinessLabel(v) {
-    if (v == null) return "—";
-    if (v >= 0.8) return "Strong";
-    if (v >= 0.5) return "Developing";
-    return "Needs Work";
 }
 
 /** Function that returns the Analytics screen component. */
@@ -266,9 +251,7 @@ export default function Analytics() {
                                 {[...recentSessions].reverse().map((s) => {
                                     const pct = s.overallAccuracy != null ? s.overallAccuracy * 100 : null;
                                     const color = accuracyColor(s.overallAccuracy);
-                                    const label = s.scenarioKey
-                                        ? s.scenarioKey.replace(/^scenario_/, "").replace(/_/g, " ")
-                                        : s.sessionCode;
+                                    const label = formatScenarioName(s.scenarioKey).toLowerCase() || s.sessionCode;
                                     return (
                                         <div key={s.id} className="trend-bar-col" title={`${label} — ${fmtPct(s.overallAccuracy)} accuracy`}>
                                             <div className="trend-bar-track">
@@ -301,11 +284,7 @@ export default function Analytics() {
                                     {recentSessions.map((s) => (
                                         <tr key={s.id}>
                                             <td style={{ opacity: 0.7 }}>{fmtDate(s.endedAt)}</td>
-                                            <td>
-                                                {s.scenarioKey
-                                                    ? s.scenarioKey.replace(/^scenario_/, "").replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())
-                                                    : s.sessionCode}
-                                            </td>
+                                            <td>{formatScenarioName(s.scenarioKey) || s.sessionCode}</td>
                                             <td>{s.participantCount}</td>
                                             <td style={{ color: accuracyColor(s.overallAccuracy) }}>{fmtPct(s.overallAccuracy)}</td>
                                             <td>{fmtPct(s.participationRate)}</td>

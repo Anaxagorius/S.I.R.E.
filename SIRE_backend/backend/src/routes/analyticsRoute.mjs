@@ -1,5 +1,7 @@
 /**
  * analyticsRoute.mjs
+ * Author: Copilot
+ * Last Update: 2026-04-14
  * Program-level analytics endpoint.
  *
  * GET /api/analytics  – returns aggregated KPI summary from all persisted session results.

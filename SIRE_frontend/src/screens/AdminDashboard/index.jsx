@@ -18,6 +18,7 @@ import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
 import { getScenarios, createSession } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
+import { accuracyColor, readinessLabel } from "../../utils/scoringUtils";
 
 /** Icon map keyed by scenario ID, used to enrich scenarios fetched from the API. */
 const SCENARIO_ICONS = {
@@ -861,8 +862,9 @@ export default function AdminDashboard() {
                                 <tbody>
                                     {Object.entries(roleScores).map(([role, data]) => {
                                         const acc = data.total > 0 ? (data.correct / data.total * 100) : null;
-                                        const readinessColor = acc == null ? "rgba(255,255,255,0.3)" : acc >= 80 ? "rgb(80,220,80)" : acc >= 50 ? "rgb(255,180,40)" : "rgb(255,100,100)";
-                                        const readinessLabel = acc == null ? "—" : acc >= 80 ? "Strong" : acc >= 50 ? "Developing" : "Needs Work";
+                                        const accRatio = acc != null ? acc / 100 : null;
+                                        const roleColor = accuracyColor(accRatio);
+                                        const roleReadiness = readinessLabel(accRatio);
                                         return (
                                             <tr key={role} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
                                                 <td style={{ padding: "0.4rem 0.5rem" }}><span className="role-badge">{role}</span></td>
@@ -871,13 +873,13 @@ export default function AdminDashboard() {
                                                     {acc != null ? (
                                                         <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                                                             <span style={{ flex: 1, background: "rgba(255,255,255,0.08)", borderRadius: "99px", height: "6px", overflow: "hidden" }}>
-                                                                <span style={{ display: "block", width: `${acc}%`, height: "100%", background: readinessColor, borderRadius: "99px", transition: "width 0.4s" }} />
+                                                                <span style={{ display: "block", width: `${acc}%`, height: "100%", background: roleColor, borderRadius: "99px", transition: "width 0.4s" }} />
                                                             </span>
                                                             {acc.toFixed(0)}%
                                                         </span>
                                                     ) : "—"}
                                                 </td>
-                                                <td style={{ padding: "0.4rem 0.5rem", color: readinessColor, fontWeight: 600 }}>{readinessLabel}</td>
+                                                <td style={{ padding: "0.4rem 0.5rem", color: roleColor, fontWeight: 600 }}>{roleReadiness}</td>
                                             </tr>
                                         );
                                     })}
