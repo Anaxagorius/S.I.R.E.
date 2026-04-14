@@ -4,6 +4,7 @@
  * Minimal in-memory store for sessions.
  */
 import { customAlphabet } from 'nanoid'
+import crypto from 'crypto'
 
 /** @type {Map<string, any>} */
 const sessionMap = new Map()
@@ -25,6 +26,12 @@ export const inMemorySessionStore = {
       trainees: [],
       currentTimelineIndex: -1,
       isActive: false,
+      isPaused: false,
+      pausedAtMs: null,
+      /** @type {Array<import('./types.mjs').InjectRecord>} */
+      injectQueue: [],
+      /** @type {Array<import('./types.mjs').ActionItemRecord>} */
+      actionItems: [],
     }
     sessionMap.set(sessionCode, record)
     return record
@@ -57,5 +64,96 @@ export const inMemorySessionStore = {
     if (!s) return null
     s.isActive = isActive
     return s
+  },
+  pauseSession: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    s.isPaused = true
+    s.pausedAtMs = Date.now()
+    return s
+  },
+  resumeSession: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    s.isPaused = false
+    s.pausedAtMs = null
+    return s
+  },
+  /** Add an inject to the facilitator queue (not yet released to participants). */
+  addInjectToQueue: (sessionCode, { message, severity, roleFilter }) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const inject = {
+      id: crypto.randomUUID(),
+      message,
+      originalMessage: null,
+      severity: severity || 'info',
+      roleFilter: roleFilter || null,
+      released: false,
+      releasedAt: null,
+      editedAt: null,
+      createdAt: new Date().toISOString(),
+    }
+    s.injectQueue.push(inject)
+    return inject
+  },
+  /** Mark a queued inject as released (visible to participants). */
+  releaseInject: (sessionCode, injectId) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const inject = s.injectQueue.find(i => i.id === injectId)
+    if (!inject || inject.released) return null
+    inject.released = true
+    inject.releasedAt = new Date().toISOString()
+    return inject
+  },
+  /** Edit the message of a queued (unreleased) inject, preserving original for audit. */
+  editInject: (sessionCode, injectId, { message, severity, roleFilter }) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const inject = s.injectQueue.find(i => i.id === injectId)
+    if (!inject || inject.released) return null
+    if (inject.originalMessage === null) {
+      inject.originalMessage = inject.message
+    }
+    inject.message = message
+    if (severity) inject.severity = severity
+    if (roleFilter !== undefined) inject.roleFilter = roleFilter || null
+    inject.editedAt = new Date().toISOString()
+    return inject
+  },
+  getInjectQueue: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    return s.injectQueue
+  },
+  /** Capture an action item raised during the exercise. */
+  captureActionItem: (sessionCode, { text, capturedBy, role, assignedTo }) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const item = {
+      id: crypto.randomUUID(),
+      text,
+      capturedBy: capturedBy || null,
+      role: role || null,
+      assignedTo: assignedTo || null,
+      timestampIso: new Date().toISOString(),
+    }
+    s.actionItems.push(item)
+    return item
+  },
+  getActionItems: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    return s.actionItems
+  },
+  /** Update a trainee's role (facilitator-assigned override). */
+  assignTraineeRole: (sessionCode, displayName, role) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const trainee = s.trainees.find(t => t.displayName === displayName)
+    if (!trainee) return null
+    trainee.role = role
+    return trainee
   },
 }

@@ -18,6 +18,7 @@ export default function JoinSession() {
     /** Constants for UI state. */
     const [sessionKey, setSessionKey] = useState("");
     const [displayName, setDisplayName] = useState("");
+    const [role, setRole] = useState("");
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -46,12 +47,13 @@ export default function JoinSession() {
                 sessionStorage.setItem("sire_sessionCode", sessionCode);
                 sessionStorage.setItem("sire_scenarioKey", scenarioKey);
                 sessionStorage.setItem("sire_displayName", trimmedName);
+                if (role) sessionStorage.setItem("sire_role", role);
             } catch {
                 // sessionStorage may be unavailable in some environments; silently ignore
             }
 
             navigate("/trainee-interface", {
-                state: { sessionCode, scenarioKey, displayName: trimmedName },
+                state: { sessionCode, scenarioKey, displayName: trimmedName, role: role || null },
             });
         } catch (error) {
             setError(error.message || "Failed to join session!");
@@ -76,6 +78,23 @@ export default function JoinSession() {
                     placeholder="Enter your name..."
                     maxLength={64}
                 />
+            </div>
+
+            {/** Role selector. */}
+            <div className="form-group">
+                <label>Your Role</label>
+                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                    <option value="">Select a role (optional)</option>
+                    <option value="it-secops">IT / SecOps</option>
+                    <option value="legal">Legal</option>
+                    <option value="comms">Communications / PR</option>
+                    <option value="exec">Executive</option>
+                    <option value="security">Security</option>
+                    <option value="safety">Safety</option>
+                    <option value="medical">Medical</option>
+                    <option value="facilities">Facilities</option>
+                    <option value="evacuation">Evacuation</option>
+                </select>
             </div>
 
             {/** Session key input. */}

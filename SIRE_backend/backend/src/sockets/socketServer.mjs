@@ -16,7 +16,9 @@ import {
   normalizeRationaleText,
   normalizeRole,
   normalizeSessionCode,
-  normalizeSeverity
+  normalizeSeverity,
+  normalizeInjectId,
+  normalizeActionItemText,
 } from '../utils/validation.mjs';
 
 const require = createRequire(import.meta.url);
@@ -155,16 +157,25 @@ export function attachSocketServer(httpServer, logger) {
         const room = `session:${sessionCode}`;
         socket.join(room);
 
+        // Store role on socket so role-filtered injects can match it later
+        if (role) socket.data.participantRole = role;
+
         socket.emit('session:joined', {
           sessionCode,
           roster: record.trainees,
-          currentTimelineIndex: record.currentTimelineIndex
+          currentTimelineIndex: record.currentTimelineIndex,
+          isPaused: record.isPaused,
+          injectQueue: record.injectQueue,
+          actionItems: record.actionItems,
         });
 
         socket.to(room).emit('session:joined', {
           sessionCode,
           roster: record.trainees,
-          currentTimelineIndex: record.currentTimelineIndex
+          currentTimelineIndex: record.currentTimelineIndex,
+          isPaused: record.isPaused,
+          injectQueue: record.injectQueue,
+          actionItems: record.actionItems,
         });
 
         simNamespace.to(room).emit('event:log:broadcast', {
@@ -221,7 +232,10 @@ export function attachSocketServer(httpServer, logger) {
       socket.emit('session:joined', {
         sessionCode,
         roster: session.trainees,
-        currentTimelineIndex: session.currentTimelineIndex
+        currentTimelineIndex: session.currentTimelineIndex,
+        isPaused: session.isPaused,
+        injectQueue: session.injectQueue,
+        actionItems: session.actionItems,
       });
 
       auditLogger.event({
@@ -307,6 +321,288 @@ export function attachSocketServer(httpServer, logger) {
         action: 'admin:inject',
         actor,
         context: buildAuditContext({ sessionCode, severity, socketId: socket.id }, ['sessionCode', 'severity', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('session:pause', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      if (!sessionCode) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode is required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      if (session.isPaused) {
+        emitError(socket, 'ALREADY_PAUSED', 'Session is already paused');
+        return;
+      }
+
+      escalationService.pauseTimeline({ sessionCode });
+
+      const room = `session:${sessionCode}`;
+      simNamespace.to(room).emit('session:paused', { sessionCode, pausedAt: new Date().toISOString() });
+
+      auditLogger.event({
+        action: 'session:pause',
+        actor,
+        context: buildAuditContext({ sessionCode, socketId: socket.id }, ['sessionCode', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('session:resume', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      if (!sessionCode) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode is required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      if (!session.isPaused) {
+        emitError(socket, 'NOT_PAUSED', 'Session is not paused');
+        return;
+      }
+
+      escalationService.resumeTimeline({ sessionCode });
+
+      const room = `session:${sessionCode}`;
+      simNamespace.to(room).emit('session:resumed', { sessionCode, resumedAt: new Date().toISOString() });
+
+      auditLogger.event({
+        action: 'session:resume',
+        actor,
+        context: buildAuditContext({ sessionCode, socketId: socket.id }, ['sessionCode', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('admin:inject:queue:add', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const message = normalizeMessageText(payload?.message);
+      const severity = normalizeSeverity(payload?.severity) || 'info';
+      const roleFilter = normalizeRole(payload?.roleFilter);
+
+      if (!sessionCode || !message) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode and message are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const inject = inMemorySessionStore.addInjectToQueue(sessionCode, { message, severity, roleFilter });
+
+      const room = `session:${sessionCode}`;
+      // Broadcast updated queue to admin (same room)
+      simNamespace.to(room).emit('inject:queue:updated', {
+        sessionCode,
+        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
+      });
+
+      auditLogger.event({
+        action: 'admin:inject:queue:add',
+        actor,
+        context: buildAuditContext({ sessionCode, injectId: inject.id, socketId: socket.id }, ['sessionCode', 'injectId', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('admin:inject:release', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const injectId = normalizeInjectId(payload?.injectId);
+
+      if (!sessionCode || !injectId) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode and injectId are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const inject = inMemorySessionStore.releaseInject(sessionCode, injectId);
+      if (!inject) {
+        emitError(socket, 'INJECT_NOT_FOUND', 'Inject not found or already released');
+        return;
+      }
+
+      const room = `session:${sessionCode}`;
+
+      // Broadcast to participants (filtered by role if roleFilter is set)
+      const eventPayload = {
+        actorRole: 'admin',
+        displayName: 'Instructor',
+        action: inject.message,
+        rationale: inject.severity,
+        roleFilter: inject.roleFilter,
+        timestampIso: inject.releasedAt,
+      };
+
+      if (inject.roleFilter) {
+        // Only broadcast to participants whose role matches
+        const matchingSockets = Array.from(simNamespace.sockets.values()).filter(s => {
+          return s.rooms.has(room) && s.data?.participantRole === inject.roleFilter;
+        });
+        matchingSockets.forEach(s => s.emit('event:log:broadcast', eventPayload));
+
+        // Always send to admin sockets (those in the room without a participant role)
+        const adminSockets = Array.from(simNamespace.sockets.values()).filter(s => {
+          return s.rooms.has(room) && !s.data?.participantRole;
+        });
+        adminSockets.forEach(s => s.emit('event:log:broadcast', eventPayload));
+      } else {
+        simNamespace.to(room).emit('event:log:broadcast', eventPayload);
+      }
+
+      // Notify admin of updated queue state
+      simNamespace.to(room).emit('inject:queue:updated', {
+        sessionCode,
+        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
+      });
+
+      auditLogger.event({
+        action: 'admin:inject:release',
+        actor,
+        context: buildAuditContext({ sessionCode, injectId, socketId: socket.id }, ['sessionCode', 'injectId', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('admin:inject:edit', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const injectId = normalizeInjectId(payload?.injectId);
+      const message = normalizeMessageText(payload?.message);
+      const severity = normalizeSeverity(payload?.severity);
+      const roleFilter = payload?.roleFilter !== undefined ? (normalizeRole(payload.roleFilter) || null) : undefined;
+
+      if (!sessionCode || !injectId || !message) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, injectId, and message are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const inject = inMemorySessionStore.editInject(sessionCode, injectId, { message, severity, roleFilter });
+      if (!inject) {
+        emitError(socket, 'INJECT_NOT_FOUND', 'Inject not found or already released');
+        return;
+      }
+
+      const room = `session:${sessionCode}`;
+      simNamespace.to(room).emit('inject:queue:updated', {
+        sessionCode,
+        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
+      });
+
+      auditLogger.event({
+        action: 'admin:inject:edit',
+        actor,
+        context: buildAuditContext(
+          { sessionCode, injectId, hadOriginal: inject.originalMessage !== null, socketId: socket.id },
+          ['sessionCode', 'injectId', 'hadOriginal', 'socketId']
+        ),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('admin:role:assign', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const displayName = normalizeDisplayName(payload?.displayName);
+      const role = normalizeRole(payload?.role);
+
+      if (!sessionCode || !displayName || !role) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, displayName, and role are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const trainee = inMemorySessionStore.assignTraineeRole(sessionCode, displayName, role);
+      if (!trainee) {
+        emitError(socket, 'TRAINEE_NOT_FOUND', 'Trainee not found in session');
+        return;
+      }
+
+      const room = `session:${sessionCode}`;
+      simNamespace.to(room).emit('session:roster:updated', {
+        sessionCode,
+        roster: inMemorySessionStore.getSession(sessionCode).trainees,
+      });
+
+      auditLogger.event({
+        action: 'admin:role:assign',
+        actor,
+        context: buildAuditContext({ sessionCode, displayName, role, socketId: socket.id }, ['sessionCode', 'displayName', 'role', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('session:action:capture', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const text = normalizeActionItemText(payload?.text);
+      const capturedBy = normalizeDisplayName(payload?.capturedBy);
+      const role = normalizeRole(payload?.role);
+      const assignedTo = normalizeRole(payload?.assignedTo);
+
+      if (!sessionCode || !text || !capturedBy) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, text, and capturedBy are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const room = `session:${sessionCode}`;
+      if (!socket.rooms.has(room)) {
+        emitError(socket, 'FORBIDDEN', 'You are not part of this session');
+        return;
+      }
+
+      const item = inMemorySessionStore.captureActionItem(sessionCode, { text, capturedBy, role, assignedTo });
+
+      simNamespace.to(room).emit('action:item:broadcast', {
+        sessionCode,
+        item,
+      });
+
+      auditLogger.event({
+        action: 'session:action:capture',
+        actor,
+        context: buildAuditContext({ sessionCode, capturedBy, socketId: socket.id }, ['sessionCode', 'capturedBy', 'socketId']),
         outcome: 'success',
         correlationId: generateRandomUuid()
       });

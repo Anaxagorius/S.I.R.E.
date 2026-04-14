@@ -119,3 +119,19 @@ button:focus-visible {
   background: rgba(255,255,255,0.12);
   border-radius: 99px;
 }
+
+/** Role badge — small pill label for participant roles. */
+.role-badge {
+  background: rgba(200, 40, 40, 0.15);
+  border: 1px solid rgba(200, 40, 40, 0.4);
+  border-radius: 99px;
+  color: rgb(220, 100, 100);
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.55rem;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}

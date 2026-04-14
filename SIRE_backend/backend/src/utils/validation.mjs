@@ -71,7 +71,18 @@ export const parseLimit = (value, { fallback = 100, min = 1, max = 200 } = {}) =
   return { value: rounded, valid: true }
 }
 
-const ALLOWED_ROLES = new Set(['security', 'safety', 'medical', 'communications', 'facilities', 'evacuation'])
+const ALLOWED_ROLES = new Set([
+  'security',
+  'safety',
+  'medical',
+  'communications',
+  'facilities',
+  'evacuation',
+  'it-secops',
+  'legal',
+  'exec',
+  'comms',
+])
 
 export const normalizeRole = (value) => {
   const candidate = normalizeText(value, 32)
@@ -80,5 +91,17 @@ export const normalizeRole = (value) => {
   if (!ALLOWED_ROLES.has(lowered)) return null
   return lowered
 }
+
+/** Validate a UUID v4 inject ID.  Returns null if invalid. */
+export const normalizeInjectId = (value) => {
+  const candidate = normalizeText(value, 40)
+  if (!candidate) return null
+  // UUID format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(candidate)) return null
+  return candidate.toLowerCase()
+}
+
+/** Normalize free-form text up to 500 chars (for action items). */
+export const normalizeActionItemText = (value) => normalizeText(value, 500)
 
 export const generateRandomUuid = () => crypto.randomUUID()
