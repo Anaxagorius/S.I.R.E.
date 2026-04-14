@@ -111,6 +111,10 @@ export default function AdminDashboard() {
     const [queueMessage, setQueueMessage] = useState("");
     const [queueSeverity, setQueueSeverity] = useState("info");
     const [queueRoleFilter, setQueueRoleFilter] = useState("");
+    const [queueChannel, setQueueChannel] = useState("in-app");
+    const [queuePressureType, setQueuePressureType] = useState("");
+    const [queueRequiresApproval, setQueueRequiresApproval] = useState(false);
+    const [queueApprovalRole, setQueueApprovalRole] = useState("");
 
     /** State for editing a queued inject. */
     const [editingInjectId, setEditingInjectId] = useState(null);
@@ -296,6 +300,10 @@ export default function AdminDashboard() {
         setQueueMessage("");
         setQueueSeverity("info");
         setQueueRoleFilter("");
+        setQueueChannel("in-app");
+        setQueuePressureType("");
+        setQueueRequiresApproval(false);
+        setQueueApprovalRole("");
         setEditingInjectId(null);
         setActionItems([]);
     }
@@ -324,6 +332,22 @@ export default function AdminDashboard() {
                 decisions: traineeScores.get(t.displayName)?.decisions ?? 0,
             })),
             actionItems,
+            injectLog: injectQueue.map((inj) => ({
+                id: inj.id,
+                message: inj.message,
+                severity: inj.severity,
+                channel: inj.channel,
+                pressureType: inj.pressureType,
+                roleFilter: inj.roleFilter,
+                requiresApproval: inj.requiresApproval,
+                approvalRole: inj.approvalRole,
+                approvedBy: inj.approvedBy,
+                approvedAt: inj.approvedAt,
+                released: inj.released,
+                releasedAt: inj.releasedAt,
+                deliveryLog: inj.deliveryLog || [],
+                acknowledgements: inj.acknowledgements || [],
+            })),
             eventLog,
         };
         const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
@@ -369,10 +393,18 @@ export default function AdminDashboard() {
             message: queueMessage.trim(),
             severity: queueSeverity,
             roleFilter: queueRoleFilter || null,
+            channel: queueChannel,
+            pressureType: queuePressureType || null,
+            requiresApproval: queueRequiresApproval,
+            approvalRole: queueRequiresApproval ? (queueApprovalRole || null) : null,
         });
         setQueueMessage("");
         setQueueSeverity("info");
         setQueueRoleFilter("");
+        setQueueChannel("in-app");
+        setQueuePressureType("");
+        setQueueRequiresApproval(false);
+        setQueueApprovalRole("");
     }
 
     /** Release a queued inject so participants can see it. */
@@ -621,6 +653,45 @@ export default function AdminDashboard() {
                                     <option value="evacuation">Evacuation</option>
                                 </select>
                             </div>
+                            <div className="form-group" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                                <select value={queueChannel} onChange={(e) => setQueueChannel(e.target.value)}
+                                    style={{ flex: 1, background: "var(--color-surface)", color: "inherit", border: "1px solid var(--color-border-mid)", borderRadius: "4px", padding: "0.35rem 0.5rem" }}>
+                                    <option value="in-app">📲 In-App</option>
+                                    <option value="email">📧 Email</option>
+                                </select>
+                                <select value={queuePressureType} onChange={(e) => setQueuePressureType(e.target.value)}
+                                    style={{ flex: 1, background: "var(--color-surface)", color: "inherit", border: "1px solid var(--color-border-mid)", borderRadius: "4px", padding: "0.35rem 0.5rem" }}>
+                                    <option value="">No pressure type</option>
+                                    <option value="media">📰 Media / Press</option>
+                                    <option value="regulator">🏛️ Regulator</option>
+                                    <option value="customer">👤 Customer</option>
+                                </select>
+                            </div>
+                            <div className="form-group" style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+                                <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "0.85rem", cursor: "pointer" }}>
+                                    <input
+                                        type="checkbox"
+                                        checked={queueRequiresApproval}
+                                        onChange={(e) => setQueueRequiresApproval(e.target.checked)}
+                                    />
+                                    Requires approval from:
+                                </label>
+                                {queueRequiresApproval && (
+                                    <select value={queueApprovalRole} onChange={(e) => setQueueApprovalRole(e.target.value)}
+                                        style={{ flex: 1, background: "var(--color-surface)", color: "inherit", border: "1px solid var(--color-border-mid)", borderRadius: "4px", padding: "0.35rem 0.5rem" }}>
+                                        <option value="">Select role…</option>
+                                        <option value="it-secops">IT / SecOps</option>
+                                        <option value="legal">Legal</option>
+                                        <option value="comms">Communications / PR</option>
+                                        <option value="exec">Executive</option>
+                                        <option value="security">Security</option>
+                                        <option value="safety">Safety</option>
+                                        <option value="medical">Medical</option>
+                                        <option value="facilities">Facilities</option>
+                                        <option value="evacuation">Evacuation</option>
+                                    </select>
+                                )}
+                            </div>
                             <Button text="Add to Queue" onClick={handleAddToQueue} disabled={!queueMessage.trim()} />
                         </div>
 
@@ -673,18 +744,52 @@ export default function AdminDashboard() {
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
-                                                <div>
-                                                    <span style={{ opacity: 0.8 }}>[{inj.severity.toUpperCase()}]</span>
-                                                    {inj.roleFilter && <span style={{ opacity: 0.7, marginLeft: "0.4rem" }}>→ {inj.roleFilter}</span>}
-                                                    {inj.originalMessage && <span style={{ color: "rgb(255,180,40)", marginLeft: "0.4rem", fontSize: "0.75rem" }}>✏ edited</span>}
-                                                    <span style={{ marginLeft: "0.5rem" }}>{inj.message}</span>
-                                                    {inj.released && <span style={{ marginLeft: "0.5rem", color: "rgb(80,220,80)", fontSize: "0.75rem" }}>✅ released {inj.releasedAt ? new Date(inj.releasedAt).toLocaleTimeString() : ""}</span>}
+                                            <div>
+                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
+                                                    <div>
+                                                        <span style={{ opacity: 0.8 }}>[{inj.severity.toUpperCase()}]</span>
+                                                        {inj.channel === "email" && <span style={{ marginLeft: "0.4rem", fontSize: "0.75rem", color: "rgb(80,180,255)" }}>📧 email</span>}
+                                                        {inj.pressureType === "media" && <span style={{ marginLeft: "0.4rem", fontSize: "0.75rem", color: "rgb(255,200,40)" }}>📰 media</span>}
+                                                        {inj.pressureType === "regulator" && <span style={{ marginLeft: "0.4rem", fontSize: "0.75rem", color: "rgb(180,120,255)" }}>🏛️ regulator</span>}
+                                                        {inj.pressureType === "customer" && <span style={{ marginLeft: "0.4rem", fontSize: "0.75rem", color: "rgb(80,220,80)" }}>👤 customer</span>}
+                                                        {inj.roleFilter && <span style={{ opacity: 0.7, marginLeft: "0.4rem" }}>→ {inj.roleFilter}</span>}
+                                                        {inj.requiresApproval && <span style={{ marginLeft: "0.4rem", fontSize: "0.75rem", color: "rgb(255,165,0)" }}>🔐 needs approval ({inj.approvalRole || "any"})</span>}
+                                                        {inj.approvedBy && <span style={{ marginLeft: "0.4rem", fontSize: "0.75rem", color: "rgb(80,220,80)" }}>✓ approved by {inj.approvedBy}</span>}
+                                                        {inj.originalMessage && <span style={{ color: "rgb(255,180,40)", marginLeft: "0.4rem", fontSize: "0.75rem" }}>✏ edited</span>}
+                                                        <span style={{ marginLeft: "0.5rem" }}>{inj.message}</span>
+                                                        {inj.released && !inj.requiresApproval && <span style={{ marginLeft: "0.5rem", color: "rgb(80,220,80)", fontSize: "0.75rem" }}>✅ released {inj.releasedAt ? new Date(inj.releasedAt).toLocaleTimeString() : ""}</span>}
+                                                        {inj.released && inj.requiresApproval && !inj.approvedAt && <span style={{ marginLeft: "0.5rem", color: "rgb(255,165,0)", fontSize: "0.75rem" }}>⏳ awaiting approval</span>}
+                                                    </div>
+                                                    {!inj.released && (
+                                                        <div style={{ display: "flex", gap: "0.3rem", flexShrink: 0 }}>
+                                                            <button onClick={() => handleStartEditInject(inj)} style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer" }}>✏ Edit</button>
+                                                            <button onClick={() => handleReleaseInject(inj.id)} style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer", background: "rgba(80,220,80,0.15)", border: "1px solid rgba(80,220,80,0.4)", borderRadius: "4px", color: "rgb(80,220,80)" }}>▶ Release</button>
+                                                        </div>
+                                                    )}
                                                 </div>
-                                                {!inj.released && (
-                                                    <div style={{ display: "flex", gap: "0.3rem", flexShrink: 0 }}>
-                                                        <button onClick={() => handleStartEditInject(inj)} style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer" }}>✏ Edit</button>
-                                                        <button onClick={() => handleReleaseInject(inj.id)} style={{ fontSize: "0.75rem", padding: "0.2rem 0.5rem", cursor: "pointer", background: "rgba(80,220,80,0.15)", border: "1px solid rgba(80,220,80,0.4)", borderRadius: "4px", color: "rgb(80,220,80)" }}>▶ Release</button>
+                                                {inj.released && inj.deliveryLog && inj.deliveryLog.length > 0 && (
+                                                    <div style={{ marginTop: "0.4rem", paddingTop: "0.35rem", borderTop: "1px solid rgba(255,255,255,0.07)", fontSize: "0.75rem" }}>
+                                                        <span style={{ opacity: 0.6, marginRight: "0.4rem" }}>📬 Delivered to:</span>
+                                                        {inj.deliveryLog.map((d, di) => (
+                                                            <span key={di} style={{ marginRight: "0.5rem", opacity: 0.8 }}>
+                                                                {d.recipient}{d.role ? ` (${d.role})` : ""} via {d.channel === "email" ? "📧" : "📲"} {new Date(d.deliveredAt).toLocaleTimeString()}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                                {inj.released && inj.acknowledgements && inj.acknowledgements.length > 0 && (
+                                                    <div style={{ marginTop: "0.25rem", fontSize: "0.75rem" }}>
+                                                        <span style={{ opacity: 0.6, marginRight: "0.4rem" }}>✅ Acknowledged:</span>
+                                                        {inj.acknowledgements.map((a, ai) => (
+                                                            <span key={ai} style={{ marginRight: "0.5rem", color: "rgb(80,220,80)" }}>
+                                                                {a.displayName} {new Date(a.acknowledgedAt).toLocaleTimeString()}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                                {inj.released && inj.deliveryLog && inj.deliveryLog.length > 0 && (
+                                                    <div style={{ marginTop: "0.2rem", fontSize: "0.75rem", opacity: 0.6 }}>
+                                                        {inj.acknowledgements?.length ?? 0}/{inj.deliveryLog.length} acknowledged
                                                     </div>
                                                 )}
                                             </div>

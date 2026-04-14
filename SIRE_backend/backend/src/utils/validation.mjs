@@ -4,6 +4,8 @@ const newlinePattern = /[\r\n\t]/g
 const allowedScenarioKey = /^[a-z0-9_-]+$/i
 const allowedSessionCode = /^[A-Z0-9]{6}$/
 const allowedSeverity = new Set(['info', 'warning', 'critical'])
+const allowedChannels = new Set(['in-app', 'email'])
+const allowedPressureTypes = new Set(['media', 'regulator', 'customer'])
 
 export const isPlainObject = (value) => {
   if (!value || typeof value !== 'object') return false
@@ -99,6 +101,24 @@ export const normalizeInjectId = (value) => {
   // UUID format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(candidate)) return null
   return candidate.toLowerCase()
+}
+
+/** Normalize inject delivery channel. Defaults to 'in-app' for unknown values. */
+export const normalizeChannel = (value) => {
+  if (value === null || value === undefined || value === '') return 'in-app'
+  const candidate = normalizeText(value, 16)
+  if (!candidate) return 'in-app'
+  const lowered = candidate.toLowerCase()
+  return allowedChannels.has(lowered) ? lowered : 'in-app'
+}
+
+/** Normalize pressure-type tag for stakeholder narrative injects. Returns null for absent/unknown. */
+export const normalizePressureType = (value) => {
+  if (value === null || value === undefined || value === '') return null
+  const candidate = normalizeText(value, 16)
+  if (!candidate) return null
+  const lowered = candidate.toLowerCase()
+  return allowedPressureTypes.has(lowered) ? lowered : null
 }
 
 /** Normalize free-form text up to 500 chars (for action items). */

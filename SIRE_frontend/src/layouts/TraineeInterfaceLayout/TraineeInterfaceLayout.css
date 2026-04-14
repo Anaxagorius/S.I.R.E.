@@ -206,3 +206,127 @@
 }
 .scenario-complete-icon  { font-size: 4rem; margin-bottom: 1rem; }
 .scenario-complete-score { font-size: 2rem; color: rgb(80,220,80); font-weight: 700; margin: 1rem 0; }
+
+/* ─── Inject event rows ──────────────────────────────────────────────────── */
+.inject-event-row {
+    padding: 0.5rem 0.65rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--radius-md);
+    border-left: 3px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.03);
+}
+.inject-event-row.pressure-media     { border-left-color: rgb(255,200,40); background: rgba(255,200,40,0.04); }
+.inject-event-row.pressure-regulator { border-left-color: rgb(180,120,255); background: rgba(180,120,255,0.04); }
+.inject-event-row.pressure-customer  { border-left-color: rgb(80,220,80); background: rgba(80,220,80,0.04); }
+.inject-event-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.82rem;
+}
+.inject-event-body {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+}
+
+/* ─── Inject pressure badges ─────────────────────────────────────────────── */
+.inject-pressure-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.inject-pressure-badge.media     { background: rgba(255,200,40,0.15);  color: rgb(255,200,40); }
+.inject-pressure-badge.regulator { background: rgba(180,120,255,0.15); color: rgb(200,150,255); }
+.inject-pressure-badge.customer  { background: rgba(80,220,80,0.12);   color: rgb(80,220,80); }
+.inject-severity-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    opacity: 0.8;
+    letter-spacing: 0.04em;
+}
+.inject-channel-badge {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 99px;
+}
+.inject-channel-badge.email { background: rgba(80,180,255,0.12); color: rgb(80,180,255); }
+
+/* ─── Acknowledge button and badge ──────────────────────────────────────── */
+.ack-btn {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(80,220,80,0.4);
+    background: rgba(80,220,80,0.08);
+    color: rgb(80,220,80);
+    cursor: pointer;
+    transition: opacity var(--transition);
+    margin-left: auto;
+}
+.ack-btn:hover { opacity: 0.8; }
+.ack-badge { font-size: 0.72rem; color: rgb(80,220,80); margin-left: auto; }
+
+/* ─── Email inbox panel ──────────────────────────────────────────────────── */
+.email-inbox-panel { border-color: rgba(80,180,255,0.35); }
+.email-inbox-item {
+    padding: 0.65rem 0.75rem;
+    margin-bottom: 0.6rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: background var(--transition);
+}
+.email-inbox-item.unread { background: rgba(80,180,255,0.06); border-color: rgba(80,180,255,0.25); }
+.email-inbox-item.read   { background: rgba(255,255,255,0.02); opacity: 0.75; }
+.email-inbox-item.pressure-media     { border-left: 3px solid rgb(255,200,40); }
+.email-inbox-item.pressure-regulator { border-left: 3px solid rgb(180,120,255); }
+.email-inbox-item.pressure-customer  { border-left: 3px solid rgb(80,220,80); }
+.email-inbox-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+}
+.email-from { font-weight: 700; color: rgb(80,180,255); }
+.email-time { opacity: 0.6; margin-left: auto; font-size: 0.75rem; }
+.email-body {
+    margin: 0 0 0.5rem;
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+/* ─── Approval request panel ─────────────────────────────────────────────── */
+.inject-approval-panel { border-color: rgba(255,165,0,0.45); }
+.approval-request-card {
+    padding: 0.75rem 0.85rem;
+    margin-bottom: 0.75rem;
+    border-radius: var(--radius-md);
+    background: rgba(255,165,0,0.06);
+    border: 1px solid rgba(255,165,0,0.3);
+}
+.approval-request-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.4rem;
+    align-items: center;
+}
+.approval-request-message {
+    font-size: 0.92rem;
+    margin: 0 0 0.4rem;
+    line-height: 1.45;
+}
+.approval-request-note {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin: 0 0 0.65rem;
+}
