@@ -110,6 +110,12 @@ export default function TraineeInterface() {
     /** Live timeline events injected by the admin during the session. */
     const [timelineEvents, setTimelineEvents] = useState([]);
 
+    /** Injects delivered via the email channel — shown in a separate inbox panel. */
+    const [emailInbox, setEmailInbox] = useState([]);
+
+    /** Injects pending approval by this participant's role. */
+    const [pendingApprovals, setPendingApprovals] = useState([]);
+
     /** Action items captured during this session. */
     const [actionItems, setActionItems] = useState([]);
 
@@ -214,14 +220,43 @@ export default function TraineeInterface() {
                 if (payload.actorRole !== "admin") return;
                 // Filter by role if the inject targets a specific role
                 if (payload.roleFilter && payload.roleFilter !== role) return;
-                setTimelineEvents((prev) => [
-                    ...prev,
-                    {
-                        title: `[${payload.rationale?.toUpperCase() ?? "INFO"}] Instructor`,
-                        description: payload.action,
-                        time: new Date().toLocaleTimeString(),
-                    },
-                ]);
+
+                const eventEntry = {
+                    title: `[${payload.rationale?.toUpperCase() ?? "INFO"}] Instructor`,
+                    description: payload.action,
+                    time: new Date().toLocaleTimeString(),
+                    channel: payload.channel || "in-app",
+                    pressureType: payload.pressureType || null,
+                    injectId: payload.injectId || null,
+                    acknowledged: false,
+                };
+
+                if (payload.channel === "email") {
+                    setEmailInbox((prev) => [...prev, eventEntry]);
+                } else {
+                    setTimelineEvents((prev) => [...prev, eventEntry]);
+                }
+            });
+
+            socket.on("inject:approval:pending", (payload) => {
+                // Only show if this participant's role matches the required approval role
+                if (payload.approvalRole && payload.approvalRole !== role) return;
+                setPendingApprovals((prev) => {
+                    if (prev.some(p => p.injectId === payload.injectId)) return prev;
+                    return [...prev, {
+                        injectId: payload.injectId,
+                        message: payload.message,
+                        severity: payload.severity,
+                        channel: payload.channel,
+                        pressureType: payload.pressureType,
+                        approvalRole: payload.approvalRole,
+                    }];
+                });
+            });
+
+            socket.on("inject:approval:granted", (payload) => {
+                // Clear the approval request once granted
+                setPendingApprovals((prev) => prev.filter(p => p.injectId !== payload.injectId));
             });
 
             socket.on("action:item:broadcast", (payload) => {
@@ -260,6 +295,34 @@ export default function TraineeInterface() {
         });
         setActionText("");
         setActionAssignedTo("");
+    }
+
+    /** Acknowledge a released inject (marks it as read). */
+    function handleAcknowledgeInject(injectId, isEmail) {
+        if (!socketRef.current || !sessionCode || isDemo) return;
+        socketRef.current.emit("inject:acknowledge", {
+            sessionCode,
+            injectId,
+            displayName,
+            role: role || null,
+        });
+        // Optimistically mark as acknowledged in local state
+        if (isEmail) {
+            setEmailInbox((prev) => prev.map(e => e.injectId === injectId ? { ...e, acknowledged: true } : e));
+        } else {
+            setTimelineEvents((prev) => prev.map(e => e.injectId === injectId ? { ...e, acknowledged: true } : e));
+        }
+    }
+
+    /** Approve a pending inject (role-based approval workflow). */
+    function handleApproveInject(injectId) {
+        if (!socketRef.current || !sessionCode || isDemo) return;
+        socketRef.current.emit("inject:approval:grant", {
+            sessionCode,
+            injectId,
+            approverDisplayName: displayName,
+            approverRole: role || null,
+        });
     }
 
     /** Function that handles option selection. */
@@ -397,7 +460,15 @@ export default function TraineeInterface() {
                     <div className="scenario-card">
                         <h3>Live Updates</h3>
                         {timelineEvents.map((evt, i) => (
-                            <p key={i}><strong>[{evt.time}] {evt.title}:</strong> {evt.description}</p>
+                            <div key={i} className={`inject-event-row${evt.pressureType ? ` pressure-${evt.pressureType}` : ""}`}>
+                                <div className="inject-event-header">
+                                    <strong>[{evt.time}] {evt.title}</strong>
+                                    {evt.pressureType === "media" && <span className="inject-pressure-badge media">📰 Media</span>}
+                                    {evt.pressureType === "regulator" && <span className="inject-pressure-badge regulator">🏛️ Regulator</span>}
+                                    {evt.pressureType === "customer" && <span className="inject-pressure-badge customer">👤 Customer</span>}
+                                </div>
+                                <p className="inject-event-body">{evt.description}</p>
+                            </div>
                         ))}
                     </div>
                 )}
@@ -452,12 +523,84 @@ export default function TraineeInterface() {
                 </div>
             )}
 
-            {/** Live timeline events from the admin. */}
+            {/** Pending approval requests — shown only to the designated approver role. */}
+            {pendingApprovals.length > 0 && (
+                <div className="scenario-card inject-approval-panel">
+                    <h3>🔐 Approval Required</h3>
+                    {pendingApprovals.map((pa) => (
+                        <div key={pa.injectId} className="approval-request-card">
+                            <div className="approval-request-meta">
+                                <span className="inject-severity-badge">[{pa.severity?.toUpperCase() ?? "INFO"}]</span>
+                                {pa.channel === "email" && <span className="inject-channel-badge email">📧 email</span>}
+                                {pa.pressureType === "media" && <span className="inject-pressure-badge media">📰 media</span>}
+                                {pa.pressureType === "regulator" && <span className="inject-pressure-badge regulator">🏛️ regulator</span>}
+                                {pa.pressureType === "customer" && <span className="inject-pressure-badge customer">👤 customer</span>}
+                            </div>
+                            <p className="approval-request-message">{pa.message}</p>
+                            <p className="approval-request-note">Your role ({pa.approvalRole}) is required to approve this before it is distributed.</p>
+                            <button
+                                className="feedback-btn correct"
+                                style={{ padding: "0.45rem 1.5rem", fontSize: "0.88rem" }}
+                                onClick={() => handleApproveInject(pa.injectId)}
+                            >
+                                ✓ Approve &amp; Release
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/** Live in-app timeline events from the admin. */}
             {timelineEvents.length > 0 && (
                 <div className="scenario-card">
                     <h3>Live Updates</h3>
                     {timelineEvents.map((evt, i) => (
-                        <p key={i}><strong>[{evt.time}] {evt.title}:</strong> {evt.description}</p>
+                        <div key={i} className={`inject-event-row${evt.pressureType ? ` pressure-${evt.pressureType}` : ""}`}>
+                            <div className="inject-event-header">
+                                <strong>[{evt.time}] {evt.title}</strong>
+                                {evt.pressureType === "media" && <span className="inject-pressure-badge media">📰 Media</span>}
+                                {evt.pressureType === "regulator" && <span className="inject-pressure-badge regulator">🏛️ Regulator</span>}
+                                {evt.pressureType === "customer" && <span className="inject-pressure-badge customer">👤 Customer</span>}
+                                {evt.injectId && !evt.acknowledged && sessionCode && !isDemo && (
+                                    <button
+                                        className="ack-btn"
+                                        onClick={() => handleAcknowledgeInject(evt.injectId, false)}
+                                    >
+                                        ✓ Acknowledge
+                                    </button>
+                                )}
+                                {evt.acknowledged && <span className="ack-badge">✅ Read</span>}
+                            </div>
+                            <p className="inject-event-body">{evt.description}</p>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/** Email inbox — injects delivered via the email channel. */}
+            {emailInbox.length > 0 && (
+                <div className="scenario-card email-inbox-panel">
+                    <h3>📧 Email Inbox ({emailInbox.filter(e => !e.acknowledged).length} unread)</h3>
+                    {emailInbox.map((msg, i) => (
+                        <div key={i} className={`email-inbox-item${msg.acknowledged ? " read" : " unread"}${msg.pressureType ? ` pressure-${msg.pressureType}` : ""}`}>
+                            <div className="email-inbox-header">
+                                <span className="email-from">From: Instructor</span>
+                                <span className="email-time">{msg.time}</span>
+                                {msg.pressureType === "media" && <span className="inject-pressure-badge media">📰 Media</span>}
+                                {msg.pressureType === "regulator" && <span className="inject-pressure-badge regulator">🏛️ Regulator</span>}
+                                {msg.pressureType === "customer" && <span className="inject-pressure-badge customer">👤 Customer</span>}
+                            </div>
+                            <p className="email-body">{msg.description}</p>
+                            {msg.injectId && !msg.acknowledged && sessionCode && !isDemo && (
+                                <button
+                                    className="ack-btn"
+                                    onClick={() => handleAcknowledgeInject(msg.injectId, true)}
+                                >
+                                    ✓ Mark as Read
+                                </button>
+                            )}
+                            {msg.acknowledged && <span className="ack-badge">✅ Read</span>}
+                        </div>
                     ))}
                 </div>
             )}

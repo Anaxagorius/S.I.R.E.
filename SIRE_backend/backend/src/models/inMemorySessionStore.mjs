@@ -96,7 +96,7 @@ export const inMemorySessionStore = {
     return s
   },
   /** Add an inject to the facilitator queue (not yet released to participants). */
-  addInjectToQueue: (sessionCode, { message, severity, roleFilter }) => {
+  addInjectToQueue: (sessionCode, { message, severity, roleFilter, channel, pressureType, requiresApproval, approvalRole }) => {
     const s = sessionMap.get(sessionCode)
     if (!s) return null
     const inject = {
@@ -105,12 +105,22 @@ export const inMemorySessionStore = {
       originalMessage: null,
       severity: severity || 'info',
       roleFilter: roleFilter || null,
+      channel: channel || 'in-app',
+      pressureType: pressureType || null,
+      requiresApproval: requiresApproval === true,
+      approvalRole: approvalRole || null,
+      approvedBy: null,
+      approvedAt: null,
       released: false,
       releasedAt: null,
       editedAt: null,
       createdAt: new Date().toISOString(),
       /** @type {Array<{ id: string, text: string, createdAt: string }>} */
       notes: [],
+      /** @type {Array<import('./types.mjs').DeliveryEntry>} */
+      deliveryLog: [],
+      /** @type {Array<import('./types.mjs').AcknowledgementEntry>} */
+      acknowledgements: [],
     }
     s.injectQueue.push(inject)
     return inject
@@ -144,6 +154,46 @@ export const inMemorySessionStore = {
     const s = sessionMap.get(sessionCode)
     if (!s) return null
     return s.injectQueue
+  },
+  /** Record a delivery entry on a released inject. */
+  addDeliveryEntry: (sessionCode, injectId, { channel, recipient, role }) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const inject = s.injectQueue.find(i => i.id === injectId)
+    if (!inject) return null
+    inject.deliveryLog.push({
+      channel: channel || 'in-app',
+      recipient,
+      role: role || null,
+      deliveredAt: new Date().toISOString(),
+    })
+    return inject
+  },
+  /** Mark an inject as approved by a participant with the required role. */
+  approveInject: (sessionCode, injectId, { approvedBy, approverRole }) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const inject = s.injectQueue.find(i => i.id === injectId)
+    if (!inject || !inject.released || inject.approvedAt) return null
+    if (inject.approvalRole && inject.approvalRole !== approverRole) return null
+    inject.approvedBy = approvedBy
+    inject.approvedAt = new Date().toISOString()
+    return inject
+  },
+  /** Record that a participant acknowledged a released inject. */
+  acknowledgeInject: (sessionCode, injectId, { displayName, role }) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    const inject = s.injectQueue.find(i => i.id === injectId)
+    if (!inject || !inject.released) return null
+    const alreadyAcked = inject.acknowledgements.some(a => a.displayName === displayName)
+    if (alreadyAcked) return inject
+    inject.acknowledgements.push({
+      displayName,
+      role: role || null,
+      acknowledgedAt: new Date().toISOString(),
+    })
+    return inject
   },
   /** Capture an action item raised during the exercise. */
   captureActionItem: (sessionCode, { text, capturedBy, role, assignedTo }) => {
