@@ -164,7 +164,7 @@ export default function AdminDashboard() {
         async function loadItsm() {
             try {
                 const data = await getItsmIntegrations();
-                if (!cancelled) setItsmIntegrations(data.filter(i => i.isEnabled));
+                if (!cancelled) setItsmIntegrations(data.filter(integration => integration.isEnabled));
             } catch {
                 // Non-critical — silently ignore if integrations endpoint not reachable
             }

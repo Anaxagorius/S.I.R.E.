@@ -37,6 +37,9 @@ function parseIntegration(row) {
   return { ...row, config, isEnabled: row.is_enabled === 1 }
 }
 
+/** Maximum number of characters to return when falling back to raw text for a feed response. */
+const RAW_TEXT_PREVIEW_LIMIT = 5000
+
 /**
  * Guard against SSRF: only allow public HTTPS URLs.
  * Blocks localhost, loopback, link-local, and private RFC-1918 ranges.
@@ -365,7 +368,7 @@ router.get('/integrations/threat-intel/:id/fetch', async (req, res) => {
     try {
       data = JSON.parse(text)
     } catch {
-      data = { raw: text.slice(0, 5000) }
+      data = { raw: text.slice(0, RAW_TEXT_PREVIEW_LIMIT) }
     }
 
     return res.json({

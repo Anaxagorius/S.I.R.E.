@@ -510,17 +510,20 @@ export default function Integrations() {
                                             ❌ {preview.error}
                                         </p>
                                     )}
-                                    {preview.data && !preview.error && (
-                                        <div className="feed-preview">
-                                            <p style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", marginBottom: "0.4rem" }}>
-                                                HTTP {preview.statusCode} — Preview (first 2&nbsp;000 chars of JSON response):
-                                            </p>
-                                            <pre className="feed-preview-content">
-                                                {JSON.stringify(preview.data, null, 2).slice(0, 2000)}
-                                                {JSON.stringify(preview.data, null, 2).length > 2000 ? "\n…" : ""}
-                                            </pre>
-                                        </div>
-                                    )}
+                                    {preview.data && !preview.error && (() => {
+                                        const previewJson = JSON.stringify(preview.data, null, 2);
+                                        return (
+                                            <div className="feed-preview">
+                                                <p style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", marginBottom: "0.4rem" }}>
+                                                    HTTP {preview.statusCode} — Preview (first 2&nbsp;000 chars of JSON response):
+                                                </p>
+                                                <pre className="feed-preview-content">
+                                                    {previewJson.slice(0, 2000)}
+                                                    {previewJson.length > 2000 ? "\n…" : ""}
+                                                </pre>
+                                            </div>
+                                        );
+                                    })()}
                                 </div>
                             );
                         })
