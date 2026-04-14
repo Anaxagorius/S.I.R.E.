@@ -14,6 +14,7 @@ import {
   normalizeActionText,
   normalizeDisplayName,
   normalizeMessageText,
+  normalizeOptionalText,
   normalizeRationaleText,
   normalizeRole,
   normalizeSessionCode,
@@ -748,6 +749,11 @@ export function attachSocketServer(httpServer, logger) {
       const capturedBy = normalizeDisplayName(payload?.capturedBy);
       const role = normalizeRole(payload?.role);
       const assignedTo = normalizeRole(payload?.assignedTo);
+      const owner = normalizeOptionalText(String(payload?.owner || ''), 120) || null;
+      const dueDate = (() => {
+        const raw = String(payload?.dueDate || '').trim();
+        return /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : null;
+      })();
 
       if (!sessionCode || !text || !capturedBy) {
         emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, text, and capturedBy are required');
@@ -766,7 +772,7 @@ export function attachSocketServer(httpServer, logger) {
         return;
       }
 
-      const item = inMemorySessionStore.captureActionItem(sessionCode, { text, capturedBy, role, assignedTo });
+      const item = inMemorySessionStore.captureActionItem(sessionCode, { text, capturedBy, role, assignedTo, owner, dueDate });
 
       simNamespace.to(room).emit('action:item:broadcast', {
         sessionCode,
@@ -1019,6 +1025,57 @@ export function attachSocketServer(httpServer, logger) {
         action: 'session:end:admin',
         actor,
         context: buildAuditContext({ sessionCode, socketId: socket.id }, ['sessionCode', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    /** Update an in-memory action item's owner / dueDate / status (live session). */
+    socket.on('session:action:update', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const itemId = normalizeInjectId(payload?.itemId); // reuse UUID validator
+      if (!sessionCode || !itemId) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode and itemId are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const room = `session:${sessionCode}`;
+      if (!socket.rooms.has(room)) {
+        emitError(socket, 'FORBIDDEN', 'You are not part of this session');
+        return;
+      }
+
+      const item = session.actionItems.find(a => a.id === itemId);
+      if (!item) {
+        emitError(socket, 'ITEM_NOT_FOUND', 'Action item not found');
+        return;
+      }
+
+      if (payload.owner !== undefined) item.owner = normalizeOptionalText(String(payload.owner || ''), 120) || null;
+      if (payload.dueDate !== undefined) {
+        const raw = String(payload.dueDate || '').trim();
+        item.dueDate = /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : null;
+      }
+      if (payload.status !== undefined) {
+        const s = String(payload.status || '').toLowerCase().trim();
+        if (['open', 'in-progress', 'closed'].includes(s)) item.status = s;
+      }
+
+      simNamespace.to(room).emit('action:items:updated', {
+        sessionCode,
+        actionItems: session.actionItems,
+      });
+
+      auditLogger.event({
+        action: 'session:action:update',
+        actor,
+        context: buildAuditContext({ sessionCode, itemId, socketId: socket.id }, ['sessionCode', 'itemId', 'socketId']),
         outcome: 'success',
         correlationId: generateRandomUuid()
       });

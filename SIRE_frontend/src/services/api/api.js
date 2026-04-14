@@ -81,3 +81,26 @@ export const joinSession = async (sessionKey) => {
 export const getAnalytics = async () => {
     return apiClient.get("/analytics");
 };
+
+/** Retrieves all persisted action tasks. Optionally filtered by sessionCode. */
+export const getActionTasks = async (sessionCode) => {
+    const qs = sessionCode ? `?sessionCode=${encodeURIComponent(sessionCode)}` : "";
+    return apiClient.get(`/action-tasks${qs}`);
+};
+
+/**
+ * Creates one or more action tasks.
+ * @param {object|object[]} tasks — single task or array of tasks
+ */
+export const createActionTasks = async (tasks) => {
+    return apiClient.post("/action-tasks", tasks);
+};
+
+/**
+ * Updates an action task (owner, dueDate, status, standardsRef).
+ * @param {string} id
+ * @param {object} updates
+ */
+export const updateActionTask = async (id, updates) => {
+    return apiClient.put(`/action-tasks/${id}`, updates);
+};

@@ -182,7 +182,7 @@ export const inMemorySessionStore = {
     return inject
   },
   /** Capture an action item raised during the exercise. */
-  captureActionItem: (sessionCode, { text, capturedBy, role, assignedTo }) => {
+  captureActionItem: (sessionCode, { text, capturedBy, role, assignedTo, owner, dueDate }) => {
     const s = sessionMap.get(sessionCode)
     if (!s) return null
     const item = {
@@ -191,6 +191,9 @@ export const inMemorySessionStore = {
       capturedBy: capturedBy || null,
       role: role || null,
       assignedTo: assignedTo || null,
+      owner: owner || null,
+      dueDate: dueDate || null,
+      status: 'open',
       timestampIso: new Date().toISOString(),
     }
     s.actionItems.push(item)
