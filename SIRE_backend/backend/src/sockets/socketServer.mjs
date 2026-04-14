@@ -19,6 +19,8 @@ import {
   normalizeSeverity,
   normalizeInjectId,
   normalizeActionItemText,
+  normalizeChannel,
+  normalizePressureType,
 } from '../utils/validation.mjs';
 
 const require = createRequire(import.meta.url);
@@ -395,6 +397,10 @@ export function attachSocketServer(httpServer, logger) {
       const message = normalizeMessageText(payload?.message);
       const severity = normalizeSeverity(payload?.severity) || 'info';
       const roleFilter = normalizeRole(payload?.roleFilter);
+      const channel = normalizeChannel(payload?.channel);
+      const pressureType = normalizePressureType(payload?.pressureType);
+      const requiresApproval = payload?.requiresApproval === true;
+      const approvalRole = requiresApproval ? normalizeRole(payload?.approvalRole) : null;
 
       if (!sessionCode || !message) {
         emitError(socket, 'INVALID_PAYLOAD', 'sessionCode and message are required');
@@ -407,7 +413,7 @@ export function attachSocketServer(httpServer, logger) {
         return;
       }
 
-      const inject = inMemorySessionStore.addInjectToQueue(sessionCode, { message, severity, roleFilter });
+      const inject = inMemorySessionStore.addInjectToQueue(sessionCode, { message, severity, roleFilter, channel, pressureType, requiresApproval, approvalRole });
 
       const room = `session:${sessionCode}`;
       // Broadcast updated queue to admin (same room)
@@ -419,7 +425,7 @@ export function attachSocketServer(httpServer, logger) {
       auditLogger.event({
         action: 'admin:inject:queue:add',
         actor,
-        context: buildAuditContext({ sessionCode, injectId: inject.id, socketId: socket.id }, ['sessionCode', 'injectId', 'socketId']),
+        context: buildAuditContext({ sessionCode, injectId: inject.id, channel, pressureType, requiresApproval, socketId: socket.id }, ['sessionCode', 'injectId', 'channel', 'pressureType', 'requiresApproval', 'socketId']),
         outcome: 'success',
         correlationId: generateRandomUuid()
       });
@@ -448,13 +454,66 @@ export function attachSocketServer(httpServer, logger) {
 
       const room = `session:${sessionCode}`;
 
-      // Broadcast to participants (filtered by role if roleFilter is set)
+      // Determine target trainees for delivery logging
+      const targetTrainees = session.trainees.filter(
+        t => !inject.roleFilter || t.role === inject.roleFilter
+      );
+
+      // Log delivery for each targeted trainee
+      targetTrainees.forEach(t => {
+        inMemorySessionStore.addDeliveryEntry(sessionCode, injectId, {
+          channel: inject.channel,
+          recipient: t.displayName,
+          role: t.role,
+        });
+      });
+
+      // If approval is required and not yet granted, notify only the approver role
+      if (inject.requiresApproval && !inject.approvedAt) {
+        const approvalPayload = {
+          injectId: inject.id,
+          sessionCode,
+          message: inject.message,
+          severity: inject.severity,
+          channel: inject.channel,
+          pressureType: inject.pressureType,
+          approvalRole: inject.approvalRole,
+        };
+
+        const approverSockets = Array.from(simNamespace.sockets.values()).filter(s =>
+          s.rooms.has(room) && s.data?.participantRole === inject.approvalRole
+        );
+        approverSockets.forEach(s => s.emit('inject:approval:pending', approvalPayload));
+
+        // Also notify admin sockets so they can see it in their queue
+        const adminSockets = Array.from(simNamespace.sockets.values()).filter(s =>
+          s.rooms.has(room) && !s.data?.participantRole
+        );
+        adminSockets.forEach(s => s.emit('inject:queue:updated', {
+          sessionCode,
+          injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
+        }));
+
+        auditLogger.event({
+          action: 'admin:inject:release',
+          actor,
+          context: buildAuditContext({ sessionCode, injectId, awaitingApproval: true, socketId: socket.id }, ['sessionCode', 'injectId', 'awaitingApproval', 'socketId']),
+          outcome: 'success',
+          correlationId: generateRandomUuid()
+        });
+        return;
+      }
+
+      // Build event payload for broadcast
       const eventPayload = {
         actorRole: 'admin',
         displayName: 'Instructor',
         action: inject.message,
         rationale: inject.severity,
         roleFilter: inject.roleFilter,
+        channel: inject.channel,
+        pressureType: inject.pressureType,
+        injectId: inject.id,
         timestampIso: inject.releasedAt,
       };
 
@@ -603,6 +662,135 @@ export function attachSocketServer(httpServer, logger) {
         action: 'session:action:capture',
         actor,
         context: buildAuditContext({ sessionCode, capturedBy, socketId: socket.id }, ['sessionCode', 'capturedBy', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('inject:acknowledge', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const injectId = normalizeInjectId(payload?.injectId);
+      const displayName = normalizeDisplayName(payload?.displayName);
+      const role = normalizeRole(payload?.role);
+
+      if (!sessionCode || !injectId || !displayName) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, injectId, and displayName are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const room = `session:${sessionCode}`;
+      if (!socket.rooms.has(room)) {
+        emitError(socket, 'FORBIDDEN', 'You are not part of this session');
+        return;
+      }
+
+      const inject = inMemorySessionStore.acknowledgeInject(sessionCode, injectId, { displayName, role });
+      if (!inject) {
+        emitError(socket, 'INJECT_NOT_FOUND', 'Inject not found or not yet released');
+        return;
+      }
+
+      // Update admin and participants with acknowledgement status
+      simNamespace.to(room).emit('inject:queue:updated', {
+        sessionCode,
+        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
+      });
+
+      auditLogger.event({
+        action: 'inject:acknowledge',
+        actor,
+        context: buildAuditContext({ sessionCode, injectId, displayName, socketId: socket.id }, ['sessionCode', 'injectId', 'displayName', 'socketId']),
+        outcome: 'success',
+        correlationId: generateRandomUuid()
+      });
+    });
+
+    socket.on('inject:approval:grant', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode);
+      const injectId = normalizeInjectId(payload?.injectId);
+      const approverDisplayName = normalizeDisplayName(payload?.approverDisplayName);
+      const approverRole = normalizeRole(payload?.approverRole);
+
+      if (!sessionCode || !injectId || !approverDisplayName) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode, injectId, and approverDisplayName are required');
+        return;
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode);
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found');
+        return;
+      }
+
+      const room = `session:${sessionCode}`;
+      if (!socket.rooms.has(room)) {
+        emitError(socket, 'FORBIDDEN', 'You are not part of this session');
+        return;
+      }
+
+      // Verify the approver has the required role
+      const rawInject = inMemorySessionStore.getInjectQueue(sessionCode)?.find(i => i.id === injectId);
+      if (!rawInject) {
+        emitError(socket, 'INJECT_NOT_FOUND', 'Inject not found');
+        return;
+      }
+      if (rawInject.approvalRole && rawInject.approvalRole !== approverRole) {
+        emitError(socket, 'FORBIDDEN', 'Your role is not authorised to approve this inject');
+        return;
+      }
+
+      const inject = inMemorySessionStore.approveInject(sessionCode, injectId, { approvedBy: approverDisplayName, approverRole });
+      if (!inject) {
+        emitError(socket, 'INJECT_NOT_FOUND', 'Inject not found, not released, or already approved');
+        return;
+      }
+
+      // Now broadcast to the intended audience
+      const eventPayload = {
+        actorRole: 'admin',
+        displayName: 'Instructor',
+        action: inject.message,
+        rationale: inject.severity,
+        roleFilter: inject.roleFilter,
+        channel: inject.channel,
+        pressureType: inject.pressureType,
+        injectId: inject.id,
+        timestampIso: inject.approvedAt,
+      };
+
+      if (inject.roleFilter) {
+        const matchingSockets = Array.from(simNamespace.sockets.values()).filter(s =>
+          s.rooms.has(room) && s.data?.participantRole === inject.roleFilter
+        );
+        matchingSockets.forEach(s => s.emit('event:log:broadcast', eventPayload));
+
+        const adminSockets = Array.from(simNamespace.sockets.values()).filter(s =>
+          s.rooms.has(room) && !s.data?.participantRole
+        );
+        adminSockets.forEach(s => s.emit('event:log:broadcast', eventPayload));
+      } else {
+        simNamespace.to(room).emit('event:log:broadcast', eventPayload);
+      }
+
+      // Notify approver that their approval was recorded (clears pending state)
+      socket.emit('inject:approval:granted', { sessionCode, injectId });
+
+      // Update queue for all
+      simNamespace.to(room).emit('inject:queue:updated', {
+        sessionCode,
+        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
+      });
+
+      auditLogger.event({
+        action: 'inject:approval:grant',
+        actor,
+        context: buildAuditContext({ sessionCode, injectId, approverDisplayName, approverRole, socketId: socket.id }, ['sessionCode', 'injectId', 'approverDisplayName', 'approverRole', 'socketId']),
         outcome: 'success',
         correlationId: generateRandomUuid()
       });

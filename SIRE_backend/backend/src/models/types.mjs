@@ -10,16 +10,37 @@
  *  @property {string|null} role
  */
 
+/** @typedef {Object} DeliveryEntry
+ *  @property {string} channel          - 'in-app' | 'email'
+ *  @property {string} recipient        - displayName of recipient
+ *  @property {string|null} role        - role of recipient at delivery time
+ *  @property {string} deliveredAt      - ISO timestamp
+ */
+
+/** @typedef {Object} AcknowledgementEntry
+ *  @property {string} displayName
+ *  @property {string|null} role
+ *  @property {string} acknowledgedAt   - ISO timestamp
+ */
+
 /** @typedef {Object} InjectRecord
  *  @property {string} id
  *  @property {string} message
  *  @property {string|null} originalMessage
  *  @property {string} severity
  *  @property {string|null} roleFilter
+ *  @property {'in-app'|'email'} channel
+ *  @property {'media'|'regulator'|'customer'|null} pressureType
+ *  @property {boolean} requiresApproval
+ *  @property {string|null} approvalRole
+ *  @property {string|null} approvedBy
+ *  @property {string|null} approvedAt
  *  @property {boolean} released
  *  @property {string|null} releasedAt
  *  @property {string|null} editedAt
  *  @property {string} createdAt
+ *  @property {DeliveryEntry[]} deliveryLog
+ *  @property {AcknowledgementEntry[]} acknowledgements
  */
 
 /** @typedef {Object} ActionItemRecord
