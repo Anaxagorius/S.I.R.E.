@@ -101,10 +101,11 @@ router.put('/action-tasks/:id', (req, res) => {
     const existing = sireDatabase.getActionTaskById(id)
     if (!existing) return res.status(404).json({ message: 'Task not found' })
 
-    const owner = normalizeOwner(req.body?.owner) ?? existing.owner
-    const dueDate = normalizeDueDate(req.body?.dueDate) ?? existing.due_date
-    const status = normalizeTaskStatus(req.body?.status) ?? existing.status
-    const standardsRef = normalizeStandardsRef(req.body?.standardsRef) ?? existing.standards_ref
+    const body = req.body || {}
+    const owner = 'owner' in body ? (normalizeOwner(body.owner) ?? null) : existing.owner
+    const dueDate = 'dueDate' in body ? (normalizeDueDate(body.dueDate) ?? null) : existing.due_date
+    const status = 'status' in body ? (normalizeTaskStatus(body.status) ?? existing.status) : existing.status
+    const standardsRef = 'standardsRef' in body ? (normalizeStandardsRef(body.standardsRef) ?? null) : existing.standards_ref
 
     sireDatabase.updateActionTask({ id, owner, dueDate, status, standardsRef })
     const updated = sireDatabase.getActionTaskById(id)

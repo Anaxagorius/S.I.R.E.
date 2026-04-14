@@ -106,7 +106,7 @@ db.exec(`
  *   owner         - name of the person responsible
  *   due_date      - YYYY-MM-DD date string
  *   status        - 'open' | 'in-progress' | 'closed'
- *   standards_ref - comma/semi-colon separated standards references (e.g. "NIST CSF: RC.RP-1")
+ *   standards_ref - comma/semicolon separated standards references (e.g. "NIST CSF: RC.RP-1")
  *   closed_at     - ISO-8601 timestamp when the task was closed
  *   created_at    - ISO-8601 timestamp when this record was inserted
  */

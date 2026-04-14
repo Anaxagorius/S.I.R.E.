@@ -129,7 +129,7 @@ export default function ActionTracker() {
         } catch (err) {
             setSaveError(err.message || "Failed to save task.");
         } finally {
-            setSavingId(false);
+            setSavingId(null);
         }
     }
 
