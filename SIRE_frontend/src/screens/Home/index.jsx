@@ -20,6 +20,9 @@ export default function Home() {
             {/** Navigation button — admin login and session management. */}
             <Button text="Admin" to="/create-session" />
 
+            {/** Navigation button — scenario authoring and content engine. */}
+            <Button text="Scenario Builder" to="/scenario-builder" />
+
             {/** Navigation button — sign in or create an account. */}
             <Button text="Login / Sign Up" to="/login" />
 

@@ -15,6 +15,7 @@ import JoinSession from "../screens/JoinSession"
 import AdminDashboard from "../screens/AdminDashboard"
 import TraineeInterface from "../screens/TraineeInterface"
 import Demo from "../screens/Demo"
+import ScenarioBuilder from "../screens/ScenarioBuilder"
 
 /** Function that returns the AppRouter component for handling client-side routing. */
 export default function AppRouter() {
@@ -29,6 +30,7 @@ export default function AppRouter() {
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/trainee-interface" element={<TraineeInterface />} />
             <Route path="/demo" element={<Demo />} />
+            <Route path="/scenario-builder" element={<ScenarioBuilder />} />
         </Routes>
     );
 }
