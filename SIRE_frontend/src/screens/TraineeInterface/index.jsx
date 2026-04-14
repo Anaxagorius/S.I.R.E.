@@ -65,6 +65,11 @@ export default function TraineeInterface() {
         readSessionStorage("sire_displayName") ||
         "Trainee";
 
+    const role =
+        location.state?.role ||
+        readSessionStorage("sire_role") ||
+        null;
+
     /**
      * When running in demo mode the full scenario data is passed directly in
      * navigation state, so no backend fetch is required.
@@ -102,6 +107,13 @@ export default function TraineeInterface() {
 
     /** Live timeline events injected by the admin during the session. */
     const [timelineEvents, setTimelineEvents] = useState([]);
+
+    /** Action items captured during this session. */
+    const [actionItems, setActionItems] = useState([]);
+
+    /** State for the action item submission form. */
+    const [actionText, setActionText] = useState("");
+    const [actionAssignedTo, setActionAssignedTo] = useState("");
 
     /** Options for the current node, shuffled so the correct answer is not always first. */
     const [shuffledOptions, setShuffledOptions] = useState([]);
@@ -171,7 +183,7 @@ export default function TraineeInterface() {
             socketRef.current = socket;
 
             socket.on("connect", () => {
-                socket.emit("session:join", { sessionCode, displayName });
+                socket.emit("session:join", { sessionCode, displayName, role });
             });
 
             socket.on("timeline:tick", (payload) => {
@@ -183,6 +195,8 @@ export default function TraineeInterface() {
 
             socket.on("event:log:broadcast", (payload) => {
                 if (payload.actorRole !== "admin") return;
+                // Filter by role if the inject targets a specific role
+                if (payload.roleFilter && payload.roleFilter !== role) return;
                 setTimelineEvents((prev) => [
                     ...prev,
                     {
@@ -192,6 +206,22 @@ export default function TraineeInterface() {
                     },
                 ]);
             });
+
+            socket.on("action:item:broadcast", (payload) => {
+                if (payload.item) {
+                    setActionItems((prev) => [...prev, payload.item]);
+                }
+            });
+
+            socket.on("session:roster:updated", (payload) => {
+                // If admin updates our role, persist it in sessionStorage
+                if (payload.roster && role !== undefined) {
+                    const me = payload.roster.find(t => t.displayName === displayName);
+                    if (me?.role) {
+                        try { sessionStorage.setItem("sire_role", me.role); } catch { /* ignore */ }
+                    }
+                }
+            });
         }
 
         return () => {
@@ -200,6 +230,20 @@ export default function TraineeInterface() {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [scenarioKey, sessionCode, isDemo, demoScenarioData]);
+
+    /** Submit an action item during the exercise. */
+    function handleSubmitActionItem() {
+        if (!actionText.trim() || !socketRef.current || !sessionCode || isDemo) return;
+        socketRef.current.emit("session:action:capture", {
+            sessionCode,
+            text: actionText.trim(),
+            capturedBy: displayName,
+            role: role || null,
+            assignedTo: actionAssignedTo || null,
+        });
+        setActionText("");
+        setActionAssignedTo("");
+    }
 
     /** Function that handles option selection. */
     function handleOptionClick(option) {
@@ -326,6 +370,12 @@ export default function TraineeInterface() {
     if (currentNode.options.length === 0) {
         return (
             <TraineeInterfaceLayout time={time} score={score} decisions={decisions}>
+                {role && (
+                    <div className="scenario-card" style={{ padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <span style={{ opacity: 0.7, fontSize: "0.8rem" }}>Your role:</span>
+                        <span className="role-badge">{role}</span>
+                    </div>
+                )}
                 {timelineEvents.length > 0 && (
                     <div className="scenario-card">
                         <h3>Live Updates</h3>
@@ -342,6 +392,19 @@ export default function TraineeInterface() {
                         Your Score: {score} / {maxPossibleScore}
                     </div>
                     <p>Decisions Made: {decisions.length}</p>
+                    {actionItems.length > 0 && (
+                        <div style={{ textAlign: "left", marginTop: "1rem" }}>
+                            <h4>Action Items Captured</h4>
+                            <ul style={{ listStyle: "none", padding: 0, fontSize: "0.82rem" }}>
+                                {actionItems.map((item, i) => (
+                                    <li key={item.id || i} style={{ padding: "0.25rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                                        <strong>{item.capturedBy}</strong>: {item.text}
+                                        {item.assignedTo && <span style={{ opacity: 0.6, marginLeft: "0.4rem" }}>→ {item.assignedTo}</span>}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                     <div style={{ display: "flex", gap: "1rem", justifyContent: "center", marginTop: "1.5rem", flexWrap: "wrap" }}>
                         <button
                             className="feedback-btn correct"
@@ -363,6 +426,14 @@ export default function TraineeInterface() {
 
     return (
         <TraineeInterfaceLayout time={time} score={score} decisions={decisions}>
+
+            {/** Role badge. */}
+            {role && (
+                <div className="scenario-card" style={{ padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ opacity: 0.7, fontSize: "0.8rem" }}>Your role:</span>
+                    <span className="role-badge">{role}</span>
+                </div>
+            )}
 
             {/** Live timeline events from the admin. */}
             {timelineEvents.length > 0 && (
@@ -395,6 +466,62 @@ export default function TraineeInterface() {
                     </div>
                 ))}
             </div>
+
+            {/** Action item capture form — available during live sessions only. */}
+            {sessionCode && !isDemo && (
+                <div className="scenario-card">
+                    <h3>Log an Action Item</h3>
+                    <div className="form-group" style={{ marginBottom: "0.5rem" }}>
+                        <input
+                            type="text"
+                            value={actionText}
+                            onChange={(e) => setActionText(e.target.value)}
+                            placeholder="Describe the action item…"
+                            maxLength={500}
+                            onKeyDown={(e) => e.key === "Enter" && handleSubmitActionItem()}
+                            style={{ width: "100%", boxSizing: "border-box" }}
+                        />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: "0.5rem" }}>
+                        <select value={actionAssignedTo} onChange={(e) => setActionAssignedTo(e.target.value)}
+                            style={{ width: "100%", background: "var(--color-surface)", color: "inherit", border: "1px solid var(--color-border-mid)", borderRadius: "4px", padding: "0.35rem 0.5rem" }}>
+                            <option value="">Assign to role (optional)</option>
+                            <option value="it-secops">IT / SecOps</option>
+                            <option value="legal">Legal</option>
+                            <option value="comms">Communications / PR</option>
+                            <option value="exec">Executive</option>
+                            <option value="security">Security</option>
+                            <option value="safety">Safety</option>
+                            <option value="medical">Medical</option>
+                            <option value="facilities">Facilities</option>
+                            <option value="evacuation">Evacuation</option>
+                        </select>
+                    </div>
+                    <button
+                        className="feedback-btn correct"
+                        onClick={handleSubmitActionItem}
+                        disabled={!actionText.trim()}
+                        style={{ marginTop: "0.25rem" }}
+                    >
+                        Submit Action Item
+                    </button>
+
+                    {actionItems.length > 0 && (
+                        <div style={{ marginTop: "1rem" }}>
+                            <h4 style={{ marginBottom: "0.5rem" }}>Captured Action Items</h4>
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: "0.82rem" }}>
+                                {actionItems.map((item, i) => (
+                                    <li key={item.id || i} style={{ padding: "0.3rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                                        <span style={{ opacity: 0.7 }}>[{new Date(item.timestampIso).toLocaleTimeString()}]</span>
+                                        {" "}<strong>{item.capturedBy}</strong>: {item.text}
+                                        {item.assignedTo && <span style={{ opacity: 0.6, marginLeft: "0.4rem" }}>→ {item.assignedTo}</span>}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+            )}
 
             {/** Inline feedback overlay shown after each decision. */}
             {feedback && (
