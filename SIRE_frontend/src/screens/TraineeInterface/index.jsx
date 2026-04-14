@@ -117,7 +117,8 @@ export default function TraineeInterface() {
             const j = Math.floor(Math.random() * (i + 1));
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
-        setShuffledOptions(arr);
+        // Reassign labels based on shuffled position so the letter always matches the displayed position.
+        setShuffledOptions(arr.map((opt, i) => ({ ...opt, label: String.fromCharCode(65 + i) })));
     }, [currentNodeId, scenarioData]);
 
     /** Start the elapsed timer once scenario data is first available. */
