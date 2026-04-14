@@ -19,7 +19,9 @@ const timersBySession = new Map()
 /** Cancel all active handles in a timer state without removing it. */
 function cancelHandles(state) {
   state.entries.forEach(e => { if (e.handle !== null) clearTimeout(e.handle) })
-  if (state.completionEntry?.handle !== null) clearTimeout(state.completionEntry?.handle)
+  if (state.completionEntry && state.completionEntry.handle !== null) {
+    clearTimeout(state.completionEntry.handle)
+  }
 }
 
 /** Schedule a single timer entry, updating its handle and scheduledAtMs. */

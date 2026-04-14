@@ -215,7 +215,7 @@ export default function TraineeInterface() {
 
             socket.on("session:roster:updated", (payload) => {
                 // If admin updates our role, persist it in sessionStorage
-                if (payload.roster && role !== undefined) {
+                if (payload.roster) {
                     const me = payload.roster.find(t => t.displayName === displayName);
                     if (me?.role) {
                         try { sessionStorage.setItem("sire_role", me.role); } catch { /* ignore */ }

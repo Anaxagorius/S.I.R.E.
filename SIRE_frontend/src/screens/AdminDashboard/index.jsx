@@ -660,7 +660,7 @@ export default function AdminDashboard() {
                                                         <option value="">All roles</option>
                                                         <option value="it-secops">IT / SecOps</option>
                                                         <option value="legal">Legal</option>
-                                                        <option value="comms">Comms / PR</option>
+                                                        <option value="comms">Communications / PR</option>
                                                         <option value="exec">Executive</option>
                                                         <option value="security">Security</option>
                                                         <option value="safety">Safety</option>
