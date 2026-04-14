@@ -1,0 +1,150 @@
+{
+  "title": "scenario_cellphone_video_scrutiny",
+  "description": "An officer's use-of-force encounter is captured on video by a bystander. The video spreads on social media before the officer has filed their report. Tests professional conduct, report accuracy, social media policy, and the officer's obligations when public scrutiny precedes the official account.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "public scrutiny",
+    "cellphone video",
+    "social media",
+    "use of force",
+    "report accuracy",
+    "officer conduct",
+    "transparency",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Arrest and Use of Force",
+      "description": "Officer uses physical force to arrest a suspect who resists during a warrant execution.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Bystander Films",
+      "description": "A bystander films the arrest and arrest-related force from 10 metres away.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "Video Posted Online",
+      "description": "Before the officer's report is filed, a 45-second clip of the arrest is posted to social media.",
+      "timeOffsetSec": 3600
+    },
+    {
+      "index": 3,
+      "title": "Supervisor Calls",
+      "description": "The officer's sergeant calls — the clip is gaining views and showing only part of the encounter. Media inquiries have begun.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 4,
+      "title": "Report Due",
+      "description": "Officer is writing their use-of-force report while aware of the circulating video.",
+      "timeOffsetSec": 10800
+    },
+    {
+      "index": 5,
+      "title": "Public Statement Required",
+      "description": "The service's communications unit is preparing a response to media inquiries.",
+      "timeOffsetSec": 14400
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Video Posted Before Your Report Is Filed",
+      "situation": "You executed a warrant and used physical force to arrest a resisting subject. The subject was taken to the ground and handcuffed after approximately 30 seconds of active physical resistance. A bystander filmed the incident from across the street. The 45-second clip — showing only the ground phase of the arrest — is now on social media and gaining significant attention. Comments accuse you of excessive force. Your use-of-force report has not yet been filed. Your sergeant calls and asks what happened.",
+      "question": "How do you respond to your sergeant and approach your use-of-force report given the circulating video?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Respond to your sergeant with an honest, factual account of the full incident — including the context that preceded the ground phase: the warrant, the subject's active resistance, and your use-of-force decision. Your use-of-force report must be written independently and accurately based on your own recollection and documentation — do not watch the social media video before you write your report, as this creates a risk that your account is unconsciously shaped by the partial clip rather than your independent memory. Your report must reflect the full sequence of events, not just the portion captured on video. The public does not have the full context — your complete, accurate report will be the official record.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Watch the video first so you know what is publicly visible and can write your report to address what people are focused on.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Delay filing your report until the public attention dies down — filing it now while the video is circulating will make anything you write look like a response to public pressure.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Colleague Advises You to 'Check the Comments'",
+      "situation": "A colleague advises you to read the social media comments on the video — 'You need to know what people are saying about you.' You have completed your draft use-of-force report based on your own memory and notes. You have not yet submitted it. Your sergeant says the public affairs unit is asking for a summary of your account to prepare a media statement.",
+      "question": "How do you handle your colleague's suggestion and the request from public affairs?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Decline to read the social media comments before finalising your report — your report must reflect the actual incident, not public commentary on a partial clip. Submit your completed report to your supervisor before it goes anywhere near the public affairs unit. The public affairs unit should prepare any statements based on the official account and review process — not an officer's informal summary provided under social media pressure. Ask your supervisor whether your union representative or legal advisor should be consulted before any public statement is made that references your specific actions. Any media statement should be approved through proper channels, not drafted reactively.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Read the comments and provide a detailed personal statement directly to the public affairs unit to control the narrative before it worsens.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Post a personal response in the comments section of the video to explain your perspective — the public deserves to hear from you directly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "The Service Issues a Statement",
+      "situation": "The service has issued a media statement confirming that an incident occurred and that it is under review consistent with standard use-of-force reporting obligations. The statement does not identify you or provide details of your account. Calls for your suspension are circulating on social media. A friend asks you to explain what happened on a private group chat.",
+      "question": "How do you handle personal and social media communication about the incident while it is under review?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not discuss the incident in any personal communication channel — including private group chats, text messages, or social media messages marked as private. There is no such thing as a truly private digital message in an investigation context. Your service almost certainly has a social media policy prohibiting officers from making statements about active incidents or investigations, and 'private' disclosures regularly become part of legal proceedings. Tell your friend honestly: 'I can't discuss it right now — it's under review.' Refer any media contacts to the service's communications unit. Your professional obligation is to cooperate with the review process, not the social media court.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Explain what happened privately to your friend — the information stays in the group and you deserve to defend yourself with people who support you.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Post a brief factual statement on your own social media page clarifying that the video does not show the full encounter.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The use-of-force review concluded that the arrest and force used were proportionate and lawful. The full body-worn camera footage (which was working correctly) provided the complete context that the bystander's 45-second clip lacked. The subject's active physical resistance was clearly documented. Your accurate, independently written use-of-force report was fully consistent with the BWC footage. No discipline resulted. The service's communications unit issued a follow-up statement that the review had concluded. Public attention decreased significantly within days. Officers who use force correctly, document it accurately, and maintain communication discipline during public scrutiny are in the strongest possible position when the review process reaches its conclusion.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

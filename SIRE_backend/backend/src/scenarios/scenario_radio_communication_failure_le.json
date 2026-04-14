@@ -1,0 +1,149 @@
+{
+  "title": "scenario_radio_communication_failure_le",
+  "description": "An officer loses radio contact during an active incident in a dead zone. Tests officer safety protocols, alternative communication procedures, decision-making under radio blackout, and post-incident reporting obligations.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "officer safety",
+    "radio failure",
+    "communication",
+    "dead zone",
+    "officer-down signal",
+    "incident management",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Building Search Initiated",
+      "description": "Officer is searching a large commercial building for a reported break-in suspect.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Radio Signal Lost",
+      "description": "Officer descends to the basement level. Radio transmissions become garbled and then fail entirely.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 2,
+      "title": "Suspect Encountered",
+      "description": "In the basement, the officer encounters the suspect, who flees deeper into the building.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 3,
+      "title": "Backup Unaware",
+      "description": "Backup officers outside have lost contact with the officer and begin a welfare check.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 4,
+      "title": "Officer Regains Contact",
+      "description": "Officer reaches a stairwell with signal and re-establishes radio contact.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 5,
+      "title": "Scene Secured and Debrief",
+      "description": "Suspect is apprehended. Post-incident review of radio dead zone is conducted.",
+      "timeOffsetSec": 600
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Radio Failure in a Building Search",
+      "situation": "You are searching the basement level of a large commercial building for a break-in suspect. Your radio has lost signal — transmissions are not going through and you are not receiving. You are alone in the basement. You have encountered and identified the suspect, who has retreated into a maintenance corridor. Your backup is positioned at the building's exterior and was last advised that you were entering the main level. They do not know you are in the basement. You have your personal cell phone.",
+      "question": "What is your immediate response to lost radio communication during an active suspect search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your safety and communication restoration are the immediate priorities: (1) Do not continue a solo pursuit of the suspect in a radio dead zone — you have no ability to call for assistance if the situation deteriorates; (2) Attempt your personal cell phone to contact dispatch or backup immediately — this is a legitimate backup communication method; (3) If cell phone contact is successful, update backup on your location ('basement level, maintenance corridor, suspect present'), request they enter to assist, and wait; (4) If cell phone also fails, begin moving toward an area where signal can be re-established — most departments require officers to abort deep-building searches when communication fails; (5) Use the building's emergency intercom if available. Continuing a solo pursuit while communication-isolated is a preventable officer safety risk.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Continue pursuing the suspect — losing a suspect because of a radio dead zone would be embarrassing and the backup can check on you when they are ready.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Return immediately to the exterior of the building to re-establish contact — leave the building entirely until backup can accompany you.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Backup Conducting Welfare Check",
+      "situation": "You have reached a stairwell and partially re-established radio contact — your transmissions are breaking up but are marginally audible. You can hear backup units broadcasting a welfare check for you. You can communicate in short bursts. The suspect is still somewhere in the building.",
+      "question": "How do you re-establish contact and coordinate the search?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Transmit a brief priority message in plain language: 'All units — [your call sign] — basement stairwell — I am OK — suspect is in maintenance corridor — need units to enter south entrance.' Keep transmissions short and factual due to marginal signal. Once backup has confirmed your location and is moving in, hold your position in the stairwell where you have marginal communications rather than returning to the dead zone. When two or more officers are in radio contact with each other inside the building, coordinate the search with the benefit of cover and communication.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Use the marginal signal to continuously transmit your exact movements so dispatch can track you — keep the channel open.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Re-enter the maintenance corridor immediately since you now know the suspect's location — update backup when you emerge with the suspect in custody.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Post-Incident Review — Reporting the Dead Zone",
+      "situation": "The suspect was apprehended by backup and you working together once communications were re-established. The entire lower level of the building was a radio dead zone for your system. Your sergeant says the incident 'worked out fine' and suggests the radio issue 'doesn't need to be formally reported since no one was hurt.'",
+      "question": "How do you respond to the sergeant's suggestion not to formally report the radio dead zone?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Decline the suggestion and submit a formal equipment and communication deficiency report. Radio dead zones in buildings routinely searched by officers are critical officer safety hazards. The fact that no one was hurt this time does not reduce the hazard — it means the failure to report becomes a more serious issue if the next officer entering that building is injured while communication-isolated. Your service's operational safety processes exist precisely to identify and mitigate recurring hazards. The report should include the specific building location, the affected zones, and your recommendations (e.g., portable radio repeater deployment for major building searches). Bring the sergeant's suggestion to your police association representative if needed.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Agree with the sergeant — formal reports of radio problems create administrative work and might make the unit look unprepared.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Submit a brief informal note to dispatch about the dead zone without writing a formal report — this informs the right people without creating a paper trail.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Your formal radio deficiency report was submitted. The building was added to a 'known dead zone' registry accessible to all patrol units. When other officers received a subsequent call to the same building three months later, they deployed a portable repeater on entry — a precaution the dead zone registry made possible. The sergeant's suggestion was addressed through supervisory coaching. Radio communication failures in complex buildings are a known and recurring officer safety hazard — accurate reporting, not minimisation, is what prevents the next incident from resulting in an injury.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

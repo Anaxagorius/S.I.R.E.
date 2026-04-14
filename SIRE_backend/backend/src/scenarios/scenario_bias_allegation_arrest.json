@@ -1,0 +1,150 @@
+{
+  "title": "scenario_bias_allegation_arrest",
+  "description": "An officer makes an arrest and is immediately accused by the subject and bystanders of racial bias. Tests the officer's professional conduct under accusation, accurate documentation obligations, and the appropriate response to a bias complaint during and after an encounter.",
+  "category": "Law Enforcement",
+  "difficulty": "Advanced",
+  "tags": [
+    "bias allegation",
+    "racial profiling",
+    "professional conduct",
+    "Charter s.15",
+    "documentation",
+    "civilian complaint",
+    "officer ethics",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Lawful Stop and Arrest",
+      "description": "Officer stops a vehicle for a moving violation. During the stop, grounds for arrest on an outstanding warrant arise.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Bias Allegation Made",
+      "description": "The subject states the stop was racially motivated. Bystanders gather and a crowd forms.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 2,
+      "title": "Pressure Escalates",
+      "description": "Multiple bystanders are filming and verbally challenging the officer's authority to make the arrest.",
+      "timeOffsetSec": 240
+    },
+    {
+      "index": 3,
+      "title": "Arrest Completed",
+      "description": "Officer completes the arrest. The subject is transported. A formal complaint is filed.",
+      "timeOffsetSec": 600
+    },
+    {
+      "index": 4,
+      "title": "Complaint Review",
+      "description": "A civilian oversight body initiates a bias complaint review.",
+      "timeOffsetSec": 7200
+    },
+    {
+      "index": 5,
+      "title": "Outcome",
+      "description": "The complaint review concludes.",
+      "timeOffsetSec": 2592000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Subject Alleges Racial Bias During Arrest",
+      "situation": "You have stopped a vehicle for running a red light. A warrant check reveals the driver has an outstanding warrant for failing to appear in court. You advise the driver he is under arrest on the warrant. He says loudly: 'You only stopped me because I'm Black. This is racial profiling.' Several bystanders have stopped and are recording with their phones. Some are yelling at you. Your body-worn camera is active.",
+      "question": "How do you respond to the bias allegation during an otherwise lawful arrest?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Continue the arrest calmly, professionally, and without deviation. Your grounds for the stop (observed red light infraction) and the arrest (confirmed warrant) are lawful and documented. Do not argue with the subject about the allegation during the arrest — doing so is unproductive, escalatory, and is not the appropriate forum for a bias allegation. Acknowledge the allegation calmly: 'You have the right to file a complaint about this stop. I'll provide you with the information for our complaint process once you are secured.' Maintain professional conduct throughout — demeanour and tone during an observed and recorded encounter matters. Complete the arrest. Document your stop rationale and warrant confirmation thoroughly in your report.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Stop the arrest and explain to the bystanders and the subject why the stop was not racially motivated — clearing this up on scene is the most transparent approach.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Arrest the subject quickly and leave the scene — remaining under the crowd's scrutiny prolongs the situation unnecessarily.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Documentation After a Bias Allegation",
+      "situation": "The subject is in custody. You are completing your occurrence report. You know a bias complaint will be filed. Your sergeant asks how you want to document the encounter and whether you should 'keep the report neutral' given the complaint.",
+      "question": "How do you document an incident when a bias complaint has been or will be filed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Document the encounter fully, accurately, and without omission — the anticipated complaint makes thorough documentation more important, not less. Your report must include: the specific observed infraction that gave grounds for the stop (red light violation — exact location and time), the warrant check result and when it was confirmed, the precise words used to advise the subject of arrest, the allegation made by the subject during the arrest, how you responded to it, and the subject's conduct throughout. A 'neutral' or minimised report in response to a bias complaint is exactly the wrong approach — it creates documentation gaps that are used against officers in complaint reviews. Document everything.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Keep the report brief and factual with no mention of the bias allegation — the complaint file will capture that separately.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Add a paragraph explaining why the stop was not racially motivated — a proactive defence in your report will help the complaint investigation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Civilian Complaint Review",
+      "situation": "The civilian complaint body has initiated a review of the bias allegation. The investigator asks you: (1) What was the basis for the initial stop? (2) Would you have made the same stop if the driver had been white? (3) Do you believe systemic bias exists in policing?",
+      "question": "How do you respond to these questions in the complaint review?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Answer each question honestly and factually. (1) The basis for the stop was an observed red-light violation — documented in your report at a specific location and time, corroborated by your BWC footage. (2) Your answer is yes — the grounds for the stop were the traffic infraction, which is applied consistently regardless of the driver's identity; if you have statistics from your BWC data or stop log, offer them. (3) Engaging honestly with the systemic question is appropriate — acknowledging that systemic bias is a documented reality in many institutions, including policing, does not mean you engaged in it during this specific encounter. Honest, grounded answers serve you better than defensive deflection.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Refuse to answer the third question — it has nothing to do with this specific incident and the investigator is trying to get you to admit to bias.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Deny that systemic bias exists — any acknowledgment of systemic issues could be used to support the complaint.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The complaint investigation concluded that the stop was lawful based on the documented traffic infraction and that there was insufficient evidence of racial motivation. Your BWC footage showed a clear red-light infraction, your warrant confirmation was contemporaneously documented, and your conduct throughout the encounter was professional and restrained. The complaint was not sustained. The complaint investigator noted that your thorough documentation and honest engagement with the review process were factors in the conclusion. Bias allegations are serious and must be taken seriously — by officers, reviewers, and the public. The appropriate professional response is accurate documentation, lawful conduct, and honest engagement with oversight processes.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

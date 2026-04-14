@@ -1,0 +1,150 @@
+{
+  "title": "scenario_equipment_failure_during_incident",
+  "description": "Critical equipment fails during an active enforcement incident. Tests officer improvisation, safety protocols, communication obligations, and the duty to report equipment failures under police service policy.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "officer safety",
+    "equipment failure",
+    "use of force",
+    "CEW malfunction",
+    "body-worn camera",
+    "incident management",
+    "police policy",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Dispatch to Disturbance",
+      "description": "Officer is dispatched to a subject causing a disturbance, described as agitated and throwing objects.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Contact and Threat Escalation",
+      "description": "Officer contacts the subject. The subject is holding a broken bottle and advancing.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 2,
+      "title": "CEW Deployed — Malfunction",
+      "description": "Officer deploys conducted energy weapon. The CEW fires but the subject is not incapacitated — one probe missed.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Subject Controlled",
+      "description": "Officer deploys OC spray as secondary option. Subject is controlled with backup assistance.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Post-Incident Scene",
+      "description": "Subject is in custody. Officer discovers their body-worn camera was not recording during the incident.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Supervisor Arrives",
+      "description": "Sergeant responds and begins equipment failure reporting process.",
+      "timeOffsetSec": 480
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "CEW Malfunction During Lethal-Threat Encounter",
+      "situation": "You are responding alone to a disturbance. A male subject is holding a broken bottle and advancing toward you, saying he will cut you. You issue verbal commands — the subject does not comply. You deploy your CEW. One probe connects but the second probe misses, and the subject continues advancing. He is now approximately 3 metres away with the broken bottle raised. Backup is 90 seconds away. You have OC spray and a firearm available.",
+      "question": "What is your use-of-force response when your primary intermediate weapon has partially failed?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Your force options must escalate with the threat: the CEW has partially failed and the subject continues to advance with a weapon. Your immediate response should be: (1) Create maximum distance — move backward while issuing commands; (2) Deploy OC spray as your next available intermediate option — a subject at 3 metres closing with a bladed weapon is within the 'reactionary gap'; (3) If the subject closes further and presents an imminent lethal threat (within striking distance with the broken bottle), your use-of-force analysis under Criminal Code s.34 and your force continuum may justify drawing your firearm as the threat has reached potentially lethal; (4) Broadcast your situation continuously — 'Weapons call — [location] — officer deploying OC'; (5) Do not reach for the CEW again if one probe is not properly connected — re-drive cycles will not be effective.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Re-holster the CEW and attempt to physically restrain the subject with your hands while the weapon is raised.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Wait for backup before doing anything further — deploying additional force without a second officer present is too risky.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Body-Worn Camera Failure Discovered",
+      "situation": "The subject is in custody. Backup has arrived. While preparing your incident report, you discover your body-worn camera shows a 'recording error' indicator — it was not recording during the critical part of the encounter. The CEW deployment and the entire confrontation with the broken bottle were not captured. Your use-of-force report will need to describe events that have no video documentation.",
+      "question": "How do you handle the discovery of the body-worn camera failure?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Report the BWC failure immediately and transparently: (1) Advise your supervisor now — a use-of-force incident without BWC documentation requires supervisor notification and additional scrutiny; (2) Do not alter or delay your use-of-force report — write an accurate, detailed account of the exact sequence of events including the CEW deployment attempt and its partial failure; (3) Preserve the BWC device as-is — do not attempt to recover data yourself or tamper with the device; (4) Complete a separate equipment deficiency report for the BWC malfunction; (5) Identify any independent witnesses or other officers on scene who may have observed any portion of the incident. Transparent reporting of equipment failures is a professional obligation — concealing or minimising the failure would be a serious breach of integrity.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Do not mention the BWC failure — the incident is resolved and raising documentation gaps may create unnecessary scrutiny of your actions.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Review the BWC footage to confirm it failed before reporting anything — you may have made an error and the footage may exist.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Equipment Deficiency Report and Accountability",
+      "situation": "Your supervisor has documented the CEW malfunction and BWC failure. The CEW is being sent for inspection. Your sergeant asks how you want to handle the use-of-force report given the absence of video documentation, and suggests you 'keep it brief so there is less to scrutinise.'",
+      "question": "How do you respond to the sergeant's suggestion to keep the report brief?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Respectfully but firmly decline the sergeant's suggestion. A use-of-force report must be complete and accurate — the absence of BWC footage makes thorough documentation more important, not less. Your report should detail: your exact position when the subject was encountered, the subject's behaviour and actions, the specific verbal commands issued, the CEW deployment (including the probe-miss failure), the transition to OC spray, and all subsequent actions. A brief report in a use-of-force case with no video creates significant risk if the incident is reviewed by the SIU, a civilian complaint body, or a court. If the sergeant is pressuring you to underreport, note that conversation and bring it to your union representative.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Agree with the sergeant — a brief report is less likely to attract a civilian complaint or SIU review.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Submit the report and then speak to the sergeant about their suggestion — completing the report first keeps things professional.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Your detailed use-of-force report and equipment deficiency reports were submitted accurately. The CEW inspection found a manufacturing defect in the probe cartridge. The BWC failure was traced to a firmware issue affecting that batch of cameras — all devices were inspected and updated. Your thorough reporting meant that when a civilian complaint was filed two weeks later, the investigation had a complete factual record to rely on. The complaint was resolved in your favour. Your sergeant's suggestion was addressed by the duty inspector as an integrity concern. Equipment failures are inevitable — the obligation to report them accurately and completely protects officers, the public, and the integrity of every use-of-force incident.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

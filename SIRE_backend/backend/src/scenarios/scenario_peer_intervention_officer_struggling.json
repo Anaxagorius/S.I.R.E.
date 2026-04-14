@@ -1,0 +1,150 @@
+{
+  "title": "scenario_peer_intervention_officer_struggling",
+  "description": "An officer notices a colleague displaying concerning behavioural changes and possible signs of operational stress or substance use. Tests peer recognition, appropriate intervention approaches, the balance between loyalty and duty of care, and the pathways available for helping a struggling colleague.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "peer intervention",
+    "officer wellness",
+    "peer support",
+    "substance use",
+    "operational stress",
+    "colleague duty of care",
+    "police culture",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Warning Signs Noticed",
+      "description": "An officer notices a 10-year colleague showing unusual behaviour over several weeks — drinking more heavily at social events and making uncharacteristic decisions on calls.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Incident on Duty",
+      "description": "The colleague makes a significant error in judgment during a call. A subject's rights may have been violated due to the colleague's distracted response.",
+      "timeOffsetSec": 86400
+    },
+    {
+      "index": 2,
+      "title": "Direct Evidence",
+      "description": "The officer smells alcohol on the colleague's breath at the beginning of a shift.",
+      "timeOffsetSec": 172800
+    },
+    {
+      "index": 3,
+      "title": "Intervention Decision",
+      "description": "The officer must decide how to respond to a colleague who may be impaired on duty.",
+      "timeOffsetSec": 172800
+    },
+    {
+      "index": 4,
+      "title": "Conversation and Escalation",
+      "description": "The officer speaks with the colleague and then makes a decision about further steps.",
+      "timeOffsetSec": 180000
+    },
+    {
+      "index": 5,
+      "title": "Resolution",
+      "description": "The colleague enters a support process. The relationship and professional obligations are navigated.",
+      "timeOffsetSec": 2592000
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Recognising Warning Signs in a Colleague",
+      "situation": "Your colleague and partner of three years has changed significantly over the past two months. At social events he is drinking heavily — much more than before. On calls he has been distracted and slower to respond. Last week he missed a detail in a statement that resulted in a complaint. Today, at the start of your shared shift, you notice what smells like alcohol on his breath. He appears physically normal but you are certain about what you are detecting.",
+      "question": "What do you do when you detect possible alcohol impairment in a colleague at the start of a duty shift?",
+      "options": [
+        {
+          "label": "A",
+          "text": "This situation is serious and requires action — an officer who is impaired on duty is a safety risk to themselves, to you, to the public, and to the integrity of every interaction they have that shift. Step outside and speak to your colleague directly and privately first: 'I'm concerned about you. I can smell alcohol. I'm not going to pretend I didn't notice this.' Then, regardless of his response, you have an obligation to bring this to the supervisor's attention before your colleague responds to any calls. This is not betrayal — it is exactly what duty of care to a colleague looks like. An impaired officer who is covered for by a partner is an officer being set up for a career-ending incident.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Say nothing — you cannot be certain it is alcohol and raising a concern about a colleague based on a smell would damage your relationship and his career.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Agree to cover his calls for the shift so he can recover — he's had a hard time lately and you can protect him from a situation that might get worse.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "The Direct Conversation",
+      "situation": "You have spoken to your colleague privately. He becomes defensive and denies anything is wrong. He says 'I had one drink last night — you're making a big deal out of nothing.' He then says 'Are you going to rat me out? After everything we've been through together?' You can see that he is upset and frightened. You believe he is struggling with something significant.",
+      "question": "How do you respond when a colleague challenges your concern as a betrayal?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Respond with honesty and care, not capitulation: 'This is not about ratting you out — I'm doing this because I don't want to watch something terrible happen to you. I've seen you change. I'm worried about you, not just today. I'm going to talk to the sergeant, not to get you in trouble, but because you need support right now and I can't pretend this isn't happening.' Loyalty to a colleague does not mean protecting them from the consequences of getting help. It means ensuring they get help before the consequences become catastrophic. Then notify your supervisor before any calls are taken. Your colleague's anger now is far preferable to the alternative outcomes.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Back down — his explanation sounds plausible and confronting him further will damage your working relationship and could be wrong.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Tell him you will stay quiet this time but warn him it can never happen again — this gives him a chance to get himself together without involving anyone else.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Supervisor Notified — Colleague's Response",
+      "situation": "You have notified your sergeant. Your sergeant has removed your colleague from duty for the shift and initiated a fitness-for-duty assessment. Your colleague is now very angry with you and has sent you a message saying you have 'destroyed his career.' Your sergeant asks whether you want peer support yourself given the difficulty of the intervention.",
+      "question": "How do you process the aftermath of intervening in a colleague's possible impairment?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Accept the peer support offered — intervening in a colleague's potential impairment is one of the most emotionally difficult things an officer can do. The anger from your colleague is a predictable and painful response, but it is not a measure of whether you made the right decision. Research on peer intervention outcomes consistently shows that officers who were helped to access treatment — even involuntarily at first — are more likely to credit the intervention positively in hindsight than those who were covered for until a career-ending event forced the issue. Your obligation was to your colleague's safety, the public's safety, and the integrity of the service — and you fulfilled it. Accept support, document the decision sequence accurately, and give the process time.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Decline peer support — you don't need it and accepting it would suggest you aren't confident in your decision.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Apologise to your colleague for involving the supervisor — the situation has been handled and you want to repair the relationship quickly.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "Your colleague's fitness-for-duty assessment identified a significant alcohol use disorder compounded by unaddressed PTSD. He entered a residential treatment program through the police association's EAP. After 90 days of treatment, he was medically cleared for a graduated return to duty. Approximately eight months after the incident, he contacted you privately to apologise and thank you. He said your intervention — as painful as it was — was the moment that forced him to stop hiding and get help. The peer support you accepted helped you process the difficulty of the choice and the relationship strain. Officer wellness peer cultures — ones where colleagues watch out for each other honestly — save careers and lives. Being a true peer is not about protecting colleagues from accountability. It is about ensuring they get the help they need before accountability becomes the only path left.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}

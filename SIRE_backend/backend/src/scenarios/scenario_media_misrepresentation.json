@@ -1,0 +1,149 @@
+{
+  "title": "scenario_media_misrepresentation",
+  "description": "A news outlet publishes an account of a police incident that significantly misrepresents the officer's actions. Tests the officer's professional obligations, chain of command response, the limits of officer commentary, and service communications protocols.",
+  "category": "Law Enforcement",
+  "difficulty": "Intermediate",
+  "tags": [
+    "media relations",
+    "misrepresentation",
+    "communications policy",
+    "officer conduct",
+    "chain of command",
+    "professional obligations",
+    "Canada"
+  ],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Incident Occurs",
+      "description": "Officer responds to a mental health crisis and successfully de-escalates without use of force. Subject is apprehended under a mental health act.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "News Article Published",
+      "description": "A local news outlet publishes a story based on an interview with the subject's family, describing the encounter as a 'violent police takedown.'",
+      "timeOffsetSec": 86400
+    },
+    {
+      "index": 2,
+      "title": "Officer Reads the Article",
+      "description": "The officer reads the article, which contains several factual errors about their conduct.",
+      "timeOffsetSec": 90000
+    },
+    {
+      "index": 3,
+      "title": "Public Response",
+      "description": "Community members are sharing the article and calling for an investigation.",
+      "timeOffsetSec": 100800
+    },
+    {
+      "index": 4,
+      "title": "Supervisor Asks for Input",
+      "description": "The sergeant asks the officer for a factual summary to assist the communications unit.",
+      "timeOffsetSec": 108000
+    },
+    {
+      "index": 5,
+      "title": "Service Issues Response",
+      "description": "The service's communications unit prepares a response to media.",
+      "timeOffsetSec": 115200
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Factually Inaccurate News Story",
+      "situation": "You responded to a mental health crisis and successfully de-escalated a subject over 40 minutes. The subject was apprehended under the provincial mental health act without any use of physical force. A news article — based on an interview with the subject's family who were not present — describes you as engaging in a 'violent takedown' and 'forcefully restraining' the subject. Several details in the article are factually wrong. You have your occurrence report, your body-worn camera footage, and witness statements that contradict the article.",
+      "question": "What is your immediate response when a news article significantly misrepresents your actions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Notify your supervisor immediately and provide them with your accurate account and available documentation. Your role is to supply accurate factual information to the chain of command — not to respond to the media directly. Advise your supervisor that your occurrence report, BWC footage, and the mental health act apprehension paperwork all document the actual encounter accurately. Express clearly that the article contains factual errors and that you want the record corrected through proper channels. Do not contact the reporter, post publicly, or approach the subject's family directly — your service's communications policy governs all public responses to media.",
+          "outcome": {
+            "type": "node",
+            "target": "node-2"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Contact the reporter directly and request a correction — you are the most authoritative source on what happened and should engage media immediately.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Post a detailed first-person account on your own social media page before the service issues any response — controlling the narrative early is critical.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Sergeant Asks for a Written Summary",
+      "situation": "Your sergeant has asked you to write a factual summary of the incident to assist the communications unit in preparing a media response. Your sergeant suggests including 'some context that shows the family's account was inaccurate.' You have detailed contemporaneous notes and BWC footage available.",
+      "question": "How do you prepare the factual summary?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Write a factual, chronological account of the incident based on your notes and consistent with your occurrence report: your arrival time, the subject's condition and behaviours you observed, the specific de-escalation techniques you used and in what sequence, communications with the subject, when and how the mental health act apprehension occurred, and the absence of physical force. Do not include editorial commentary about the family's account — your summary is a factual record, not an argument. Factual accuracy will speak for itself. Recommend to your sergeant that the communications unit review the BWC footage as the most objective evidence of the encounter.",
+          "outcome": {
+            "type": "node",
+            "target": "node-3"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Include strong language in your summary criticising the family for speaking to the media without being present — this shows the public the account was not credible.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Write the summary from memory only — reviewing the BWC footage before writing may bias your account.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Service Issues Correction — Ongoing Community Response",
+      "situation": "The service has issued a media statement providing a factual summary of the incident, referencing the documentation available including BWC footage. The article has been largely addressed but some community members continue to share the original version. A colleague suggests you go to a community meeting to speak directly about what happened.",
+      "question": "How do you approach the suggestion to speak at a community meeting about this specific incident?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Decline to speak at a community meeting about this specific incident without express authorisation from your service's communications unit or command. Public appearances by officers to address specific incidents outside authorised channels can complicate reviews, undermine the service's official position, and expose you to questions you are not authorised to answer. If community engagement around mental health policing more broadly (not this specific incident) is appropriate, discuss that option with your supervisor. The communications unit has already issued the official response — amplifying or personalising that response without authorisation is outside your lane.",
+          "outcome": {
+            "type": "node",
+            "target": "node-4"
+          }
+        },
+        {
+          "label": "B",
+          "text": "Attend the community meeting — speaking directly to community members as the officer involved is the most effective way to build trust.",
+          "outcome": {
+            "type": "failure"
+          }
+        },
+        {
+          "label": "C",
+          "text": "Attend the meeting but only speak about policing generally — avoid all mention of this specific incident so there is no policy violation.",
+          "outcome": {
+            "type": "failure"
+          }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Scenario Complete",
+      "situation": "The service's communications team responded factually to the media outlet, providing a summary of the documented encounter. The outlet issued a partial correction acknowledging that the family was not present during the encounter. A follow-up story was published — informed by the BWC footage summary — that provided a more accurate account. No formal complaint or review resulted. Your detailed occurrence report and contemporaneous notes were central to resolving the misrepresentation. Media misrepresentation is a real and recurring challenge in policing — the most effective professional response is accurate documentation from the moment of the incident, and chain-of-command communication when inaccuracies surface.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  }
+}
