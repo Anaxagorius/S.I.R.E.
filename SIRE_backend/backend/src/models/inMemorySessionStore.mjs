@@ -109,6 +109,7 @@ export const inMemorySessionStore = {
       releasedAt: null,
       editedAt: null,
       createdAt: new Date().toISOString(),
+      /** @type {Array<{ id: string, text: string, createdAt: string }>} */
       notes: [],
     }
     s.injectQueue.push(inject)

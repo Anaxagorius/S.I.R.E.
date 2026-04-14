@@ -8,7 +8,7 @@ import { Router } from 'express'
 import { inMemorySessionStore } from '../models/inMemorySessionStore.mjs'
 import { auditLogger } from '../config/auditLogger.mjs'
 import { buildAuditContext } from '../utils/auditContext.mjs'
-import { normalizeSessionCode, generateRandomUuid } from '../utils/validation.mjs'
+import { normalizeSessionCode } from '../utils/validation.mjs'
 
 const router = Router()
 

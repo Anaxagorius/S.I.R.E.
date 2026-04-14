@@ -168,7 +168,7 @@ function generateAAR({ sessionCode, scenarioName, trainees, traineeScores, event
         else if (evt.type === "timeline:tick") desc = `[Timeline] ${evt.title}: ${evt.description}`;
         else if (evt.type === "inject:release") desc = `[Inject][${evt.severity?.toUpperCase()}]${evt.roleFilter ? ` → ${evt.roleFilter}` : ""} ${evt.message}`;
         else if (evt.type === "decision") desc = `${evt.displayName} decided: ${evt.action}`;
-        else desc = JSON.stringify(evt);
+        else desc = `[${evt.type || "event"}] ${evt.message || evt.title || ""}`.trim();
         return `<tr><td>${ts}</td><td>${desc}</td></tr>`;
     }).join("") || eventLog.map((entry, i) => `<tr>
         <td>${entry.time || "—"}</td>
