@@ -741,7 +741,7 @@ export function attachSocketServer(httpServer, logger) {
         return;
       }
       if (rawInject.approvalRole && rawInject.approvalRole !== approverRole) {
-        emitError(socket, 'FORBIDDEN', 'Your role is not authorised to approve this inject');
+        emitError(socket, 'FORBIDDEN', 'Your role is not authorized to approve this inject');
         return;
       }
 
