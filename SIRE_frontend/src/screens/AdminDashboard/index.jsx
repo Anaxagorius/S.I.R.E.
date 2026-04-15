@@ -16,7 +16,7 @@ import { io } from "socket.io-client";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
-import { getScenarios, createSession, createActionTasks, getItsmIntegrations, pushToItsm } from "../../services/api/api";
+import { getScenarios, createSession, createActionTasks, getItsmIntegrations, pushToItsm, initMciState, updateMciStateApi } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 import { accuracyColor, readinessLabel } from "../../utils/scoringUtils";
 import { getStandardsRef } from "../../utils/standardsMapping";
@@ -143,6 +143,17 @@ export default function AdminDashboard() {
 
     /** State for the end-session confirmation modal. */
     const [showEndModal, setShowEndModal] = useState(false);
+
+    /** MCI state for EMS/Medical scenarios. */
+    const [mciState, setMciState] = useState(null);
+    const [mciInitializing, setMciInitializing] = useState(false);
+
+    const isMedicalScenario = scenarioKey && (
+        scenarioKey.includes('mass_casualty') ||
+        scenarioKey.includes('hospital_surge') ||
+        scenarioKey.includes('ems_mci') ||
+        scenarioKey.includes('medical')
+    );
 
     /** Fetch the available scenarios from the backend on mount. */
     useEffect(() => {
@@ -293,6 +304,14 @@ export default function AdminDashboard() {
             setError(payload.message || "A socket error occurred.");
         });
 
+        socket.on("mci:state:updated", (payload) => {
+            if (payload.mciState) setMciState(payload.mciState);
+        });
+
+        socket.on("mci:decision:recorded", (payload) => {
+            if (payload.mciState) setMciState(payload.mciState);
+        });
+
         return () => {
             socket.disconnect();
         };
@@ -348,6 +367,8 @@ export default function AdminDashboard() {
         setActionItems([]);
         setPushedToTracker(new Set());
         setTrackerPushMsg(null);
+        setMciState(null);
+        setMciInitializing(false);
     }
 
     /** Function that opens the end-session confirmation modal. */
@@ -622,6 +643,23 @@ export default function AdminDashboard() {
     }
 
 
+    async function handleInitMci() {
+        setMciInitializing(true);
+        try {
+            const state = await initMciState(sessionCode);
+            setMciState(state);
+        } catch {
+            // ignore
+        } finally {
+            setMciInitializing(false);
+        }
+    }
+
+    function handleMciDecision(decision) {
+        if (!socketRef.current || !sessionCode) return;
+        socketRef.current.emit("mci:decision:record", { sessionCode, decision });
+    }
+
     /** Scenario selection — shown when no session is active. */
     if (!sessionCode) {
         const filteredScenarios = scenarios.filter(
@@ -759,6 +797,13 @@ export default function AdminDashboard() {
                                     <option value="medical">Medical</option>
                                     <option value="facilities">Facilities</option>
                                     <option value="evacuation">Evacuation</option>
+                                    <option value="ed-charge">🏥 ED Charge Nurse</option>
+                                    <option value="incident-commander">🎖️ Incident Commander</option>
+                                    <option value="pio">📢 Public Information Officer</option>
+                                    <option value="logistics">🚛 Logistics Officer</option>
+                                    <option value="triage-officer">🏷️ Triage Officer</option>
+                                    <option value="treatment-officer">💊 Treatment Officer</option>
+                                    <option value="transport-officer">🚑 Transport Officer</option>
                                 </select>
                             </li>
                         ))}
@@ -799,6 +844,118 @@ export default function AdminDashboard() {
                         </ul>
                     </div>
 
+                    {/** MCI Control Panel — shown for EMS/Medical scenarios. */}
+                    {isMedicalScenario && (
+                        <div className="dashboard-card">
+                            <h3>🏥 MCI Control Panel</h3>
+                            {!mciState ? (
+                                <div>
+                                    <p style={{ opacity: 0.7, fontSize: "0.85rem" }}>MCI state tracking not initialized for this session.</p>
+                                    <Button text={mciInitializing ? "Initializing…" : "Initialize MCI State"} onClick={handleInitMci} disabled={mciInitializing} />
+                                </div>
+                            ) : (
+                                <div>
+                                    <div style={{ marginBottom: "1rem" }}>
+                                        <strong>Bed Capacity</strong>
+                                        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "0.4rem", fontSize: "0.85rem" }}>
+                                            <span>Total: {mciState.bedCapacity?.total ?? '—'}</span>
+                                            <span style={{ color: (mciState.bedCapacity?.available ?? 99) < 10 ? "rgb(255,80,80)" : "inherit" }}>
+                                                Available: {mciState.bedCapacity?.available ?? '—'}
+                                            </span>
+                                            <span>ICU: {mciState.bedCapacity?.icu ?? '—'}</span>
+                                            <span>ED: {mciState.bedCapacity?.ed ?? '—'}</span>
+                                        </div>
+                                    </div>
+                                    <div style={{ marginBottom: "1rem" }}>
+                                        <strong>Ambulance Status</strong>
+                                        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "0.4rem", fontSize: "0.85rem" }}>
+                                            <span>Available: {mciState.ambulances?.available ?? '—'}</span>
+                                            <span>Dispatched: {mciState.ambulances?.dispatched ?? '—'}</span>
+                                            <span>Returning: {mciState.ambulances?.returning ?? '—'}</span>
+                                        </div>
+                                    </div>
+                                    <div style={{ marginBottom: "1rem" }}>
+                                        <strong>Supply Status</strong>
+                                        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "0.4rem", fontSize: "0.85rem" }}>
+                                            {Object.entries(mciState.supplies || {}).map(([key, val]) => (
+                                                <span key={key} style={{
+                                                    padding: "0.15rem 0.5rem",
+                                                    borderRadius: "4px",
+                                                    background: val === 'critical' ? "rgba(220,50,50,0.2)" : val === 'low' ? "rgba(220,160,40,0.2)" : "rgba(40,200,40,0.1)",
+                                                    border: `1px solid ${val === 'critical' ? "rgba(220,50,50,0.4)" : val === 'low' ? "rgba(220,160,40,0.4)" : "rgba(40,200,40,0.2)"}`,
+                                                }}>
+                                                    {key}: {val}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div style={{ marginBottom: "1rem" }}>
+                                        <strong>Hospital Diversion</strong>
+                                        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "0.4rem", fontSize: "0.85rem" }}>
+                                            {Object.entries(mciState.hospitalDiversion || {}).map(([hosp, diverted]) => (
+                                                <span key={hosp} style={{
+                                                    padding: "0.15rem 0.5rem",
+                                                    borderRadius: "4px",
+                                                    background: diverted ? "rgba(220,50,50,0.2)" : "rgba(40,200,40,0.1)",
+                                                    border: `1px solid ${diverted ? "rgba(220,50,50,0.4)" : "rgba(40,200,40,0.2)"}`,
+                                                }}>
+                                                    {hosp}: {diverted ? "DIVERTED" : "Open"}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>Operational Decisions</strong>
+                                        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.5rem" }}>
+                                            <button
+                                                disabled={mciState.mciActivated}
+                                                onClick={() => handleMciDecision('mci-activated')}
+                                                style={{ padding: "0.4rem 0.8rem", borderRadius: "6px", fontSize: "0.82rem", cursor: mciState.mciActivated ? "default" : "pointer", background: mciState.mciActivated ? "rgba(40,200,40,0.15)" : "rgba(255,255,255,0.08)", border: `1px solid ${mciState.mciActivated ? "rgba(40,200,40,0.4)" : "rgba(255,255,255,0.2)"}`, color: "inherit", opacity: mciState.mciActivated ? 0.7 : 1 }}
+                                            >
+                                                {mciState.mciActivated ? "✅ MCI Plan Active" : "🚨 Activate MCI Plan"}
+                                            </button>
+                                            <button
+                                                disabled={mciState.alternateCareActivated}
+                                                onClick={() => handleMciDecision('alternate-care-activated')}
+                                                style={{ padding: "0.4rem 0.8rem", borderRadius: "6px", fontSize: "0.82rem", cursor: mciState.alternateCareActivated ? "default" : "pointer", background: mciState.alternateCareActivated ? "rgba(40,200,40,0.15)" : "rgba(255,255,255,0.08)", border: `1px solid ${mciState.alternateCareActivated ? "rgba(40,200,40,0.4)" : "rgba(255,255,255,0.2)"}`, color: "inherit", opacity: mciState.alternateCareActivated ? 0.7 : 1 }}
+                                            >
+                                                {mciState.alternateCareActivated ? "✅ Alt Care Site Open" : "🏕️ Open Alternate Care Site"}
+                                            </button>
+                                            <button
+                                                disabled={mciState.mutualAidRequested}
+                                                onClick={() => handleMciDecision('mutual-aid-requested')}
+                                                style={{ padding: "0.4rem 0.8rem", borderRadius: "6px", fontSize: "0.82rem", cursor: mciState.mutualAidRequested ? "default" : "pointer", background: mciState.mutualAidRequested ? "rgba(40,200,40,0.15)" : "rgba(255,255,255,0.08)", border: `1px solid ${mciState.mutualAidRequested ? "rgba(40,200,40,0.4)" : "rgba(255,255,255,0.2)"}`, color: "inherit", opacity: mciState.mutualAidRequested ? 0.7 : 1 }}
+                                            >
+                                                {mciState.mutualAidRequested ? "✅ Mutual Aid Active" : "🤝 Request Mutual Aid"}
+                                            </button>
+                                            <button
+                                                disabled={mciState.electivesCancelled}
+                                                onClick={() => handleMciDecision('electives-cancelled')}
+                                                style={{ padding: "0.4rem 0.8rem", borderRadius: "6px", fontSize: "0.82rem", cursor: mciState.electivesCancelled ? "default" : "pointer", background: mciState.electivesCancelled ? "rgba(40,200,40,0.15)" : "rgba(255,255,255,0.08)", border: `1px solid ${mciState.electivesCancelled ? "rgba(40,200,40,0.4)" : "rgba(255,255,255,0.2)"}`, color: "inherit", opacity: mciState.electivesCancelled ? 0.7 : 1 }}
+                                            >
+                                                {mciState.electivesCancelled ? "✅ Electives Cancelled" : "🚫 Cancel Elective Procedures"}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {mciState.decisionLog && mciState.decisionLog.length > 0 && (
+                                        <div style={{ marginTop: "1rem" }}>
+                                            <strong>Decision Log</strong>
+                                            <ul style={{ listStyle: "none", padding: 0, margin: "0.4rem 0 0", fontSize: "0.8rem", maxHeight: "150px", overflowY: "auto" }}>
+                                                {mciState.decisionLog.map((d) => (
+                                                    <li key={d.id} style={{ padding: "0.25rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                                                        <span style={{ opacity: 0.6, marginRight: "0.4rem" }}>{new Date(d.timestamp).toLocaleTimeString()}</span>
+                                                        <strong>{d.decision}</strong>
+                                                        {d.madeBy && <span style={{ opacity: 0.7 }}> — {d.madeBy}</span>}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
                     {/** Inject queue — pre-load injects and release manually. */}
                     <div className="dashboard-card">
                         <h3>Inject Queue</h3>
@@ -832,6 +989,13 @@ export default function AdminDashboard() {
                                     <option value="medical">Medical</option>
                                     <option value="facilities">Facilities</option>
                                     <option value="evacuation">Evacuation</option>
+                                    <option value="ed-charge">🏥 ED Charge Nurse</option>
+                                    <option value="incident-commander">🎖️ Incident Commander</option>
+                                    <option value="pio">📢 Public Information Officer</option>
+                                    <option value="logistics">🚛 Logistics Officer</option>
+                                    <option value="triage-officer">🏷️ Triage Officer</option>
+                                    <option value="treatment-officer">💊 Treatment Officer</option>
+                                    <option value="transport-officer">🚑 Transport Officer</option>
                                 </select>
                             </div>
                             <div className="form-group" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
@@ -870,6 +1034,13 @@ export default function AdminDashboard() {
                                         <option value="medical">Medical</option>
                                         <option value="facilities">Facilities</option>
                                         <option value="evacuation">Evacuation</option>
+                                        <option value="ed-charge">🏥 ED Charge Nurse</option>
+                                        <option value="incident-commander">🎖️ Incident Commander</option>
+                                        <option value="pio">📢 Public Information Officer</option>
+                                        <option value="logistics">🚛 Logistics Officer</option>
+                                        <option value="triage-officer">🏷️ Triage Officer</option>
+                                        <option value="treatment-officer">💊 Treatment Officer</option>
+                                        <option value="transport-officer">🚑 Transport Officer</option>
                                     </select>
                                 )}
                             </div>
@@ -919,6 +1090,13 @@ export default function AdminDashboard() {
                                                         <option value="medical">Medical</option>
                                                         <option value="facilities">Facilities</option>
                                                         <option value="evacuation">Evacuation</option>
+                                                        <option value="ed-charge">🏥 ED Charge Nurse</option>
+                                                        <option value="incident-commander">🎖️ Incident Commander</option>
+                                                        <option value="pio">📢 Public Information Officer</option>
+                                                        <option value="logistics">🚛 Logistics Officer</option>
+                                                        <option value="triage-officer">🏷️ Triage Officer</option>
+                                                        <option value="treatment-officer">💊 Treatment Officer</option>
+                                                        <option value="transport-officer">🚑 Transport Officer</option>
                                                     </select>
                                                     <button onClick={handleSaveEditInject} style={{ fontSize: "0.8rem", padding: "0.2rem 0.6rem", cursor: "pointer" }}>Save</button>
                                                     <button onClick={() => setEditingInjectId(null)} style={{ fontSize: "0.8rem", padding: "0.2rem 0.6rem", cursor: "pointer" }}>Cancel</button>
@@ -1319,6 +1497,7 @@ export default function AdminDashboard() {
                         <Button text="Action Tracker" onClick={() => navigate("/action-tracker")} />
                         <Button text="Return to Home" onClick={() => navigate("/")} />
                         <Button text="Export Results" onClick={handleExportResults} />
+                        <Button text="View HSEEP Report 📋" onClick={() => navigate("/hseep-report", { state: { sessionCode, scenarioKey } })} />
                     </div>
 
                     {/** ITSM push — only shown when at least one ITSM integration is configured. */}

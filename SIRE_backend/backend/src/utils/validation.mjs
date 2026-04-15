@@ -84,6 +84,13 @@ const ALLOWED_ROLES = new Set([
   'legal',
   'exec',
   'comms',
+  'ed-charge',
+  'incident-commander',
+  'pio',
+  'logistics',
+  'triage-officer',
+  'treatment-officer',
+  'transport-officer',
 ])
 
 export const normalizeRole = (value) => {
