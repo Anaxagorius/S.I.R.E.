@@ -110,7 +110,7 @@ export default function Analytics() {
     if (loading) {
         return (
             <AdminDashboardLayout>
-                <BackButton to="/" />
+                <BackButton to="/admin" />
                 <div className="dashboard-card"><p>Loading analytics…</p></div>
             </AdminDashboardLayout>
         );
@@ -119,7 +119,7 @@ export default function Analytics() {
     if (error) {
         return (
             <AdminDashboardLayout>
-                <BackButton to="/" />
+                <BackButton to="/admin" />
                 <div className="dashboard-card" style={{ borderColor: "rgb(200,40,40)" }}>
                     <p style={{ color: "rgb(255,80,80)" }}>{error}</p>
                 </div>
@@ -136,7 +136,7 @@ export default function Analytics() {
 
     return (
         <AdminDashboardLayout>
-            <BackButton to="/" />
+            <BackButton to="/admin" />
 
             <div className="dashboard-card">
                 <h2>📊 Analytics Dashboard</h2>

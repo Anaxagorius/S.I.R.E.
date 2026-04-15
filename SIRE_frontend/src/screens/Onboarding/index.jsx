@@ -140,7 +140,7 @@ export default function Onboarding() {
 
     return (
         <div className="onboarding-page">
-            <BackButton to="/" />
+            <BackButton to="/admin" />
 
             <div className="onboarding-card">
                 {/** Progress indicator */}

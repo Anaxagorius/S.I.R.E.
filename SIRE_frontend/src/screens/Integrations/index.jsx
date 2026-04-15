@@ -257,7 +257,7 @@ export default function Integrations() {
 
     return (
         <AdminDashboardLayout>
-            <BackButton to="/" />
+            <BackButton to="/admin" />
 
             <div className="dashboard-card">
                 <h2>🔌 Integrations</h2>

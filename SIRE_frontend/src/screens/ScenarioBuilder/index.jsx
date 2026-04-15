@@ -926,7 +926,7 @@ export default function ScenarioBuilder() {
 
             {/* ── Top action bar ── */}
             <div className="sb-topbar">
-                <BackButton to="/" />
+                <BackButton to="/admin" />
                 <h1 className="sb-topbar-title">
                     {scenario.title || "New Scenario"}
                 </h1>

@@ -676,7 +676,7 @@ export default function AdminDashboard() {
             <AdminDashboardLayout>
 
                 {/** Back navigation. */}
-                <BackButton to="/" />
+                <BackButton to="/admin" />
 
                 {/** Heading card. */}
                 <div className="dashboard-card">

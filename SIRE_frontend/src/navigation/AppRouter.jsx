@@ -8,6 +8,7 @@
 
 import { Routes, Route } from "react-router-dom";
 import Home from "../screens/Home"
+import Admin from "../screens/Admin"
 import Signup from "../screens/Signup"
 import Login from "../screens/Login"
 import Role from "../screens/Role"
@@ -37,7 +38,8 @@ export default function AppRouter() {
             <Route path="/join-session" element={<JoinSession />} />
             <Route path="/trainee-interface" element={<TraineeInterface />} />
             <Route path="/demo" element={<Demo />} />
-            {/** Routes requiring admin or facilitator role. */}
+            {/** Admin hub and routes requiring admin or facilitator role. */}
+            <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>} />
             <Route path="/create-session" element={<AdminRoute><CreateSession /></AdminRoute>} />
             <Route path="/admin-dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             <Route path="/scenario-builder" element={<AdminRoute><ScenarioBuilder /></AdminRoute>} />
