@@ -1,15 +1,27 @@
 /** 
  * Author: Leon Wasiliew 
- * Last Update: 2026-03-23
+ * Last Update: 2026-04-15
  * Description: Layout component for the Administrator dashboard.
  * Provides a structural layout for managing session states including
  * waiting, active monitoring, and post-session review.
+ * Includes sidebar navigation to all admin sections.
  */
 
 import Grid from "@mui/material/Grid";
+import { NavLink } from "react-router-dom";
 import Footer from "../../components/Footer";
 import About from "../../assets/images/About.png";
 import "./AdminDashboardLayout.css";
+
+/** Sidebar navigation items for the admin panel. */
+const ADMIN_NAV = [
+    { label: "Admin Hub",        to: "/admin" },
+    { label: "Create Session",   to: "/create-session" },
+    { label: "Scenario Builder", to: "/scenario-builder" },
+    { label: "Analytics",        to: "/analytics" },
+    { label: "Integrations",     to: "/integrations" },
+    { label: "Action Tracker",   to: "/action-tracker" },
+];
 
 /** Function that returns the AdminDashboardLayout component that provides the layout wrapper for the administrator dashboard. */
 export default function AdminDashboardLayout({ children }) {
@@ -23,6 +35,21 @@ export default function AdminDashboardLayout({ children }) {
                         <img src={About} alt="S.I.R.E. Logo" />
                         <h3>Administrator Panel</h3>
                     </div>
+
+                    {/** Sidebar navigation to other admin sections. */}
+                    <nav className="admin-sidebar-nav">
+                        {ADMIN_NAV.map(({ label, to }) => (
+                            <NavLink
+                                key={to}
+                                to={to}
+                                className={({ isActive }) =>
+                                    "admin-sidebar-link" + (isActive ? " active" : "")
+                                }
+                            >
+                                {label}
+                            </NavLink>
+                        ))}
+                    </nav>
                 </div>
             </Grid>
 
