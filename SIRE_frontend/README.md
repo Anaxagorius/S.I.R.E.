@@ -79,7 +79,7 @@ restart it with `npm run dev` for the new values to take effect.
 ### Instructor / Admin Flow
 
 1. **Create Session** (`/create-session`)
-   Select from 490+ built-in scenarios or a custom scenario created in the Scenario Builder.
+   Select from a library of 490+ built-in scenarios, or use a custom scenario created in the Scenario Builder.
    The backend creates a session and returns a 6-character session code to share with trainees.
 
 2. **Admin Dashboard** (`/admin-dashboard`)

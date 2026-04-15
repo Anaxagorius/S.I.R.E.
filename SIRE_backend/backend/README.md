@@ -1,7 +1,7 @@
 
 # 🚨 SIRE — Backend
 
-This backend powers the **SIRE**, providing:
+This backend powers the **SIRE (Simulator for Incident Response Exercises)**, providing:
 
 - A REST API for health checks, session management, authentication, analytics, and more
 - A Socket.IO server for real-time simulation events
