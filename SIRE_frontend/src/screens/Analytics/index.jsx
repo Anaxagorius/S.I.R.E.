@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import BackButton from "../../components/BackButton";
-import { getAnalytics } from "../../services/api/api";
+import { getAnalytics, getUsers, setUserRole } from "../../services/api/api";
+import { useAuth } from "../../context/AuthContext";
 import { accuracyColor, readinessLabel, formatScenarioName } from "../../utils/scoringUtils";
 import "./Analytics.css";
 
@@ -53,10 +54,17 @@ function fmtDate(iso) {
 /** Function that returns the Analytics screen component. */
 export default function Analytics() {
     const navigate = useNavigate();
+    const { user: currentUser } = useAuth();
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    /** User management state — only loaded for admin users. */
+    const [users, setUsers] = useState(null);
+    const [usersLoading, setUsersLoading] = useState(false);
+    const [roleUpdating, setRoleUpdating] = useState(null);
+    const [roleError, setRoleError] = useState(null);
 
     useEffect(() => {
         let cancelled = false;
@@ -74,6 +82,30 @@ export default function Analytics() {
         load();
         return () => { cancelled = true; };
     }, []);
+
+    /** Load user list for admin users. */
+    useEffect(() => {
+        if (currentUser?.role !== "admin") return;
+        setUsersLoading(true);
+        getUsers()
+            .then((list) => setUsers(list))
+            .catch(() => setUsers([]))
+            .finally(() => setUsersLoading(false));
+    }, [currentUser]);
+
+    /** Handle role change for a user. */
+    async function handleRoleChange(userId, newRole) {
+        setRoleUpdating(userId);
+        setRoleError(null);
+        try {
+            await setUserRole(userId, newRole);
+            setUsers((prev) => prev.map((u) => u.id === userId ? { ...u, role: newRole } : u));
+        } catch (err) {
+            setRoleError(err.message || "Failed to update role");
+        } finally {
+            setRoleUpdating(null);
+        }
+    }
 
     if (loading) {
         return (
@@ -296,6 +328,67 @@ export default function Analytics() {
                         </div>
                     )}
                 </>
+            )}
+
+            {/** User Management — admin only */}
+            {currentUser?.role === "admin" && (
+                <div className="dashboard-card">
+                    <h3>👤 User Management</h3>
+                    <p style={{ fontSize: "0.82rem", color: "var(--color-text-muted)", marginBottom: "0.75rem" }}>
+                        Manage system roles for all registered users. Promote participants to facilitator or admin.
+                    </p>
+                    {roleError && <p style={{ color: "rgb(255,80,80)", marginBottom: "0.5rem" }}>{roleError}</p>}
+                    {usersLoading ? (
+                        <p style={{ opacity: 0.6 }}>Loading users…</p>
+                    ) : users && users.length > 0 ? (
+                        <table className="analytics-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Current Role</th>
+                                    <th>Change Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map((u) => (
+                                    <tr key={u.id}>
+                                        <td>{u.name}</td>
+                                        <td style={{ opacity: 0.75 }}>{u.email}</td>
+                                        <td>
+                                            <span className="role-badge">{u.role}</span>
+                                        </td>
+                                        <td>
+                                            {u.id === currentUser?.id ? (
+                                                <span style={{ opacity: 0.5, fontSize: "0.8rem" }}>You</span>
+                                            ) : (
+                                                <select
+                                                    value={u.role}
+                                                    disabled={roleUpdating === u.id}
+                                                    onChange={(e) => handleRoleChange(u.id, e.target.value)}
+                                                    style={{
+                                                        background: "var(--color-surface-alt, #0f172a)",
+                                                        color: "var(--color-text, #f1f5f9)",
+                                                        border: "1px solid var(--color-border, #334155)",
+                                                        borderRadius: "4px",
+                                                        padding: "0.2rem 0.4rem",
+                                                        fontSize: "0.85rem",
+                                                    }}
+                                                >
+                                                    <option value="participant">participant</option>
+                                                    <option value="facilitator">facilitator</option>
+                                                    <option value="admin">admin</option>
+                                                </select>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p style={{ opacity: 0.6 }}>No users found.</p>
+                    )}
+                </div>
             )}
         </AdminDashboardLayout>
     );

@@ -37,6 +37,21 @@ const emitError = (socket, code, message) => {
 };
 
 /**
+ * Emit inject:queue:updated to all sockets in a room, filtering out confidential
+ * injects for participant sockets (those with socket.data.participantRole set).
+ * Admin/facilitator sockets (no participantRole) receive the full queue.
+ */
+const emitInjectQueueUpdated = (simNamespace, room, sessionCode, injectQueue) => {
+  const socketsInRoom = Array.from(simNamespace.sockets.values()).filter(s => s.rooms.has(room));
+  socketsInRoom.forEach(s => {
+    const visibleQueue = s.data?.participantRole
+      ? injectQueue.filter(i => !i.confidential)
+      : injectQueue;
+    s.emit('inject:queue:updated', { sessionCode, injectQueue: visibleQueue });
+  });
+};
+
+/**
  * Compute analytics KPIs from a completed session record and persist to the database.
  * Safe to call multiple times — duplicate records are acceptable for audit purposes.
  */
@@ -269,12 +284,17 @@ export function attachSocketServer(httpServer, logger) {
         // Store role on socket so role-filtered injects can match it later
         if (role) socket.data.participantRole = role;
 
+        // Participants should not see confidential injects
+        const visibleQueue = role
+          ? record.injectQueue.filter(i => !i.confidential)
+          : record.injectQueue;
+
         socket.emit('session:joined', {
           sessionCode,
           roster: record.trainees,
           currentTimelineIndex: record.currentTimelineIndex,
           isPaused: record.isPaused,
-          injectQueue: record.injectQueue,
+          injectQueue: visibleQueue,
           actionItems: record.actionItems,
         });
 
@@ -283,7 +303,7 @@ export function attachSocketServer(httpServer, logger) {
           roster: record.trainees,
           currentTimelineIndex: record.currentTimelineIndex,
           isPaused: record.isPaused,
-          injectQueue: record.injectQueue,
+          injectQueue: visibleQueue,
           actionItems: record.actionItems,
         });
 
@@ -517,6 +537,7 @@ export function attachSocketServer(httpServer, logger) {
       const pressureType = normalizePressureType(payload?.pressureType);
       const requiresApproval = payload?.requiresApproval === true;
       const approvalRole = requiresApproval ? normalizeRole(payload?.approvalRole) : null;
+      const confidential = payload?.confidential === true;
 
       if (!sessionCode || !message) {
         emitError(socket, 'INVALID_PAYLOAD', 'sessionCode and message are required');
@@ -529,14 +550,11 @@ export function attachSocketServer(httpServer, logger) {
         return;
       }
 
-      const inject = inMemorySessionStore.addInjectToQueue(sessionCode, { message, severity, roleFilter, channel, pressureType, requiresApproval, approvalRole });
+      const inject = inMemorySessionStore.addInjectToQueue(sessionCode, { message, severity, roleFilter, channel, pressureType, requiresApproval, approvalRole, confidential });
 
       const room = `session:${sessionCode}`;
-      // Broadcast updated queue to admin (same room)
-      simNamespace.to(room).emit('inject:queue:updated', {
-        sessionCode,
-        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
-      });
+      // Broadcast updated queue, filtering confidential injects for participant sockets
+      emitInjectQueueUpdated(simNamespace, room, sessionCode, inMemorySessionStore.getInjectQueue(sessionCode));
 
       auditLogger.event({
         action: 'admin:inject:queue:add',
@@ -649,11 +667,8 @@ export function attachSocketServer(httpServer, logger) {
         simNamespace.to(room).emit('event:log:broadcast', eventPayload);
       }
 
-      // Notify admin of updated queue state
-      simNamespace.to(room).emit('inject:queue:updated', {
-        sessionCode,
-        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
-      });
+      // Notify admin of updated queue state, filtering confidential injects for participant sockets
+      emitInjectQueueUpdated(simNamespace, room, sessionCode, inMemorySessionStore.getInjectQueue(sessionCode));
 
       auditLogger.event({
         action: 'admin:inject:release',
@@ -689,10 +704,7 @@ export function attachSocketServer(httpServer, logger) {
       }
 
       const room = `session:${sessionCode}`;
-      simNamespace.to(room).emit('inject:queue:updated', {
-        sessionCode,
-        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
-      });
+      emitInjectQueueUpdated(simNamespace, room, sessionCode, inMemorySessionStore.getInjectQueue(sessionCode));
 
       auditLogger.event({
         action: 'admin:inject:edit',
@@ -818,10 +830,7 @@ export function attachSocketServer(httpServer, logger) {
       }
 
       // Update admin and participants with acknowledgement status
-      simNamespace.to(room).emit('inject:queue:updated', {
-        sessionCode,
-        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
-      });
+      emitInjectQueueUpdated(simNamespace, room, sessionCode, inMemorySessionStore.getInjectQueue(sessionCode));
 
       auditLogger.event({
         action: 'inject:acknowledge',
@@ -902,11 +911,8 @@ export function attachSocketServer(httpServer, logger) {
       // Notify approver that their approval was recorded (clears pending state)
       socket.emit('inject:approval:granted', { sessionCode, injectId });
 
-      // Update queue for all
-      simNamespace.to(room).emit('inject:queue:updated', {
-        sessionCode,
-        injectQueue: inMemorySessionStore.getInjectQueue(sessionCode),
-      });
+      // Update queue for all, filtering confidential injects for participant sockets
+      emitInjectQueueUpdated(simNamespace, room, sessionCode, inMemorySessionStore.getInjectQueue(sessionCode));
 
       auditLogger.event({
         action: 'inject:approval:grant',

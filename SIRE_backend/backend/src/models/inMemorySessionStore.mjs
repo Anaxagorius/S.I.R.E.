@@ -84,7 +84,7 @@ export const inMemorySessionStore = {
     return s
   },
   /** Add an inject to the facilitator queue (not yet released to participants). */
-  addInjectToQueue: (sessionCode, { message, severity, roleFilter, channel, pressureType, requiresApproval, approvalRole }) => {
+  addInjectToQueue: (sessionCode, { message, severity, roleFilter, channel, pressureType, requiresApproval, approvalRole, confidential }) => {
     const s = sessionMap.get(sessionCode)
     if (!s) return null
     const inject = {
@@ -99,6 +99,8 @@ export const inMemorySessionStore = {
       approvalRole: approvalRole || null,
       approvedBy: null,
       approvedAt: null,
+      /** When true, this inject is only visible to admin/facilitator sockets, not participant sockets. */
+      confidential: confidential === true,
       released: false,
       releasedAt: null,
       editedAt: null,

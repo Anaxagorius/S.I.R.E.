@@ -32,6 +32,9 @@ export default function Home() {
             {/** Navigation button — program-level analytics and metrics dashboard. */}
             <Button text="Analytics" to="/analytics" />
 
+            {/** Navigation button — onboarding guide for new facilitators. */}
+            <Button text="Getting Started" to="/onboarding" />
+
             {/** Navigation button — ITSM and threat intel integrations. */}
             <Button text="Integrations" to="/integrations" />
 

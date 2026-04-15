@@ -82,6 +82,16 @@ export const getAnalytics = async () => {
     return apiClient.get("/analytics");
 };
 
+/** Retrieves a list of all registered users (admin only). */
+export const getUsers = async () => {
+    return apiClient.get("/users");
+};
+
+/** Updates a user's system role (admin only). */
+export const setUserRole = async (userId, role) => {
+    return apiClient.put(`/users/${userId}/role`, { role });
+};
+
 /** Retrieves all persisted action tasks. Optionally filtered by sessionCode. */
 export const getActionTasks = async (sessionCode) => {
     const qs = sessionCode ? `?sessionCode=${encodeURIComponent(sessionCode)}` : "";

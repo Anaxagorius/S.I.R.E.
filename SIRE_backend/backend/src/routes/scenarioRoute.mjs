@@ -10,6 +10,7 @@ import { sireDatabase } from '../models/sireDatabase.mjs'
 import { auditLogger } from '../config/auditLogger.mjs'
 import { buildAuditContext } from '../utils/auditContext.mjs'
 import { normalizeScenarioKey, isPlainObject } from '../utils/validation.mjs'
+import { requireAuth, requireRole } from '../middleware/authMiddleware.mjs'
 
 const router = Router()
 
@@ -113,7 +114,7 @@ router.get('/scenarios/:key', (req, res) => {
 })
 
 /** POST /scenarios - create a new custom scenario and persist it in the database. */
-router.post('/scenarios', (req, res) => {
+router.post('/scenarios', requireAuth, requireRole('admin', 'facilitator'), (req, res) => {
   const parsed = parseScenarioBody(req.body)
   if (parsed.error) {
     return res.status(400).json({ message: parsed.error, correlationId: req.context?.correlationId })
@@ -143,7 +144,7 @@ router.post('/scenarios', (req, res) => {
 })
 
 /** PUT /scenarios/:key - update an existing custom scenario in the database. */
-router.put('/scenarios/:key', (req, res) => {
+router.put('/scenarios/:key', requireAuth, requireRole('admin', 'facilitator'), (req, res) => {
   const scenarioKey = normalizeScenarioKey(req.params.key)
   if (!scenarioKey) {
     return res.status(400).json({ message: 'Invalid scenario key', correlationId: req.context?.correlationId })
@@ -188,7 +189,7 @@ router.put('/scenarios/:key', (req, res) => {
 })
 
 /** DELETE /scenarios/:key - delete a custom scenario from the database. */
-router.delete('/scenarios/:key', (req, res) => {
+router.delete('/scenarios/:key', requireAuth, requireRole('admin', 'facilitator'), (req, res) => {
   const scenarioKey = normalizeScenarioKey(req.params.key)
   if (!scenarioKey) {
     return res.status(400).json({ message: 'Invalid scenario key', correlationId: req.context?.correlationId })

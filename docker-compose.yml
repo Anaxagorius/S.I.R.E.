@@ -1,0 +1,77 @@
+# docker-compose.yml
+# On-premises deployment for S.I.R.E.
+#
+# Usage:
+#   docker compose up --build
+#
+# The frontend is served from the backend on port 8080 in production.
+# For local development, see the SIRE_backend and SIRE_frontend READMEs.
+#
+# Environment variables can be overridden by creating a .env file in this
+# directory.  See ON_PREM_DEPLOYMENT.md for a full variable reference.
+
+services:
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # Backend — Express + Socket.IO API server
+  # ──────────────────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./SIRE_backend
+      dockerfile: Dockerfile
+    container_name: sire-backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    environment:
+      # Port the HTTP server listens on inside the container
+      PORT: 8080
+      # Comma-separated list of allowed CORS origins.
+      # Set to the public URL of the frontend (or * for open access).
+      ALLOWED_ORIGINS: "${ALLOWED_ORIGINS:-http://localhost:5173}"
+      # Optional API key — leave blank to disable key enforcement
+      API_KEY: "${API_KEY:-}"
+      REQUIRE_API_KEY: "${REQUIRE_API_KEY:-false}"
+      # SQLite database paths.  The data/ directory is mounted as a named
+      # volume so that all databases survive container restarts.
+      DB_PATH: /data/users.db
+      SIRE_DB_PATH: /data/sire.db
+      # Audit logging (true | false)
+      AUDIT_LOG_ENABLED: "${AUDIT_LOG_ENABLED:-true}"
+      # Node environment
+      NODE_ENV: "${NODE_ENV:-production}"
+    volumes:
+      - sire-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # Frontend — Vite / React static build served by nginx
+  # ──────────────────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./SIRE_frontend
+      dockerfile: Dockerfile
+      args:
+        # Public URL of the backend API — must be reachable from the browser
+        VITE_API_BASE: "${VITE_API_BASE:-http://localhost:8080}"
+        VITE_SOCKET_URL: "${VITE_SOCKET_URL:-http://localhost:8080}"
+        VITE_API_KEY: "${VITE_API_KEY:-}"
+    container_name: sire-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-5173}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+# ──────────────────────────────────────────────────────────────────────────
+# Named volumes — persisted across container restarts
+# ──────────────────────────────────────────────────────────────────────────
+volumes:
+  sire-data:
+    driver: local
