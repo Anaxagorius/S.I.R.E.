@@ -122,6 +122,7 @@ export const requireAuth = (req, res, next) => {
  */
 export const requireRole = (...roles) => (req, res, next) => {
   const userRole = req.auth?.user?.role
+  if (userRole === 'admin') return next()
   if (!userRole || !roles.includes(userRole)) {
     auditLogger.event({
       action: 'auth:role:forbidden',
