@@ -17,8 +17,8 @@ export default function Home() {
             {/** Navigation button — sign in or create an account. */}
             <Button text="Login / Set Up" to="/login" />
 
-            {/** Navigation button — admin hub for session management and tools. */}
-            <Button text="Admin" to="/admin" />
+            {/** Navigation button — admin dashboard (bypasses sign-in for now). */}
+            <Button text="Admin" to="/admin-dashboard" />
 
             {/** Navigation button — join as a trainee. */}
             <Button text="Trainee" to="/join-session" />
