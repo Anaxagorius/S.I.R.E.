@@ -116,6 +116,39 @@ db.exec(`
 
 
 
+/**
+ * action_tasks table
+ * Persisted AAR findings and captured action items with lifecycle tracking.
+ *
+ * Columns:
+ *   id            - UUID (primary key)
+ *   session_code  - session the task originated from
+ *   scenario_key  - scenario identifier
+ *   text          - task / finding description
+ *   source        - 'aar_finding' | 'aar_action' | 'live'
+ *   owner         - name of the person responsible
+ *   due_date      - YYYY-MM-DD date string
+ *   status        - 'open' | 'in-progress' | 'closed'
+ *   standards_ref - comma/semicolon separated standards references (e.g. "NIST CSF: RC.RP-1")
+ *   closed_at     - ISO-8601 timestamp when the task was closed
+ *   created_at    - ISO-8601 timestamp when this record was inserted
+ */
+db.exec(`
+  CREATE TABLE IF NOT EXISTS action_tasks (
+    id            TEXT PRIMARY KEY,
+    session_code  TEXT NOT NULL DEFAULT '',
+    scenario_key  TEXT NOT NULL DEFAULT '',
+    text          TEXT NOT NULL,
+    source        TEXT NOT NULL DEFAULT 'aar_finding',
+    owner         TEXT,
+    due_date      TEXT,
+    status        TEXT NOT NULL DEFAULT 'open',
+    standards_ref TEXT,
+    closed_at     TEXT,
+    created_at    TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+  )
+`)
+
 const stmts = {
   /* users */
   getUserById:       db.prepare('SELECT * FROM users WHERE id = ?'),
@@ -143,6 +176,23 @@ const stmts = {
   ),
   listSessionResults: db.prepare(
     'SELECT id, session_code, scenario_key, started_at, ended_at, participant_count, json_data, created_at FROM session_results ORDER BY created_at DESC LIMIT 100'
+  ),
+
+  /* action_tasks */
+  insertActionTask: db.prepare(
+    'INSERT INTO action_tasks (id, session_code, scenario_key, text, source, owner, due_date, status, standards_ref) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  ),
+  listActionTasks: db.prepare(
+    'SELECT * FROM action_tasks ORDER BY created_at DESC LIMIT 500'
+  ),
+  listActionTasksBySession: db.prepare(
+    'SELECT * FROM action_tasks WHERE session_code = ? ORDER BY created_at ASC'
+  ),
+  getActionTaskById: db.prepare(
+    'SELECT * FROM action_tasks WHERE id = ?'
+  ),
+  updateActionTask: db.prepare(
+    'UPDATE action_tasks SET owner = ?, due_date = ?, status = ?, standards_ref = ?, closed_at = ? WHERE id = ?'
   ),
 
   /* integrations */
@@ -284,6 +334,69 @@ export const sireDatabase = {
    * @returns {Array<{ id: number, session_code: string, scenario_key: string, started_at: string, ended_at: string, participant_count: number, json_data: string, created_at: string }>}
    */
   listSessionResults: () => stmts.listSessionResults.all(),
+
+  /* ---- action_tasks ---- */
+
+  /**
+   * Persists a new action task (finding or captured action item from an AAR or live session).
+   * @param {{ id: string, sessionCode: string, scenarioKey: string, text: string, source: string, owner?: string|null, dueDate?: string|null, status?: string, standardsRef?: string|null }} task
+   */
+  createActionTask: ({ id, sessionCode, scenarioKey, text, source, owner = null, dueDate = null, status = 'open', standardsRef = null }) => {
+    stmts.insertActionTask.run(
+      id,
+      sessionCode || '',
+      scenarioKey || '',
+      text,
+      source || 'aar_finding',
+      owner || null,
+      dueDate || null,
+      status || 'open',
+      standardsRef || null,
+    )
+  },
+
+  /**
+   * Returns up to 500 most-recent action tasks (newest first).
+   * @returns {Array<object>}
+   */
+  listActionTasks: () => stmts.listActionTasks.all(),
+
+  /**
+   * Returns all action tasks for a specific session (oldest first).
+   * @param {string} sessionCode
+   * @returns {Array<object>}
+   */
+  listActionTasksBySession: (sessionCode) => stmts.listActionTasksBySession.all(sessionCode),
+
+  /**
+   * Returns a single action task by its UUID.
+   * @param {string} id
+   * @returns {object|null}
+   */
+  getActionTaskById: (id) => stmts.getActionTaskById.get(id) ?? null,
+
+  /**
+   * Updates mutable fields of an action task.
+   * Setting status to 'closed' automatically records the closure timestamp.
+   * @param {{ id: string, owner?: string|null, dueDate?: string|null, status?: string, standardsRef?: string|null }} updates
+   * @throws {Error} with code 'TASK_NOT_FOUND' if no task with the given id exists
+   */
+  updateActionTask: ({ id, owner = null, dueDate = null, status = 'open', standardsRef = null }) => {
+    const closedAt = status === 'closed' ? new Date().toISOString() : null
+    const result = stmts.updateActionTask.run(
+      owner || null,
+      dueDate || null,
+      status || 'open',
+      standardsRef || null,
+      closedAt,
+      id,
+    )
+    if (result.changes === 0) {
+      const err = new Error(`Action task '${id}' not found`)
+      err.code = 'TASK_NOT_FOUND'
+      throw err
+    }
+  },
 
   /* ---- integrations ---- */
 

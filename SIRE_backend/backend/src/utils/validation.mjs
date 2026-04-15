@@ -124,4 +124,38 @@ export const normalizePressureType = (value) => {
 /** Normalize free-form text up to 500 chars (for action items). */
 export const normalizeActionItemText = (value) => normalizeText(value, 500)
 
+const allowedTaskStatuses = new Set(['open', 'in-progress', 'closed'])
+
+/** Normalize action task status. Returns null for absent/unknown values. */
+export const normalizeTaskStatus = (value) => {
+  if (value === null || value === undefined || value === '') return null
+  const candidate = normalizeText(value, 16)
+  if (!candidate) return null
+  const lowered = candidate.toLowerCase()
+  return allowedTaskStatuses.has(lowered) ? lowered : null
+}
+
+/** Normalize a task owner name (free text, up to 120 chars). */
+export const normalizeOwner = (value) => normalizeOptionalText(value, 120)
+
+/** Normalize an ISO date string (YYYY-MM-DD). Returns null if format is invalid. */
+export const normalizeDueDate = (value) => {
+  if (value === null || value === undefined || value === '') return null
+  const candidate = normalizeText(value, 12)
+  if (!candidate) return null
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(candidate)) return null
+  return candidate
+}
+
+/** Normalize a standards reference string (e.g. "NIST CSF: RC.RP-1; ISO 27001: A.16.1.5"). Up to 500 chars. */
+export const normalizeStandardsRef = (value) => normalizeOptionalText(value, 500)
+
+/** Validate a task UUID ID.  Returns null if invalid. */
+export const normalizeTaskId = (value) => {
+  const candidate = normalizeText(value, 40)
+  if (!candidate) return null
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(candidate)) return null
+  return candidate.toLowerCase()
+}
+
 export const generateRandomUuid = () => crypto.randomUUID()
