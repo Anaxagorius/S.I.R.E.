@@ -20,8 +20,9 @@ This package contains group‑focused documentation and backend code artifacts a
 ### Local Development
 ```bash
 cd backend
+cp .env.example .env   # Windows: copy .env.example .env
 npm install
-API_KEY=local-dev-key npm run dev
+npm run dev
 ```
 
 Then use a Socket.IO client to connect to namespace `/sim` and test events.

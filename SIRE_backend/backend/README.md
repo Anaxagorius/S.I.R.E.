@@ -3,12 +3,13 @@
 
 This backend powers the **SIRE**, providing:
 
-- A REST API for health checks and session management  
-- A Socket.IO server for real-time simulation events  
-- In-memory session storage  
-- Scenario-driven incident drill progression  
+- A REST API for health checks, session management, authentication, analytics, and more
+- A Socket.IO server for real-time simulation events
+- In-memory session storage with SQLite persistence for scenarios, analytics, and user data
+- Role-based access control (admin, facilitator, participant)
+- Scenario-driven incident drill progression with 490+ built-in scenarios
 
-Built with **Node.js**, **Express**, and **Socket.IO** using modern **ESM (`.mjs`) modules**.
+Built with **Node.js**, **Express**, **Socket.IO**, and **better-sqlite3** using modern **ESM (`.mjs`) modules**.
 
 📚 **[Full Deployment Guide](../docs/Deployment_Guide.md)** — Local, Docker, and Cloud deployment instructions
 
@@ -81,16 +82,17 @@ blueprint at the repo root.
 
 # 🚀 Quick Start
 
-```
+```bash
+cp .env.example .env   # Windows: copy .env.example .env
 npm install
 npm run dev
 ```
 
 The server will start on the configured port (default: `8080`) and **auto-restarts on every file change** via `node --watch` — no manual restart needed during development.
 
-Set an API key before calling the API:
+The `.env` file (copied from `.env.example`) controls all runtime options. By default `REQUIRE_API_KEY=true` and `API_KEY=local-dev-key`. To override the API key inline:
 
-```
+```bash
 API_KEY=local-dev-key npm run dev
 ```
 
@@ -138,21 +140,45 @@ environment:
 
 ```
 src/
-  server.mjs               # Application entrypoint (Express + Socket.IO)
+  server.mjs                      # Application entrypoint (Express + Socket.IO)
   config/
-    environmentConfig.mjs  # Port + environment settings
-    logger.mjs             # Application logger
-  routes/
-    healthRoute.mjs        # /api/health
-    sessionRoute.mjs       # /api/session CRUD
-  sockets/
-    socketServer.mjs       # Socket.IO setup and real-time events
-  services/
-    sessionService.mjs     # Business logic for sessions
+    auditLogger.mjs               # Audit-trail logger
+    environmentConfig.mjs         # Port + environment settings
+    logger.mjs                    # Application logger
+    securityConfig.mjs            # CORS / security configuration
+  controllers/
+    sessionController.mjs         # Session CRUD controller
+  middleware/
+    authMiddleware.mjs            # JWT auth + role enforcement (requireAuth, requireRole)
+    errorHandler.mjs              # Centralised error handler
+    securityHeaders.mjs           # HTTP security headers
   models/
-    sessionModel.mjs       # In-memory session store
+    inMemorySessionStore.mjs      # Volatile session store (RAM)
+    sireDatabase.mjs              # SQLite persistence (scenarios, analytics, documents, …)
+    tokenStore.mjs                # In-memory JWT token store
+    types.mjs                     # Shared type definitions
+    userDatabase.mjs              # User account store (RBAC)
+  routes/
+    actionTaskRoute.mjs           # /api/action-tasks
+    analyticsRoute.mjs            # /api/analytics
+    authRoute.mjs                 # /api/login, /api/signup, /api/me, /api/users
+    emsRoute.mjs                  # /api/ems/sessions/:code/mci
+    healthRoute.mjs               # /api/health
+    integrationsRoute.mjs         # /api/integrations
+    scenarioRoute.mjs             # /api/scenarios
+    sessionRoute.mjs              # /api/session (legacy CRUD)
+    sessionsRoute.mjs             # /api/sessions/:code
+  services/
+    escalationService.mjs         # Timeline pause/resume + inject delivery
+    scenarioRegistry.mjs          # Scenario lookup (DB → filesystem)
+    sessionService.mjs            # Business logic for sessions
+  sockets/
+    socketServer.mjs              # Socket.IO namespace /sim + all event handlers
+  utils/
+    auditContext.mjs              # Request-scoped audit context
+    validation.mjs                # Input validation helpers
   scenarios/
-    *.json                 # Incident drill scenario definitions
+    *.json                        # 490+ built-in incident drill scenario definitions
 ```
 
 ---
@@ -258,11 +284,12 @@ curl.exe -X DELETE http://127.0.0.1:8080/api/session/<SESSION_CODE> ^
 
 # 🛠️ Tech Stack
 
-- Node.js 25+
+- Node.js 20+
 - Express (REST)
 - Socket.IO (real-time)
+- better-sqlite3 (SQLite persistence)
 - ESM / .mjs modules
-- In-memory data models
+- In-memory + SQLite data models
 
 ---
 
@@ -363,64 +390,35 @@ If you need persistent session storage for production use, you should implement:
 
 ---
 
-# 📋 Enhanced Scenarios
+# 📋 Scenario Library
 
-The backend includes **8 comprehensive incident response scenarios**, each with **5-7 escalation events** designed for realistic training exercises.
+The backend ships with **490+ incident response scenarios** spanning cybersecurity, fire, law enforcement, EMS, natural disasters, and more. Each scenario has **5–7 escalation events** designed for realistic training exercises.
 
-## Available Scenarios
+## Scenario Categories
 
-### 1. **Active Threat** (`scenario_active_threat.json`)
-Progressive escalation from initial suspicious behavior to law enforcement resolution.
-- **Events**: 7 stages over ~5 minutes
-- **Key Decision Points**: Lockdown initiation, personnel accountability, law enforcement coordination
-
-### 2. **Fire Emergency** (`scenario_fire.json`)
-Fire detection through evacuation and emergency response.
-- **Events**: 6 stages over ~4 minutes
-- **Key Decision Points**: Evacuation timing, sprinkler system management, fire department coordination
-
-### 3. **Flood** (`scenario_flood.json`)
-Water intrusion escalation with electrical hazards and system protection.
-- **Events**: 6 stages over ~4.5 minutes
-- **Key Decision Points**: Power shutdown, critical asset relocation, damage assessment
-
-### 4. **Cyber Attack** (`scenario_cyber_attack.json`)
-Phishing attack through ransomware to recovery.
-- **Events**: 7 stages over ~5 minutes
-- **Key Decision Points**: System isolation, backup verification, incident response activation
-
-### 5. **Power Outage** (`scenario_power_outage.json`)
-Facility-wide power loss with generator backup and restoration.
-- **Events**: 6 stages over ~4.5 minutes
-- **Key Decision Points**: Load prioritization, generator management, grid restoration
-
-### 6. **Severe Weather** (`scenario_severe_weather.json`)
-Storm warning through impact and damage assessment.
-- **Events**: 6 stages over ~5 minutes
-- **Key Decision Points**: Personnel safety, building security, shelter-in-place protocols
-
-### 7. **Medical Emergency** (`scenario_medical_emergency.json`)
-Cardiac event response from collapse through EMS transport.
-- **Events**: 6 stages over ~4 minutes
-- **Key Decision Points**: First aid response, AED deployment, EMS coordination
-
-### 8. **Hazardous Material Spill** (`scenario_hazardous_material_spill.json`)
-Chemical spill containment and decontamination.
-- **Events**: 6 stages over ~5 minutes
-- **Key Decision Points**: Area evacuation, ventilation control, hazmat team coordination
+| Category | Examples |
+|---|---|
+| **Cybersecurity** | Ransomware, phishing, DDoS, insider threat, supply-chain compromise, zero-day exploit |
+| **Fire & Rescue** | Structure fires, wildfire, hazmat, vehicle fire, fireground mayday, mass-casualty |
+| **Law Enforcement** | Use of force, pursuit termination, missing persons, gang response, warrant execution |
+| **EMS / Medical** | Cardiac arrest, MCI triage, burn victim, pediatric trauma, firefighter mayday |
+| **Natural Disaster** | Earthquake, flood, severe weather, extreme heat, hurricane aftermath |
+| **Infrastructure** | Power outage, network failure, database crash, cloud outage, DNS poisoning |
 
 ## Scenario Design Approach
 
-Each enhanced scenario follows emergency management best practices:
+Each scenario follows emergency management best practices:
 
 - **Progressive Escalation**: Events build in severity and complexity
 - **Realistic Timelines**: Time intervals range from 5 seconds to 5 minutes based on incident type
 - **Decision Points**: Each event requires trainee assessment and action
 - **Complete Lifecycle**: From detection through resolution and recovery
 
-## Testing Enhanced Scenarios
+## Adding Custom Scenarios
 
-To test a scenario with the enhanced timeline:
+Use the **Scenario Builder** UI (`/scenario-builder`) or send a `POST /api/scenarios` request with a scenario JSON body. Custom scenarios are stored in SQLite and take precedence over built-in filesystem scenarios.
+
+## Testing a Scenario
 
 1. **Start the server**:
    ```bash
@@ -429,11 +427,9 @@ To test a scenario with the enhanced timeline:
 
 2. **Create a session** via REST API and **start a scenario** via Socket.IO
 
-3. **Observe event progression** - events will fire based on `timeOffsetSec` values
+3. **Observe event progression** — events fire based on `timeOffsetSec` values
 
-4. **Validate event sequence** - ensure each event index, title, and description displays correctly
-
-Each scenario completes in 2-5 minutes, making them suitable for training sessions while maintaining realistic pacing.
+Each scenario completes in 2–5 minutes, making them suitable for training sessions while maintaining realistic pacing.
 
 ---
 
@@ -443,8 +439,10 @@ Each scenario completes in 2-5 minutes, making them suitable for training sessio
 ✔ REST + Socket.IO operational  
 ✔ Sessions + scenarios supported  
 ✔ ESM conversion complete  
-✔ 8 enhanced scenarios with realistic escalation timelines  
-✔ Cloud deployment ready (Railway, Render, Heroku)
+✔ 490+ scenarios across cybersecurity, fire, law enforcement, EMS, and more  
+✔ Role-based access control (admin / facilitator / participant)  
+✔ SQLite persistence for scenarios, analytics, and user data  
+✔ Cloud deployment ready (Render Blueprint recommended)
 
 ---
 
