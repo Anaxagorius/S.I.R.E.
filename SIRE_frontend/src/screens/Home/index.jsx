@@ -26,6 +26,9 @@ export default function Home() {
             {/** Navigation button — demo mode button — runs entirely in the browser without a backend. */}
             <Button text="Demo" to="/demo" />
 
+            {/** Navigation button — onboarding guide for new users. */}
+            <Button text="Getting Started" to="/onboarding" />
+
             {/** Main carousel content — rendered in the right panel by HomeLayout. */}
             <HomeCarousel />
         </HomeLayout>
