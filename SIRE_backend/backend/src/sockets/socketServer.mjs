@@ -171,6 +171,21 @@ const normalizeAllowedOrigins = (value) => {
     .filter(Boolean);
 };
 
+const ALLOWED_MCI_DECISIONS = new Set([
+  'mci-activated',
+  'alternate-care-activated',
+  'mutual-aid-requested',
+  'electives-cancelled',
+  'hospital-diversion',
+  'other',
+])
+
+const normalizeMciDecision = (value) => {
+  if (!value || typeof value !== 'string') return null
+  const lowered = value.trim().toLowerCase()
+  return ALLOWED_MCI_DECISIONS.has(lowered) ? lowered : null
+}
+
 export function attachSocketServer(httpServer, logger) {
   const allowedOrigins = normalizeAllowedOrigins(environmentConfig.allowedOrigins);
   const allowAllOrigins = allowedOrigins.includes('*');
@@ -1035,6 +1050,71 @@ export function attachSocketServer(httpServer, logger) {
         correlationId: generateRandomUuid()
       });
     });
+
+    socket.on('mci:state:update', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode)
+      if (!sessionCode) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode is required')
+        return
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode)
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found')
+        return
+      }
+
+      if (!session.mciState) {
+        emitError(socket, 'MCI_NOT_INITIALIZED', 'MCI state has not been initialized for this session')
+        return
+      }
+
+      const updates = payload?.updates
+      if (!updates || typeof updates !== 'object' || Array.isArray(updates)) {
+        emitError(socket, 'INVALID_PAYLOAD', 'updates must be a plain object')
+        return
+      }
+
+      const mciState = inMemorySessionStore.updateMciState(sessionCode, updates)
+      const room = `session:${sessionCode}`
+      simNamespace.to(room).emit('mci:state:updated', { sessionCode, mciState })
+    })
+
+    socket.on('mci:decision:record', payload => {
+      const sessionCode = normalizeSessionCode(payload?.sessionCode)
+      const decision = normalizeMciDecision(payload?.decision)
+      const madeBy = normalizeOptionalText(payload?.madeBy)
+      const rationale = normalizeOptionalText(payload?.rationale, 300)
+
+      if (!sessionCode || !decision) {
+        emitError(socket, 'INVALID_PAYLOAD', 'sessionCode and a valid decision are required')
+        return
+      }
+
+      const session = inMemorySessionStore.getSession(sessionCode)
+      if (!session) {
+        emitError(socket, 'SESSION_NOT_FOUND', 'Session not found')
+        return
+      }
+
+      if (!session.mciState) {
+        emitError(socket, 'MCI_NOT_INITIALIZED', 'MCI state has not been initialized for this session')
+        return
+      }
+
+      const role = normalizeOptionalText(payload?.role)
+      const entry = inMemorySessionStore.recordMciDecision(sessionCode, { decision, madeBy, role, rationale })
+      const mciState = inMemorySessionStore.getMciState(sessionCode)
+
+      const room = `session:${sessionCode}`
+      simNamespace.to(room).emit('mci:decision:recorded', { sessionCode, entry, mciState })
+      simNamespace.to(room).emit('event:log:broadcast', {
+        actorRole: 'admin',
+        displayName: madeBy || 'Facilitator',
+        action: 'MCI Decision: ' + decision,
+        timestampIso: entry.timestamp,
+      })
+    })
 
     /** Update an in-memory action item's owner / dueDate / status (live session). */
     socket.on('session:action:update', payload => {

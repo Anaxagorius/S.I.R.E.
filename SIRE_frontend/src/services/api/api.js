@@ -156,3 +156,23 @@ export const fetchThreatIntelFeed = async (id) => {
 export const deleteIntegration = async (id) => {
     return apiClient.delete(`/integrations/${id}`);
 };
+
+/** Initialize MCI state for an EMS/medical session. */
+export const initMciState = async (sessionCode) => {
+    return apiClient.post(`/ems/sessions/${sessionCode}/mci/init`, {});
+};
+
+/** Retrieve current MCI state for a session. */
+export const getMciState = async (sessionCode) => {
+    return apiClient.get(`/ems/sessions/${sessionCode}/mci`);
+};
+
+/** Update MCI state for a session. */
+export const updateMciStateApi = async (sessionCode, updates) => {
+    return apiClient.put(`/ems/sessions/${sessionCode}/mci`, updates);
+};
+
+/** Generate HSEEP-aligned after-action report for a session. */
+export const getHseepReport = async (sessionCode) => {
+    return apiClient.get(`/ems/sessions/${sessionCode}/hseep-report`);
+};

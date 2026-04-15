@@ -21,6 +21,7 @@ import Analytics from "../screens/Analytics"
 import Onboarding from "../screens/Onboarding"
 import ActionTracker from "../screens/ActionTracker"
 import Integrations from "../screens/Integrations"
+import HseepReport from "../screens/HseepReport"
 import AdminRoute from "../components/AdminRoute"
 import ProtectedRoute from "../components/ProtectedRoute"
 
@@ -43,6 +44,7 @@ export default function AppRouter() {
             <Route path="/analytics" element={<AdminRoute><Analytics /></AdminRoute>} />
             <Route path="/action-tracker" element={<ActionTracker />} />
             <Route path="/integrations" element={<Integrations />} />
+            <Route path="/hseep-report" element={<AdminRoute><HseepReport /></AdminRoute>} />
         </Routes>
     );
 }

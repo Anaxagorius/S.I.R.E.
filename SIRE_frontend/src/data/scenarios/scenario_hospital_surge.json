@@ -1,0 +1,231 @@
+{
+  "title": "hospital_surge_management",
+  "description": "Regional trauma centre faces a 3x surge in patient volume following a multi-site mass casualty incident. Manage bed capacity, coordinate hospital diversion, and open an alternate care site.",
+  "category": "Medical",
+  "difficulty": "Advanced",
+  "tags": ["hospital", "surge", "MCI", "diversion", "incident commander", "alternate care"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Surge Notification",
+      "description": "Regional EMS dispatch notifies your trauma centre of a multi-site MCI — a building collapse and a bus crash occurring simultaneously. Estimated 60+ casualties inbound within 90 minutes.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "ED at Capacity",
+      "description": "Emergency Department reaches 100% capacity. Wait times exceed 4 hours. Three ambulances are holding in the bay unable to offload patients.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 2,
+      "title": "ICU Overflow",
+      "description": "ICU is full. Two ventilator-dependent patients cannot be transferred to step-down — all beds occupied. Surgeons report two critical MCI patients requiring ICU post-op.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 3,
+      "title": "Diversion Request",
+      "description": "Hospital B requests your facility go on diversion. Regional coordination centre asks for your current status and decision within 5 minutes.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 4,
+      "title": "Alternate Care Site Activation",
+      "description": "Community centre adjacent to the hospital is confirmed available as an alternate care site. Staff and supply deployment is pending your authorization.",
+      "timeOffsetSec": 300
+    },
+    {
+      "index": 5,
+      "title": "Mutual Aid Request",
+      "description": "Blood bank reports only a 4-hour supply of O-negative remaining. Regional health authority can dispatch an emergency resupply in 2 hours if requested immediately.",
+      "timeOffsetSec": 420
+    },
+    {
+      "index": 6,
+      "title": "Electives Cancelled",
+      "description": "OR scheduler requests direction on 8 elective surgeries scheduled for tomorrow. Cancelling frees 3 OR suites and 12 post-op beds.",
+      "timeOffsetSec": 540
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Initial Surge Response",
+      "situation": "You are the Hospital Incident Commander. EMS notifies you of a multi-site MCI generating 60+ casualties. Current ED occupancy is 85%. You have 30 minutes before the first wave arrives.",
+      "question": "What is your first action as hospital incident commander?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Activate the Hospital Emergency Operations Plan, declare an internal disaster, and convene the Incident Management Team immediately.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Wait for the first MCI patients to arrive before activating the emergency plan to avoid premature disruption.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Notify only the ED charge nurse and let front-line staff manage the influx without declaring an internal disaster.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Bed Capacity Management",
+      "situation": "Your bed coordinator reports 40 available beds system-wide: 20 ED, 8 ICU, 12 general ward. Surge projections indicate you need 60 beds within 2 hours.",
+      "question": "How do you create surge capacity?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Initiate a rapid patient flow review: discharge stable patients, cancel elective admissions, and convert conference rooms to overflow treatment areas.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Accept MCI patients into existing beds and address overcrowding as it develops.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Divert all MCI patients to other hospitals and keep your facility at current capacity.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hospital Diversion Decision",
+      "situation": "ED is now at 110% occupancy. Three ambulances are holding in the bay. Regional coordination is asking whether your facility should go on diversion. Hospital B can accept non-critical patients.",
+      "question": "What is your diversion decision?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Go on partial diversion: redirect ambulatory and minor-injury patients to Hospital B while maintaining capacity for critical MCI trauma patients at your trauma centre.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Refuse all diversion — your hospital must accept all patients regardless of capacity.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Go on full diversion, redirecting all incoming patients including critical trauma to other facilities.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Alternate Care Site Activation",
+      "situation": "The community centre is confirmed available as an alternate care site with capacity for 50 additional patients. Activation requires deploying nursing staff, portable equipment, and supplies.",
+      "question": "Do you activate the alternate care site and how?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorize activation immediately: deploy a physician lead, two nurses, portable monitoring, and medications formulary to the alternate site per the pre-established ACS protocol.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Wait to see if hospital surge resolves before activating the alternate care site.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Activate the alternate care site but staff it only with volunteers and no physician oversight.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Mutual Aid Request",
+      "situation": "Blood bank inventory is critically low — 4 hours of O-negative remaining. An emergency resupply is 2 hours away if requested now. The surgical team has 6 MCI patients requiring blood products.",
+      "question": "How do you manage the blood bank shortage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request the emergency resupply immediately, activate massive transfusion protocol, and notify surgeons to conserve O-negative for life-threatening haemorrhage only.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Continue using blood products at the current rate and reassess in 3 hours.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Suspend all surgeries until blood bank is restocked to avoid depleting the supply.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Elective Cancellation",
+      "situation": "OR scheduler is asking for direction on 8 elective procedures scheduled for tomorrow. Cancellation frees 3 OR suites and 12 post-op beds. Two of the electives are time-sensitive cancer surgeries.",
+      "question": "How do you handle elective cancellation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Cancel all discretionary electives, defer them to next week, and consult the surgical oncologist about the two cancer cases — only proceed if delay would cause significant patient harm.",
+          "outcome": { "type": "node", "target": "node-7" }
+        },
+        {
+          "label": "B",
+          "text": "Cancel all elective surgeries including the time-sensitive cancer cases without consultation.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Proceed with all elective procedures as scheduled and manage MCI patients with the remaining OR capacity.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-7": {
+      "title": "Supply Shortage Management",
+      "situation": "Ventilator supply is at capacity — 12 in use, 0 in reserve. Two MCI patients require mechanical ventilation. Logistics reports 3 ventilators can arrive in 4 hours from a regional cache.",
+      "question": "How do you manage the ventilator shortage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request the regional cache immediately, implement ventilator allocation criteria per the Crisis Standards of Care policy, and identify patients who may be weaned early.",
+          "outcome": { "type": "node", "target": "node-8" }
+        },
+        {
+          "label": "B",
+          "text": "Do nothing and allow ICU to manage the shortage independently without a formal allocation policy.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Transfer the two MCI patients requiring ventilation to another facility without first checking receiving capacity.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-8": {
+      "title": "Documentation and Demobilization",
+      "situation": "The surge has peaked. Patient flow is stabilizing. Alternate care site has accepted 35 patients. Blood resupply has arrived. Your team needs debriefing and documentation before demobilizing.",
+      "question": "What is your final step in the hospital surge response?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Conduct a hot debrief with incident management team, complete the incident log with timeline and decisions, and initiate a structured after-action review process per HSEEP guidelines.",
+          "outcome": { "type": "node", "target": "node-9" }
+        },
+        {
+          "label": "B",
+          "text": "Stand down the emergency operations immediately once patient volumes normalize without documentation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-9": {
+      "title": "Scenario Complete",
+      "situation": "Outstanding leadership. Your hospital successfully managed a 3x patient surge: activated the emergency operations plan, implemented partial diversion, opened an alternate care site, secured blood product resupply, and cancelled elective procedures appropriately. All critical decisions were documented for the after-action review.",
+      "question": "",
+      "options": []
+    }
+  }
+}

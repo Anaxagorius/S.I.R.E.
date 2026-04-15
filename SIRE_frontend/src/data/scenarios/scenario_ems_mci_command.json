@@ -1,0 +1,209 @@
+{
+  "title": "ems_mci_command",
+  "description": "A chemical plant explosion generates 40+ casualties requiring integrated EMS command. Activate the MCI plan, coordinate mutual aid, manage triage sectors, and liaise with hospitals.",
+  "category": "Medical",
+  "difficulty": "Advanced",
+  "tags": ["EMS", "MCI", "HAZMAT", "incident command", "mutual aid", "triage", "chemical"],
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Explosion Reported",
+      "description": "Dispatch reports an explosion at the Northgate Chemical Plant. Multiple callers report casualties and a visible chemical plume. First EMS unit is 4 minutes out.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "First Units On Scene",
+      "description": "First EMS supervisor arrives. Approximately 40 casualties visible in the parking lot. Several victims with chemical burns. Plant safety officer reports chlorine gas release.",
+      "timeOffsetSec": 40
+    },
+    {
+      "index": 2,
+      "title": "MCI Declared",
+      "description": "Incident commander declares an MCI. Triage sector established 200m upwind. 3 ambulances on scene, 6 more en route. HAZMAT team ETA 15 minutes.",
+      "timeOffsetSec": 90
+    },
+    {
+      "index": 3,
+      "title": "Mutual Aid Activated",
+      "description": "Two neighbouring EMS agencies request guidance on staging location and radio channel before committing resources. Hospital notifications are pending.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 4,
+      "title": "Hospital Notifications",
+      "description": "Regional trauma centre can accept 8 critical patients. District General can accept 12 moderate patients. A third hospital reports limited capacity and requests guidance on diversion.",
+      "timeOffsetSec": 270
+    },
+    {
+      "index": 5,
+      "title": "Supply Shortage",
+      "description": "Treatment sector reports critically low antidote supply — only 4 doses of hydroxocobalamin remaining for potential cyanide exposure from fire by-products. 8 patients show signs of cyanide toxicity.",
+      "timeOffsetSec": 380
+    },
+    {
+      "index": 6,
+      "title": "Scene Stabilization",
+      "description": "HAZMAT team confirms source is contained. Last critical patient being loaded. Media presence increasing. Documentation and demobilization planning required.",
+      "timeOffsetSec": 520
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "MCI Plan Activation",
+      "situation": "You are the EMS Incident Commander. You arrive at a chemical plant explosion with 40+ visible casualties and an ongoing chlorine gas release. Your two crew members are ready for orders.",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare an MCI, establish incident command upwind and uphill, transmit a METHANE report to dispatch, and request HAZMAT, fire, and additional EMS units before approaching casualties.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately enter the scene to begin triaging casualties and request help while treating patients.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait for HAZMAT to arrive and clear the scene before any EMS personnel approach casualties.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Triage Sector Establishment",
+      "situation": "The scene is now established with an upwind command post. You have 40 casualties and 3 ambulances. Triage teams are ready. Multiple casualties are self-evacuating toward your position.",
+      "question": "How do you structure the triage sector?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Designate a triage officer to direct START triage, establish colour-coded treatment areas (Red/Yellow/Green/Black), set a single entry point for ambulatory patients, and assign a treatment officer to each sector.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Have each ambulance crew triage independently and begin transport as patients are assessed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Treat all ambulatory (Green) patients first since they can communicate and it's faster.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Hospital Liaison",
+      "situation": "Triage complete: 9 Red, 14 Yellow, 15 Green, 2 Black. Three hospitals are awaiting your transport plan. Trauma centre can accept 8 critical, District General can accept 12 moderate, Community Hospital has limited capacity.",
+      "question": "How do you coordinate hospital distribution?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Assign a medical communications officer to notify all three hospitals with patient counts and ETAs: send 8 Red patients to trauma centre, 12 Yellow patients to District General, and advise Community Hospital to stand by for Green patients.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Send all critical patients to the closest hospital regardless of capacity.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Let each ambulance crew choose which hospital to use based on their preference.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Mutual Aid Coordination",
+      "situation": "Two neighbouring EMS agencies have arrived at the perimeter with 6 additional ambulances. They need a staging location, radio channel assignment, and task briefing before integration.",
+      "question": "How do you integrate the mutual aid units?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Brief the incoming unit supervisors at the command post: assign them to the staging area 300m from triage, assign a common radio channel, and integrate them into the transport rotation under the transport officer's direction.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Tell mutual aid units to self-integrate and begin transporting whatever patients they can reach.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Refuse mutual aid units until your own crews have completed transport of all Red patients.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Supply Management",
+      "situation": "Treatment sector reports only 4 doses of hydroxocobalamin remain, but 8 patients show signs of cyanide toxicity from fire by-products. Regional pharmacy can dispatch 6 additional doses in 45 minutes.",
+      "question": "How do you manage the antidote shortage?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Request the regional emergency pharmaceutical dispatch immediately, triage the 8 suspected cyanide patients by severity, administer antidote to the most critical 4, and initiate supportive care for the remaining patients pending resupply.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Distribute the 4 doses equally among all 8 patients (half doses each).",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Withhold all antidotes until confirmed lab results establish cyanide poisoning.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Public Information Officer Briefing",
+      "situation": "Media have gathered at the perimeter. Social media posts with incorrect casualty counts are circulating. The plant's communications manager is asking to speak to press. Your PIO has arrived.",
+      "question": "How do you manage public information?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Designate your PIO as the sole media contact, establish a press briefing point away from the command post, provide confirmed casualty counts and scene status only, and politely decline the plant's request to brief independently until a coordinated message is developed.",
+          "outcome": { "type": "node", "target": "node-7" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the plant communications manager to brief the media directly without coordination.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Issue no public statement until all casualties are transported and the scene is cleared.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-7": {
+      "title": "Documentation and Demobilization",
+      "situation": "HAZMAT has confirmed the source is contained. The last critical patient is being loaded. You need to complete the incident record and begin structured demobilization before releasing mutual aid resources.",
+      "question": "What are the final steps in your MCI command role?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Complete a full patient accounting against triage tags, record all decisions and timings in the incident log, conduct a hot debrief with sector officers, and release mutual aid units with written documentation of their contributions.",
+          "outcome": { "type": "node", "target": "node-8" }
+        },
+        {
+          "label": "B",
+          "text": "Release all resources immediately once the last ambulance departs and complete paperwork later.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-8": {
+      "title": "Scenario Complete",
+      "situation": "Excellent command performance. You successfully activated the MCI plan, established a structured incident command with designated sector officers, coordinated mutual aid integration, distributed 40+ patients across three hospitals based on acuity and capacity, managed a critical supply shortage, and ensured professional public information management. Your documentation will support a comprehensive HSEEP after-action review.",
+      "question": "",
+      "options": []
+    }
+  }
+}

@@ -36,6 +36,7 @@ export const inMemorySessionStore = {
       eventLog: [],
       /** Wall-clock ms when the session timeline was first started. */
       startedAtMs: null,
+      mciState: null,
     }
     sessionMap.set(sessionCode, record)
     return record
@@ -228,5 +229,59 @@ export const inMemorySessionStore = {
     if (!trainee) return null
     trainee.role = role
     return trainee
+  },
+  /** Initialize MCI state for an EMS/MCI session. */
+  initMciState: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    s.mciState = {
+      bedCapacity: { total: 100, available: 40, icu: 8, ed: 20 },
+      hospitalDiversion: { hospitalA: false, hospitalB: false, hospitalC: false },
+      ambulances: { total: 12, available: 4, dispatched: 6, returning: 2 },
+      supplies: { bloodBank: 'adequate', ventilators: 'adequate', medications: 'adequate' },
+      mciActivated: false,
+      alternateCareActivated: false,
+      mutualAidRequested: false,
+      electivesCancelled: false,
+      decisionLog: [],
+    }
+    return s.mciState
+  },
+  /** Return current MCI state for a session. */
+  getMciState: (sessionCode) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s) return null
+    return s.mciState
+  },
+  /** Merge whitelisted top-level updates into session.mciState (no deep merge). */
+  updateMciState: (sessionCode, updates) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s || !s.mciState) return null
+    const ALLOWED_MCI_KEYS = new Set(['bedCapacity', 'ambulances', 'supplies', 'hospitalDiversion'])
+    for (const key of ALLOWED_MCI_KEYS) {
+      if (Object.prototype.hasOwnProperty.call(updates, key)) {
+        s.mciState[key] = updates[key]
+      }
+    }
+    return s.mciState
+  },
+  /** Append a decision to mciState.decisionLog and flip boolean flags when applicable. */
+  recordMciDecision: (sessionCode, { decision, madeBy, role, rationale }) => {
+    const s = sessionMap.get(sessionCode)
+    if (!s || !s.mciState) return null
+    const entry = {
+      id: crypto.randomUUID(),
+      decision,
+      madeBy: madeBy || null,
+      role: role || null,
+      rationale: rationale || null,
+      timestamp: new Date().toISOString(),
+    }
+    s.mciState.decisionLog.push(entry)
+    if (decision === 'mci-activated') s.mciState.mciActivated = true
+    if (decision === 'alternate-care-activated') s.mciState.alternateCareActivated = true
+    if (decision === 'mutual-aid-requested') s.mciState.mutualAidRequested = true
+    if (decision === 'electives-cancelled') s.mciState.electivesCancelled = true
+    return entry
   },
 }
