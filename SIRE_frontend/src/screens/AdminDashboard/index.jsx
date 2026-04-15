@@ -16,9 +16,10 @@ import { io } from "socket.io-client";
 import AdminDashboardLayout from "../../layouts/AdminDashboardLayout";
 import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
-import { getScenarios, createSession } from "../../services/api/api";
+import { getScenarios, createSession, createActionTasks, getItsmIntegrations, pushToItsm } from "../../services/api/api";
 import { SOCKET_URL, SOCKET_API_KEY } from "../../services/socketConfig";
 import { accuracyColor, readinessLabel } from "../../utils/scoringUtils";
+import { getStandardsRef } from "../../utils/standardsMapping";
 
 /** Icon map keyed by scenario ID, used to enrich scenarios fetched from the API. */
 const SCENARIO_ICONS = {
@@ -126,6 +127,20 @@ export default function AdminDashboard() {
     /** Action items captured during the session. */
     const [actionItems, setActionItems] = useState([]);
 
+    /** Tracks which finding/action-item IDs have been pushed to the action tracker. */
+    const [pushedToTracker, setPushedToTracker] = useState(new Set());
+
+    /** Loading state while pushing findings to the action tracker. */
+    const [pushingToTracker, setPushingToTracker] = useState(false);
+
+    /** Feedback message shown after pushing to the action tracker. */
+    const [trackerPushMsg, setTrackerPushMsg] = useState(null);
+
+    /** ITSM integrations available for pushing evidence packs. */
+    const [itsmIntegrations, setItsmIntegrations] = useState([]);
+    const [itsmPushStatus, setItsmPushStatus] = useState(null); // null | 'pushing' | 'ok' | 'error'
+    const [itsmPushMessage, setItsmPushMessage] = useState("");
+
     /** State for the end-session confirmation modal. */
     const [showEndModal, setShowEndModal] = useState(false);
 
@@ -150,6 +165,21 @@ export default function AdminDashboard() {
             }
         }
         loadScenarios();
+        return () => { cancelled = true; };
+    }, []);
+
+    /** Fetch configured ITSM integrations on mount for the post-session push option. */
+    useEffect(() => {
+        let cancelled = false;
+        async function loadItsm() {
+            try {
+                const data = await getItsmIntegrations();
+                if (!cancelled) setItsmIntegrations(data.filter(integration => integration.isEnabled));
+            } catch {
+                // Non-critical — silently ignore if integrations endpoint not reachable
+            }
+        }
+        loadItsm();
         return () => { cancelled = true; };
     }, []);
 
@@ -196,6 +226,10 @@ export default function AdminDashboard() {
 
         socket.on("action:item:broadcast", (payload) => {
             if (payload.item) setActionItems((prev) => [...prev, payload.item]);
+        });
+
+        socket.on("action:items:updated", (payload) => {
+            if (payload.actionItems) setActionItems(payload.actionItems);
         });
 
         socket.on("session:paused", () => {
@@ -312,6 +346,8 @@ export default function AdminDashboard() {
         setQueueApprovalRole("");
         setEditingInjectId(null);
         setActionItems([]);
+        setPushedToTracker(new Set());
+        setTrackerPushMsg(null);
     }
 
     /** Function that opens the end-session confirmation modal. */
@@ -368,6 +404,53 @@ export default function AdminDashboard() {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    }
+
+    /** Build the session snapshot payload shared by export and ITSM push. */
+    function buildSessionSnapshot() {
+        return {
+            sessionCode,
+            scenarioName,
+            exportedAt: new Date().toISOString(),
+            participants: trainees.map((t) => ({
+                displayName: t.displayName,
+                role: t.role || null,
+                score: traineeScores.get(t.displayName)?.score ?? 0,
+                decisions: traineeScores.get(t.displayName)?.decisions ?? 0,
+            })),
+            actionItems,
+            injectLog: injectQueue.map((inj) => ({
+                id: inj.id,
+                message: inj.message,
+                severity: inj.severity,
+                channel: inj.channel,
+                pressureType: inj.pressureType,
+                roleFilter: inj.roleFilter,
+                releasedAt: inj.releasedAt,
+                deliveryLog: inj.deliveryLog || [],
+                acknowledgements: inj.acknowledgements || [],
+            })),
+            eventLog,
+        };
+    }
+
+    /** Push the session evidence pack to a configured ITSM integration. */
+    async function handlePushToItsm(integrationId) {
+        setItsmPushStatus("pushing");
+        setItsmPushMessage("");
+        try {
+            const result = await pushToItsm(integrationId, buildSessionSnapshot());
+            if (result.success) {
+                setItsmPushStatus("ok");
+                setItsmPushMessage(`Evidence pack pushed (HTTP ${result.statusCode}).`);
+            } else {
+                setItsmPushStatus("error");
+                setItsmPushMessage(`Push returned HTTP ${result.statusCode} ${result.statusText}.`);
+            }
+        } catch (err) {
+            setItsmPushStatus("error");
+            setItsmPushMessage(err.message || "Push failed.");
+        }
     }
 
     /** Function that sends an admin inject event via Socket.IO. */
@@ -447,6 +530,95 @@ export default function AdminDashboard() {
     function handleAssignRole(displayName, role) {
         if (!socketRef.current || !sessionCode) return;
         socketRef.current.emit("admin:role:assign", { sessionCode, displayName, role });
+    }
+
+    /** Push a single finding (incorrect decision) to the persistent action tracker. */
+    async function handlePushFinding(entry) {
+        if (pushedToTracker.has(entry._findingKey)) return;
+        setPushingToTracker(true);
+        setTrackerPushMsg(null);
+        try {
+            const standardsRef = getStandardsRef(scenarioKey);
+            await createActionTasks({
+                text: `[Finding] ${entry.description}`,
+                sessionCode: sessionCode || "",
+                scenarioKey: scenarioKey || "",
+                source: "aar_finding",
+                standardsRef,
+                status: "open",
+            });
+            setPushedToTracker(prev => new Set([...prev, entry._findingKey]));
+            setTrackerPushMsg("Finding pushed to Action Tracker ✓");
+        } catch {
+            setTrackerPushMsg("Failed to push finding. Please try again.");
+        } finally {
+            setPushingToTracker(false);
+        }
+    }
+
+    /** Push all unpushed findings (incorrect decisions) to the persistent action tracker. */
+    async function handlePushAllFindings(findings) {
+        const unpushed = findings.filter(f => !pushedToTracker.has(f._findingKey));
+        if (unpushed.length === 0) return;
+        setPushingToTracker(true);
+        setTrackerPushMsg(null);
+        try {
+            const standardsRef = getStandardsRef(scenarioKey);
+            const tasks = unpushed.map(f => ({
+                text: `[Finding] ${f.description}`,
+                sessionCode: sessionCode || "",
+                scenarioKey: scenarioKey || "",
+                source: "aar_finding",
+                standardsRef,
+                status: "open",
+            }));
+            await createActionTasks(tasks);
+            setPushedToTracker(prev => {
+                const next = new Set(prev);
+                unpushed.forEach(f => next.add(f._findingKey));
+                return next;
+            });
+            setTrackerPushMsg(`${unpushed.length} finding(s) pushed to Action Tracker ✓`);
+        } catch {
+            setTrackerPushMsg("Failed to push findings. Please try again.");
+        } finally {
+            setPushingToTracker(false);
+        }
+    }
+
+    /** Push all session action items to the persistent action tracker. */
+    async function handlePushActionItems() {
+        if (actionItems.length === 0) return;
+        const unpushed = actionItems.filter(item => !pushedToTracker.has(`action-${item.id}`));
+        if (unpushed.length === 0) {
+            setTrackerPushMsg("All action items already pushed ✓");
+            return;
+        }
+        setPushingToTracker(true);
+        setTrackerPushMsg(null);
+        try {
+            const standardsRef = getStandardsRef(scenarioKey);
+            const tasks = unpushed.map(item => ({
+                text: item.text,
+                sessionCode: sessionCode || "",
+                scenarioKey: scenarioKey || "",
+                source: "aar_action",
+                owner: item.assignedTo || item.owner || null,
+                standardsRef,
+                status: "open",
+            }));
+            await createActionTasks(tasks);
+            setPushedToTracker(prev => {
+                const next = new Set(prev);
+                unpushed.forEach(item => next.add(`action-${item.id}`));
+                return next;
+            });
+            setTrackerPushMsg(`${unpushed.length} action item(s) pushed to Action Tracker ✓`);
+        } catch {
+            setTrackerPushMsg("Failed to push action items. Please try again.");
+        } finally {
+            setPushingToTracker(false);
+        }
     }
 
 
@@ -882,6 +1054,15 @@ export default function AdminDashboard() {
                 const activeTrainees = new Set(traineeDecisions.map(e => e.displayName)).size;
                 const participationRate = trainees.length > 0 ? (activeTrainees / trainees.length * 100).toFixed(0) : null;
 
+                // Findings = incorrect decisions, tagged with a stable key for push-tracking
+                const findings = eventLog
+                    .filter(e => e.actorRole === "trainee" && e.isCorrect === false)
+                    .map((e, idx) => ({ ...e, _findingKey: `finding-${idx}-${e.displayName}` }));
+
+                // Standards reference for this scenario
+                const standardsRef = getStandardsRef(scenarioKey);
+                const unpushedFindings = findings.filter(f => !pushedToTracker.has(f._findingKey));
+
                 // Role-based scorecard
                 const roleScores = {};
                 for (const t of trainees) {
@@ -925,6 +1106,67 @@ export default function AdminDashboard() {
                             <div className="kpi-label">Total Decisions</div>
                             <div className="kpi-value">{traineeDecisions.length}</div>
                         </div>
+                    </div>
+
+                    {/** ─── FINDINGS LIST (AAR → Action Tracker) ─── */}
+                    <div className="dashboard-card">
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "0.5rem" }}>
+                            <div>
+                                <h3>Findings ({findings.length})</h3>
+                                <p style={{ fontSize: "0.82rem", opacity: 0.7, marginTop: "0.2rem" }}>
+                                    Incorrect decisions from this exercise. Push to the Action Tracker to assign owners and due dates.
+                                </p>
+                            </div>
+                            {findings.length > 0 && (
+                                <button
+                                    onClick={() => handlePushAllFindings(findings)}
+                                    disabled={pushingToTracker || unpushedFindings.length === 0}
+                                    style={{ fontSize: "0.82rem", padding: "0.35rem 0.75rem", cursor: unpushedFindings.length === 0 ? "default" : "pointer", background: "rgba(80,160,255,0.15)", border: "1px solid rgba(80,160,255,0.4)", borderRadius: "6px", color: "rgb(120,190,255)", opacity: unpushedFindings.length === 0 ? 0.5 : 1 }}
+                                >
+                                    {unpushedFindings.length === 0 ? "✓ All pushed" : `Push All ${unpushedFindings.length} to Tracker`}
+                                </button>
+                            )}
+                        </div>
+
+                        {/** Standards alignment note */}
+                        {findings.length > 0 && (
+                            <div style={{ marginTop: "0.5rem", marginBottom: "0.75rem", fontSize: "0.78rem", opacity: 0.75, padding: "0.5rem 0.75rem", background: "rgba(80,160,255,0.06)", borderRadius: "6px", border: "1px solid rgba(80,160,255,0.15)" }}>
+                                <strong>Standards Alignment:</strong> {standardsRef}
+                            </div>
+                        )}
+
+                        {trackerPushMsg && (
+                            <div style={{ marginBottom: "0.5rem", fontSize: "0.82rem", color: trackerPushMsg.includes("Failed") ? "rgb(255,80,80)" : "rgb(80,220,80)" }}>
+                                {trackerPushMsg}
+                            </div>
+                        )}
+
+                        {findings.length === 0 ? (
+                            <p style={{ opacity: 0.6, fontSize: "0.85rem" }}>No incorrect decisions recorded — great performance!</p>
+                        ) : (
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: "0.85rem" }}>
+                                {findings.map((f) => {
+                                    const pushed = pushedToTracker.has(f._findingKey);
+                                    return (
+                                        <li key={f._findingKey} style={{ padding: "0.45rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
+                                            <div>
+                                                <span style={{ opacity: 0.7 }}>[{f.time}]</span>
+                                                <span className="role-badge" style={{ marginLeft: "0.4rem", marginRight: "0.4rem" }}>{f.displayName}</span>
+                                                <span style={{ color: "rgb(255,100,100)" }}>❌</span>
+                                                <span style={{ marginLeft: "0.4rem" }}>{f.description}</span>
+                                            </div>
+                                            <button
+                                                onClick={() => handlePushFinding(f)}
+                                                disabled={pushed || pushingToTracker}
+                                                style={{ flexShrink: 0, fontSize: "0.75rem", padding: "0.2rem 0.55rem", cursor: pushed ? "default" : "pointer", background: pushed ? "rgba(80,220,80,0.1)" : "rgba(80,160,255,0.12)", border: `1px solid ${pushed ? "rgba(80,220,80,0.3)" : "rgba(80,160,255,0.3)"}`, borderRadius: "4px", color: pushed ? "rgb(80,220,80)" : "rgb(120,190,255)", opacity: pushed ? 0.7 : 1 }}
+                                            >
+                                                {pushed ? "✓ Pushed" : "Push to Tracker"}
+                                            </button>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
                     </div>
 
                     <div className="dashboard-card">
@@ -993,20 +1235,36 @@ export default function AdminDashboard() {
                         </div>
                     )}
 
+                    {/** Action items captured during the session — push to tracker */}
                     {actionItems.length > 0 && (
                         <div className="dashboard-card">
-                            <h3>Action Items ({actionItems.length})</h3>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                                <h3 style={{ margin: 0 }}>Action Items ({actionItems.length})</h3>
+                                <button
+                                    onClick={handlePushActionItems}
+                                    disabled={pushingToTracker || actionItems.every(item => pushedToTracker.has(`action-${item.id}`))}
+                                    style={{ fontSize: "0.82rem", padding: "0.3rem 0.65rem", cursor: "pointer", background: "rgba(80,160,255,0.15)", border: "1px solid rgba(80,160,255,0.4)", borderRadius: "6px", color: "rgb(120,190,255)" }}
+                                >
+                                    Push to Action Tracker
+                                </button>
+                            </div>
                             <ul style={{ listStyle: "none", padding: 0, margin: 0, fontSize: "0.85rem" }}>
-                                {actionItems.map((item, i) => (
-                                    <li key={item.id || i} style={{ padding: "0.4rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                                        <span style={{ opacity: 0.7 }}>[{new Date(item.timestampIso).toLocaleTimeString()}]</span>
-                                        {item.role && <span className="role-badge" style={{ marginLeft: "0.4rem", marginRight: "0.4rem" }}>{item.role}</span>}
-                                        <strong>{item.capturedBy}</strong>
-                                        {": "}
-                                        {item.text}
-                                        {item.assignedTo && <span style={{ opacity: 0.7, marginLeft: "0.4rem" }}>→ {item.assignedTo}</span>}
-                                    </li>
-                                ))}
+                                {actionItems.map((item, i) => {
+                                    const pushed = pushedToTracker.has(`action-${item.id}`);
+                                    return (
+                                        <li key={item.id || i} style={{ padding: "0.4rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
+                                            <div>
+                                                <span style={{ opacity: 0.7 }}>[{new Date(item.timestampIso).toLocaleTimeString()}]</span>
+                                                {item.role && <span className="role-badge" style={{ marginLeft: "0.4rem", marginRight: "0.4rem" }}>{item.role}</span>}
+                                                <strong>{item.capturedBy}</strong>
+                                                {": "}
+                                                {item.text}
+                                                {item.assignedTo && <span style={{ opacity: 0.7, marginLeft: "0.4rem" }}>→ {item.assignedTo}</span>}
+                                            </div>
+                                            {pushed && <span style={{ fontSize: "0.75rem", color: "rgb(80,220,80)", flexShrink: 0 }}>✓ Pushed</span>}
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
                     )}
@@ -1058,9 +1316,37 @@ export default function AdminDashboard() {
                     <div className="session-actions">
                         <Button text="Start New Session" onClick={handleStartNewSession} />
                         <Button text="View Analytics" onClick={() => navigate("/analytics")} />
+                        <Button text="Action Tracker" onClick={() => navigate("/action-tracker")} />
                         <Button text="Return to Home" onClick={() => navigate("/")} />
                         <Button text="Export Results" onClick={handleExportResults} />
                     </div>
+
+                    {/** ITSM push — only shown when at least one ITSM integration is configured. */}
+                    {itsmIntegrations.length > 0 && (
+                        <div className="dashboard-card" style={{ marginTop: "0.75rem" }}>
+                            <h3>📤 Push Evidence Pack to ITSM</h3>
+                            <p style={{ fontSize: "0.85rem", color: "var(--color-text-muted)", marginBottom: "0.75rem" }}>
+                                Send the full session findings (participants, action items, decisions, KPIs) to your
+                                configured ITSM or incident management platform.
+                            </p>
+                            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                                {itsmIntegrations.map(integration => (
+                                    <Button
+                                        key={integration.id}
+                                        text={itsmPushStatus === "pushing" ? "Pushing…" : `Push to ${integration.name}`}
+                                        onClick={() => handlePushToItsm(integration.id)}
+                                        disabled={itsmPushStatus === "pushing"}
+                                    />
+                                ))}
+                            </div>
+                            {itsmPushStatus === "ok" && (
+                                <p style={{ color: "rgb(80,220,80)", fontSize: "0.85rem", marginTop: "0.5rem" }}>✅ {itsmPushMessage}</p>
+                            )}
+                            {itsmPushStatus === "error" && (
+                                <p style={{ color: "rgb(255,100,100)", fontSize: "0.85rem", marginTop: "0.5rem" }}>❌ {itsmPushMessage}</p>
+                            )}
+                        </div>
+                    )}
                 </div>
                 );
             })()}

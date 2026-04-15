@@ -1,0 +1,147 @@
+/**
+ * Styles for the Integrations screen.
+ */
+
+/* ─── Tab navigation ─────────────────────────────────────────────────── */
+.integration-tabs {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.25rem;
+}
+
+.integration-tab {
+    background: var(--color-surface, #1e1e2e);
+    color: var(--color-text-muted, rgba(255,255,255,0.55));
+    border: 1px solid var(--color-border-mid, rgba(255,255,255,0.12));
+    border-radius: 6px;
+    padding: 0.45rem 1rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.integration-tab:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--color-text, #fff);
+}
+
+.integration-tab.active {
+    background: rgba(80,140,255,0.15);
+    border-color: rgba(80,140,255,0.45);
+    color: rgb(160,200,255);
+    font-weight: 600;
+}
+
+/* ─── Integration card ───────────────────────────────────────────────── */
+.integration-card {
+    padding: 1rem 1.1rem;
+}
+
+.integration-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.4rem;
+}
+
+.integration-actions {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.integration-url {
+    font-size: 0.78rem;
+    color: var(--color-text-muted, rgba(255,255,255,0.45));
+    word-break: break-all;
+    margin: 0;
+}
+
+/* ─── Platform / feed badge ──────────────────────────────────────────── */
+.platform-badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    background: rgba(80,140,255,0.12);
+    color: rgb(140,180,255);
+    border: 1px solid rgba(80,140,255,0.2);
+    vertical-align: middle;
+}
+
+/* ─── Status badge ───────────────────────────────────────────────────── */
+.status-badge {
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+/* ─── Integration form ───────────────────────────────────────────────── */
+.integration-form .form-group {
+    margin-bottom: 0.75rem;
+}
+
+.integration-form .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--color-text-muted, rgba(255,255,255,0.6));
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+.integration-form input[type="text"],
+.integration-form input[type="url"],
+.integration-form input[type="password"],
+.integration-form select {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--color-surface, #1e1e2e);
+    color: inherit;
+    border: 1px solid var(--color-border-mid, rgba(255,255,255,0.12));
+    border-radius: 4px;
+    padding: 0.4rem 0.55rem;
+    font-size: 0.88rem;
+}
+
+.integration-form input:focus,
+.integration-form select:focus {
+    outline: none;
+    border-color: rgba(80,140,255,0.5);
+}
+
+/* ─── Feed preview ───────────────────────────────────────────────────── */
+.feed-preview {
+    margin-top: 0.75rem;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 0.65rem 0.8rem;
+}
+
+.feed-preview-content {
+    font-family: "Fira Code", "Courier New", monospace;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: rgb(160,220,160);
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 0;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+/* ─── Danger button variant ──────────────────────────────────────────── */
+.filter-btn.danger {
+    border-color: rgba(200,50,50,0.4);
+    color: rgb(255,120,120);
+}
+
+.filter-btn.danger:hover {
+    background: rgba(200,50,50,0.12);
+}

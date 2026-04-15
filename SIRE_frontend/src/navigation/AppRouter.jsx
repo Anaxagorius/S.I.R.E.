@@ -19,6 +19,8 @@ import Demo from "../screens/Demo"
 import ScenarioBuilder from "../screens/ScenarioBuilder"
 import Analytics from "../screens/Analytics"
 import Onboarding from "../screens/Onboarding"
+import ActionTracker from "../screens/ActionTracker"
+import Integrations from "../screens/Integrations"
 import AdminRoute from "../components/AdminRoute"
 import ProtectedRoute from "../components/ProtectedRoute"
 
@@ -34,12 +36,13 @@ export default function AppRouter() {
             <Route path="/join-session" element={<JoinSession />} />
             <Route path="/trainee-interface" element={<TraineeInterface />} />
             <Route path="/demo" element={<Demo />} />
-
             {/** Routes requiring admin or facilitator role. */}
             <Route path="/create-session" element={<AdminRoute><CreateSession /></AdminRoute>} />
             <Route path="/admin-dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             <Route path="/scenario-builder" element={<AdminRoute><ScenarioBuilder /></AdminRoute>} />
             <Route path="/analytics" element={<AdminRoute><Analytics /></AdminRoute>} />
+            <Route path="/action-tracker" element={<ActionTracker />} />
+            <Route path="/integrations" element={<Integrations />} />
         </Routes>
     );
 }

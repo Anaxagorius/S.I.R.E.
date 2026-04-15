@@ -1,0 +1,175 @@
+/**
+ * Styles for the ActionTracker screen.
+ */
+
+/* ─── KPI summary bar ──────────────────────────────────────────────────── */
+.at-kpi-bar {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+.at-kpi {
+    background: var(--color-surface, rgba(255,255,255,0.05));
+    border: 1px solid var(--color-border-mid, rgba(255,255,255,0.1));
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    min-width: 90px;
+    text-align: center;
+}
+.at-kpi-value {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.at-kpi-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.6;
+    margin-top: 0.25rem;
+}
+
+/* ─── Filter bar ────────────────────────────────────────────────────────── */
+.at-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+}
+
+/* ─── Task table ────────────────────────────────────────────────────────── */
+.at-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+.at-table th {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgb(80, 80, 80);
+    text-align: left;
+    color: var(--color-text-muted, rgba(255,255,255,0.5));
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgba(255,255,255,0.02);
+}
+.at-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    vertical-align: middle;
+}
+.at-table tbody tr:hover {
+    background: rgba(255,255,255,0.02);
+}
+.at-row-overdue td {
+    background: rgba(255,80,80,0.04);
+}
+.at-row-closed td {
+    opacity: 0.6;
+}
+
+/* ─── Source badge ──────────────────────────────────────────────────────── */
+.at-source-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 99px;
+    border: 1px solid rgba(255,255,255,0.2);
+    opacity: 0.75;
+    white-space: nowrap;
+}
+
+/* ─── Status badge ──────────────────────────────────────────────────────── */
+.at-status-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ─── Standards tags ────────────────────────────────────────────────────── */
+.at-cell-standards {
+    max-width: 200px;
+}
+.at-standards-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 0.1rem 0.4rem;
+    margin: 0.1rem 0.15rem 0.1rem 0;
+    border-radius: 4px;
+    background: rgba(80,160,255,0.12);
+    border: 1px solid rgba(80,160,255,0.25);
+    color: rgb(120,190,255);
+    white-space: nowrap;
+}
+
+/* ─── Cell: text ────────────────────────────────────────────────────────── */
+.at-cell-text {
+    max-width: 320px;
+    word-break: break-word;
+}
+
+/* ─── Action buttons ────────────────────────────────────────────────────── */
+.at-cell-actions {
+    white-space: nowrap;
+}
+.at-btn {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-right: 0.25rem;
+    transition: opacity 0.15s;
+}
+.at-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+.at-btn-edit {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.15);
+    color: inherit;
+}
+.at-btn-edit:hover:not(:disabled) {
+    background: rgba(255,255,255,0.1);
+}
+.at-btn-close {
+    background: rgba(80,220,80,0.1);
+    border-color: rgba(80,220,80,0.3);
+    color: rgb(80,220,80);
+}
+.at-btn-close:hover:not(:disabled) {
+    background: rgba(80,220,80,0.18);
+}
+.at-btn-save {
+    background: rgba(80,160,255,0.15);
+    border-color: rgba(80,160,255,0.4);
+    color: rgb(120,190,255);
+}
+.at-btn-save:hover:not(:disabled) {
+    background: rgba(80,160,255,0.25);
+}
+.at-btn-cancel {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.12);
+    color: inherit;
+}
+.at-btn-cancel:hover:not(:disabled) {
+    background: rgba(255,255,255,0.08);
+}
+
+/* ─── Inline edit inputs ────────────────────────────────────────────────── */
+.at-inline-input {
+    background: var(--color-surface, rgba(255,255,255,0.06));
+    color: inherit;
+    border: 1px solid var(--color-border-mid, rgba(255,255,255,0.15));
+    border-radius: 4px;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.82rem;
+    width: 100%;
+    min-width: 80px;
+}
