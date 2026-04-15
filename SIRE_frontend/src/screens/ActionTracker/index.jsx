@@ -154,7 +154,7 @@ export default function ActionTracker() {
 
     return (
         <AdminDashboardLayout>
-            <BackButton to="/" />
+            <BackButton to="/admin" />
 
             <div className="dashboard-card">
                 <h2>Action Tracker</h2>

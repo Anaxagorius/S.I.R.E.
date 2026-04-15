@@ -59,7 +59,7 @@ export default function CreateSession() {
         <CreateSessionLayout>
 
             {/** Back navigation. */}
-            <BackButton to="/" />
+            <BackButton to="/admin" />
 
             {/** Category filter bar. */}
             <div className="filter-bar">
