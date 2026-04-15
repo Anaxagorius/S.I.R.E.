@@ -147,13 +147,15 @@ export default function AdminDashboard() {
     /** MCI state for EMS/Medical scenarios. */
     const [mciState, setMciState] = useState(null);
     const [mciInitializing, setMciInitializing] = useState(false);
+    const [mciInitError, setMciInitError] = useState(null);
 
-    const isMedicalScenario = scenarioKey && (
-        scenarioKey.includes('mass_casualty') ||
-        scenarioKey.includes('hospital_surge') ||
-        scenarioKey.includes('ems_mci') ||
-        scenarioKey.includes('medical')
-    );
+    /** True when the active scenario belongs to the Medical category. */
+    const isMedicalScenario = scenarioKey
+        ? (scenarios.find(s => s.id === scenarioKey)?.category === "Medical") ||
+          scenarioKey === "scenario_mass_casualty" ||
+          scenarioKey === "scenario_hospital_surge" ||
+          scenarioKey === "scenario_ems_mci_command"
+        : false;
 
     /** Fetch the available scenarios from the backend on mount. */
     useEffect(() => {
@@ -369,6 +371,7 @@ export default function AdminDashboard() {
         setTrackerPushMsg(null);
         setMciState(null);
         setMciInitializing(false);
+        setMciInitError(null);
     }
 
     /** Function that opens the end-session confirmation modal. */
@@ -645,11 +648,12 @@ export default function AdminDashboard() {
 
     async function handleInitMci() {
         setMciInitializing(true);
+        setMciInitError(null);
         try {
             const state = await initMciState(sessionCode);
             setMciState(state);
-        } catch {
-            // ignore
+        } catch (err) {
+            setMciInitError(err.message || "Failed to initialize MCI state. Please try again.");
         } finally {
             setMciInitializing(false);
         }
@@ -851,6 +855,7 @@ export default function AdminDashboard() {
                             {!mciState ? (
                                 <div>
                                     <p style={{ opacity: 0.7, fontSize: "0.85rem" }}>MCI state tracking not initialized for this session.</p>
+                                    {mciInitError && <p style={{ color: "rgb(255,80,80)", fontSize: "0.82rem" }}>{mciInitError}</p>}
                                     <Button text={mciInitializing ? "Initializing…" : "Initialize MCI State"} onClick={handleInitMci} disabled={mciInitializing} />
                                 </div>
                             ) : (

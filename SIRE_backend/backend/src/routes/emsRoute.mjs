@@ -22,6 +22,8 @@ router.get('/ems/sessions/:sessionCode/mci', (req, res) => {
   const session = inMemorySessionStore.getSession(sessionCode)
   if (!session) return res.status(404).json({ error: 'SESSION_NOT_FOUND' })
 
+  if (!session.mciState) return res.status(409).json({ error: 'MCI_NOT_INITIALIZED' })
+
   return res.json(session.mciState)
 })
 

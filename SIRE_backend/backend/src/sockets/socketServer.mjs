@@ -171,6 +171,21 @@ const normalizeAllowedOrigins = (value) => {
     .filter(Boolean);
 };
 
+const ALLOWED_MCI_DECISIONS = new Set([
+  'mci-activated',
+  'alternate-care-activated',
+  'mutual-aid-requested',
+  'electives-cancelled',
+  'hospital-diversion',
+  'other',
+])
+
+const normalizeMciDecision = (value) => {
+  if (!value || typeof value !== 'string') return null
+  const lowered = value.trim().toLowerCase()
+  return ALLOWED_MCI_DECISIONS.has(lowered) ? lowered : null
+}
+
 export function attachSocketServer(httpServer, logger) {
   const allowedOrigins = normalizeAllowedOrigins(environmentConfig.allowedOrigins);
   const allowAllOrigins = allowedOrigins.includes('*');
@@ -1035,21 +1050,6 @@ export function attachSocketServer(httpServer, logger) {
         correlationId: generateRandomUuid()
       });
     });
-
-    const ALLOWED_MCI_DECISIONS = new Set([
-      'mci-activated',
-      'alternate-care-activated',
-      'mutual-aid-requested',
-      'electives-cancelled',
-      'hospital-diversion',
-      'other',
-    ])
-
-    const normalizeMciDecision = (value) => {
-      if (!value || typeof value !== 'string') return null
-      const lowered = value.trim().toLowerCase()
-      return ALLOWED_MCI_DECISIONS.has(lowered) ? lowered : null
-    }
 
     socket.on('mci:state:update', payload => {
       const sessionCode = normalizeSessionCode(payload?.sessionCode)

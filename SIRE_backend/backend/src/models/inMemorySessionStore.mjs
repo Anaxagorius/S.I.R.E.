@@ -253,12 +253,15 @@ export const inMemorySessionStore = {
     if (!s) return null
     return s.mciState
   },
-  /** Merge top-level updates into session.mciState (no deep merge). */
+  /** Merge whitelisted top-level updates into session.mciState (no deep merge). */
   updateMciState: (sessionCode, updates) => {
     const s = sessionMap.get(sessionCode)
     if (!s || !s.mciState) return null
-    for (const [key, value] of Object.entries(updates)) {
-      s.mciState[key] = value
+    const ALLOWED_MCI_KEYS = new Set(['bedCapacity', 'ambulances', 'supplies', 'hospitalDiversion'])
+    for (const key of ALLOWED_MCI_KEYS) {
+      if (Object.prototype.hasOwnProperty.call(updates, key)) {
+        s.mciState[key] = updates[key]
+      }
     }
     return s.mciState
   },
