@@ -118,6 +118,9 @@ export const requireAuth = (req, res, next) => {
  * one of the specified system roles ('admin', 'facilitator', 'participant').
  * Must be used after requireAuth.
  *
+ * Users with the 'admin' role always pass this check regardless of which roles
+ * are listed, granting admins full access to all protected endpoints.
+ *
  * @param {...string} roles - one or more allowed role strings
  */
 export const requireRole = (...roles) => (req, res, next) => {
