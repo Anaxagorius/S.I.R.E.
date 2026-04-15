@@ -35,6 +35,9 @@ export default function Home() {
             {/** Navigation button — ITSM and threat intel integrations. */}
             <Button text="Integrations" to="/integrations" />
 
+            {/** Navigation button — persistent action-task tracker for improvement findings. */}
+            <Button text="Action Tracker" to="/action-tracker" />
+
             {/** Main carousel content — rendered in the right panel by HomeLayout. */}
             <HomeCarousel />
         </HomeLayout>
