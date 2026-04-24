@@ -305,6 +305,16 @@ import scenarioPhysicalStudentConflict from "./scenarios/scenario_physical_stude
 import scenarioClassroomLockdown from "./scenarios/scenario_classroom_lockdown.json";
 import scenarioSubstituteManagement from "./scenarios/scenario_substitute_management.json";
 
+// Banking IT
+import scenarioBankPrinterOffline from "./scenarios/scenario_bank_printer_offline.json";
+import scenarioBankPrinterAddConfigure from "./scenarios/scenario_bank_printer_add_configure.json";
+import scenarioBankMambuLoginFailure from "./scenarios/scenario_bank_mambu_login_failure.json";
+import scenarioBankMambuTransactionError from "./scenarios/scenario_bank_mambu_transaction_error.json";
+import scenarioBankMambuIntegrationFailure from "./scenarios/scenario_bank_mambu_integration_failure.json";
+import scenarioBankCoreBankingOutage from "./scenarios/scenario_bank_core_banking_outage.json";
+import scenarioBankInternetBankingDown from "./scenarios/scenario_bank_internet_banking_down.json";
+import scenarioBankAtmSoftwareFault from "./scenarios/scenario_bank_atm_software_fault.json";
+
 /** All demo scenarios with display metadata and bundled scenario data. */
 const DEMO_SCENARIOS = [
     // ── Physical / Environmental ─────────────────────────────────────────────
@@ -2059,6 +2069,64 @@ const DEMO_SCENARIOS = [
         name: "Substitute Teacher Management Challenges",
         description: "A substitute teacher faces severe classroom management challenges with students testing limits — they must de-escalate, establish authority, and escalate appropriately when needed.",
         data: scenarioSubstituteManagement,
+    },
+
+    // ── Banking IT ────────────────────────────────────────────────────────────
+    {
+        id: "scenario_bank_printer_offline",
+        icon: "🖨️",
+        name: "Bank Branch Printer Offline",
+        description: "A network printer at a bank branch goes offline during peak hours, preventing tellers from printing transaction receipts and loan documents. IT must diagnose the IP conflict and restore service.",
+        data: scenarioBankPrinterOffline,
+    },
+    {
+        id: "scenario_bank_printer_add_configure",
+        icon: "🖨️",
+        name: "Adding a Printer at a Bank Branch",
+        description: "IT deploys, configures, and securely installs a new network printer at a bank branch — covering static IP assignment, driver selection, AD access controls, secure print PIN, Group Policy deployment, and compliant decommissioning of the old device.",
+        data: scenarioBankPrinterAddConfigure,
+    },
+    {
+        id: "scenario_bank_mambu_login_failure",
+        icon: "🏦",
+        name: "Mambu SSO Login Failure",
+        description: "An expired SAML signing certificate breaks the Azure AD SSO integration with Mambu, blocking all staff from accessing the core banking platform at branch opening time.",
+        data: scenarioBankMambuLoginFailure,
+    },
+    {
+        id: "scenario_bank_mambu_transaction_error",
+        icon: "💳",
+        name: "Mambu Transaction Posting Error",
+        description: "Tellers across multiple branches cannot post loan repayments in Mambu — a missing General Ledger account mapping on a newly launched loan product causes every transaction to fail, risking end-of-day reconciliation.",
+        data: scenarioBankMambuTransactionError,
+    },
+    {
+        id: "scenario_bank_mambu_integration_failure",
+        icon: "🔗",
+        name: "Mambu Credit Bureau Integration Failure",
+        description: "Mambu's webhook integration with the credit scoring engine stops returning decisions after the API key expires. Loan officers cannot complete credit assessments and 47 applications accumulate in the queue.",
+        data: scenarioBankMambuIntegrationFailure,
+    },
+    {
+        id: "scenario_bank_core_banking_outage",
+        icon: "🏛️",
+        name: "Core Banking System Outage",
+        description: "The bank's core banking system becomes unresponsive mid-morning after a database transaction log fills to capacity. Branches must invoke BCP manual fallback procedures while IT diagnoses and safely resolves the root cause.",
+        data: scenarioBankCoreBankingOutage,
+    },
+    {
+        id: "scenario_bank_internet_banking_down",
+        icon: "🌐",
+        name: "Internet Banking Portal Outage",
+        description: "A faulty software deployment causes the customer-facing internet banking portal to return 500 errors. Social media complaints are mounting and IT must rollback, communicate, and prevent recurrence.",
+        data: scenarioBankInternetBankingDown,
+    },
+    {
+        id: "scenario_bank_atm_software_fault",
+        icon: "🏧",
+        name: "ATM HSM Key Management Failure",
+        description: "A failed zone master key rotation takes 23 ATMs offline across a regional network. Restoring them requires a dual-control key ceremony and firmware update — while maintaining strict PCI DSS compliance.",
+        data: scenarioBankAtmSoftwareFault,
     },
 
 ];

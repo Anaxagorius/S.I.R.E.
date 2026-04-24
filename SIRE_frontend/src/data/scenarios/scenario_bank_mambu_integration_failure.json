@@ -1,0 +1,154 @@
+{
+  "title": "scenario_bank_mambu_integration_failure",
+  "description": "Mambu's webhook integration with the bank's third-party credit scoring engine stops returning credit decisions. Loan officers cannot complete credit assessments in real time, and applications are accumulating in the queue with no automated decision.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Credit Decisions Not Returning",
+      "description": "Loan officers at the bank's lending centre report that submitted loan applications are sitting 'In Review' indefinitely in Mambu — the automated credit decision that normally returns within 30 seconds has not arrived for any application in the past two hours.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Mambu Webhook Log Checked",
+      "description": "The Mambu admin opens the Integration > Webhook Delivery Logs console. Every outbound webhook sent to the credit bureau endpoint in the last two hours is showing HTTP 401 Unauthorized — access denied by the credit bureau API.",
+      "timeOffsetSec": 35
+    },
+    {
+      "index": 2,
+      "title": "API Credential Expiry Identified",
+      "description": "The bank's API key used to authenticate to the credit bureau's REST API is stored in Mambu's Integration settings. Cross-referencing the credit bureau's API management portal reveals the key expired 14 hours ago — the automated renewal failed silently.",
+      "timeOffsetSec": 75
+    },
+    {
+      "index": 3,
+      "title": "New API Key Generated",
+      "description": "A new API key is generated in the credit bureau's partner portal by the designated API owner (a member of the Integrations team). The old key is revoked. The new key is stored in the bank's secrets management vault (HashiCorp Vault / CyberArk) before being applied to Mambu.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Mambu Integration Configuration Updated",
+      "description": "The new API key is retrieved from the vault and applied to the Mambu integration connector settings. A test webhook is fired to the credit bureau sandbox environment to confirm the key is valid and the integration flow is working end-to-end.",
+      "timeOffsetSec": 165
+    },
+    {
+      "index": 5,
+      "title": "Production Integration Restored",
+      "description": "The integration is enabled in production. A live application is submitted as a test — the credit decision returns successfully within 28 seconds. Loan officers are notified that the integration is restored.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 6,
+      "title": "Queued Applications Reprocessed",
+      "description": "The 47 applications that accumulated during the outage are reprocessed in batches. Mambu retries the webhooks for 'In Review' applications. Credit decisions begin flowing and loan officers work through the backlog.",
+      "timeOffsetSec": 260
+    },
+    {
+      "index": 7,
+      "title": "API Key Monitoring Implemented",
+      "description": "The incident is documented. An automated alert is configured in the credit bureau portal to email the Integrations team 30 days before the API key expires. The key expiry date is added to the IT maintenance calendar. All third-party API key expiry dates are audited.",
+      "timeOffsetSec": 310
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Credit Decisions Not Returning in Mambu",
+      "situation": "The lending centre manager calls IT to report that all loan applications submitted through Mambu in the past two hours are stuck in 'In Review' status — the automated credit bureau decision is not returning. Forty-seven applications are affected. Loan officers cannot approve or decline loans without the credit score data. What is your immediate first action?",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Access the Mambu admin portal, navigate to the Integration > Webhook Delivery Logs, and examine the response codes for recent outbound webhooks to the credit bureau to identify the error.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Tell loan officers to proceed with manual credit checks using offline credit bureau tools while you investigate — no need to diagnose the integration first.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact Mambu support and assume the problem is on their side.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "HTTP 401 Errors on All Webhook Deliveries",
+      "situation": "The Mambu webhook delivery log shows every outbound request to the credit bureau API endpoint has returned HTTP 401 Unauthorized for the past two hours. The credit bureau's own API status page shows all systems operational. The error is not on Mambu's side or the credit bureau's platform — it is a credentials or access issue. What is your next diagnostic step?",
+      "question": "What is the likely cause and your next step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check the API key currently configured in Mambu's integration settings and cross-reference its expiry date in the credit bureau's API management portal — a 401 error strongly indicates an expired or revoked API credential.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Assume the credit bureau has changed its IP whitelist and contact them to add the bank's IPs without checking the API key first.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Disable and re-enable the Mambu integration connector to force a reconnect.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "API Key Expired — Secure Key Rotation Required",
+      "situation": "The credit bureau API management portal confirms the API key expired 14 hours ago. The automated renewal process that was supposed to rotate it failed silently with no alert. You need to generate a new API key and apply it to Mambu. The bank's security policy requires that all API keys and credentials be stored in the centralised secrets management vault (HashiCorp Vault) and never stored directly in application configuration files or entered manually from memory. How do you handle the key rotation?",
+      "question": "How do you rotate the API key securely?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Generate a new API key in the credit bureau portal, immediately revoke the expired key, store the new key in HashiCorp Vault under the correct path, then retrieve it from Vault to update the Mambu integration settings — never copying it to clipboard longer than necessary.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Generate the new key, paste it directly into the Mambu integration settings, and record it in a shared team spreadsheet for reference.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask the credit bureau to send the new API key by email so you have a record of it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Integration Restored — Handling the Queued Applications",
+      "situation": "The new API key has been stored in Vault, applied to Mambu, and tested against the credit bureau sandbox environment. A test webhook fires successfully. The production integration is re-enabled. You now have 47 loan applications that were submitted during the outage and are sitting in 'In Review' status awaiting credit decisions. What is the correct approach to clearing the backlog?",
+      "question": "How do you handle the 47 applications stuck in 'In Review'?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use Mambu's webhook retry functionality to re-trigger the webhook for each application in 'In Review' status, processing them in manageable batches and monitoring the delivery log to confirm credit decisions are returning. Notify loan officers as decisions arrive.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Ask loan officers to cancel and resubmit all 47 applications to generate fresh credit bureau requests.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Manually approve all 47 applications to clear the backlog, as the credit bureau delay is not the applicants' fault.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 47 queued applications have received credit decisions via the retried webhooks. Loan officers have resumed normal processing. The new API key is stored in HashiCorp Vault and documented in the integration runbook. An automated alert has been configured in the credit bureau portal to notify IT 30 days before the key expires. The failed automated renewal job has been investigated — a misconfigured cron job was the cause and has been corrected. All third-party API key expiry dates have been audited and entered into the IT maintenance calendar. The incident report has been submitted to the CISO as a credential management near-miss.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": ["banking", "Mambu", "API", "webhook", "integration", "credit bureau", "API key", "secrets management", "banking software"]
+}

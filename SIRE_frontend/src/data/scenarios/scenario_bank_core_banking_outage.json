@@ -1,0 +1,154 @@
+{
+  "title": "scenario_bank_core_banking_outage",
+  "description": "The bank's core banking system becomes completely unresponsive mid-morning on a busy weekday. Branches cannot process any transactions. IT must invoke the Business Continuity Plan, diagnose the root cause, and restore service while ensuring all manually captured transactions are reconciled cleanly.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "System Goes Unresponsive",
+      "description": "At 10:47 AM, all branch tellers simultaneously report that the core banking terminal freezes when attempting to log a transaction. The banking application returns a database connection timeout error. ATMs are also beginning to go offline as they lose connectivity to the core.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "IT Incident Declared",
+      "description": "The IT Service Desk escalates to a P1 Major Incident. The IT Operations manager and the Head of Retail Banking are immediately notified. A bridge call is opened with all relevant technical leads: DBA, network, application, and the core banking vendor on-call team.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Business Continuity Fallback Invoked",
+      "description": "The Head of Retail Banking authorises activation of the documented Business Continuity Plan for IT outage. Branches are instructed to use pre-printed manual transaction ledger forms and carbon-copy receipts for essential cash transactions. Non-essential services (loan drawdowns, term deposits) are suspended.",
+      "timeOffsetSec": 70
+    },
+    {
+      "index": 3,
+      "title": "Root Cause Identified — Database Log Full",
+      "description": "The DBA examines the Oracle database server hosting the core banking application. The transaction log volume is at 100% capacity, causing the database to freeze all write operations. The automated log archival job failed overnight due to a misconfigured archive path after a storage migration.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Controlled Resolution Applied",
+      "description": "The DBA manually triggers log archival to a temporary storage location, freeing 40% of the log volume. The database resumes write operations. The core banking application is restarted on the application server cluster in a controlled sequence. Connection pool health is verified before notifying branches.",
+      "timeOffsetSec": 190
+    },
+    {
+      "index": 5,
+      "title": "Service Restored to Branches",
+      "description": "Core banking connectivity is restored across all 18 branches and head office at 12:31 PM. The outage lasted 1 hour 44 minutes. Branches are notified sequentially and confirm successful login. ATMs reconnect automatically.",
+      "timeOffsetSec": 250
+    },
+    {
+      "index": 6,
+      "title": "Manual Transaction Reconciliation",
+      "description": "Branch managers submit their manual ledger forms to the Operations team. All 143 manually captured transactions during the outage are batch-entered into the core banking system by a dedicated reconciliation team, each verified against the carbon-copy receipts held by customers.",
+      "timeOffsetSec": 310
+    },
+    {
+      "index": 7,
+      "title": "Post-Incident Review and Preventive Action",
+      "description": "Root cause: overnight log archival job failure after storage migration, with no monitoring alert on log volume. Actions: fix archive path, implement log volume alert at 70% threshold, add archive job success monitoring, and review storage migration checklist to include log archival testing.",
+      "timeOffsetSec": 370
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Core Banking System Unresponsive",
+      "situation": "It is 10:47 AM on a Tuesday. Every branch teller and head office workstation simultaneously loses access to the core banking system. Terminals are showing 'Database connection timeout.' The IT Service Desk is being flooded with calls. Eighteen branches, all ATMs, and online banking are affected. What is your immediate first action as the IT Operations manager?",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Declare a P1 Major Incident, open a technical bridge call with all relevant leads (DBA, application, network, vendor), notify the Head of Retail Banking, and simultaneously begin BCP assessment to determine whether manual fallback procedures should be invoked.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Restart the core banking application server immediately to see if that resolves the issue before involving senior leadership.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait 15 minutes to determine whether the system recovers on its own before escalating.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Business Continuity Decision — Branches Are Waiting",
+      "situation": "The P1 bridge call is open. Initial diagnostics suggest the database is the issue but the root cause is not yet determined. It has been 12 minutes since the outage began. Eighteen branches have customers at the counter waiting to complete transactions. The Head of Retail Banking is on the call and asks whether to invoke the Business Continuity Plan (manual paper fallback procedures). What is your recommendation?",
+      "question": "Do you invoke BCP fallback procedures? If so, how?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recommend immediately invoking BCP for cash transactions (manual ledger forms and carbon-copy receipts) while technical investigation continues — 12 minutes of blocked service with no ETA justifies customer-facing action. Suspend non-essential services (loan drawdowns, term deposits) until the system is restored.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Close the branches to customers until the system is restored — manual fallback is too complex to manage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Continue all services as normal and tell tellers to retry their transactions — the system may recover any minute.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Root Cause Found — Database Log Full",
+      "situation": "BCP fallback is active at branches. The DBA reports from the bridge call: the Oracle database transaction log volume is at 100%. This has caused Oracle to halt all write operations — no new transactions can be committed. The automated overnight log archival job failed silently after a storage system migration yesterday changed the archive destination path. The DBA can manually trigger archival to a temporary volume, which would free 40% capacity and allow the database to resume writes. How do you proceed?",
+      "question": "How do you authorise and execute the database fix?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Authorise the DBA to manually trigger log archival to the temporary volume under Emergency Change authority, with the vendor on the call monitoring. After archival, restart the application server cluster in a controlled sequence and verify connection pool health before notifying branches.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Delete the oldest database files to free space immediately — this is faster than archiving.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Fail over to the disaster recovery site immediately instead of fixing the primary database.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Service Restored — Reconciling Manual Transactions",
+      "situation": "The core banking system is restored and all 18 branches confirm successful re-login at 12:31 PM. The outage lasted 1 hour 44 minutes. During that time, branch tellers used manual ledger forms and recorded 143 individual cash and withdrawal transactions on paper. These now need to be entered into the core banking system to reconcile the day's ledger. How do you manage the reconciliation process?",
+      "question": "How do you reconcile the 143 manual transactions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Collect all branch manual ledger forms centrally, assign a dedicated reconciliation team to batch-enter each transaction into the core system with a second-checker verification against the carbon-copy receipts. Finance signs off the reconciled day-end ledger before the EOD batch run.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Ask each teller to enter their own manual transactions as quickly as possible — no second-checker needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Skip the reconciliation for today and adjust the balances at month-end.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 143 manual transactions have been reconciled with second-checker verification and Finance sign-off. The day-end ledger is balanced and the EOD batch run has completed successfully. The root cause — a failed log archival job after storage migration — has been fixed. A 70% log volume alert has been implemented in the monitoring platform. The storage migration procedure has been updated to include a post-migration verification of all scheduled jobs. The incident has been reported to the regulator (within the required notification window) and a post-incident review is scheduled for next week. Excellent incident management — BCP invocation, controlled resolution, and clean reconciliation under significant pressure.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Advanced",
+  "tags": ["banking", "core banking", "database", "outage", "BCP", "business continuity", "Oracle", "reconciliation", "major incident", "banking software"]
+}

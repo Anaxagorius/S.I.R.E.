@@ -1,0 +1,154 @@
+{
+  "title": "scenario_bank_internet_banking_down",
+  "description": "The bank's customer-facing internet banking portal becomes unavailable following a failed software deployment. Customers cannot access their accounts online, and social media complaints are mounting rapidly. IT must restore service, communicate effectively, and prevent recurrence.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Customer Complaints Begin",
+      "description": "The bank's Customer Service Centre begins receiving calls from customers unable to access internet banking. The portal returns a generic 500 Internal Server Error page. Customer Service agents also confirm they cannot load the portal's agent-facing view.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Monitoring Alert Fires",
+      "description": "The IT monitoring platform (Datadog/Splunk) fires a P1 alert: internet banking application health check failing for all three web application server nodes. The alert timestamps the start of the outage to 14 minutes before the first customer call — during a deployment window.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Deployment Correlation Identified",
+      "description": "A code release for the internet banking portal was deployed 20 minutes ago to update the transaction history view. The deployment log shows the application pool recycled but did not return to a healthy state. Memory consumption spiked to 98% on all three nodes immediately after deployment.",
+      "timeOffsetSec": 65
+    },
+    {
+      "index": 3,
+      "title": "Rollback Decision Made",
+      "description": "The development team confirms the new release introduced a memory leak in the transaction history data-binding module. With no fast patch available and the portal fully down, the Release Manager approves an immediate rollback to the previous stable version.",
+      "timeOffsetSec": 110
+    },
+    {
+      "index": 4,
+      "title": "Rollback Executed and Verified",
+      "description": "The previous application version is redeployed via the CI/CD pipeline. Application pools return to healthy status within four minutes. Memory consumption returns to baseline. The portal loads and tester accounts successfully log in and view transactions.",
+      "timeOffsetSec": 165
+    },
+    {
+      "index": 5,
+      "title": "Customer Communication Issued",
+      "description": "A status update is published on the bank's service status page and social media accounts: 'Our internet banking service is now restored. We apologise for the disruption. No customer data was affected.' Customer Service is briefed on the resolution messaging.",
+      "timeOffsetSec": 220
+    },
+    {
+      "index": 6,
+      "title": "Incident Documented and Stakeholders Briefed",
+      "description": "The CTO and Head of Digital are briefed. The outage lasted 34 minutes and affected approximately 12,000 active customer sessions. An incident report is logged. The defective release is moved to the development backlog with a severity-1 bug label.",
+      "timeOffsetSec": 280
+    },
+    {
+      "index": 7,
+      "title": "Process Changes Implemented",
+      "description": "Post-incident review: the deployment bypassed the mandatory load testing gate because it was classified as a 'minor update.' Process updated: all releases regardless of classification require memory and CPU load testing against production-scale data volumes. Staged rollout to 5% of users will precede full deployment.",
+      "timeOffsetSec": 340
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Internet Banking Portal Returning 500 Errors",
+      "situation": "It is 2:20 PM on a Friday. The IT monitoring dashboard shows the internet banking portal health check failing. Customer Service is reporting a surge in customer calls. Social media is beginning to show customer complaints tagged at the bank. A software deployment was completed 20 minutes ago. What is your immediate first action as the on-call Digital Platform engineer?",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check the monitoring dashboard to confirm the scope of the failure (all nodes or partial), correlate the failure timestamp with the recent deployment, and check application server logs and memory/CPU metrics to identify the failure mode.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately post on the bank's social media that you are investigating before you know what is wrong.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Fail over to the disaster recovery site immediately without investigating the root cause.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Memory Spike After Deployment — Rollback Decision",
+      "situation": "Application server logs show memory consumption spiked to 98% on all three nodes immediately after the deployment, causing the application pools to become unresponsive. The deployment was a 'minor update' to the transaction history view. The development team, now on the bridge call, believes the new data-binding code introduced a memory leak but cannot produce a hotfix in under two hours. The Release Manager is asking for your recommendation: rollback or apply a hotfix? The portal has been down for 18 minutes.",
+      "question": "What do you recommend?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Recommend an immediate rollback to the previous stable version — restoring service in minutes is the priority, the memory leak cannot be hotfixed quickly, and a rollback plan is already documented in the runbook.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Apply a temporary server memory increase to keep the portal running while a hotfix is developed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Redeploy the same version again — perhaps the deployment just had a transient error.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Rollback Complete — Customer Communication",
+      "situation": "The rollback has been executed and the portal is confirmed healthy. All three application nodes are green, memory is at baseline, and internal testers have successfully logged in and completed transactions. It has been 34 minutes since the outage began. Social media now shows 200+ customer posts mentioning the bank with tags about online banking being down. Customer Service has queued 340 calls. What is your communication approach?",
+      "question": "How do you communicate to customers and manage the social media situation?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Publish an accurate status update on the bank's service status page and official social media accounts confirming the service is restored, apologising for the disruption, and stating clearly that no customer data was affected. Brief Customer Service on the resolution so they can respond consistently to callers.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Do not communicate publicly until the legal team reviews the message — wait 24 hours.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask Customer Service to tell customers the outage was caused by unusually high traffic, to avoid mentioning the deployment error.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Preventing Recurrence — The Process Gap",
+      "situation": "Post-incident review reveals the root cause: the deployment was classified as a 'minor update' which, under current policy, exempted it from mandatory load and memory testing gates. This allowed a memory leak to reach production without detection. Approximately 12,000 active customer sessions were disrupted. The CTO asks you to recommend a process change to prevent this class of failure. What do you recommend?",
+      "question": "What process change do you recommend to prevent recurrence?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Require all releases — regardless of 'minor' or 'major' classification — to pass automated load and memory testing against production-scale data volumes before deployment. Additionally, implement staged rollout (e.g. 5% of users first) with automatic rollback triggers based on memory and error rate thresholds.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Remove the 'minor update' classification and require all changes to go through a full change management cycle, including CAB approval, regardless of their size.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Increase the capacity of all web servers so future memory leaks do not cause an outage.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The internet banking portal is fully restored. Customer communication was timely and accurate. The defective release has been moved back to the development backlog with a severity-1 label. Process changes have been approved: mandatory load and memory testing for all releases, plus staged rollout with automatic rollback triggers. The incident report has been shared with the CTO and the Head of Digital. The bank's IT regulator (e.g. FCA / OSFI / FDIC) has been notified per the regulatory obligation for customer-facing service outages exceeding 30 minutes. Excellent incident management — fast diagnosis, decisive rollback, honest communication, and systemic process improvement.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": ["banking", "internet banking", "portal", "outage", "deployment", "rollback", "customer communication", "memory leak", "banking software"]
+}
