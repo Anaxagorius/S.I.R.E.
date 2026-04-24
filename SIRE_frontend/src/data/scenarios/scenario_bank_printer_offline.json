@@ -1,0 +1,154 @@
+{
+  "title": "scenario_bank_printer_offline",
+  "description": "A network printer at a bank branch goes offline during peak customer-facing hours, preventing tellers from printing transaction receipts, loan documents, and compliance forms.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Printer Reported Offline",
+      "description": "Two tellers call the IT helpdesk simultaneously reporting that the branch's shared laser printer shows 'Offline' in the Windows print queue. No receipts have printed for 20 minutes.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Remote Diagnosis Started",
+      "description": "IT support remotes into the branch PC and opens the print queue. A backlog of 14 stalled jobs is visible. The printer icon shows a red X.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Network Connectivity Check",
+      "description": "A ping to the printer's configured IP address times out. The IP previously assigned via DHCP no longer responds — the lease appears to have expired and a different device has taken that address.",
+      "timeOffsetSec": 60
+    },
+    {
+      "index": 3,
+      "title": "Print Spooler Investigated",
+      "description": "The Windows Print Spooler service is running but holds 14 stalled jobs tied to the old IP port. The queue cannot clear while the printer remains unreachable.",
+      "timeOffsetSec": 100
+    },
+    {
+      "index": 4,
+      "title": "Printer Located on Network",
+      "description": "An SNMP sweep of the branch subnet reveals the printer has self-assigned a new IP address via DHCP. The device is online but unreachable at its original configured address.",
+      "timeOffsetSec": 140
+    },
+    {
+      "index": 5,
+      "title": "IP Configuration Updated",
+      "description": "IT accesses the printer's web management interface, assigns a static IP address outside the DHCP pool, and updates the TCP/IP port in Windows. The print queue is cleared.",
+      "timeOffsetSec": 180
+    },
+    {
+      "index": 6,
+      "title": "Test Print and Escalation Avoidance",
+      "description": "A test page prints successfully. Outstanding teller jobs are re-queued and print correctly. The branch manager is updated and confirms operations have resumed.",
+      "timeOffsetSec": 220
+    },
+    {
+      "index": 7,
+      "title": "Root Cause Documented",
+      "description": "The incident is logged: DHCP lease expiry caused IP conflict. A static IP and DHCP reservation are configured. The CMDB entry for the printer is updated. A DHCP reservation is added for all branch printers across the region.",
+      "timeOffsetSec": 260
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Branch Printer Shows Offline",
+      "situation": "Two tellers at the branch have called the IT helpdesk. The shared laser printer used for transaction receipts, account statements, and compliance forms shows 'Offline' in the Windows print queue. There is a growing queue of stalled jobs and tellers cannot serve customers who require printed documents. What is your immediate first step?",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Remote into the branch PC, open the print queue to see how many jobs are stalled, check the printer status, and ping the printer's configured IP address to test network connectivity.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately tell the teller to power-cycle the printer and hope it reconnects automatically.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Dispatch a field technician to the branch without any remote diagnosis first.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Stalled Queue and Failed Ping",
+      "situation": "Remoting in, you see 14 print jobs stalled in the queue. A ping to the printer's configured IP address (192.168.10.45) times out — no reply. The printer physical panel shows 'Ready' locally, suggesting it is powered on but unreachable at that address. A DHCP lease renewal event in the branch router logs occurred 30 minutes ago. What do you investigate next?",
+      "question": "What is your next diagnostic step?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Scan the branch subnet with a network discovery tool or ping sweep to locate the printer's current IP address, and check the DHCP server lease table for the printer's MAC address.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Clear the print queue, uninstall the printer from Windows, and reinstall it from scratch without locating the new IP first.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the branch print server hoping the queue will auto-reconnect.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Printer Found at New IP Address",
+      "situation": "An IP scan of the subnet reveals the printer is now responding at 192.168.10.112 — a new DHCP-assigned address that changed when its previous lease expired. The DHCP server confirms the printer's MAC address now holds this new lease. The printer's embedded web interface is accessible at the new address and shows all trays loaded and no faults. How do you restore printing while preventing recurrence?",
+      "question": "How do you restore connectivity and prevent this happening again?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Use the printer's web interface to assign a static IP address (outside the DHCP pool) directly on the device, then update the Windows TCP/IP printer port to the new static address. Also add a DHCP MAC reservation for this device on the DHCP server.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Just update the Windows TCP/IP port to the current DHCP address — the printer will stay on this address for now.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Reboot the printer so it requests a new DHCP lease, which might happen to be the old address.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Queue Clearance and Driver Verification",
+      "situation": "The printer now has a static IP (192.168.10.200) and Windows has been updated to point the printer port there. However, the 14 stalled print jobs are still sitting in the queue in an error state. Simply re-sending them may produce duplicates or garbled output if the driver is mismatched. Tellers are waiting. What do you do with the stalled queue?",
+      "question": "How do you handle the backlog of stalled print jobs?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stop and clear the entire print queue (deleting all stalled jobs), restart the Windows Print Spooler service, then print a test page to confirm the fix before asking tellers to re-send only the jobs they still need.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Resume all 14 stalled jobs in the queue — they should print now that the port is corrected.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Leave the queue as-is and have tellers print new copies, resulting in potential duplicate transactions.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "The printer is online with a static IP, DHCP MAC reservation added, print queue cleared, spooler restarted, and a successful test page confirmed. Tellers have re-queued only the required documents. The branch manager has been notified. The incident is logged with root cause (DHCP IP change), resolution steps, and a recommendation to audit all branch printers for static IP configuration across the region. Well done — a routine fault resolved efficiently with no unnecessary downtime or escalation.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Beginner",
+  "tags": ["banking", "printer", "DHCP", "network", "helpdesk", "branch IT"]
+}

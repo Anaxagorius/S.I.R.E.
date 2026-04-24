@@ -1,0 +1,176 @@
+{
+  "title": "scenario_bank_printer_add_configure",
+  "description": "IT must procure, install, configure, and securely deploy a new network printer at a bank branch, meeting compliance requirements for document security and audit traceability.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Request Raised",
+      "description": "The branch manager raises a Change Request for a new high-capacity network printer to replace an aging desktop unit that cannot handle duplex printing of loan agreements and mortgage documents.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Hardware and Driver Preparation",
+      "description": "IT procurement delivers the approved printer model. The IT engineer downloads the vendor's latest PCL6/PS driver and checks it against the bank's approved hardware register. Firmware is updated to the latest version.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Physical Installation and Network Configuration",
+      "description": "The printer is connected to the branch wired LAN on the correct VLAN. A static IP address from the pre-allocated branch printer range is assigned directly on the device via its control panel and web interface.",
+      "timeOffsetSec": 70
+    },
+    {
+      "index": 3,
+      "title": "Print Server and Driver Deployment",
+      "description": "The engineer adds the printer to the centralised print server, installs the vendor driver, and creates a shared queue. Access is restricted via Active Directory group membership to the branch staff security group.",
+      "timeOffsetSec": 110
+    },
+    {
+      "index": 4,
+      "title": "Secure Print (PIN Release) Enabled",
+      "description": "The bank's data-handling policy requires PIN-release printing for any document classified 'Confidential' or above. Secure print is configured on the print queue and tested with a sample confidential loan document.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Group Policy Deployment",
+      "description": "A Group Policy Object (GPO) is updated to push the printer to all workstations in the branch Organisational Unit (OU). A pilot deployment to two test machines confirms the mapped drive connects and the driver installs silently.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 6,
+      "title": "Acceptance Testing and CMDB Update",
+      "description": "Staff acceptance testing covers: single-sided print, duplex, colour (if applicable), scan-to-email, PIN secure print, and correct tray selection for headed bank stationery. The device is registered in the CMDB with its MAC address, static IP, location, and support owner.",
+      "timeOffsetSec": 250
+    },
+    {
+      "index": 7,
+      "title": "Change Record Closed",
+      "description": "The Change Request is closed with all evidence attached. The old printer is securely decommissioned — hard disk wiped per data destruction policy. Staff are notified of the new device queue name.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Printer Hardware Arrives — First Configuration Step",
+      "situation": "A new HP LaserJet enterprise printer has arrived at the branch. It will be shared by eight workstations used for customer-facing transactions, mortgage documentation, and internal compliance reports. The branch operates on a segmented LAN with a dedicated printer VLAN. Your first task is to prepare the device for network connectivity. What is the correct approach?",
+      "question": "How do you configure network connectivity for the new printer?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Connect the printer to the printer VLAN port, access its embedded web server, and assign a static IP address from the pre-allocated branch printer range. Update the DHCP server with a MAC address reservation to prevent conflicts.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Plug it in and allow DHCP to assign an address automatically — it will be easier to manage.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Connect it to the general staff LAN port rather than the printer VLAN to save time.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Driver Selection for Banking Environment",
+      "situation": "The printer is network-accessible. You now need to install drivers on the bank's centralised print server (Windows Server 2022). The vendor provides three driver options: a Universal Print Driver (UPD), a PCL6-specific driver, and a PostScript (PS) driver. Banking forms use a mixture of fixed-layout PDFs (loan contracts, mortgage deeds) and variable data documents (statements). The bank also uses a third-party forms printing application. Which driver approach is most appropriate?",
+      "question": "Which driver approach do you select?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Install the vendor's PCL6 driver (recommended for general office printing and forms) and additionally make the PS driver available for the forms application if required — test both with actual bank forms before deployment.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Use the Universal Print Driver as it works with all HP printers, reducing driver management overhead.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Install whatever driver Windows Update offers automatically.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Access Control and Document Security",
+      "situation": "The print server queue is created and drivers are installed. The bank's Information Security Policy (ISP) requires that: (1) only authorised branch staff can send print jobs to this device, (2) confidential documents such as customer personal data or loan agreements must not sit unattended in the output tray, and (3) all print activity must be logged for audit purposes. How do you configure access and document security?",
+      "question": "How do you implement access control and document security on the print queue?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Restrict print queue permissions to the 'Branch-Staff' Active Directory security group. Enable Secure Print (PIN release) so jobs are held until the user enters a PIN at the device. Enable print auditing via the print server event log. Configure the printer's embedded audit log.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Leave the queue open to all domain users — branch staff will know not to print sensitive documents.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Restrict access but skip PIN release — it will slow tellers down during busy periods.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Group Policy Deployment to Branch Workstations",
+      "situation": "The print queue is secured and tested on the print server. You now need to deploy the printer mapping to all eight workstations in the branch OU in Active Directory. The bank's IT policy prohibits local admin rights on branch workstations, so users cannot install printers themselves. What is the correct deployment method?",
+      "question": "How do you deploy the printer to all branch workstations?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Create or update a Group Policy Object (GPO) linked to the branch OU that deploys the printer connection using the 'Deploy Printer' feature in Print Management, targeting computer (or user) objects in that OU. Test on one workstation before applying to all.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Physically visit each of the eight workstations and manually add the network printer using the shared path.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Ask branch staff to add the printer themselves using the \\\\printserver\\ path.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Acceptance Testing and Decommissioning the Old Printer",
+      "situation": "The new printer has been deployed via GPO and appears on all eight workstations. The old printer is still connected. Before closing the change, you must conduct acceptance testing and safely decommission the old device. The old printer is a multi-function device with an internal hard disk that has stored scanned customer documents. What is the correct procedure?",
+      "question": "How do you complete acceptance testing and decommission the old device?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Run an acceptance test checklist covering: single-sided and duplex print, PIN secure print release, scan-to-email, correct tray selection for bank stationery, and a sample confidential form. Once passed, remove the old printer driver/queue, physically disconnect the old device, and perform a certified hard-disk wipe (or degauss/destroy) before disposal per the bank's data destruction policy.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Leave both printers connected temporarily as a fallback — remove the old one next month.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Simply unplug the old printer and donate it — the data on its hard disk is not a concern.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "All acceptance tests passed. The new printer is deployed via GPO, secured with AD group access restrictions and PIN release, logging is enabled, and the CMDB has been updated with the device's MAC address, static IP, location, serial number, and assigned support contact. The old printer's hard disk has been wiped using DOD 3-pass overwrite and the device returned to the vendor for recycling. The Change Request is closed with all evidence attached. Staff have been briefed on the new queue name and the PIN release procedure. Excellent work — the deployment meets all banking security and compliance requirements.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": ["banking", "printer", "deployment", "Group Policy", "Active Directory", "compliance", "branch IT", "data destruction"]
+}

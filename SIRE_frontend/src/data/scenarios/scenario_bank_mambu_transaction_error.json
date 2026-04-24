@@ -1,0 +1,154 @@
+{
+  "title": "scenario_bank_mambu_transaction_error",
+  "description": "Tellers at multiple branches report a 'Posting Failed' error when processing loan repayments in Mambu. A missing General Ledger account mapping in a newly deployed loan product configuration is preventing transactions from posting, risking end-of-day reconciliation failures.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Transaction Error Reported",
+      "description": "A teller calls the IT helpdesk reporting that every attempt to post a loan repayment on a newly launched 'FlexiLoan' product returns: 'Error: Posting failed — GL account mapping not found for fee type LATE_REPAYMENT_FEE.' Similar calls come in from two other branches within minutes.",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Scope Assessment",
+      "description": "IT confirms the error is specific to the new FlexiLoan product launched three days ago. All other loan products and transaction types are processing normally. Approximately 34 repayment transactions are affected.",
+      "timeOffsetSec": 35
+    },
+    {
+      "index": 2,
+      "title": "Mambu Audit Log Examined",
+      "description": "The Mambu admin opens the system audit log and filters by 'Transaction Error.' Every failed posting references the same missing GL code: account mapping for fee type LATE_REPAYMENT_FEE is absent in the FlexiLoan product's GL configuration.",
+      "timeOffsetSec": 70
+    },
+    {
+      "index": 3,
+      "title": "Finance Team Consulted",
+      "description": "The Finance team is contacted to identify the correct GL account code that should be mapped to the LATE_REPAYMENT_FEE fee type for the FlexiLoan product. Finance provides GL code 4512-099 — the standard late fee income account used across all retail loan products.",
+      "timeOffsetSec": 110
+    },
+    {
+      "index": 4,
+      "title": "Fix Applied in Staging First",
+      "description": "The GL code mapping (4512-099 → LATE_REPAYMENT_FEE) is added to the FlexiLoan product configuration in the Mambu staging environment. A test loan repayment with a late fee is posted successfully with full GL posting visible in the staging trial balance.",
+      "timeOffsetSec": 160
+    },
+    {
+      "index": 5,
+      "title": "Production Change Applied",
+      "description": "With Finance sign-off and a documented Emergency Change Request approved, the same GL mapping is applied to the FlexiLoan product in production Mambu. The change is applied by the Mambu administrator during a brief maintenance window notified to branch managers.",
+      "timeOffsetSec": 210
+    },
+    {
+      "index": 6,
+      "title": "Transactions Reprocessed",
+      "description": "The 34 held repayment transactions are reprocessed by tellers. All post successfully. GL postings are verified by Finance to ensure the trial balance is correct. No duplicate transactions are created.",
+      "timeOffsetSec": 260
+    },
+    {
+      "index": 7,
+      "title": "Root Cause and Preventive Action",
+      "description": "Post-incident review identifies that the FlexiLoan product configuration was not fully reviewed by Finance before go-live. A mandatory Finance sign-off checklist is added to the product deployment procedure. Mambu's pre-go-live GL validation report is now mandatory for all new products.",
+      "timeOffsetSec": 310
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "'Posting Failed' Error on Loan Repayments",
+      "situation": "It is 10:30 AM. The helpdesk is receiving multiple calls from tellers across three branches. Every time they attempt to post a loan repayment on the new 'FlexiLoan' product, Mambu returns: 'Error: Posting failed — GL account mapping not found for fee type LATE_REPAYMENT_FEE.' No other loan products are affected. Customers are waiting at teller windows. What is your immediate first action?",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Note the exact error text, log into Mambu's admin audit log, and filter for recent transaction errors to identify the scope and confirm the exact missing configuration element.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Ask tellers to retry the transaction multiple times — it may be a transient system error.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell tellers to manually adjust the loan balance in Mambu to record the repayment without posting a transaction.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Audit Log Confirms Missing GL Mapping",
+      "situation": "The Mambu audit log confirms every failed posting references the same root cause: no GL account mapping exists for fee type 'LATE_REPAYMENT_FEE' in the FlexiLoan product's General Ledger configuration. Other loan products have this fee type correctly mapped. The FlexiLoan product was deployed three days ago as part of a new product launch. How do you proceed?",
+      "question": "What do you do next?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Contact the Finance team to identify the correct GL account code that should be mapped to LATE_REPAYMENT_FEE for a retail loan late fee product. Do not apply any fix until Finance confirms the correct code.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Copy the GL mapping from a similar existing loan product and apply it to FlexiLoan immediately without Finance review.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Disable the late fee feature on the FlexiLoan product temporarily so transactions can post without it.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Finance Provides GL Code — Staging Test Required",
+      "situation": "Finance confirms that GL code 4512-099 (Late Fee Income — Retail Loans) is the correct mapping for LATE_REPAYMENT_FEE. They note this should have been included in the original product setup. Before applying the fix to production, your change management process requires that configuration changes to Mambu's product GL settings are tested in the staging/UAT environment first. There is pressure from the branch manager to fix production immediately. What do you do?",
+      "question": "How do you handle the pressure to skip staging and go straight to production?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the GL mapping to the Mambu staging environment first, run a test loan repayment with a late fee to confirm the GL posting is correct, then raise an Emergency Change Request with Finance sign-off before applying to production.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Apply the fix directly to production immediately to unblock tellers — staging can be updated later.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Wait until end of day and apply the fix as part of a standard change window, leaving tellers unable to process repayments for the rest of the day.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Staging Test Successful — Applying to Production",
+      "situation": "Staging test confirms: adding GL code 4512-099 → LATE_REPAYMENT_FEE to the FlexiLoan product configuration allows repayments with late fees to post correctly and appear accurately in the trial balance. Finance has reviewed the staging GL posting and signed off. An Emergency Change Request has been approved. You are about to apply the change to production Mambu. The 34 held transactions need to be reprocessed after the fix. How do you manage reprocessing?",
+      "question": "How do you manage the reprocessing of the 34 held transactions?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Apply the GL fix to production, notify tellers that the fix is live, and ask them to reprocess only the transactions they know are pending using the transaction references logged by IT during the outage. Finance will verify the resulting GL postings against expected amounts before end of day.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Ask tellers to reprocess all transactions they can remember — there is no need for a controlled list.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Run an automated reprocessing script against all transactions in 'Error' state in Mambu without teller review.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "All 34 held transactions have been successfully reprocessed. Finance has verified the trial balance and confirmed all late fee postings are correct. No duplicate transactions were created. The GL fix has been applied to both staging and production. A post-incident review identified that the FlexiLoan product configuration bypassed the Finance sign-off step during its go-live. A mandatory Finance checklist — including GL mapping validation for all fee types — is now required before any new Mambu product goes live. Mambu's built-in product configuration report will be run as part of every product launch UAT going forward.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": ["banking", "Mambu", "GL", "general ledger", "transaction error", "banking software", "loan", "configuration", "change management"]
+}

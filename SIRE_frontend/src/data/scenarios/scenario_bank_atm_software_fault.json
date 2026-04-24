@@ -1,0 +1,154 @@
+{
+  "title": "scenario_bank_atm_software_fault",
+  "description": "A batch of ATMs across a regional network go out of service following a failed HSM (Hardware Security Module) key rotation. Cardholders cannot withdraw cash, and the dual-control key ceremony procedure must be executed correctly to restore the fleet without compromising card security.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "ATMs Going Out of Service",
+      "description": "The ATM monitoring console shows 23 ATMs in the northern region transitioning from 'In Service' to 'Out of Service' over a 10-minute window. Each ATM is displaying the message 'This ATM is temporarily unavailable. Please try another ATM.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Error Codes Examined",
+      "description": "The ATM management software (NCR Aptra / Diebold Nixdorf) displays HSM error code 0x81 on all affected units: 'Master Key Authentication Failed.' The error occurred simultaneously across the region following a scheduled zone master key rotation that ran at 02:00 last night.",
+      "timeOffsetSec": 35
+    },
+    {
+      "index": 2,
+      "title": "Key Management System Checked",
+      "description": "The Key Management System (KMS) shows the zone master key rotation job completed for the southern region but failed for the northern region — the KMS encrypted the new key components and sent them, but the northern ATM controller rejected the key exchange due to a firmware version mismatch that did not support the new key length (256-bit vs expected 128-bit).",
+      "timeOffsetSec": 75
+    },
+    {
+      "index": 3,
+      "title": "Dual-Control Key Ceremony Required",
+      "description": "Restoring the northern ATMs requires loading the correct master key manually via a dual-control key ceremony. This requires two authorised officers each holding separate key components (smart cards), following a strict procedure to prevent any single person knowing the complete key. The bank's Key Custodians are paged.",
+      "timeOffsetSec": 120
+    },
+    {
+      "index": 4,
+      "title": "Firmware Updated on ATM Controllers",
+      "description": "Before the key ceremony, the ATM controllers in the northern region are patched to the firmware version that supports 256-bit key length. The update is applied remotely via the ATM management platform and verified on three test units.",
+      "timeOffsetSec": 175
+    },
+    {
+      "index": 5,
+      "title": "Key Ceremony Executed",
+      "description": "Two authorised Key Custodians convene in the secure server room, each inserting their component smart card in sequence per the documented key ceremony procedure. The new zone master keys are loaded into the KMS and distributed to the northern ATM controllers.",
+      "timeOffsetSec": 225
+    },
+    {
+      "index": 6,
+      "title": "ATMs Verified Before Re-enabling Dispensing",
+      "description": "Before re-enabling cash dispensing, automated cash balance reconciliation is run against the ATM management system to confirm no dispensing events occurred during the outage. All 23 units confirm zero dispense attempts during the offline period.",
+      "timeOffsetSec": 275
+    },
+    {
+      "index": 7,
+      "title": "Fleet Restored and Incident Documented",
+      "description": "All 23 ATMs return to 'In Service.' The outage lasted 3 hours 20 minutes. The incident report documents root cause (firmware version mismatch with new key length), the dual-control process used, and a recommendation to include firmware compatibility testing in the pre-rotation key management checklist.",
+      "timeOffsetSec": 330
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "23 ATMs Offline — HSM Error Code",
+      "situation": "It is 6:15 AM. You are the on-call ATM operations engineer. The ATM monitoring console is alerting: 23 ATMs across the northern region have gone out of service simultaneously, all displaying HSM error code 0x81 — 'Master Key Authentication Failed.' A scheduled zone master key rotation ran at 02:00. Cardholders are already calling the bank's contact centre to report unavailable ATMs. What is your immediate first action?",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Do not reboot the ATMs. Access the ATM management software and Key Management System to correlate the error timing with the 02:00 key rotation job — determine whether the rotation succeeded, failed, or completed partially for the northern region.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Remotely reboot all 23 affected ATMs immediately — a reboot usually clears transient errors.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Dispatch field engineers to each of the 23 ATMs to physically inspect the units before doing any remote diagnosis.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Key Rotation Failed Due to Firmware Mismatch",
+      "situation": "The KMS log shows the northern region key rotation failed at 02:04 AM. The new zone master key uses 256-bit AES — the current northern ATM controller firmware only supports 128-bit keys. The key exchange was rejected by the controller firmware, leaving the ATMs without a valid master key. The southern region, running updated firmware, completed the rotation successfully. To restore the northern ATMs you need to: (1) update the firmware, and (2) execute a dual-control key ceremony to load the new keys. What is the correct sequence?",
+      "question": "What is the correct order of operations to restore the ATMs?",
+      "options": [
+        {
+          "label": "A",
+          "text": "First update the northern ATM controller firmware to the 256-bit-capable version (tested and verified on pilot units), then execute the dual-control key ceremony to load the new zone master keys into the updated controllers.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Execute the key ceremony first to restore the old 128-bit key, then plan the firmware update for a future maintenance window.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Revert the KMS to the old 128-bit key standard so the current firmware works, avoiding the need for a firmware update.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Dual-Control Key Ceremony — Protocol Compliance",
+      "situation": "Firmware has been successfully updated on all 23 northern ATM controllers. Two authorised Key Custodians have been paged and are available. The dual-control key ceremony must now be performed to load the new zone master keys. Your operations manager suggests that, to save time, one experienced Key Custodian handles the ceremony alone since they know both component values. What is your response?",
+      "question": "How do you handle the suggestion to use a single Key Custodian?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Firmly decline. Dual-control is a mandatory PCI DSS key management requirement — a single person must never have access to all key components. Proceed with both Key Custodians present, each inserting their smart card in sequence per the documented ceremony procedure.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Allow the single experienced Custodian to proceed — the ATMs are down and speed is essential.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Postpone the ceremony until a full security team review can be conducted.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Keys Loaded — Cash Balance Reconciliation Before Re-enabling",
+      "situation": "The dual-control key ceremony has been completed correctly. Both Key Custodians have signed the ceremony log. The new zone master keys are loaded and the ATM controllers are reporting key authentication success. Before you enable cash dispensing on the 23 ATMs, your head of ATM operations asks whether you should verify cash balances first or just bring them live immediately to restore customer access. What is the correct approach?",
+      "question": "Do you reconcile cash balances before re-enabling dispensing?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Yes. Run automated cash balance reconciliation via the ATM management system for all 23 units before enabling dispensing — confirm that the cassette balances match the last confirmed values prior to the outage and that no dispense events occurred during the offline period. Only then re-enable dispensing.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "Re-enable dispensing immediately to restore customer access — cash reconciliation can be done at end of day.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Re-enable dispensing on five ATMs first to test, then enable the rest — but still skip the reconciliation.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Scenario Complete",
+      "situation": "Cash balance reconciliation confirmed zero dispense events during the outage. All 23 ATMs have been re-enabled and are showing 'In Service' on the monitoring console. The ceremony log has been filed and countersigned. The outage lasted 3 hours 20 minutes. The incident report identifies root cause (firmware/key length incompatibility after KMS upgrade), documents the dual-control ceremony, and recommends adding a firmware compatibility check to the pre-rotation testing checklist for all future key rotations. PCI DSS compliance has been maintained throughout the response. Well done — ATM key management incidents require disciplined adherence to dual-control procedures even under significant pressure.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Advanced",
+  "tags": ["banking", "ATM", "HSM", "key ceremony", "dual-control", "PCI DSS", "encryption", "key management", "banking software", "firmware"]
+}

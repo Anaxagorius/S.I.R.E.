@@ -1,0 +1,176 @@
+{
+  "title": "scenario_bank_mambu_login_failure",
+  "description": "Multiple bank staff are unable to log into Mambu, the cloud-based core banking platform. An SSO/SAML certificate expiry has broken the identity provider integration, blocking tellers, loan officers, and branch managers from accessing customer accounts.",
+  "timeline": [
+    {
+      "index": 0,
+      "title": "Login Failures Reported",
+      "description": "The IT helpdesk receives five calls within ten minutes. Staff at two branches and head office report that clicking 'Login' on Mambu redirects them to an error page reading 'SAML authentication failed — contact your administrator.'",
+      "timeOffsetSec": 5
+    },
+    {
+      "index": 1,
+      "title": "Mambu Status Page Checked",
+      "description": "The Mambu status page (status.mambu.com) shows all systems operational with no active incidents. The problem is therefore on the bank's identity provider side, not with Mambu itself.",
+      "timeOffsetSec": 30
+    },
+    {
+      "index": 2,
+      "title": "Azure AD Sign-In Logs Examined",
+      "description": "The IT engineer opens the Azure Active Directory portal and checks Sign-In logs filtered to the Mambu enterprise application. Every sign-in attempt in the last 45 minutes shows error code AADSTS50011: 'The reply URL specified in the request does not match the reply URLs configured for the application.'",
+      "timeOffsetSec": 70
+    },
+    {
+      "index": 3,
+      "title": "SAML Certificate Identified as Expired",
+      "description": "Opening the Mambu Enterprise Application in Azure AD > Single Sign-On settings reveals the SAML signing certificate expired at midnight. Mambu rejects SAML assertions signed with the expired certificate.",
+      "timeOffsetSec": 110
+    },
+    {
+      "index": 4,
+      "title": "New Certificate Generated and Exported",
+      "description": "A new SAML signing certificate is generated in Azure AD. The certificate (Base64 encoded) is exported as a .cer file, ready to be uploaded to the Mambu SAML configuration.",
+      "timeOffsetSec": 150
+    },
+    {
+      "index": 5,
+      "title": "Mambu SAML Configuration Updated",
+      "description": "The Mambu administrator logs into Mambu's admin portal using an emergency local admin account and uploads the new IdP certificate in Settings > Security > SSO. The updated metadata is saved and SSO is re-enabled.",
+      "timeOffsetSec": 200
+    },
+    {
+      "index": 6,
+      "title": "Login Tested and Confirmed",
+      "description": "A test user in each affected branch successfully logs into Mambu via SSO. Azure AD sign-in logs confirm successful SAML assertions. Approximately 40 staff members can now access the system.",
+      "timeOffsetSec": 250
+    },
+    {
+      "index": 7,
+      "title": "Post-Incident Actions",
+      "description": "The incident is documented. An Azure AD alert is configured to notify IT 60 days before any enterprise application certificate expiry. The SAML certificate renewal is added to the bank's IT maintenance calendar. A review of all other enterprise application certificates is scheduled.",
+      "timeOffsetSec": 300
+    }
+  ],
+  "root": "node-1",
+  "nodes": {
+    "node-1": {
+      "title": "Multiple Staff Cannot Log Into Mambu",
+      "situation": "It is 9:15 AM on a Monday morning. Five calls arrive at the IT helpdesk in under ten minutes: tellers, loan officers, and a branch manager all report seeing a 'SAML authentication failed' error when trying to log into Mambu. No one can access customer accounts, process transactions, or approve loans. The bank opens to customers at 9:30 AM. What is your immediate first step?",
+      "question": "What is your immediate first action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Check the Mambu status page for any active incidents, then check Azure Active Directory sign-in logs for the Mambu enterprise application to identify the exact authentication error code.",
+          "outcome": { "type": "node", "target": "node-2" }
+        },
+        {
+          "label": "B",
+          "text": "Immediately reset all affected users' passwords and have them try again.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Tell the branch manager to delay opening until IT resolves the issue — no action needed until then.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-2": {
+      "title": "Mambu Operational — Problem is the Identity Provider",
+      "situation": "Mambu's status page shows no active incidents. All Mambu services are green. Opening Azure AD > Enterprise Applications > Mambu > Sign-In logs shows error AADSTS50011 repeated for every authentication attempt in the past 45 minutes. The error description references a certificate mismatch. The SSO configuration for the Mambu enterprise app shows a SAML signing certificate that expired at 00:00 today. How do you proceed?",
+      "question": "What is the root cause and your next action?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Identify that the SAML signing certificate has expired, generate a new SAML certificate in Azure AD, export it, and prepare to upload it to Mambu's SSO configuration.",
+          "outcome": { "type": "node", "target": "node-3" }
+        },
+        {
+          "label": "B",
+          "text": "Disable SSO entirely in Mambu so staff can use local username/password authentication while you investigate.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Contact Mambu support and wait for their response before making any changes.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-3": {
+      "title": "Updating Mambu SAML Configuration",
+      "situation": "A new SAML signing certificate has been generated in Azure AD and exported as a Base64-encoded .cer file. You now need to update Mambu's SSO settings. However, the Mambu admin portal is only accessible to users via SSO — which is currently broken. You know that Mambu provides an emergency local admin account for exactly this scenario, stored in the bank's privileged access vault (CyberArk/KeePass). How do you access Mambu to apply the fix?",
+      "question": "How do you access Mambu admin to apply the certificate fix?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Retrieve the emergency local Mambu admin credentials from the privileged access vault (with proper dual-control checkout), log in directly via the Mambu local login URL, and upload the new IdP certificate in Settings > Security > SSO.",
+          "outcome": { "type": "node", "target": "node-4" }
+        },
+        {
+          "label": "B",
+          "text": "Ask a staff member with a cached browser session to navigate to Mambu admin settings and make the change.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Disable SSO in Azure AD and grant all users local Mambu accounts as a workaround.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-4": {
+      "title": "Certificate Updated — Some Users Still Experiencing Issues",
+      "situation": "The new IdP SAML certificate has been uploaded to Mambu and SSO has been re-enabled. Most users can now log in, but three users report they are still seeing authentication errors even after closing and reopening their browsers. These users previously had Mambu open in a browser tab for several hours before the outage. What is the likely cause and your action?",
+      "question": "Why are some users still unable to log in and what do you do?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Stale browser session tokens or cached SAML assertions from before the certificate change are causing the issue. Advise the affected users to clear their browser cache and cookies, then try logging in again in a new private/incognito window.",
+          "outcome": { "type": "node", "target": "node-5" }
+        },
+        {
+          "label": "B",
+          "text": "The users' Active Directory accounts have been locked — unlock them via AD Users and Computers.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "The certificate update did not work — revert to the old certificate and try again.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-5": {
+      "title": "Full Resolution — Post-Incident Actions",
+      "situation": "All affected users can now log into Mambu. The outage lasted 52 minutes and affected approximately 40 staff members across three locations. The bank opened on time and manual paper fallback procedures were used for 22 minutes until full access was restored. You now need to ensure this does not recur. What are your post-incident actions?",
+      "question": "What post-incident actions do you take?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Log a full incident report with root cause (expired SAML certificate), timeline, and impact. Configure an Azure AD alert to notify IT 60 days before any enterprise application certificate expiry. Add certificate renewal tasks to the annual IT maintenance calendar. Audit all other enterprise application SAML certificates for upcoming expiry.",
+          "outcome": { "type": "node", "target": "node-6" }
+        },
+        {
+          "label": "B",
+          "text": "Close the helpdesk tickets and note 'Resolved — certificate renewed.' No further action needed.",
+          "outcome": { "type": "failure" }
+        },
+        {
+          "label": "C",
+          "text": "Switch from SAML SSO to a simpler username/password authentication to avoid this happening again.",
+          "outcome": { "type": "failure" }
+        }
+      ]
+    },
+    "node-6": {
+      "title": "Scenario Complete",
+      "situation": "The SAML certificate expiry has been resolved, monitoring has been improved with 60-day advance notifications, a certificate inventory has been created, and all enterprise application certificates have been audited. The incident report has been filed and shared with the CISO. The Mambu admin emergency credentials have been rotated and returned to the vault following the incident. No customer data was compromised and no transactions were lost — manual fallback procedures worked as designed. Excellent response to a common but impactful banking platform authentication failure.",
+      "question": "Scenario complete. Well done!",
+      "options": []
+    }
+  },
+  "category": "IT Operations",
+  "difficulty": "Intermediate",
+  "tags": ["banking", "Mambu", "SSO", "SAML", "Azure AD", "authentication", "certificate", "identity provider", "banking software"]
+}
