@@ -23,6 +23,9 @@ export default function Admin() {
             {/** Navigation button — manage an active session. */}
             <Button text="Admin Dashboard" to="/admin-dashboard" />
 
+            {/** Navigation button — banking software simulation hub. */}
+            <Button text="Banking Software" to="/banking" />
+
             {/** Navigation button — scenario authoring and content engine. */}
             <Button text="Scenario Builder" to="/scenario-builder" />
 
