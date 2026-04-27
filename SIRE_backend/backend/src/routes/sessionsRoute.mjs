@@ -9,12 +9,11 @@ import { sessionService } from '../services/sessionService.mjs'
 import { auditLogger } from '../config/auditLogger.mjs'
 import { buildAuditContext } from '../utils/auditContext.mjs'
 import { isPlainObject, normalizeScenarioKey, normalizeSessionCode } from '../utils/validation.mjs'
-import { requireAuth, requireRole } from '../middleware/authMiddleware.mjs'
 
 const router = Router()
 
 /** POST /sessions - creates a new session using the provided scenario key. */
-router.post('/sessions', requireAuth, requireRole('admin', 'facilitator'), (req, res) => {
+router.post('/sessions', (req, res) => {
   try {
     if (!isPlainObject(req.body)) {
       return res.status(400).json({ message: 'Invalid payload', correlationId: req.context?.correlationId })
