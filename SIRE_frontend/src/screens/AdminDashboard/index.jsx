@@ -93,6 +93,9 @@ export default function AdminDashboard() {
     /** Ref to persist the socket across renders. */
     const socketRef = useRef(null);
 
+    /** Capture the preSelectScenario navigation state at mount so it can be used in effects without re-declaring dependencies. */
+    const preSelectScenarioRef = useRef(location.state?.preSelectScenario || null);
+
     /** Per-trainee score tracking: Map<displayName, { score, decisions }>. */
     const [traineeScores, setTraineeScores] = useState(new Map());
 
@@ -183,12 +186,11 @@ export default function AdminDashboard() {
 
     /** Auto-create a session when arriving with a preSelectScenario navigation state param. */
     useEffect(() => {
-        const preSelectId = location.state?.preSelectScenario;
+        const preSelectId = preSelectScenarioRef.current;
         if (!preSelectId || scenarios.length === 0 || sessionCode) return;
         const found = scenarios.find((s) => s.id === preSelectId);
         if (found) handleSelectScenario(found);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [scenarios]);
+    }, [scenarios, sessionCode]);
 
     /** Fetch configured ITSM integrations on mount for the post-session push option. */
     useEffect(() => {
