@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import CreateSessionLayout from "../../layouts/CreateSessionLayout";
 import DEMO_SCENARIOS from "../../data/demoScenarios";
 
-const CATEGORIES = ["All", "Physical", "Medical", "HAZMAT", "Threat", "Cyber", "Network", "Web", "Cloud", "BCDR"];
+const CATEGORIES = ["All", "Physical", "Medical", "HAZMAT", "Threat", "Cyber", "Network", "Web", "Cloud", "BCDR", "Banking"];
 const DIFFICULTIES = ["All", "Beginner", "Intermediate", "Advanced"];
 
 /** Returns the CSS class name for a difficulty badge. */

@@ -15,12 +15,13 @@ import "./AdminDashboardLayout.css";
 
 /** Sidebar navigation items for the admin panel. */
 const ADMIN_NAV = [
-    { label: "Admin Hub",        to: "/admin" },
-    { label: "Create Session",   to: "/create-session" },
-    { label: "Scenario Builder", to: "/scenario-builder" },
-    { label: "Analytics",        to: "/analytics" },
-    { label: "Integrations",     to: "/integrations" },
-    { label: "Action Tracker",   to: "/action-tracker" },
+    { label: "Admin Hub",          to: "/admin" },
+    { label: "Create Session",     to: "/create-session" },
+    { label: "Banking Software",   to: "/banking" },
+    { label: "Scenario Builder",   to: "/scenario-builder" },
+    { label: "Analytics",          to: "/analytics" },
+    { label: "Integrations",       to: "/integrations" },
+    { label: "Action Tracker",     to: "/action-tracker" },
 ];
 
 /** Function that returns the AdminDashboardLayout component that provides the layout wrapper for the administrator dashboard. */

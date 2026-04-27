@@ -23,6 +23,7 @@ import Onboarding from "../screens/Onboarding"
 import ActionTracker from "../screens/ActionTracker"
 import Integrations from "../screens/Integrations"
 import HseepReport from "../screens/HseepReport"
+import BankingSoftware from "../screens/BankingSoftware"
 import AdminRoute from "../components/AdminRoute"
 import ProtectedRoute from "../components/ProtectedRoute"
 
@@ -42,6 +43,7 @@ export default function AppRouter() {
             <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>} />
             <Route path="/create-session" element={<AdminRoute><CreateSession /></AdminRoute>} />
             <Route path="/admin-dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+            <Route path="/banking" element={<AdminRoute><BankingSoftware /></AdminRoute>} />
             <Route path="/scenario-builder" element={<AdminRoute><ScenarioBuilder /></AdminRoute>} />
             <Route path="/analytics" element={<AdminRoute><Analytics /></AdminRoute>} />
             <Route path="/action-tracker" element={<ActionTracker />} />

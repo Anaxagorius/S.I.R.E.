@@ -35,7 +35,7 @@ const SCENARIO_ICONS = {
     scenario_infrastructure_attack:  "⚡",
 };
 
-const CATEGORIES = ["All", "Physical", "Medical", "HAZMAT", "Threat", "Cyber"];
+const CATEGORIES = ["All", "Physical", "Medical", "HAZMAT", "Threat", "Cyber", "Banking"];
 const DIFFICULTIES = ["All", "Beginner", "Intermediate", "Advanced"];
 
 /** Returns the CSS class name for a difficulty badge. */
@@ -100,7 +100,7 @@ export default function AdminDashboard() {
     const traineeScoreRef = useRef(new Map());
 
     /** Category and difficulty filters for the scenario selection grid. */
-    const [filterCategory, setFilterCategory] = useState("All");
+    const [filterCategory, setFilterCategory] = useState(location.state?.filterCategory || "All");
     const [filterDifficulty, setFilterDifficulty] = useState("All");
 
     /** State for the admin inject panel (immediate inject). */
@@ -180,6 +180,15 @@ export default function AdminDashboard() {
         loadScenarios();
         return () => { cancelled = true; };
     }, []);
+
+    /** Auto-create a session when arriving with a preSelectScenario navigation state param. */
+    useEffect(() => {
+        const preSelectId = location.state?.preSelectScenario;
+        if (!preSelectId || scenarios.length === 0 || sessionCode) return;
+        const found = scenarios.find((s) => s.id === preSelectId);
+        if (found) handleSelectScenario(found);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [scenarios]);
 
     /** Fetch configured ITSM integrations on mount for the post-session push option. */
     useEffect(() => {
