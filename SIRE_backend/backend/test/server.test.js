@@ -23,7 +23,7 @@ const { attachRequestContext, requireApiKey, requireTicket } = await import('../
 const { securityHeaders } = await import('../src/middleware/securityHeaders.mjs')
 
 const scenarioKeys = scenarioRegistry.listScenarioKeys()
-assert.strictEqual(scenarioKeys.length, 453)
+assert.strictEqual(scenarioKeys.length, 500)
 
 const sampleScenario = scenarioRegistry.getScenarioByKey(scenarioKeys[0])
 const session = sessionService.createSession({ scenarioKey: scenarioKeys[0], instructorDisplayName: 'Instructor' })
@@ -72,7 +72,7 @@ assert.strictEqual(unauthorizedList.statusCode, 401)
 const scenarioListResponse = await fetchJson('GET', '/api/scenarios')
 assert.strictEqual(scenarioListResponse.statusCode, 200)
 assert.ok(Array.isArray(scenarioListResponse.body))
-assert.strictEqual(scenarioListResponse.body.length, 453)
+assert.strictEqual(scenarioListResponse.body.length, 500)
 assert.ok(scenarioListResponse.body.every(s => s.id && s.name))
 console.log('✓ GET /api/scenarios accessible without API key')
 
